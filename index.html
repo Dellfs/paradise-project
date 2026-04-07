@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PARADISE Project — Optimal Diabetic Foot Care</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+/* ═══ DESIGN TOKENS ══════════════════════════════════════════════════════ */
+:root {
+  --par-dark:   #00407A;
+  --par-light:  #52BDEC;
+  --par-mid:    #1D8DB0;
+  --par-blue1:  #1FABD5;
+  --par-blue3:  #116E8A;
+  --par-orange: #FF7A00;
+  --par-red:    #FF2200;
+  --par-purple: #8B30C9;
+  --par-cyan:   #4DC8E8;
+  --white:      #FFFFFF;
+  --off-white:  #F4F8FC;
+  --gray-100:   #EBF4FB;
+  --gray-200:   #C8DFF0;
+  --gray-400:   #8AADCC;
+  --gray-600:   #4A6880;
+  --text:       #0D2035;
+  --font-h:     'DM Serif Display', Georgia, serif;
+  --font-b:     'DM Sans', system-ui, sans-serif;
+  --r:  10px;
+  --rl: 18px;
+  --sh: 0 2px 14px rgba(0,64,122,.09);
+  --shm: 0 8px 36px rgba(0,64,122,.15);
+  --t: all .28s cubic-bezier(.4,0,.2,1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-b); color: var(--text); background: var(--white); overflow-x: hidden; line-height: 1.7; }
+a { text-decoration: none; color: inherit; }
+button { font-family: var(--font-b); cursor: pointer; border: none; }
+img { max-width: 100%; }
+
+/* ═══ EDIT MODE ══════════════════════════════════════════════════════════ */
+.edit-banner { position:fixed; top:0; left:0; right:0; z-index:9999; background:var(--par-mid); color:#fff; text-align:center; padding:10px 16px; font-size:13px; font-weight:600; display:none; gap:14px; align-items:center; justify-content:center; }
+.edit-banner.on { display:flex; }
+.edit-banner button { background:rgba(255,255,255,.2); color:#fff; border:1px solid rgba(255,255,255,.35); border-radius:6px; padding:4px 14px; font-size:12px; font-weight:700; cursor:pointer; }
+.edit-banner button:hover { background:rgba(255,255,255,.32); }
+
+.edit-mode [data-e] { outline:1.5px dashed rgba(82,189,236,.45); border-radius:3px; cursor:text; min-height:.8em; }
+.edit-mode [data-e]:hover { outline-color:var(--par-light); background:rgba(82,189,236,.05); }
+.edit-mode [data-e]:focus { outline:2px solid var(--par-light); background:rgba(82,189,236,.07); }
+[data-e]:empty::before { content:attr(data-placeholder); color:rgba(0,0,0,.28); font-style:italic; }
+
+/* ═══ LANG BAR ══════════════════════════════════════════════════════════ */
+.lang-bar { background: var(--par-dark); padding: 7px 0; }
+.lang-bar .wrap { max-width: 1200px; margin: 0 auto; padding: 0 28px; display: flex; justify-content: flex-end; align-items: center; gap: 6px; }
+.lb { background: none; border: 1px solid rgba(255,255,255,.22); color: rgba(255,255,255,.65); font-size: 11px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; padding: 3px 11px; border-radius: 4px; transition: var(--t); }
+.lb:hover, .lb.on { background: rgba(255,255,255,.14); color: #fff; border-color: rgba(255,255,255,.45); }
+
+/* ═══ NAV ═══════════════════════════════════════════════════════════════ */
+.nav { position: sticky; top: 0; z-index: 200; background: rgba(255,255,255,.97); backdrop-filter: blur(14px); border-bottom: 3px solid var(--par-dark); box-shadow: var(--sh); }
+.nav .wrap { max-width: 1200px; margin: 0 auto; padding: 0 28px; height: 70px; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.nav-logo img.logo-img { height: 46px; width: auto; }
+.logo-text { font-family: var(--font-b); font-weight: 700; font-size: 1.25rem; line-height: 1.1; letter-spacing: -.01em; }
+.logo-text .l-paradise { background: linear-gradient(90deg, #FF7A00, #FF2200, #C030C0, #4455DD); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.logo-text .l-project { display: block; font-size: .68rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--gray-600); -webkit-text-fill-color: var(--gray-600); }
+.nav-links { display: flex; align-items: center; gap: 2px; }
+.nl { font-size: 13.5px; font-weight: 500; color: var(--gray-600); padding: 7px 14px; border-radius: 8px; transition: var(--t); cursor: pointer; white-space: nowrap; background: none; border: none; }
+.nl:hover { background: var(--gray-100); color: var(--par-dark); }
+.nl.on { color: var(--par-dark); font-weight: 700; }
+.nl.cta { background: var(--par-dark); color: #fff; padding: 8px 20px; font-weight: 600; font-size: 13px; }
+.nl.cta:hover { background: var(--par-mid); transform: translateY(-1px); box-shadow: var(--sh); }
+.hbg { display: none; flex-direction: column; gap: 5px; padding: 8px; border: none; background: none; }
+.hbg span { width: 24px; height: 2px; background: var(--par-dark); border-radius: 2px; transition: var(--t); display: block; }
+#mob-menu { display: none; position: fixed; top: 118px; left: 0; right: 0; background: #fff; z-index: 199; padding: 12px 24px 20px; box-shadow: var(--shm); border-bottom: 2px solid var(--par-dark); }
+#mob-menu button { display: block; width: 100%; text-align: left; padding: 12px 0; font-size: 15px; font-weight: 600; color: var(--par-dark); background: none; border: none; border-bottom: 1px solid var(--gray-100); cursor: pointer; }
+#mob-menu button:last-child { border-bottom: none; }
+
+/* ═══ PAGES ════════════════════════════════════════════════════════════= */
+.page { display: none; }
+.page.on { display: block; }
+
+/* ═══ PAGE HERO ════════════════════════════════════════════════════════= */
+.phero { background: var(--par-dark); padding: 72px 0 52px; position: relative; overflow: hidden; }
+.phero::after { content:''; position:absolute; inset:0; background: radial-gradient(ellipse 55% 100% at 85% 50%, rgba(82,189,236,.18), transparent 65%); pointer-events:none; }
+.phero .wrap { max-width:1200px; margin:0 auto; padding:0 28px; position:relative; z-index:1; }
+.plabel { font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--par-light); margin-bottom:12px; }
+.phero h1 { font-family:var(--font-h); font-size:clamp(2rem,4vw,3rem); color:#fff; margin-bottom:14px; }
+.phero p { font-size:16.5px; color:rgba(255,255,255,.65); max-width:600px; }
+.bc { background:var(--gray-100); border-bottom:1px solid var(--gray-200); padding:11px 0; }
+.bc .wrap { max-width:1200px; margin:0 auto; padding:0 28px; font-size:13px; color:var(--gray-400); display:flex; gap:8px; align-items:center; }
+.bc span { cursor:pointer; transition:var(--t); }
+.bc span:hover { color:var(--par-dark); }
+.bc .sep { color:var(--gray-200); }
+
+/* ═══ HOME HERO ════════════════════════════════════════════════════════= */
+.hero { min-height: 88vh; background: var(--par-dark); position: relative; overflow: hidden; display: flex; align-items: center; }
+.hero::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse 75% 65% at 72% 50%, rgba(82,189,236,.2), transparent 68%), radial-gradient(ellipse 45% 45% at 18% 78%, rgba(255,122,0,.14), transparent 60%); }
+.hero-wrap { max-width:1200px; margin:0 auto; padding:80px 28px; display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center; position:relative; z-index:1; }
+.hero-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(82,189,236,.14); border:1px solid rgba(82,189,236,.28); color:var(--par-light); font-size:11.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:5px 14px; border-radius:100px; margin-bottom:24px; animation:fup .8s ease both; }
+.hero-badge::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--par-light); flex-shrink:0; }
+.hero h1 { font-family:var(--font-h); font-size:clamp(2.3rem,4.2vw,3.6rem); color:#fff; line-height:1.1; margin-bottom:22px; animation:fup .8s .12s ease both; }
+.hero h1 em { font-style:italic; color:var(--par-light); }
+.hero-desc { font-size:16.5px; color:rgba(255,255,255,.7); line-height:1.78; margin-bottom:36px; max-width:500px; animation:fup .8s .24s ease both; }
+.hero-btns { display:flex; gap:14px; flex-wrap:wrap; animation:fup .8s .36s ease both; }
+.btn-p { background:var(--par-orange); color:#fff; padding:13px 26px; border-radius:10px; font-weight:700; font-size:14px; transition:var(--t); display:inline-flex; align-items:center; gap:8px; cursor:pointer; border:none; }
+.btn-p:hover { filter:brightness(0.9); transform:translateY(-2px); box-shadow:0 8px 24px rgba(255,122,0,.35); }
+.btn-s { background:rgba(255,255,255,.09); color:#fff; padding:13px 26px; border-radius:10px; font-weight:500; font-size:14px; border:1px solid rgba(255,255,255,.22); transition:var(--t); cursor:pointer; }
+.btn-s:hover { background:rgba(255,255,255,.16); transform:translateY(-2px); }
+.hero-stats { display:flex; gap:28px; flex-wrap:wrap; margin-top:44px; animation:fup .8s .48s ease both; }
+.stat { border-left:3px solid var(--par-light); padding-left:14px; }
+.stat-n { font-family:var(--font-h); font-size:1.9rem; color:#fff; line-height:1; }
+.stat-l { font-size:11px; color:rgba(255,255,255,.48); margin-top:3px; letter-spacing:.04em; }
+
+/* Foot pressure visual */
+.hero-vis { display:flex; justify-content:center; align-items:center; animation:fup .8s .18s ease both; }
+.pressure-card { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); border-radius:var(--rl); padding:28px; backdrop-filter:blur(6px); }
+.pc-label { font-size:10.5px; text-transform:uppercase; letter-spacing:.12em; color:rgba(255,255,255,.38); margin-bottom:14px; text-align:center; }
+.foot-svg { width:190px; height:250px; margin:0 auto 18px; display:block; }
+.legend { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; }
+.legend span { font-size:10px; color:rgba(255,255,255,.5); display:flex; align-items:center; gap:4px; }
+.legend span::before { content:''; width:9px; height:9px; border-radius:2px; }
+.l-lo::before{background:#1877FF}.l-mi::before{background:#4DC8E8}.l-hi::before{background:#FF8C00}.l-pk::before{background:#FF2200}
+
+/* Feature strip */
+.fstrip { background:var(--gray-100); border-bottom:1px solid var(--gray-200); }
+.fstrip .wrap { max-width:1200px; margin:0 auto; padding:32px 28px; display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:20px; }
+.fi { background:#fff; border-radius:var(--r); border:1px solid var(--gray-200); padding:18px 20px; display:flex; align-items:flex-start; gap:14px; transition:var(--t); }
+.fi:hover { border-color:var(--par-light); transform:translateY(-2px); box-shadow:var(--sh); }
+.fi-icon { width:40px; height:40px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+.fi-icon.b{background:rgba(82,189,236,.12)}.fi-icon.o{background:rgba(255,122,0,.1)}.fi-icon.t{background:rgba(29,141,176,.1)}.fi-icon.d{background:rgba(0,64,122,.08)}
+.fi strong { display:block; font-size:13.5px; font-weight:700; color:var(--par-dark); margin-bottom:3px; }
+.fi p { font-size:12.5px; color:var(--gray-600); line-height:1.5; margin:0; }
+
+@keyframes fup { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:none} }
+
+/* ═══ SECTIONS SHARED ══════════════════════════════════════════════════= */
+.sec { max-width:1200px; margin:0 auto; padding:88px 28px; }
+.sec2 { background:var(--off-white); padding:88px 0; }
+.sec2 .inner { max-width:1200px; margin:0 auto; padding:0 28px; }
+.slabel { font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--par-light); margin-bottom:12px; }
+.stitle { font-family:var(--font-h); font-size:clamp(1.8rem,3vw,2.6rem); color:var(--par-dark); line-height:1.15; margin-bottom:20px; }
+.stitle em { font-style:italic; color:var(--par-mid); }
+.sbody { font-size:15px; color:var(--gray-600); line-height:1.8; margin-bottom:14px; }
+.sec-header { text-align:center; margin-bottom:52px; }
+.sec-header .sbody { max-width:560px; margin:0 auto 14px; }
+
+/* About grid */
+.about-grid { display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center; }
+.about-vis { background:linear-gradient(135deg,var(--par-dark),var(--par-mid)); border-radius:var(--rl); min-height:360px; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
+.about-vis::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 60% at 70% 40%, rgba(82,189,236,.25), transparent); }
+.about-vis-inner { text-align:center; position:relative; z-index:1; padding:28px; }
+.about-pills { display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; justify-content:center; }
+.about-pill { background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2); color:rgba(255,255,255,.8); font-size:11px; font-weight:600; padding:4px 12px; border-radius:100px; letter-spacing:.04em; }
+
+/* Impact numbers */
+.impact-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:24px; margin-top:48px; }
+.imp-card { background:#fff; border-radius:var(--rl); border:1px solid var(--gray-200); padding:28px 24px; text-align:center; transition:var(--t); }
+.imp-card:hover { transform:translateY(-4px); box-shadow:var(--shm); border-color:var(--par-light); }
+.imp-n { font-family:var(--font-h); font-size:2.8rem; color:var(--par-dark); font-style:italic; line-height:1; margin-bottom:8px; }
+.imp-l { font-size:13px; color:var(--gray-600); font-weight:500; }
+
+/* ═══ TEAM ══════════════════════════════════════════════════════════════ */
+.team-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:24px; }
+.tc { background:#fff; border-radius:var(--rl); border:1px solid var(--gray-200); overflow:hidden; transition:var(--t); display:flex; flex-direction:column; }
+.tc:hover { transform:translateY(-5px); box-shadow:var(--shm); border-color:var(--par-light); }
+.tc-av { height:220px; overflow:hidden; position:relative; flex-shrink:0; }
+.tc-av img { width:100%; height:100%; object-fit:cover; object-position:center 20%; display:block; }
+.tc-av-grad { width:100%; height:100%; background-size:400% 400%; animation:gradientShift 10s ease infinite; display:flex; align-items:center; justify-content:center; }
+.tc-av-grad:hover { animation-duration:4s; }
+.tc-init { font-family:var(--font-h); font-size:3rem; font-style:italic; color:rgba(255,255,255,.85); }
+.tc-body { padding:20px 22px; flex:1; display:flex; flex-direction:column; }
+.tc-name { font-weight:700; font-size:15.5px; color:var(--par-dark); margin-bottom:3px; }
+.tc-role { font-size:12px; font-weight:700; letter-spacing:.03em; margin-bottom:6px; }
+.tc-affil { font-size:12.5px; color:var(--gray-600); line-height:1.5; }
+.tc-tags { display:flex; flex-wrap:wrap; gap:5px; margin-top:12px; }
+.tag { font-size:10px; font-weight:700; letter-spacing:.04em; padding:3px 9px; border-radius:100px; text-transform:uppercase; background:rgba(82,189,236,.12); color:var(--par-mid); }
+@keyframes gradientShift {
+  0%   { background-position:0% 50%; }
+  50%  { background-position:100% 50%; }
+  100% { background-position:0% 50%; }
+}
+
+/* ═══ NEWS ══════════════════════════════════════════════════════════════ */
+.news-grid { display:grid; grid-template-columns:2fr 1fr; gap:24px; }
+.nc { background:#fff; border-radius:var(--rl); border:1px solid var(--gray-200); overflow:hidden; transition:var(--t); display:flex; flex-direction:column; }
+.nc:hover { transform:translateY(-4px); box-shadow:var(--shm); }
+.nc-img { height:200px; display:flex; align-items:center; justify-content:center; position:relative; }
+.nc-type { position:absolute; top:12px; left:12px; background:var(--par-orange); color:#fff; font-size:10px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; padding:3px 10px; border-radius:100px; }
+.nc-img-txt { font-family:var(--font-h); font-size:1.4rem; font-style:italic; color:rgba(255,255,255,.22); text-align:center; padding:16px; }
+.nc-body { padding:22px; flex:1; display:flex; flex-direction:column; }
+.nc-date { font-size:12px; color:var(--gray-400); margin-bottom:9px; }
+.nc-title { font-family:var(--font-h); font-size:1.15rem; color:var(--par-dark); line-height:1.3; margin-bottom:10px; flex:1; }
+.nc-excerpt { font-size:13.5px; color:var(--gray-600); line-height:1.65; }
+.ns-col { display:flex; flex-direction:column; gap:18px; }
+.nm { background:#fff; border-radius:var(--r); border:1px solid var(--gray-200); padding:18px 20px; transition:var(--t); flex:1; }
+.nm:hover { border-color:var(--par-light); box-shadow:var(--sh); }
+.nm-type { font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--par-light); margin-bottom:7px; }
+.nm-title { font-weight:600; font-size:13.5px; color:var(--par-dark); margin-bottom:5px; line-height:1.4; }
+.nm-date { font-size:11.5px; color:var(--gray-400); }
+
+/* ═══ PUBLICATIONS ══════════════════════════════════════════════════════ */
+.pub-filters { display:flex; gap:9px; flex-wrap:wrap; margin-bottom:32px; }
+.fb { font-size:12.5px; font-weight:600; padding:7px 18px; border-radius:8px; border:1.5px solid var(--gray-200); background:#fff; color:var(--gray-600); transition:var(--t); cursor:pointer; }
+.fb:hover,.fb.on { background:var(--par-dark); color:#fff; border-color:var(--par-dark); }
+.pub-list { display:flex; flex-direction:column; gap:14px; }
+.pi { background:#fff; border-radius:var(--r); border:1px solid var(--gray-200); padding:22px 26px; display:flex; gap:20px; align-items:flex-start; transition:var(--t); }
+.pi:hover { border-color:var(--par-light); box-shadow:var(--sh); transform:translateX(4px); }
+.pi-yr { font-family:var(--font-h); font-size:1.45rem; color:var(--par-light); min-width:52px; font-style:italic; padding-top:3px; line-height:1; }
+.pi-title { font-weight:600; font-size:14.5px; color:var(--par-dark); margin-bottom:5px; line-height:1.4; }
+.pi-authors { font-size:12.5px; color:var(--gray-400); margin-bottom:7px; font-style:italic; }
+.pi-journal { font-size:13px; color:var(--par-mid); font-weight:500; }
+.pbadge { font-size:9.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; padding:2px 8px; border-radius:4px; margin-left:7px; }
+.pb-doi { background:rgba(82,189,236,.12); color:var(--par-mid); }
+.pb-oa  { background:rgba(255,122,0,.1); color:var(--par-orange); }
+
+/* ═══ CONTACT ═══════════════════════════════════════════════════════════ */
+.contact-grid { display:grid; grid-template-columns:1fr 1.3fr; gap:72px; align-items:start; }
+.ci-item { display:flex; gap:14px; align-items:flex-start; margin-bottom:24px; }
+.ci-icon { width:42px; height:42px; border-radius:9px; background:var(--gray-100); display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+.ci-item strong { display:block; font-size:13.5px; font-weight:700; color:var(--par-dark); margin-bottom:2px; }
+.ci-item p { font-size:13.5px; color:var(--gray-600); }
+.cf { background:#fff; border-radius:var(--rl); padding:36px; border:1px solid var(--gray-200); box-shadow:var(--sh); }
+.cf h3 { font-family:var(--font-h); font-size:1.35rem; color:var(--par-dark); margin-bottom:22px; }
+.fg { margin-bottom:18px; }
+.fg label { display:block; font-size:12.5px; font-weight:700; color:var(--par-dark); margin-bottom:7px; letter-spacing:.02em; }
+.fg input,.fg textarea,.fg select { width:100%; padding:11px 14px; border:1.5px solid var(--gray-200); border-radius:8px; font-family:var(--font-b); font-size:14px; color:var(--text); background:var(--off-white); transition:var(--t); outline:none; }
+.fg input:focus,.fg textarea:focus,.fg select:focus { border-color:var(--par-light); background:#fff; box-shadow:0 0 0 3px rgba(82,189,236,.1); }
+.fg textarea { resize:vertical; min-height:110px; }
+.frow { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.cf-submit { width:100%; padding:13px; background:var(--par-dark); color:#fff; border-radius:10px; font-weight:700; font-size:14px; margin-top:4px; transition:var(--t); border:none; cursor:pointer; }
+.cf-submit:hover { background:var(--par-mid); transform:translateY(-1px); }
+.cf-success { display:none; background:rgba(29,141,176,.08); border:1px solid rgba(29,141,176,.2); color:var(--par-mid); border-radius:10px; padding:14px 18px; text-align:center; font-weight:600; font-size:14px; margin-top:12px; }
+
+/* ═══ FOOTER ════════════════════════════════════════════════════════════ */
+.footer { background:var(--par-dark); color:rgba(255,255,255,.6); padding:56px 0 20px; }
+.footer-grid { max-width:1200px; margin:0 auto; padding:0 28px 40px; display:grid; grid-template-columns:2fr 1fr 1fr; gap:52px; }
+.footer-brand p { font-size:13.5px; line-height:1.7; margin-top:10px; }
+.footer-logo { font-family:var(--font-b); font-weight:700; font-size:1.1rem; color:#fff; }
+.footer-logo span { background:linear-gradient(90deg,#FF7A00,#FF2200,#C030C0,#4455DD); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.footer-col h4 { font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.35); margin-bottom:14px; }
+.footer-col a, .footer-col span { display:block; font-size:13.5px; color:rgba(255,255,255,.5); margin-bottom:9px; cursor:pointer; transition:var(--t); }
+.footer-col a:hover, .footer-col span:hover { color:#fff; }
+.footer-badges { max-width:1200px; margin:0 auto; padding:0 28px 32px; display:flex; flex-wrap:wrap; gap:8px; }
+.fbadge { background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12); color:rgba(255,255,255,.45); font-size:11px; font-weight:600; padding:4px 12px; border-radius:100px; letter-spacing:.04em; }
+.fbot { max-width:1200px; margin:0 auto; padding:20px 28px; border-top:1px solid rgba(255,255,255,.1); display:flex; justify-content:space-between; align-items:center; font-size:12.5px; flex-wrap:wrap; gap:12px; }
+.fbot a { color:rgba(255,255,255,.35); margin-left:18px; transition:var(--t); }
+.fbot a:hover { color:#fff; }
+
+/* ═══ SCROLL REVEAL ═════════════════════════════════════════════════════ */
+.rev { opacity:0; transform:translateY(22px); transition:opacity .55s ease, transform .55s ease; }
+.rev.vis { opacity:1; transform:none; }
+
+/* ═══ EDITOR ════════════════════════════════════════════════════════════ */
+.ed-fabs { position:fixed; bottom:28px; right:28px; z-index:500; display:flex; flex-direction:column; gap:10px; align-items:flex-end; }
+.ed-fab { width:52px; height:52px; border-radius:50%; background:var(--par-dark); color:#fff; font-size:20px; box-shadow:var(--shm); transition:var(--t); border:none; cursor:pointer; }
+.ed-fab:hover { transform:scale(1.08) translateY(-2px); background:var(--par-mid); }
+.ed-fab.edit-active { background:var(--par-mid); }
+.ed-fab-label { font-size:11px; font-weight:700; background:var(--par-dark); color:#fff; padding:4px 10px; border-radius:100px; white-space:nowrap; opacity:0; transition:var(--t); pointer-events:none; }
+.ed-fabs:hover .ed-fab-label { opacity:1; }
+.ed-overlay { position:fixed; inset:0; background:rgba(13,32,53,.45); z-index:600; display:none; align-items:stretch; justify-content:flex-end; }
+.ed-overlay.on { display:flex; }
+.ed-panel { width:min(520px,100%); background:#fff; overflow-y:auto; display:flex; flex-direction:column; box-shadow:-8px 0 36px rgba(0,64,122,.18); }
+.ed-header { padding:20px 24px 16px; border-bottom:1px solid var(--gray-200); display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; background:#fff; z-index:1; }
+.ed-header h2 { font-size:1.05rem; font-weight:700; color:var(--par-dark); }
+.ed-close { width:32px; height:32px; border-radius:50%; background:var(--gray-100); color:var(--gray-600); font-size:14px; border:none; cursor:pointer; transition:var(--t); }
+.ed-close:hover { background:var(--gray-200); }
+.ed-tabs { display:flex; border-bottom:1px solid var(--gray-200); padding:0 16px; gap:0; background:#fff; position:sticky; top:65px; z-index:1; overflow-x:auto; }
+.ed-tab { padding:10px 11px; font-size:12.5px; font-weight:600; color:var(--gray-400); background:none; border:none; border-bottom:2.5px solid transparent; transition:var(--t); cursor:pointer; white-space:nowrap; }
+.ed-tab.on { color:var(--par-dark); border-bottom-color:var(--par-dark); }
+.ed-body { padding:22px 24px; flex:1; }
+.ed-section { display:none; }
+.ed-section.on { display:block; }
+.ed-subtitle { font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--par-light); margin:22px 0 10px; padding-bottom:6px; border-bottom:1px solid var(--gray-100); }
+.ed-subtitle:first-child { margin-top:0; }
+.ed-group { margin-bottom:12px; }
+.ed-group label { display:block; font-size:12px; font-weight:600; color:var(--gray-600); margin-bottom:5px; }
+.ed-group input[type=text],.ed-group input[type=email],.ed-group textarea,.ed-group select { width:100%; padding:9px 12px; border:1.5px solid var(--gray-200); border-radius:7px; font-family:var(--font-b); font-size:13.5px; color:var(--text); background:var(--off-white); transition:var(--t); outline:none; }
+.ed-group input[type=text]:focus,.ed-group input[type=email]:focus,.ed-group textarea:focus,.ed-group select:focus { border-color:var(--par-light); background:#fff; }
+.ed-group textarea { min-height:72px; resize:vertical; }
+.ed-hint { font-size:12px; color:var(--gray-400); margin-bottom:12px; line-height:1.5; }
+.ed-divider { border:none; border-top:1px solid var(--gray-100); margin:18px 0; }
+.save-btn { width:100%; padding:12px; background:var(--par-dark); color:#fff; border-radius:10px; font-weight:700; font-size:14px; margin-top:14px; transition:var(--t); border:none; cursor:pointer; }
+.save-btn:hover { background:var(--par-mid); }
+.add-btn { width:100%; padding:10px; background:var(--gray-100); color:var(--par-dark); border-radius:8px; font-weight:600; font-size:13px; margin-bottom:12px; border:1.5px dashed var(--gray-200); transition:var(--t); cursor:pointer; }
+.add-btn:hover { border-color:var(--par-light); background:rgba(82,189,236,.07); }
+.ed-card { background:var(--off-white); border:1px solid var(--gray-200); border-radius:var(--r); padding:13px 15px; margin-bottom:10px; }
+.ed-card-head { display:flex; justify-content:space-between; align-items:center; cursor:pointer; }
+.ed-card-head strong { font-size:13px; color:var(--par-dark); flex:1; margin-right:8px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.del-btn { font-size:11px; color:var(--par-orange); background:rgba(255,122,0,.08); border:none; padding:3px 8px; border-radius:5px; font-weight:700; cursor:pointer; flex-shrink:0; }
+.ed-card-body { margin-top:10px; display:none; }
+.ed-card-body.on { display:block; }
+.ed-grid2 { display:grid; grid-template-columns:1fr 1fr; gap:9px; }
+/* Color picker rows */
+.color-row { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+.color-row label { font-size:12.5px; font-weight:600; color:var(--gray-600); flex:1; }
+.color-row input[type=color] { width:44px; height:32px; border:1.5px solid var(--gray-200); border-radius:6px; cursor:pointer; padding:2px; background:#fff; }
+.color-row .color-hex { font-size:12px; color:var(--gray-400); width:72px; font-family:monospace; }
+.reset-btn { background:var(--gray-100); color:var(--par-dark); border:1.5px solid var(--gray-200); border-radius:8px; padding:9px 16px; font-weight:600; font-size:13px; cursor:pointer; transition:var(--t); width:100%; margin-top:10px; }
+.reset-btn:hover { border-color:var(--par-light); }
+
+/* ═══ RESPONSIVE ════════════════════════════════════════════════════════ */
+@media(max-width:900px){
+  .hbg{display:flex}
+  .nav-links{display:none}
+  .hero-wrap{grid-template-columns:1fr;gap:40px;padding:60px 20px}
+  .hero-vis{display:none}
+  .about-grid,.contact-grid{grid-template-columns:1fr;gap:40px}
+  .about-vis{min-height:200px}
+  .news-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
+  .fbot{flex-direction:column;text-align:center}
+  .frow{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .sec,.sec2 .inner{padding:56px 20px}
+  .footer-grid{grid-template-columns:1fr}
+  .hero h1{font-size:2rem}
+  .phero h1{font-size:1.7rem}
+}
+</style>
+</head>
+<body>
+
+<!-- EDIT BANNER (shown when inline edit mode is active) -->
+<div class="edit-banner" id="editBanner">
+  <span>✎ Edit Mode — click on any highlighted text to edit it directly</span>
+  <button onclick="saveInlineEdits()">💾 Save Edits</button>
+  <button onclick="toggleEditMode()">✕ Exit</button>
+</div>
+
+<!-- LANGUAGE BAR -->
+<div class="lang-bar">
+  <div class="wrap">
+    <button class="lb on" onclick="setLang('en')">EN</button>
+    <button class="lb" onclick="setLang('nl')">NL</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="wrap">
+<div class="nav-logo" onclick="showPage('home')">
+  <img src="paradise_logo_no_bg.png" alt="Paradise Project Logo" style="height: 70px; width: auto; object-fit: contain;">
+    </div>
+    <div class="nav-links">
+      <button class="nl on" onclick="showPage('home')" data-k="nav_home">Home</button>
+      <button class="nl" onclick="showPage('about')" data-k="nav_about">Team</button>
+      <button class="nl" onclick="showPage('news')" data-k="nav_news">News</button>
+      <button class="nl" onclick="showPage('materials')" data-k="nav_materials">Materials</button>
+      <button class="nl" onclick="showPage('pubs')" data-k="nav_pubs">Publications</button>
+      <button class="nl cta" onclick="showPage('contact')" data-k="nav_contact">Contact</button>
+    </div>
+    <button class="hbg" onclick="toggleMob()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div id="mob-menu">
+  <button onclick="showPage('home');toggleMob()" data-k="nav_home">Home</button>
+  <button onclick="showPage('about');toggleMob()" data-k="nav_about">Team</button>
+  <button onclick="showPage('news');toggleMob()" data-k="nav_news">News</button>
+  <button onclick="showPage('materials');toggleMob()" data-k="nav_materials">Materials</button>
+  <button onclick="showPage('pubs');toggleMob()" data-k="nav_pubs">Publications</button>
+  <button onclick="showPage('contact');toggleMob()" data-k="nav_contact">Contact</button>
+</div>
+
+<!-- ════════════════════════ PAGE: HOME ═════════════════════════════════ -->
+<div class="page on" id="page-home">
+
+  <section class="hero">
+    <div class="hero-wrap">
+      <div class="hero-left">
+        <div class="hero-badge"><span data-e="hero_badge" data-placeholder="Badge text">PhD Research Project</span></div>
+        <h1><span data-e="hero_h1" data-placeholder="Main headline">Optimal Care for the <em>Diabetic Foot</em></span></h1>
+        <p class="hero-desc"><span data-e="hero_desc" data-placeholder="Hero description">An interdisciplinary PhD project bridging biomechanics and health economics to improve diabetic foot outcomes in Belgium.</span></p>
+        <div class="hero-btns">
+          <button class="btn-p" onclick="showPage('pubs')"><span data-e="hero_btn1" data-placeholder="Button 1 text">Explore the Research</span></button>
+          <button class="btn-s" onclick="showPage('about')"><span data-e="hero_btn2" data-placeholder="Button 2 text">Meet the Team</span></button>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><div class="stat-n" id="hs1n">4</div><div class="stat-l" id="hs1l">Research Years</div></div>
+          <div class="stat"><div class="stat-n" id="hs2n">8+</div><div class="stat-l" id="hs2l">Publications</div></div>
+          <div class="stat"><div class="stat-n" id="hs3n">3</div><div class="stat-l" id="hs3l">Partner Hospitals</div></div>
+        </div>
+      </div>
+      <div class="hero-vis">
+        <div class="pressure-card">
+          <div class="pc-label">Plantar Pressure Map</div>
+          <img src="Feet.png" alt="Foot pressure" class="foot-svg">
+            <defs>
+              <radialGradient id="heel" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FF2200"/><stop offset="50%" stop-color="#FF8C00"/><stop offset="100%" stop-color="#4DC8E8" stop-opacity="0"/></radialGradient>
+              <radialGradient id="met" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FF8C00"/><stop offset="60%" stop-color="#4DC8E8"/><stop offset="100%" stop-color="#1877FF" stop-opacity="0"/></radialGradient>
+              <radialGradient id="toe1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FF5500"/><stop offset="70%" stop-color="#4DC8E8"/><stop offset="100%" stop-color="#1877FF" stop-opacity="0"/></radialGradient>
+            </defs>
+            <path d="M95 230 C55 225 35 200 32 175 C28 148 30 120 38 100 C44 85 46 70 44 58 C42 44 48 30 58 26 C68 22 78 30 80 44 C82 54 78 66 78 74 C78 80 82 82 88 80 C94 78 96 70 94 58 C92 46 96 32 106 28 C116 24 124 34 124 46 C124 56 118 66 118 76 C118 84 122 88 128 86 C136 84 140 72 140 60 C140 48 146 36 156 34 C166 32 172 44 168 56 C164 66 156 76 155 90 C154 104 160 116 162 130 C166 148 160 172 150 190 C140 208 125 225 95 230Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+            <ellipse cx="90" cy="205" rx="28" ry="20" fill="url(#heel)" opacity="0.85"/>
+            <ellipse cx="76" cy="130" rx="22" ry="14" fill="url(#met)" opacity="0.75"/>
+            <ellipse cx="112" cy="125" rx="16" ry="10" fill="url(#met)" opacity="0.6"/>
+            <ellipse cx="82" cy="60" rx="12" ry="10" fill="url(#toe1)" opacity="0.7"/>
+            <circle cx="104" cy="52" r="7" fill="#1877FF" opacity="0.35"/>
+            <circle cx="118" cy="58" r="6" fill="#1877FF" opacity="0.25"/>
+            <circle cx="128" cy="70" r="5" fill="#1877FF" opacity="0.2"/>
+            <circle cx="132" cy="84" r="5" fill="#1877FF" opacity="0.15"/>
+          </svg>
+          <div class="legend">
+            <span class="l-lo">Low</span><span class="l-mi">Mid</span><span class="l-hi">High</span><span class="l-pk">Peak</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE STRIP -->
+  <div class="fstrip">
+    <div class="wrap">
+      <div class="fi"><div class="fi-icon b" data-e="fi0_icon" data-placeholder="emoji">🦶</div><div><strong data-e="fi0_title" data-placeholder="Title">Biomechanics</strong><p data-e="fi0_desc" data-placeholder="Description">Plantar pressure analysis, gait assessment, and footwear evaluation</p></div></div>
+      <div class="fi"><div class="fi-icon o" data-e="fi1_icon" data-placeholder="emoji">💰</div><div><strong data-e="fi1_title" data-placeholder="Title">Health Economics</strong><p data-e="fi1_desc" data-placeholder="Description">Cost-effectiveness of prevention strategies and offloading interventions</p></div></div>
+      <div class="fi"><div class="fi-icon t" data-e="fi2_icon" data-placeholder="emoji">🏥</div><div><strong data-e="fi2_title" data-placeholder="Title">Clinical Outcomes</strong><p data-e="fi2_desc" data-placeholder="Description">Patient-centred measures, re-ulcer rate, and amputation prevention</p></div></div>
+      <div class="fi"><div class="fi-icon d" data-e="fi3_icon" data-placeholder="emoji">📊</div><div><strong data-e="fi3_title" data-placeholder="Title">Evidence Synthesis</strong><p data-e="fi3_desc" data-placeholder="Description">Systematic reviews, meta-analyses and clinical guideline development</p></div></div>
+    </div>
+  </div>
+
+  <!-- ABOUT SECTION -->
+  <section class="sec">
+    <div class="about-grid">
+      <div>
+        <div class="slabel rev" data-e="about_label" data-placeholder="Section label">About the Project</div>
+        <h2 class="stitle rev"><span data-e="about_title" data-placeholder="Section title">Preventing amputations through <em>evidence-based</em>, cost-effective foot care</span></h2>
+        <p class="sbody rev" data-e="about_p1" data-placeholder="Paragraph 1">Diabetic foot complications, including ulcers, infections and amputations, represent one of the most devastating and costly consequences of diabetes. In Belgium, thousands of patients face lower limb amputations each year, many of which are preventable with the right interventions.</p>
+        <p class="sbody rev" data-e="about_p2" data-placeholder="Paragraph 2">The <strong>PARADISE project</strong> (<em>Towards Pressure-Adherence & Education Driven Service in Diabetic Foot 
+Disease </em>) takes an interdisciplinary approach. By combining biomechanical analysis with health economic evaluation, we identify the most effective and cost-efficient strategies for diabetic foot care in Belgian clinical practice.</p>
+        <button class="btn-p rev" onclick="showPage('about')" style="margin-top:8px"><span data-e="about_btn" data-placeholder="Button text">Learn More →</span></button>
+      </div>
+      <div class="about-vis rev">
+        <div class="about-vis-inner">
+          <div style="font-size:.95rem;color:rgba(255,255,255,.7);line-height:1.75;font-style:italic" data-e="about_quote" data-placeholder="Quote text">"I marvel that society would pay a surgeon a large sum of money to remove a person's leg but nothing to save it"</div>
+          <p style="margin-top:12px;font-size:11px;color:rgba(255,255,255,.4);letter-spacing:.06em" data-e="about_quote_attr" data-placeholder="Attribution">— George Bernard Shaw</p>
+          <div class="about-pills" style="margin-top:22px" id="aboutPills"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPACT NUMBERS -->
+  <section class="sec2">
+    <div class="inner">
+      <div class="sec-header">
+        <div class="slabel rev" data-e="impact_label" data-placeholder="Label">Project Highlights</div>
+        <h2 class="stitle rev" data-e="impact_title" data-placeholder="Title">Research in numbers</h2>
+      </div>
+      <div class="impact-grid" id="impactGrid"></div>
+    </div>
+  </section>
+
+  <!-- NEWS PREVIEW -->
+  <section class="sec">
+    <div class="sec-header">
+      <div class="slabel rev" data-e="news_preview_label" data-placeholder="Label">News &amp; Events</div>
+      <h2 class="stitle rev" data-e="news_preview_title" data-placeholder="Title">Latest Updates</h2>
+    </div>
+    <div class="news-grid" id="homeNewsGrid"></div>
+    <div style="text-align:center;margin-top:36px">
+      <button class="btn-s" onclick="showPage('news')" style="color:var(--par-dark);border-color:var(--par-dark);background:#fff" data-e="news_preview_btn" data-placeholder="Button text">View All News →</button>
+    </div>
+  </section>
+
+  <!-- PARTNERS -->
+  <div style="background:var(--gray-100);border-top:1px solid var(--gray-200);border-bottom:1px solid var(--gray-200);padding:28px 0;">
+    <div style="max-width:1200px;margin:0 auto;padding:0 28px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-400);text-align:center;margin-bottom:16px;" data-e="partners_label" data-placeholder="Label">Partner Institutions</div>
+      <div id="homePartners" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;"></div>
+    </div>
+  </div>
+
+</div><!-- /page-home -->
+
+<!-- ════════════════════════ PAGE: ABOUT ════════════════════════════════ -->
+<div class="page" id="page-about">
+  <div class="phero">
+    <div class="wrap">
+      <h1 data-e="about_page_title" data-placeholder="Page title">Research Team</h1>
+      <p data-e="about_page_sub" data-placeholder="Subtitle">An interdisciplinary team across biomechanics, clinical care, health management and policy and health economics</p>
+    </div>
+  </div>
+  <div class="bc"><div class="wrap">
+    <span onclick="showPage('home')" data-k="nav_home">Home</span>
+    <span class="sep">›</span>
+    <span data-k="nav_about">Team</span>
+  </div></div>
+  <section class="sec">
+    <div class="sec-header">
+      <div class="slabel" data-e="team_section_label" data-placeholder="Label">Research Team</div>
+      <h2 class="stitle" data-e="team_section_title" data-placeholder="Title">The people behind PARADISE</h2>
+      <p class="sbody" data-e="team_section_desc" data-placeholder="Description">Our team brings together expertise in podiatry, biomechanics, health economics, and clinical diabetology to tackle the diabetic foot challenge from every angle.</p>
+    </div>
+    <div class="team-grid" id="teamGrid"></div>
+  </section>
+
+  <section class="sec2">
+    <div class="inner">
+      <div class="about-grid">
+        <div>
+          <div class="slabel rev" data-e="acronym_label" data-placeholder="Label">About PARADISE</div>
+          <h2 class="stitle rev" data-e="acronym_title" data-placeholder="Title">What does <em>PARADISE</em> stand for?</h2>
+          <p class="sbody rev" data-e="acronym_desc" data-placeholder="Acronym description"><strong>P</strong>ressure-<strong>A</strong>dherence &amp; Education <strong>R</strong>esearch <strong>A</strong>nd <strong>D</strong>iabetic foot disease — <strong>I</strong>ntegrated <strong>S</strong>ervice &amp; <strong>E</strong>ducation</p>
+          <p class="sbody rev" data-e="acronym_p1" data-placeholder="Paragraph 1">This PhD project is funded and hosted at KU Leuven Campus Bruges. It combines quantitative biomechanical assessment with health economic modelling to identify the most effective and cost-efficient care pathways for patients at risk of diabetic foot complications.</p>
+          <p class="sbody rev" data-e="acronym_p2" data-placeholder="Paragraph 2">The project runs in close collaboration with Belgian diabetic foot clinics and builds directly on existing Belgian consensus guidelines developed in partnership with the BDFPG.</p>
+        </div>
+        <div class="about-vis rev">
+          <div class="about-vis-inner" style="text-align:left">
+            <div style="font-size:1rem;color:rgba(255,255,255,.75);line-height:2">
+              <span style="color:var(--par-light);font-weight:700;font-size:1.1rem">P</span>ressure-adherence<br>
+              <span style="color:var(--par-orange);font-weight:700;font-size:1.1rem">A</span>nd education<br>
+              <span style="color:var(--par-light);font-weight:700;font-size:1.1rem">R</span>esearch<br>
+              <span style="color:var(--par-orange);font-weight:700;font-size:1.1rem">A</span>dvancing<br>
+              <span style="color:var(--par-light);font-weight:700;font-size:1.1rem">D</span>iabetic foot disease<br>
+              <span style="color:var(--par-orange);font-weight:700;font-size:1.1rem">I</span>ntegrated<br>
+              <span style="color:var(--par-light);font-weight:700;font-size:1.1rem">S</span>ervice &amp;<br>
+              <span style="color:var(--par-orange);font-weight:700;font-size:1.1rem">E</span>ducation
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div><!-- /page-about -->
+
+<!-- ════════════════════════ PAGE: NEWS ═════════════════════════════════ -->
+<div class="page" id="page-news">
+  <div class="phero">
+    <div class="wrap">
+      <div class="plabel" data-e="news_page_label" data-placeholder="Label">News</div>
+      <h1 data-e="news_page_title" data-placeholder="Title">News &amp; Events</h1>
+      <p data-e="news_page_sub" data-placeholder="Subtitle">Research updates, conference presentations, and project milestones</p>
+    </div>
+  </div>
+  <div class="bc"><div class="wrap">
+    <span onclick="showPage('home')" data-k="nav_home">Home</span><span class="sep">›</span><span data-k="nav_news">News</span>
+  </div></div>
+  <section class="sec">
+    <div class="news-grid" id="newsGrid"></div>
+  </section>
+</div>
+
+<!-- ════════════════════════ PAGE: PUBS ═════════════════════════════════ -->
+<div class="page" id="page-pubs">
+  <div class="phero">
+    <div class="wrap">
+      <div class="plabel" data-e="pubs_page_label" data-placeholder="Label">Publications</div>
+      <h1 data-e="pubs_page_title" data-placeholder="Title">Publications</h1>
+      <p data-e="pubs_page_sub" data-placeholder="Subtitle">Peer-reviewed papers and research outputs from the PARADISE project</p>
+    </div>
+  </div>
+  <div class="bc"><div class="wrap">
+    <span onclick="showPage('home')" data-k="nav_home">Home</span><span class="sep">›</span><span data-k="nav_pubs">Publications</span>
+  </div></div>
+  <section class="sec">
+    <div class="pub-filters">
+      <button class="fb on" onclick="filterPubs('all',this)">All</button>
+      <button class="fb" onclick="filterPubs('original',this)">Original Research</button>
+      <button class="fb" onclick="filterPubs('review',this)">Reviews</button>
+      <button class="fb" onclick="filterPubs('consensus',this)">Consensus / Position</button>
+    </div>
+    <div class="pub-list" id="pubList"></div>
+  </section>
+</div>
+
+<!-- ════════════════════════ PAGE: CONTACT ══════════════════════════════ -->
+<div class="page" id="page-contact">
+  <div class="phero">
+    <div class="wrap">
+      <div class="plabel" data-e="contact_page_label" data-placeholder="Label">Contact</div>
+      <h1 data-e="contact_page_title" data-placeholder="Title">Get in Touch</h1>
+      <p data-e="contact_page_sub" data-placeholder="Subtitle">Questions, collaboration proposals, or media inquiries are welcome</p>
+    </div>
+  </div>
+  <div class="bc"><div class="wrap">
+    <span onclick="showPage('home')" data-k="nav_home">Home</span><span class="sep">›</span><span data-k="nav_contact">Contact</span>
+  </div></div>
+  <section class="sec">
+    <div class="contact-grid">
+      <div id="contactInfo"></div>
+      <div class="cf">
+        <h3 data-e="contact_form_title" data-placeholder="Form title">Send a Message</h3>
+        <form onsubmit="submitForm(event)">
+          <div class="frow">
+            <div class="fg"><label>First Name</label><input type="text" placeholder="First name" required></div>
+            <div class="fg"><label>Last Name</label><input type="text" placeholder="Last name" required></div>
+          </div>
+          <div class="fg"><label>Email</label><input type="email" placeholder="your@email.com" required></div>
+          <div class="fg"><label>Subject</label>
+            <select>
+              <option>Research Collaboration</option>
+              <option>Clinical Partnership</option>
+              <option>Student / Internship</option>
+              <option>Media / Press</option>
+              <option>General Inquiry</option>
+            </select>
+          </div>
+          <div class="fg"><label>Message</label><textarea placeholder="Your message…" required></textarea></div>
+          <button type="submit" class="cf-submit" data-e="contact_form_btn" data-placeholder="Button text">Send Message</button>
+        </form>
+        <div class="cf-success" id="cfSuccess">Thank you! Your message has been sent.</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ════════════════════════ PAGE: MATERIALS ════════════════════════════ -->
+<div class="page" id="page-materials">
+  <div class="phero">
+    <div class="wrap">
+      <div class="plabel">Research Equipment</div>
+      <h1>Measurement Materials</h1>
+      <p>An overview of the instruments used for data collection in the PARADISE project</p>
+    </div>
+  </div>
+  <div class="bc"><div class="wrap">
+    <span onclick="showPage('home')" data-k="nav_home">Home</span><span class="sep">&#8250;</span><span data-k="nav_materials">Materials</span>
+  </div></div>
+
+  <!-- Intro -->
+  <section class="sec" style="padding-bottom:0">
+    <div class="sec-header rev">
+      <div class="slabel">Instrumentation</div>
+      <h2 class="stitle">Data Collection Instruments</h2>
+      <p class="sbody">The PARADISE project relies on three validated measurement systems to objectively assess physical activity, adherence and plantar pressure in patients with diabetic foot pathology.</p>
+    </div>
+  </section>
+
+  <!-- ORTHOTIMER -->
+  <section class="sec">
+    <div class="about-grid rev">
+      <div>
+        <div class="slabel">Activity Monitoring</div>
+        <h2 class="stitle">Orthotimer</h2>
+        <p class="sbody">The <strong>Orthotimer</strong> is a small, lightweight data logger designed to monitor footwear adherence. It is typically embedded in therapeutic footwear or insoles to record the duration of footwear wear.</p>
+        <p class="sbody">Within the PARADISE project, the Orthotimer is used to objectively quantify how long patients actually wear their prescribed custom made foot orthosis — a key determinant of healing outcomes that is often poorly captured by self-report alone.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:18px">
+          <span class="tag d">Adherence</span>
+       
+       
+        </div>
+      </div>
+      <div class="about-vis rev" style="min-height:280px">
+        <div class="about-vis-inner">
+  <img src="content_products-orthotimer_en.webp" alt="Orthotimer device" style="max-width:70%; margin-bottom:12px;">
+          <div style="font-size:1rem;font-weight:700;color:#fff;margin-bottom:8px">Orthotimer</div>
+          <div style="font-size:.85rem;color:rgba(255,255,255,.65);line-height:1.65">Embedded adherence logger<br>monitoring temperature<br>in therapeutic insoles</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MCROBERTS DYNAPORT -->
+  <div class="sec2">
+    <div class="inner">
+      <div class="about-grid rev">
+        <div class="about-vis rev" style="min-height:280px;background:linear-gradient(135deg,var(--par-mid),var(--par-light))">
+          <div class="about-vis-inner">
+  <img src="images.jfif" alt="McRoberts Dynaport" style="max: width 90%; margin-bottom:12px;">
+            <div style="font-size:1rem;font-weight:700;color:#fff;margin-bottom:8px">McRoberts DynaPort</div>
+            <div style="font-size:.85rem;color:rgba(255,255,255,.65);line-height:1.65">Wearable accelerometer<br>for 24h ambulatory profiling<br></div>
+          </div>
+        </div>
+        <div>
+          <div class="slabel">Inertial Measurement</div>
+          <h2 class="stitle">McRoberts DynaPort</h2>
+          <p class="sbody">The <strong>McRoberts DynaPort</strong> is a validated wearable accelerometer system worn at the lower back that provides detailed classification of postures (sitting, standing, lying) and transitions, as well as step counts and walking bout characteristics during free-living conditions.</p>
+          <p class="sbody">In the PARADISE project, the DynaPort is used to obtain objective, 24-hour ambulatory profiles of patients. This allows us to characterise real-world mobility patterns and quantify physical activity levels that relate to both ulcer healing and quality of life outcomes.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:18px">
+
+            <span class="tag b">Step count</span>
+            <span class="tag b">Free-living mobility</span>
+            <span class="tag b">24h monitoring</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEKSCAN F-SCAN GO -->
+  <section class="sec">
+    <div class="about-grid rev">
+      <div>
+        <div class="slabel">Plantar Pressure Analysis</div>
+        <h2 class="stitle">Tekscan F-Scan Go</h2>
+        <p class="sbody">The <strong>Tekscan F-Scan Go</strong> is a portable, in-shoe plantar pressure measurement system that uses thin, flexible sensor insoles to capture dynamic pressure distribution across the entire plantar surface during walking. It provides spatial pressure maps, peak pressure values, pressure-time integrals and force data in real time.</p>
+        <p class="sbody">In the PARADISE project, the F-Scan Go is central to our biomechanical assessment. It enables identification of high-risk pressure regions, evaluation of offloading footwear effectiveness and longitudinal tracking of pressure changes over the course of treatment.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:18px">
+          <span class="tag o">Peak pressure</span>
+          <span class="tag o">Pressure-time integral</span>
+          <span class="tag o">In-shoe measurement</span>
+          <span class="tag o">Dynamic gait analysis</span>
+        </div>
+      </div>
+      <div class="about-vis rev" style="min-height:280px;background:linear-gradient(135deg,var(--par-orange),#FF2200)">
+        <div class="about-vis-inner">
+<img src="FscanProductplusscreenshot826x600.jpg" alt="TEKSCAN F-SCAN GO" style="max-width:70%; margin-bottom:12px;">
+          <div style="font-size:1rem;font-weight:700;color:#fff;margin-bottom:8px">Tekscan F-Scan Go</div>
+          <div style="font-size:.85rem;color:rgba(255,255,255,.75);line-height:1.65">In-shoe plantar pressure system<br>for dynamic gait analysis<br>and high-risk region identification</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ════════════════════════ FOOTER ═════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo"><span>PARADISE</span> Project</div>
+      <p data-e="footer_desc" data-placeholder="Footer description">Towards Pressure-Adherence & Education Driven Service in Diabetic Foot 
+Disease </p>
+      <p style="margin-top:14px;font-size:12.5px" id="footAffil"></p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <span onclick="showPage('home')" data-k="nav_home">Home</span>
+      <span onclick="showPage('about')" data-k="nav_about">Team</span>
+      <span onclick="showPage('news')" data-k="nav_news">News</span>
+      <span onclick="showPage('pubs')" data-k="nav_pubs">Publications</span>
+      <span onclick="showPage('materials')" data-k="nav_materials">Materials</span>
+      <span onclick="showPage('contact')" data-k="nav_contact">Contact</span>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <span id="footEmail" style="word-break:break-all"></span>
+      <span id="footAddr" style="white-space:pre-line;line-height:1.7"></span>
+    </div>
+  </div>
+  <div class="footer-badges" id="footerBadges"></div>
+  <div class="fbot">
+    <p>© <span id="footYear"></span> PARADISE Project · <span data-e="footer_copy" data-placeholder="Copyright text">All rights reserved</span></p>
+    <div>
+      <a data-e="footer_priv" data-placeholder="Privacy">Privacy Policy</a>
+      <a data-e="footer_cook" data-placeholder="Cookies">Cookie Policy</a>
+      <a data-e="footer_acc" data-placeholder="Accessibility">Accessibility</a>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOATING ACTION BUTTONS -->
+<div class="ed-fabs" style="display:none">
+  <button class="ed-fab" id="editModeFab" onclick="toggleEditMode()" title="Edit text directly on page">✎</button>
+  <button class="ed-fab" onclick="openEditor()" title="Open Site Editor panel">⚙️</button>
+</div>
+
+<!-- EDITOR OVERLAY -->
+<div class="ed-overlay" id="edOverlay" onclick="closeEditorOnBg(event)">
+  <div class="ed-panel" onclick="event.stopPropagation()">
+    <div class="ed-header">
+      <h2>⚙️ Site Editor</h2>
+      <button class="ed-close" onclick="closeEditor()">✕</button>
+    </div>
+    <div class="ed-tabs">
+      <button class="ed-tab on" onclick="edTab(this,'general')">General</button>
+      <button class="ed-tab" onclick="edTab(this,'team')">Team</button>
+      <button class="ed-tab" onclick="edTab(this,'news')">News</button>
+      <button class="ed-tab" onclick="edTab(this,'pubs')">Pubs</button>
+      <button class="ed-tab" onclick="edTab(this,'design')">Design</button>
+      <button class="ed-tab" onclick="edTab(this,'lang')">Texts</button>
+    </div>
+    <div class="ed-body">
+
+      <!-- GENERAL TAB -->
+      <div class="ed-section on" id="ed-general">
+        <div class="ed-subtitle">Site Identity</div>
+        <div class="ed-group"><label>Project Name</label><input type="text" id="e-orgname" oninput="liveUpdate()"></div>
+        <div class="ed-group"><label>Short Abbreviation</label><input type="text" id="e-orgabbr" oninput="liveUpdate()"></div>
+        <div class="ed-group"><label>Full Title / Tagline</label><input type="text" id="e-tagline" oninput="liveUpdate()"></div>
+        <div class="ed-subtitle">Contact Details</div>
+        <div class="ed-group"><label>Email</label><input type="email" id="e-email" oninput="liveUpdate()"></div>
+        <div class="ed-group"><label>Address (use \n for line breaks)</label><textarea id="e-address" oninput="liveUpdate()"></textarea></div>
+        <div class="ed-group"><label>Affiliated Institutions</label><input type="text" id="e-affiliations" oninput="liveUpdate()"></div>
+        <div class="ed-subtitle">Hero Statistics</div>
+        <div class="ed-grid2">
+          <div class="ed-group"><label>Stat 1 Number</label><input type="text" id="e-s1n" oninput="liveUpdate()"></div>
+          <div class="ed-group"><label>Stat 1 Label</label><input type="text" id="e-s1l" oninput="liveUpdate()"></div>
+          <div class="ed-group"><label>Stat 2 Number</label><input type="text" id="e-s2n" oninput="liveUpdate()"></div>
+          <div class="ed-group"><label>Stat 2 Label</label><input type="text" id="e-s2l" oninput="liveUpdate()"></div>
+          <div class="ed-group"><label>Stat 3 Number</label><input type="text" id="e-s3n" oninput="liveUpdate()"></div>
+          <div class="ed-group"><label>Stat 3 Label</label><input type="text" id="e-s3l" oninput="liveUpdate()"></div>
+        </div>
+        <div class="ed-subtitle">Impact / Highlight Numbers</div>
+        <div class="ed-grid2">
+          <div class="ed-group"><label>Highlight 1 Number</label><input type="text" id="e-i1n" oninput="liveUpdate()"></div>
+          <div class="ed-group"><label>Highlight 1 Label</label><input type="text" id="e-i1l" oninput="liveUpdate()"></div>
+          <div class="ed-group"><label>Highlight 2 Number</label><input type="text" id="e-i2n" oninput="liveUpdate()"></div>
+          <div class="ed-group"><label>Highlight 2 Label</label><input type="text" id="e-i2l" oninput="liveUpdate()"></div>
+          <div class="ed-group"><label>Highlight 3 Number</label><input type="text" id="e-i3n" oninput="liveUpdate()"></div>
+          <div class="ed-group"><label>Highlight 3 Label</label><input type="text" id="e-i3l" oninput="liveUpdate()"></div>
+          <div class="ed-group"><label>Highlight 4 Number</label><input type="text" id="e-i4n" oninput="liveUpdate()"></div>
+          <div class="ed-group"><label>Highlight 4 Label</label><input type="text" id="e-i4l" oninput="liveUpdate()"></div>
+        </div>
+        <div class="ed-subtitle">About-Page Pills</div>
+        <div class="ed-hint">Comma-separated keywords shown in the hero visual on the home page</div>
+        <div class="ed-group"><input type="text" id="e-pills" placeholder="Biomechanics, Health Economics, Diabetic Foot, Prevention" oninput="liveUpdate()"></div>
+        <div class="ed-subtitle">Partner Badges (footer)</div>
+        <div class="ed-hint">Comma-separated list of partner names</div>
+        <div class="ed-group"><input type="text" id="e-partners" placeholder="KU Leuven, AZ Sint-Jan, ..." oninput="liveUpdate()"></div>
+        <button class="save-btn" onclick="saveAll()">💾 Save All Changes</button>
+      </div>
+
+      <!-- TEAM TAB -->
+      <div class="ed-section" id="ed-team">
+        <div class="ed-hint">Add, edit, or remove team members. Changes appear live on the site.</div>
+        <div id="teamEditor"></div>
+        <button class="add-btn" onclick="addMember()">+ Add Team Member</button>
+        <button class="save-btn" onclick="saveAll()">💾 Save Changes</button>
+      </div>
+
+      <!-- NEWS TAB -->
+      <div class="ed-section" id="ed-news">
+        <div class="ed-hint">Manage news items and events. Toggle "featured" for the large card layout.</div>
+        <div id="newsEditor"></div>
+        <button class="add-btn" onclick="addNews()">+ Add News Item</button>
+        <button class="save-btn" onclick="saveAll()">💾 Save Changes</button>
+      </div>
+
+      <!-- PUBS TAB -->
+      <div class="ed-section" id="ed-pubs">
+        <div class="ed-hint">Manage publications. Types: original, review, consensus.</div>
+        <div id="pubsEditor"></div>
+        <button class="add-btn" onclick="addPub()">+ Add Publication</button>
+        <button class="save-btn" onclick="saveAll()">💾 Save Changes</button>
+      </div>
+
+      <!-- DESIGN TAB -->
+      <div class="ed-section" id="ed-design">
+        <div class="ed-hint">Change the colour scheme. Updates apply instantly — click Save to keep them.</div>
+        <div class="ed-subtitle">Colours</div>
+        <div class="color-row"><label>Primary Dark (nav, footer, headings)</label><input type="color" id="d-dark" oninput="applyColor('--par-dark',this.value)"><span class="color-hex" id="dh-dark">#00407A</span></div>
+        <div class="color-row"><label>Primary Mid (accents, links)</label><input type="color" id="d-mid" oninput="applyColor('--par-mid',this.value)"><span class="color-hex" id="dh-mid">#1D8DB0</span></div>
+        <div class="color-row"><label>Primary Light (badges, borders)</label><input type="color" id="d-light" oninput="applyColor('--par-light',this.value)"><span class="color-hex" id="dh-light">#52BDEC</span></div>
+        <div class="color-row"><label>Accent (buttons, highlights)</label><input type="color" id="d-orange" oninput="applyColor('--par-orange',this.value)"><span class="color-hex" id="dh-orange">#FF7A00</span></div>
+        <div class="color-row"><label>Body Text</label><input type="color" id="d-text" oninput="applyColor('--text',this.value)"><span class="color-hex" id="dh-text">#0D2035</span></div>
+        <div class="color-row"><label>Background (sections)</label><input type="color" id="d-bg" oninput="applyColor('--off-white',this.value)"><span class="color-hex" id="dh-bg">#F4F8FC</span></div>
+        <div class="ed-subtitle">Logo Image</div>
+        <div class="ed-hint">Place your logo file (e.g. paradise_logo_no_bg.png) in the same folder as this HTML file, then enter the filename below.</div>
+        <div class="ed-group"><label>Logo filename</label><input type="text" id="d-logo" placeholder="paradise_logo.png" oninput="applyLogo(this.value)"></div>
+        <div class="ed-hint" style="margin-top:-6px">Leave empty to use the text logo. Recommended height: 46px.</div>
+        <button class="save-btn" onclick="saveAll()">💾 Save Design</button>
+        <button class="reset-btn" onclick="resetDesign()">↺ Reset to Default Colours</button>
+        <button class="reset-btn" style="margin-top:8px;border-color:#FF7A00;color:#FF7A00" onclick="resetToDefaults()">🗑 Clear Saved Data &amp; Reload from HTML</button>
+      </div>
+
+      <!-- TEXTS / LANG TAB -->
+      <div class="ed-section" id="ed-lang">
+        <div class="ed-hint">Edit navigation labels and interface text per language. For page body text, use the ✎ Edit Mode button instead.</div>
+        <div class="ed-group"><label>Language to edit</label>
+          <select id="langSelect" onchange="renderLangTab()">
+            <option value="en">English</option>
+            <option value="nl">Nederlands</option>
+          </select>
+        </div>
+        <div id="langFields"></div>
+        <button class="save-btn" onclick="saveAll()">💾 Save Translations</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════ JAVASCRIPT ══════════════════════════════════ -->
+<script>
+// ═══════════════════════════════════════════════════════════════════════════
+// DEFAULTS
+// ═══════════════════════════════════════════════════════════════════════════
+const DEFAULTS = {
+  site: {
+    orgname:"PARADISE Project", orgabbr:"PARADISE",
+    tagline:"Towards Pressure-Adherence & Education Driven Service in Diabetic Foot Disease",
+    email:"Janou.debuyser@kuleuven.be",
+    address:"KU Leuven Campus Bruges, Spoorwegstraat 12\n8200 Brugge, Belgium",
+    affiliations:"KU Leuven · VUB · AZORG · AZ Sint-Jan Brugge · AZ Groeninge · UZ Gent",
+    pills:"Biomechanics,Health Economics,Diabetic Foot,Prevention",
+    stat1n:"4",   stat1l:"Research Years",
+    stat2n:"TBM",  stat2l:"FWO",
+    stat3n:"6",   stat3l:"Partner Hospitals",
+    imp1n:"18",    imp1l:"Months Follow-up",
+    imp2n:"400.000",   imp2l:"Diabetics in Flanders",
+    imp3n:"40%", imp3l:"Foot ulcer recurrence within 1 year",
+    imp4n:"144",    imp4l:"Patients included"
+  },
+  team: [
+    {name:"Janou De Buyser", role:"PhD Researcher", affil:"Dept. of Rehabilitation Sciences · KU Leuven Campus Bruges", tags:"Biomechanics,Health Economics", color:"#00407A,#1D8DB0", initials:"JDB", photo:"WhatsApp Image 2026-03-11 at 11.02.50.jpeg"},
+    {name:"Prof. Dr. Kevin Deschamps", role:"Promotor", affil:"KU Leuven · Dept. of Rehabilitation Sciences", tags:"Diabetic Foot,Podiatry", color:"#1D8DB0,#4DC8E8", initials:"KD", photo:""},
+    {name:"Prof. Dr. Fabienne Dobbels", role:"Co-Promotor", affil:"KU Leuven · Dept. of Public Health & Primary Care", tags:"Patient involvement,Adherence strategies", color:"#FF5844,#FF8C00", initials:"FD", photo:""},
+    {name:"Prof. Dr. Maaike Fobelets", role:"Co-Promotor", affil:"VUB · Dept. Public Health Sciences", tags:"Health Economics", color:"#116E8A,#1FABD5", initials:"MF", photo:""},
+    {name:"Prof. Dr. Koen Putman", role:"Co-Promotor", affil:"VUB · Dept. Public Health Sciences", tags:"Health Economics", color:"#8B30C9,#4455DD", initials:"KP", photo:""},
+    {name:"Prof. Dr. Giovanni Matricali", role:"Co-Promotor", affil:"KU Leuven · Dept. of Biomedical Sciences", tags:"Clinical Care,Wound Care,Diabetic foot clinic", color:"#1FABD5,#52BDEC", initials:"GM", photo:""}
+  ],
+  news: [
+    {type:"Milestone", title:"PARADISE Project Launched: Integrating Biomechanics and Health Economics in Diabetic Foot Care", date:"September 2026", excerpt:"The PARADISE PhD project officially started at KU Leuven Campus BRuges, aiming to develop evidence-based, cost-effective strategies for optimal diabetic foot care in Belgian hospitals.", featured:true},
+    // Hidden for now — uncomment to restore:
+    // {type:"Conference", title:"Poster Presentation at Belgian Diabetes Congress 2024", date:"November 2024", excerpt:"Results from the first data collection phase were presented at the Belgian Diabetes Congress in Brussels.", featured:false},
+    // {type:"Publication", title:"Systematic Review Accepted: Cost-Effectiveness of Therapeutic Footwear", date:"March 2024", excerpt:"", featured:false},
+    // {type:"Update", title:"Data Collection Phase 2 Completed — 120 Patients Enrolled", date:"January 2025", excerpt:"", featured:false}
+  ],
+  pubs: [
+    // Hidden for now — uncomment to restore:
+    // {year:"2024", title:"Cost-Effectiveness of Therapeutic Footwear in the Prevention of Diabetic Foot Ulcers: A Systematic Review", authors:"[Author A], [Author B], [Author C] et al.", journal:"Diabetes/Metabolism Research and Reviews", type:"review", doi:true, oa:true},
+    // {year:"2024", title:"Plantar Pressure Distribution in Patients with Diabetic Peripheral Neuropathy: A Cross-Sectional Analysis", authors:"[Author A], [Author D], [Author E]", journal:"Journal of Diabetes Science and Technology", type:"original", doi:true, oa:false},
+    // {year:"2023", title:"Economic Burden of Diabetic Foot Complications in Belgium: A Claims-Based Analysis", authors:"[Author A], [Author B], [Author F]", journal:"Diabetic Medicine", type:"original", doi:true, oa:false},
+    // {year:"2023", title:"Belgian Consensus on Offloading Strategies for Neuropathic Diabetic Foot Ulcers", authors:"PARADISE Working Group; [Author A], [Author B] et al.", journal:"Diabetes Care", type:"consensus", doi:true, oa:true}
+  ]
+};
+
+const TRANS_KEYS = ["nav_home","nav_about","nav_news","nav_materials","nav_pubs","nav_contact"];
+const TRANS_DEFAULTS = {
+  en: { nav_home:"Home", nav_about:"Team", nav_news:"News", nav_materials:"Materials", nav_pubs:"Publications", nav_contact:"Contact" },
+  nl: { nav_home:"Home", nav_about:"Team", nav_news:"Nieuws", nav_materials:"Materialen", nav_pubs:"Publicaties", nav_contact:"Contact" }
+};
+
+const DESIGN_DEFAULTS = {
+  '--par-dark':'#00407A','--par-mid':'#1D8DB0','--par-light':'#52BDEC',
+  '--par-orange':'#FF7A00','--text':'#0D2035','--off-white':'#F4F8FC'
+};
+
+// ═══════════════════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════════════════
+let D = {
+  site:   {...DEFAULTS.site},
+  team:   JSON.parse(JSON.stringify(DEFAULTS.team)),
+  news:   JSON.parse(JSON.stringify(DEFAULTS.news)),
+  pubs:   JSON.parse(JSON.stringify(DEFAULTS.pubs)),
+  trans:  {en:{...TRANS_DEFAULTS.en}, nl:{...TRANS_DEFAULTS.nl}},
+  design: {...DESIGN_DEFAULTS},
+  content: {}   // inline-edited text: { key: innerHTML }
+};
+let lang = "en";
+let currentPubFilter = "all";
+let editModeActive = false;
+
+function load() {
+  // localStorage disabled — all data comes from DEFAULTS in the HTML.
+  // Use the Reset button in the editor (⚙️ → Reset) to clear any old saved data.
+}
+
+function resetToDefaults() {
+  if(confirm("This will clear all saved data and reload from the HTML defaults. Continue?")) {
+    localStorage.removeItem("paradise_data");
+    location.reload();
+  }
+}
+
+function save() {
+  try { localStorage.setItem("paradise_data", JSON.stringify(D)); } catch(e){}
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// INLINE EDIT MODE
+// ═══════════════════════════════════════════════════════════════════════════
+function toggleEditMode() {
+  editModeActive = !editModeActive;
+  document.body.classList.toggle('edit-mode', editModeActive);
+  document.getElementById('editBanner').classList.toggle('on', editModeActive);
+  document.getElementById('editModeFab').classList.toggle('edit-active', editModeActive);
+  document.querySelectorAll('[data-e]').forEach(el => {
+    el.contentEditable = editModeActive ? 'true' : 'false';
+  });
+  if (!editModeActive) saveInlineEdits();
+}
+
+function saveInlineEdits() {
+  document.querySelectorAll('[data-e]').forEach(el => {
+    const key = el.getAttribute('data-e');
+    D.content[key] = el.innerHTML;
+  });
+  save();
+  if(editModeActive) toggleEditMode();
+  else { // flash save confirmation
+    const fab = document.getElementById('editModeFab');
+    const orig = fab.textContent;
+    fab.textContent = "✓";
+    setTimeout(()=>fab.textContent=orig, 1400);
+  }
+}
+
+function restoreContent() {
+  if(!D.content) return;
+  Object.keys(D.content).forEach(key => {
+    const el = document.querySelector(`[data-e="${key}"]`);
+    if(el) el.innerHTML = D.content[key];
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// DESIGN / COLOURS
+// ═══════════════════════════════════════════════════════════════════════════
+function applyColor(varName, value) {
+  document.documentElement.style.setProperty(varName, value);
+  D.design[varName] = value;
+  const hexId = 'dh-' + varName.replace('--par-','').replace('--','');
+  const hexEl = document.getElementById(hexId);
+  if(hexEl) hexEl.textContent = value;
+}
+
+function applyLogo(filename) {
+  const logo = document.querySelector('.nav-logo');
+  if(!filename || !filename.trim()) {
+    // Restore text logo
+    logo.innerHTML = `<div class="logo-text"><span class="l-paradise">PARADISE</span><span class="l-project">Project</span></div>`;
+    D.design.logoFile = '';
+  } else {
+    logo.innerHTML = `<img src="images/Paradise Project (5) (002).png" alt="Paradise Project">`;
+    D.design.logoFile = filename.trim();
+  }
+  logo.onclick = ()=>showPage('home');
+}
+
+function populateDesignTab() {
+  const vars = [
+    ['d-dark','--par-dark'],['d-mid','--par-mid'],['d-light','--par-light'],
+    ['d-orange','--par-orange'],['d-text','--text'],['d-bg','--off-white']
+  ];
+  vars.forEach(([id,v]) => {
+    const e = document.getElementById(id);
+    if(e) { e.value = D.design[v] || DESIGN_DEFAULTS[v] || '#000000'; }
+    const hexId = 'dh-' + v.replace('--par-','').replace('--','');
+    const he = document.getElementById(hexId);
+    if(he) he.textContent = D.design[v] || DESIGN_DEFAULTS[v] || '';
+  });
+  const logoInput = document.getElementById('d-logo');
+  if(logoInput) logoInput.value = D.design.logoFile || '';
+}
+
+function restoreDesign() {
+  Object.keys(DESIGN_DEFAULTS).forEach(v => {
+    const val = D.design[v] || DESIGN_DEFAULTS[v];
+    document.documentElement.style.setProperty(v, val);
+  });
+  if(D.design.logoFile) applyLogo(D.design.logoFile);
+}
+
+function resetDesign() {
+  D.design = {...DESIGN_DEFAULTS};
+  restoreDesign();
+  populateDesignTab();
+  save();
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════════════════════════════
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
+  document.getElementById('page-'+id).classList.add('on');
+  document.querySelectorAll('.nl').forEach(b => {
+    b.classList.toggle('on', b.getAttribute('onclick') && b.getAttribute('onclick').includes("'"+id+"'"));
+  });
+  window.scrollTo({top:0, behavior:'smooth'});
+  if(id==='home')    { renderHomeNews(); renderImpact(); renderHomePartners(); renderAboutPills(); }
+  if(id==='about')   renderTeam();
+  if(id==='news')    renderNews();
+  if(id==='pubs')    renderPubs();
+  if(id==='contact') renderContact();
+  restoreContent();
+  initReveal();
+}
+
+function toggleMob() {
+  const m = document.getElementById('mob-menu');
+  m.style.display = m.style.display === 'block' ? 'none' : 'block';
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════════════════════════════════════
+const TAGCLS = ["b","o","d","b","o","d"];
+
+function renderTeam() {
+  const g = document.getElementById("teamGrid"); if(!g) return;
+  g.innerHTML = D.team.map((m,i) => {
+    const tags = (m.tags||"").split(",").map(t => `<span class="tag">${t.trim()}</span>`).join("");
+    const [c1,c2] = (m.color||"#00407A,#1D8DB0").split(",");
+    const init = m.initials || (m.name.trim().split(" ").filter(w=>w.length>1).map(w=>w[0]).slice(0,2).join("")) || "??";
+    const av = m.photo
+      ? `<div class="tc-av"><img src="${m.photo}" alt="${m.name}"></div>`
+      : `<div class="tc-av"><div class="tc-av-grad" style="background:linear-gradient(270deg,${c1},${c2},${c1})"><span class="tc-init">${init}</span></div></div>`;
+    return `<div class="tc rev">
+      ${av}
+      <div class="tc-body">
+        <div class="tc-name">${m.name}</div>
+        <div class="tc-role" style="color:${c1}">${m.role}</div>
+        <div class="tc-affil">${m.affil}</div>
+        <div class="tc-tags">${tags}</div>
+      </div>
+    </div>`;
+  }).join("");
+  initReveal();
+}
+
+const GRADIENTS = [
+  "linear-gradient(135deg,#00407A,#1D8DB0,#4DC8E8)",
+  "linear-gradient(135deg,#FF7A00,#FF2200,#C030C0)",
+  "linear-gradient(135deg,#1FABD5,#52BDEC)",
+  "linear-gradient(135deg,#116E8A,#1D8DB0)",
+  "linear-gradient(135deg,#8B30C9,#4455DD)"
+];
+
+function newsCardHTML(n, i, large) {
+  if(large) return `
+    <div class="nc rev">
+      <div class="nc-img" style="background:${GRADIENTS[i%GRADIENTS.length]}">
+        <div class="nc-img-txt">${n.title}</div>
+        <div class="nc-type">${n.type}</div>
+      </div>
+      <div class="nc-body">
+        <div class="nc-date">${n.date}</div>
+        <div class="nc-title">${n.title}</div>
+        ${n.excerpt ? `<div class="nc-excerpt">${n.excerpt}</div>` : ""}
+      </div>
+    </div>`;
+  return `<div class="nm rev">
+    <div class="nm-type">${n.type}</div>
+    <div class="nm-title">${n.title}</div>
+    <div class="nm-date">${n.date}</div>
+  </div>`;
+}
+
+function renderHomeNews() {
+  const g = document.getElementById("homeNewsGrid"); if(!g) return;
+  const featured = D.news.filter(n=>n.featured).slice(0,1);
+  const others = D.news.filter(n=>!n.featured).slice(0,3);
+  if(!D.news.length){ g.innerHTML='<p style="color:var(--gray-400)">No news items yet.</p>'; return; }
+  const mainItem = featured.length ? featured[0] : D.news[0];
+  const sideItems = featured.length ? others : D.news.slice(1,4);
+  g.innerHTML = `
+    <div>${newsCardHTML(mainItem,0,true)}</div>
+    <div class="ns-col">${sideItems.map((n,i)=>newsCardHTML(n,i,false)).join("")}</div>`;
+  initReveal();
+}
+
+function renderNews() {
+  const g = document.getElementById("newsGrid"); if(!g) return;
+  const featured = D.news.filter(n=>n.featured);
+  const others = D.news.filter(n=>!n.featured);
+  if(!D.news.length){ g.innerHTML='<p style="color:var(--gray-400)">No news items yet.</p>'; return; }
+  const mainItems = featured.length ? featured : [D.news[0]];
+  const sideItems = featured.length ? others : D.news.slice(1);
+  g.innerHTML = `
+    <div>${mainItems.map((n,i)=>newsCardHTML(n,i,true)).join("")}</div>
+    <div class="ns-col">${sideItems.map((n,i)=>newsCardHTML(n,i,false)).join("")}</div>`;
+  initReveal();
+}
+
+function renderPubs(filter) {
+  if(filter !== undefined) currentPubFilter = filter;
+  const g = document.getElementById("pubList"); if(!g) return;
+  const list = currentPubFilter==="all" ? D.pubs : D.pubs.filter(p=>p.type===currentPubFilter);
+  if(!list.length){ g.innerHTML='<p style="color:var(--gray-400)">No publications in this category yet.</p>'; return; }
+  g.innerHTML = list.map(p => `
+    <div class="pi rev">
+      <div class="pi-yr">${p.year}</div>
+      <div>
+        <div class="pi-title">${p.title}${p.doi?`<span class="pbadge pb-doi">DOI</span>`:""}${p.oa?`<span class="pbadge pb-oa">OA</span>`:""}</div>
+        <div class="pi-authors">${p.authors}</div>
+        <div class="pi-journal">${p.journal} <span style="font-size:11px;color:var(--gray-400);margin-left:6px;text-transform:uppercase;letter-spacing:.06em">${p.type}</span></div>
+      </div>
+    </div>`).join("");
+  initReveal();
+}
+
+function filterPubs(type, btn) {
+  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
+  if(btn) btn.classList.add('on');
+  renderPubs(type);
+}
+
+function renderImpact() {
+  const g = document.getElementById("impactGrid"); if(!g) return;
+  const s = D.site;
+  g.innerHTML = [{n:s.imp1n,l:s.imp1l},{n:s.imp2n,l:s.imp2l},{n:s.imp3n,l:s.imp3l},{n:s.imp4n,l:s.imp4l}]
+    .map(i=>`<div class="imp-card rev"><div class="imp-n">${i.n}</div><div class="imp-l">${i.l}</div></div>`).join("");
+  initReveal();
+}
+
+function renderAboutPills() {
+  const g = document.getElementById("aboutPills"); if(!g) return;
+  g.innerHTML = (D.site.pills||"").split(",").filter(p=>p.trim())
+    .map(p=>`<span class="about-pill">${p.trim()}</span>`).join("");
+}
+
+function renderContact() {
+  const g = document.getElementById("contactInfo"); if(!g) return;
+  const s = D.site;
+  g.innerHTML = `
+    <div class="ci-item"><div class="ci-icon">📧</div><div><strong>Email</strong><p><a href="mailto:${s.email}" style="color:var(--par-mid)">${s.email}</a></p></div></div>
+    <div class="ci-item"><div class="ci-icon">📍</div><div><strong>Address</strong><p style="white-space:pre-line">${(s.address||"").replace(/\\n/g,"\n")}</p></div></div>
+    <div class="ci-item"><div class="ci-icon">🏛️</div><div><strong>Affiliations</strong><p>${s.affiliations}</p></div></div>
+    <div class="ci-item"><div class="ci-icon">🔗</div><div><strong>BDFPG</strong><p><a href="https://www.belgianfootpressure.be" target="_blank" rel="noopener" style="color:var(--par-mid)">belgianfootpressure.be</a></p></div></div>`;
+}
+
+function renderFooterBadges() {
+  const g = document.getElementById("footerBadges"); if(!g) return;
+  g.innerHTML = (D.site.partners||"").split(",").filter(p=>p.trim())
+    .map(p=>`<span class="fbadge">${p.trim()}</span>`).join("");
+  const fe = document.getElementById("footEmail");
+  const fa = document.getElementById("footAffil");
+  const fa2 = document.getElementById("footAddr");
+  if(fe) fe.textContent = D.site.email;
+  if(fa) fa.textContent = D.site.affiliations;
+  if(fa2) fa2.textContent = (D.site.address||"").replace(/\\n/g,"\n");
+}
+
+function renderHomePartners() {
+  const g = document.getElementById("homePartners"); if(!g) return;
+  g.innerHTML = (D.site.partners||"").split(",").filter(p=>p.trim())
+    .map(p=>`<span style="background:#fff;border:1px solid var(--gray-200);border-radius:100px;padding:5px 16px;font-size:12.5px;font-weight:600;color:var(--gray-600)">${p.trim()}</span>`).join("");
+}
+
+function updateHeroStats() {
+  const s = D.site;
+  const el = (id,v) => { const e=document.getElementById(id); if(e) e.textContent=v; };
+  el("hs1n",s.stat1n); el("hs1l",s.stat1l);
+  el("hs2n",s.stat2n); el("hs2l",s.stat2l);
+  el("hs3n",s.stat3n); el("hs3l",s.stat3l);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// TRANSLATIONS (nav labels only)
+// ═══════════════════════════════════════════════════════════════════════════
+function setLang(l) {
+  lang = l;
+  document.querySelectorAll('.lb').forEach(b => b.classList.toggle('on', b.textContent.toLowerCase()===l));
+  applyTranslations();
+}
+
+function applyTranslations() {
+  const t = D.trans[lang] || D.trans.en;
+  document.querySelectorAll('[data-k]').forEach(el => {
+    const k = el.getAttribute('data-k');
+    if(t[k] !== undefined) el.textContent = t[k];
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SCROLL REVEAL
+// ═══════════════════════════════════════════════════════════════════════════
+function initReveal() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('vis'); obs.unobserve(e.target); } });
+  }, {threshold:0.1});
+  document.querySelectorAll('.rev:not(.vis)').forEach(el => obs.observe(el));
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// CONTACT FORM
+// ═══════════════════════════════════════════════════════════════════════════
+function submitForm(e) {
+  e.preventDefault();
+  const s = document.getElementById('cfSuccess');
+  if(s) s.style.display='block';
+  e.target.reset();
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// EDITOR PANEL
+// ═══════════════════════════════════════════════════════════════════════════
+function openEditor() {
+  populateGeneralTab();
+  renderTeamEditor();
+  renderNewsEditor();
+  renderPubsEditor();
+  populateDesignTab();
+  renderLangTab();
+  document.getElementById('edOverlay').classList.add('on');
+}
+function closeEditor() { document.getElementById('edOverlay').classList.remove('on'); }
+function closeEditorOnBg(e) { if(e.target.id==='edOverlay') closeEditor(); }
+function edTab(btn, id) {
+  document.querySelectorAll('.ed-tab').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.ed-section').forEach(s=>s.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('ed-'+id).classList.add('on');
+  if(id==='design') populateDesignTab();
+}
+
+function v(id){ const e=document.getElementById(id); return e?e.value:""; }
+function sv(id,val){ const e=document.getElementById(id); if(e) e.value=val||""; }
+
+function populateGeneralTab() {
+  const s = D.site;
+  sv("e-orgname",s.orgname); sv("e-orgabbr",s.orgabbr); sv("e-tagline",s.tagline);
+  sv("e-email",s.email); sv("e-address",s.address); sv("e-affiliations",s.affiliations);
+  sv("e-s1n",s.stat1n); sv("e-s1l",s.stat1l);
+  sv("e-s2n",s.stat2n); sv("e-s2l",s.stat2l);
+  sv("e-s3n",s.stat3n); sv("e-s3l",s.stat3l);
+  sv("e-i1n",s.imp1n); sv("e-i1l",s.imp1l);
+  sv("e-i2n",s.imp2n); sv("e-i2l",s.imp2l);
+  sv("e-i3n",s.imp3n); sv("e-i3l",s.imp3l);
+  sv("e-i4n",s.imp4n); sv("e-i4l",s.imp4l);
+  sv("e-pills",s.pills); sv("e-partners",s.partners);
+}
+
+function liveUpdate() {
+  const s = D.site;
+  s.orgname=v("e-orgname"); s.orgabbr=v("e-orgabbr"); s.tagline=v("e-tagline");
+  s.email=v("e-email"); s.address=v("e-address"); s.affiliations=v("e-affiliations");
+  s.stat1n=v("e-s1n"); s.stat1l=v("e-s1l");
+  s.stat2n=v("e-s2n"); s.stat2l=v("e-s2l");
+  s.stat3n=v("e-s3n"); s.stat3l=v("e-s3l");
+  s.imp1n=v("e-i1n"); s.imp1l=v("e-i1l");
+  s.imp2n=v("e-i2n"); s.imp2l=v("e-i2l");
+  s.imp3n=v("e-i3n"); s.imp3l=v("e-i3l");
+  s.imp4n=v("e-i4n"); s.imp4l=v("e-i4l");
+  s.pills=v("e-pills"); s.partners=v("e-partners");
+  updateHeroStats();
+  renderFooterBadges();
+  renderHomePartners();
+  renderImpact();
+  renderAboutPills();
+  renderContact();
+}
+
+// --- Team editor ---
+function renderTeamEditor() {
+  const c = document.getElementById("teamEditor"); if(!c) return;
+  c.innerHTML = D.team.map((m,i) => `
+    <div class="ed-card" id="tec-${i}">
+      <div class="ed-card-head" onclick="toggleCard('tec-${i}')">
+        <strong>${esc(m.name)||"(unnamed)"}</strong>
+        <button class="del-btn" onclick="event.stopPropagation();delMember(${i})">Remove</button>
+      </div>
+      <div class="ed-card-body" id="tec-body-${i}">
+        <div class="ed-group"><label>Name</label><input type="text" value="${esc(m.name)}" oninput="D.team[${i}].name=this.value;document.querySelector('#tec-${i} strong').textContent=this.value||'(unnamed)';renderTeam()"></div>
+        <div class="ed-group"><label>Role / Title</label><input type="text" value="${esc(m.role)}" oninput="D.team[${i}].role=this.value;renderTeam()"></div>
+        <div class="ed-group"><label>Affiliation</label><input type="text" value="${esc(m.affil)}" oninput="D.team[${i}].affil=this.value;renderTeam()"></div>
+        <div class="ed-group"><label>Tags (comma-separated)</label><input type="text" value="${esc(m.tags)}" oninput="D.team[${i}].tags=this.value;renderTeam()"></div>
+        <div class="ed-group">
+          <label>Photo filename</label>
+          <input type="text" value="${esc(m.photo||'')}" placeholder="e.g. photo_jan.jpg" oninput="D.team[${i}].photo=this.value.trim();renderTeam()">
+          <div style="font-size:11.5px;color:var(--gray-400);margin-top:4px">Place the image file in the same folder as this HTML file, then type the filename here. Leave empty to show initials instead.</div>
+        </div>
+        <div class="ed-grid2">
+          <div class="ed-group"><label>Initials (shown when no photo)</label><input type="text" value="${esc(m.initials)}" maxlength="3" oninput="D.team[${i}].initials=this.value;renderTeam()"></div>
+          <div class="ed-group"><label>Card colours (hex1,hex2)</label><input type="text" value="${esc(m.color)}" oninput="D.team[${i}].color=this.value;renderTeam()"></div>
+        </div>
+      </div>
+    </div>`).join("");
+}
+function addMember() {
+  D.team.push({name:"New Member", role:"Role", affil:"Affiliation", tags:"", color:"#00407A,#1D8DB0", initials:"NM", photo:""});
+  renderTeamEditor(); renderTeam();
+}
+function delMember(i) { D.team.splice(i,1); renderTeamEditor(); renderTeam(); }
+
+// --- News editor ---
+function renderNewsEditor() {
+  const c = document.getElementById("newsEditor"); if(!c) return;
+  c.innerHTML = D.news.map((n,i) => `
+    <div class="ed-card" id="nec-${i}">
+      <div class="ed-card-head" onclick="toggleCard('nec-${i}')">
+        <strong>${esc(n.title)||"(untitled)"}</strong>
+        <button class="del-btn" onclick="event.stopPropagation();delNews(${i})">Remove</button>
+      </div>
+      <div class="ed-card-body" id="nec-body-${i}">
+        <div class="ed-group"><label>Title</label><input type="text" value="${esc(n.title)}" oninput="D.news[${i}].title=this.value;document.querySelector('#nec-${i} strong').textContent=this.value||'(untitled)';renderHomeNews();renderNews()"></div>
+        <div class="ed-grid2">
+          <div class="ed-group"><label>Type</label><input type="text" value="${esc(n.type)}" oninput="D.news[${i}].type=this.value;renderHomeNews();renderNews()"></div>
+          <div class="ed-group"><label>Date</label><input type="text" value="${esc(n.date)}" oninput="D.news[${i}].date=this.value;renderHomeNews();renderNews()"></div>
+        </div>
+        <div class="ed-group"><label>Excerpt</label><textarea oninput="D.news[${i}].excerpt=this.value;renderHomeNews();renderNews()">${esc(n.excerpt)}</textarea></div>
+        <div class="ed-group"><label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" ${n.featured?"checked":""} onchange="D.news[${i}].featured=this.checked;renderHomeNews();renderNews()"> Featured (large card)</label></div>
+      </div>
+    </div>`).join("");
+}
+function addNews() {
+  D.news.push({type:"News", title:"New Item", date:"", excerpt:"", featured:false});
+  renderNewsEditor(); renderHomeNews(); renderNews();
+}
+function delNews(i) { D.news.splice(i,1); renderNewsEditor(); renderHomeNews(); renderNews(); }
+
+// --- Pubs editor ---
+function renderPubsEditor() {
+  const c = document.getElementById("pubsEditor"); if(!c) return;
+  c.innerHTML = D.pubs.map((p,i) => `
+    <div class="ed-card" id="pec-${i}">
+      <div class="ed-card-head" onclick="toggleCard('pec-${i}')">
+        <strong>${esc(p.title)||"(untitled)"}</strong>
+        <button class="del-btn" onclick="event.stopPropagation();delPub(${i})">Remove</button>
+      </div>
+      <div class="ed-card-body" id="pec-body-${i}">
+        <div class="ed-group"><label>Title</label><textarea oninput="D.pubs[${i}].title=this.value;document.querySelector('#pec-${i} strong').textContent=this.value||'(untitled)';renderPubs()">${esc(p.title)}</textarea></div>
+        <div class="ed-group"><label>Authors</label><input type="text" value="${esc(p.authors)}" oninput="D.pubs[${i}].authors=this.value;renderPubs()"></div>
+        <div class="ed-group"><label>Journal</label><input type="text" value="${esc(p.journal)}" oninput="D.pubs[${i}].journal=this.value;renderPubs()"></div>
+        <div class="ed-grid2">
+          <div class="ed-group"><label>Year</label><input type="text" value="${esc(p.year)}" oninput="D.pubs[${i}].year=this.value;renderPubs()"></div>
+          <div class="ed-group"><label>Type (original/review/consensus)</label><input type="text" value="${esc(p.type)}" oninput="D.pubs[${i}].type=this.value;renderPubs()"></div>
+        </div>
+        <div class="ed-group" style="display:flex;gap:20px">
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" ${p.doi?"checked":""} onchange="D.pubs[${i}].doi=this.checked;renderPubs()"> Has DOI</label>
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" ${p.oa?"checked":""} onchange="D.pubs[${i}].oa=this.checked;renderPubs()"> Open Access</label>
+        </div>
+      </div>
+    </div>`).join("");
+}
+function addPub() {
+  D.pubs.push({year:new Date().getFullYear()+"", title:"New Publication", authors:"", journal:"", type:"original", doi:false, oa:false});
+  renderPubsEditor(); renderPubs();
+}
+function delPub(i) { D.pubs.splice(i,1); renderPubsEditor(); renderPubs(); }
+
+// --- Lang editor ---
+function renderLangTab() {
+  const l = document.getElementById('langSelect').value;
+  const t = D.trans[l] || {};
+  const labels = {nav_home:"Nav: Home",nav_about:"Nav: Team",nav_news:"Nav: News",nav_pubs:"Nav: Publications",nav_contact:"Nav: Contact"};
+  document.getElementById('langFields').innerHTML = TRANS_KEYS.map(k=>`
+    <div class="ed-group">
+      <label>${labels[k]||k}</label>
+      <input type="text" value="${esc(t[k]||"")}" oninput="D.trans['${l}']['${k}']=this.value;applyTranslations()">
+    </div>`).join("");
+}
+
+// --- Helpers ---
+function toggleCard(id) { const b = document.getElementById(id+"-body"); if(b) b.classList.toggle('on'); }
+function esc(s){ return (s||"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+function saveAll() {
+  // Collect any inline edits too
+  document.querySelectorAll('[data-e]').forEach(el => {
+    const key = el.getAttribute('data-e');
+    D.content[key] = el.innerHTML;
+  });
+  save();
+  const btn = event && event.target ? event.target : null;
+  if(btn) {
+    const orig = btn.textContent;
+    btn.textContent = "✓ Saved!";
+    btn.style.background = "#1D8DB0";
+    setTimeout(()=>{ btn.textContent=orig; btn.style.background=""; }, 1800);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  load();
+  document.getElementById('footYear').textContent = new Date().getFullYear();
+  restoreDesign();
+  updateHeroStats();
+  renderFooterBadges();
+  renderHomeNews();
+  renderImpact();
+  renderHomePartners();
+  renderAboutPills();
+  applyTranslations();
+  restoreContent();
+  initReveal();
+});
+</script>
+</body>
+</html>
