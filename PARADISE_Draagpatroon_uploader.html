@@ -897,7 +897,7 @@ function showConfirm(model, goalFromFile){
     ['Meetdagen (totaal)', validDays.length+' (waarvan '+fullDays.length+' volledig)'],
     ['Draagdoel', goalFromFile ? nf(goal)+' u/dag' : '<span class="cf-fallback">'+nf(goal)+' u/dag (terugvalwaarde)</span>'],
     ...(model.mcrGoal ? [['McRoberts-benchmark',
-      'Subject <b>'+model.mcrGoal.subject+'</b> · bezoek <b>'+model.mcrGoal.visit+'</b> · gem. draagduur '+nf(model.mcrGoal.avgWear)+' u/dag → aanbevolen doel <b>'+nf(model.mcrGoal.orthoGoal)+' u/dag</b> '+
+      'Subject <b>'+model.mcrGoal.subject+'</b> · bezoek <b>'+model.mcrGoal.visit+'</b> · gem. waaktijd '+nf(model.mcrGoal.avgWake||model.mcrGoal.avgWear)+' u/dag → aanbevolen doel <b>'+nf(model.mcrGoal.orthoGoal)+' u/dag</b> '+
       '<label style="font-weight:400;cursor:pointer"><input type="checkbox" id="useMcrGoal"'+(goalFromFile?'':' checked')+'> gebruik als draagdoel</label>'
     ]] : []),
     ['Gemiddeld gedragen', mean!==null ? nf(mean)+' u/dag ('+Math.round(mean/goal*100)+'% van doel)' : '<span class="cf-missing">—</span>'],

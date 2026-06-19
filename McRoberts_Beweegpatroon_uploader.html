@@ -220,12 +220,21 @@ function render(m){
   const notWorn=days.filter(d=>d.wear===0);
   const avgWear=worn.length?worn.reduce((a,b)=>a+b.wear,0)/worn.length:0;
 
-  // Orthotimer-draagdoel: 80% van gemiddelde draagduur op geldige dagen (≥ WEAR_MIN uur)
-  const avgWearValid=valid.length?valid.reduce((a,d)=>a+d.wear,0)/valid.length:0;
-  const orthoGoal=Math.round(avgWearValid*0.8*10)/10;
-  if(valid.length>=3){
+  // Orthotimer-draagdoel: 80% van gemiddelde waaktijd
+  // Slaap = langste aaneengesloten ligperiode ≈ totale ligtijd − (bouts−1) × 0,5 u
+  // (0,5 u = minimum 30 min per extra ligperiode overdag)
+  const MIN_SHORT_LYING = 0.5;
+  const validForGoal = valid.filter(d=>d.leaf.lying > 0 && (d.leaf.lyingBouts||0) > 0);
+  const avgWakeTime = validForGoal.length
+    ? validForGoal.reduce((sum,d)=>{
+        const sleep=Math.max(0, d.leaf.lying - Math.max(0,(d.leaf.lyingBouts-1)*MIN_SHORT_LYING));
+        return sum + Math.max(0, 24 - sleep);
+      }, 0) / validForGoal.length
+    : valid.reduce((a,d)=>a+d.wear,0)/(valid.length||1); // noodgeval: geen ligdata
+  const orthoGoal=Math.round(avgWakeTime*0.8*10)/10;
+  if(validForGoal.length>=3){
     try{localStorage.setItem('paradise_mcr_goal',JSON.stringify({
-      subject:m.subject,visit:m.visit,avgWear:Math.round(avgWearValid*10)/10,
+      subject:m.subject,visit:m.visit,avgWake:Math.round(avgWakeTime*10)/10,
       orthoGoal,computed:new Date().toISOString()
     }));}catch(e){}
   }
@@ -301,7 +310,7 @@ function render(m){
     '<div class="act-val">'+hhmm(i.v)+'</div></div>').join('');
   document.getElementById('actFoot').innerHTML=
     'Totaal '+(m.steps_total!=null?m.steps_total.toLocaleString('nl-BE')+' stappen gemeten over de gedragen dagen.':'')+
-    (valid.length>=3?'<span class="act-hint">Aanbevolen Orthotimer-draagdoel: '+nf1(orthoGoal)+' u/dag (= 80% van gem. draagduur '+nf1(avgWearValid)+' u/dag)</span>':'');
+    (validForGoal.length>=3?'<span class="act-hint">Aanbevolen Orthotimer-draagdoel: '+nf1(orthoGoal)+' u/dag (= 80% van gem. waaktijd '+nf1(avgWakeTime)+' u/dag, na exclusie slaapperiode)</span>':'');
 }
 
 // -------- PDF parsing (pdf.js) --------
@@ -321,10 +330,11 @@ function debold(s){
 }
 function hm(s){const m=s.match(/(\d+)h\s*(\d+)m/);return m?(+m[1])*60+(+m[2]):0;}
 function leafMin(t,name){const m=t.match(new RegExp('(?:^|\\s)'+name.replace(' ','\\s+')+'\\s+(\\d+)\\s+(\\d+h\\s*\\d+m)\\s+(\\d+h\\s*\\d+m)\\s+([\\d.]+)%'));return m?hm(m[2]):0;}
+function leafBouts(t,name){const m=t.match(new RegExp('(?:^|\\s)'+name.replace(' ','\\s+')+'\\s+(\\d+)\\s+(\\d+h\\s*\\d+m)\\s+(\\d+h\\s*\\d+m)\\s+([\\d.]+)%'));return m?+m[1]:0;}
 const MAP=[['lying','Lying'],['sitting','Sitting'],['standing','Standing'],['shuffling','Shuffling'],['walking','Walking'],['stairs','Stair walking'],['cycling','Cycling']];
 const MENG=['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
 async function pageText(pdf,i){const pg=await pdf.getPage(i);const tc=await pg.getTextContent();return tc.items.map(it=>it.str).join(' ').replace(/\s+/g,' ');}
-function leafHours(t){const o={};MAP.forEach(([k,n])=>o[k]=leafMin(t,n)/60);return o;}
+function leafHours(t){const o={};MAP.forEach(([k,n])=>o[k]=leafMin(t,n)/60);o.lyingBouts=leafBouts(t,'Lying');return o;}
 // Haalt de datum uit de paginatitel: "Physical activity Tue 17-Mar-26"
 function parseTitleDate(text){
   const m=text.match(/Physical activity\s+\w+\s+(\d{1,2})-([A-Za-z]+)-(\d{2,4})/i);
