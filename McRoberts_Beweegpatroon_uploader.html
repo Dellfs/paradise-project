@@ -508,9 +508,7 @@ function showConfirmMcR(model){
       : '<span class="cf-missing">geen overzichtstotaal op pagina 1 gevonden</span>';
 
   const rows = [
-    ['Project', project || '<span class="cf-missing">niet gevonden</span>'],
     ['Subjectcode', subject ? '<strong>'+subject+'</strong>' : '<span class="cf-missing">NIET GEVONDEN</span>'],
-    ['Visit', visit || '<span class="cf-missing">—</span>'],
     ['Startdatum meting', first&&!isNaN(first) ? fmtShortMcR(first) : '<span class="cf-missing">onbekend</span>'],
     ['Meetdagen', days.length+''],
     ['Periode', first&&last&&!isNaN(first)&&!isNaN(last) ? fmtShortMcR(first)+' t/m '+fmtShortMcR(last) : '<span class="cf-missing">—</span>'],
