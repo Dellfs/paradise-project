@@ -893,10 +893,10 @@ function showConfirm(model, goalFromFile){
         : '<span style="color:var(--low)">✖ '+discrepancies.length+' verschil(len) gevonden — handmatige invoer vereist</span>')
     : '<span class="cf-missing">geen sessiedata beschikbaar in dit bestand</span>';
 
-  // Draagdoel-invulveld: altijd leeg — clinicus vult in vanuit McRoberts-rapport
+  // Draagdoel-invulveld: altijd leeg — clinicus voert klinisch afgesproken doel in
   const goalHint = goalFromFile
-    ? '<span style="color:var(--g400)">Orthotimer-bestand bevat '+nf(goal)+' u/dag — pas aan indien nodig</span>'
-    : '<span style="color:var(--g400)">Lees het doel af uit het McRoberts-rapport en vul het hier in</span>';
+    ? '<span style="color:var(--g400)">Bestand bevat '+nf(goal)+' u/dag — pas aan indien nodig</span>'
+    : '<span style="color:var(--g400)">Voer het met de patiënt afgesproken draagdoel in</span>';
   const goalInputHTML =
     '<input type="number" id="goalInput" min="0.5" max="24" step="0.5" placeholder="bijv. 8"'+
     ' style="width:70px;padding:5px 8px;border:1.5px solid var(--teal);border-radius:6px;font:700 14px \'DM Sans\',sans-serif;text-align:right;color:var(--navy)">&thinsp;u/dag'+
@@ -1006,15 +1006,6 @@ async function handleFile(file){
     const exportDate = infoXml ? getField(infoXml,'ExportDate') : null;
 
     pendingModel = { days: parseDays(daysXml), goal, serial, exportDate, excluded: parseTimes(timesXml), voltages: parseVoltages(daysXml), sessionHours: parseSessionHours(timesXml) };
-
-    // Controleer of er een McRoberts-draagdoel is opgeslagen (max. 7 dagen oud)
-    try{
-      const raw=localStorage.getItem('paradise_mcr_goal');
-      if(raw){
-        const d=JSON.parse(raw);
-        if(Date.now()-new Date(d.computed).getTime()<7*24*3600*1000) pendingModel.mcrGoal=d;
-      }
-    }catch(e){}
 
     showConfirm(pendingModel, goalFromFile);
 
