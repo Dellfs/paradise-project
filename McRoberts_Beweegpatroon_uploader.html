@@ -247,12 +247,13 @@ function render(m){
       }, 0) / validForGoal.length
     : valid.reduce((a,d)=>a+d.wear,0)/(valid.length||1);
 
+  const orthoGoalOOB=Math.round(avgWakeTime*0.8*10)/10;
   if(valid.length>=3){
     try{localStorage.setItem('paradise_mcr_goal',JSON.stringify({
       subject:m.subject,visit:m.visit,
       avgWBTime:Math.round(avgWBTime*10)/10,
       avgWakeTime:Math.round(avgWakeTime*10)/10,
-      orthoGoal,computed:new Date().toISOString()
+      orthoGoal,orthoGoalOOB,computed:new Date().toISOString()
     }));}catch(e){}
   }
 
@@ -330,9 +331,10 @@ function render(m){
     (valid.length>=3?
       '<span class="act-hint">'+
         'Gem. gewichtsdragende tijd (WB): <strong>'+nf1(avgWBTime)+'&thinsp;u/dag</strong>'+
-        ' &nbsp;·&nbsp; Gem. waaktijd (OOB, ter info): '+nf1(avgWakeTime)+'&thinsp;u/dag<br>'+
-        '▶ Aanbevolen Orthotimer-draagdoel: <strong>'+nf1(orthoGoal)+'&thinsp;u/dag</strong>'+
-        ' (= 80% van WB-tijd · in te voeren bij Orthotimer-uploader)'+
+        ' &nbsp;·&nbsp; Gem. waaktijd (OOB): <strong>'+nf1(avgWakeTime)+'&thinsp;u/dag</strong><br>'+
+        '▶ Primair draagdoel (WB): <strong>'+nf1(orthoGoal)+'&thinsp;u/dag</strong> (= 80% van WB-tijd)'+
+        ' &nbsp;·&nbsp; Secundair draagdoel (OOB): <strong>'+nf1(orthoGoalOOB)+'&thinsp;u/dag</strong> (= 80% van waaktijd)<br>'+
+        '<span style="font-weight:400;color:var(--navy)">Voer het primaire of secundaire doel in bij de Orthotimer-uploader.</span>'+
       '</span>':'');
 }
 
