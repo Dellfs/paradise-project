@@ -50,7 +50,16 @@ html,body{background:#8FA8BA;font-family:'DM Sans',sans-serif;color:var(--navy);
 .cf-reentry-msg{font-size:13px;font-weight:600;}
 .stage{display:none;padding:6mm 0 12mm;}.stage.show{display:block;}
 .page{width:210mm;min-height:297mm;background:#fff;margin:8mm auto;position:relative;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 10px 40px rgba(13,33,55,.18);}
-@media print{html,body{background:#fff;}.app-bar{display:none!important;}.stage{padding:0;}.page{margin:0;box-shadow:none;}.meta-strip{display:none;}}
+@media print{
+  html,body{background:#fff;}
+  .app-bar{display:none!important;}
+  .stage{padding:0;}
+  .page{margin:0;box-shadow:none;}
+  .meta-strip{display:none;}
+  .stack,.seg-active,.seg-stand,.seg-sed,.act-fill,.balBar>div{
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+  }
+}
 .hdr{background:linear-gradient(135deg,#0D2137,#1A3A55 55%,#0D4D6B);padding:8mm 10mm 7mm;position:relative;overflow:hidden;flex-shrink:0;}
 .hb{position:absolute;border-radius:50%;background:rgba(255,255,255,.04);}.hb1{width:80mm;height:80mm;right:-20mm;top:-20mm;}.hb2{width:40mm;height:40mm;right:30mm;bottom:-10mm;background:rgba(30,136,229,.08);}
 .hdr-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4mm;}
@@ -220,9 +229,13 @@ function render(m){
   const notWorn=days.filter(d=>d.wear===0);
   const avgWear=worn.length?worn.reduce((a,b)=>a+b.wear,0)/worn.length:0;
 
-  // Orthotimer-draagdoel: 80% van gemiddelde waaktijd
-  // Slaap = langste aaneengesloten ligperiode ≈ totale ligtijd − (bouts−1) × 0,5 u
-  // (0,5 u = minimum 30 min per extra ligperiode overdag)
+  // Primaire maat: gewichtsdragende tijd (WB) = lopen + traplopen + staan + schuifelen
+  const avgWBTime = valid.length
+    ? valid.reduce((s,d)=>s+d.leaf.walking+d.leaf.stairs+d.leaf.standing+d.leaf.shuffling,0)/valid.length
+    : 0;
+
+  // Secundaire maat / Orthotimer-doel: 80% van waaktijd (OOB)
+  // Slaap = langste ligperiode ≈ totale ligtijd − (bouts−1) × 0,5 u
   const MIN_SHORT_LYING = 0.5;
   const validForGoal = valid.filter(d=>d.leaf.lying > 0 && (d.leaf.lyingBouts||0) > 0);
   const avgWakeTime = validForGoal.length
@@ -230,9 +243,9 @@ function render(m){
         const sleep=Math.max(0, d.leaf.lying - Math.max(0,(d.leaf.lyingBouts-1)*MIN_SHORT_LYING));
         return sum + Math.max(0, 24 - sleep);
       }, 0) / validForGoal.length
-    : valid.reduce((a,d)=>a+d.wear,0)/(valid.length||1); // noodgeval: geen ligdata
+    : valid.reduce((a,d)=>a+d.wear,0)/(valid.length||1);
   const orthoGoal=Math.round(avgWakeTime*0.8*10)/10;
-  if(validForGoal.length>=3){
+  if(valid.length>=3){
     try{localStorage.setItem('paradise_mcr_goal',JSON.stringify({
       subject:m.subject,visit:m.visit,avgWake:Math.round(avgWakeTime*10)/10,
       orthoGoal,computed:new Date().toISOString()
@@ -240,9 +253,9 @@ function render(m){
   }
 
   document.getElementById('hPeriod').textContent=fmtFull(first)+' t/m '+fmtFull(last);
-  document.getElementById('hSubj').textContent=m.subject+' · visit '+m.visit;
-  document.getElementById('hBadge').textContent=m.project+' · McRoberts';
-  document.getElementById('metaStrip').innerHTML='<strong>Gegenereerd uit McRoberts "Physical activity overview"</strong> · '+m.subject+' · '+m.project+' · '+days.length+' meetdagen · geldige dag = ≥ '+WEAR_MIN+' u draagtijd';
+  document.getElementById('hSubj').textContent=m.subject;
+  document.getElementById('hBadge').textContent='McRoberts';
+  document.getElementById('metaStrip').innerHTML='<strong>Gegenereerd uit McRoberts "Physical activity overview"</strong> · '+m.subject+' · '+days.length+' meetdagen · geldige dag = ≥ '+WEAR_MIN+' u draagtijd';
 
   // data quality
   let dq='<b>Draagtijd & geldige dagen.</b> '+valid.length+' van de '+days.length+' dagen had voldoende draagtijd (≥ '+WEAR_MIN+' u); gemiddelde draagtijd op gedragen dagen: <b>'+nf1(avgWear)+' u</b>. ';
@@ -310,7 +323,12 @@ function render(m){
     '<div class="act-val">'+hhmm(i.v)+'</div></div>').join('');
   document.getElementById('actFoot').innerHTML=
     'Totaal '+(m.steps_total!=null?m.steps_total.toLocaleString('nl-BE')+' stappen gemeten over de gedragen dagen.':'')+
-    (validForGoal.length>=3?'<span class="act-hint">Aanbevolen Orthotimer-draagdoel: '+nf1(orthoGoal)+' u/dag (= 80% van gem. waaktijd '+nf1(avgWakeTime)+' u/dag, na exclusie slaapperiode)</span>':'');
+    (valid.length>=3?
+      '<span class="act-hint">'+
+        'Gewichtsdragende tijd (WB, primair): gem. <strong>'+nf1(avgWBTime)+'&thinsp;u/dag</strong> · '+
+        'Waaktijd (OOB, secundair): gem. <strong>'+nf1(avgWakeTime)+'&thinsp;u/dag</strong><br>'+
+        '▶ Orthotimer-draagdoel: <strong>'+nf1(orthoGoal)+'&thinsp;u/dag</strong> (= 80% van waaktijd)'+
+      '</span>':'');
 }
 
 // -------- PDF parsing (pdf.js) --------
@@ -378,7 +396,7 @@ async function parsePdf(buf){
     const date=(titleDate&&!isNaN(titleDate.getTime()))
       ?titleDate
       :(()=>{const d=new Date(start);d.setDate(start.getDate()+(i-2));return d;})();
-    const leaf=leafHours(t);const wear=Object.values(leaf).reduce((a,b)=>a+b,0);
+    const leaf=leafHours(t);const wear=MAP.reduce((a,[k])=>a+(leaf[k]||0),0);
     const nw=t.match(/Not worn\s+\d+\s+\d+h\s*\d+m\s+\d+h\s*\d+m\s+([\d.]+)%/);
     days.push({date:date.toISOString().slice(0,10),steps,wear:Math.round(wear*1000)/1000,notworn:nw?+nw[1]:null,leaf});
   }
@@ -424,10 +442,6 @@ function validateMcRoberts(model){
   }
 
   // Waarschuwingen
-  if(!project || project.trim()==='')
-    issues.push({level:'warn', msg:'Projectnaam niet gevonden in het PDF.'});
-  if(!visit || visit.trim()==='')
-    issues.push({level:'warn', msg:'Visitenummer niet gevonden in het PDF.'});
   // Normaal: 7-10 dagpagina's (PARADISE-protocol max. 10 dagen).
   // Een 10-daagse meting kan 11 kalenderpagina's beslaan als start en einde op een andere weekdag vallen.
   if(days.length < 5)
