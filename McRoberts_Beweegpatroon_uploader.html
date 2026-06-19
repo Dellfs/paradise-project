@@ -234,8 +234,10 @@ function render(m){
     ? valid.reduce((s,d)=>s+d.leaf.walking+d.leaf.stairs+d.leaf.standing+d.leaf.shuffling,0)/valid.length
     : 0;
 
-  // Secundaire maat / Orthotimer-doel: 80% van waaktijd (OOB)
-  // Slaap = langste ligperiode ≈ totale ligtijd − (bouts−1) × 0,5 u
+  // Orthotimer-doel: 80% van gewichtsdragende tijd (WB) — primaire maat per Jarl et al. 2023 / Bus
+  const orthoGoal=Math.round(avgWBTime*0.8*10)/10;
+
+  // Waaktijd (OOB): slaap = langste ligperiode ≈ totale ligtijd − (bouts−1) × 0,5 u — ter info
   const MIN_SHORT_LYING = 0.5;
   const validForGoal = valid.filter(d=>d.leaf.lying > 0 && (d.leaf.lyingBouts||0) > 0);
   const avgWakeTime = validForGoal.length
@@ -244,10 +246,12 @@ function render(m){
         return sum + Math.max(0, 24 - sleep);
       }, 0) / validForGoal.length
     : valid.reduce((a,d)=>a+d.wear,0)/(valid.length||1);
-  const orthoGoal=Math.round(avgWakeTime*0.8*10)/10;
+
   if(valid.length>=3){
     try{localStorage.setItem('paradise_mcr_goal',JSON.stringify({
-      subject:m.subject,visit:m.visit,avgWake:Math.round(avgWakeTime*10)/10,
+      subject:m.subject,visit:m.visit,
+      avgWBTime:Math.round(avgWBTime*10)/10,
+      avgWakeTime:Math.round(avgWakeTime*10)/10,
       orthoGoal,computed:new Date().toISOString()
     }));}catch(e){}
   }
@@ -325,9 +329,10 @@ function render(m){
     'Totaal '+(m.steps_total!=null?m.steps_total.toLocaleString('nl-BE')+' stappen gemeten over de gedragen dagen.':'')+
     (valid.length>=3?
       '<span class="act-hint">'+
-        'Gewichtsdragende tijd (WB, primair): gem. <strong>'+nf1(avgWBTime)+'&thinsp;u/dag</strong> · '+
-        'Waaktijd (OOB, secundair): gem. <strong>'+nf1(avgWakeTime)+'&thinsp;u/dag</strong><br>'+
-        '▶ Orthotimer-draagdoel: <strong>'+nf1(orthoGoal)+'&thinsp;u/dag</strong> (= 80% van waaktijd)'+
+        'Gem. gewichtsdragende tijd (WB): <strong>'+nf1(avgWBTime)+'&thinsp;u/dag</strong>'+
+        ' &nbsp;·&nbsp; Gem. waaktijd (OOB, ter info): '+nf1(avgWakeTime)+'&thinsp;u/dag<br>'+
+        '▶ Aanbevolen Orthotimer-draagdoel: <strong>'+nf1(orthoGoal)+'&thinsp;u/dag</strong>'+
+        ' (= 80% van WB-tijd · in te voeren bij Orthotimer-uploader)'+
       '</span>':'');
 }
 
