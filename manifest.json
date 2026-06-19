@@ -1,0 +1,13 @@
+{
+  "name": "PARADISE Project",
+  "short_name": "PARADISE",
+  "description": "Optimal diabetic foot care — interdisciplinary PhD project, KU Leuven Campus Bruges",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#F4F8FC",
+  "theme_color": "#00407A",
+  "icons": [
+    { "src": "paradise_logo_no_bg.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "paradise_logo_no_bg.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

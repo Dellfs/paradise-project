@@ -1,0 +1,213 @@
+﻿<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PARADISE — Voor patiënten</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"></noscript>
+<style>
+:root{--pd:#00407A;--pm:#1D8DB0;--pl:#52BDEC;--ac:#FF7A00;--ink:#0D2035;--soft:#33485f;--muted:#6a7e92;--bg:#F4F8FC;--band:#e9f1f8;--card:#fff;--line:#d3e3f0;--green:#2f8f5b;--green-soft:#e2f0ea;--red:#c0392b;--red-soft:#fbe5e2;--radius:14px;--shadow:0 1px 2px rgba(0,64,122,.06),0 14px 36px -26px rgba(0,64,122,.4)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55}
+.px{max-width:980px;margin:0 auto;padding:24px 20px 70px}
+.topbar{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.kicker{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--pm)}
+.spacer{flex:1}
+.lang{font:700 13px Inter,sans-serif;color:var(--pm);background:#fff;border:1px solid var(--pm);border-radius:99px;padding:6px 13px;cursor:pointer}.lang:hover{background:var(--band)}.embedded .topbar{display:none!important}
+h1{font-size:clamp(28px,4.5vw,42px);font-weight:700;color:var(--pd);line-height:1.06;margin:6px 0 12px;letter-spacing:-.01em}
+h2{font-size:24px;font-weight:700;color:var(--pd);margin:0 0 4px}
+.lead{font-size:17px;color:var(--soft);max-width:64ch;margin:0 0 8px}
+.sh{font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--pm);font-weight:700;margin:30px 0 12px}
+.muted{color:var(--muted);font-size:13px}
+a{color:var(--pm)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.chip{font-size:12.5px;font-weight:600;color:var(--pd);background:#fff;border:1px solid var(--line);border-radius:99px;padding:5px 12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:680px){.grid2{grid-template-columns:1fr}}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}@media(max-width:680px){.grid3{grid-template-columns:1fr}}
+.stat{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+.stat .n{font-size:30px;font-weight:800;color:var(--pm);line-height:1}
+.stat .l{font-size:13px;color:var(--soft);margin-top:6px}
+.note{border-radius:12px;padding:13px 16px;margin:12px 0;border-left:5px solid;font-size:14.5px}
+.note .lab{display:block;font-weight:700;margin-bottom:3px}
+.note.tip{background:var(--band);border-color:var(--pm)}.note.tip .lab{color:var(--pm)}
+.note.warn{background:#fff4e8;border-color:var(--ac)}.note.warn .lab{color:var(--ac)}
+.note.ground{background:#eef6ee;border-color:var(--green)}.note.ground .lab{color:var(--green)}
+.btn{display:inline-block;font:700 14px Inter,sans-serif;border:none;border-radius:99px;padding:11px 20px;cursor:pointer;text-decoration:none}
+.btn.p{background:var(--pm);color:#fff}.btn.a{background:var(--ac);color:#fff}
+.who{font-size:12px;font-weight:700;color:#1c5a3a;background:var(--green-soft);padding:5px 11px;border-radius:99px}
+.inst{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:2px}
+.inst .ic{width:46px;height:46px;border-radius:12px;background:var(--band);color:var(--pm);display:grid;place-items:center;flex:0 0 auto}.inst .ic svg{width:26px;height:26px}
+.inst h2{font-size:22px}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px;border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+.tbl th{background:var(--pm);color:#fff;text-align:left;padding:10px 12px;font-size:12px;text-transform:uppercase}
+.tbl td{padding:9px 12px;border-top:1px solid var(--line);background:#fff;vertical-align:top}
+.tbl td:first-child{font-weight:700;color:var(--pd)}
+.footwrap{display:grid;grid-template-columns:200px 1fr;gap:22px;align-items:start}@media(max-width:600px){.footwrap{grid-template-columns:1fr}}
+.footwrap svg{width:100%;height:auto}
+.zone{stroke:#fff;stroke-width:3;transition:filter .15s}.zg.hot .zone{filter:brightness(1.12);stroke:var(--pd)}
+.znum{font:700 16px Inter;fill:#fff;text-anchor:middle;pointer-events:none}.zval{font:600 11px Inter;fill:#fff;text-anchor:middle;pointer-events:none}
+.flegend{list-style:none;margin:0;padding:0}
+.flegend li{display:flex;align-items:center;gap:9px;padding:6px 8px;border-radius:8px;border:1px solid transparent;font-size:13.5px}.flegend li.hot{border-color:var(--line);background:#fbfdff}
+.flegend .b{flex:0 0 auto;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;color:#fff;font:700 11px Inter}
+.flegend .nm{flex:1}.flegend .vv{font-weight:700;color:var(--pd)}
+.flegend .fl{font-size:11px;font-weight:700;padding:2px 6px;border-radius:99px}.pass{background:var(--green-soft);color:#1c5a3a}.fail{background:var(--red-soft);color:#7a2b2b}
+.scale{display:flex;margin-top:12px;border-radius:8px;overflow:hidden;font:600 11px Inter;text-align:center}.scale div{flex:1;padding:5px 2px;color:#fff}
+.calc .row{display:flex;align-items:center;gap:14px;margin:10px 0;flex-wrap:wrap}
+.calc label{flex:0 0 220px;font-weight:600;font-size:14px;color:var(--pd)}
+.calc input[type=range]{flex:1;min-width:160px;accent-color:var(--ac)}
+.calc .val{flex:0 0 96px;text-align:right;font-weight:800;color:var(--pd)}
+.bar2{position:relative;height:32px;background:#e7eef5;border-radius:8px;margin:14px 0 4px}
+.bar2 .fill{position:absolute;left:0;top:0;bottom:0;border-radius:8px 0 0 8px;transition:width .15s,background .2s}
+.bar2 .thr{position:absolute;top:-4px;bottom:-4px;width:3px;background:var(--pd)}
+.bar2 .thrl{position:absolute;top:-19px;font:700 11px Inter;color:var(--pd);transform:translateX(-50%)}
+.bar2 .bmark{position:absolute;top:0;bottom:0;border-left:2px dashed var(--muted)}
+.barscale{display:flex;justify-content:space-between;font:600 11px Inter;color:var(--muted)}
+.out{margin-top:14px;padding:13px 16px;border-radius:12px;text-align:center}.out .big{font-size:20px;font-weight:800;margin:0 0 2px}
+.ok{background:var(--green-soft);color:#1c5a3a}.nok{background:var(--red-soft);color:#7a2b2b}
+.fb{padding:6px 0}
+.fbwrap{position:relative;margin:24px 0 6px}.fbbar{display:flex;height:30px;border-radius:8px;overflow:hidden}.fbbar .z{height:100%}
+.fbmark{position:absolute;top:-6px;bottom:-6px;width:3px;background:var(--pd)}
+.fbmarkl{position:absolute;top:-22px;font:700 11px Inter;color:var(--pd);transform:translateX(-50%);white-space:nowrap}
+.fbex{position:absolute;top:0;bottom:0;border-left:2px dashed var(--pd)}.fbexl{position:absolute;bottom:-20px;font:600 11px Inter;color:var(--soft);transform:translateX(-50%);white-space:nowrap}
+.legend2{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;font-size:12.5px;color:var(--soft)}.legend2 span{display:inline-flex;align-items:center;gap:6px}.dot{width:10px;height:10px;border-radius:50%}
+.kpi{display:flex;align-items:baseline;gap:8px;background:#fbfdff;border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin:6px 0}.kpi .big{font-size:22px;font-weight:800;color:var(--pm)}.kpi .lbl{font-size:13px;color:var(--soft)}
+.ph{font-style:italic;color:var(--muted)}
+.dashph{background:repeating-linear-gradient(45deg,#eef5fb,#eef5fb 10px,#e6eef6 10px,#e6eef6 20px);border:1px dashed var(--pl);border-radius:12px;min-height:170px;display:grid;place-items:center;color:var(--muted);font-weight:600;text-align:center;padding:16px}
+.bp{display:grid;grid-template-columns:1fr 300px;gap:18px;align-items:start}@media(max-width:760px){.bp{grid-template-columns:1fr}}
+.lane{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:16px;margin-bottom:14px}
+.lane .lh{font:700 12px Inter;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px}.lane.a .lh{color:var(--red)}.lane.b .lh{color:var(--pm)}
+.chain{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.bpnode{flex:1 1 auto;min-width:80px;border:1px solid var(--line);border-radius:10px;padding:9px 8px;background:#fbfdff;text-align:center;font-size:12.5px;font-weight:600;color:var(--pd)}.bpnode.end{background:var(--pd);color:#fff}
+.bparrow{color:var(--muted);font-size:14px}
+.steps{counter-reset:s;list-style:none;padding:0;margin:8px 0}
+.steps li{counter-increment:s;position:relative;padding:8px 0 8px 40px;border-bottom:1px dashed var(--line);font-size:14.5px}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(s);position:absolute;left:0;top:7px;width:26px;height:26px;border-radius:50%;background:var(--pd);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:700}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+</style>
+</head>
+<body>
+<div class="px"><div class="topbar"><span class="kicker">PARADISE</span><span class="spacer"></span><button class="lang" id="lang">EN</button></div><div id="app"></div></div>
+<script>
+
+var lang='nl';try{lang=localStorage.getItem('px_lang')||'nl';}catch(e){}
+function tr(x){return Array.isArray(x)?(lang==='nl'?x[0]:x[1]):x;}
+function setLang(L){lang=L;try{localStorage.setItem('px_lang',L);}catch(e){}}
+var REGIONS=[{z:1,c:"#b6c44a",n:["Hallux (grote teen)","Hallux (big toe)"],v:180,ok:1},{z:2,c:"#b6c44a",n:["Tenen 2\u20135","Toes 2\u20135"],v:120,ok:1},{z:3,c:"#e0922f",n:["Voorvoet mediaal","Medial forefoot"],v:265,ok:0},{z:4,c:"#c44a3a",n:["Voorvoet centraal","Central forefoot"],v:320,ok:0},{z:5,c:"#e0922f",n:["Voorvoet lateraal","Lateral forefoot"],v:205,ok:0},{z:6,c:"#4f9d69",n:["Middenvoet","Midfoot"],v:95,ok:1},{z:7,c:"#e0922f",n:["Hiel","Heel"],v:240,ok:0}];
+function footMap(){var leg=REGIONS.map(function(R){return '<li data-z="'+R.z+'"><span class="b" style="background:'+R.c+'">'+R.z+'</span><span class="nm">'+tr(R.n)+'</span><span class="vv">'+R.v+'</span><span class="fl '+(R.ok?'pass':'fail')+'">'+(R.ok?'\u2713':'!')+'</span></li>';}).join('');
+return '<div class="footwrap"><svg viewBox="0 0 280 470" role="img"><g class="zg" data-z="1"><rect class="zone" x="72" y="56" width="60" height="70" rx="26" fill="#b6c44a"/><text class="znum" x="102" y="86">1</text><text class="zval" x="102" y="104">180</text></g><g class="zg" data-z="2"><rect class="zone" x="140" y="62" width="92" height="58" rx="18" fill="#b6c44a"/><text class="znum" x="186" y="88">2</text><text class="zval" x="186" y="106">120</text></g><g class="zg" data-z="3"><rect class="zone" x="64" y="134" width="56" height="92" rx="15" fill="#e0922f"/><text class="znum" x="92" y="174">3</text><text class="zval" x="92" y="192">265</text></g><g class="zg" data-z="4"><rect class="zone" x="124" y="134" width="56" height="92" rx="15" fill="#c44a3a"/><text class="znum" x="152" y="174">4</text><text class="zval" x="152" y="192">320</text></g><g class="zg" data-z="5"><rect class="zone" x="184" y="134" width="56" height="92" rx="15" fill="#e0922f"/><text class="znum" x="212" y="174">5</text><text class="zval" x="212" y="192">205</text></g><g class="zg" data-z="6"><path class="zone" d="M132 234 h108 v52 q0 34 -34 34 h-74 q-14 -50 0 -86 Z" fill="#4f9d69"/><text class="znum" x="186" y="276">6</text><text class="zval" x="186" y="294">95</text></g><g class="zg" data-z="7"><ellipse class="zone" cx="152" cy="392" rx="78" ry="60" fill="#e0922f"/><text class="znum" x="152" y="390">7</text><text class="zval" x="152" y="410">240</text></g></svg><div><ul class="flegend">'+leg+'</ul><div class="scale"><div style="background:#4f9d69">&lt;100</div><div style="background:#b6c44a">100\u2013200</div><div style="background:#e0922f">200\u2013300</div><div style="background:#c44a3a">&gt;300 kPa</div></div></div></div>';}
+function wireFoot(){function hot(z,on){document.querySelectorAll('[data-z="'+z+'"]').forEach(function(el){el.classList.toggle('hot',on);});}document.querySelectorAll('.zg,[data-z]').forEach(function(g){if(!g.dataset.z)return;g.addEventListener('mouseenter',function(){hot(g.dataset.z,true)});g.addEventListener('mouseleave',function(){hot(g.dataset.z,false)});});}
+function calc(){return '<div class="card calc"><div class="row"><label>'+tr(["Baseline piekdruk","Baseline peak pressure"])+'</label><input type="range" id="cb" min="120" max="600" value="300"><span class="val"><span id="cbv">300</span> kPa</span></div><div class="row"><label>'+tr(["Huidige piekdruk","Current peak pressure"])+'</label><input type="range" id="cc" min="60" max="600" value="240"><span class="val"><span id="ccv">240</span> kPa</span></div><div class="bar2"><div class="fill" id="cf"></div><div class="thr" style="left:33.3%"></div><div class="thrl" style="left:33.3%">200</div><div class="bmark" id="cm"></div></div><div class="barscale"><span>0</span><span>300</span><span>600 kPa</span></div><div class="out" id="co"><p class="big" id="cob"></p><p id="com" style="margin:0;font-size:13.5px"></p></div></div>';}
+function wireCalc(){var b=document.getElementById('cb'),c=document.getElementById('cc');if(!b||!c)return;function u(){var bv=+b.value,cv=+c.value;document.getElementById('cbv').textContent=bv;document.getElementById('ccv').textContent=cv;var red=Math.max(0,Math.round((1-cv/bv)*100)),ok=(cv<200)||(red>=25);var f=document.getElementById('cf');f.style.width=(cv/600*100)+'%';f.style.background=ok?'#2f8f5b':'#c0392b';document.getElementById('cm').style.left=(bv/600*100)+'%';var o=document.getElementById('co');o.className='out '+(ok?'ok':'nok');document.getElementById('cob').textContent=tr(ok?["Doel bereikt \u2713","Goal reached \u2713"]:["Doel nog niet bereikt","Goal not yet reached"]);document.getElementById('com').textContent=tr(["Reductie","Reduction"])+': '+red+'% \u00b7 '+cv+' kPa';}b.addEventListener('input',u);c.addEventListener('input',u);u();}
+function feedback(){return '<div class="card fb"><div class="fbwrap"><div class="fbmarkl" style="left:80%">'+tr(["80% doel","80% goal"])+'</div><div class="fbbar"><div class="z" style="width:60%;background:#e9c2bd"></div><div class="z" style="width:20%;background:#f0d3a8"></div><div class="z" style="width:20%;background:#cfe3cf"></div></div><div class="fbmark" style="left:80%"></div><div class="fbex" style="left:72%"></div><div class="fbexl" style="left:72%">'+tr(["voorbeeld: 72%","example: 72%"])+'</div></div><div class="barscale"><span>0%</span><span>100%</span></div><div class="legend2"><span><i class="dot" style="background:#2f8f5b"></i>'+tr(["\u2265 80% \u2014 voldoende","\u2265 80% \u2014 sufficient"])+'</span><span><i class="dot" style="background:#e0922f"></i>60\u201379%</span><span><i class="dot" style="background:#c0392b"></i>&lt; 60%</span></div></div>';}
+function boot(){var app=document.getElementById("app");function paint(){document.documentElement.lang=lang;app.innerHTML=window.RENDER();var lb=document.getElementById("lang");if(lb)lb.textContent=(lang==="nl"?"EN":"NL");if(window.POST)window.POST();}window.repaint=paint;document.addEventListener("click",function(e){if(e.target.closest("#lang")){setLang(lang==="nl"?"en":"nl");paint();}});paint();}
+
+window.RENDER=function(){
+var h='';
+/* ---- Title ---- */
+h+='<div class="kicker">'+tr(["Voor pati\u00ebnten","For patients"])+'</div>';
+h+='<h1>'+tr(["Uw deelname aan het PARADISE-onderzoek","Your participation in the PARADISE study"])+'</h1>';
+h+='<p class="lead">'+tr(["Op deze pagina vindt u alles wat u als pati\u00ebnt moet weten over het PARADISE-project: wat het inhoudt, wat we van u vragen, welke meettoestellen we gebruiken en wat uw rechten zijn.","On this page you find everything you need to know as a patient about the PARADISE project: what it involves, what we ask of you, which measurement devices we use, and what your rights are."])+'</p>';
+
+/* ---- What is PARADISE ---- */
+h+='<div class="sh">'+tr(["Wat is PARADISE?","What is PARADISE?"])+'</div>';
+h+='<div class="card" style="margin-bottom:14px"><p style="margin:0 0 10px;color:var(--soft)">'+tr(["PARADISE staat voor <em>Pressure-Adherence &amp; Education Research And Diabetic foot disease \u2014 Integrated Service &amp; Education</em>. Het is een wetenschappelijk onderzoeksproject van KU Leuven Campus Brugge dat nagaat of het systematisch opvolgen van de druk onder de voet en het schoeiselgebruik het risico op een nieuwe voetinfectie verlaagt.","PARADISE stands for <em>Pressure-Adherence &amp; Education Research And Diabetic foot disease \u2014 Integrated Service &amp; Education</em>. It is a scientific research project of KU Leuven Campus Bruges investigating whether systematically monitoring foot pressure and footwear use reduces the risk of a new foot wound."])+'</p>';
+h+='<p style="margin:0;color:var(--soft)">'+tr(["Het project wordt gefinancierd door het FWO (Fonds voor Wetenschappelijk Onderzoek) en loopt over 18 maanden. U doet mee als u recent een voetulcus (voetinfectie) hebt doorgemaakt en nu aangepast schoeisel draagt.","The project is funded by the FWO (Research Foundation Flanders) and runs over 18 months. You participate if you recently had a foot ulcer and now wear custom footwear."])+'</p></div>';
+
+/* ---- What do we ask ---- */
+h+='<div class="sh">'+tr(["Wat vragen we van u?","What do we ask of you?"])+'</div>';
+h+='<ul class="steps">';
+h+='<li>'+tr(["<strong>Uw gewone schoeisel dragen</strong> \u2014 draag uw aangepast schoeisel zo vaak als u loopt, elke dag van de week. Het doel is \u226580% van uw totale dagelijkse looptijd.","<strong>Wear your custom footwear</strong> \u2014 wear your prescribed footwear whenever you walk, every day of the week. The target is \u226580% of your total daily walking time."])+'</li>';
+h+='<li>'+tr(["<strong>Bezoeken om de 3 maanden</strong> \u2014 bij elk bezoek lezen we de sensor uit, meten we de druk onder uw voet en bespreken we samen het verloop.","<strong>Visits every 3 months</strong> \u2014 at each visit we read the sensor, measure the pressure under your foot, and discuss the progress together."])+'</li>';
+h+='<li>'+tr(["<strong>Eenmalig een activiteitenmonitor dragen</strong> \u2014 op baseline en na 6 maanden draagt u gedurende 1 volle week een klein toestel op uw onderrug dat uw beweegpatroon registreert.","<strong>Wearing an activity monitor once</strong> \u2014 at baseline and after 6 months you wear a small device on your lower back for 1 full week that records your movement pattern."])+'</li>';
+h+='<li>'+tr(["<strong>Vrij deelnemen</strong> \u2014 u kunt op elk moment stoppen met het onderzoek, zonder gevolgen voor uw verdere zorg.","<strong>Voluntary participation</strong> \u2014 you may stop participating at any time, with no consequences for your ongoing care."])+'</li>';
+h+='</ul>';
+
+/* ---- Key targets ---- */
+h+='<div class="sh">'+tr(["Streefwaarden","Targets"])+'</div>';
+h+='<div class="grid3" style="margin-bottom:14px">';
+h+='<div class="stat"><div class="n">\u226580%</div><div class="l">'+tr(["draagtijd van uw schoeisel per dag","footwear wear time per day"])+'</div></div>';
+h+='<div class="stat"><div class="n">7/7</div><div class="l">'+tr(["dagen per week","days per week"])+'</div></div>';
+h+='<div class="stat"><div class="n">18 mnd</div><div class="l">'+tr(["totale studieduur","total study duration"])+'</div></div>';
+h+='</div>';
+h+='<div class="note tip"><span class="lab">'+tr(["Waarom 80%?","Why 80%?"])+'</span>'+tr(["Onderzoek toont dat het risico op een nieuwe wonde significant daalt bij pati\u00ebnten die hun beschermend schoeisel voor het grootste deel van hun looptijd dragen. Het percentage van 80% is gekozen als haalbare en klinisch relevante drempel.","Research shows that the risk of a new wound decreases significantly in patients who wear their protective footwear for most of their walking time. The 80% threshold was chosen as an achievable and clinically relevant target."])+'</div>';
+
+/* ---- The devices ---- */
+h+='<div class="sh">'+tr(["De meettoestellen","The measurement devices"])+'</div>';
+h+='<div class="grid2" style="margin-bottom:14px">';
+
+/* Orthotimer */
+h+='<div class="card">';
+h+='<div class="inst"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div><h2>'+tr(["Orthotimer \u2014 uw sensor","Orthotimer \u2014 your sensor"])+'</h2></div>';
+h+='<p style="color:var(--soft);margin:8px 0">'+tr(["In uw op maat gemaakte orthese (binnenzool) zit een kleine sensor. Die sensor meet enkel de <strong>temperatuur</strong>: als de schoen aan uw voet zit, warmt hij op. Zo weten we wanneer u het schoeisel draagt.","Inside your custom orthopaedic insole there is a small sensor. This sensor measures only the <strong>temperature</strong>: when the shoe is on your foot, it warms up. This is how we know when you are wearing the footwear."])+'</p>';
+h+='<div class="grid2" style="gap:8px;margin-top:8px">';
+h+='<div style="background:var(--green-soft);border-radius:10px;padding:10px 12px"><b style="color:var(--green);font-size:13px">'+tr(["Wat hij w\u00e9l doet","What it DOES do"])+'</b><ul style="margin:6px 0 0;padding-left:16px;color:var(--soft);font-size:13.5px"><li>'+tr(["temperatuur meten","measure temperature"])+'</li><li>'+tr(["draagtijd registreren","record wear time"])+'</li></ul></div>';
+h+='<div style="background:var(--red-soft);border-radius:10px;padding:10px 12px"><b style="color:var(--red);font-size:13px">'+tr(["Wat hij n\u00ed\u00e9t doet","What it does NOT do"])+'</b><ul style="margin:6px 0 0;padding-left:16px;color:var(--soft);font-size:13.5px"><li>'+tr(["geen GPS","no GPS"])+'</li><li>'+tr(["geen microfoon","no microphone"])+'</li><li>'+tr(["geen camera","no camera"])+'</li><li>'+tr(["geen locatie of geluid","no location or sound"])+'</li></ul></div>';
+h+='</div>';
+h+='<p class="muted" style="margin-top:8px">'+tr(["De sensor wordt elke 3 maanden door uw zorgteam uitgelezen en indien nodig vervangen. De batterijduur is circa 100 dagen.","The sensor is read and replaced by your care team every 3 months. Battery life is approximately 100 days."])+'</p>';
+h+='</div>';
+
+/* MoveMonitor */
+h+='<div class="card">';
+h+='<div class="inst"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg></div><h2>'+tr(["MoveMonitor","MoveMonitor"])+'</h2></div>';
+h+='<p style="color:var(--soft);margin:8px 0">'+tr(["De McRoberts MoveMonitor is een kleine accelerometer (bewegingssensor) ter grootte van een sigarettendoosje die u op uw onderrug draagt. U draagt hem gedurende <strong>1 volle week</strong> op baseline en na 6 maanden.","The McRoberts MoveMonitor is a small accelerometer (movement sensor) about the size of a cigarette pack that you wear on your lower back. You wear it for <strong>1 full week</strong> at baseline and after 6 months."])+'</p>';
+h+='<div class="note warn" style="margin:8px 0"><span class="lab">'+tr(["Let op","Please note"])+'</span>'+tr(["De MoveMonitor is <strong>niet waterproof</strong>. Verwijder hem voor het douchen, zwemmen of andere contacten met water.","The MoveMonitor is <strong>not waterproof</strong>. Remove it before showering, swimming or any contact with water."])+'</div>';
+h+='<p class="muted">'+tr(["Het toestel registreert staptellingen en hoe lang u staat, loopt, zit of ligt. Die gegevens bepalen uw persoonlijk activiteitsprofiel \u2014 de basis voor de 80%-drempel.","The device records step counts and how long you stand, walk, sit or lie down. That data determines your personal activity profile \u2014 the basis for the 80% threshold."])+'</p>';
+h+='</div>';
+h+='</div>'; /* end grid2 devices */
+
+/* Pressure measurements */
+h+='<div class="sh">'+tr(["Drukmetingen bij elk bezoek","Pressure measurements at each visit"])+'</div>';
+h+='<div class="card" style="margin-bottom:14px">';
+h+='<p style="color:var(--soft);margin:0 0 10px">'+tr(["Bij elk bezoek voert het studieteam of het zorgteam een drukmeting uit. Er zijn twee soorten metingen, afhankelijk van wie de meting uitvoert:","At each visit, the study team or care team performs a pressure measurement. There are two types of measurements, depending on who performs the measurement:"])+'</p>';
+h+='<table class="tbl"><thead><tr><th>'+tr(["Toestel","Device"])+'</th><th>'+tr(["Hoe","How"])+'</th><th>'+tr(["Wie","Who"])+'</th></tr></thead><tbody>';
+h+='<tr><td>F-Scan GO</td><td>'+tr(["Dunne inlegzool in uw schoen; u wandelt op normale snelheid","Thin insole in your shoe; you walk at normal speed"])+'</td><td><span class="who">'+tr(["Studieteam","Study team"])+'</span></td></tr>';
+h+='<tr><td>Novel emed</td><td>'+tr(["Blootsvoets op een meetplatform staan en stappen","Standing and stepping barefoot on a measurement platform"])+'</td><td><span class="who">'+tr(["Zorgteam (DFC)","Care team (DFC)"])+'</span></td></tr>';
+h+='</tbody></table>';
+h+='<p class="muted" style="margin-top:8px">'+tr(["De metingen zijn pijnloos en duren slechts enkele minuten. U wordt gevraagd op een comfortabele wandelsnelheid te lopen.","The measurements are painless and take only a few minutes. You are asked to walk at a comfortable walking pace."])+'</p>';
+h+='</div>';
+
+/* Visit schedule */
+h+='<div class="sh">'+tr(["Planning van de bezoeken","Visit schedule"])+'</div>';
+h+='<table class="tbl" style="margin-bottom:14px"><thead><tr><th>'+tr(["Bezoek","Visit"])+'</th><th>'+tr(["Tijdstip","Timepoint"])+'</th><th>'+tr(["Wat gebeurt er","What happens"])+'</th></tr></thead><tbody>';
+h+='<tr><td>'+tr(["Baseline","Baseline"])+'</td><td>'+tr(["Start","Start"])+'</td><td>'+tr(["Alle metingen \u00b7 MoveMonitor (1 week)","All measurements \u00b7 MoveMonitor (1 week)"])+'</td></tr>';
+h+='<tr><td>'+tr(["Bezoek 2","Visit 2"])+'</td><td>3 '+tr(["maanden","months"])+'</td><td>'+tr(["Sensor uitlezen \u00b7 drukmetingen","Read sensor \u00b7 pressure measurements"])+'</td></tr>';
+h+='<tr><td>'+tr(["Bezoek 3","Visit 3"])+'</td><td>6 '+tr(["maanden","months"])+'</td><td>'+tr(["Alle metingen \u00b7 MoveMonitor (1 week)","All measurements \u00b7 MoveMonitor (1 week)"])+'</td></tr>';
+h+='<tr><td>'+tr(["Bezoek 4","Visit 4"])+'</td><td>9 '+tr(["maanden","months"])+'</td><td>'+tr(["Sensor uitlezen \u00b7 drukmetingen","Read sensor \u00b7 pressure measurements"])+'</td></tr>';
+h+='<tr><td style="color:var(--pm);font-weight:800">'+tr(["Bezoek 5 \u2605","Visit 5 \u2605"])+'</td><td style="color:var(--pm)">12 '+tr(["maanden","months"])+'</td><td>'+tr(["Primair analysepunt \u00b7 alle metingen","Primary analysis point \u00b7 all measurements"])+'</td></tr>';
+h+='<tr><td>'+tr(["Bezoek 6","Visit 6"])+'</td><td>15 '+tr(["maanden","months"])+'</td><td>'+tr(["Sensor uitlezen \u00b7 drukmetingen","Read sensor \u00b7 pressure measurements"])+'</td></tr>';
+h+='<tr><td>'+tr(["Bezoek 7","Visit 7"])+'</td><td>18 '+tr(["maanden","months"])+'</td><td>'+tr(["Eindmeting \u00b7 alle instrumenten","Final measurement \u00b7 all instruments"])+'</td></tr>';
+h+='</tbody></table>';
+
+/* Rights */
+h+='<div class="sh">'+tr(["Uw rechten","Your rights"])+'</div>';
+h+='<div class="grid2" style="margin-bottom:14px">';
+h+='<div class="card"><b style="color:var(--pd)">'+tr(["Vrijwillige deelname","Voluntary participation"])+'</b><p style="color:var(--soft);margin:8px 0 0;font-size:14.5px">'+tr(["U kunt op elk ogenblik en zonder reden stoppen met het onderzoek. Uw medische zorg blijft in alle gevallen hetzelfde.","You may stop participating at any moment and for any reason. Your medical care remains the same in all cases."])+'</p></div>';
+h+='<div class="card"><b style="color:var(--pd)">'+tr(["Uw gegevens","Your data"])+'</b><p style="color:var(--soft);margin:8px 0 0;font-size:14.5px">'+tr(["Uw gegevens worden vertrouwelijk behandeld en enkel gebruikt voor wetenschappelijk onderzoek, overeenkomstig de GDPR. U kunt uw gegevens opvragen of laten verwijderen.","Your data are treated confidentially and used only for scientific research, in accordance with GDPR. You may request access to or deletion of your data."])+'</p></div>';
+h+='</div>';
+
+/* FAQ */
+h+='<div class="sh">'+tr(["Veelgestelde vragen","Frequently asked questions"])+'</div>';
+var faqs=[
+  [["Mag ik de sensor nat maken?","May I get the sensor wet?"],["Nee, de sensor in uw orthese is niet waterdicht. Verwijder uw schoeisel bij het douchen, zwemmen of bij andere contacten met water.","No, the sensor in your orthopaedic insole is not waterproof. Remove your footwear when showering, swimming, or any contact with water."]],
+  [["Wat als ik het schoeisel een dag niet heb gedragen?","What if I did not wear the footwear for a day?"],["Dat is geen probleem. We bespreken dit samen bij uw volgende bezoek \u2014 zonder oordeel. Het doel is om samen te zoeken naar oplossingen die voor u werken.","That is not a problem. We discuss this together at your next visit \u2014 without judgement. The goal is to look together for solutions that work for you."]],
+  [["Kan de sensor zien waar ik ben?","Can the sensor see where I am?"],["Nee. De sensor meet alleen temperatuur en heeft geen GPS, geen microfoon en geen camera. De sensor weet niet waar u bent.","No. The sensor only measures temperature and has no GPS, no microphone, and no camera. The sensor does not know where you are."]],
+  [["Wat als ik klachten heb aan mijn schoen of orthese?","What if I have complaints about my shoe or orthopaedic insole?"],["Neem zo snel mogelijk contact op met uw zorgteam. Wacht niet tot het volgende geplande bezoek als er iets scheelt aan uw schoeisel.","Contact your care team as soon as possible. Do not wait until the next scheduled visit if something is wrong with your footwear."]]
+];
+faqs.forEach(function(f){
+  h+='<details style="background:#fff;border:1px solid var(--line);border-radius:12px;margin-bottom:8px;overflow:hidden"><summary style="padding:14px 16px;cursor:pointer;font-weight:600;color:var(--pd);font-size:15px">'+tr(f[0])+'</summary><p style="margin:0;padding:0 16px 14px;color:var(--soft)">'+tr(f[1])+'</p></details>';
+});
+
+h+='<div class="note tip" style="margin-top:16px"><span class="lab">'+tr(["Vragen of ongerust?","Questions or concerns?"])+'</span>'+tr(["Aarzel niet om contact op te nemen met uw zorgteam bij de diabetische voetcliniek. Zij staan klaar om al uw vragen te beantwoorden.","Do not hesitate to contact your care team at the diabetic foot clinic. They are there to answer all your questions."])+'</div>';
+
+return h;
+};
+window.addEventListener('message',function(e){if(e.data&&e.data.type==='px_lang'){setLang(e.data.lang);if(window.repaint)window.repaint();}});
+if(window.self!==window.top){document.body.classList.add('embedded');}
+boot();
+</script>
+</body>
+</html>

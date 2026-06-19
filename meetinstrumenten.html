@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PARADISE — Meetinstrumenten</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"></noscript>
+<style>
+:root{--pd:#00407A;--pm:#1D8DB0;--pl:#52BDEC;--ac:#FF7A00;--ink:#0D2035;--soft:#33485f;--muted:#6a7e92;--bg:#F4F8FC;--band:#e9f1f8;--card:#fff;--line:#d3e3f0;--green:#2f8f5b;--green-soft:#e2f0ea;--red:#c0392b;--red-soft:#fbe5e2;--radius:14px;--shadow:0 1px 2px rgba(0,64,122,.06),0 14px 36px -26px rgba(0,64,122,.4)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55}
+.px{max-width:980px;margin:0 auto;padding:24px 20px 70px}
+.topbar{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.kicker{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--pm)}
+.spacer{flex:1}
+.lang{font:700 13px Inter,sans-serif;color:var(--pm);background:#fff;border:1px solid var(--pm);border-radius:99px;padding:6px 13px;cursor:pointer}.lang:hover{background:var(--band)}
+.embedded .topbar{display:none!important}
+h1{font-size:clamp(28px,4.5vw,42px);font-weight:700;color:var(--pd);line-height:1.06;margin:6px 0 12px;letter-spacing:-.01em}
+h2{font-size:24px;font-weight:700;color:var(--pd);margin:0 0 4px}
+.lead{font-size:17px;color:var(--soft);max-width:64ch;margin:0 0 8px}
+.sh{font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--pm);font-weight:700;margin:30px 0 12px}
+.muted{color:var(--muted);font-size:13px}
+a{color:var(--pm)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.chip{font-size:12.5px;font-weight:600;color:var(--pd);background:#fff;border:1px solid var(--line);border-radius:99px;padding:5px 12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:680px){.grid2{grid-template-columns:1fr}}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}@media(max-width:680px){.grid3{grid-template-columns:1fr}}
+.stat{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+.stat .n{font-size:30px;font-weight:800;color:var(--pm);line-height:1}
+.stat .l{font-size:13px;color:var(--soft);margin-top:6px}
+.note{border-radius:12px;padding:13px 16px;margin:12px 0;border-left:5px solid;font-size:14.5px}
+.note .lab{display:block;font-weight:700;margin-bottom:3px}
+.note.tip{background:var(--band);border-color:var(--pm)}.note.tip .lab{color:var(--pm)}
+.note.warn{background:#fff4e8;border-color:var(--ac)}.note.warn .lab{color:var(--ac)}
+.note.ground{background:#eef6ee;border-color:var(--green)}.note.ground .lab{color:var(--green)}
+.btn{display:inline-block;font:700 14px Inter,sans-serif;border:none;border-radius:99px;padding:11px 20px;cursor:pointer;text-decoration:none}
+.btn.p{background:var(--pm);color:#fff}.btn.a{background:var(--ac);color:#fff}
+.who{font-size:12px;font-weight:700;color:#1c5a3a;background:var(--green-soft);padding:5px 11px;border-radius:99px}
+.inst{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:2px}
+.inst .ic{width:46px;height:46px;border-radius:12px;background:var(--band);color:var(--pm);display:grid;place-items:center;flex:0 0 auto}.inst .ic svg{width:26px;height:26px}
+.inst h2{font-size:22px}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px;border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+.tbl th{background:var(--pm);color:#fff;text-align:left;padding:10px 12px;font-size:12px;text-transform:uppercase}
+.tbl td{padding:9px 12px;border-top:1px solid var(--line);background:#fff;vertical-align:top}
+.tbl td:first-child{font-weight:700;color:var(--pd)}
+.footwrap{display:grid;grid-template-columns:200px 1fr;gap:22px;align-items:start}@media(max-width:600px){.footwrap{grid-template-columns:1fr}}
+.footwrap svg{width:100%;height:auto}
+.zone{stroke:#fff;stroke-width:3;transition:filter .15s}.zg.hot .zone{filter:brightness(1.12);stroke:var(--pd)}
+.znum{font:700 16px Inter;fill:#fff;text-anchor:middle;pointer-events:none}.zval{font:600 11px Inter;fill:#fff;text-anchor:middle;pointer-events:none}
+.flegend{list-style:none;margin:0;padding:0}
+.flegend li{display:flex;align-items:center;gap:9px;padding:6px 8px;border-radius:8px;border:1px solid transparent;font-size:13.5px}.flegend li.hot{border-color:var(--line);background:#fbfdff}
+.flegend .b{flex:0 0 auto;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;color:#fff;font:700 11px Inter}
+.flegend .nm{flex:1}.flegend .vv{font-weight:700;color:var(--pd)}
+.flegend .fl{font-size:11px;font-weight:700;padding:2px 6px;border-radius:99px}.pass{background:var(--green-soft);color:#1c5a3a}.fail{background:var(--red-soft);color:#7a2b2b}
+.scale{display:flex;margin-top:12px;border-radius:8px;overflow:hidden;font:600 11px Inter;text-align:center}.scale div{flex:1;padding:5px 2px;color:#fff}
+.calc .row{display:flex;align-items:center;gap:14px;margin:10px 0;flex-wrap:wrap}
+.calc label{flex:0 0 220px;font-weight:600;font-size:14px;color:var(--pd)}
+.calc input[type=range]{flex:1;min-width:160px;accent-color:var(--ac)}
+.calc .val{flex:0 0 96px;text-align:right;font-weight:800;color:var(--pd)}
+.bar2{position:relative;height:32px;background:#e7eef5;border-radius:8px;margin:14px 0 4px}
+.bar2 .fill{position:absolute;left:0;top:0;bottom:0;border-radius:8px 0 0 8px;transition:width .15s,background .2s}
+.bar2 .thr{position:absolute;top:-4px;bottom:-4px;width:3px;background:var(--pd)}
+.bar2 .thrl{position:absolute;top:-19px;font:700 11px Inter;color:var(--pd);transform:translateX(-50%)}
+.bar2 .bmark{position:absolute;top:0;bottom:0;border-left:2px dashed var(--muted)}
+.barscale{display:flex;justify-content:space-between;font:600 11px Inter;color:var(--muted)}
+.out{margin-top:14px;padding:13px 16px;border-radius:12px;text-align:center}.out .big{font-size:20px;font-weight:800;margin:0 0 2px}
+.ok{background:var(--green-soft);color:#1c5a3a}.nok{background:var(--red-soft);color:#7a2b2b}
+.fb{padding:6px 0}
+.fbwrap{position:relative;margin:24px 0 6px}.fbbar{display:flex;height:30px;border-radius:8px;overflow:hidden}.fbbar .z{height:100%}
+.fbmark{position:absolute;top:-6px;bottom:-6px;width:3px;background:var(--pd)}
+.fbmarkl{position:absolute;top:-22px;font:700 11px Inter;color:var(--pd);transform:translateX(-50%);white-space:nowrap}
+.fbex{position:absolute;top:0;bottom:0;border-left:2px dashed var(--pd)}.fbexl{position:absolute;bottom:-20px;font:600 11px Inter;color:var(--soft);transform:translateX(-50%);white-space:nowrap}
+.legend2{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;font-size:12.5px;color:var(--soft)}.legend2 span{display:inline-flex;align-items:center;gap:6px}.dot{width:10px;height:10px;border-radius:50%}
+.kpi{display:flex;align-items:baseline;gap:8px;background:#fbfdff;border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin:6px 0}.kpi .big{font-size:22px;font-weight:800;color:var(--pm)}.kpi .lbl{font-size:13px;color:var(--soft)}
+.ph{font-style:italic;color:var(--muted)}
+.dashph{background:repeating-linear-gradient(45deg,#eef5fb,#eef5fb 10px,#e6eef6 10px,#e6eef6 20px);border:1px dashed var(--pl);border-radius:12px;min-height:170px;display:grid;place-items:center;color:var(--muted);font-weight:600;text-align:center;padding:16px}
+.bp{display:grid;grid-template-columns:1fr 300px;gap:18px;align-items:start}@media(max-width:760px){.bp{grid-template-columns:1fr}}
+.lane{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:16px;margin-bottom:14px}
+.lane .lh{font:700 12px Inter;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px}.lane.a .lh{color:var(--red)}.lane.b .lh{color:var(--pm)}
+.chain{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.bpnode{flex:1 1 auto;min-width:80px;border:1px solid var(--line);border-radius:10px;padding:9px 8px;background:#fbfdff;text-align:center;font-size:12.5px;font-weight:600;color:var(--pd)}.bpnode.end{background:var(--pd);color:#fff}
+.bparrow{color:var(--muted);font-size:14px}
+.steps{counter-reset:s;list-style:none;padding:0;margin:8px 0}
+.steps li{counter-increment:s;position:relative;padding:8px 0 8px 40px;border-bottom:1px dashed var(--line);font-size:14.5px}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(s);position:absolute;left:0;top:7px;width:26px;height:26px;border-radius:50%;background:var(--pd);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:700}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+</style>
+</head>
+<body>
+<div class="px"><div class="topbar"><span class="kicker">PARADISE</span><span class="spacer"></span><button class="lang" id="lang">EN</button></div><div id="app"></div></div>
+<script>
+
+var lang='nl';try{lang=localStorage.getItem('px_lang')||'nl';}catch(e){}
+function tr(x){return Array.isArray(x)?(lang==='nl'?x[0]:x[1]):x;}
+function setLang(L){lang=L;try{localStorage.setItem('px_lang',L);}catch(e){}}
+var REGIONS=[{z:1,c:"#b6c44a",n:["Hallux (grote teen)","Hallux (big toe)"],v:180,ok:1},{z:2,c:"#b6c44a",n:["Tenen 2\u20135","Toes 2\u20135"],v:120,ok:1},{z:3,c:"#e0922f",n:["Voorvoet mediaal","Medial forefoot"],v:265,ok:0},{z:4,c:"#c44a3a",n:["Voorvoet centraal","Central forefoot"],v:320,ok:0},{z:5,c:"#e0922f",n:["Voorvoet lateraal","Lateral forefoot"],v:205,ok:0},{z:6,c:"#4f9d69",n:["Middenvoet","Midfoot"],v:95,ok:1},{z:7,c:"#e0922f",n:["Hiel","Heel"],v:240,ok:0}];
+function footMap(){var leg=REGIONS.map(function(R){return '<li data-z="'+R.z+'"><span class="b" style="background:'+R.c+'">'+R.z+'</span><span class="nm">'+tr(R.n)+'</span><span class="vv">'+R.v+'</span><span class="fl '+(R.ok?'pass':'fail')+'">'+(R.ok?'\u2713':'!')+'</span></li>';}).join('');
+return '<div class="footwrap"><svg viewBox="0 0 280 470" role="img"><g class="zg" data-z="1"><rect class="zone" x="72" y="56" width="60" height="70" rx="26" fill="#b6c44a"/><text class="znum" x="102" y="86">1</text><text class="zval" x="102" y="104">180</text></g><g class="zg" data-z="2"><rect class="zone" x="140" y="62" width="92" height="58" rx="18" fill="#b6c44a"/><text class="znum" x="186" y="88">2</text><text class="zval" x="186" y="106">120</text></g><g class="zg" data-z="3"><rect class="zone" x="64" y="134" width="56" height="92" rx="15" fill="#e0922f"/><text class="znum" x="92" y="174">3</text><text class="zval" x="92" y="192">265</text></g><g class="zg" data-z="4"><rect class="zone" x="124" y="134" width="56" height="92" rx="15" fill="#c44a3a"/><text class="znum" x="152" y="174">4</text><text class="zval" x="152" y="192">320</text></g><g class="zg" data-z="5"><rect class="zone" x="184" y="134" width="56" height="92" rx="15" fill="#e0922f"/><text class="znum" x="212" y="174">5</text><text class="zval" x="212" y="192">205</text></g><g class="zg" data-z="6"><path class="zone" d="M132 234 h108 v52 q0 34 -34 34 h-74 q-14 -50 0 -86 Z" fill="#4f9d69"/><text class="znum" x="186" y="276">6</text><text class="zval" x="186" y="294">95</text></g><g class="zg" data-z="7"><ellipse class="zone" cx="152" cy="392" rx="78" ry="60" fill="#e0922f"/><text class="znum" x="152" y="390">7</text><text class="zval" x="152" y="410">240</text></g></svg><div><ul class="flegend">'+leg+'</ul><div class="scale"><div style="background:#4f9d69">&lt;100</div><div style="background:#b6c44a">100\u2013200</div><div style="background:#e0922f">200\u2013300</div><div style="background:#c44a3a">&gt;300 kPa</div></div></div></div>';}
+function wireFoot(){function hot(z,on){document.querySelectorAll('[data-z="'+z+'"]').forEach(function(el){el.classList.toggle('hot',on);});}document.querySelectorAll('.zg,[data-z]').forEach(function(g){if(!g.dataset.z)return;g.addEventListener('mouseenter',function(){hot(g.dataset.z,true)});g.addEventListener('mouseleave',function(){hot(g.dataset.z,false)});});}
+function calc(){return '<div class="card calc"><div class="row"><label>'+tr(["Baseline piekdruk","Baseline peak pressure"])+'</label><input type="range" id="cb" min="120" max="600" value="300"><span class="val"><span id="cbv">300</span> kPa</span></div><div class="row"><label>'+tr(["Huidige piekdruk","Current peak pressure"])+'</label><input type="range" id="cc" min="60" max="600" value="240"><span class="val"><span id="ccv">240</span> kPa</span></div><div class="bar2"><div class="fill" id="cf"></div><div class="thr" style="left:33.3%"></div><div class="thrl" style="left:33.3%">200</div><div class="bmark" id="cm"></div></div><div class="barscale"><span>0</span><span>300</span><span>600 kPa</span></div><div class="out" id="co"><p class="big" id="cob"></p><p id="com" style="margin:0;font-size:13.5px"></p></div></div>';}
+function wireCalc(){var b=document.getElementById('cb'),c=document.getElementById('cc');if(!b||!c)return;function u(){var bv=+b.value,cv=+c.value;document.getElementById('cbv').textContent=bv;document.getElementById('ccv').textContent=cv;var red=Math.max(0,Math.round((1-cv/bv)*100)),ok=(cv<200)||(red>=25);var f=document.getElementById('cf');f.style.width=(cv/600*100)+'%';f.style.background=ok?'#2f8f5b':'#c0392b';document.getElementById('cm').style.left=(bv/600*100)+'%';var o=document.getElementById('co');o.className='out '+(ok?'ok':'nok');document.getElementById('cob').textContent=tr(ok?["Doel bereikt \u2713","Goal reached \u2713"]:["Doel nog niet bereikt","Goal not yet reached"]);document.getElementById('com').textContent=tr(["Reductie","Reduction"])+': '+red+'% \u00b7 '+cv+' kPa';}b.addEventListener('input',u);c.addEventListener('input',u);u();}
+function feedback(){return '<div class="card fb"><div class="fbwrap"><div class="fbmarkl" style="left:80%">'+tr(["80% doel","80% goal"])+'</div><div class="fbbar"><div class="z" style="width:60%;background:#e9c2bd"></div><div class="z" style="width:20%;background:#f0d3a8"></div><div class="z" style="width:20%;background:#cfe3cf"></div></div><div class="fbmark" style="left:80%"></div><div class="fbex" style="left:72%"></div><div class="fbexl" style="left:72%">'+tr(["voorbeeld: 72%","example: 72%"])+'</div></div><div class="barscale"><span>0%</span><span>100%</span></div><div class="legend2"><span><i class="dot" style="background:#2f8f5b"></i>'+tr(["\u2265 80% \u2014 voldoende","\u2265 80% \u2014 sufficient"])+'</span><span><i class="dot" style="background:#e0922f"></i>60\u201379%</span><span><i class="dot" style="background:#c0392b"></i>&lt; 60%</span></div></div>';}
+function boot(){var app=document.getElementById("app");function paint(){document.documentElement.lang=lang;app.innerHTML=window.RENDER();var lb=document.getElementById("lang");if(lb)lb.textContent=(lang==="nl"?"EN":"NL");if(window.POST)window.POST();}document.addEventListener("click",function(e){if(e.target.closest("#lang")){setLang(lang==="nl"?"en":"nl");paint();}});paint();}
+
+window.RENDER=function(){
+var IC={"fscan": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M7 3c2 0 3 1.5 3 4 0 1.5.5 3 .5 5 0 3 1 5-2 6-2 .7-4-1-4-4 0-2 .5-3 .5-5C5.5 6 5 3 7 3Z\"/><circle cx=\"14.5\" cy=\"8\" r=\"1\"/><circle cx=\"16\" cy=\"11.5\" r=\"1\"/><circle cx=\"14\" cy=\"14.5\" r=\"1\"/></svg>", "emed": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"4\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M7 8h.01M11 8h.01M15 8h.01M7 12h.01M11 12h.01M15 12h.01M7 16h.01M11 16h.01M15 16h.01\"/></svg>", "mm": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 7v5l3 2\"/></svg>", "ot": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 14c0-3.9 3.1-7 7-7s7 3.1 7 7\"/><path d=\"M3 14h18\"/><path d=\"M12 7V4\"/><path d=\"M9 4h6\"/></svg>"};
+var INST=[
+ {k:'fscan',ic:IC.fscan,name:["F-Scan GO","F-Scan GO"],tag:["In-shoe drukmeting","In-shoe pressure"],who:["Studieteam","Study team"],
+  intro:["Meet de plantaire druk \u00edn de schoen tijdens het stappen en stuurt de offloading. Doel: <b>&lt;200 kPa</b> \u00f3f <b>\u226525%</b> lager dan baseline.","Measures in-shoe plantar pressure while walking and drives offloading. Goal: <b>&lt;200 kPa</b> or <b>\u226525%</b> below baseline."],
+  chips:[["500 Hz","500 Hz"],["7 regio's","7 regions"],["10\u2013862 kPa","10\u2013862 kPa"]]},
+ {k:'emed',ic:IC.emed,name:["Novel emed","Novel emed"],tag:["Blootsvoetse drukmeting \u00b7 in transitie","Barefoot pressure \u00b7 in transition"],who:["Zorgteam (DFC)","Care team (DFC)"],
+  intro:["Blootsvoetse drukverdeling op een platform. Vervangt op termijn de F-Scan; loopt nu <b>parallel</b> ter vergelijking. Bij de neuropathische voet: <b>two-step</b>.","Barefoot pressure distribution on a platform. Will replace the F-Scan; runs <b>in parallel</b> now for comparison. For the neuropathic foot: <b>two-step</b>."],
+  chips:[["capacitief platform","capacitive platform"],["two-step / midgait","two-step / midgait"],["7 regio's","7 regions"]]},
+ {k:'mm',ic:IC.mm,name:["MoveMonitor (DynaPort)","MoveMonitor (DynaPort)"],tag:["Fysieke activiteit","Physical activity"],who:["Zorgteam (DFC)","Care team (DFC)"],
+  intro:["Registreert een <b>volle week</b> beweeggedrag (baseline \u00e9n 6 maanden). Levert het gemiddelde activiteitenvenster \u2014 de basis voor de <b>80%-adherentiebenchmark</b>.","Records a <b>full week</b> of movement (baseline and 6 months). Provides the average activity window \u2014 the basis for the <b>80% adherence benchmark</b>."],
+  chips:[["volle week","full week"],["onderrug","lower back"],["niet waterdicht","not waterproof"]]},
+ {k:'ot',ic:IC.ot,name:["Orthotimer","Orthotimer"],tag:["Schoeisel-adherentie","Footwear adherence"],who:["Zorgteam (DFC)","Care team (DFC)"],
+  intro:["Temperatuursensor in de <b>CMFO</b> die meet wanneer het schoeisel gedragen wordt. Adherentie is <b>co-primair</b> (primair punt 12 mnd); elke 3 mnd uitlezen + vervangen.","Temperature sensor in the <b>CMFO</b> recording when footwear is worn. Adherence is <b>co-primary</b> (primary point 12 mo); read out + replace every 3 months."],
+  chips:[["9\u00d713\u00d74,5 mm","9\u00d713\u00d74.5 mm"],["elke 15 min","every 15 min"],["co-primair","co-primary"]]}
+];
+var h='<div class="kicker">'+tr(["Meetinstrumenten","Measurement instruments"])+'</div>';
+h+='<h1>'+tr(["De vier meetinstrumenten van PARADISE","The four PARADISE instruments"])+'</h1>';
+h+='<p class="lead">'+tr(["Vier gevalideerde systemen meten objectief druk, activiteit en draagtrouw. Samen dragen ze de twee co-primaire eindpunten: recidief en adherentie.","Four validated systems objectively measure pressure, activity and wear compliance. Together they carry the two co-primary endpoints: recurrence and adherence."])+'</p>';
+INST.forEach(function(d){
+ h+='<div class="card" style="margin:16px 0"><div class="inst"><span class="ic">'+d.ic+'</span><div><div class="kicker">'+tr(d.tag)+'</div><h2>'+tr(d.name)+'</h2></div><span class="who" style="margin-left:auto">\ud83d\udc64 '+tr(d.who)+'</span></div>';
+ h+='<p style="color:var(--soft);margin:10px 0 0">'+tr(d.intro)+'</p><div class="chips">'+d.chips.map(function(c){return '<span class="chip">'+tr(c)+'</span>';}).join('')+'</div>';
+ if(d.k==='fscan'){h+='<div class="sh">'+tr(["Voetdrukkaart","Foot pressure map"])+'</div>'+footMap()+'<div class="sh">'+tr(["Offloading-doel","Offloading goal"])+'</div>'+calc();}
+ if(d.k==='ot'){h+='<div class="sh">'+tr(["Adherentie-feedback (SEBIA)","Adherence feedback (SEBIA)"])+'</div>'+feedback();}
+ h+='</div>';
+});
+h+='<div class="sh">'+tr(["Wie doet wat","Who does what"])+'</div>';
+h+='<table class="tbl"><thead><tr><th>'+tr(["Instrument","Instrument"])+'</th><th>'+tr(["Afname door","Performed by"])+'</th><th>'+tr(["Wanneer","When"])+'</th></tr></thead><tbody>';
+h+='<tr><td>F-Scan GO</td><td>'+tr(["Studieteam","Study team"])+'</td><td>'+tr(["Baseline, 2w\u20131m, 6/12/18 mnd","Baseline, 2w\u20131m, 6/12/18 mo"])+'</td></tr>';
+h+='<tr><td>Novel emed</td><td>'+tr(["Zorgteam (DFC)","Care team (DFC)"])+'</td><td>'+tr(["Transitie \u00b7 parallel met F-Scan","Transition \u00b7 parallel with F-Scan"])+'</td></tr>';
+h+='<tr><td>MoveMonitor</td><td>'+tr(["Zorgteam (DFC)","Care team (DFC)"])+'</td><td>'+tr(["Volle week, baseline + 6 mnd","Full week, baseline + 6 mo"])+'</td></tr>';
+h+='<tr><td>Orthotimer</td><td>'+tr(["Zorgteam (DFC)","Care team (DFC)"])+'</td><td>'+tr(["In de CMFO; uitlezen + vervangen elke 3 mnd","In the CMFO; read out + replace every 3 mo"])+'</td></tr>';
+h+='</tbody></table>';
+h+='<div class="note tip" style="margin-top:18px"><span class="lab">'+tr(["Twee co-primaire eindpunten","Two co-primary endpoints"])+'</span>'+tr(["(1) Voetulcus-recidief over 18 maanden en (2) schoeisel-adherentie (\u226580% van het activiteitenprofiel, 7 d/week; primair analysepunt op 12 maanden).","(1) Foot-ulcer recurrence over 18 months and (2) footwear adherence (\u226580% of the activity profile, 7 d/week; primary analysis point at 12 months)."])+'</div>';
+return h;
+};
+window.POST=function(){wireFoot();wireCalc();};
+if(window.self!==window.top){document.body.classList.add('embedded');}
+boot();
+window.addEventListener('message',function(e){if(e.data&&e.data.type==='px_lang'){setLang(e.data.lang);boot();}});
+</script>
+</body>
+</html>

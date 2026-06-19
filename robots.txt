@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://belgianfootpressure.be/sitemap.xml

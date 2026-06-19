@@ -1,0 +1,16 @@
+# Backups & editor folders
+index_backup*.html
+.vscode/
+.claude/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Dependencies
+node_modules/
+package-lock.json
+
+# Testdata (patiëntbestanden — niet in repo)
+*.tef
+physical_activity_*.pdf
