@@ -33,6 +33,8 @@ h1{font-size:clamp(28px,4.5vw,42px);font-weight:700;color:var(--pd);line-height:
 h2{font-size:24px;font-weight:700;color:var(--pd);margin:0 0 4px}
 .lead{font-size:17px;color:var(--soft);max-width:64ch;margin:0 0 8px}
 .sh{font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--pm);font-weight:700;margin:30px 0 12px}
+.phlbl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--pm);font-weight:700;margin:16px 0 4px}
+.phlbl:first-child{margin-top:6px}
 .muted{color:var(--muted);font-size:13px}
 a{color:var(--pm)}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
@@ -126,19 +128,22 @@ var INST=[
   intro:["Meet de plantaire druk \u00edn de schoen tijdens het stappen en stuurt de offloading. Doel: <b>&lt;200 kPa</b> \u00f3f <b>\u226525%</b> lager dan baseline.","Measures in-shoe plantar pressure while walking and drives offloading. Goal: <b>&lt;200 kPa</b> or <b>\u226525%</b> below baseline."],
   chips:[["500 Hz","500 Hz"],["7 regio's","7 regions"],["10\u2013862 kPa","10\u2013862 kPa"]],
   steps:[
-   ["Laad de sensor volledig op (\u00b1 90 minuten voor een volle meetsessie) en verbind met de FootVIEW Pro-software via het toestel-eigen WiFi-netwerk.","Fully charge the sensor (\u00b1 90 minutes for a full measurement session) and connect to the FootVIEW Pro software via the device's own WiFi network."],
-   ["Maak of open het pati\u00ebntendossier in FootVIEW Pro (Patient File Management) v\u00f3\u00f3r je een opname start \u2014 nieuwe metingen worden automatisch in dit dossier opgeslagen.","Create or open the patient record in FootVIEW Pro (Patient File Management) before starting a recording \u2014 new measurements are automatically stored in this record."],
-   ["Test de sensor met een korte kniptest en controleer de juiste links/rechts-ori\u00ebntatie.","Test the sensor with a quick squeeze test and check the correct left/right orientation."],
-   ["Knip de sensor op maat tussen de rijen \u2014 nooit dwars door de zilveren geleidingsbanen.","Trim the sensor to size between the rows \u2014 never straight through the silver conductive tracks."],
-   ["Bevestig de sensor plat met dubbelzijdige tape rechtstreeks op de blote voet (bij een orthese: erbovenop).","Fix the sensor flat with double-sided tape directly onto the bare foot (on an orthosis: on top of it)."],
-   ["Trek een dunne, naadloze katoenen sok over de sensoren aan.","Pull a thin, seamless cotton sock on over the sensors."],
-   ["Kalibreer per deelnemer: ga naar Settings \u25b8 Calibration en kies het type 'Walk'.","Calibrate per participant: go to Settings \u25b8 Calibration and choose type 'Walk'."],
-   ["Laat de deelnemer op comfortsnelheid stappen (\u00b1 10 m looppad); bij follow-upmetingen binnen \u00b15% van de baselinesnelheid.","Have the participant walk at a comfortable pace (\u00b1 10 m walkway); at follow-up, within \u00b15% of the baseline pace."],
-   ["Registreer per voet minstens 12 midgait-stappen (dus niet de eerste of laatste stap van het traject).","Record at least 12 mid-gait steps per foot (not the first or last step of the walkway)."],
-   ["Stop de opname na de laatste stap; ze wordt automatisch bewaard in het patiëntendossier van FootVIEW Pro.","Stop the recording after the last step; it is automatically saved in the patient record in FootVIEW Pro."],
-   ["Verwerk de opname in FootVIEW Pro en verdeel de voet met de Multimask-tool in de 7 vaste drukregio's.","Process the recording in FootVIEW Pro and divide the foot into the 7 fixed pressure regions with the Multimask tool."],
-   ["Vergelijk de gemiddelde piekdruk per regio met de baseline: doel is &lt;200 kPa \u00f3f \u226525% reductie.","Compare the average peak pressure per region with baseline: goal is &lt;200 kPa or \u226525% reduction."],
-   ["Noteer de resultaten in REDCap.","Record the results in REDCap."]
+   {phase:["Klaarzetten","Set up"],items:[
+    ["Laad de sensor volledig op (\u00b1 90 min) en verbind met FootVIEW Pro via het toestel-eigen WiFi-netwerk.","Fully charge the sensor (\u00b1 90 min) and connect to FootVIEW Pro via the device's own WiFi network."],
+    ["Maak of open het pati\u00ebntendossier in FootVIEW Pro \u2014 nieuwe metingen worden hier automatisch in opgeslagen.","Create or open the patient record in FootVIEW Pro \u2014 new measurements are automatically stored in it."],
+    ["Test de sensor met een korte kniptest en controleer de links/rechts-ori\u00ebntatie.","Test the sensor with a quick squeeze test and check the left/right orientation."]
+   ]},
+   {phase:["Sensor plaatsen & kalibreren","Place sensor & calibrate"],items:[
+    ["Knip de sensor op maat tussen de rijen \u2014 nooit dwars door de zilveren geleidingsbanen.","Trim the sensor to size between the rows \u2014 never straight through the silver conductive tracks."],
+    ["Bevestig de sensor plat met dubbelzijdige tape rechtstreeks op de blote voet (bij een orthese: erbovenop), en trek er een dunne, naadloze katoenen sok over aan.","Fix the sensor flat with double-sided tape directly onto the bare foot (on an orthosis: on top of it), then pull a thin, seamless cotton sock on over it."],
+    ["Kalibreer per deelnemer: Settings \u25b8 Calibration, type 'Walk'.","Calibrate per participant: Settings \u25b8 Calibration, type 'Walk'."]
+   ]},
+   {phase:["Meten & verwerken","Measure & process"],items:[
+    ["Laat de deelnemer op comfortsnelheid stappen (\u00b1 10 m looppad; bij follow-up binnen \u00b15% van de baselinesnelheid) en registreer per voet minstens 12 midgait-stappen.","Have the participant walk at a comfortable pace (\u00b1 10 m walkway; at follow-up within \u00b15% of baseline pace) and record at least 12 mid-gait steps per foot."],
+    ["Stop de opname na de laatste stap \u2014 ze wordt automatisch bewaard in het pati\u00ebntendossier.","Stop the recording after the last step \u2014 it is automatically saved in the patient record."],
+    ["Verwerk de opname en verdeel de voet met de Multimask-tool in de 7 vaste drukregio's.","Process the recording and divide the foot into the 7 fixed pressure regions with the Multimask tool."],
+    ["Vergelijk de gemiddelde piekdruk per regio met de baseline tegen het offloadingdoel, en noteer de resultaten in REDCap.","Compare the average peak pressure per region with baseline against the offloading goal, and record the results in REDCap."]
+   ]}
   ],
   sop:"eCRF-documenten/Per nummer/09_Meting plantaire druk - baseline.docx",
   sources:[["Tekscan — FootVIEW (patiëntendossierbeheer)","https://www.tekscan.com/products-solutions/software/footview"]]},
@@ -146,58 +151,67 @@ var INST=[
   intro:["Draadloze druksensor-inlegzolen \u00edn de schoen, verbonden met de novel database-software. Vervangt op termijn de F-Scan; loopt nu <b>parallel</b> ter vergelijking.","Wireless in-shoe pressure-sensor insoles, linked to the novel database software. Will replace the F-Scan; currently runs <b>in parallel</b> for comparison."],
   chips:[["in-shoe insoles","in-shoe insoles"],["trublu-kalibratie","trublu calibration"],["novel database","novel database"]],
   steps:[
-   ["Zorg dat de pedar-insoles voldoende opgeladen zijn v\u00f3\u00f3r elke meting.","Make sure the pedar insoles are sufficiently charged before each measurement."],
-   ["Kies de juiste insole-maat per voet en plaats de insoles in de schoenen van de deelnemer.","Select the correct insole size per foot and place the insoles in the participant's shoes."],
-   ["Verbind elke insole via het kabeltje met de draadloze datalogger en bevestig die aan de buitenzijde van de schoen (bv. met de klittenbandriem ter hoogte van de enkel).","Connect each insole via its cable to the wireless datalogger and attach it to the outside of the shoe (e.g. with the velcro strap at ankle height)."],
-   ["<b>Kalibratie</b> (minstens elke 3 maanden of bij twijfel): plaats de insoles in het trublu-kalibratietoestel en belast ze via de opgegeven drukwaarden tot 6 bar.","<b>Calibration</b> (at least every 3 months, or when in doubt): place the insoles in the trublu calibration device and load them through the specified pressure values up to 6 bar."],
-   ["Vergelijk de drukwaarden die de software toont met die op de manometer van het trublu-toestel: binnen 5% verschil is de kalibratie in orde; anders herkalibreren.","Compare the pressure values shown in the software with those on the trublu manometer: a difference within 5% means calibration is fine; otherwise, recalibrate."],
-   ["<b>Pati\u00ebnt aanmaken</b>: open de novel database-software via het icoon in de novel-map op het bureaublad, en kies 'Simple' of 'Advanced' modus.","<b>Create patient</b>: open the novel database software via the icon in the novel folder on the desktop, and choose 'Simple' or 'Advanced' mode."],
-   ["Voer de pati\u00ebntgegevens in \u2014 een pati\u00ebnt-ID is verplicht \u2014 en bevestig.","Enter the patient details \u2014 a patient ID is required \u2014 and confirm."],
-   ["De datum van vandaag verschijnt automatisch in het bezoek/visit-venster; vul eventuele klinische gegevens aan.","Today's date appears automatically in the visit window; add any clinical data as needed."],
-   ["Selecteer het tabblad 'pedar' en start de pedar-verzamelsoftware ('Run Application').","Select the 'pedar' tab and launch the pedar collection software ('Run Application')."],
-   ["Test de verbinding tussen de pedar-box en de software: kies de Bluetooth-poort of glasvezelkabel-poort uit de vervolgkeuzelijst en bevestig.","Test the connection between the pedar box and the software: choose the Bluetooth or fibre-optic cable port from the drop-down menu and confirm."],
-   ["Instrumenteer de deelnemer terwijl die zit, volgens het studieprotocol; kies de juiste insole-configuratie uit de vervolgkeuzelijst en bevestig.","Instrument the participant while seated, per the study protocol; choose the correct insole configuration from the drop-down menu and confirm."],
-   ["Haal beide insoles (links en rechts) even van belasting voor de nulstand ('unload'), en laat de deelnemer daarna de veters strikken.","Unload both insoles (left and right) briefly for zeroing, then have the participant tie their shoelaces."],
-   ["Klik op 'Start' om de opname te beginnen en laat de deelnemer het vooropgestelde aantal stappen zetten.","Click 'Start' to begin recording and have the participant walk the predetermined number of steps."],
-   ["Klik op 'Stop' zodra de meting klaar is, voer een opmerking in het venster in en klik op 'Save'.","Click 'Stop' once the measurement is finished, enter a comment in the window, and click 'Save'."],
-   ["Haal de meting op: via Bluetooth verschijnt ze meteen live in de software ('online'), of ze staat opgeslagen op de SD-kaart van de datalogger en wordt nadien overgezet ('offline'); een kabelverbinding met de pc kan ook.","Retrieve the measurement: via Bluetooth it appears live in the software right away ('online'), or it is stored on the datalogger's SD card and transferred afterwards ('offline'); a cable connection to the PC also works."],
-   ["Genereer het rapport uit het .sol/.col-bestand: kies een vooraf gedefinieerd rapport uit de vervolgkeuzelijst (voor maatwerkanalyse: de novel projects-software).","Generate the report from the .sol/.col file: choose a predefined report from the drop-down menu (for custom analysis: the novel projects software)."],
-   ["Het rapport toont per regio: piekdruk, contactoppervlak, druk-tijd- en kracht-tijd-integraal en de ganglijn.","The report shows, per region: peak pressure, contact area, pressure-time and force-time integral, and the gait line."],
-   ["Verwijder de meting nadien van het toestel zelf \u2014 aanbevolen na elke meting, om geheugen vrij te maken.","Delete the measurement from the device itself afterwards \u2014 recommended after every measurement, to free up memory."]
+   {phase:["Klaarzetten & kalibreren","Set up & calibrate"],items:[
+    ["Zorg dat de pedar-insoles voldoende opgeladen zijn v\u00f3\u00f3r elke meting.","Make sure the pedar insoles are sufficiently charged before each measurement."],
+    ["Kies de juiste insole-maat per voet, plaats ze in de schoenen en verbind elke insole via het kabeltje met de draadloze datalogger (bevestig die aan de buitenzijde van de schoen, bv. met de klittenbandriem ter hoogte van de enkel).","Select the correct insole size per foot, place them in the shoes and connect each insole via its cable to the wireless datalogger (attach it to the outside of the shoe, e.g. with the velcro strap at ankle height)."],
+    ["<b>Kalibratie</b> (minstens elke 3 maanden of bij twijfel): plaats de insoles in het trublu-kalibratietoestel, belast ze tot 6 bar en vergelijk de softwarewaarde met de manometer \u2014 binnen 5% is de kalibratie in orde, anders herkalibreren.","<b>Calibration</b> (at least every 3 months, or when in doubt): place the insoles in the trublu calibration device, load them to 6 bar and compare the software value with the manometer \u2014 within 5% means calibration is fine, otherwise recalibrate."]
+   ]},
+   {phase:["Patiënt & software","Patient & software"],items:[
+    ["<b>Pati\u00ebnt aanmaken</b>: open de novel database-software via het icoon in de novel-map op het bureaublad, kies 'Simple' of 'Advanced' modus en voer de patiëntgegevens in (patiënt-ID verplicht).","<b>Create patient</b>: open the novel database software via the icon in the novel folder on the desktop, choose 'Simple' or 'Advanced' mode and enter the patient details (patient ID required)."],
+    ["De datum van vandaag verschijnt automatisch in het bezoek/visit-venster; vul eventuele klinische gegevens aan, selecteer het tabblad 'pedar' en start de pedar-verzamelsoftware ('Run Application').","Today's date appears automatically in the visit window; add any clinical data as needed, select the 'pedar' tab and launch the pedar collection software ('Run Application')."]
+   ]},
+   {phase:["Meting voorbereiden","Prepare the measurement"],items:[
+    ["Test de verbinding tussen de pedar-box en de software (Bluetooth- of glasvezelkabel-poort) en kies de juiste insole-configuratie uit de vervolgkeuzelijst.","Test the connection between the pedar box and the software (Bluetooth or fibre-optic cable port) and choose the correct insole configuration from the drop-down menu."],
+    ["Instrumenteer de deelnemer terwijl die zit, volgens het studieprotocol; haal beide insoles even van belasting voor de nulstand ('unload'), en laat de deelnemer daarna de veters strikken.","Instrument the participant while seated, per the study protocol; unload both insoles briefly for zeroing, then have the participant tie their shoelaces."]
+   ]},
+   {phase:["Meten & verwerken","Measure & process"],items:[
+    ["Klik op 'Start', laat de deelnemer het vooropgestelde aantal stappen zetten, klik op 'Stop', voer een opmerking in en klik op 'Save'.","Click 'Start', have the participant walk the predetermined number of steps, click 'Stop', enter a comment and click 'Save'."],
+    ["Haal de meting op: via Bluetooth verschijnt ze meteen live ('online'), of ze staat op de SD-kaart van de datalogger en wordt later overgezet ('offline'); een kabelverbinding kan ook.","Retrieve the measurement: via Bluetooth it appears live right away ('online'), or it is stored on the datalogger's SD card and transferred later ('offline'); a cable connection also works."],
+    ["Genereer het rapport uit het .sol/.col-bestand (vooraf gedefinieerd rapport uit de lijst, of maatwerk via de novel projects-software): piekdruk, contactoppervlak, druk-tijd- en kracht-tijd-integraal en de ganglijn, per regio.","Generate the report from the .sol/.col file (predefined report from the list, or custom via the novel projects software): peak pressure, contact area, pressure-time and force-time integral, and the gait line, per region."],
+    ["Verwijder de meting nadien van het toestel zelf \u2014 aanbevolen na elke meting, om geheugen vrij te maken.","Delete the measurement from the device itself afterwards \u2014 recommended after every measurement, to free up memory."]
+   ]}
   ],
-  sources:[["novel.de \u2014 pedar software","https://novel.de/products/pedar/pedar-software/"],["novel.de \u2014 pedar support (FAQ, kalibratie & meetprocedure)","https://novel.de/support/pedar-support/"],["novel.de \u2014 pedography (systeembeschrijving, rapportparameters)","https://novel.de/wp-content/uploads/2024/02/pedography-en-2024_new-address.pdf"],["novel USA \u2014 offici\u00eble how-to gids: pati\u00ebnt aanmaken en pedar-meting starten","https://www.novelusa.com/assets/pdf/pedar/pedarHowTo.pdf"]]},
+    sources:[["novel.de \u2014 pedar software","https://novel.de/products/pedar/pedar-software/"],["novel.de \u2014 pedar support (FAQ, kalibratie & meetprocedure)","https://novel.de/support/pedar-support/"],["novel.de \u2014 pedography (systeembeschrijving, rapportparameters)","https://novel.de/wp-content/uploads/2024/02/pedography-en-2024_new-address.pdf"],["novel USA \u2014 offici\u00eble how-to gids: pati\u00ebnt aanmaken en pedar-meting starten","https://www.novelusa.com/assets/pdf/pedar/pedarHowTo.pdf"]]},
  {k:'mm',ic:IC.mm,name:["MoveMonitor (DynaPort)","MoveMonitor (DynaPort)"],tag:["Fysieke activiteit","Physical activity"],who:["Zorgteam (DFC)","Care team (DFC)"],
   intro:["Registreert een <b>volle week</b> beweeggedrag (baseline \u00e9n 6 maanden). Levert het gemiddelde activiteitenvenster \u2014 de basis voor de <b>80%-adherentiebenchmark</b>.","Records a <b>full week</b> of movement (baseline and 6 months). Provides the average activity window \u2014 the basis for the <b>80% adherence benchmark</b>."],
   chips:[["volle week","full week"],["onderrug","lower back"],["niet waterdicht","not waterproof"]],
   steps:[
-   ["Laad het toestel volledig op (\u00b1 3 uur): knipperend groen = bezig met laden, vast groen = vol. Batterijduur is ongeveer 5\u20137 dagen.","Fully charge the device (\u00b1 3 hours): blinking green = charging, solid green = full. Battery life is about 5\u20137 days."],
-   ["Sluit de DynaPort aan op de pc en open de Dynaport Manager-software.","Connect the DynaPort to the PC and open the Dynaport Manager software."],
-   ["Kies het toestel, ga naar het tabblad 'Measure' en selecteer testtype 'MoviMonitor'.","Select the device, go to the 'Measure' tab and choose test type 'MoviMonitor'."],
-   ["Nog geen dossier? Maak een nieuw subject aan: subjectcode 'M' + deelnemersnummer, gekoppeld aan het juiste project (WP3 gezonde deelnemers of WP4 diabetespati\u00ebnten). Vul bij 'Year of Birth' de neutrale plaatshouderwaarde in zoals voorzien in de SOP, niet de echte geboortedatum; gewicht/lengte/geslacht van de deelnemer wel correct invullen.","No record yet? Create a new subject: subject code 'M' + participant number, linked to the correct project (WP3 healthy participants or WP4 diabetes patients). For 'Year of Birth', enter the neutral placeholder value as specified in the SOP, not the participant's real date of birth; weight/height/gender should be entered correctly."],
-   ["Stel de startdatum in \u2014 de meting start steeds de volgende dag om 7 uur \u2014 en zet de duur op 7 dagen. Voeg het bezoek/visit toe (er is telkens maar 1 visit, 7 dagen na start).","Set the start date \u2014 the measurement always starts the next day at 7 am \u2014 and set the duration to 7 days. Add the visit (there is only ever 1 visit, 7 days after the start)."],
-   ["Klik op 'Start Measurement'.","Click 'Start Measurement'."],
-   ["<b>Toestel toewijzen</b>: registreer het toestelnummer (UDI) van de DynaPort bij de deelnemer op het moment van uitreiking.","<b>Assign device</b>: register the DynaPort's device number (UDI) to the participant at the moment of handover."],
-   ["Laat de deelnemer het toestel rond de taille dragen, op de huid of over een dunne kledinglaag. Niet waterdicht: niet douchen met het toestel om.","Have the participant wear the device around the waist, on the skin or over a thin layer of clothing. Not waterproof: no showering with it on."],
-   ["Na 7 dagen: sluit de DynaPort opnieuw aan op de pc \u2014 de data wordt automatisch ge\u00fcpload naar het portaal.","After 7 days: reconnect the DynaPort to the PC \u2014 the data uploads automatically to the portal."],
-   ["<b>Toestel terugnemen</b>: registreer opnieuw het toestelnummer (UDI) bij teruggave door de deelnemer \u2014 een aparte registratie van die bij de uitreiking.","<b>Retrieve device</b>: register the device number (UDI) again when the participant returns it \u2014 a separate registration from the one at handover."],
-   ["Verwerk de meting: de status doorloopt Measuring \u2192 Analysing \u2192 Completed; open daarna het PDF-rapport (activiteiten, stappen, gemiddelde MI, 'Not worn').","Process the measurement: the status moves through Measuring \u2192 Analysing \u2192 Completed; then open the PDF report (activities, steps, average MI, 'Not worn')."]
+   {phase:["Voorbereiden","Prepare"],items:[
+    ["Laad het toestel volledig op (\u00b1 3 uur; batterijduur \u00b1 5\u20137 dagen) en sluit de DynaPort aan op de pc via de Dynaport Manager-software.","Fully charge the device (\u00b1 3 hours; battery life \u00b1 5\u20137 days) and connect the DynaPort to the PC via the Dynaport Manager software."],
+    ["Kies het toestel, ga naar het tabblad 'Measure' en selecteer testtype 'MoviMonitor'.","Select the device, go to the 'Measure' tab and choose test type 'MoviMonitor'."],
+    ["Nog geen dossier? Maak een nieuw subject aan: subjectcode 'M' + deelnemersnummer, gekoppeld aan het juiste project (WP3 gezonde deelnemers of WP4 diabetespatiënten). Vul bij 'Year of Birth' de neutrale plaatshouderwaarde in zoals voorzien in de SOP, niet de echte geboortedatum; gewicht/lengte/geslacht wel correct invullen.","No record yet? Create a new subject: subject code 'M' + participant number, linked to the correct project (WP3 healthy participants or WP4 diabetes patients). For 'Year of Birth', enter the neutral placeholder value from the SOP, not the real date of birth; weight/height/gender should be entered correctly."]
+   ]},
+   {phase:["Toewijzen & starten","Assign & start"],items:[
+    ["Stel de startdatum in (start steeds de volgende dag om 7 uur), zet de duur op 7 dagen, voeg het bezoek/visit toe (1 visit, 7 dagen na start) en klik op 'Start Measurement'.","Set the start date (always starts the next day at 7 am), set the duration to 7 days, add the visit (1 visit, 7 days after start) and click 'Start Measurement'."],
+    ["<b>Toestel toewijzen</b>: registreer het toestelnummer (UDI) van de DynaPort bij de deelnemer op het moment van uitreiking.","<b>Assign device</b>: register the DynaPort's device number (UDI) to the participant at the moment of handover."]
+   ]},
+   {phase:["Dragen & verwerken","Wear & process"],items:[
+    ["Laat de deelnemer het toestel rond de taille dragen, op de huid of over een dunne kledinglaag \u2014 niet waterdicht, dus niet douchen met het toestel om.","Have the participant wear the device around the waist, on the skin or over a thin layer of clothing \u2014 not waterproof, so no showering with it on."],
+    ["Na 7 dagen: sluit de DynaPort opnieuw aan (data wordt automatisch ge\u00fcpload) en registreer het toestelnummer (UDI) opnieuw bij teruggave \u2014 een aparte registratie van die bij de uitreiking.","After 7 days: reconnect the DynaPort (data uploads automatically) and register the device number (UDI) again on return \u2014 a separate registration from the one at handover."],
+    ["Verwerk de meting: de status doorloopt Measuring \u2192 Analysing \u2192 Completed; open daarna het PDF-rapport (activiteiten, stappen, gemiddelde MI, 'Not worn').","Process the measurement: the status moves through Measuring \u2192 Analysing \u2192 Completed; then open the PDF report (activities, steps, average MI, 'Not worn')."]
+   ]}
   ],
-  sop:"eCRF-documenten/Per nummer/19b_Werkinstructie MoveMonitor (SOP Dynaport).docx"},
+    sop:"eCRF-documenten/Per nummer/19b_Werkinstructie MoveMonitor (SOP Dynaport).docx"},
  {k:'ot',ic:IC.ot,name:["Orthotimer","Orthotimer"],tag:["Schoeisel-adherentie","Footwear adherence"],who:["Zorgteam (DFC)","Care team (DFC)"],
   intro:["Temperatuursensor in de <b>CMFO</b> die meet wanneer het schoeisel gedragen wordt. Adherentie is <b>co-primair</b> (primair punt 12 mnd); elke 3 mnd uitlezen + vervangen.","Temperature sensor in the <b>CMFO</b> recording when footwear is worn. Adherence is <b>co-primary</b> (primary point 12 mo); read out + replace every 3 months."],
   chips:[["9\u00d713\u00d74,5 mm","9\u00d713\u00d74.5 mm"],["elke 15 min","every 15 min"],["co-primair","co-primary"]],
   steps:[
-   ["Maak in de Orthotimer-software een nieuw pati\u00ebntenprofiel aan (naam = deelnemersnummer; geboortedatum en geslacht blijven op de standaardwaarde, want geblindeerd).","Create a new patient profile in the Orthotimer software (name = participant number; date of birth and gender stay at the default value, since blinded)."],
-   ["Stel bij Instellingen in: eenheid Celsius, gewenste draagtijd 8 u/dag, temperatuurbereik voor de inlegzool 25\u201338,5 \u00b0C.","In Settings, set: unit Celsius, desired wearing time 8 h/day, insole temperature range 25\u201338.5 \u00b0C."],
-   ["Verbind de USB/Bluetooth-penreader en zet hem aan.","Connect the USB/Bluetooth pen reader and switch it on."],
-   ["Houd de pen op de 'O' van het Orthotimer-logo op de sensor tot het lampje oplicht en de app de sensor herkent.","Hold the pen on the 'O' of the Orthotimer logo on the sensor until the light comes on and the app recognises the sensor."],
-   ["Klik op 'Activate', kies type 'Insole' en interval '900 seconden' (15 minuten).","Click 'Activate', choose type 'Insole' and interval '900 seconds' (15 minutes)."],
-   ["Voer een testmeting uit: haal de sensor even langer dan het ingestelde interval weg van de reader, bied hem daarna opnieuw aan en klik op 'Test'.","Run a test measurement: remove the sensor from the reader for slightly longer than the set interval, then present it again and click 'Test'."],
-   ["Registreer de sensor bij de juiste deelnemer via 'Register'.","Register the sensor to the correct participant via 'Register'."],
-   ["Lees de sensor om de 3 maanden uit via 'Chipmanagement' \u2192 deelnemer selecteren \u2192 'Export raw data', en vervang de sensor volgens het vervangingsschema (\u00b1 100 dagen batterij).","Read out the sensor every 3 months via 'Chipmanagement' \u2192 select participant \u2192 'Export raw data', and replace the sensor per the replacement schedule (\u00b1 100 days battery)."],
-   ["Verwerk de export tot een adherentie% t.o.v. de persoonlijke 80%-benchmark en bespreek dit non-judgmental met de deelnemer (SEBIA Stap 3 & 4).","Process the export into an adherence % against the personal 80% benchmark and discuss it non-judgmentally with the participant (SEBIA Step 3 & 4)."]
+   {phase:["Patiënt & instellingen","Patient & settings"],items:[
+    ["Maak in de Orthotimer-software een nieuw pati\u00ebntenprofiel aan (naam = deelnemersnummer; geboortedatum en geslacht blijven op de standaardwaarde, want geblindeerd).","Create a new patient profile in the Orthotimer software (name = participant number; date of birth and gender stay at the default value, since blinded)."],
+    ["Stel bij Instellingen in: eenheid Celsius, gewenste draagtijd 8 u/dag, temperatuurbereik voor de inlegzool 25\u201338,5 \u00b0C.","In Settings, set: unit Celsius, desired wearing time 8 h/day, insole temperature range 25\u201338.5 \u00b0C."]
+   ]},
+   {phase:["Activeren","Activate"],items:[
+    ["Verbind de USB/Bluetooth-penreader, houd de pen op de 'O' van het Orthotimer-logo op de sensor tot het lampje oplicht en de app de sensor herkent.","Connect the USB/Bluetooth pen reader, hold it on the 'O' of the Orthotimer logo on the sensor until the light comes on and the app recognises it."],
+    ["Klik op 'Activate', kies type 'Insole' en interval '900 seconden' (15 minuten).","Click 'Activate', choose type 'Insole' and interval '900 seconds' (15 minutes)."],
+    ["Voer een testmeting uit: haal de sensor even langer dan het ingestelde interval weg van de reader, bied hem daarna opnieuw aan en klik op 'Test'.","Run a test measurement: remove the sensor from the reader for slightly longer than the set interval, then present it again and click 'Test'."],
+    ["Registreer de sensor bij de juiste deelnemer via 'Register'.","Register the sensor to the correct participant via 'Register'."]
+   ]},
+   {phase:["Kwartaalbezoek","Quarterly visit"],items:[
+    ["Lees de sensor om de 3 maanden uit via 'Chipmanagement' \u2192 deelnemer selecteren \u2192 'Export raw data', en vervang de sensor volgens het vervangingsschema (\u00b1 100 dagen batterij).","Read out the sensor every 3 months via 'Chipmanagement' \u2192 select participant \u2192 'Export raw data', and replace the sensor per the replacement schedule (\u00b1 100 days battery)."],
+    ["Verwerk de export tot een adherentie% t.o.v. de persoonlijke 80%-benchmark en bespreek dit non-judgmental met de deelnemer (SEBIA Stap 3 & 4).","Process the export into an adherence % against the personal 80% benchmark and discuss it non-judgmentally with the participant (SEBIA Step 3 & 4)."]
+   ]}
   ],
-  sop:"eCRF-documenten/Per nummer/25b_Werkinstructie Orthotimer (SOP).docx"}
+    sop:"eCRF-documenten/Per nummer/25b_Werkinstructie Orthotimer (SOP).docx"}
 ];
 var h='<div class="kicker">'+tr(["Meetinstrumenten","Measurement instruments"])+'</div>';
 h+='<h1>'+tr(["De vier meetinstrumenten van PARADISE","The four PARADISE instruments"])+'</h1>';
@@ -205,7 +219,8 @@ h+='<p class="lead">'+tr(["Vier gevalideerde systemen meten objectief druk, acti
 INST.forEach(function(d){
  h+='<div class="card" style="margin:16px 0"><div class="inst"><span class="ic">'+d.ic+'</span><div><div class="kicker">'+tr(d.tag)+'</div><h2>'+tr(d.name)+'</h2></div><span class="who" style="margin-left:auto">\ud83d\udc64 '+tr(d.who)+'</span></div>';
  h+='<p style="color:var(--soft);margin:10px 0 0">'+tr(d.intro)+'</p><div class="chips">'+d.chips.map(function(c){return '<span class="chip">'+tr(c)+'</span>';}).join('')+'</div>';
- if(d.steps){h+='<div class="sh">'+tr(["Hoe voer je dit uit — stap voor stap","How to perform this — step by step"])+'</div><ul class="steps">'+d.steps.map(function(s){return '<li>'+tr(s)+'</li>';}).join('')+'</ul>';
+ if(d.steps){h+='<div class="sh">'+tr(["Hoe voer je dit uit — stap voor stap","How to perform this — step by step"])+'</div>';
+  d.steps.forEach(function(grp){h+='<div class="phlbl">'+tr(grp.phase)+'</div><ul class="steps">'+grp.items.map(function(s){return '<li>'+tr(s)+'</li>';}).join('')+'</ul>';});
   if(d.sop){h+='<p class="muted" style="margin-top:8px"><a href="'+encodeURI(d.sop)+'" target="_blank" rel="noopener">'+tr(["Volledige werkinstructie (SOP) downloaden","Download full standard operating procedure (SOP)"])+'</a></p>';}
   if(d.more){h+='<p class="muted" style="margin-top:8px"><a href="'+encodeURI(d.more)+'" target="_blank" rel="noopener">'+tr(["Meer detail: module in PARADISE Academy","More detail: module in PARADISE Academy"])+'</a></p>';}
   if(d.sources){h+='<p class="muted" style="margin-top:8px">'+tr(["Bron: ","Source: "])+d.sources.map(function(s){return '<a href="'+s[1]+'" target="_blank" rel="noopener">'+s[0]+'</a>';}).join(' &middot; ')+'</p>';}}
