@@ -134,7 +134,7 @@ function fuSteps(p, opts){
   steps.push(
     {id:p+"-32", ecrf:"eCRF-Document 32", title:"Feedback therapietrouw geven", desc:"Feedback geven aan de patiënt op basis van de adherentiemonitoring.", tag:"sebia"},
     {id:p+"-33", ecrf:"eCRF-Document 33", title:"CMFO en sensor vervangen", desc:"Diabetic CMFO en compliance-sensor vervangen.", tag:"device"},
-    {id:p+"-2135", ecrf:"eCRF-Document 21, 22, 34, 35", title:"Levenskwaliteit, medische consumptie en productiviteit", desc:"Data verzamelen over levenskwaliteit, medische consumptie en productiviteit.", tag:"vragenlijst"}
+    {id:p+"-2135", ecrf:"eCRF-Document 21, 34, 35", title:"Levenskwaliteit, medische consumptie en productiviteit", desc:"Data verzamelen over levenskwaliteit, medische consumptie en productiviteit.", tag:"vragenlijst"}
   );
   return steps;
 }
@@ -160,7 +160,6 @@ var VISITS = {
       {id:"v1-08", ecrf:"eCRF-Document 08", title:"Baseline voetscreening", desc:"Volledige voetscreening uitvoeren en registreren.", tag:"meting"},
       {id:"v1-09", ecrf:"eCRF-Document 09", title:"Baseline plantaire drukmeting (blootsvoets)", desc:"Blootsvoets drukmeting afnemen, ter voorbereiding van de Diabetic CMFO-voorschrijving.", tag:"meting"},
       {id:"v1-10", ecrf:"eCRF-Document 10", title:"Voorschrift Diabetic CMFO", desc:"Voorschrift opstellen voor de custom-made foot orthosis (CMFO).", tag:"device"},
-      {id:"v1-11", ecrf:"eCRF-Document 11", title:"Zelfzorggedrag bevragen (NVVP)", desc:"7-item vragenlijst afnemen over voetgerelateerd zelfzorggedrag.", tag:"vragenlijst"},
       {id:"v1-12", ecrf:"eCRF-Document 12", title:"Tevredenheid ulcuspreventie bevragen", desc:"Tevredenheid met de aanpak van ulcuspreventie bevragen (protocol Vossen et al. 2023).", tag:"vragenlijst"},
       {id:"v1-13", ecrf:"eCRF-Document 13", title:"Gebruik en bruikbaarheid schoeisel bevragen (MOS)", desc:"Gebruik en bruikbaarheid van het aangemeten schoeisel bevragen.", tag:"vragenlijst"},
       {id:"v1-14", ecrf:"eCRF-Document 14", title:"SEBIA stap 1 — Voetzorgkennis bevragen (NAFF)", desc:"Kennis over voetzorg bevragen met de NAFF-vragenlijst.", tag:"sebia"},
@@ -170,8 +169,7 @@ var VISITS = {
       {id:"v1-18", ecrf:"eCRF-Document 18", title:"SEBIA stap 1 — Demonstratie en oefensessie", desc:"Voetzorgprocedures demonstreren, opgedeeld in kleine stappen; de patiënt voert nadien alles zelf uit (\"show-me\"). Bij onvermogen wordt de mantelzorger betrokken.", tag:"sebia"},
       {id:"v1-19", ecrf:"eCRF-Document 19", title:"MoveMonitor voorbereiden", desc:"Uitleg en gebruiksfolder meegeven voor de MoveMonitor (McRoberts), te dragen ter hoogte van lendenwervel L5 gedurende 7 opeenvolgende dagen.", tag:"device"},
       {id:"v1-20", ecrf:"eCRF-Document 20", title:"MoveMonitor toewijzen en activeren", desc:"Toestel toewijzen en activeren; uniek identificatienummer (UDI) registreren in de CRF.", tag:"device"},
-      {id:"v1-21", ecrf:"eCRF-Document 21", title:"Levenskwaliteit — EQ-5D-5L", desc:"Levenskwaliteit evalueren met de EQ-5D-5L-vragenlijst.", tag:"vragenlijst"},
-      {id:"v1-22", ecrf:"eCRF-Document 22", title:"Levenskwaliteit — SF-36", desc:"Levenskwaliteit evalueren met de SF-36-vragenlijst.", tag:"vragenlijst"}
+      {id:"v1-21", ecrf:"eCRF-Document 21", title:"Levenskwaliteit — EQ-5D-5L", desc:"Levenskwaliteit evalueren met de EQ-5D-5L-vragenlijst.", tag:"vragenlijst"}
     ]
   },
   v2: {
@@ -201,7 +199,6 @@ var VISITS = {
       {id:"ulcer-foto", ecrf:null, title:"Ulcus fotograferen", desc:"De behandelende arts of podotherapeut documenteert het ulcus met foto's.", tag:"classificatie"},
       {id:"ulcer-debride", ecrf:null, title:"Wonde debrideren", desc:"De wonde wordt gedebrideerd.", tag:"classificatie"},
       {id:"ulcer-pedis", ecrf:"eCRF-Document 36", title:"PEDIS-classificatie", desc:"Ulcus classificeren volgens de PEDIS-classificatie.", tag:"classificatie"},
-      {id:"ulcer-twcs", ecrf:"eCRF-Document 37", title:"Texas Wound Classification System", desc:"Ulcus classificeren volgens het Texas Wound Classification System.", tag:"classificatie"},
       {id:"ulcer-wifi", ecrf:"eCRF-Document 38", title:"WIfI-classificatie", desc:"Ulcus classificeren volgens het WIfI-classificatiesysteem.", tag:"classificatie"},
       {id:"ulcer-upload", ecrf:null, title:"Geanonimiseerd uploaden", desc:"De investigator laadt alle gegevens geanonimiseerd op naar het beveiligde webplatform voor ulcusbeoordeling.", tag:"algemeen"},
       {id:"ulcer-dfc", ecrf:null, title:"DFC-beoordeling", desc:"Een aangeduide arts van het diabetisch voetcentrum (DFC) beoordeelt de geüploade foto's.", tag:"algemeen"},
