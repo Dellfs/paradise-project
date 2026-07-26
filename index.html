@@ -1289,7 +1289,6 @@ Disease </em>) takes an interdisciplinary approach. By combining biomechanical a
       <button class="ps-btn" id="ps-mcroberts" onclick="showPage('mcroberts')" data-k="btn_mcroberts">Beweegpatroon</button>
       <p style="font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-400);padding:12px 10px 4px;margin:0">Research</p>
       <button class="ps-btn" id="ps-health" onclick="switchPortalPanel('health')" data-k="nav_health">Health Economics</button>
-      <button class="ps-btn" id="ps-protocol" onclick="switchPortalPanel('protocol')" data-k="nav_protocol">Protocol</button>
       <button class="ps-btn" id="ps-results" onclick="switchPortalPanel('results')" data-k="nav_results" style="display:none">Results</button>
       <div style="flex:1"></div>
       <button class="ps-btn" onclick="portalLogout()" style="color:var(--par-orange)" data-k="btn_logout">Logout</button>
@@ -1315,9 +1314,6 @@ Disease </em>) takes an interdisciplinary approach. By combining biomechanical a
         </div>
         <div id="panel-health" class="portal-panel">
           <iframe src="gezondheidseconomie.html" class="portal-frame" title="Gezondheidseconomie" style="min-height:700px;height:calc(100vh - 120px)" onload="try{this.contentWindow.postMessage({type:'px_lang',lang:lang},'*')}catch(e){}"></iframe>
-        </div>
-        <div id="panel-protocol" class="portal-panel">
-          <iframe src="protocol-analyse.html" class="portal-frame" title="Methodologische analyse" style="min-height:700px;height:calc(100vh - 120px)" onload="try{this.contentWindow.postMessage({type:'px_lang',lang:lang},'*')}catch(e){}"></iframe>
         </div>
         <div id="panel-results" class="portal-panel">
           <iframe src="resultaten-dashboard.html" class="portal-frame" title="Resultaten" style="min-height:700px;height:calc(100vh - 120px)" onload="try{this.contentWindow.postMessage({type:'px_lang',lang:lang},'*')}catch(e){}"></iframe>
@@ -3093,7 +3089,7 @@ function applyMemberTypeUI() {
     const active = document.querySelector('#page-members .ps-btn.on');
     if (active) {
       const panelId = active.id.replace('ps-','');
-      if (['documents','handleidingen','health','protocol','results'].includes(panelId)) switchPortalPanel('announcements');
+      if (['documents','handleidingen','health','results'].includes(panelId)) switchPortalPanel('announcements');
     }
   }
 }
@@ -3274,7 +3270,7 @@ function pt(nl, en) { return lang === 'nl' ? nl : en; }
 
 // --- Portal panels ----------------------------------------------
 function switchPortalPanel(panel) {
-  ['announcements','documents','forum','handleidingen','health','protocol','results'].forEach(p => {
+  ['announcements','documents','forum','handleidingen','health','results'].forEach(p => {
     const el = document.getElementById('panel-' + p);
     const btn = document.getElementById('ps-' + p);
     if (el) el.classList.toggle('on', p === panel);
