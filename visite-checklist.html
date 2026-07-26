@@ -1,0 +1,563 @@
+﻿<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Visite-checklist · PARADISE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/tokens.css">
+<style>
+  :root{
+    --ink:var(--color-text);
+    --muted:var(--color-muted-600);
+    --paper:var(--color-surface-soft);
+    --card:var(--color-surface);
+    --line:var(--color-border);
+    --teal:var(--color-brand-600);
+    --navy:var(--color-brand-900);
+    --orange:var(--color-accent-orange);
+    --trans:all var(--duration-base) var(--ease-standard);
+  }
+  *{box-sizing:border-box;}
+  body{font-family:var(--font-b);background:var(--paper);color:var(--ink);}
+  .topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);padding:var(--space-4) var(--space-6);background:linear-gradient(120deg,var(--navy),var(--teal));color:#fff;box-shadow:var(--sh);}
+  .topbar h1{font-family:var(--font-h);font-weight:400;font-size:var(--step-2);margin:0;}
+  .topbar h1 .ver{font-family:var(--font-b);font-size:.6em;font-weight:600;opacity:.6;vertical-align:middle;margin-left:6px;}
+  .topbar .sub{font-size:var(--step--1);opacity:.85;}
+  .tb-actions{display:flex;gap:var(--space-2);flex-wrap:wrap;}
+  .btn{font-family:var(--font-b);font-size:var(--step--1);font-weight:600;border-radius:var(--radius-pill);padding:var(--space-2) var(--space-5);border:1.5px solid rgba(255,255,255,.6);background:rgba(255,255,255,.08);color:#fff;cursor:pointer;transition:var(--trans);min-height:44px;display:inline-flex;align-items:center;}
+  .btn:hover{background:rgba(255,255,255,.2);}
+  .btn.primary{background:var(--orange);border-color:var(--orange);}
+  .btn.primary:hover{filter:brightness(1.08);}
+  .btn.ghost{background:none;border-color:var(--line);color:var(--ink);}
+  main{max-width:920px;margin:0 auto;padding:var(--space-8) var(--space-5) var(--space-20);}
+  .intro-note{font-size:var(--step--1);color:var(--muted);max-width:var(--measure);margin:0 auto var(--space-8);text-align:center;}
+  .visit-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-5);}
+  .visit-card{background:var(--card);border:1.5px solid var(--line);border-radius:var(--rl);padding:var(--space-6);cursor:pointer;text-align:left;transition:var(--trans);box-shadow:var(--sh);}
+  .visit-card:hover{border-color:var(--teal);box-shadow:var(--shm);transform:translateY(-2px);}
+  .visit-card .vc-label{font-family:var(--font-h);font-size:var(--step-2);color:var(--navy);margin:0 0 var(--space-2);}
+  .visit-card .vc-intro{font-size:var(--step--1);color:var(--muted);}
+  .visit-card .vc-count{display:block;margin-top:var(--space-3);font-size:var(--step--1);font-weight:600;color:var(--teal);}
+  .variant-row{display:flex;gap:var(--space-3);justify-content:center;margin:0 0 var(--space-6);flex-wrap:wrap;}
+  .chip{border:1.5px solid var(--line);border-radius:var(--radius-pill);padding:var(--space-2) var(--space-5);font-size:var(--step--1);font-weight:600;cursor:pointer;background:var(--card);color:var(--ink);transition:var(--trans);min-height:44px;display:inline-flex;align-items:center;}
+  .chip.active{background:var(--teal);border-color:var(--teal);color:#fff;}
+  .progress-wrap{display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-6);}
+  .progress-count{font-size:var(--step--1);font-weight:600;color:var(--muted);white-space:nowrap;}
+  .meter{flex:1;height:8px;border-radius:var(--radius-pill);background:var(--line);overflow:hidden;}
+  .meter i{display:block;height:100%;background:var(--orange);border-radius:var(--radius-pill);transition:width var(--duration-base) var(--ease-standard);}
+  .banner-done{background:var(--color-surface-muted);border:1.5px solid var(--teal);color:var(--navy);border-radius:var(--r);padding:var(--space-3) var(--space-5);font-size:var(--step--1);font-weight:600;margin-bottom:var(--space-6);}
+  .step{display:flex;gap:var(--space-4);align-items:flex-start;background:var(--card);border:1.5px solid var(--line);border-radius:var(--r);padding:var(--space-4) var(--space-5);margin-bottom:var(--space-3);cursor:pointer;transition:var(--trans);}
+  .step:hover{border-color:var(--teal);}
+  .step.checked{background:var(--color-surface-muted);border-color:var(--teal);}
+  .step .box{width:22px;height:22px;border-radius:var(--radius-1);border:2px solid var(--muted);flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:.8rem;color:#fff;}
+  .step.checked .box{background:var(--teal);border-color:var(--teal);}
+  .step-body{flex:1;}
+  .step-head{display:flex;align-items:center;gap:var(--space-3);flex-wrap:wrap;margin-bottom:2px;}
+  .step-title{font-weight:600;font-size:var(--step-0);}
+  .step.checked .step-title{text-decoration:line-through;color:var(--muted);}
+  .ecrf-badge{font-family:ui-monospace,Consolas,monospace;font-size:.68rem;letter-spacing:.02em;background:var(--color-surface-muted);color:var(--teal);border-radius:var(--radius-pill);padding:2px 9px;white-space:nowrap;}
+  .tag-chip{font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);}
+  .step-desc{font-size:var(--step--1);color:var(--muted);}
+  .step-action{display:flex;align-items:center;gap:var(--space-3);flex-wrap:wrap;margin-top:var(--space-3);}
+  .step-open{font-family:var(--font-b);font-size:var(--step--1);font-weight:600;border-radius:var(--radius-pill);padding:var(--space-2) var(--space-5);border:1.5px solid var(--teal);background:var(--color-surface-muted);color:var(--navy);cursor:pointer;transition:var(--trans);min-height:44px;display:inline-flex;align-items:center;}
+  .step-open:hover{background:var(--teal);color:#fff;}
+  .step-action-hint{font-size:.72rem;color:var(--muted);font-style:italic;}
+  .step-note{display:block;width:100%;margin-top:var(--space-2);font-family:var(--font-b);font-size:var(--step--1);color:var(--ink);background:var(--paper);border:1.5px solid var(--line);border-radius:var(--radius-1);padding:var(--space-2) var(--space-3);resize:vertical;min-height:2.2em;}
+  .step-note:focus{outline:none;border-color:var(--teal);}
+  .step-note::placeholder{color:var(--muted);}
+  .privacy-note{font-size:var(--step--1);color:var(--muted);text-align:center;max-width:var(--measure);margin:var(--space-8) auto 0;}
+  .care-note{font-size:var(--step--1);color:var(--orange);font-weight:600;max-width:var(--measure);margin:0 auto var(--space-5);text-align:center;}
+  .status-pill{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;border-radius:var(--radius-pill);padding:3px 11px;margin-top:var(--space-2);}
+  .status-pill.done{background:var(--color-surface-muted);color:#1c5a3a;}
+  .status-pill.pending{background:var(--paper);color:var(--muted);border:1.5px dashed var(--line);}
+  .combo-report{border:1.5px solid var(--teal);cursor:default;}
+  .combo-done{display:inline-block;font-size:.72rem;font-weight:700;color:#1c5a3a;background:var(--color-surface-muted);border-radius:var(--radius-pill);padding:3px 11px;margin-bottom:var(--space-2);}
+  .combo-report h3{font-family:var(--font-h);font-weight:400;font-size:var(--step-1);color:var(--navy);margin:0 0 var(--space-2);}
+  .combo-score{font-family:var(--font-h);font-size:var(--step-4);font-weight:400;line-height:1;margin:var(--space-2) 0;}
+  .combo-score.good{color:#2E7D32;}
+  .combo-score.mid{color:var(--orange);}
+  .combo-score.low{color:#C0392B;}
+  .combo-actions{margin-top:var(--space-4);}
+  @media(max-width:680px){.visit-grid{grid-template-columns:1fr;}}
+  @media print{
+    .tb-actions,.topbar .sub,#stageSelect,.step-action,.combo-actions{display:none!important;}
+    body{background:#fff;}
+    .step{break-inside:avoid;}
+    .step-note{border:1px solid #999;background:#fff;color:#000;}
+  }
+</style>
+</head>
+<body>
+<script>
+(function(){
+  if(window.parent===window){
+    document.addEventListener('DOMContentLoaded',function(){
+      document.body.style.cssText='margin:0;display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--color-surface-soft,#F4F8FC);font-family:DM Sans,sans-serif;color:var(--color-text,#0D2035)';
+      document.body.innerHTML='<div style="background:#fff;border-radius:16px;padding:40px 48px;max-width:480px;text-align:center;box-shadow:0 18px 50px rgba(13,33,55,.22)">'
+        +'<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1D8DB0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:16px"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>'
+        +'<h1 style="font-size:20px;font-weight:700;margin:0 0 10px">Toegang beperkt</h1>'
+        +'<p style="font-size:14px;color:#4A6880;line-height:1.65;margin:0">Dit instrument is enkel beschikbaar voor leden binnen het PARADISE-project via het beveiligd portaal.</p>'
+        +'</div>';
+    });
+  }
+})();
+</script>
+  <div class="topbar">
+    <div>
+      <h1>Visite-checklist <span class="ver" id="tbVersion" title="Build">v1.1.0</span></h1>
+      <div class="sub" id="tbSub">PARADISE-studie</div>
+    </div>
+    <div class="tb-actions" id="tbActions"></div>
+  </div>
+  <main id="app"></main>
+
+<script>
+(function(){
+"use strict";
+
+function fuSteps(p, opts){
+  opts = opts || {};
+  var steps = [
+    {id:p+"-08", ecrf:"eCRF-Document 08", title:"Voet- en schoeiselscreening", desc:"Voeten en schoeisel screenen.", tag:"meting"},
+    {id:p+"-31", ecrf:"eCRF-Document 31", title:"Schoeiseladherentie bevragen", desc:"Patiënt bevragen over de therapietrouw m.b.t. het schoeisel.", tag:"vragenlijst"}
+  ];
+  if(opts.comboAtEnd){
+    steps.push({id:p+"-combo", ecrf:"eCRF-Document 19, 20, 25, 27", combo:true,
+      title:"Draagpatroon + beweegpatroon verwerken (6 maanden)",
+      desc:"Enkel op maand 6: MoveMonitor opnieuw uitreiken/uitlezen én de Orthotimer-sensor uitlezen. Verwerk beide in deze volgorde — het draagdoel wordt automatisch voorgesteld op basis van het beweegpatroon en het gezamenlijk feedbackdocument verschijnt hieronder zodra beide klaar zijn.",
+      tag:"device"});
+  } else {
+    steps.push({id:p+"-25", ecrf:"eCRF-Document 25", title:"Draagsensor uitlezen", desc:"Orthotimer-sensor uitlezen. Het draagdoel wordt automatisch voorgesteld indien er recent een beweegpatroon (McRoberts) werd verwerkt.", tag:"device", action:"orthotimer"});
+  }
+  steps.push(
+    {id:p+"-32", ecrf:"eCRF-Document 32", title:"Feedback therapietrouw geven", desc:"Feedback geven aan de patiënt op basis van de adherentiemonitoring.", tag:"sebia"},
+    {id:p+"-33", ecrf:"eCRF-Document 33", title:"CMFO en sensor vervangen", desc:"Diabetic CMFO en compliance-sensor vervangen.", tag:"device"},
+    {id:p+"-2135", ecrf:"eCRF-Document 21, 22, 34, 35", title:"Levenskwaliteit, medische consumptie en productiviteit", desc:"Data verzamelen over levenskwaliteit, medische consumptie en productiviteit.", tag:"vragenlijst"}
+  );
+  return steps;
+}
+function pressureRecheck(p){
+  return {id:p+"-24", ecrf:"eCRF-Document 24", title:"Drukherverdeling CMFO beoordelen (extra controle)", desc:"Zelfde benchmark als visite 2 — piekdruk ≥25% reductie t.o.v. baseline óf onder 200 kPa absoluut.", tag:"meting"};
+}
+
+var VISITS = {
+  v0: {
+    key:"v0", label:"V0 · Screening",
+    intro:"Screening en informed consent, vóór randomisatie naar studiearm.",
+    steps:[
+      {id:"v0-01", ecrf:"eCRF-Document 01", title:"Screening vóór toestemming", desc:"Eerste screening van de kandidaat-deelnemer, vóór het informed consent.", tag:"algemeen"},
+      {id:"v0-02", ecrf:"eCRF-Document 02", title:"Informed consent en kostenformulier", desc:"Informatie- en toestemmingsformulier overlopen en ondertekenen; kostenformulier invullen.", tag:"algemeen"},
+      {id:"v0-06", ecrf:"eCRF-Document 06", title:"In-/exclusiecriteria bevestigen", desc:"Baseline eligibility bevestigen en randomisatie/toewijzing aan studiearm voorbereiden.", tag:"algemeen"}
+    ]
+  },
+  v1: {
+    key:"v1", label:"V1 · Baseline",
+    intro:"Na toewijzing aan een studiearm ondergaat de deelnemer een baseline-assessment in het deelnemend ziekenhuis.",
+    steps:[
+      {id:"v1-07", ecrf:"eCRF-Document 07", title:"Demografische gegevens en medische voorgeschiedenis", desc:"Demografische gegevens en medische voorgeschiedenis van de deelnemer registreren.", tag:"algemeen"},
+      {id:"v1-08", ecrf:"eCRF-Document 08", title:"Baseline voetscreening", desc:"Volledige voetscreening uitvoeren en registreren.", tag:"meting"},
+      {id:"v1-09", ecrf:"eCRF-Document 09", title:"Baseline plantaire drukmeting (blootsvoets)", desc:"Blootsvoets drukmeting afnemen, ter voorbereiding van de Diabetic CMFO-voorschrijving.", tag:"meting"},
+      {id:"v1-10", ecrf:"eCRF-Document 10", title:"Voorschrift Diabetic CMFO", desc:"Voorschrift opstellen voor de custom-made foot orthosis (CMFO).", tag:"device"},
+      {id:"v1-11", ecrf:"eCRF-Document 11", title:"Zelfzorggedrag bevragen (NVVP)", desc:"7-item vragenlijst afnemen over voetgerelateerd zelfzorggedrag.", tag:"vragenlijst"},
+      {id:"v1-12", ecrf:"eCRF-Document 12", title:"Tevredenheid ulcuspreventie bevragen", desc:"Tevredenheid met de aanpak van ulcuspreventie bevragen (protocol Vossen et al. 2023).", tag:"vragenlijst"},
+      {id:"v1-13", ecrf:"eCRF-Document 13", title:"Gebruik en bruikbaarheid schoeisel bevragen (MOS)", desc:"Gebruik en bruikbaarheid van het aangemeten schoeisel bevragen.", tag:"vragenlijst"},
+      {id:"v1-14", ecrf:"eCRF-Document 14", title:"SEBIA stap 1 — Voetzorgkennis bevragen (NAFF)", desc:"Kennis over voetzorg bevragen met de NAFF-vragenlijst.", tag:"sebia"},
+      {id:"v1-15", ecrf:"eCRF-Document 15", title:"SEBIA stap 1 — Gezondheidsvaardigheden bevragen (HLS-EU-6)", desc:"Health literacy bevragen met de HLS-EU-6-vragenlijst.", tag:"sebia"},
+      {id:"v1-16", ecrf:"eCRF-Document 16", title:"SEBIA stap 1 — Educatieboekje overhandigen", desc:"Vraag-op-maat educatieprogramma op basis van de Nederlandse voetzorgrichtlijnen en het Fragile Feet-Trivial Program.", tag:"sebia"},
+      {id:"v1-17", ecrf:"eCRF-Document 17", title:"SEBIA stap 1 — Folder dagelijkse voetzorgstappen", desc:"Folder met tekst en beeld over dagelijkse voetzorgstappen meegeven.", tag:"sebia"},
+      {id:"v1-18", ecrf:"eCRF-Document 18", title:"SEBIA stap 1 — Demonstratie en oefensessie", desc:"Voetzorgprocedures demonstreren, opgedeeld in kleine stappen; de patiënt voert nadien alles zelf uit (\"show-me\"). Bij onvermogen wordt de mantelzorger betrokken.", tag:"sebia"},
+      {id:"v1-19", ecrf:"eCRF-Document 19", title:"MoveMonitor voorbereiden", desc:"Uitleg en gebruiksfolder meegeven voor de MoveMonitor (McRoberts), te dragen ter hoogte van lendenwervel L5 gedurende 7 opeenvolgende dagen.", tag:"device"},
+      {id:"v1-20", ecrf:"eCRF-Document 20", title:"MoveMonitor toewijzen en activeren", desc:"Toestel toewijzen en activeren; uniek identificatienummer (UDI) registreren in de CRF.", tag:"device"},
+      {id:"v1-21", ecrf:"eCRF-Document 21", title:"Levenskwaliteit — EQ-5D-5L", desc:"Levenskwaliteit evalueren met de EQ-5D-5L-vragenlijst.", tag:"vragenlijst"},
+      {id:"v1-22", ecrf:"eCRF-Document 22", title:"Levenskwaliteit — SF-36", desc:"Levenskwaliteit evalueren met de SF-36-vragenlijst.", tag:"vragenlijst"}
+    ]
+  },
+  v2: {
+    key:"v2", label:"V2 · CMFO-fitting (14 dagen – 1 maand)",
+    intro:"Opvolgbezoek kort na de start: CMFO-aflevering, drukcontrole, sensorintegratie en SEBIA-stap 2.",
+    steps:[
+      {id:"v2-23", ecrf:"eCRF-Document 23", title:"Diabetic CMFO afleveren", desc:"Patiënt ontvangt de custom-made foot orthosis; aanpassing en verificatie registreren.", tag:"device"},
+      {id:"v2-24", ecrf:"eCRF-Document 24", title:"Drukherverdeling CMFO beoordelen", desc:"Beoordelen t.o.v. baseline; verdere verbetering nastreven bij piekdruk boven 200 kPa of indien het onderzoeksteam/pedorthist dit haalbaar acht. Doel: piekdruk ≥25% reductie t.o.v. baseline óf een absolute waarde onder 200 kPa.", tag:"meting"},
+      {id:"v2-25", ecrf:"eCRF-Document 25", title:"Draagsensor (Orthotimer) integreren in CMFO", desc:"Compliance-sensor in de CMFO integreren; UDI registreren.", tag:"device"},
+      {id:"v2-26", ecrf:"eCRF-Document 26", title:"Overtuigingen en gewoontes rond schoeisel bevragen", desc:"Persoonlijke overtuigingen, emoties, dagelijkse routines en geloofwaardigheid t.a.v. het schoeisel bevragen.", tag:"vragenlijst"},
+      {id:"v2-27", ecrf:"eCRF-Document 27", title:"MoveMonitor terugnemen", desc:"Patiënt levert de fysieke-activiteitsmonitor terug in; UDI registreren.", tag:"device", action:"mcroberts"},
+      {id:"v2-28", ecrf:"eCRF-Document 28", title:"SEBIA stap 2 — Activiteitsprofiel en feedback", desc:"Podotherapeut beoordeelt het fysieke-activiteitsprofiel en geeft persoonlijke feedback.", tag:"sebia"},
+      {id:"v2-29", ecrf:"eCRF-Document 29", title:"SEBIA stap 2 — Herhaling vorige educatie (teach-back)", desc:"Retentie van eerdere educatie bevragen via terugvraag/teach-back.", tag:"sebia"},
+      {id:"v2-30", ecrf:"eCRF-Document 30", title:"SEBIA stap 2 — Uitleg draagsensor", desc:"Uitleggen aan de deelnemer dat de draagtijd voortaan via een sensor wordt gemonitord.", tag:"sebia"}
+    ]
+  },
+  v3: { key:"v3", label:"V3 · Follow-up (maand 3)", intro:"Regulier opvolgbezoek, 3 maanden na start.", steps: fuSteps("v3") },
+  v4: { key:"v4", label:"V4 · Major follow-up (maand 6)", intro:"Uitgebreid opvolgbezoek: extra drukcontrole én herhaalde MoveMonitor-meting.", steps: fuSteps("v4", {comboAtEnd:true}).concat([pressureRecheck("v4")]) },
+  v5: { key:"v5", label:"V5 · Follow-up (maand 9)", intro:"Regulier opvolgbezoek.", steps: fuSteps("v5") },
+  v6: { key:"v6", label:"V6 · Major follow-up (maand 12)", intro:"Uitgebreid opvolgbezoek met extra drukcontrole.", steps: fuSteps("v6").concat([pressureRecheck("v6")]) },
+  v7: { key:"v7", label:"V7 · Follow-up (maand 15)", intro:"Regulier opvolgbezoek.", steps: fuSteps("v7") },
+  v8: { key:"v8", label:"V8 · End of study (maand 18)", intro:"Laatste studiebezoek: extra drukcontrole en eindevaluatie.", steps: fuSteps("v8").concat([pressureRecheck("v8"), {id:"v8-close", ecrf:null, title:"Eindevaluatie studie", desc:"Afronding van de deelname: eindstatus ulcus, laatste adherentie-overzicht en dankwoord aan de deelnemer.", tag:"algemeen"}]) },
+  ulcer: {
+    key:"ulcer", label:"Onvoorziene ulcusvisite",
+    intro:"Bij vaststelling van een voetulcus — door de deelnemer, de behandelende arts of een andere zorgverlener — tussen of tijdens geplande bezoeken moet de investigator onmiddellijk op de hoogte gebracht worden.",
+    steps:[
+      {id:"ulcer-foto", ecrf:null, title:"Ulcus fotograferen", desc:"De behandelende arts of podotherapeut documenteert het ulcus met foto's.", tag:"classificatie"},
+      {id:"ulcer-debride", ecrf:null, title:"Wonde debrideren", desc:"De wonde wordt gedebrideerd.", tag:"classificatie"},
+      {id:"ulcer-pedis", ecrf:"eCRF-Document 36", title:"PEDIS-classificatie", desc:"Ulcus classificeren volgens de PEDIS-classificatie.", tag:"classificatie"},
+      {id:"ulcer-twcs", ecrf:"eCRF-Document 37", title:"Texas Wound Classification System", desc:"Ulcus classificeren volgens het Texas Wound Classification System.", tag:"classificatie"},
+      {id:"ulcer-wifi", ecrf:"eCRF-Document 38", title:"WIfI-classificatie", desc:"Ulcus classificeren volgens het WIfI-classificatiesysteem.", tag:"classificatie"},
+      {id:"ulcer-upload", ecrf:null, title:"Geanonimiseerd uploaden", desc:"De investigator laadt alle gegevens geanonimiseerd op naar het beveiligde webplatform voor ulcusbeoordeling.", tag:"algemeen"},
+      {id:"ulcer-dfc", ecrf:null, title:"DFC-beoordeling", desc:"Een aangeduide arts van het diabetisch voetcentrum (DFC) beoordeelt de geüploade foto's.", tag:"algemeen"},
+      {id:"ulcer-cwis", ecrf:null, title:"Cardiff Wound Impact Schedule", desc:"Gevalideerde Nederlandse versie afnemen, op 4 en 12 weken na het optreden van het ulcus.", tag:"vragenlijst"}
+    ]
+  }
+};
+var VISIT_ORDER = ["v0","v1","v2","v3","v4","v5","v6","v7","v8","ulcer"];
+
+var TAG_LABELS = {algemeen:"Algemeen", meting:"Meting", vragenlijst:"Vragenlijst", device:"Toestel", sebia:"SEBIA", classificatie:"Classificatie"};
+var ACTIONS = {
+  mcroberts:  {label:"Beweegpatroon (McRoberts) uitlezen →", page:"mcroberts", summaryKey:"pvc_activity_summary"},
+  orthotimer: {label:"Draagpatroon (Orthotimer) uitlezen →", page:"uploader", summaryKey:"pvc_wear_summary"}
+};
+var CARE_ARMS = {
+  optimal: {key:"optimal", label:"Optimal Care", intro:"Volledig studieprotocol: CMFO met drukgestuurde fitting, Orthotimer- en MoveMonitor-opvolging, SEBIA-educatie."},
+  usual:   {key:"usual",   label:"Usual Care",   intro:"Standaard zorgtraject, geblindeerd voor drukresultaten. De studiestappen hieronder zijn niet van toepassing — enkel de onvoorziene ulcusvisite blijft relevant."}
+};
+var STORE_KEY = "pvc_state";
+var ENCOUNTER_KEY = "pvc_encounter_id";
+var MAX_SUMMARY_AGE_MS = 4 * 60 * 60 * 1000; // 4 u — een toestelrapport ouder dan dit wordt als verlopen behandeld
+var APP_VERSION = "1.1.0";
+
+// Test-write i.p.v. try/catch her en der verspreiden: als localStorage geblokkeerd is
+// (bv. privénavigatie) toont render() een duidelijke melding i.p.v. de app stil te laten
+// vasthangen op "kies studiearm" zonder dat iets ooit bewaard wordt.
+var STORAGE_OK = (function(){
+  try{ var k = "__pvc_probe__"; localStorage.setItem(k, "1"); localStorage.removeItem(k); return true; }catch(e){ return false; }
+})();
+
+// Elk bezoek ("Nieuwe visite starten") krijgt een vers, opaak sessie-ID. Toestelrapporten
+// worden bij het opslaan met dit ID gemerkt (zie de twee uploader-bestanden); zo kan een
+// rapport van een vorige patiënt nooit stilzwijgend meetellen bij een nieuwe patiënt —
+// het wordt gedetecteerd én meteen verwijderd i.p.v. enkel gewaarschuwd.
+function getEncounterId(){
+  try{ return localStorage.getItem(ENCOUNTER_KEY); }catch(e){ return null; }
+}
+function newEncounterId(){
+  var id = "enc_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 8);
+  try{ localStorage.setItem(ENCOUNTER_KEY, id); }catch(e){}
+  return id;
+}
+function ensureEncounterId(){
+  var id = getEncounterId();
+  if(!id) id = newEncounterId();
+  return id;
+}
+// Leest een toestelsamenvatting, maar enkel als ze bij het huidige bezoek hoort én niet
+// verlopen is. Een niet-passende of verlopen samenvatting wordt meteen opgeruimd i.p.v.
+// te blijven liggen tot de volgende visite ze per ongeluk toch weer oppikt.
+function currentSummary(key){
+  var s = readSummary(key);
+  if(!s) return null;
+  var enc = getEncounterId();
+  var age = s.savedAt ? Date.now() - new Date(s.savedAt).getTime() : NaN;
+  var stale = !s.encounterId || !enc || s.encounterId !== enc || isNaN(age) || age > MAX_SUMMARY_AGE_MS;
+  if(stale){
+    try{ localStorage.removeItem(key); }catch(e){}
+    return null;
+  }
+  return s;
+}
+
+function loadState(){
+  try{
+    var raw = localStorage.getItem(STORE_KEY);
+    if(raw){
+      var parsed = JSON.parse(raw);
+      if(!parsed.values) parsed.values = {};
+      if(!("care" in parsed)) parsed.care = null;
+      return parsed;
+    }
+  }catch(e){}
+  return {care:null, visit:null, checked:{}, values:{}};
+}
+
+var state = loadState();
+
+function esc(s){
+  return (s == null ? "" : String(s)).replace(/[&<>"']/g, function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+  });
+}
+
+function readSummary(key){
+  try{ var raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : null; }catch(e){ return null; }
+}
+function nf1(n){ return (Math.round(n*10)/10).toString().replace(".", ","); }
+function fmtDate(iso){ try{ return new Date(iso).toLocaleDateString("nl-BE"); }catch(e){ return ""; } }
+
+// Fase-2-naad: vervang enkel deze functie later door een Supabase-call
+// (op basis van step.id + een visite/patient-identifier); de render-laag
+// (render/checklistHTML/stepRowHTML) hoeft daarvoor niet te wijzigen.
+function persistState(){
+  try{
+    state.updatedAt = new Date().toISOString();
+    localStorage.setItem(STORE_KEY, JSON.stringify(state));
+  }catch(e){}
+}
+
+function currentSteps(){
+  if(!state.visit) return [];
+  return VISITS[state.visit].steps.slice();
+}
+
+function isStepDone(s){
+  if(s.combo) return !!(currentSummary("pvc_wear_summary") && currentSummary("pvc_activity_summary"));
+  return !!state.checked[s.id];
+}
+
+function selectCare(key){
+  state.care = key;
+  state.visit = null;
+  persistState();
+  render();
+}
+
+function selectVisit(key){
+  state.visit = key;
+  persistState();
+  render();
+}
+
+function toggleStep(id){
+  state.checked[id] = !state.checked[id];
+  persistState();
+  render();
+}
+
+function clearDeviceSummaries(){
+  try{
+    localStorage.removeItem("pvc_wear_summary");
+    localStorage.removeItem("pvc_activity_summary");
+  }catch(e){}
+}
+
+function resetVisit(){
+  state = {care:null, visit:null, checked:{}, values:{}};
+  clearDeviceSummaries();
+  newEncounterId();
+  persistState();
+  render();
+}
+
+function careSelectHTML(){
+  var cards = Object.keys(CARE_ARMS).map(function(key){
+    var c = CARE_ARMS[key];
+    return '<button class="visit-card" data-care="' + key + '">' +
+      '<div class="vc-label">' + c.label + '</div>' +
+      '<div class="vc-intro">' + c.intro + '</div>' +
+      '</button>';
+  }).join("");
+  return '<p class="intro-note">Kies eerst de studiearm van deze patiënt.</p>' +
+    '<div class="visit-grid">' + cards + '</div>';
+}
+
+function visitSelectHTML(){
+  var isUsual = state.care === "usual";
+  var keys = VISIT_ORDER.filter(function(k){ return !isUsual || k === "v0" || k === "ulcer"; });
+  var cards = keys.map(function(key){
+    var v = VISITS[key];
+    return '<button class="visit-card" data-visit="' + key + '">' +
+      '<div class="vc-label">' + v.label + '</div>' +
+      '<div class="vc-intro">' + v.intro + '</div>' +
+      '<div class="vc-count">' + v.steps.length + ' stappen</div>' +
+      '</button>';
+  }).join("");
+  var usualNote = isUsual
+    ? '<p class="care-note">Usual Care volgt het standaard zorgtraject buiten het studieprotocol — enkel screening (V0) en de onvoorziene ulcusvisite zijn hier van toepassing.</p>'
+    : "";
+  return usualNote +
+    '<p class="intro-note">Kies hieronder welke visite doorgaat (V0–V8, of de onvoorziene ulcusvisite). Elke stap kan tijdens het consult worden afgevinkt en aangevuld met een notitie als geheugensteun.</p>' +
+    '<div class="visit-grid">' + cards + '</div>' +
+    '<p class="privacy-note">Het aanvinken en de notities zijn enkel een geheugensteun voor uzelf tijdens dit consult — er wordt niets verzonden en er worden geen patiëntgegevens bewaard. Vul in de notities geen naam of patiëntnummer in. "Nieuwe visite starten" wist deze aftekening en notities.</p>';
+}
+
+function actionStatusHTML(actionKey){
+  var action = ACTIONS[actionKey];
+  if(!action || !action.summaryKey) return "";
+  var summary = currentSummary(action.summaryKey);
+  if(!summary) return '<span class="status-pill pending">Nog niet verwerkt</span>';
+  var detail = actionKey === "orthotimer"
+    ? summary.pct + "% van doel · " + nf1(summary.meanWearHours) + " u/dag"
+    : "WB " + nf1(summary.avgWBHours) + " u/dag";
+  return '<span class="status-pill done">✓ Verwerkt ' + fmtDate(summary.savedAt) + " · " + detail + '</span>';
+}
+
+function comboScoreBlock(wear, activity){
+  var wb = activity.avgWBHours;
+  var pct = wb > 0 ? Math.round(Math.min(wear.meanWearHours / wb, 1) * 100) : 0;
+  var lvl = pct >= 80 ? "good" : pct >= 60 ? "mid" : "low";
+  return '<div class="combo-done">✓ Beide verwerkt — beweegpatroon ' + fmtDate(activity.savedAt) + ' · draagpatroon ' + fmtDate(wear.savedAt) + '</div>' +
+    '<h3>Gezamenlijk feedbackdocument — schoeiseladherentie</h3>' +
+    '<p class="step-desc">Eén rapport op basis van beide toestellen samen — geen apart draagpatroon- of beweegpatroonrapport nodig. Benadering op basis van dag-gemiddelden; geen gesynchroniseerde epoch-data tussen de twee toestellen.</p>' +
+    '<div class="combo-score ' + lvl + '">' + pct + '%</div>' +
+    '<p class="step-desc">Gemiddeld <strong>' + nf1(wear.meanWearHours) + ' u/dag</strong> schoeisel gedragen tegenover <strong>' + nf1(wb) + ' u/dag</strong> gewichtsdragende tijd (WB) — dat is <strong>' + pct + '%</strong> dekking van de tijd dat de patiënt op de voeten stond of liep.</p>' +
+    '<div class="combo-actions"><button type="button" class="step-open" onclick="window.print()">Afdrukken</button></div>';
+}
+
+function comboStepHTML(step){
+  var wear = currentSummary("pvc_wear_summary");
+  var activity = currentSummary("pvc_activity_summary");
+  var body;
+  if(wear && activity){
+    body = comboScoreBlock(wear, activity);
+  } else if(activity && !wear){
+    body = '<span class="status-pill done">✓ Beweegpatroon verwerkt · WB ' + nf1(activity.avgWBHours) + ' u/dag</span>' +
+      '<div class="step-action"><button type="button" class="step-open" data-open="orthotimer">Volgende: draagpatroon (Orthotimer) verwerken →</button>' +
+      '<span class="step-action-hint">Stap 2 van 2 — het draagdoel wordt automatisch voorgesteld op basis van het beweegpatroon.</span></div>';
+  } else if(wear && !activity){
+    body = '<span class="status-pill done">✓ Draagpatroon verwerkt · ' + wear.pct + '% van doel</span>' +
+      '<div class="step-action"><button type="button" class="step-open" data-open="mcroberts">Beweegpatroon (McRoberts) verwerken →</button>' +
+      '<span class="step-action-hint">Nodig om het gezamenlijk rapport te vervolledigen.</span></div>';
+  } else {
+    body = '<div class="step-action"><button type="button" class="step-open" data-open="mcroberts">Start: beweegpatroon (McRoberts) verwerken →</button>' +
+      '<span class="step-action-hint">Stap 1 van 2 — bepaalt het draagdoel voor de Orthotimer-stap. Keer nadien terug via "Wissel visite".</span></div>';
+  }
+  return '<div class="step combo-report" data-combo="' + step.id + '">' +
+    '<div class="step-body">' +
+      '<div class="step-head"><span class="step-title">' + step.title + '</span></div>' +
+      '<div class="step-desc">' + step.desc + '</div>' +
+      body +
+    '</div></div>';
+}
+
+function stepRowHTML(step){
+  if(step.combo) return comboStepHTML(step);
+  var checked = isStepDone(step);
+  var note = state.values[step.id] || "";
+  var action = step.action && ACTIONS[step.action];
+  var actionHTML = action
+    ? '<div class="step-action"><button type="button" class="step-open" data-open="' + step.action + '">' + action.label + '</button>' +
+      '<span class="step-action-hint">Opent in het portaal — keer nadien terug via "Wissel visite".</span></div>' +
+      actionStatusHTML(step.action)
+    : "";
+  return '<div class="step' + (checked ? " checked" : "") + '" data-step="' + step.id + '">' +
+    '<div class="box">' + (checked ? "✓" : "") + '</div>' +
+    '<div class="step-body">' +
+      '<div class="step-head"><span class="step-title">' + step.title + '</span><span class="tag-chip">' + (TAG_LABELS[step.tag] || "") + '</span></div>' +
+      '<div class="step-desc">' + step.desc + '</div>' +
+      actionHTML +
+      '<textarea class="step-note" data-note="' + step.id + '" rows="2" placeholder="Notitie / bevinding (optioneel — geen patiëntgegevens)">' + esc(note) + '</textarea>' +
+    '</div></div>';
+}
+
+function checklistHTML(){
+  var v = VISITS[state.visit];
+  var steps = currentSteps();
+  var doneCount = steps.filter(isStepDone).length;
+  var pct = steps.length ? Math.round(doneCount / steps.length * 100) : 0;
+
+  var banner = (steps.length && doneCount === steps.length)
+    ? '<div class="banner-done">Visite volledig doorlopen ✓ — alle ' + steps.length + ' stappen afgevinkt.</div>'
+    : "";
+
+  var rows = steps.map(stepRowHTML).join("");
+
+  return '<p class="intro-note" style="margin-bottom:var(--space-4)">' + v.intro + '</p>' +
+    '<div class="progress-wrap"><span class="progress-count">' + doneCount + ' / ' + steps.length + ' voltooid</span>' +
+    '<div class="meter"><i style="width:' + pct + '%"></i></div></div>' +
+    banner + rows +
+    '<p class="privacy-note">Het aanvinken en de notities zijn enkel een geheugensteun — er wordt niets verzonden en er worden geen patiëntgegevens bewaard. Vul in de notities geen naam of patiëntnummer in.</p>';
+}
+
+function render(){
+  var app = document.getElementById("app");
+  var actions = document.getElementById("tbActions");
+  var sub = document.getElementById("tbSub");
+  if(!STORAGE_OK){
+    app.innerHTML = '<p class="care-note">Deze browser blokkeert lokale opslag (bv. privénavigatie of cookies uitgeschakeld) — de checklist kan de voortgang niet bijhouden. Gebruik een gewoon browservenster met opslag toegelaten.</p>';
+    sub.textContent = "PARADISE-studie";
+    actions.innerHTML = "";
+    return;
+  }
+  if(!state.care){
+    app.innerHTML = careSelectHTML();
+    sub.textContent = "PARADISE-studie — kies studiearm";
+    actions.innerHTML = "";
+    return;
+  }
+  if(!state.visit){
+    app.innerHTML = visitSelectHTML();
+    sub.textContent = CARE_ARMS[state.care].label + " — kies een visite";
+    actions.innerHTML = '<button class="btn ghost" data-action="switchcare">Wissel studiearm</button>';
+    return;
+  }
+  app.innerHTML = checklistHTML();
+  sub.textContent = CARE_ARMS[state.care].label + " — " + VISITS[state.visit].label;
+  var steps = currentSteps();
+  var anyChecked = steps.some(isStepDone);
+  actions.innerHTML =
+    '<button class="btn ghost" data-action="back">Wissel visite</button>' +
+    '<button class="btn ghost" data-action="reset">Nieuwe visite starten</button>' +
+    (anyChecked ? '<button class="btn primary" data-action="print">Afdrukken</button>' : "");
+}
+
+document.addEventListener("click", function(e){
+  if(e.target.closest(".step-note")) return; // notitieveld: niet de stap aan-/uitvinken
+
+  var careCard = e.target.closest("[data-care]");
+  if(careCard){ selectCare(careCard.getAttribute("data-care")); return; }
+
+  var openBtn = e.target.closest("[data-open]");
+  if(openBtn){
+    var action = ACTIONS[openBtn.getAttribute("data-open")];
+    if(action){
+      try{ window.parent.postMessage({type:"px_navigate", page:action.page}, "*"); }catch(ex){}
+    }
+    return;
+  }
+
+  var card = e.target.closest("[data-visit]");
+  if(card){ selectVisit(card.getAttribute("data-visit")); return; }
+
+  var stepRow = e.target.closest("[data-step]");
+  if(stepRow){ toggleStep(stepRow.getAttribute("data-step")); return; }
+
+  var actionBtn = e.target.closest("[data-action]");
+  if(actionBtn){
+    var action = actionBtn.getAttribute("data-action");
+    if(action === "back"){ state.visit = null; persistState(); render(); }
+    else if(action === "switchcare"){ resetVisit(); }
+    else if(action === "reset"){ resetVisit(); }
+    else if(action === "print"){ window.print(); }
+    return;
+  }
+});
+
+document.addEventListener("input", function(e){
+  var note = e.target.closest(".step-note");
+  if(note){
+    state.values[note.getAttribute("data-note")] = note.value;
+    persistState();
+  }
+});
+
+// De checklist draait in een iframe die het portaal enkel verbergt (display:none) i.p.v.
+// herlaadt. Zonder dit zou de weergave "vastzitten" op de oude combo-status nadat de
+// clinicus terugkeert van de McRoberts- of Orthotimer-tool en de nieuwe localStorage-
+// samenvatting nog niet zichtbaar is. Twee onafhankelijke triggers, want geen van beide
+// is in elke context gegarandeerd: visibilitychange dekt "terug naar dit tabblad/deze
+// iframe", het storage-event dekt "een andere tab/iframe heeft de data net weggeschreven"
+// (vuurt nooit in het document dat zelf de wijziging deed, wel in dit document).
+document.addEventListener("visibilitychange", function(){
+  if(document.visibilityState === "visible") render();
+});
+window.addEventListener("storage", function(e){
+  if(!e.key || e.key === "pvc_wear_summary" || e.key === "pvc_activity_summary" || e.key === ENCOUNTER_KEY) render();
+});
+
+var verEl = document.getElementById("tbVersion");
+if(verEl){ verEl.textContent = "v" + APP_VERSION; verEl.title = "PARADISE visite-checklist build " + APP_VERSION; }
+
+if(STORAGE_OK) ensureEncounterId();
+render();
+})();
+</script>
+</body>
+</html>
