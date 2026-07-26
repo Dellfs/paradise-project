@@ -11,53 +11,34 @@
 <meta property="og:title" content="PARADISE Project — Optimal Diabetic Foot Care">
 <meta property="og:description" content="An interdisciplinary PhD project bridging biomechanics and health economics to improve diabetic foot outcomes in Belgium.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="paradise_logo_no_bg.png">
+<meta property="og:image" content="https://belgianfootpressure.be/paradise_logo_no_bg.png">
+<meta property="og:url" content="https://belgianfootpressure.be/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PARADISE Project — Optimal Diabetic Foot Care">
+<meta name="twitter:description" content="An interdisciplinary PhD project bridging biomechanics and health economics to improve diabetic foot outcomes in Belgium.">
+<link rel="canonical" href="https://belgianfootpressure.be/">
 <link rel="icon" type="image/png" href="logo_transparent.png">
 <link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="preload" as="image" href="Feet.png" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/tokens.css">
 <style>
-/* --- DESIGN TOKENS ------------------------------------------------------ */
-:root {
-  --par-dark:   #00407A;
-  --par-blue:   #00407A;
-  --par-light:  #52BDEC;
-  --par-mid:    #1D8DB0;
-  --par-blue1:  #1FABD5;
-  --par-blue3:  #116E8A;
-  --par-orange: #FF7A00;
-  --par-red:    #FF2200;
-  --par-purple: #8B30C9;
-  --par-cyan:   #4DC8E8;
-  --white:      #FFFFFF;
-  --off-white:  #F4F8FC;
-  --gray-100:   #EBF4FB;
-  --gray-200:   #C8DFF0;
-  --gray-300:   #B0CEDE;
-  --gray-400:   #8AADCC;
-  --gray-500:   #6B8FAD;
-  --gray-600:   #4A6880;
-  --text:       #0D2035;
-  --font-h:     'DM Serif Display', Georgia, serif;
-  --font-b:     'DM Sans', system-ui, sans-serif;
-  --r:  10px;
-  --rl: 18px;
-  --sh: 0 2px 14px rgba(0,64,122,.09);
-  --shm: 0 8px 36px rgba(0,64,122,.15);
-  --t: all .28s cubic-bezier(.4,0,.2,1);
-}
+/* --- SITE COMPONENTS ---------------------------------------------------- */
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body { font-family: var(--font-b); color: var(--text); background: var(--white); overflow-x: hidden; line-height: 1.7; }
-a { text-decoration: none; color: inherit; }
-button { font-family: var(--font-b); cursor: pointer; border: none; }
-img { max-width: 100%; }
+/* --- SKIP LINK ------------------------------------------------------------ */
+.skip-link { position:absolute; left:-9999px; top:0; z-index:10000; background:var(--par-dark); color:#fff; padding:12px 20px; border-radius:0 0 8px 0; font-weight:700; font-size:14px; }
+.skip-link:focus { left:0; }
 
-/* Focus-visible: keyboard nav outline */
-:focus-visible { outline: 2.5px solid var(--par-mid); outline-offset: 3px; border-radius: 4px; }
-:focus:not(:focus-visible) { outline: none; }
+/* --- COOKIE BANNER ---------------------------------------------------------- */
+.cookie-banner { display:none; position:fixed; left:16px; right:16px; bottom:16px; z-index:9998; max-width:560px; margin:0 auto; background:var(--par-dark); color:#fff; border-radius:12px; padding:16px 20px; gap:14px; align-items:center; justify-content:space-between; box-shadow:var(--shm); }
+.cookie-banner.on { display:flex; flex-wrap:wrap; }
+.cookie-banner p { margin:0; font-size:13px; line-height:1.6; flex:1; min-width:220px; }
+.cookie-banner a { color:var(--par-light); text-decoration:underline; }
+.cookie-banner button { background:var(--par-orange); color:#fff; border:none; border-radius:8px; padding:9px 18px; font-weight:700; font-size:13px; cursor:pointer; flex-shrink:0; }
+.cookie-banner button:hover { filter:brightness(0.92); }
 
 /* --- EDIT MODE ---------------------------------------------------------- */
 .edit-banner { position:fixed; top:0; left:0; right:0; z-index:9999; background:var(--par-mid); color:#fff; text-align:center; padding:10px 16px; font-size:13px; font-weight:600; display:none; gap:14px; align-items:center; justify-content:center; }
@@ -72,13 +53,14 @@ img { max-width: 100%; }
 
 /* --- LANG BAR ---------------------------------------------------------- */
 .lang-bar { background: var(--par-dark); padding: 7px 0; }
-.lang-bar .wrap { max-width: 1200px; margin: 0 auto; padding: 0 28px; display: flex; justify-content: flex-end; align-items: center; gap: 6px; }
+.lang-bar .wrap { max-width: 1400px; margin: 0 auto; padding: 0 28px; display: flex; justify-content: flex-end; align-items: center; gap: 6px; }
 .lb { background: none; border: 1px solid rgba(255,255,255,.22); color: rgba(255,255,255,.65); font-size: 11px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; padding: 3px 11px; border-radius: 4px; transition: var(--t); }
 .lb:hover, .lb.on { background: rgba(255,255,255,.14); color: #fff; border-color: rgba(255,255,255,.45); }
 
 /* --- NAV --------------------------------------------------------------- */
-.nav { position: sticky; top: 0; z-index: 200; background: rgba(255,255,255,.97); backdrop-filter: blur(14px); border-bottom: 3px solid var(--par-dark); box-shadow: var(--sh); }
-.nav .wrap { max-width: 1200px; margin: 0 auto; padding: 0 28px; height: 70px; display: flex; align-items: center; justify-content: space-between; }
+.nav { position: sticky; top: 0; z-index: 200; background: rgba(255,255,255,.97); backdrop-filter: blur(14px); border-bottom: 3px solid var(--par-dark); box-shadow: var(--sh); transition: box-shadow 0.25s ease; }
+.nav.scrolled { box-shadow: 0 4px 28px rgba(0,64,122,.15); }
+.nav .wrap { max-width: 1400px; margin: 0 auto; padding: 0 28px; height: 70px; display: flex; align-items: center; justify-content: space-between; }
 .nav-logo { display: flex; align-items: center; gap: 10px; cursor: pointer; }
 .nav-logo img.logo-img { height: 46px; width: auto; }
 .logo-text { font-family: var(--font-b); font-weight: 700; font-size: 1.25rem; line-height: 1.1; letter-spacing: -.01em; }
@@ -93,7 +75,7 @@ img { max-width: 100%; }
 .hbg { display: none; flex-direction: column; gap: 5px; padding: 8px; border: none; background: none; }
 .hbg span { width: 24px; height: 2px; background: var(--par-dark); border-radius: 2px; transition: var(--t); display: block; }
 #mob-menu { max-height: 0; overflow: hidden; transition: max-height .28s ease, padding .28s ease; position: fixed; top: 118px; left: 0; right: 0; background: #fff; z-index: 199; padding: 0 24px; box-shadow: var(--shm); }
-#mob-menu button { display: block; width: 100%; text-align: left; padding: 12px 0; font-size: 15px; font-weight: 600; color: var(--par-dark); background: none; border: none; border-bottom: 1px solid var(--gray-100); cursor: pointer; }
+#mob-menu button { display: block; width: 100%; text-align: left; padding: 14px 0; font-size: 15px; font-weight: 600; color: var(--par-dark); background: none; border: none; border-bottom: 1px solid var(--gray-100); cursor: pointer; }
 #mob-menu button:last-child { border-bottom: none; }
 #mob-menu.open { max-height: 600px; padding: 12px 24px 20px; border-bottom: 2px solid var(--par-dark); }
 
@@ -104,39 +86,50 @@ img { max-width: 100%; }
 /* --- PAGE HERO --------------------------------------------------------= */
 .phero { background: var(--par-dark); padding: 72px 0 52px; position: relative; overflow: hidden; }
 .phero::after { content:''; position:absolute; inset:0; background: radial-gradient(ellipse 55% 100% at 85% 50%, rgba(82,189,236,.18), transparent 65%); pointer-events:none; }
-.phero .wrap { max-width:1200px; margin:0 auto; padding:0 28px; position:relative; z-index:1; }
+.phero .wrap { max-width:1400px; margin:0 auto; padding:0 28px; position:relative; z-index:1; }
 .plabel { font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--par-light); margin-bottom:12px; }
 .phero h1 { font-family:var(--font-h); font-size:clamp(2rem,4vw,3rem); color:#fff; margin-bottom:14px; }
 .phero p { font-size:16.5px; color:rgba(255,255,255,.65); max-width:600px; }
 .bc { background:var(--gray-100); border-bottom:1px solid var(--gray-200); padding:11px 0; }
-.bc .wrap { max-width:1200px; margin:0 auto; padding:0 28px; font-size:13px; color:var(--gray-400); display:flex; gap:8px; align-items:center; }
+.bc .wrap { max-width:1400px; margin:0 auto; padding:0 28px; font-size:13px; color:var(--gray-400); display:flex; gap:8px; align-items:center; }
 .bc span { cursor:pointer; transition:var(--t); }
 .bc span:hover { color:var(--par-dark); }
 .bc .sep { color:var(--gray-200); }
 
 /* --- HOME HERO --------------------------------------------------------= */
-.hero { min-height: 88vh; background: var(--par-dark); position: relative; overflow: hidden; display: flex; align-items: center; }
+.hero { min-height: 88svh; background: var(--color-brand-900); position: relative; overflow: hidden; display: flex; align-items: center; }
 .hero::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse 75% 65% at 72% 50%, rgba(82,189,236,.2), transparent 68%), radial-gradient(ellipse 45% 45% at 18% 78%, rgba(255,122,0,.14), transparent 60%); }
-.hero-wrap { max-width:1200px; margin:0 auto; padding:80px 28px; display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center; position:relative; z-index:1; }
-.hero-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(82,189,236,.14); border:1px solid rgba(82,189,236,.28); color:var(--par-light); font-size:11.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:5px 14px; border-radius:100px; margin-bottom:24px; animation:fup .8s ease both; }
+.hero-wrap { width:100%; max-width:var(--layout-max); margin:0 auto; padding:var(--space-20) var(--space-7) var(--space-10); display:grid; grid-template-columns:minmax(0,1fr) minmax(280px,1fr); gap:var(--space-18); align-items:center; position:relative; z-index:1; }
+.hero-badge { display:inline-flex; align-items:center; gap:var(--space-2); background:rgba(82,189,236,.14); border:1px solid rgba(82,189,236,.28); color:var(--color-brand-300); font-size:var(--step--1); font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:var(--space-1) var(--space-4); border-radius:var(--radius-pill); margin-bottom:var(--space-6); }
 .hero-badge::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--par-light); flex-shrink:0; }
-.hero h1 { font-family:var(--font-h); font-size:clamp(2.3rem,4.2vw,3.6rem); color:#fff; line-height:1.1; margin-bottom:22px; animation:fup .8s .12s ease both; }
-.hero h1 em { font-style:italic; color:var(--par-light); }
-.hero-desc { font-size:16.5px; color:rgba(255,255,255,.7); line-height:1.78; margin-bottom:36px; max-width:500px; animation:fup .8s .24s ease both; }
-.hero-btns { display:flex; gap:14px; flex-wrap:wrap; animation:fup .8s .36s ease both; }
-.btn-p { background:var(--par-orange); color:#fff; padding:13px 26px; border-radius:10px; font-weight:700; font-size:14px; transition:var(--t); display:inline-flex; align-items:center; gap:8px; cursor:pointer; border:none; }
-.btn-p:hover { filter:brightness(0.9); transform:translateY(-2px); box-shadow:0 8px 24px rgba(255,122,0,.35); }
-.btn-s { background:rgba(255,255,255,.09); color:#fff; padding:13px 26px; border-radius:10px; font-weight:500; font-size:14px; border:1px solid rgba(255,255,255,.22); transition:var(--t); cursor:pointer; }
+.hero h1 { max-width:11ch; font-family:var(--font-heading); font-size:var(--step-6); color:#fff; line-height:var(--leading-tight); margin-bottom:var(--space-6); }
+.hero h1 em { font-style:italic; color:var(--color-brand-300); }
+.hero-desc { max-width:var(--measure-narrow); font-size:var(--step-0); color:rgba(255,255,255,.76); line-height:var(--leading-relaxed); margin-bottom:var(--space-10); }
+.hero-btns { display:flex; gap:var(--space-4); flex-wrap:wrap; }
+.btn-p { background:var(--color-accent-orange); color:#fff; padding:var(--space-3) var(--space-7); border-radius:var(--radius-3); font-weight:700; font-size:var(--step--1); transition:var(--t); display:inline-flex; align-items:center; gap:var(--space-2); cursor:pointer; border:none; }
+.btn-p:hover { filter:brightness(0.9); transform:translateY(-2px); box-shadow:var(--shadow-accent); }
+.btn-s { background:rgba(255,255,255,.09); color:#fff; padding:var(--space-3) var(--space-7); border-radius:var(--radius-3); font-weight:500; font-size:var(--step--1); border:1px solid rgba(255,255,255,.22); transition:var(--t); cursor:pointer; }
 .btn-s:hover { background:rgba(255,255,255,.16); transform:translateY(-2px); }
-.hero-stats { display:flex; gap:28px; flex-wrap:wrap; margin-top:44px; animation:fup .8s .48s ease both; }
-.stat { border-left:3px solid var(--par-light); padding-left:14px; }
-.stat-n { font-family:var(--font-h); font-size:1.9rem; color:#fff; line-height:1; }
-.stat-l { font-size:11px; color:rgba(255,255,255,.65); margin-top:3px; letter-spacing:.04em; }
+.hero-stats { display:flex; gap:var(--space-7); flex-wrap:wrap; margin-top:var(--space-12); }
+.stat { border-left:3px solid var(--color-brand-300); padding-left:var(--space-4); }
+.stat-n { font-family:var(--font-heading); font-size:var(--step-2); color:#fff; line-height:1; }
+.stat-l { font-size:var(--step--1); color:rgba(255,255,255,.68); margin-top:var(--space-1); letter-spacing:.04em; }
 
 /* Foot pressure visual */
-.hero-vis { display:flex; justify-content:center; align-items:center; animation:fup .8s .18s ease both; }
-.pressure-card { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); border-radius:var(--rl); padding:28px; backdrop-filter:blur(6px); }
-.pc-label { font-size:10.5px; text-transform:uppercase; letter-spacing:.12em; color:rgba(255,255,255,.38); margin-bottom:14px; text-align:center; }
+.hero-vis { display:flex; justify-content:center; align-items:center; }
+.pressure-card { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); border-radius:var(--radius-4); padding:var(--space-7); backdrop-filter:blur(6px); }
+.pressure-card--hero { width:330px; max-width:100%; padding:var(--space-5); }
+.pc-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:var(--space-3); }
+.pc-label { font-size:var(--step--1); text-transform:uppercase; letter-spacing:.1em; color:rgba(255,255,255,.72); margin-bottom:var(--space-4); text-align:center; }
+.pc-head .pc-label { text-align:left; margin-bottom:var(--space-1); }
+.pc-subtitle { font-size:var(--step--1); color:rgba(255,255,255,.72); line-height:var(--leading-snug); }
+.pc-status { width:var(--space-2); height:var(--space-2); background:#4ade80; border-radius:50%; box-shadow:0 0 0 3px rgba(74,222,128,.18); }
+.pressure-image-shell { border-radius:var(--radius-2); overflow:hidden; line-height:0; background:rgba(255,255,255,.32); margin-bottom:var(--space-3); }
+.pressure-image { width:100%; max-height:350px; object-fit:contain; mix-blend-mode:multiply; }
+.pressure-scale { height:10px; border-radius:var(--radius-pill); background:linear-gradient(to right,#1268b8,#22a04c,#e8d440,#e06428,#c43030); }
+.pressure-scale-labels { display:flex; justify-content:space-between; margin-top:var(--space-1); font-size:var(--step--1); color:rgba(255,255,255,.72); line-height:var(--leading-snug); }
+.pressure-goal { margin-top:var(--space-2); text-align:right; font-size:var(--step--1); line-height:var(--leading-snug); }
+.pressure-goal span { color:rgba(255,255,255,.56); }
 .foot-svg { width:190px; height:250px; margin:0 auto 18px; display:block; }
 .legend { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; }
 .legend span { font-size:10px; color:rgba(255,255,255,.5); display:flex; align-items:center; gap:4px; }
@@ -145,7 +138,7 @@ img { max-width: 100%; }
 
 /* Feature strip */
 .fstrip { background:var(--gray-100); border-bottom:1px solid var(--gray-200); }
-.fstrip .wrap { max-width:1200px; margin:0 auto; padding:32px 28px; display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:20px; }
+.fstrip .wrap { max-width:1400px; margin:0 auto; padding:32px 28px; display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:20px; }
 .fi { background:#fff; border-radius:var(--r); border:1px solid var(--gray-200); padding:18px 20px; display:flex; align-items:flex-start; gap:14px; transition:var(--t); }
 .fi:hover { border-color:var(--par-light); transform:translateY(-2px); box-shadow:var(--sh); }
 .fi-icon { width:40px; height:40px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
@@ -156,30 +149,34 @@ img { max-width: 100%; }
 @keyframes fup { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:none} }
 
 /* --- SECTIONS SHARED --------------------------------------------------= */
-.sec { max-width:1200px; margin:0 auto; padding:88px 28px; }
-.sec2 { background:var(--off-white); padding:88px 0; }
-.sec2 .inner { max-width:1200px; margin:0 auto; padding:0 28px; }
-.slabel { font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--par-mid); margin-bottom:12px; }
-.stitle { font-family:var(--font-h); font-size:clamp(1.8rem,3vw,2.6rem); color:var(--par-dark); line-height:1.15; margin-bottom:20px; }
-.stitle em { font-style:italic; color:var(--par-mid); }
-.sbody { font-size:15px; color:var(--gray-600); line-height:1.8; margin-bottom:14px; }
-.sec-header { text-align:center; margin-bottom:52px; }
-.sec-header .sbody { max-width:560px; margin:0 auto 14px; }
+.sec { max-width:var(--layout-max); margin:0 auto; padding:var(--space-22) var(--space-7); }
+.sec2 { background:var(--color-surface-soft); padding:var(--space-22) 0; }
+.sec2 .inner { max-width:var(--layout-max); margin:0 auto; padding:0 var(--space-7); }
+.slabel { font-size:var(--step--1); font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--color-brand-600); margin-bottom:var(--space-3); }
+.stitle { max-width:var(--measure-narrow); font-family:var(--font-heading); font-size:var(--step-4); color:var(--color-brand-900); line-height:var(--leading-snug); margin-bottom:var(--space-5); }
+.stitle em { font-style:italic; color:var(--color-brand-600); }
+.sbody { max-width:var(--measure); font-size:var(--step-0); color:var(--color-muted-600); line-height:var(--leading-relaxed); margin-bottom:var(--space-4); }
+.sec-header { text-align:center; margin-bottom:var(--space-14); }
+.sec-header .stitle { margin-right:auto; margin-left:auto; }
+.sec-header .sbody { max-width:var(--measure-narrow); margin:0 auto var(--space-4); }
 
 /* About grid */
-.about-grid { display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center; }
-.about-vis { background:linear-gradient(135deg,var(--par-dark),var(--par-mid)); border-radius:var(--rl); min-height:360px; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
+.about-grid { display:grid; grid-template-columns:minmax(0,1fr) minmax(280px,1fr); gap:var(--space-18); align-items:center; }
+.about-vis { background:linear-gradient(135deg,var(--color-brand-900),var(--color-brand-600)); border-radius:var(--radius-4); min-height:360px; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
 .about-vis::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 60% at 70% 40%, rgba(82,189,236,.25), transparent); }
-.about-vis-inner { text-align:center; position:relative; z-index:1; padding:28px; }
-.about-pills { display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; justify-content:center; }
-.about-pill { background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2); color:rgba(255,255,255,.8); font-size:11px; font-weight:600; padding:4px 12px; border-radius:100px; letter-spacing:.04em; }
+.about-vis-inner { text-align:center; position:relative; z-index:1; padding:var(--space-7); }
+.about-cta { margin-top:var(--space-2); }
+.about-quote { max-width:44ch; margin:0 auto; font-size:var(--step-0); color:rgba(255,255,255,.78); line-height:var(--leading-relaxed); font-style:italic; }
+.about-quote-attr { margin-top:var(--space-3); font-size:var(--step--1); color:rgba(255,255,255,.48); letter-spacing:.06em; }
+.about-pills { display:flex; flex-wrap:wrap; gap:var(--space-2); margin-top:var(--space-5); justify-content:center; }
+.about-pill { background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2); color:rgba(255,255,255,.82); font-size:var(--step--1); font-weight:600; padding:var(--space-1) var(--space-3); border-radius:var(--radius-pill); letter-spacing:.04em; }
 
 /* Impact numbers */
-.impact-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:24px; margin-top:48px; }
-.imp-card { background:#fff; border-radius:var(--rl); border:1px solid var(--gray-200); padding:28px 24px; text-align:center; transition:var(--t); }
-.imp-card:hover { transform:translateY(-4px); box-shadow:var(--shm); border-color:var(--par-light); }
-.imp-n { font-family:var(--font-h); font-size:2.8rem; color:var(--par-dark); font-style:italic; line-height:1; margin-bottom:8px; }
-.imp-l { font-size:13px; color:var(--gray-600); font-weight:500; }
+.impact-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:var(--space-6); margin-top:var(--space-12); }
+.imp-card { background:var(--color-surface); border-radius:var(--radius-4); border:1px solid var(--color-border); padding:var(--space-7) var(--space-6); text-align:center; transition:var(--t); }
+.imp-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-2); border-color:var(--color-brand-300); }
+.imp-n { font-family:var(--font-heading); font-size:var(--step-4); color:var(--color-brand-900); font-style:italic; line-height:1; margin-bottom:var(--space-2); }
+.imp-l { font-size:var(--step--1); color:var(--color-muted-600); font-weight:500; line-height:var(--leading-base); }
 
 /* --- TEAM -------------------------------------------------------------- */
 .team-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:24px; }
@@ -222,9 +219,23 @@ img { max-width: 100%; }
 
 /* --- PUBLICATIONS ------------------------------------------------------ */
 .pub-filters { display:flex; gap:9px; flex-wrap:wrap; margin-bottom:32px; }
+.pub-select { font-size:12.5px; font-weight:600; padding:7px 14px; border-radius:8px; border:1.5px solid var(--gray-200); background:#fff; color:var(--gray-600); cursor:pointer; }
+.pi-cite-row { margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; }
+.pi-cite-btn { font-size:11.5px; font-weight:700; padding:4px 12px; border-radius:99px; border:1px solid var(--gray-200); background:#fff; color:var(--par-mid); cursor:pointer; }
+.pi-cite-btn:hover { background:var(--par-mid); color:#fff; border-color:var(--par-mid); }
+.pi-cite-box { display:none; margin-top:8px; }
+.pi-cite-box.on { display:block; }
+.pi-cite-box textarea { width:100%; font-family:ui-monospace,monospace; font-size:12px; border:1px solid var(--gray-200); border-radius:8px; padding:10px; min-height:70px; resize:vertical; }
 .fb { font-size:12.5px; font-weight:600; padding:7px 18px; border-radius:8px; border:1.5px solid var(--gray-200); background:#fff; color:var(--gray-600); transition:var(--t); cursor:pointer; }
 .fb:hover,.fb.on { background:var(--par-dark); color:#fff; border-color:var(--par-dark); }
 .pub-list { display:flex; flex-direction:column; gap:14px; }
+
+/* --- RESEARCH HUB -------------------------------------------------------- */
+.research-tabs { display:flex; gap:9px; flex-wrap:wrap; max-width:1200px; margin:0 auto; padding:0 28px 28px; }
+.rtab { font-size:13px; font-weight:600; padding:9px 20px; border-radius:8px; border:1.5px solid var(--gray-200); background:#fff; color:var(--gray-600); transition:var(--t); cursor:pointer; }
+.rtab:hover,.rtab.on { background:var(--par-dark); color:#fff; border-color:var(--par-dark); }
+.rpanel { display:none; }
+.rpanel.on { display:block; }
 .pi { background:#fff; border-radius:var(--r); border:1px solid var(--gray-200); padding:22px 26px; display:flex; gap:20px; align-items:flex-start; transition:var(--t); }
 .pi:hover { border-color:var(--par-light); box-shadow:var(--sh); transform:translateX(4px); }
 .pi-yr { font-family:var(--font-h); font-size:1.45rem; color:var(--par-mid); min-width:52px; font-style:italic; padding-top:3px; line-height:1; }
@@ -244,8 +255,10 @@ img { max-width: 100%; }
 .cf { background:#fff; border-radius:var(--rl); padding:36px; border:1px solid var(--gray-200); box-shadow:var(--sh); }
 .cf h3 { font-family:var(--font-h); font-size:1.35rem; color:var(--par-dark); margin-bottom:22px; }
 .fg { margin-bottom:18px; }
+.field-error { display:block; color:var(--par-red); font-size:12.5px; margin-top:5px; font-weight:600; }
 .fg label { display:block; font-size:12.5px; font-weight:700; color:var(--par-dark); margin-bottom:7px; letter-spacing:.02em; }
 .fg input,.fg textarea,.fg select { width:100%; padding:11px 14px; border:1.5px solid var(--gray-200); border-radius:8px; font-family:var(--font-b); font-size:14px; color:var(--text); background:var(--off-white); transition:var(--t); outline:none; }
+.fg input:focus-visible,.fg textarea:focus-visible,.fg select:focus-visible { outline:2.5px solid var(--par-light); outline-offset:2px; }
 .fg input:focus,.fg textarea:focus,.fg select:focus { border-color:var(--par-light); background:#fff; box-shadow:0 0 0 3px rgba(82,189,236,.1); }
 .fg textarea { resize:vertical; min-height:110px; }
 .frow { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
@@ -255,22 +268,50 @@ img { max-width: 100%; }
 
 /* --- FOOTER ------------------------------------------------------------ */
 .footer { background:var(--par-dark); color:rgba(255,255,255,.6); padding:28px 0 12px; }
-.footer-grid { max-width:1200px; margin:0 auto; padding:0 28px 20px; display:grid; grid-template-columns:2fr 1fr 1fr; gap:28px; }
+.footer-grid { max-width:1400px; margin:0 auto; padding:0 28px 20px; display:grid; grid-template-columns:2fr 1fr 1fr; gap:28px; }
 .footer-brand p { font-size:13.5px; line-height:1.7; margin-top:10px; }
 .footer-logo { font-family:var(--font-b); font-weight:700; font-size:1.1rem; color:#fff; }
 .footer-logo span { background:linear-gradient(90deg,#FF7A00,#FF2200,#C030C0,#4455DD); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
 .footer-col h4 { font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.35); margin-bottom:14px; }
+.footer-newsletter { margin-top:22px; }
+.footer-newsletter h4 { font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.35); margin-bottom:0; }
 .footer-col a, .footer-col span { display:block; font-size:13.5px; color:rgba(255,255,255,.72); margin-bottom:9px; cursor:pointer; transition:var(--t); }
 .footer-col a:hover, .footer-col span:hover { color:#fff; }
-.footer-badges { max-width:1200px; margin:0 auto; padding:0 28px 12px; display:flex; flex-wrap:wrap; gap:8px; }
+.footer-badges { max-width:1400px; margin:0 auto; padding:0 28px 12px; display:flex; flex-wrap:wrap; gap:8px; }
 .fbadge { background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12); color:rgba(255,255,255,.45); font-size:11px; font-weight:600; padding:4px 12px; border-radius:100px; letter-spacing:.04em; }
-.fbot { max-width:1200px; margin:0 auto; padding:20px 28px; border-top:1px solid rgba(255,255,255,.1); display:flex; justify-content:space-between; align-items:center; font-size:12.5px; flex-wrap:wrap; gap:12px; }
+.fbot { max-width:1400px; margin:0 auto; padding:20px 28px; border-top:1px solid rgba(255,255,255,.1); display:flex; justify-content:space-between; align-items:center; font-size:12.5px; flex-wrap:wrap; gap:12px; }
 .fbot a { color:rgba(255,255,255,.35); margin-left:18px; transition:var(--t); }
 .fbot a:hover { color:#fff; }
 
 /* --- SCROLL REVEAL ----------------------------------------------------- */
-.rev { opacity:0; transform:translateY(22px); transition:opacity .55s ease, transform .55s ease; }
+/* Content must never depend on JS/animation-library success to become visible.
+   .rev elements are visible by default; initReveal() only ever adds a bonus
+   fade-in on top of already-visible content, never removes it. */
+.rev { opacity:1; }
 .rev.vis { opacity:1; transform:none; }
+.motion-reduce .rev,
+.no-js-motion .rev { opacity:1; transform:none; will-change:auto; }
+.motion-reduce *,
+.motion-reduce *::before,
+.motion-reduce *::after { animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
+@media (prefers-reduced-motion: reduce) {
+  .rev { opacity:1; transform:none; will-change:auto; }
+  *,
+  *::before,
+  *::after { animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
+}
+
+/* --- SPLIT HEADLINE ---------------------------------------------------- */
+.hero h1 .word-wrap { overflow: hidden; display: inline-block; vertical-align: bottom; padding-bottom: .08em; margin-bottom: -.08em; transform: translateZ(0); }
+.hero h1 .word { display: inline-block; }
+.motion-reduce .hero h1 .word-wrap,
+.motion-reduce .hero h1 .word { display: inline; overflow: visible; padding-bottom: 0; margin-bottom: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .hero h1 .word-wrap, .hero h1 .word { display: inline; overflow: visible; padding-bottom: 0; margin-bottom: 0; }
+}
+
+/* Portal form focus override — counters inline outline:none on member portal inputs */
+input:focus-visible, select:focus-visible, textarea:focus-visible { outline:2.5px solid var(--color-brand-600) !important; outline-offset:2px !important; }
 
 /* --- EDITOR ------------------------------------------------------------ */
 .ed-fabs { position:fixed; bottom:28px; right:28px; z-index:500; display:flex; flex-direction:column; gap:10px; align-items:flex-end; }
@@ -324,19 +365,20 @@ img { max-width: 100%; }
 @media(max-width:900px){
   .hbg{display:flex}
   .nav-links{display:none}
-  .hero-wrap{grid-template-columns:1fr;gap:40px;padding:60px 20px}
-  .hero-vis{margin-top:8px}
-  .about-grid,.contact-grid{grid-template-columns:1fr;gap:40px}
+  .hero-wrap{grid-template-columns:1fr;gap:var(--space-10);padding:var(--space-16) var(--space-5)}
+  .hero h1{max-width:12ch}
+  .hero-vis{margin-top:var(--space-2)}
+  .about-grid,.contact-grid{grid-template-columns:1fr;gap:var(--space-10)}
   .about-vis{min-height:200px}
   .news-grid{grid-template-columns:1fr}
-  .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:var(--space-8)}
   .fbot{flex-direction:column;text-align:center}
   .frow{grid-template-columns:1fr}
 }
 @media(max-width:600px){
-  .sec,.sec2 .inner{padding:56px 20px}
+  .sec,.sec2 .inner{padding:var(--space-14) var(--space-5)}
   .footer-grid{grid-template-columns:1fr}
-  .hero h1{font-size:2rem}
+  .hero h1{font-size:var(--step-4)}
   .phero h1{font-size:1.7rem}
 }
 
@@ -357,7 +399,7 @@ img { max-width: 100%; }
 .auth-form label { display:block; font-size:.8rem; font-weight:600; color:var(--gray-600); text-transform:uppercase; letter-spacing:.06em; margin-bottom:.35rem; margin-top:1rem; }
 .auth-form label:first-child { margin-top:0; }
 .auth-form input, .auth-form select { width:100%; padding:.7rem 1rem; border:1.5px solid var(--gray-200); border-radius:8px; font-size:.95rem; font-family:inherit; color:var(--par-dark); background:#fff; transition:border-color .2s; box-sizing:border-box; }
-.auth-form input:focus, .auth-form select:focus { outline:none; border-color:var(--par-mid); }
+.auth-form input:focus, .auth-form select:focus { outline:none; border-color:var(--par-mid); box-shadow:0 0 0 3px rgba(29,141,176,.18); }
 .auth-name-row { display:grid; grid-template-columns:1fr 1fr; gap:.75rem; }
 
 .portal-hero { background:var(--par-dark); padding:48px 0 36px; position:relative; overflow:hidden; }
@@ -427,7 +469,7 @@ img { max-width: 100%; }
 .art-inner{background:#fff;max-width:700px;width:100%;border-radius:14px;padding:40px 44px;position:relative;margin:auto}
 .art-close{position:absolute;top:14px;right:16px;background:none;border:none;font-size:24px;line-height:1;cursor:pointer;color:#999;padding:4px 8px}
 .art-close:hover{color:#333}
-.art-type{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:8px}
+.art-type{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--par-mid);margin-bottom:8px}
 .art-h1{font-family:"Newsreader",serif;font-size:clamp(20px,3vw,30px);font-weight:500;line-height:1.15;margin:0 0 6px;color:var(--ink)}
 .art-date{font-size:13px;color:#999;margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid #e8e4da}
 .art-body{font-size:15px;line-height:1.8;color:#3a3a3a}
@@ -435,17 +477,33 @@ img { max-width: 100%; }
 .art-body p{margin:0 0 14px}
 .art-body ul{margin:0 0 14px;padding-left:22px}
 .art-body li{margin-bottom:7px}
-.nc-readmore{margin-top:10px;font-size:13px;font-weight:600;color:var(--teal)}
+.nc-readmore{margin-top:10px;font-size:13px;font-weight:600;color:var(--par-mid)}
 @media(max-width:600px){.art-inner{padding:28px 20px}}
-#page-academy.on,#page-uploader.on,#page-mcroberts.on{position:fixed;inset:0;z-index:300;display:flex;flex-direction:column;background:var(--par-dark)}
+#page-academy.on,#page-uploader.on,#page-mcroberts.on,#page-visite.on{position:fixed;inset:0;z-index:300;display:flex;flex-direction:column;background:var(--par-dark)}
 .acad-bar{display:flex;align-items:center;gap:14px;padding:0 20px;height:52px;background:var(--par-dark);flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.12)}
 .acad-back{background:none;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.8);padding:5px 14px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:600;transition:var(--t);font-family:inherit}
 .acad-back:hover{background:rgba(255,255,255,.12);color:#fff}
 .acad-title{flex:1;font-size:14px;font-weight:600;color:rgba(255,255,255,.65);letter-spacing:.04em}
 .acad-frame{flex:1;border:none;width:100%}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ResearchProject","name":"PARADISE Project","description":"Towards Pressure-Adherence & Education Driven Service in Diabetic Foot Disease — interdisciplinary PhD at KU Leuven combining biomechanics and health economics to prevent diabetic foot ulcer recurrence.","funder":{"@type":"Organization","name":"FWO","identifier":"T000226N"},"sourceOrganization":[{"@type":"EducationalOrganization","name":"KU Leuven","department":"Campus Bruges"},{"@type":"EducationalOrganization","name":"Vrije Universiteit Brussel"}]}</script></head>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ResearchProject","name":"PARADISE Project","description":"Towards Pressure-Adherence & Education Driven Service in Diabetic Foot Disease — interdisciplinary PhD at KU Leuven combining biomechanics and health economics to prevent diabetic foot ulcer recurrence.","funder":{"@type":"Organization","name":"FWO","identifier":"T000226N"},"sourceOrganization":[{"@type":"EducationalOrganization","name":"KU Leuven","department":"Campus Bruges"},{"@type":"EducationalOrganization","name":"Vrije Universiteit Brussel"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"KU Leuven Campus Bruges","url":"https://belgianfootpressure.be/","parentOrganization":{"@type":"CollegeOrUniversity","name":"KU Leuven"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[
+{"@type":"Person","name":"Janou De Buyser","jobTitle":"PhD Researcher","affiliation":{"@type":"Organization","name":"KU Leuven Campus Bruges — Dept. of Rehabilitation Sciences"}},
+{"@type":"Person","name":"Kevin Deschamps","jobTitle":"Promotor","affiliation":{"@type":"Organization","name":"KU Leuven — Dept. of Rehabilitation Sciences"}},
+{"@type":"Person","name":"Fabienne Dobbels","jobTitle":"Co-Promotor","affiliation":{"@type":"Organization","name":"KU Leuven — Dept. of Public Health & Primary Care"}},
+{"@type":"Person","name":"Maaike Fobelets","jobTitle":"Co-Promotor","affiliation":{"@type":"Organization","name":"Vrije Universiteit Brussel — Dept. Public Health Sciences"}},
+{"@type":"Person","name":"Koen Putman","jobTitle":"Co-Promotor","affiliation":{"@type":"Organization","name":"Vrije Universiteit Brussel — Dept. Public Health Sciences"}}
+]}</script></head>
 <body>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- COOKIE BANNER (essential cookies only — no analytics/marketing trackers on this site) -->
+<div class="cookie-banner" id="cookieBanner" role="region" aria-label="Cookie notice">
+  <p><span data-e="cookie_banner_text" data-placeholder="Cookie banner text">This site uses only essential cookies required for login functionality. See our <a href="cookiebeleid.html">Cookie Policy</a> for details.</span></p>
+  <button type="button" onclick="dismissCookieBanner()" data-e="cookie_banner_btn" data-placeholder="Button">Got it</button>
+</div>
 
 <!-- EDIT BANNER (shown when inline edit mode is active) -->
 <div class="edit-banner" id="editBanner">
@@ -468,16 +526,14 @@ img { max-width: 100%; }
 <div class="nav-logo" onclick="showPage('home')" onkeydown="if(event.key==='Enter'||event.key===' ')showPage('home')" role="link" tabindex="0" aria-label="PARADISE Project — Go to home page" style="cursor:pointer">
   <img src="paradise_logo_no_bg.png" alt="PARADISE Project Logo" style="height: 70px; width: auto; object-fit: contain;" loading="eager">
     </div>
-    <div class="nav-links" role="menubar">
+    <div class="nav-links" role="menubar" id="nav-links-desktop">
       <button class="nl on" onclick="showPage('home')" data-k="nav_home">Home</button>
-      <button class="nl" onclick="showPage('about')" data-k="nav_about">Team</button>
-      <button class="nl" onclick="showPage('news')" data-k="nav_news">News</button>
-      <button class="nl" onclick="showPage('materials')" data-k="nav_materials">Materials</button>
+      <button class="nl" onclick="showPage('about')" data-k="nav_about">About</button>
+      <button class="nl" onclick="showPage('research')" data-k="nav_research">Research</button>
       <button class="nl" onclick="showPage('pubs')" data-k="nav_pubs">Publications</button>
+      <button class="nl" onclick="showPage('team')" data-k="nav_team">Team</button>
       <button class="nl" onclick="showPage('professionals')" data-k="nav_professionals">Professionals</button>
       <button class="nl" onclick="showPage('patients')" data-k="nav_patients">Voor pati&#235;nten</button>
-      <button class="nl" id="nav-members-btn" onclick="showPage('members')" style="display:none" data-k="nav_members">Members</button>
-      <button class="nl" id="nav-admin-btn" onclick="showPage('admin')" style="display:none" data-k="nav_admin">Admin</button>
       <button class="nl cta" onclick="showPage('contact')" data-k="nav_contact">Contact</button>
     </div>
     <button class="hbg" onclick="toggleMob()" aria-label="Open navigation menu" aria-expanded="false" id="hbgBtn">
@@ -487,17 +543,16 @@ img { max-width: 100%; }
 </nav>
 <div id="mob-menu">
   <button onclick="showPage('home');toggleMob()" data-k="nav_home">Home</button>
-  <button onclick="showPage('about');toggleMob()" data-k="nav_about">Team</button>
-  <button onclick="showPage('news');toggleMob()" data-k="nav_news">News</button>
-  <button onclick="showPage('materials');toggleMob()" data-k="nav_materials">Materials</button>
+  <button onclick="showPage('about');toggleMob()" data-k="nav_about">About</button>
+  <button onclick="showPage('research');toggleMob()" data-k="nav_research">Research</button>
   <button onclick="showPage('pubs');toggleMob()" data-k="nav_pubs">Publications</button>
+  <button onclick="showPage('team');toggleMob()" data-k="nav_team">Team</button>
   <button onclick="showPage('professionals');toggleMob()" data-k="nav_professionals">Professionals</button>
   <button onclick="showPage('patients');toggleMob()" data-k="nav_patients">Voor pati&#235;nten</button>
-  <button id="mob-members-btn" onclick="showPage('members');toggleMob()" style="display:none" data-k="nav_members">Members</button>
-  <button id="mob-admin-btn" onclick="showPage('admin');toggleMob()" style="display:none" data-k="nav_admin">Admin</button>
   <button onclick="showPage('contact');toggleMob()" data-k="nav_contact">Contact</button>
 </div>
 
+<main id="main-content">
 <!-- ------------------------ PAGE: HOME --------------------------------- -->
 <div class="page on" id="page-home">
 
@@ -509,7 +564,7 @@ img { max-width: 100%; }
         <p class="hero-desc"><span data-e="hero_desc" data-placeholder="Hero description">An interdisciplinary PhD project bridging biomechanics and health economics to improve diabetic foot outcomes in Belgium.</span></p>
         <div class="hero-btns">
           <button class="btn-p" onclick="showPage('pubs')"><span data-e="hero_btn1" data-placeholder="Button 1 text">Explore the Research</span></button>
-          <button class="btn-s" onclick="showPage('about')"><span data-e="hero_btn2" data-placeholder="Button 2 text">Meet the Team</span></button>
+          <button class="btn-s" onclick="showPage('team')"><span data-e="hero_btn2" data-placeholder="Button 2 text">Meet the Team</span></button>
         </div>
         <div class="hero-stats">
           <div class="stat"><div class="stat-n" id="hs1n">4</div><div class="stat-l" id="hs1l" data-e="stat1l">Research Years</div></div>
@@ -518,25 +573,25 @@ img { max-width: 100%; }
         </div>
       </div>
       <div class="hero-vis">
-        <div class="pressure-card" style="width:330px;max-width:100%;padding:20px">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:13px">
+        <div class="pressure-card pressure-card--hero">
+          <div class="pc-head">
             <div>
-              <div class="pc-label" style="text-align:left;margin-bottom:2px">F-Scan GO</div>
-              <div style="font-size:10.5px;color:rgba(255,255,255,.42)" data-e="pc_label">Plantar Pressure Map</div>
+              <div class="pc-label">F-Scan GO</div>
+              <div class="pc-subtitle" data-e="pc_label">Plantar Pressure Map</div>
             </div>
-            <div style="width:8px;height:8px;background:#4ade80;border-radius:50%;box-shadow:0 0 0 3px rgba(74,222,128,.18)"></div>
+            <div class="pc-status"></div>
           </div>
           <!-- Feet.png full-width -->
-          <div style="border-radius:6px;overflow:hidden;line-height:0;background:rgba(255,255,255,.32);margin-bottom:10px">
-            <img src="Feet.png" alt="Plantar pressure map — left and right foot" style="width:100%;display:block;mix-blend-mode:multiply">
+          <div class="pressure-image-shell">
+            <img class="pressure-image" src="Feet.png" alt="Plantar pressure map - left and right foot" width="413" height="527" loading="eager" fetchpriority="high">
           </div>
           <!-- Smooth gradient scale: blue → green → yellow → orange → red -->
-          <div style="height:10px;border-radius:5px;background:linear-gradient(to right,#1268b8,#22a04c,#e8d440,#e06428,#c43030)"></div>
-          <div style="display:flex;justify-content:space-between;margin-top:4px;font-size:9px;color:rgba(255,255,255,.42)">
+          <div class="pressure-scale"></div>
+          <div class="pressure-scale-labels">
             <span>0</span><span>100</span><span>200</span><span>&gt;300 kPa</span>
           </div>
-          <div style="margin-top:8px;text-align:right;font-size:8.5px">
-            <span style="color:rgba(255,255,255,.52)" data-e="leg_goal">Doel: <strong style="color:#fff">&lt;200 kPa</strong> of <strong style="color:#fff">&#8805;25%</strong> reductie</span>
+          <div class="pressure-goal">
+            <span data-e="leg_goal">Doel: <strong style="color:#fff">&lt;200 kPa</strong> of <strong style="color:#fff">&#8805;25%</strong> reductie</span>
           </div>
         </div>
       </div>
@@ -546,10 +601,10 @@ img { max-width: 100%; }
   <!-- FEATURE STRIP -->
   <div class="fstrip">
     <div class="wrap">
-      <div class="fi"><div class="fi-icon b" data-e="fi0_icon">&#129462;</div><div><strong data-e="fi0_title">Biomechanics</strong><p data-e="fi0_desc">Plantar pressure analysis, gait assessment, and footwear evaluation</p></div></div>
-      <div class="fi"><div class="fi-icon o" data-e="fi1_icon">&#128202;</div><div><strong data-e="fi1_title">Health Economics</strong><p data-e="fi1_desc">Cost-effectiveness of prevention strategies and offloading interventions</p></div></div>
-      <div class="fi"><div class="fi-icon t" data-e="fi2_icon">&#127973;</div><div><strong data-e="fi2_title">Clinical Outcomes</strong><p data-e="fi2_desc">Patient-centred measures, re-ulcer rate, and amputation prevention</p></div></div>
-      <div class="fi"><div class="fi-icon d" data-e="fi3_icon">&#128218;</div><div><strong data-e="fi3_title">Evidence Synthesis</strong><p data-e="fi3_desc">Systematic reviews, meta-analyses and clinical guideline development</p></div></div>
+      <div class="fi rev"><div class="fi-icon b" data-e="fi0_icon">&#129462;</div><div><strong data-e="fi0_title">Biomechanics</strong><p data-e="fi0_desc">Plantar pressure analysis, gait assessment, and footwear evaluation</p></div></div>
+      <div class="fi rev"><div class="fi-icon o" data-e="fi1_icon">&#128202;</div><div><strong data-e="fi1_title">Health Economics</strong><p data-e="fi1_desc">Cost-effectiveness of prevention strategies and offloading interventions</p></div></div>
+      <div class="fi rev"><div class="fi-icon t" data-e="fi2_icon">&#127973;</div><div><strong data-e="fi2_title">Clinical Outcomes</strong><p data-e="fi2_desc">Patient-centred measures, re-ulcer rate, and amputation prevention</p></div></div>
+      <div class="fi rev"><div class="fi-icon d" data-e="fi3_icon">&#128218;</div><div><strong data-e="fi3_title">Evidence Synthesis</strong><p data-e="fi3_desc">Systematic reviews, meta-analyses and clinical guideline development</p></div></div>
     </div>
   </div>
 
@@ -562,13 +617,13 @@ img { max-width: 100%; }
         <p class="sbody rev" data-e="about_p1" data-placeholder="Paragraph 1">Diabetic foot complications, including ulcers, infections and amputations, represent one of the most devastating and costly consequences of diabetes. In Belgium, thousands of patients face lower limb amputations each year, many of which are preventable with the right interventions.</p>
         <p class="sbody rev" data-e="about_p2" data-placeholder="Paragraph 2">The <strong>PARADISE project</strong> (<em>Towards Pressure-Adherence & Education Driven Service in Diabetic Foot 
 Disease </em>) takes an interdisciplinary approach. By combining biomechanical analysis with health economic evaluation, we identify the most effective and cost-efficient strategies for diabetic foot care in Belgian clinical practice.</p>
-        <button class="btn-p rev" onclick="showPage('about')" style="margin-top:8px"><span data-e="about_btn" data-placeholder="Button text">Learn More &#8594;</span></button>
+        <button class="btn-p rev about-cta" onclick="showPage('about')"><span data-e="about_btn" data-placeholder="Button text">Learn More &#8594;</span></button>
       </div>
       <div class="about-vis rev">
         <div class="about-vis-inner">
-          <div style="font-size:.95rem;color:rgba(255,255,255,.7);line-height:1.75;font-style:italic" data-e="about_quote" data-placeholder="Quote text">"I marvel that society would pay a surgeon a large sum of money to remove a person's leg but nothing to save it"</div>
-          <p style="margin-top:12px;font-size:11px;color:rgba(255,255,255,.4);letter-spacing:.06em" data-e="about_quote_attr" data-placeholder="Attribution">&mdash; George Bernard Shaw</p>
-          <div class="about-pills" style="margin-top:22px" id="aboutPills"></div>
+          <div class="about-quote" data-e="about_quote" data-placeholder="Quote text">"I marvel that society would pay a surgeon a large sum of money to remove a person's leg but nothing to save it"</div>
+          <p class="about-quote-attr" data-e="about_quote_attr" data-placeholder="Attribution">&mdash; George Bernard Shaw</p>
+          <div class="about-pills" id="aboutPills"></div>
         </div>
       </div>
     </div>
@@ -599,7 +654,7 @@ Disease </em>) takes an interdisciplinary approach. By combining biomechanical a
 
   <!-- PARTNERS -->
   <div id="homePartnersSection" style="background:var(--gray-100);border-top:1px solid var(--gray-200);border-bottom:1px solid var(--gray-200);padding:28px 0;display:none">
-    <div style="max-width:1200px;margin:0 auto;padding:0 28px;">
+    <div style="max-width:1400px;margin:0 auto;padding:0 28px;">
       <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-400);text-align:center;margin-bottom:16px;" data-e="partners_label" data-placeholder="Label">Partner Institutions</div>
       <div id="homePartners" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;"></div>
     </div>
@@ -607,28 +662,20 @@ Disease </em>) takes an interdisciplinary approach. By combining biomechanical a
 
 </div><!-- /page-home -->
 
-<!-- ------------------------ PAGE: ABOUT -------------------------------- -->
+<!-- ------------------------ PAGE: ABOUT (mission) ------------------------ -->
 <div class="page" id="page-about">
   <div class="phero">
     <div class="wrap">
-      <h1 data-e="about_page_title" data-placeholder="Page title">Research Team</h1>
-      <p data-e="about_page_sub" data-placeholder="Subtitle">An interdisciplinary team across biomechanics, clinical care, health management and policy and health economics</p>
+      <div class="plabel" data-e="about_page_label" data-placeholder="Label">About</div>
+      <h1 data-e="about_mission_title" data-placeholder="Page title">About PARADISE</h1>
+      <p data-e="about_mission_sub" data-placeholder="Subtitle">An interdisciplinary PhD project bridging biomechanics and health economics to improve diabetic foot outcomes in Belgium</p>
     </div>
   </div>
   <div class="bc"><div class="wrap">
     <span onclick="showPage('home')" data-k="nav_home" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')showPage('home')">Home</span>
     <span class="sep">&#8250;</span>
-    <span data-k="nav_about">Team</span>
+    <span data-k="nav_about">About</span>
   </div></div>
-  <section class="sec">
-    <div class="sec-header">
-      <div class="slabel" data-e="team_section_label" data-placeholder="Label">Research Team</div>
-      <h2 class="stitle" data-e="team_section_title" data-placeholder="Title">The people behind PARADISE</h2>
-      <p class="sbody" data-e="team_section_desc" data-placeholder="Description">Our team brings together expertise in podiatry, biomechanics, health economics, and clinical diabetology to tackle the diabetic foot challenge from every angle.</p>
-    </div>
-    <div class="team-grid" id="teamGrid"></div>
-  </section>
-
   <section class="sec2">
     <div class="inner">
       <div class="about-grid">
@@ -638,6 +685,7 @@ Disease </em>) takes an interdisciplinary approach. By combining biomechanical a
           <p class="sbody rev" data-e="acronym_desc" data-placeholder="Acronym description"><strong>P</strong>ressure-<strong>A</strong>dherence &amp; Education <strong>R</strong>esearch <strong>A</strong>nd <strong>D</strong>iabetic foot disease &rarr; <strong>I</strong>ntegrated <strong>S</strong>ervice &amp; <strong>E</strong>ducation</p>
           <p class="sbody rev" data-e="acronym_p1" data-placeholder="Paragraph 1">This PhD project is funded and hosted at KU Leuven Campus Bruges. It combines quantitative biomechanical assessment with health economic modelling to identify the most effective and cost-efficient care pathways for patients at risk of diabetic foot complications.</p>
           <p class="sbody rev" data-e="acronym_p2" data-placeholder="Paragraph 2">The project runs in close collaboration with Belgian diabetic foot clinics and builds directly on existing Belgian consensus guidelines developed in partnership with the BDFPG.</p>
+          <button class="btn-p rev" onclick="showPage('team')"><span data-e="about_team_btn" data-placeholder="Button text">Meet the Team &#8594;</span></button>
         </div>
         <div class="about-vis rev">
           <div class="about-vis-inner" style="text-align:left">
@@ -657,6 +705,29 @@ Disease </em>) takes an interdisciplinary approach. By combining biomechanical a
     </div>
   </section>
 </div><!-- /page-about -->
+
+<!-- ------------------------ PAGE: TEAM ----------------------------------- -->
+<div class="page" id="page-team">
+  <div class="phero">
+    <div class="wrap">
+      <h1 data-e="team_page_title" data-placeholder="Page title">Research Team</h1>
+      <p data-e="team_page_sub" data-placeholder="Subtitle">An interdisciplinary team across biomechanics, clinical care, health management and policy and health economics</p>
+    </div>
+  </div>
+  <div class="bc"><div class="wrap">
+    <span onclick="showPage('home')" data-k="nav_home" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')showPage('home')">Home</span>
+    <span class="sep">&#8250;</span>
+    <span data-k="nav_team">Team</span>
+  </div></div>
+  <section class="sec">
+    <div class="sec-header">
+      <div class="slabel" data-e="team_section_label" data-placeholder="Label">Research Team</div>
+      <h2 class="stitle" data-e="team_section_title" data-placeholder="Title">The people behind PARADISE</h2>
+      <p class="sbody" data-e="team_section_desc" data-placeholder="Description">Our team brings together expertise in podiatry, biomechanics, health economics, and clinical diabetology to tackle the diabetic foot challenge from every angle.</p>
+    </div>
+    <div class="team-grid" id="teamGrid"></div>
+  </section>
+</div><!-- /page-team -->
 
 <!-- ------------------------ PAGE: NEWS --------------------------------- -->
 <div class="page" id="page-news">
@@ -694,6 +765,10 @@ Disease </em>) takes an interdisciplinary approach. By combining biomechanical a
       <button class="fb" onclick="filterPubs('review',this)" data-e="pub_filter_review">Reviews</button>
       <button class="fb" onclick="filterPubs('consensus',this)" data-e="pub_filter_consensus">Consensus / Position</button>
     </div>
+    <div class="pub-filters" style="margin-top:-18px">
+      <select id="pubYearFilter" class="pub-select" onchange="filterPubsFacet('year', this.value)"><option value="all" data-e="pub_filter_year_all">All years</option></select>
+      <select id="pubAuthorFilter" class="pub-select" onchange="filterPubsFacet('author', this.value)"><option value="all" data-e="pub_filter_author_all">All authors</option></select>
+    </div>
     <div class="pub-list" id="pubList"></div>
   </section>
 </div>
@@ -715,7 +790,7 @@ Disease </em>) takes an interdisciplinary approach. By combining biomechanical a
       <div id="contactInfo"></div>
       <div class="cf">
         <h3 data-e="contact_form_title">Send a Message</h3>
-        <form name="contact" data-netlify="true" netlify-honeypot="bot-field" onsubmit="submitForm(event)">
+        <form name="contact" data-success="cfSuccess" data-netlify="true" netlify-honeypot="bot-field" onsubmit="submitForm(event)">
           <input type="hidden" name="form-name" value="contact">
           <p style="display:none"><label>Don&#8217;t fill this out if you&#8217;re human: <input name="bot-field"></label></p>
           <div class="frow">
@@ -735,7 +810,7 @@ Disease </em>) takes an interdisciplinary approach. By combining biomechanical a
           <div class="fg"><label for="cf-message" data-e="form_message">Message</label><textarea id="cf-message" name="message" placeholder="Your message?" required></textarea></div>
           <div class="fg" style="display:flex;align-items:flex-start;gap:10px;margin-bottom:4px">
             <input id="cf-gdpr" type="checkbox" name="gdpr" required style="width:18px;height:18px;flex-shrink:0;margin-top:2px;cursor:pointer">
-            <label for="cf-gdpr" style="font-size:13px;color:var(--gray-600);line-height:1.5;cursor:pointer" data-e="form_gdpr">I agree to the processing of my personal data for the purpose of responding to this inquiry. <!-- TODO: link naar privacyverklaring zodra beschikbaar --></label>
+            <label for="cf-gdpr" style="font-size:13px;color:var(--gray-600);line-height:1.5;cursor:pointer" data-e="form_gdpr">I agree to the processing of my personal data for the purpose of responding to this inquiry. See our <a href="privacyverklaring.html" target="_blank" rel="noopener">privacy policy</a>.</label>
           </div>
           <button type="submit" class="cf-submit" data-e="contact_form_btn">Send Message</button>
         </form>
@@ -745,19 +820,26 @@ Disease </em>) takes an interdisciplinary approach. By combining biomechanical a
   </section>
 </div>
 
-<!-- ------------------------ PAGE: MATERIALS ---------------------------- -->
-<div class="page" id="page-materials">
+<!-- ------------------------ PAGE: RESEARCH (hub) ------------------------ -->
+<div class="page" id="page-research">
   <div class="phero">
     <div class="wrap">
-      <div class="plabel" data-e="materials_label">Research Equipment</div>
-      <h1 data-e="materials_title">Measurement Materials</h1>
-      <p data-e="materials_sub">An overview of the instruments used for data collection in the PARADISE project</p>
+      <div class="plabel" data-e="research_label" data-placeholder="Label">Research</div>
+      <h1 data-e="research_title" data-placeholder="Title">Research</h1>
+      <p data-e="research_sub" data-placeholder="Subtitle">Measurement instruments, study protocol, health economics and results of the PARADISE project</p>
     </div>
   </div>
   <div class="bc"><div class="wrap">
-    <span onclick="showPage('home')" data-k="nav_home" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')showPage('home')">Home</span><span class="sep">&#8250;</span><span data-k="nav_materials">Materials</span>
+    <span onclick="showPage('home')" data-k="nav_home" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')showPage('home')">Home</span><span class="sep">&#8250;</span><span data-k="nav_research">Research</span>
   </div></div>
+  <div class="research-tabs" role="tablist" aria-label="Research sections">
+    <button type="button" class="rtab on" id="rtab-materials" role="tab" aria-selected="true" aria-controls="rp-materials" onclick="showResearchTab('materials',this)" data-k="nav_materials">Materials</button>
+    <button type="button" class="rtab" id="rtab-protocol" role="tab" aria-selected="false" aria-controls="rp-protocol" onclick="showResearchTab('protocol',this)" data-k="nav_protocol">Protocol</button>
+    <button type="button" class="rtab" id="rtab-health" role="tab" aria-selected="false" aria-controls="rp-health" onclick="showResearchTab('health',this)" data-k="nav_health">Health Economics</button>
+    <button type="button" class="rtab" id="rtab-results" role="tab" aria-selected="false" aria-controls="rp-results" onclick="showResearchTab('results',this)" data-k="nav_results">Results</button>
+  </div>
 
+  <div class="rpanel on" id="rp-materials" role="tabpanel" aria-labelledby="rtab-materials">
   <!-- Intro -->
   <section class="sec" style="padding-bottom:0">
     <div class="sec-header rev">
@@ -791,12 +873,12 @@ Disease </em>) takes an interdisciplinary approach. By combining biomechanical a
         <p class="sbody" data-e="scan_desc1">The <strong>Tekscan F-Scan Go</strong> is a portable, in-shoe plantar pressure measurement system that uses thin, flexible sensor insoles to capture dynamic pressure distribution across the entire plantar surface during walking. It provides spatial pressure maps, peak pressure values, pressure-time integrals and force data in real time.</p>
         <p class="sbody" data-e="scan_desc2">In the PARADISE project, the F-Scan Go is central to our biomechanical assessment. It enables identification of high-risk pressure regions, evaluation of offloading footwear effectiveness and longitudinal tracking of pressure changes over the course of treatment. Measurements are performed by the <strong>Study team</strong>; Usual Care results remain blinded.</p>
         <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:18px">
-          <span class="tag o">Peak pressure</span>
-          <span class="tag o">Pressure-time integral</span>
-          <span class="tag o">In-shoe measurement</span>
-          <span class="tag o">Dynamic gait analysis</span>
-          <span class="tag o">7 regions</span>
-          <span class="tag d">Study team</span>
+          <span class="tag o" data-e="tag_peakpressure">Peak pressure</span>
+          <span class="tag o" data-e="tag_ptinteg">Pressure-time integral</span>
+          <span class="tag o" data-e="tag_inshoe">In-shoe measurement</span>
+          <span class="tag o" data-e="tag_gait">Dynamic gait analysis</span>
+          <span class="tag o" data-e="tag_regions7">7 regions</span>
+          <span class="tag d" data-e="tag_studyteam">Study team</span>
         </div>
       </div>
       <div class="about-vis rev" style="min-height:280px;background:linear-gradient(135deg,var(--par-orange),#FF2200)">
@@ -809,26 +891,27 @@ Disease </em>) takes an interdisciplinary approach. By combining biomechanical a
     </div>
   </section>
 
-  <!-- NOVEL EMED -->
+  <!-- NOVEL PEDAR -->
   <div class="sec2">
     <div class="inner">
       <div class="about-grid rev">
         <div class="about-vis rev" style="min-height:280px;background:linear-gradient(135deg,#1D8DB0,#0a5f7a)">
           <div class="about-vis-inner">
-            <img src="emed-026-web-1-1206x800.jpg" alt="Novel emed drukmeetplatform" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit">
+            <img src="pedar-system.png" alt="Novel pedar in-shoe sensor insole with wireless datalogger" style="max-width:70%;margin-bottom:12px" loading="lazy" width="480" height="376">
+            <div style="font-size:1rem;font-weight:700;color:#fff;margin-bottom:8px">Novel pedar</div>
+            <div style="font-size:.85rem;color:rgba(255,255,255,.75);line-height:1.65">In-shoe pressure-sensor insoles<br>linked to the novel database software</div>
           </div>
         </div>
         <div>
-          <div class="slabel" data-e="emed_label">Barefoot pressure &#183; Care team (DFC)</div>
-          <h2 class="stitle" data-e="emed_title">Novel emed</h2>
-          <p class="sbody" data-e="emed_desc1">The <strong>Novel emed</strong> is a capacitive pressure platform that measures barefoot plantar pressure distribution, both statically and dynamically. Within the PARADISE project the emed complements the F-Scan Go&#8217;s in-shoe measurement with a barefoot reference. It will replace the F-Scan Go over time and currently runs in parallel for cross-validation (same 7 anatomical regions, kPa). For the neuropathic foot, the two-step method is preferred.</p>
-          <p class="sbody" data-e="emed_desc2">Measurements are performed by the <strong>Care team (DFC)</strong>. The emed was added to the protocol after the initial design phase and is currently running in parallel with the F-Scan Go for comparative purposes.</p>
+          <div class="slabel" data-e="pedar_label">In-shoe pressure &#183; Care team (DFC)</div>
+          <h2 class="stitle" data-e="pedar_title">Novel pedar</h2>
+          <p class="sbody" data-e="pedar_desc1">The <strong>Novel pedar</strong> is a wireless in-shoe pressure measurement system: thin sensor insoles worn inside the participant&#8217;s own footwear, linked to the novel database software. Within the PARADISE project the pedar provides an independent in-shoe reference alongside the F-Scan Go. It will replace the F-Scan Go over time and currently runs in parallel for cross-validation. Insole calibration is checked with the trublu calibration device at least every 3 months.</p>
+          <p class="sbody" data-e="pedar_desc2">Measurements are performed by the <strong>Care team (DFC)</strong>. The pedar was added to the protocol after the initial design phase and is currently running in parallel with the F-Scan Go for comparative purposes.</p>
           <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:18px">
-            <span class="tag b">Barefoot pressure</span>
-            <span class="tag b">Capacitive platform</span>
-            <span class="tag b">7 regions</span>
-            <span class="tag b">Two-step / midgait</span>
-            <span class="tag d">Care team (DFC)</span>
+            <span class="tag b" data-e="tag_inshoeinsole">In-shoe insoles</span>
+            <span class="tag b" data-e="tag_trublu">trublu calibration</span>
+            <span class="tag b" data-e="tag_noveldb">novel database</span>
+            <span class="tag d" data-e="tag_careteam">Care team (DFC)</span>
           </div>
         </div>
       </div>
@@ -844,10 +927,10 @@ Disease </em>) takes an interdisciplinary approach. By combining biomechanical a
         <p class="sbody" data-e="dyna_desc1">The <strong>McRoberts DynaPort</strong> (MoveMonitor) is a validated wearable accelerometer worn at the lower back that provides detailed classification of postures and transitions, step counts and walking-bout characteristics during free-living conditions. Worn for a <strong>full week</strong> at baseline and at 6 months; not waterproof.</p>
         <p class="sbody" data-e="dyna_desc2">In the PARADISE project, the DynaPort delivers the objective activity profile used to define the <strong>80%-adherence benchmark</strong> for the co-primary endpoint. Measurements are performed by the <strong>Care team (DFC)</strong>.</p>
         <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:18px">
-          <span class="tag b">Step count</span>
-          <span class="tag b">Free-living mobility</span>
-          <span class="tag b">7-day monitoring</span>
-          <span class="tag d">Care team (DFC)</span>
+          <span class="tag b" data-e="tag_stepcount">Step count</span>
+          <span class="tag b" data-e="tag_freeliving">Free-living mobility</span>
+          <span class="tag b" data-e="tag_7day">7-day monitoring</span>
+          <span class="tag d" data-e="tag_careteam">Care team (DFC)</span>
         </div>
       </div>
       <div class="about-vis rev" style="min-height:280px;background:linear-gradient(135deg,var(--par-mid),var(--par-light))">
@@ -877,32 +960,30 @@ Disease </em>) takes an interdisciplinary approach. By combining biomechanical a
           <p class="sbody" data-e="ortho_desc1">The <strong>Orthotimer</strong> is a small temperature sensor embedded in the custom made foot orthosis (CMFO). It logs temperature at 15-minute intervals with a battery life of approximately 100 days, and is read out and replaced every 3 months by the <strong>Care team (DFC)</strong>.</p>
           <p class="sbody" data-e="ortho_desc2">Within the PARADISE project, the Orthotimer objectively quantifies how long patients actually wear their prescribed orthosis &#8212; a key determinant of healing outcomes. Patients are informed that it is &#8220;their sensor&#8221; and that it records only temperature (no GPS, audio, or camera).</p>
           <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:18px">
-            <span class="tag d">Adherence monitoring</span>
-            <span class="tag d">15-min interval</span>
-            <span class="tag d">~100-day battery</span>
-            <span class="tag d">Care team (DFC)</span>
+            <span class="tag d" data-e="tag_adherence">Adherence monitoring</span>
+            <span class="tag d" data-e="tag_15min">15-min interval</span>
+            <span class="tag d" data-e="tag_100day">~100-day battery</span>
+            <span class="tag d" data-e="tag_careteam">Care team (DFC)</span>
           </div>
         </div>
       </div>
     </div>
   </div>
+  </div><!-- /rp-materials -->
 
-</div>
-
-<!-- ------------------------ PAGE: HEALTH ECONOMICS --------------------- -->
-<div class="page" id="page-health">
-  <div class="phero">
-    <div class="wrap">
-      <div class="plabel" data-e="health_label">Health Economics</div>
-      <h1 data-e="health_title">Gezondheidseconomie</h1>
-      <p data-e="health_sub">Kosteneffectiviteit van diabetische voetstrategie&#235;n</p>
-    </div>
+  <div class="rpanel" id="rp-protocol" role="tabpanel" aria-labelledby="rtab-protocol">
+    <iframe src="studie-protocol.html" class="portal-frame" title="Studieprotocol" style="min-height:800px;height:calc(100vh - 220px)" loading="lazy"></iframe>
   </div>
-  <div class="bc"><div class="wrap">
-    <span onclick="showPage('home')" data-k="nav_home" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')showPage('home')">Home</span><span class="sep">&#8250;</span><span data-k="nav_health">Health Economics</span>
-  </div></div>
-  <iframe src="gezondheidseconomie.html" class="portal-frame" title="Gezondheidseconomie" style="min-height:800px;height:calc(100vh - 220px)" loading="lazy"></iframe>
-</div>
+
+  <div class="rpanel" id="rp-health" role="tabpanel" aria-labelledby="rtab-health">
+    <iframe src="gezondheidseconomie.html" class="portal-frame" title="Gezondheidseconomie" style="min-height:800px;height:calc(100vh - 220px)" loading="lazy"></iframe>
+  </div>
+
+  <div class="rpanel" id="rp-results" role="tabpanel" aria-labelledby="rtab-results">
+    <iframe src="resultaten-dashboard.html" class="portal-frame" title="Resultaten" style="min-height:800px;height:calc(100vh - 220px)" loading="lazy"></iframe>
+  </div>
+
+</div><!-- /page-research -->
 
 <!-- ------------------------ PAGE: PATIENTS ----------------------------- -->
 <div class="page" id="page-patients">
@@ -918,36 +999,7 @@ Disease </em>) takes an interdisciplinary approach. By combining biomechanical a
   </div></div>
   <iframe src="patienten-educatie.html" class="portal-frame" title="Pati&#235;nteninformatie" style="min-height:800px;height:calc(100vh - 220px)" onload="try{this.contentWindow.postMessage({type:'px_lang',lang:lang},'*')}catch(e){}"></iframe>
 </div>
-
-<!-- ------------------------ PAGE: PROTOCOL ----------------------------- -->
-<div class="page" id="page-protocol">
-  <div class="phero">
-    <div class="wrap">
-      <div class="plabel" data-e="protocol_label">Studieprotocol</div>
-      <h1 data-e="protocol_title">Protocol &amp; Methoden</h1>
-      <p data-e="protocol_sub">Methodologische opzet van het PARADISE-project</p>
-    </div>
-  </div>
-  <div class="bc"><div class="wrap">
-    <span onclick="showPage('home')" data-k="nav_home" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')showPage('home')">Home</span><span class="sep">&#8250;</span><span data-k="nav_protocol">Protocol</span>
-  </div></div>
-  <iframe src="studie-protocol.html" class="portal-frame" title="Studieprotocol" style="min-height:800px;height:calc(100vh - 220px)" loading="lazy"></iframe>
-</div>
-
-<!-- ------------------------ PAGE: RESULTS ------------------------------ -->
-<div class="page" id="page-results">
-  <div class="phero">
-    <div class="wrap">
-      <div class="plabel" data-e="results_label">Resultaten</div>
-      <h1 data-e="results_title">Resultaten &amp; Data</h1>
-      <p data-e="results_sub">Studieresultaten worden hier gepubliceerd zodra ze beschikbaar zijn</p>
-    </div>
-  </div>
-  <div class="bc"><div class="wrap">
-    <span onclick="showPage('home')" data-k="nav_home" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')showPage('home')">Home</span><span class="sep">&#8250;</span><span data-k="nav_results">Results</span>
-  </div></div>
-  <iframe src="resultaten-dashboard.html" class="portal-frame" title="Resultaten" style="min-height:800px;height:calc(100vh - 220px)" loading="lazy"></iframe>
-</div>
+</main>
 
 <!-- ------------------------ FOOTER ------------------------------------- -->
 <!-- PROFESSIONALS LANDING PAGE -->
@@ -1092,6 +1144,11 @@ Disease </em>) takes an interdisciplinary approach. By combining biomechanical a
             style="width:100%;padding:.75rem 1rem;border:1.5px solid #dde1e7;border-radius:8px;font-size:.95rem;color:#222;background:#fff;box-sizing:border-box;outline:none;font-family:inherit">
         </div>
 
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:1.25rem">
+          <input type="checkbox" id="login-remember" checked style="width:16px;height:16px;cursor:pointer;flex-shrink:0">
+          <label for="login-remember" style="font-size:.85rem;color:#555;cursor:pointer" data-e="login_remember">Remember me</label>
+        </div>
+
         <div id="login-msg" style="display:none;padding:.75rem 1rem;border-radius:8px;font-size:.88rem;margin-bottom:1rem"></div>
 
         <button onclick="portalLogin()"
@@ -1198,7 +1255,7 @@ Disease </em>) takes an interdisciplinary approach. By combining biomechanical a
 
         <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:1.25rem">
           <input id="reg-gdpr" type="checkbox" required style="width:18px;height:18px;flex-shrink:0;margin-top:2px;cursor:pointer">
-          <label for="reg-gdpr" style="font-size:13px;color:#555;line-height:1.5;cursor:pointer" data-e="form_gdpr">I agree to the processing of my personal data for account registration and project communications. <!-- TODO: link naar privacyverklaring zodra beschikbaar --></label>
+          <label for="reg-gdpr" style="font-size:13px;color:#555;line-height:1.5;cursor:pointer" data-e="reg_gdpr">I agree to the processing of my personal data for account registration and project communications. See our <a href="privacyverklaring.html" target="_blank" rel="noopener">privacy policy</a>.</label>
         </div>
 
         <div id="reg-msg" style="display:none;padding:.75rem 1rem;border-radius:8px;font-size:.88rem;margin-bottom:1rem"></div>
@@ -1227,6 +1284,7 @@ Disease </em>) takes an interdisciplinary approach. By combining biomechanical a
       <button class="ps-btn" id="ps-forum" onclick="switchPortalPanel('forum')" data-k="btn_forum">Forum</button>
       <button class="ps-btn" id="ps-handleidingen" onclick="switchPortalPanel('handleidingen')" data-k="btn_hlg">Handleidingen</button>
       <button class="ps-btn" id="ps-academy" onclick="showPage('academy')" data-k="btn_academy">Academie</button>
+      <button class="ps-btn" id="ps-visite" onclick="showPage('visite')" data-k="btn_visite">Visite-checklist</button>
       <button class="ps-btn" id="ps-uploader" onclick="showPage('uploader')" data-k="btn_uploader">Draagpatroon</button>
       <button class="ps-btn" id="ps-mcroberts" onclick="showPage('mcroberts')" data-k="btn_mcroberts">Beweegpatroon</button>
       <p style="font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-400);padding:12px 10px 4px;margin:0">Research</p>
@@ -1239,15 +1297,15 @@ Disease </em>) takes an interdisciplinary approach. By combining biomechanical a
     <main class="portal-main">
       <div id="panel-announcements" class="portal-panel on">
         <h2 style="color:var(--par-blue);margin-bottom:1.5rem" data-e="panel_ann_h">Announcements</h2>
-        <div id="announcements-list"><p style="color:var(--gray-500)">Loading announcements...</p></div>
+        <div id="announcements-list"><p style="color:var(--gray-600)">Loading announcements...</p></div>
       </div>
       <div id="panel-documents" class="portal-panel">
         <h2 style="color:var(--par-blue);margin-bottom:1.5rem" data-e="panel_docs_h">Documents &amp; Guidelines</h2>
-        <div id="documents-list"><p style="color:var(--gray-500)">Loading documents...</p></div>
+        <div id="documents-list"><p style="color:var(--gray-600)">Loading documents...</p></div>
       </div>
       <div id="panel-forum" class="portal-panel">
         <h2 style="color:var(--par-blue);margin-bottom:1.5rem" data-e="panel_forum_h">Discussion Forum</h2>
-        <div id="forum-list"><p style="color:var(--gray-500)">Loading forum threads...</p></div>
+        <div id="forum-list"><p style="color:var(--gray-600)">Loading forum threads...</p></div>
       </div>
       
       <div id="panel-handleidingen" class="portal-panel">
@@ -1259,7 +1317,7 @@ Disease </em>) takes an interdisciplinary approach. By combining biomechanical a
           <iframe src="gezondheidseconomie.html" class="portal-frame" title="Gezondheidseconomie" style="min-height:700px;height:calc(100vh - 120px)" onload="try{this.contentWindow.postMessage({type:'px_lang',lang:lang},'*')}catch(e){}"></iframe>
         </div>
         <div id="panel-protocol" class="portal-panel">
-          <iframe src="studie-protocol.html" class="portal-frame" title="Studieprotocol" style="min-height:700px;height:calc(100vh - 120px)" onload="try{this.contentWindow.postMessage({type:'px_lang',lang:lang},'*')}catch(e){}"></iframe>
+          <iframe src="protocol-analyse.html" class="portal-frame" title="Methodologische analyse" style="min-height:700px;height:calc(100vh - 120px)" onload="try{this.contentWindow.postMessage({type:'px_lang',lang:lang},'*')}catch(e){}"></iframe>
         </div>
         <div id="panel-results" class="portal-panel">
           <iframe src="resultaten-dashboard.html" class="portal-frame" title="Resultaten" style="min-height:700px;height:calc(100vh - 120px)" onload="try{this.contentWindow.postMessage({type:'px_lang',lang:lang},'*')}catch(e){}"></iframe>
@@ -1284,11 +1342,11 @@ Disease </em>) takes an interdisciplinary approach. By combining biomechanical a
     <main class="portal-main">
       <div id="admin-panel-pending" class="portal-panel on">
         <h2 style="color:var(--par-blue);margin-bottom:1.5rem" data-e="admin_h_pending">Pending Registrations</h2>
-        <div id="pending-list"><p style="color:var(--gray-500)">Loading...</p></div>
+        <div id="pending-list"><p style="color:var(--gray-600)">Loading...</p></div>
       </div>
       <div id="admin-panel-allusers" class="portal-panel">
         <h2 style="color:var(--par-blue);margin-bottom:1.5rem" data-e="admin_h_allusers">All Users</h2>
-        <div id="allusers-list"><p style="color:var(--gray-500)">Loading...</p></div>
+        <div id="allusers-list"><p style="color:var(--gray-600)">Loading...</p></div>
       </div>
       <div id="admin-panel-admin-docs" class="portal-panel">
         <h2 style="color:var(--par-blue);margin-bottom:1.5rem" data-e="admin_h_docs">Manage Documents</h2>
@@ -1312,7 +1370,7 @@ Disease </em>) takes an interdisciplinary approach. By combining biomechanical a
         </div>
         <div class="admin-section" style="margin-top:2rem">
           <h3 data-e="adm_sec_existing">Existing Documents</h3>
-          <div id="admin-docs-list"><p style="color:var(--gray-500)">Loading...</p></div>
+          <div id="admin-docs-list"><p style="color:var(--gray-600)">Loading...</p></div>
         </div>
       </div>
       <div id="admin-panel-admin-ann" class="portal-panel">
@@ -1329,7 +1387,7 @@ Disease </em>) takes an interdisciplinary approach. By combining biomechanical a
         </div>
         <div class="admin-section" style="margin-top:2rem">
           <h3 data-e="adm_sec_existing_ann">Existing Announcements</h3>
-          <div id="admin-ann-list"><p style="color:var(--gray-500)">Loading...</p></div>
+          <div id="admin-ann-list"><p style="color:var(--gray-600)">Loading...</p></div>
         </div>
       </div>
       <div id="admin-panel-admin-forum" class="portal-panel">
@@ -1346,7 +1404,7 @@ Disease </em>) takes an interdisciplinary approach. By combining biomechanical a
         </div>
         <div class="admin-section" style="margin-top:2rem">
           <h3 data-e="adm_sec_all_threads">All Threads</h3>
-          <div id="admin-forum-list"><p style="color:var(--gray-500)">Loading...</p></div>
+          <div id="admin-forum-list"><p style="color:var(--gray-600)">Loading...</p></div>
         </div>
       </div>
       
@@ -1360,15 +1418,27 @@ Disease </em>) takes an interdisciplinary approach. By combining biomechanical a
       <p data-e="footer_desc" data-placeholder="Footer description">Towards Pressure-Adherence & Education Driven Service in Diabetic Foot 
 Disease </p>
       <p style="margin-top:14px;font-size:12.5px" id="footAffil"></p>
+      <div class="footer-newsletter">
+        <h4 data-e="nl_title" data-placeholder="Newsletter title">Stay updated</h4>
+        <form name="newsletter" data-success="nlSuccess" data-netlify="true" netlify-honeypot="nl-bot-field" onsubmit="submitForm(event)" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+          <input type="hidden" name="form-name" value="newsletter">
+          <p style="display:none"><label>Don&#8217;t fill this out: <input name="nl-bot-field"></label></p>
+          <label for="nl-email" style="position:absolute;left:-9999px" data-e="nl_email_label">Email address</label>
+          <input id="nl-email" name="email" type="email" required placeholder="you@email.com" style="flex:1;min-width:160px;padding:8px 12px;border-radius:8px;border:1px solid var(--gray-300);font-size:13px">
+          <button type="submit" class="btn-p" style="padding:8px 16px;font-size:13px" data-e="nl_btn">Subscribe</button>
+        </form>
+        <p id="nlSuccess" style="display:none;font-size:12.5px;color:var(--par-light);margin-top:8px" data-e="nl_success">Thanks — you're subscribed!</p>
+      </div>
     </div>
     <div class="footer-col">
       <h4 data-k="footer_nav_heading">Navigation</h4>
       <span onclick="showPage('home')" data-k="nav_home" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')showPage('home')">Home</span>
-      <span onclick="showPage('about')" data-k="nav_about" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')showPage('about')">Team</span>
-      <span onclick="showPage('news')" data-k="nav_news" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')showPage('news')">News</span>
+      <span onclick="showPage('about')" data-k="nav_about" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')showPage('about')">About</span>
+      <span onclick="showPage('research')" data-k="nav_research" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')showPage('research')">Research</span>
       <span onclick="showPage('pubs')" data-k="nav_pubs" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')showPage('pubs')">Publications</span>
-      <span onclick="showPage('materials')" data-k="nav_materials" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')showPage('materials')">Materials</span>
+      <span onclick="showPage('team')" data-k="nav_team" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')showPage('team')">Team</span>
       <span onclick="showPage('professionals')" data-k="nav_professionals" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')showPage('professionals')">Professionals</span>
+      <span onclick="showPage('patients')" data-k="nav_patients" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')showPage('patients')">Voor pati&#235;nten</span>
       <span onclick="showPage('contact')" data-k="nav_contact" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')showPage('contact')">Contact</span>
     </div>
     <div class="footer-col">
@@ -1381,18 +1451,12 @@ Disease </p>
   <div class="fbot">
     <p>&copy; <span id="footYear"></span> PARADISE Project &middot; <span data-e="footer_copy" data-placeholder="Copyright text">All rights reserved</span></p>
     <div>
-      <a data-e="footer_priv" data-placeholder="Privacy">Privacy Policy</a>
-      <a data-e="footer_cook" data-placeholder="Cookies">Cookie Policy</a>
-      <a data-e="footer_acc" data-placeholder="Accessibility">Accessibility</a>
+      <a href="privacyverklaring.html" data-e="footer_priv" data-placeholder="Privacy">Privacy Policy</a>
+      <a href="cookiebeleid.html" data-e="footer_cook" data-placeholder="Cookies">Cookie Policy</a>
+      <a href="privacyverklaring.html#accessibility" data-e="footer_acc" data-placeholder="Accessibility">Accessibility</a>
     </div>
   </div>
 </footer>
-
-<!-- FLOATING ACTION BUTTONS -->
-<div class="ed-fabs" style="display:none">
-  <button class="ed-fab" id="editModeFab" onclick="toggleEditMode()" title="Edit text directly on page">&#9998;</button>
-  <button class="ed-fab" onclick="openEditor()" title="Open Site Editor panel">&#9881;</button>
-</div>
 
 <!-- EDITOR OVERLAY -->
 <div class="ed-overlay" id="edOverlay" onclick="closeEditorOnBg(event)">
@@ -1486,7 +1550,7 @@ Disease </p>
         <div class="color-row"><label>Background (sections)</label><input type="color" id="d-bg" oninput="applyColor('--off-white',this.value)"><span class="color-hex" id="dh-bg">#F4F8FC</span></div>
         <div class="ed-subtitle">Logo Image</div>
         <div class="ed-hint">Place your logo file (e.g. paradise_logo_no_bg.png) in the same folder as this HTML file, then enter the filename below.</div>
-        <div class="ed-group"><label>Logo filename</label><input type="text" id="d-logo" placeholder="paradise_logo.png" oninput="applyLogo(this.value)"></div>
+        <div class="ed-group"><label>Logo filename</label><input type="text" id="d-logo" placeholder="paradise_logo_no_bg.png" oninput="applyLogo(this.value)"></div>
         <div class="ed-hint" style="margin-top:-6px">Leave empty to use the text logo. Recommended height: 46px.</div>
         <button class="save-btn" onclick="saveAll()">Save Design</button>
         <button class="reset-btn" onclick="resetDesign()">&#8635; Reset to Default Colours</button>
@@ -1518,6 +1582,14 @@ Disease </p>
   <iframe id="academy-frame" src="paradise-academy.html" class="acad-frame" title="PARADISE Academy" allowfullscreen onload="try{this.contentWindow.postMessage({type:'px_lang',lang:lang},'*')}catch(e){}"></iframe>
 </div>
 
+<div class="page" id="page-visite">
+  <div class="acad-bar">
+    <button class="acad-back" onclick="showPage('members')" data-e="vis_back">&#8592; Portaal</button>
+    <span class="acad-title" data-e="vis_title">Visite-checklist</span>
+  </div>
+  <iframe id="visite-frame" src="about:blank" class="acad-frame" title="Visite-checklist" allowfullscreen></iframe>
+</div>
+
 <div class="page" id="page-uploader">
   <div class="acad-bar">
     <button class="acad-back" onclick="showPage('members')" data-e="upl_back">&#8592; Portaal</button>
@@ -1534,7 +1606,7 @@ Disease </p>
   <iframe id="mcroberts-frame" src="about:blank" class="acad-frame" title="Beweegpatroon-analyse" allowfullscreen></iframe>
 </div>
 
-<div id="articleModal" class="art-modal" onclick="if(event.target===this)closeArticle()">
+<div id="articleModal" class="art-modal" data-lenis-prevent onclick="if(event.target===this)closeArticle()">
   <div class="art-inner">
     <button class="art-close" onclick="closeArticle()" aria-label="Close">&times;</button>
     <div class="art-type"></div>
@@ -1564,11 +1636,11 @@ const DEFAULTS = {
     imp4n:"144",    imp4l:"Patients included"
   },
   team: [
-    {name:"Janou De Buyser", role:"PhD Researcher", affil:"Dept. of Rehabilitation Sciences - KU Leuven Campus Bruges", tags:"Biomechanics,Health Economics", color:"#00407A,#1D8DB0", initials:"JDB", photo:"janou.jpeg"},
-    {name:"Prof. Dr. Kevin Deschamps", role:"Promotor", affil:"KU Leuven - Dept. of Rehabilitation Sciences", tags:"Diabetic Foot,Podiatry", color:"#1D8DB0,#4DC8E8", initials:"KD", photo:"thumb.jfif"},
-    {name:"Prof. Dr. Fabienne Dobbels", role:"Co-Promotor", affil:"KU Leuven - Dept. of Public Health &amp; Primary Care", tags:"Patient involvement,Adherence strategies", color:"#116E8A,#1FABD5", initials:"FD", photo:"fabiennedobbels.jpeg"},
-    {name:"Prof. Dr. Maaike Fobelets", role:"Co-Promotor", affil:"VUB - Dept. Public Health Sciences", tags:"Health Economics", color:"#116E8A,#1FABD5", initials:"MF", photo:"Maaike.jfif"},
-    {name:"Prof. Dr. Koen Putman", role:"Co-Promotor", affil:"VUB - Dept. Public Health Sciences", tags:"Health Economics", color:"#116E8A,#1FABD5", initials:"KP", photo:"koenputman.jpg"},
+    {name:"Janou De Buyser", role:"PhD Researcher", affil:"Dept. of Rehabilitation Sciences - KU Leuven Campus Bruges", tags:"Biomechanics,Health Economics", color:"#00407A,#1D8DB0", initials:"JDB", photo:"janou.jpeg", nl:{role:"Doctoraatsonderzoeker", affil:"Vakgroep Revalidatiewetenschappen - KU Leuven Campus Brugge"}},
+    {name:"Prof. Dr. Kevin Deschamps", role:"Promotor", affil:"KU Leuven - Dept. of Rehabilitation Sciences", tags:"Diabetic Foot,Podiatry", color:"#1D8DB0,#4DC8E8", initials:"KD", photo:"thumb.jfif", nl:{role:"Promotor", affil:"KU Leuven - Vakgroep Revalidatiewetenschappen"}},
+    {name:"Prof. Dr. Fabienne Dobbels", role:"Co-Promotor", affil:"KU Leuven - Dept. of Public Health &amp; Primary Care", tags:"Patient involvement,Adherence strategies", color:"#116E8A,#1FABD5", initials:"FD", photo:"fabiennedobbels.jpeg", nl:{role:"Co-promotor", affil:"KU Leuven - Vakgroep Volksgezondheid en Eerstelijnszorg"}},
+    {name:"Prof. Dr. Maaike Fobelets", role:"Co-Promotor", affil:"VUB - Dept. Public Health Sciences", tags:"Health Economics", color:"#116E8A,#1FABD5", initials:"MF", photo:"Maaike.jfif", nl:{role:"Co-promotor", affil:"VUB - Vakgroep Volksgezondheidswetenschappen"}},
+    {name:"Prof. Dr. Koen Putman", role:"Co-Promotor", affil:"VUB - Dept. Public Health Sciences", tags:"Health Economics", color:"#116E8A,#1FABD5", initials:"KP", photo:"koenputman.jpg", nl:{role:"Co-promotor", affil:"VUB - Vakgroep Volksgezondheidswetenschappen"}},
   ],
   news: [
     {type:"Milestone", title:"PARADISE Project Launched: Integrating Biomechanics and Health Economics in Diabetic Foot Care", date:"September 2026", excerpt:"The PARADISE PhD project officially started at KU Leuven Campus Bruges, aiming to develop evidence-based, cost-effective strategies for optimal diabetic foot care in Belgian hospitals.", featured:true, articleId:"launch-2026", nl:{type:"Mijlpaal", title:"PARADISE-project gelanceerd: biomechanica en gezondheidseconomie voor diabetische voetzorg", date:"September 2026", excerpt:"Het PARADISE-doctoraatsproject is officieel van start gegaan aan de KU Leuven Campus Brugge, met als doel evidence-based, kosteneffectieve strategieen te ontwikkelen voor optimale diabetische voetzorg in Belgische ziekenhuizen."}},
@@ -1578,23 +1650,27 @@ const DEFAULTS = {
     // {type:"Update", title:"Data Collection Phase 2 Completed ? 120 Patients Enrolled", date:"January 2025", excerpt:"", featured:false}
   ],
   pubs: [
-    // Hidden for now ? uncomment to restore:
-    // {year:"2024", title:"Cost-Effectiveness of Therapeutic Footwear in the Prevention of Diabetic Foot Ulcers: A Systematic Review", authors:"[Author A], [Author B], [Author C] et al.", journal:"Diabetes/Metabolism Research and Reviews", type:"review", doi:true, oa:true},
-    // {year:"2024", title:"Plantar Pressure Distribution in Patients with Diabetic Peripheral Neuropathy: A Cross-Sectional Analysis", authors:"[Author A], [Author D], [Author E]", journal:"Journal of Diabetes Science and Technology", type:"original", doi:true, oa:false},
-    // {year:"2023", title:"Economic Burden of Diabetic Foot Complications in Belgium: A Claims-Based Analysis", authors:"[Author A], [Author B], [Author F]", journal:"Diabetic Medicine", type:"original", doi:true, oa:false},
-    // {year:"2023", title:"Belgian Consensus on Offloading Strategies for Neuropathic Diabetic Foot Ulcers", authors:"PARADISE Working Group; [Author A], [Author B] et al.", journal:"Diabetes Care", type:"consensus", doi:true, oa:true}
+    // Hidden for now ? uncomment and fill in the real DOI once published:
+    // {year:"2024", title:"Cost-Effectiveness of Therapeutic Footwear in the Prevention of Diabetic Foot Ulcers: A Systematic Review", authors:"[Author A], [Author B], [Author C] et al.", journal:"Diabetes/Metabolism Research and Reviews", type:"review", doi:"", pdf:"", oa:true},
+    // {year:"2024", title:"Plantar Pressure Distribution in Patients with Diabetic Peripheral Neuropathy: A Cross-Sectional Analysis", authors:"[Author A], [Author D], [Author E]", journal:"Journal of Diabetes Science and Technology", type:"original", doi:"", pdf:"", oa:false},
+    // {year:"2023", title:"Economic Burden of Diabetic Foot Complications in Belgium: A Claims-Based Analysis", authors:"[Author A], [Author B], [Author F]", journal:"Diabetic Medicine", type:"original", doi:"", pdf:"", oa:false},
+    // {year:"2023", title:"Belgian Consensus on Offloading Strategies for Neuropathic Diabetic Foot Ulcers", authors:"PARADISE Working Group; [Author A], [Author B] et al.", journal:"Diabetes Care", type:"consensus", doi:"", pdf:"", oa:true}
   ]
 };
 
 const ARTICLES = {
-  "launch-2026": {en:"<p>The PARADISE PhD project has officially been launched at <strong>KU Leuven Campus Bruges</strong>, marking the start of an interdisciplinary research programme that combines biomechanical assessment with health economic evaluation to improve diabetic foot care across Belgian clinical sites.</p><h2>Background</h2><p>Diabetic foot ulcers carry a high recurrence risk &mdash; approximately 40% of patients experience a new ulcer within the first year after healing. Custom-made foot orthoses (CMFO) are a cornerstone of offloading prevention, but their effectiveness depends critically on consistent patient adherence. PARADISE &mdash; <em>Towards Pressure-Adherence &amp; Education Driven Service in Diabetic Foot Disease</em> &mdash; is funded by the FWO as a TBM project (T000226N) and based at KU Leuven Campus Bruges.</p><h2>Study design</h2><p>The study compares <strong>Optimal Care</strong> with <strong>Usual Care</strong> at participating Diabetic Foot Clinics (DFC) in Belgium. Two co-primary endpoints define success:</p><ul><li><strong>Foot ulcer recurrence</strong> over 18 months</li><li><strong>Custom footwear adherence</strong> &mdash; wearing the CMFO for at least <strong>80%</strong> of the average activity profile, assessed every three months with the primary analysis at 12 months</li></ul><p>Offloading is considered successful when peak plantar pressure falls <strong>below 200 kPa</strong> or at least <strong>25% lower</strong> than baseline.</p><h2>Measurement instruments</h2><ul><li><strong>F-Scan GO</strong> &mdash; in-shoe plantar pressure across seven anatomical regions (Multimask), performed by the study team; Usual Care results remain blinded to the care team.</li><li><strong>Novel emed</strong> &mdash; barefoot pressure platform operated by the DFC care teams, running in parallel with the F-Scan GO for cross-validation.</li><li><strong>MoveMonitor (McRoberts)</strong> &mdash; worn on the lower back for a full week at baseline and at six months, providing the objective activity profile used for the 80% adherence benchmark.</li><li><strong>Orthotimer</strong> &mdash; temperature sensor in the CMFO recording wear time at 15-minute intervals (approximately 100 days per charge), read out and replaced every three months.</li></ul><h2>Next steps</h2><p>Recruitment at the participating DFC sites is now under way. Clinical protocols, measurement training, and the PARADISE Academy professional education course are available on this website.</p>",nl:"<p>Het PARADISE-doctoraatsproject is officieel gelanceerd aan de <strong>KU Leuven Campus Brugge</strong>. Dit interdisciplinaire onderzoeksprogramma combineert biomechanische meting met gezondheidseconomische evaluatie om de diabetische voetzorg op Belgische klinische sites te verbeteren.</p><h2>Achtergrond</h2><p>Diabetische voetulcera hebben een hoge recidiefrisk &mdash; circa 40% van de patiënten ervaart een nieuw ulcus in het eerste jaar na genezing. Maatwerk-voetorthesen (CMFO) vormen een hoeksteen van de offloadingpreventie, maar hun effectiviteit hangt sterk af van consistente therapietrouw. PARADISE &mdash; <em>Towards Pressure-Adherence &amp; Education Driven Service in Diabetic Foot Disease</em> &mdash; wordt gefinancierd door het FWO als TBM-project (T000226N) en is gevestigd aan de KU Leuven Campus Brugge.</p><h2>Studieontwerp</h2><p>De studie vergelijkt <strong>Optimale Zorg</strong> met <strong>Gebruikelijke Zorg</strong> in de deelnemende Diabetische Voetklinieken (DVK) in België. Twee co-primaire eindpunten bepalen het succes:</p><ul><li><strong>Voetulcus-recidief</strong> over 18 maanden</li><li><strong>Therapietrouw aan het maatwerkschoeisel</strong> &mdash; het CMFO dragen gedurende minimaal <strong>80%</strong> van het gemiddelde activiteitenprofiel, elke drie maanden gemeten, met het primaire analysepunt op 12 maanden</li></ul><p>Offloading is succesvol wanneer de piekdruk daalt <strong>onder 200 kPa</strong> of met minstens <strong>25%</strong> ten opzichte van de baseline.</p><h2>Meetinstrumenten</h2><ul><li><strong>F-Scan GO</strong> &mdash; in-shoe plantaire drukmeting over zeven anatomische zones (Multimask), uitgevoerd door het studieteam; resultaten voor de Gebruikelijke Zorg blijven geblindeerd.</li><li><strong>Novel emed</strong> &mdash; blootvoets drukplatform, bediend door de zorgteams in de DVK, parallel aan de F-Scan GO voor kruisvalidatie.</li><li><strong>MoveMonitor (McRoberts)</strong> &mdash; gedragen op de onderrug gedurende een volledige week op baseline en zes maanden; levert het objectieve activiteitenprofiel voor de 80%-adherentiebenchmark.</li><li><strong>Orthotimer</strong> &mdash; temperatuursensor in de CMFO die de draagduur opneemt in intervallen van 15 minuten (circa 100 dagen per lading), elke drie maanden uitgelezen en vervangen.</li></ul><h2>Volgende stappen</h2><p>De inclusie van patiënten in de deelnemende DVK-sites is van start gegaan. Klinische protocollen, meettraining en de PARADISE Academy voor nascholing zijn beschikbaar op deze website.</p>"}
+  "launch-2026": {en:"<p>The PARADISE PhD project has officially been launched at <strong>KU Leuven Campus Bruges</strong>, marking the start of an interdisciplinary research programme that combines biomechanical assessment with health economic evaluation to improve diabetic foot care across Belgian clinical sites.</p><h2>Background</h2><p>Diabetic foot ulcers carry a high recurrence risk &mdash; approximately 40% of patients experience a new ulcer within the first year after healing. Custom-made foot orthoses (CMFO) are a cornerstone of offloading prevention, but their effectiveness depends critically on consistent patient adherence. PARADISE &mdash; <em>Towards Pressure-Adherence &amp; Education Driven Service in Diabetic Foot Disease</em> &mdash; is funded by the FWO as a TBM project (T000226N) and based at KU Leuven Campus Bruges.</p><h2>Study design</h2><p>The study compares <strong>Optimal Care</strong> with <strong>Usual Care</strong> at participating Diabetic Foot Clinics (DFC) in Belgium. Two co-primary endpoints define success:</p><ul><li><strong>Foot ulcer recurrence</strong> over 18 months</li><li><strong>Custom footwear adherence</strong> &mdash; wearing the CMFO for at least <strong>80%</strong> of the average activity profile, assessed every three months with the primary analysis at 12 months</li></ul><p>Offloading is considered successful when peak plantar pressure falls <strong>below 200 kPa</strong> or at least <strong>25% lower</strong> than baseline.</p><h2>Measurement instruments</h2><ul><li><strong>F-Scan GO</strong> &mdash; in-shoe plantar pressure across seven anatomical regions (Multimask), performed by the study team; Usual Care results remain blinded to the care team.</li><li><strong>Novel pedar</strong> &mdash; in-shoe pressure insoles operated by the DFC care teams, running in parallel with the F-Scan GO for cross-validation.</li><li><strong>MoveMonitor (McRoberts)</strong> &mdash; worn on the lower back for a full week at baseline and at six months, providing the objective activity profile used for the 80% adherence benchmark.</li><li><strong>Orthotimer</strong> &mdash; temperature sensor in the CMFO recording wear time at 15-minute intervals (approximately 100 days per charge), read out and replaced every three months.</li></ul><h2>Next steps</h2><p>Recruitment at the participating DFC sites is now under way. Clinical protocols, measurement training, and the PARADISE Academy professional education course are available on this website.</p>",nl:"<p>Het PARADISE-doctoraatsproject is officieel gelanceerd aan de <strong>KU Leuven Campus Brugge</strong>. Dit interdisciplinaire onderzoeksprogramma combineert biomechanische meting met gezondheidseconomische evaluatie om de diabetische voetzorg op Belgische klinische sites te verbeteren.</p><h2>Achtergrond</h2><p>Diabetische voetulcera hebben een hoge recidiefrisk &mdash; circa 40% van de patiënten ervaart een nieuw ulcus in het eerste jaar na genezing. Maatwerk-voetorthesen (CMFO) vormen een hoeksteen van de offloadingpreventie, maar hun effectiviteit hangt sterk af van consistente therapietrouw. PARADISE &mdash; <em>Towards Pressure-Adherence &amp; Education Driven Service in Diabetic Foot Disease</em> &mdash; wordt gefinancierd door het FWO als TBM-project (T000226N) en is gevestigd aan de KU Leuven Campus Brugge.</p><h2>Studieontwerp</h2><p>De studie vergelijkt <strong>Optimale Zorg</strong> met <strong>Gebruikelijke Zorg</strong> in de deelnemende Diabetische Voetklinieken (DVK) in België. Twee co-primaire eindpunten bepalen het succes:</p><ul><li><strong>Voetulcus-recidief</strong> over 18 maanden</li><li><strong>Therapietrouw aan het maatwerkschoeisel</strong> &mdash; het CMFO dragen gedurende minimaal <strong>80%</strong> van het gemiddelde activiteitenprofiel, elke drie maanden gemeten, met het primaire analysepunt op 12 maanden</li></ul><p>Offloading is succesvol wanneer de piekdruk daalt <strong>onder 200 kPa</strong> of met minstens <strong>25%</strong> ten opzichte van de baseline.</p><h2>Meetinstrumenten</h2><ul><li><strong>F-Scan GO</strong> &mdash; in-shoe plantaire drukmeting over zeven anatomische zones (Multimask), uitgevoerd door het studieteam; resultaten voor de Gebruikelijke Zorg blijven geblindeerd.</li><li><strong>Novel pedar</strong> &mdash; in-shoe druksensor-inlegzolen, bediend door de zorgteams in de DVK, parallel aan de F-Scan GO voor kruisvalidatie.</li><li><strong>MoveMonitor (McRoberts)</strong> &mdash; gedragen op de onderrug gedurende een volledige week op baseline en zes maanden; levert het objectieve activiteitenprofiel voor de 80%-adherentiebenchmark.</li><li><strong>Orthotimer</strong> &mdash; temperatuursensor in de CMFO die de draagduur opneemt in intervallen van 15 minuten (circa 100 dagen per lading), elke drie maanden uitgelezen en vervangen.</li></ul><h2>Volgende stappen</h2><p>De inclusie van patiënten in de deelnemende DVK-sites is van start gegaan. Klinische protocollen, meettraining en de PARADISE Academy voor nascholing zijn beschikbaar op deze website.</p>"}
 };
 
 const TRANS_KEYS = ["nav_home","nav_about","nav_news","nav_materials","nav_pubs","nav_contact"];
 const TRANS_DEFAULTS = {
   en: { 
-    nav_home:"Home", nav_about:"Team", nav_news:"News", nav_materials:"Materials", nav_pubs:"Publications", nav_contact:"Contact", nav_professionals:"Professionals", nav_members:"Members", nav_health:"Health Economics", nav_patients:"For Patients", nav_protocol:"Protocol", nav_results:"Results",
+    nav_home:"Home", nav_about:"About", nav_team:"Team", nav_research:"Research", nav_news:"News", nav_materials:"Materials", nav_pubs:"Publications", nav_contact:"Contact", nav_professionals:"Professionals", nav_members:"Members", nav_health:"Health Economics", nav_patients:"For Patients", nav_protocol:"Protocol", nav_results:"Results",
     // Page headers
+    about_page_label:"About", about_mission_title:"About PARADISE", about_mission_sub:"An interdisciplinary PhD project bridging biomechanics and health economics to improve diabetic foot outcomes in Belgium", about_team_btn:"Meet the Team &#8594;",
+    team_page_title:"Research Team", team_page_sub:"An interdisciplinary team across biomechanics, clinical care, health management and policy and health economics",
+    research_label:"Research", research_title:"Research", research_sub:"Measurement instruments, study protocol, health economics and results of the PARADISE project",
+    results_label:"Results", results_title:"Results &amp; Data", results_sub:"Study results will be published here as they become available",
     patients_label:"For Patients", patients_title:"Patient Information", patients_sub:"Everything you need to know as a patient about the PARADISE study",
     health_label:"Health Economics", health_title:"Health Economics", health_sub:"Cost-effectiveness of diabetic foot strategies",
     protocol_label:"Study Protocol", protocol_title:"Protocol &amp; Methods", protocol_sub:"Methodological design of the PARADISE project",
@@ -1633,12 +1709,13 @@ const TRANS_DEFAULTS = {
     news_page_label:"News", news_page_title:"News & Events", news_page_sub:"Research updates, conference presentations, and project milestones",
     // Pubs page
     pubs_page_label:"Publications", pubs_page_title:"Publications", pubs_page_sub:"Peer-reviewed papers and research outputs from the PARADISE project",
-    pub_filter_all:"All", pub_filter_original:"Original Research", pub_filter_review:"Reviews", pub_filter_consensus:"Consensus / Position",
+    pub_filter_all:"All", pub_filter_original:"Original Research", pub_filter_review:"Reviews", pub_filter_consensus:"Consensus / Position", pub_filter_year_all:"All years", pub_filter_author_all:"All authors",
     // Contact page
     ci_email:"Email", ci_address:"Address", ci_affil:"Affiliations",
     contact_page_label:"Contact", contact_page_title:"Get in Touch", contact_page_sub:"Questions, collaboration proposals, or media inquiries are welcome",
     contact_form_title:"Send a Message", contact_form_btn:"Send Message", contact_success:"Thank you! Your message has been sent.",
-    form_gdpr:"I agree to the processing of my personal data for the purpose of responding to this inquiry. <!-- TODO: Add privacy policy link -->",
+    form_gdpr:"I agree to the processing of my personal data for the purpose of responding to this inquiry. See our <a href='privacyverklaring.html' target='_blank' rel='noopener'>privacy policy</a>.",
+    reg_gdpr:"I agree to the processing of my personal data for account registration and project communications. See our <a href='privacyverklaring.html' target='_blank' rel='noopener'>privacy policy</a>.",
     form_firstname:"First Name", form_lastname:"Last Name", form_email:"Email", form_subject:"Subject", form_message:"Message",
     opt_research:"Research Collaboration", opt_clinical:"Clinical Partnership", opt_student:"Student / Internship", opt_media:"Media / Press", opt_general:"General Inquiry",
     // Materials page
@@ -1648,12 +1725,16 @@ const TRANS_DEFAULTS = {
     off_label:"Offloading target", off_desc:"Peak pressure <strong>&lt; 200 kPa</strong> <em>or</em> ≥ 25% reduction vs. baseline",
     scan_label:"Plantar pressure analysis · Study team", scan_title:"Tekscan F-Scan Go", scan_desc1:"The <strong>Tekscan F-Scan Go</strong> is a portable, in-shoe plantar pressure measurement system that uses thin, flexible sensor insoles to capture dynamic pressure distribution across the entire plantar surface during walking. It provides spatial pressure maps, peak pressure values, pressure-time integrals and force data in real time.",
     scan_desc2:"In the PARADISE project, the F-Scan Go is central to our biomechanical assessment. It enables identification of high-risk pressure regions, evaluation of offloading footwear effectiveness and longitudinal tracking of pressure changes over the course of treatment. Measurements are performed by the <strong>Study team</strong>; Usual Care results remain blinded.",
-    emed_label:"Barefoot pressure · Care team (DFC)", emed_title:"Novel emed", emed_desc1:"The <strong>Novel emed</strong> is a capacitive pressure platform that measures barefoot plantar pressure distribution, both statically and dynamically. Within the PARADISE project the emed complements the F-Scan Go&#8217;s in-shoe measurement with a barefoot reference. It will replace the F-Scan Go over time and currently runs in parallel for cross-validation (same 7 anatomical regions, kPa). For the neuropathic foot, the two-step method is preferred.",
-    emed_desc2:"Measurements are performed by the <strong>Care team (DFC)</strong>. The emed was added to the protocol after the initial design phase and is currently running in parallel with the F-Scan Go for comparative purposes.",
+    pedar_label:"In-shoe pressure · Care team (DFC)", pedar_title:"Novel pedar", pedar_desc1:"The <strong>Novel pedar</strong> is a wireless in-shoe pressure measurement system: thin sensor insoles worn inside the participant&#8217;s own footwear, linked to the novel database software. Within the PARADISE project the pedar provides an independent in-shoe reference alongside the F-Scan Go. It will replace the F-Scan Go over time and currently runs in parallel for cross-validation. Insole calibration is checked with the trublu calibration device at least every 3 months.",
+    pedar_desc2:"Measurements are performed by the <strong>Care team (DFC)</strong>. The pedar was added to the protocol after the initial design phase and is currently running in parallel with the F-Scan Go for comparative purposes.",
     dyna_label:"Activity profile · Care team (DFC)", dyna_title:"McRoberts DynaPort", dyna_desc1:"The <strong>McRoberts DynaPort</strong> (MoveMonitor) is a validated wearable accelerometer worn at the lower back that provides detailed classification of postures and transitions, step counts and walking-bout characteristics during free-living conditions. Worn for a <strong>full week</strong> at baseline and at 6 months; not waterproof.",
     dyna_desc2:"In the PARADISE project, the DynaPort delivers the objective activity profile used to define the <strong>80%-adherence benchmark</strong> for the co-primary endpoint. Measurements are performed by the <strong>Care team (DFC)</strong>.",
     ortho_label:"Adherence · Care team (DFC)", ortho_title:"Orthotimer", ortho_desc1:"The <strong>Orthotimer</strong> is a small temperature sensor embedded in the custom made foot orthosis (CMFO). It logs temperature at 15-minute intervals with a battery life of approximately 100 days, and is read out and replaced every 3 months by the <strong>Care team (DFC)</strong>.",
     ortho_desc2:"Within the PARADISE project, the Orthotimer objectively quantifies how long patients actually wear their prescribed orthosis &#8212; a key determinant of healing outcomes. Patients are informed that it is &#8220;their sensor&#8221; and that it records only temperature (no GPS, audio, or camera).",
+    tag_peakpressure:"Peak pressure", tag_ptinteg:"Pressure-time integral", tag_inshoe:"In-shoe measurement", tag_gait:"Dynamic gait analysis", tag_regions7:"7 regions", tag_studyteam:"Study team",
+    tag_inshoeinsole:"In-shoe insoles", tag_trublu:"trublu calibration", tag_noveldb:"novel database", tag_careteam:"Care team (DFC)",
+    tag_stepcount:"Step count", tag_freeliving:"Free-living mobility", tag_7day:"7-day monitoring",
+    tag_adherence:"Adherence monitoring", tag_15min:"15-min interval", tag_100day:"~100-day battery",
     // Professionals page
     pro_badge:"Members Portal", pro_h1:"For Healthcare Professionals &amp; Researchers",
     pro_desc:"Get exclusive access to clinical guidelines, project documents, announcements and the PARADISE discussion forum.",
@@ -1674,7 +1755,7 @@ const TRANS_DEFAULTS = {
     login_welcome:"Welcome back", login_sub:"Log in to access the PARADISE members portal",
     lbl_email:"Email address", lbl_password:"Password", lbl_fname:"First name", lbl_lname:"Last name",
     lbl_institution:"Institution", lbl_profession:"Profession",
-    login_btn:"Login", login_no_acc:"No account yet?", login_reg_link:"Register here", login_forgot:"Forgot password?",
+    login_btn:"Login", login_no_acc:"No account yet?", login_reg_link:"Register here", login_forgot:"Forgot password?", login_remember:"Remember me",
     rec_title:"Reset password", rec_sub:"Enter your email. If the address is registered, you will receive a recovery email.", rec_btn:"Send recovery email", rec_back:"← Back to login",
     newpw_title:"Set new password", newpw_sub:"Choose a new password (min. 8 characters).", newpw_btn:"Save password", lbl_newpw:"New password",
     reg_title:"Create account", reg_sub:"Fill in your details &mdash; you can log in immediately after registration",
@@ -1683,7 +1764,7 @@ const TRANS_DEFAULTS = {
     // Members / Admin portal
     nav_admin:"Admin",
     portal_title:"Members Portal", admin_title:"Admin Panel",
-    btn_ann:"Announcements", btn_docs:"Documents", btn_forum:"Forum", btn_hlg:"Guides",btn_academy:"Academy", btn_uploader:"Wear Pattern", acad_back:"&#8592; Portal", upl_back:"&#8592; Portal", upl_title:"Wear Pattern Analysis", btn_mcroberts:"Activity Profile", mcr_back:"&#8592; Portal", mcr_title:"Activity Profile Analysis", btn_logout:"Logout",
+    btn_ann:"Announcements", btn_docs:"Documents", btn_forum:"Forum", btn_hlg:"Guides",btn_academy:"Academy", btn_visite:"Visit Checklist", vis_back:"&#8592; Portal", vis_title:"Visit Checklist", btn_uploader:"Wear Pattern", acad_back:"&#8592; Portal", upl_back:"&#8592; Portal", upl_title:"Wear Pattern Analysis", btn_mcroberts:"Activity Profile", mcr_back:"&#8592; Portal", mcr_title:"Activity Profile Analysis", btn_logout:"Logout",
     panel_ann_h:"Announcements", panel_docs_h:"Documents &amp; Guidelines", panel_forum_h:"Discussion Forum", panel_hlg_h:"Instrument Guides", panel_hlg_sub:"Clinical guides for the measurement instruments used in the PARADISE study.",
     admin_btn_pending:"Pending Users", admin_btn_allusers:"All Users", admin_btn_docs:"Documents",
     admin_btn_ann:"Announcements", admin_btn_forum:"Forum",
@@ -1698,11 +1779,17 @@ const TRANS_DEFAULTS = {
     // Footer
     footer_nav_heading:"Navigation", footer_contact_heading:"Contact",
     footer_desc:"Towards Pressure-Adherence & Education Driven Service in Diabetic Foot Disease",
-    footer_copy:"All rights reserved", footer_priv:"Privacy Policy", footer_cook:"Cookie Policy", footer_acc:"Accessibility"
+    footer_copy:"All rights reserved", footer_priv:"Privacy Policy", footer_cook:"Cookie Policy", footer_acc:"Accessibility",
+    cookie_banner_text:"This site uses only essential cookies required for login functionality. See our <a href='cookiebeleid.html'>Cookie Policy</a> for details.", cookie_banner_btn:"Got it",
+    nl_title:"Stay updated", nl_email_label:"Email address", nl_btn:"Subscribe", nl_success:"Thanks — you're subscribed!"
   },
   nl: {
-    nav_home:"Home", nav_about:"Team", nav_news:"Nieuws", nav_materials:"Materialen", nav_pubs:"Publicaties", nav_contact:"Contact", nav_professionals:"Professionals", nav_members:"Leden", nav_health:"Gezondheidseconomie", nav_patients:"Voor patiënten", nav_protocol:"Protocol", nav_results:"Resultaten",
+    nav_home:"Home", nav_about:"Over ons", nav_team:"Team", nav_research:"Onderzoek", nav_news:"Nieuws", nav_materials:"Materialen", nav_pubs:"Publicaties", nav_contact:"Contact", nav_professionals:"Professionals", nav_members:"Leden", nav_health:"Gezondheidseconomie", nav_patients:"Voor patiënten", nav_protocol:"Protocol", nav_results:"Resultaten",
     // Page headers
+    about_page_label:"Over ons", about_mission_title:"Over PARADISE", about_mission_sub:"Een interdisciplinair doctoraatsproject dat biomechanica en gezondheidseconomie combineert om de zorg voor de diabetische voet in België te verbeteren", about_team_btn:"Ontmoet het team &#8594;",
+    team_page_title:"Onderzoeksteam", team_page_sub:"Een interdisciplinair team met expertise in biomechanica, klinische zorg, gezondheidsmanagement en -beleid en gezondheidseconomie",
+    research_label:"Onderzoek", research_title:"Onderzoek", research_sub:"Meetinstrumenten, studieprotocol, gezondheidseconomie en resultaten van het PARADISE-project",
+    results_label:"Resultaten", results_title:"Resultaten &amp; Data", results_sub:"Studieresultaten worden hier gepubliceerd zodra ze beschikbaar zijn",
     patients_label:"Voor patiënten", patients_title:"Patiënteninformatie", patients_sub:"Alles wat u als patiënt moet weten over het PARADISE-onderzoek",
     health_label:"Gezondheidseconomie", health_title:"Gezondheidseconomie", health_sub:"Kosteneffectiviteit van diabetische voetstrategieën",
     protocol_label:"Studieprotocol", protocol_title:"Protocol &amp; Methoden", protocol_sub:"Methodologische opzet van het PARADISE-project",
@@ -1741,12 +1828,13 @@ const TRANS_DEFAULTS = {
     news_page_label:"Nieuws", news_page_title:"Nieuws & Evenementen", news_page_sub:"Onderzoeksupdates, conferentiepresentaties en projectmijlpalen",
     // Pubs page
     pubs_page_label:"Publicaties", pubs_page_title:"Publicaties", pubs_page_sub:"Peer-reviewed artikels en onderzoeksoutput van het PARADISE-project",
-    pub_filter_all:"Alle", pub_filter_original:"Oorspronkelijk Onderzoek", pub_filter_review:"Reviews", pub_filter_consensus:"Consensus / Standpunt",
+    pub_filter_all:"Alle", pub_filter_original:"Oorspronkelijk Onderzoek", pub_filter_review:"Reviews", pub_filter_consensus:"Consensus / Standpunt", pub_filter_year_all:"Alle jaren", pub_filter_author_all:"Alle auteurs",
     // Contact page
     ci_email:"E-mail", ci_address:"Adres", ci_affil:"Affiliaties",
     contact_page_label:"Contact", contact_page_title:"Neem Contact Op", contact_page_sub:"Vragen, samenwerkingsvoorstellen of media-inquiries zijn welkom",
     contact_form_title:"Verstuur een Bericht", contact_form_btn:"Bericht Verzenden", contact_success:"Bedankt! Uw bericht is verzonden.",
-    form_gdpr:"Ik ga akkoord met de verwerking van mijn persoonsgegevens voor het beantwoorden van dit verzoek. <!-- TODO: link naar privacyverklaring toevoegen -->",
+    form_gdpr:"Ik ga akkoord met de verwerking van mijn persoonsgegevens voor het beantwoorden van dit verzoek. Zie ons <a href='privacyverklaring.html' target='_blank' rel='noopener'>privacybeleid</a>.",
+    reg_gdpr:"Ik ga akkoord met de verwerking van mijn persoonsgegevens voor accountregistratie en projectcommunicatie. Zie ons <a href='privacyverklaring.html' target='_blank' rel='noopener'>privacybeleid</a>.",
     form_firstname:"Voornaam", form_lastname:"Achternaam", form_email:"E-mail", form_subject:"Onderwerp", form_message:"Bericht",
     opt_research:"Onderzoekssamenwerking", opt_clinical:"Klinisch Partnerschap", opt_student:"Student / Stage", opt_media:"Media / Pers", opt_general:"Algemene Vraag",
     // Materials page
@@ -1756,12 +1844,16 @@ const TRANS_DEFAULTS = {
     off_label:"Offloadingdoel", off_desc:"Piekdruk <strong>&lt;&#8201;200&#160;kPa</strong> <em>&#243;f</em> &#8805;&#8201;25% reductie t.o.v. baseline",
     scan_label:"Plantaire drukanalyse &#183; Studieteam", scan_title:"Tekscan F-Scan Go", scan_desc1:"De <strong>Tekscan F-Scan Go</strong> is een draagbaar, in-schoen plantaire drukmeetsysteem dat dunne, flexibele sensorinlegzolen gebruikt om dynamische drukverdeling over het hele plantaire oppervlak tijdens het wandelen vast te leggen. Het biedt ruimtelijke drukkaarten, piekdrukwaarden, druk-tijd integralen en krachtgegevens in realtime.",
     scan_desc2:"In het PARADISE-project is de F-Scan Go centraal in de biomechanische beoordeling. Metingen worden uitgevoerd door het <strong>Studieteam</strong>; Usual Care-resultaten blijven geblindeerd.",
-    emed_label:"Blootsvoetse druk &#183; Zorgteam (DFC)", emed_title:"Novel emed", emed_desc1:"De <strong>Novel emed</strong> is een drukmeetplatform met capacitieve sensoren dat de plantaire drukverdeling blootsvoets meet, statisch en dynamisch. Binnen het PARADISE-project vult de emed de in-shoe meting van de F-Scan Go aan met een blootsvoets referentiebeeld. De emed vervangt op termijn de F-Scan Go en loopt momenteel parallel ter cross-validatie (zelfde 7 anatomische regio&#8217;s, kPa). Bij de neuropathische voet wordt de two-step-methode verkozen.",
-    emed_desc2:"Metingen worden uitgevoerd door het <strong>Zorgteam (DFC)</strong>. De emed werd later aan het protocol toegevoegd en loopt nu parallel ter vergelijking met de F-Scan Go.",
+    pedar_label:"In-shoe druk &#183; Zorgteam (DFC)", pedar_title:"Novel pedar", pedar_desc1:"De <strong>Novel pedar</strong> is een draadloos in-shoe drukmeetsysteem: dunne sensorinlegzolen die in de eigen schoenen van de deelnemer worden gedragen, gekoppeld aan de novel database-software. Binnen het PARADISE-project levert de pedar een onafhankelijke in-shoe referentiemeting naast de F-Scan Go. De pedar vervangt op termijn de F-Scan Go en loopt momenteel parallel ter cross-validatie. De kalibratie van de inlegzolen wordt minstens elke 3 maanden gecontroleerd met het trublu-kalibratietoestel.",
+    pedar_desc2:"Metingen worden uitgevoerd door het <strong>Zorgteam (DFC)</strong>. De pedar werd later aan het protocol toegevoegd en loopt nu parallel ter vergelijking met de F-Scan Go.",
     dyna_label:"Activiteitsprofiel &#183; Zorgteam (DFC)", dyna_title:"McRoberts DynaPort", dyna_desc1:"De <strong>McRoberts DynaPort</strong> (MoveMonitor) is een gevalideerde draagbare accelerometer die op de onderrug wordt gedragen en gedetailleerde classificatie biedt van houdingen en overgangen, stap tellingen en wandelepisode-karakteristieken. Gedragen gedurende een <strong>volle week</strong> op baseline en na 6 maanden; niet waterdicht.",
     dyna_desc2:"In het PARADISE-project levert de DynaPort het objectieve activiteitsprofiel voor de <strong>80%-adherentiebenchmark</strong> van het co-primaire eindpunt. Metingen worden uitgevoerd door het <strong>Zorgteam (DFC)</strong>.",
     ortho_label:"Adherentie &#183; Zorgteam (DFC)", ortho_title:"Orthotimer", ortho_desc1:"De <strong>Orthotimer</strong> is een kleine temperatuursensor die in de op maat gemaakte voetorthese (CMFO) is ingebouwd. Hij registreert de temperatuur met een interval van 15 minuten en heeft een batterijduur van circa 100 dagen. Elke 3 maanden wordt hij uitgelezen en vervangen door het <strong>Zorgteam (DFC)</strong>.",
     ortho_desc2:"Binnen het PARADISE-project kwantificeert de Orthotimer objectief hoe lang pati&#235;nten hun voorgeschreven orthese dragen. Pati&#235;nten worden ge&#239;nformeerd dat het &#8216;hun sensor&#8217; is en dat er enkel temperatuur wordt gemeten (geen GPS, geluid of camera).",
+    tag_peakpressure:"Piekdruk", tag_ptinteg:"Druk-tijd-integraal", tag_inshoe:"In-shoe meting", tag_gait:"Dynamische ganganalyse", tag_regions7:"7 regio's", tag_studyteam:"Studieteam",
+    tag_inshoeinsole:"In-shoe inlegzolen", tag_trublu:"trublu-kalibratie", tag_noveldb:"novel database", tag_careteam:"Zorgteam (DFC)",
+    tag_stepcount:"Stappentelling", tag_freeliving:"Vrije-leefomgevingsmobiliteit", tag_7day:"7-daagse monitoring",
+    tag_adherence:"Adherentiemonitoring", tag_15min:"Interval 15 min", tag_100day:"~100 dagen batterij",
     // Professionals pagina
     pro_badge:"Ledenportaal", pro_h1:"Voor Zorgprofessionals &amp; Onderzoekers",
     pro_desc:"Krijg exclusieve toegang tot klinische richtlijnen, projectdocumenten, aankondigingen en het PARADISE-discussieforum.",
@@ -1782,7 +1874,7 @@ const TRANS_DEFAULTS = {
     login_welcome:"Welkom terug", login_sub:"Log in om toegang te krijgen tot het PARADISE-ledenportaal",
     lbl_email:"E-mailadres", lbl_password:"Wachtwoord", lbl_fname:"Voornaam", lbl_lname:"Achternaam",
     lbl_institution:"Instelling", lbl_profession:"Beroep",
-    login_btn:"Inloggen", login_no_acc:"Nog geen account?", login_reg_link:"Registreer hier", login_forgot:"Wachtwoord vergeten?",
+    login_btn:"Inloggen", login_no_acc:"Nog geen account?", login_reg_link:"Registreer hier", login_forgot:"Wachtwoord vergeten?", login_remember:"Onthoud mij",
     rec_title:"Wachtwoord herstellen", rec_sub:"Vul uw e-mailadres in. Als het bekend is, ontvangt u een herstelmail.", rec_btn:"Herstelmail verzenden", rec_back:"← Terug naar inloggen",
     newpw_title:"Nieuw wachtwoord instellen", newpw_sub:"Kies een nieuw wachtwoord (min. 8 tekens).", newpw_btn:"Wachtwoord opslaan", lbl_newpw:"Nieuw wachtwoord",
     reg_title:"Account aanmaken", reg_sub:"Vul uw gegevens in &mdash; u kan onmiddellijk na registratie inloggen",
@@ -1791,7 +1883,7 @@ const TRANS_DEFAULTS = {
     // Leden / Beheer portaal
     nav_admin:"Beheer",
     portal_title:"Ledenportaal", admin_title:"Beheerpaneel",
-    btn_ann:"Aankondigingen", btn_docs:"Documenten", btn_forum:"Forum", btn_hlg:"Handleidingen",btn_academy:"Academie", btn_uploader:"Draagpatroon", acad_back:"&#8592; Portaal", upl_back:"&#8592; Portaal", upl_title:"Draagpatroon-analyse", btn_mcroberts:"Beweegpatroon", mcr_back:"&#8592; Portaal", mcr_title:"Beweegpatroon-analyse", btn_logout:"Uitloggen",
+    btn_ann:"Aankondigingen", btn_docs:"Documenten", btn_forum:"Forum", btn_hlg:"Handleidingen",btn_academy:"Academie", btn_visite:"Visite-checklist", vis_back:"&#8592; Portaal", vis_title:"Visite-checklist", btn_uploader:"Draagpatroon", acad_back:"&#8592; Portaal", upl_back:"&#8592; Portaal", upl_title:"Draagpatroon-analyse", btn_mcroberts:"Beweegpatroon", mcr_back:"&#8592; Portaal", mcr_title:"Beweegpatroon-analyse", btn_logout:"Uitloggen",
     panel_ann_h:"Aankondigingen", panel_docs_h:"Documenten &amp; Richtlijnen", panel_forum_h:"Discussieforum", panel_hlg_h:"Handleidingen Meetinstrumenten", panel_hlg_sub:"Klinische handleidingen voor de meetinstrumenten gebruikt in de PARADISE-studie.",
     admin_btn_pending:"Wachtende gebruikers", admin_btn_allusers:"Alle gebruikers", admin_btn_docs:"Documenten",
     admin_btn_ann:"Aankondigingen", admin_btn_forum:"Forum",
@@ -1806,7 +1898,9 @@ const TRANS_DEFAULTS = {
     // Footer
     footer_nav_heading:"Navigatie", footer_contact_heading:"Contact",
     footer_desc:"Naar Druktherapietrouw & Onderwijs Gestuurde Service in Diabetische Voetziekte",
-    footer_copy:"Alle rechten voorbehouden", footer_priv:"Privacybeleid", footer_cook:"Cookiebeleid", footer_acc:"Toegankelijkheid"
+    footer_copy:"Alle rechten voorbehouden", footer_priv:"Privacybeleid", footer_cook:"Cookiebeleid", footer_acc:"Toegankelijkheid",
+    cookie_banner_text:"Deze site gebruikt enkel essenti&#235;le cookies die nodig zijn voor de inlogfunctie. Zie ons <a href='cookiebeleid.html'>cookiebeleid</a> voor meer info.", cookie_banner_btn:"Begrepen",
+    nl_title:"Blijf op de hoogte", nl_email_label:"E-mailadres", nl_btn:"Inschrijven", nl_success:"Bedankt — u bent ingeschreven!"
   }
 };
 
@@ -1815,6 +1909,9 @@ const DESIGN_DEFAULTS = {
   '--par-orange':'#FF7A00','--text':'#0D2035','--off-white':'#F4F8FC'
 };
 </script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
 <script>
 // ---------------------------------------------------------------------------
 // STATE
@@ -1831,6 +1928,219 @@ let D = {
 let lang = "en";
 let currentPubFilter = "all";
 let editModeActive = false;
+let lenis = null;
+let lenisRafRunning = false;
+let motionReady = false;
+let revealObserver = null;
+const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+function prefersReducedMotion() {
+  return motionQuery.matches;
+}
+
+function revealAllInstantly() {
+  document.querySelectorAll('.rev').forEach(el => {
+    el.classList.add('vis');
+    el.style.opacity = '';
+    el.style.transform = '';
+    el.style.willChange = 'auto';
+  });
+}
+
+function stopMotion() {
+  document.documentElement.classList.add('motion-reduce');
+  document.documentElement.classList.remove('motion-ready');
+  if (lenis) {
+    lenis.destroy();
+    lenis = null;
+  }
+  lenisRafRunning = false;
+  motionReady = false;
+  if (window.ScrollTrigger) ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+  document.querySelectorAll('[data-parallax-bound]').forEach(el => delete el.dataset.parallaxBound);
+  document.querySelectorAll('[data-intro-bound]').forEach(el => delete el.dataset.introBound);
+  document.querySelectorAll('[data-split-bound]').forEach(el => delete el.dataset.splitBound);
+  document.querySelectorAll('.hero h1 .word').forEach(w => {
+    if (window.gsap) gsap.killTweensOf(w);
+    w.style.transform = ''; w.style.visibility = ''; w.style.opacity = '';
+  });
+  if (revealObserver) {
+    revealObserver.disconnect();
+    revealObserver = null;
+  }
+  revealAllInstantly();
+}
+
+function initSmoothScroll() {
+  if (prefersReducedMotion() || !window.Lenis || lenis) return;
+  lenis = new Lenis({
+    duration: 1.05,
+    easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true,
+    wheelMultiplier: 0.9,
+    touchMultiplier: 1.2
+  });
+  lenis.on('scroll', () => {
+    if (window.ScrollTrigger) ScrollTrigger.update();
+  });
+  function raf(time) {
+    if (lenis) lenis.raf(time);
+    if (lenisRafRunning) requestAnimationFrame(raf);
+  }
+  if (!lenisRafRunning) {
+    lenisRafRunning = true;
+    requestAnimationFrame(raf);
+  }
+}
+
+function scrollToTop() {
+  if (prefersReducedMotion()) {
+    window.scrollTo(0, 0);
+    return;
+  }
+  if (lenis) lenis.scrollTo(0, { immediate: false, duration: 0.7 });
+  else window.scrollTo({ top: 0, behavior: 'auto' });
+}
+
+function initMicroInteractions() {
+  if (!window.gsap || prefersReducedMotion()) return;
+  document.querySelectorAll('.footer-col a, .footer-col span').forEach(el => {
+    if (el.dataset.motionHover) return;
+    el.dataset.motionHover = 'true';
+    el.addEventListener('pointerenter', () => gsap.to(el, { y: -3, duration: 0.18, ease: 'power2.out', overwrite: true }));
+    el.addEventListener('pointerleave', () => gsap.to(el, { y: 0, duration: 0.22, ease: 'power2.out', overwrite: true }));
+  });
+}
+
+function initParallax() {
+  if (!window.gsap || !window.ScrollTrigger || prefersReducedMotion()) return;
+  if (document.querySelector('.hero-vis[data-parallax-bound]')) return;
+  const heroVis = document.querySelector('.hero-vis');
+  const hero = document.querySelector('.hero');
+  if (!heroVis || !hero) return;
+  heroVis.dataset.parallaxBound = 'true';
+  gsap.to(heroVis, {
+    yPercent: -6,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: hero,
+      start: 'top top',
+      end: 'bottom top',
+      scrub: true
+    }
+  });
+}
+
+function initSplitHeadline() {
+  if (!window.gsap || prefersReducedMotion()) return;
+  document.fonts.ready.then(() => {
+    const h1 = document.querySelector('#page-home.page.on .hero h1');
+    if (!h1 || h1.dataset.splitBound) return;
+    h1.dataset.splitBound = 'true';
+    const inner = h1.querySelector('[data-e]') || h1;
+    const walker = document.createTreeWalker(inner, NodeFilter.SHOW_TEXT);
+    const textNodes = [];
+    let tn;
+    while ((tn = walker.nextNode())) textNodes.push(tn);
+    textNodes.forEach(textNode => {
+      const parts = textNode.textContent.split(/(\s+)/);
+      const frag = document.createDocumentFragment();
+      parts.forEach(part => {
+        if (!part.trim()) {
+          frag.appendChild(document.createTextNode(part));
+        } else {
+          const wrap = document.createElement('span');
+          wrap.className = 'word-wrap';
+          const word = document.createElement('span');
+          word.className = 'word';
+          word.textContent = part;
+          wrap.appendChild(word);
+          frag.appendChild(wrap);
+        }
+      });
+      textNode.parentNode.replaceChild(frag, textNode);
+    });
+    const words = h1.querySelectorAll('.word');
+    if (!words.length) return;
+    gsap.set(words, { yPercent: 110, willChange: 'transform' });
+    requestAnimationFrame(() => {
+      gsap.to(words, {
+        yPercent: 0,
+        duration: 0.9,
+        stagger: 0.08,
+        ease: 'power3.out',
+        delay: 0.15,
+        clearProps: 'transform,willChange'
+      });
+    });
+  });
+}
+
+function initNavScroll() {
+  if (!window.ScrollTrigger || prefersReducedMotion()) return;
+  const nav = document.querySelector('.nav');
+  if (!nav || nav.dataset.navScrollBound) return;
+  nav.dataset.navScrollBound = 'true';
+  ScrollTrigger.create({
+    start: 'top -60',
+    onEnter: () => nav.classList.add('scrolled'),
+    onLeaveBack: () => nav.classList.remove('scrolled')
+  });
+}
+
+function initHeroIntro() {
+  if (!window.gsap || prefersReducedMotion()) return;
+  const hero = document.querySelector('#page-home.page.on .hero');
+  if (!hero || hero.dataset.introBound) return;
+  hero.dataset.introBound = 'true';
+  const targets = hero.querySelectorAll('.hero-badge, .hero-desc, .hero-btns, .hero-stats, .hero-vis');
+  gsap.set(targets, { autoAlpha: 0, y: 18 });
+  gsap.fromTo(targets,
+    { autoAlpha: 0, y: 18 },
+    {
+      autoAlpha: 1,
+      y: 0,
+      duration: 0.7,
+      stagger: 0.06,
+      ease: 'power2.out',
+      clearProps: 'transform,opacity,visibility'
+    }
+  );
+}
+
+function initMotion() {
+  if (prefersReducedMotion()) {
+    stopMotion();
+    return;
+  }
+  document.documentElement.classList.remove('motion-reduce');
+  document.documentElement.classList.add('motion-ready');
+  if (window.gsap && window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+  initSmoothScroll();
+  initNavScroll();
+  initSplitHeadline();
+  initHeroIntro();
+  initMicroInteractions();
+  initParallax();
+  motionReady = true;
+}
+
+function handleMotionPreferenceChange() {
+  if (prefersReducedMotion()) {
+    stopMotion();
+  } else {
+    document.querySelectorAll('.rev').forEach(el => {
+      delete el.dataset.motionBound;
+      if (!el.classList.contains('vis')) return;
+      el.style.willChange = '';
+    });
+    initMotion();
+    initReveal();
+  }
+}
+
+if (motionQuery.addEventListener) motionQuery.addEventListener('change', handleMotionPreferenceChange);
+else if (motionQuery.addListener) motionQuery.addListener(handleMotionPreferenceChange);
 
 function load() {
   // Load saved data from localStorage
@@ -1849,7 +2159,7 @@ function load() {
   } catch(e){}
   // Load saved language preference
   try {
-    const savedLang = localStorage.getItem('paradise_lang');
+    const savedLang = localStorage.getItem('px_lang') || localStorage.getItem('paradise_lang');
     if(savedLang && (savedLang === 'en' || savedLang === 'nl')) {
       lang = savedLang;
       document.documentElement.lang = lang;
@@ -1878,7 +2188,8 @@ function toggleEditMode() {
   editModeActive = !editModeActive;
   document.body.classList.toggle('edit-mode', editModeActive);
   document.getElementById('editBanner').classList.toggle('on', editModeActive);
-  document.getElementById('editModeFab').classList.toggle('edit-active', editModeActive);
+  const fabToggle = document.getElementById('editModeFab');
+  if (fabToggle) fabToggle.classList.toggle('edit-active', editModeActive);
   document.querySelectorAll('[data-e]').forEach(el => {
     el.contentEditable = editModeActive ? 'true' : 'false';
   });
@@ -1894,9 +2205,11 @@ function saveInlineEdits() {
   if(editModeActive) toggleEditMode();
   else { // flash save confirmation
     const fab = document.getElementById('editModeFab');
-    const orig = fab.textContent;
-    fab.textContent = "OK";
-    setTimeout(()=>fab.textContent=orig, 1400);
+    if (fab) {
+      const orig = fab.textContent;
+      fab.textContent = "OK";
+      setTimeout(()=>fab.textContent=orig, 1400);
+    }
   }
 }
 
@@ -1979,9 +2292,9 @@ function showPage(id) {
   document.querySelectorAll('.nl').forEach(b => {
     b.classList.toggle('on', b.getAttribute('onclick') && b.getAttribute('onclick').includes("'"+id+"'"));
   });
-  window.scrollTo({top:0, behavior:'smooth'});
+  scrollToTop();
   if(id==='home')    { renderHomeNews(); renderImpact(); renderHomePartners(); renderAboutPills(); }
-  if(id==='about')   renderTeam();
+  if(id==='team')    renderTeam();
   if(id==='news')    renderNews();
   if(id==='pubs')    renderPubs();
   if(id==='contact') renderContact();
@@ -1989,6 +2302,7 @@ function showPage(id) {
   if(id==='academy') try{document.getElementById('academy-frame').contentWindow.postMessage({type:'px_lang',lang:lang},'*');}catch(e){}
   if(id==='uploader'){var uf=document.getElementById('uploader-frame');if(uf&&uf.getAttribute('src')==='about:blank')uf.src='PARADISE_Draagpatroon_uploader.html';}
   if(id==='mcroberts'){var mf=document.getElementById('mcroberts-frame');if(mf&&mf.getAttribute('src')==='about:blank')mf.src='McRoberts_Beweegpatroon_uploader.html';}
+  if(id==='visite'){var vf=document.getElementById('visite-frame');if(vf&&vf.getAttribute('src')==='about:blank')vf.src='visite-checklist.html';}
   restoreContent();
   initReveal();
 }
@@ -2000,6 +2314,15 @@ function toggleMob() {
   if(btn) btn.setAttribute('aria-expanded', String(open));
 }
 
+function showResearchTab(tab, btn) {
+  document.querySelectorAll('.rpanel').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.rtab').forEach(b => { b.classList.remove('on'); b.setAttribute('aria-selected','false'); });
+  const panel = document.getElementById('rp-'+tab);
+  if(panel) panel.classList.add('on');
+  const tabBtn = btn || document.getElementById('rtab-'+tab);
+  if(tabBtn) { tabBtn.classList.add('on'); tabBtn.setAttribute('aria-selected','true'); }
+}
+
 // ---------------------------------------------------------------------------
 // RENDER
 // ---------------------------------------------------------------------------
@@ -2007,14 +2330,15 @@ const TAGCLS = ["b","o","d","b","o","d"];
 
 function renderTeam() {
   const g = document.getElementById("teamGrid"); if(!g) return;
-  g.innerHTML = D.team.map((m,i) => {
+  g.innerHTML = D.team.map((m0,i) => {
+    const m = (lang === 'nl' && m0.nl) ? Object.assign({}, m0, m0.nl) : m0;
     const tags = (m.tags||"").split(",").map(t => `<span class="tag">${t.trim()}</span>`).join("");
     const [c1,c2] = (m.color||"#00407A,#1D8DB0").split(",");
     const init = m.initials || (m.name.trim().split(" ").filter(w=>w.length>1).map(w=>w[0]).slice(0,2).join("")) || "??";
     const av = m.photo
       ? `<div class="tc-av"><img src="${m.photo}" alt="${m.name}" loading="lazy"></div>`
       : `<div class="tc-av"><div class="tc-av-grad" style="background:linear-gradient(270deg,${c1},${c2},${c1})"><span class="tc-init">${init}</span></div></div>`;
-    return `<div class="tc rev">
+    return `<div class="tc">
       ${av}
       <div class="tc-body">
         <div class="tc-name">${m.name}</div>
@@ -2042,7 +2366,7 @@ function newsCardHTML(n, i, large) {
   const click = hasArt ? ` onclick="openArticle(${didx})" style="cursor:pointer"` : "";
   const more = hasArt ? `<div class="nc-readmore">${pt("Lees meer","Read more")} &#8594;</div>` : "";
   if(large) return `
-    <div class="nc rev"${click}>
+    <div class="nc"${click}>
       <div class="nc-img" style="background:${GRADIENTS[i%GRADIENTS.length]}">
         <div class="nc-img-txt">${t.title}</div>
         <div class="nc-type">${t.type}</div>
@@ -2054,7 +2378,7 @@ function newsCardHTML(n, i, large) {
         ${more}
       </div>
     </div>`;
-  return `<div class="nm rev"${click}>
+  return `<div class="nm"${click}>
     <div class="nm-type">${t.type}</div>
     <div class="nm-title">${t.title}</div>
     <div class="nm-date">${t.date}</div>
@@ -2105,26 +2429,95 @@ function openArticle(i) {
   const art = ARTICLES[n.articleId]; m.querySelector('.art-body').innerHTML = (typeof art === 'object' ? (art[lang] || art.en) : art);
   m.classList.add('open');
   document.body.style.overflow = 'hidden';
+  if (window.lenis) window.lenis.stop();
 }
 function closeArticle() {
   document.getElementById('articleModal').classList.remove('open');
   document.body.style.overflow = '';
+  if (window.lenis) window.lenis.start();
+}
+
+let pubFacets = { year: 'all', author: 'all' };
+
+function populatePubFacets() {
+  const yearSel = document.getElementById('pubYearFilter');
+  const authorSel = document.getElementById('pubAuthorFilter');
+  if (!yearSel || !authorSel) return;
+  const years = [...new Set(D.pubs.map(p => p.year))].sort().reverse();
+  const authorsFirst = [...new Set(D.pubs.map(p => (p.authors||'').split(',')[0].trim()).filter(Boolean))].sort();
+  const keepYear = yearSel.value, keepAuthor = authorSel.value;
+  yearSel.innerHTML = `<option value="all" data-e="pub_filter_year_all">${pt('Alle jaren','All years')}</option>` + years.map(y=>`<option value="${esc(y)}">${esc(y)}</option>`).join('');
+  authorSel.innerHTML = `<option value="all" data-e="pub_filter_author_all">${pt('Alle auteurs','All authors')}</option>` + authorsFirst.map(a=>`<option value="${esc(a)}">${esc(a)}</option>`).join('');
+  yearSel.value = years.includes(keepYear) ? keepYear : 'all';
+  authorSel.value = authorsFirst.includes(keepAuthor) ? keepAuthor : 'all';
+}
+
+function filterPubsFacet(facet, value) {
+  pubFacets[facet] = value;
+  renderPubs();
+}
+
+function citeAPA(p) {
+  return `${p.authors} (${p.year}). ${p.title}. ${p.journal}.${p.doi?` https://doi.org/${p.doi}`:''}`;
+}
+function citeBibTeX(p) {
+  const key = (p.authors.split(',')[0].split(' ').pop()||'ref').replace(/[^a-zA-Z0-9]/g,'') + p.year;
+  return `@article{${key},\n  author  = {${p.authors}},\n  title   = {${p.title}},\n  journal = {${p.journal}},\n  year    = {${p.year}}${p.doi?`,\n  doi     = {${p.doi}}`:''}\n}`;
+}
+function citeRIS(p) {
+  return `TY  - JOUR\nAU  - ${p.authors}\nTI  - ${p.title}\nJO  - ${p.journal}\nPY  - ${p.year}${p.doi?`\nDO  - ${p.doi}`:''}\nER  - `;
+}
+function showCite(i, format) {
+  const box = document.getElementById(`pi-cite-${i}`);
+  if (!box) return;
+  const p = D.pubs[i];
+  const text = format === 'apa' ? citeAPA(p) : format === 'bibtex' ? citeBibTeX(p) : citeRIS(p);
+  box.querySelector('textarea').value = text;
+  box.classList.add('on');
+}
+function copyCite(i) {
+  const box = document.getElementById(`pi-cite-${i}`);
+  if (!box) return;
+  const ta = box.querySelector('textarea');
+  ta.select();
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(ta.value).catch(()=>{});
+  } else {
+    try { document.execCommand('copy'); } catch(e) {}
+  }
 }
 
 function renderPubs(filter) {
   if(filter !== undefined) currentPubFilter = filter;
   const g = document.getElementById("pubList"); if(!g) return;
-  const list = currentPubFilter==="all" ? D.pubs : D.pubs.filter(p=>p.type===currentPubFilter);
+  populatePubFacets();
+  let list = currentPubFilter==="all" ? D.pubs : D.pubs.filter(p=>p.type===currentPubFilter);
+  if (pubFacets.year !== 'all') list = list.filter(p => p.year === pubFacets.year);
+  if (pubFacets.author !== 'all') list = list.filter(p => (p.authors||'').split(',')[0].trim() === pubFacets.author);
   if(!list.length){ g.innerHTML=`<p style="color:var(--gray-400)">${pt('Geen publicaties in deze categorie.','No publications in this category yet.')}</p>`; return; }
-  g.innerHTML = list.map(p => `
+  g.innerHTML = list.map((p) => {
+    const i = D.pubs.indexOf(p);
+    const doiBadge = p.doi ? `<a class="pbadge pb-doi" href="https://doi.org/${esc(p.doi)}" target="_blank" rel="noopener">DOI</a>` : "";
+    return `
     <div class="pi rev">
       <div class="pi-yr">${p.year}</div>
       <div>
-        <div class="pi-title">${p.title}${p.doi?`<span class="pbadge pb-doi">DOI</span>`:""}${p.oa?`<span class="pbadge pb-oa">OA</span>`:""}</div>
+        <div class="pi-title">${p.title}${doiBadge}${p.oa?`<span class="pbadge pb-oa">OA</span>`:""}</div>
         <div class="pi-authors">${p.authors}</div>
         <div class="pi-journal">${p.journal} <span style="font-size:11px;color:var(--gray-400);margin-left:6px;text-transform:uppercase;letter-spacing:.06em">${p.type}</span></div>
+        <div class="pi-cite-row">
+          ${p.pdf?`<a class="pi-cite-btn" href="${esc(p.pdf)}" target="_blank" rel="noopener">${pt('PDF','PDF')}</a>`:""}
+          <button type="button" class="pi-cite-btn" onclick="showCite(${i},'apa')">APA</button>
+          <button type="button" class="pi-cite-btn" onclick="showCite(${i},'bibtex')">BibTeX</button>
+          <button type="button" class="pi-cite-btn" onclick="showCite(${i},'ris')">RIS</button>
+        </div>
+        <div class="pi-cite-box" id="pi-cite-${i}">
+          <textarea readonly></textarea>
+          <button type="button" class="pi-cite-btn" onclick="copyCite(${i})">${pt('Kopieer','Copy')}</button>
+        </div>
       </div>
-    </div>`).join("");
+    </div>`;
+  }).join("");
   initReveal();
 }
 
@@ -2203,7 +2596,7 @@ function setLang(l) {
   lang = l;
   document.documentElement.lang = l;
   document.querySelectorAll('.lb').forEach(b => b.classList.toggle('on', b.textContent.toLowerCase()===l));
-  try { localStorage.setItem('px_lang', l); localStorage.setItem('mi_lang', l); } catch(e) {}
+  try { localStorage.setItem('px_lang', l); } catch(e) {}
   document.querySelectorAll('iframe').forEach(f => {
     try { f.contentWindow.postMessage({type:'px_lang', lang: l}, '*'); } catch(e) {}
   });
@@ -2281,36 +2674,82 @@ function applyTranslations() {
   // Re-render dynamic sections with correct language labels
   renderContact();
   renderImpact();
-  // Save language preference
-  try { localStorage.setItem('paradise_lang', lang); } catch(e){}
 }
 
 // ---------------------------------------------------------------------------
 // SCROLL REVEAL
 // ---------------------------------------------------------------------------
+// Content visibility must never depend on a third-party animation library
+// loading, or on scroll actually happening. `.rev` elements are visible by
+// CSS default (see `.rev { opacity:1; }` above); this only adds a subtle,
+// best-effort fade-in on top of already-visible content when GSAP is present,
+// and never sets opacity below 1 at rest.
 function initReveal() {
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('vis'); obs.unobserve(e.target); } });
-  }, {threshold:0.1});
-  document.querySelectorAll('.rev:not(.vis)').forEach(el => obs.observe(el));
+  revealAllInstantly();
+
+  if (prefersReducedMotion() || !window.gsap || !window.ScrollTrigger) return;
+
+  const items = Array.from(document.querySelectorAll('.page.on .rev:not([data-motion-bound])'))
+    .filter(el => el.getClientRects().length);
+  if (!items.length) { ScrollTrigger.refresh(); return; }
+
+  gsap.registerPlugin(ScrollTrigger);
+  items.forEach(el => {
+    el.dataset.motionBound = 'true';
+    gsap.from(el, {
+      y: 16,
+      duration: 0.5,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: el, start: 'top 95%', once: true }
+    });
+  });
+  initParallax();
+  initMicroInteractions();
+  ScrollTrigger.refresh();
 }
 
 // ---------------------------------------------------------------------------
 // CONTACT FORM
 // ---------------------------------------------------------------------------
+function validateForm(form) {
+  let valid = true;
+  form.querySelectorAll('.field-error').forEach(el => el.remove());
+  form.querySelectorAll('[required]').forEach(field => {
+    let msg = '';
+    if (field.type === 'checkbox') {
+      if (!field.checked) msg = pt('Dit veld is verplicht.', 'This field is required.');
+    } else if (!field.value.trim()) {
+      msg = pt('Dit veld is verplicht.', 'This field is required.');
+    } else if (field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(field.value)) {
+      msg = pt('Vul een geldig e-mailadres in.', 'Please enter a valid email address.');
+    }
+    if (msg) {
+      valid = false;
+      const err = document.createElement('span');
+      err.className = 'field-error';
+      err.setAttribute('role', 'alert');
+      err.textContent = msg;
+      field.insertAdjacentElement('afterend', err);
+    }
+  });
+  return valid;
+}
+
 function submitForm(e) {
   e.preventDefault();
   const form = e.target;
+  if (!validateForm(form)) return;
+  const successId = form.getAttribute('data-success') || 'cfSuccess';
   const data = new FormData(form);
   fetch('/', { method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, body: new URLSearchParams(data).toString() })
     .then(() => {
-      const s = document.getElementById('cfSuccess');
+      const s = document.getElementById(successId);
       if (s) s.style.display = 'block';
       form.reset();
     })
     .catch(() => {
       // Fallback: show success anyway (form still submitted via normal submit)
-      const s = document.getElementById('cfSuccess');
+      const s = document.getElementById(successId);
       if (s) s.style.display = 'block';
       form.reset();
     });
@@ -2450,15 +2889,18 @@ function renderPubsEditor() {
           <div class="ed-group"><label>Year</label><input type="text" value="${esc(p.year)}" oninput="D.pubs[${i}].year=this.value;renderPubs()"></div>
           <div class="ed-group"><label>Type (original/review/consensus)</label><input type="text" value="${esc(p.type)}" oninput="D.pubs[${i}].type=this.value;renderPubs()"></div>
         </div>
+        <div class="ed-grid2">
+          <div class="ed-group"><label>DOI (e.g. 10.1000/xyz123)</label><input type="text" value="${esc(p.doi||'')}" oninput="D.pubs[${i}].doi=this.value;renderPubs()"></div>
+          <div class="ed-group"><label>PDF path (optional)</label><input type="text" value="${esc(p.pdf||'')}" oninput="D.pubs[${i}].pdf=this.value;renderPubs()"></div>
+        </div>
         <div class="ed-group" style="display:flex;gap:20px">
-          <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" ${p.doi?"checked":""} onchange="D.pubs[${i}].doi=this.checked;renderPubs()"> Has DOI</label>
           <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" ${p.oa?"checked":""} onchange="D.pubs[${i}].oa=this.checked;renderPubs()"> Open Access</label>
         </div>
       </div>
     </div>`).join("");
 }
 function addPub() {
-  D.pubs.push({year:new Date().getFullYear()+"", title:"New Publication", authors:"", journal:"", type:"original", doi:false, oa:false});
+  D.pubs.push({year:new Date().getFullYear()+"", title:"New Publication", authors:"", journal:"", type:"original", doi:"", pdf:"", oa:false});
   renderPubsEditor(); renderPubs();
 }
 function delPub(i) { D.pubs.splice(i,1); renderPubsEditor(); renderPubs(); }
@@ -2505,10 +2947,35 @@ function saveAll() {
 const SUPABASE_URL = 'https://yzohhvacpuknmxkybggb.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_b_BmxCouZbYAqEobCRP0FQ_2ptgShMo';
 let sb = null;
+
+// "Remember me" storage adapter: when the user unchecks it, the session token
+// is kept in sessionStorage (cleared when the browser/tab closes) instead of
+// localStorage (persists indefinitely). The preference itself is read fresh
+// on every write, so it can be changed at each login.
+function rememberMePreferred() {
+  try { return localStorage.getItem('px_remember') !== '0'; } catch(e) { return true; }
+}
+const pxAuthStorage = {
+  getItem: (key) => {
+    try { return localStorage.getItem(key) || sessionStorage.getItem(key); } catch(e) { return null; }
+  },
+  setItem: (key, value) => {
+    try {
+      if (rememberMePreferred()) { localStorage.setItem(key, value); sessionStorage.removeItem(key); }
+      else { sessionStorage.setItem(key, value); localStorage.removeItem(key); }
+    } catch(e) {}
+  },
+  removeItem: (key) => {
+    try { localStorage.removeItem(key); sessionStorage.removeItem(key); } catch(e) {}
+  }
+};
+
 function initSupabase() {
   try {
     if(typeof supabase !== 'undefined') {
-      sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+        auth: { storage: pxAuthStorage, persistSession: true, autoRefreshToken: true }
+      });
     }
   } catch(e) {
     console.warn('Supabase failed to initialise:', e.message);
@@ -2560,22 +3027,63 @@ async function portalInit() {
   } catch(e) { console.warn('portalInit:', e.message); }
 }
 
+function setNavBtn(containerId, btnId, page, key, label, visible, isMobile) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  let btn = document.getElementById(btnId);
+  if (visible) {
+    if (!btn) {
+      btn = document.createElement('button');
+      btn.id = btnId;
+      if (!isMobile) btn.className = 'nl';
+      btn.setAttribute('data-k', key);
+      btn.textContent = label;
+      btn.onclick = isMobile ? function () { showPage(page); toggleMob(); } : function () { showPage(page); };
+      const contactBtn = Array.from(container.children).find(c => c.getAttribute('onclick') && c.getAttribute('onclick').includes("'contact'"));
+      if (contactBtn) container.insertBefore(btn, contactBtn); else container.appendChild(btn);
+      applyTranslations();
+    }
+  } else if (btn) {
+    btn.remove();
+  }
+}
+
 function updatePortalNav() {
   const loggedIn = !!portalUser;
   const isAdmin = portalProfile && portalProfile.role === 'admin';
   const approved = portalProfile && portalProfile.status === 'approved';
-  const show = (el, v) => { const e = document.getElementById(el); if(e) e.style.display = v; };
-  show('nav-members-btn', (loggedIn && approved) ? '' : 'none');
-  show('nav-admin-btn', isAdmin ? '' : 'none');
-  show('mob-members-btn', (loggedIn && approved) ? '' : 'none');
-  show('mob-admin-btn', isAdmin ? '' : 'none');
+  // Admin/Members are only ever inserted into the DOM for authorized sessions —
+  // anonymous visitors never receive this markup at all (not just hidden via CSS).
+  setNavBtn('nav-links-desktop', 'nav-members-btn', 'members', 'nav_members', 'Members', loggedIn && approved, false);
+  setNavBtn('nav-links-desktop', 'nav-admin-btn', 'admin', 'nav_admin', 'Admin', isAdmin, false);
+  setNavBtn('mob-menu', 'mob-members-btn', 'members', 'nav_members', 'Members', loggedIn && approved, true);
+  setNavBtn('mob-menu', 'mob-admin-btn', 'admin', 'nav_admin', 'Admin', isAdmin, true);
+  setEditFabs(isAdmin);
   applyMemberTypeUI();
+}
+
+// The inline "Edit Mode" / "Site Editor" floating buttons are only ever
+// inserted into the DOM for a confirmed admin session — anonymous and
+// non-admin visitors never receive this markup at all.
+function setEditFabs(visible) {
+  let fabs = document.getElementById('ed-fabs');
+  if (visible) {
+    if (!fabs) {
+      fabs = document.createElement('div');
+      fabs.className = 'ed-fabs';
+      fabs.id = 'ed-fabs';
+      fabs.innerHTML = '<button class="ed-fab" id="editModeFab" onclick="toggleEditMode()" title="Edit text directly on page">&#9998;</button><button class="ed-fab" onclick="openEditor()" title="Open Site Editor panel">&#9881;</button>';
+      document.body.appendChild(fabs);
+    }
+  } else if (fabs) {
+    fabs.remove();
+  }
 }
 
 function applyMemberTypeUI() {
   const type = (portalProfile && portalProfile.member_type) || 'in_project';
   const inProject = type === 'in_project';
-  ['ps-documents','ps-handleidingen','ps-health','ps-protocol'].forEach(id => {
+  ['ps-documents','ps-handleidingen','ps-health','ps-protocol','ps-visite','ps-uploader','ps-mcroberts'].forEach(id => {
     const btn = document.getElementById(id);
     if (btn) btn.style.display = inProject ? '' : 'none';
   });
@@ -2597,6 +3105,8 @@ async function portalLogin() {
   msg.style.display = 'none';
   if (!sb) { showAuthMsg(msg, pt('Geen verbinding met server. Open de site via een webserver of deploy online.','Connection to server not available. Please open this site via a web server or deploy it online first.'), 'error'); return; }
   if (!email || !pw) { showAuthMsg(msg, lang === 'nl' ? 'Vul alle velden in.' : 'Please fill in all fields.', 'error'); return; }
+  const rememberBox = document.getElementById('login-remember');
+  try { localStorage.setItem('px_remember', (rememberBox && !rememberBox.checked) ? '0' : '1'); } catch(e) {}
   const { data, error } = await sb.auth.signInWithPassword({ email, password: pw });
   if (error) { showAuthMsg(msg, pt('E-mail of wachtwoord onjuist.','Email or password is incorrect.'), 'error'); return; }
   portalUser = data.user;
@@ -2803,12 +3313,12 @@ async function loadPortalData() {
 async function loadAnnouncements() {
   const el = document.getElementById('announcements-list');
   if (!sb) { el.innerHTML = '<p style="color:#c62828">&#9888; Not connected.</p>'; return; }
-  el.innerHTML = '<p style="color:var(--gray-500)">' + pt('Laden...','Loading...') + '</p>';
+  el.innerHTML = '<p style="color:var(--gray-600)">' + pt('Laden...','Loading...') + '</p>';
   try {
     const locale = lang === 'nl' ? 'nl-BE' : 'en-GB';
     const { data, error } = await sb.from('announcements').select('*').order('created_at', { ascending: false });
     if (error) { el.innerHTML = `<p style="color:#c62828">&#9888; Error: ${error.message}</p>`; return; }
-    if (!data.length) { el.innerHTML = '<div style="text-align:center;padding:40px 20px;color:var(--gray-500)"><div style="font-size:2rem;margin-bottom:12px">&#128226;</div><p style="margin:0">' + pt('Nog geen aankondigingen — kom later terug.','No announcements yet — check back later.') + '</p></div>'; return; }
+    if (!data.length) { el.innerHTML = '<div style="text-align:center;padding:40px 20px;color:var(--gray-600)"><div style="font-size:2rem;margin-bottom:12px">&#128226;</div><p style="margin:0">' + pt('Nog geen aankondigingen — kom later terug.','No announcements yet — check back later.') + '</p></div>'; return; }
     el.innerHTML = data.map(a => `<div class="ann-card"><h3 class="ann-title">${a.title}</h3><p class="ann-body">${a.body}</p><div class="ann-date">${new Date(a.created_at).toLocaleDateString(locale, {day:'numeric',month:'long',year:'numeric'})}</div></div>`).join('');
   } catch(e) { el.innerHTML = `<p style="color:#c62828">&#9888; Connection failed: ${e.message}</p>`; }
 }
@@ -2816,10 +3326,10 @@ async function loadAnnouncements() {
 async function loadAdminAnn() {
   const list = document.getElementById('admin-ann-list');
   if (!sb) { list.innerHTML = '<p style="color:#c62828">&#9888; Not connected.</p>'; return; }
-  list.innerHTML = '<p style="color:var(--gray-500)">Loading...</p>';
+  list.innerHTML = '<p style="color:var(--gray-600)">Loading...</p>';
   try {
   const { data } = await sb.from('announcements').select('*').order('created_at', { ascending: false });
-  if (!data || !data.length) { list.innerHTML = '<p style="color:var(--gray-500)">' + pt('Nog geen aankondigingen.','No announcements yet.') + '</p>'; return; }
+  if (!data || !data.length) { list.innerHTML = '<p style="color:var(--gray-600)">' + pt('Nog geen aankondigingen.','No announcements yet.') + '</p>'; return; }
   list.innerHTML = `<table class="admin-table"><thead><tr><th>${pt('Titel','Title')}</th><th>${pt('Datum','Date')}</th><th>${pt('Actie','Action')}</th></tr></thead><tbody>` +
     data.map(a => `<tr><td>${a.title}</td><td>${new Date(a.created_at).toLocaleDateString(lang==='nl'?'nl-BE':'en-GB')}</td><td><button class="reject-btn" onclick="deleteAnnouncement('${a.id}')">`+pt('Verwijder','Delete')+`</button></td></tr>`).join('') +
     '</tbody></table>';
@@ -2849,11 +3359,11 @@ async function deleteAnnouncement(id) {
 async function loadDocuments() {
   const el = document.getElementById('documents-list');
   if (!sb) { el.innerHTML = '<p style="color:#c62828">&#9888; Not connected. Open via Live Server or deploy online.</p>'; return; }
-  el.innerHTML = '<p style="color:var(--gray-500)">Loading...</p>';
+  el.innerHTML = '<p style="color:var(--gray-600)">Loading...</p>';
   try {
     const { data, error } = await sb.from('documents').select('*').order('created_at', { ascending: false });
     if (error) { el.innerHTML = `<p style="color:red">Error: ${error.message}</p>`; return; }
-    if (!data.length) { el.innerHTML = '<div style="text-align:center;padding:40px 20px;color:var(--gray-500)"><div style="font-size:2rem;margin-bottom:12px">&#128196;</div><p style="margin:0">' + pt('Nog geen documenten beschikbaar.','No documents available yet.') + '</p></div>'; return; }
+    if (!data.length) { el.innerHTML = '<div style="text-align:center;padding:40px 20px;color:var(--gray-600)"><div style="font-size:2rem;margin-bottom:12px">&#128196;</div><p style="margin:0">' + pt('Nog geen documenten beschikbaar.','No documents available yet.') + '</p></div>'; return; }
     el.innerHTML = data.map(d => `<div class="doc-card"><div class="doc-icon">&#128196;</div><div class="doc-info"><div class="doc-title">${d.title}</div><div class="doc-meta">${d.category} &middot; ${new Date(d.created_at).toLocaleDateString(lang==='nl'?'nl-BE':'en-GB')}</div></div><a class="doc-dl" href="${d.file_url}" target="_blank" rel="noopener noreferrer" download>&#8595; Download</a></div>`).join('');
   } catch(e) { el.innerHTML = `<p style="color:#c62828">&#9888; Connection failed: ${e.message}</p>`; }
 }
@@ -2861,10 +3371,10 @@ async function loadDocuments() {
 async function loadAdminDocs() {
   const list = document.getElementById('admin-docs-list');
   if (!sb) { list.innerHTML = '<p style="color:#c62828">&#9888; Not connected.</p>'; return; }
-  list.innerHTML = '<p style="color:var(--gray-500)">Loading...</p>';
+  list.innerHTML = '<p style="color:var(--gray-600)">Loading...</p>';
   try {
     const { data } = await sb.from('documents').select('*').order('created_at', { ascending: false });
-    if (!data || !data.length) { list.innerHTML = '<p style="color:var(--gray-500)">' + pt('Nog geen documenten.','No documents yet.') + '</p>'; return; }
+    if (!data || !data.length) { list.innerHTML = '<p style="color:var(--gray-600)">' + pt('Nog geen documenten.','No documents yet.') + '</p>'; return; }
     list.innerHTML = `<table class="admin-table"><thead><tr><th>${pt('Titel','Title')}</th><th>${pt('Categorie','Category')}</th><th>${pt('Datum','Date')}</th><th>${pt('Actie','Action')}</th></tr></thead><tbody>` +
       data.map(d => `<tr><td>${d.title}</td><td>${d.category}</td><td>${new Date(d.created_at).toLocaleDateString(lang==='nl'?'nl-BE':'en-GB')}</td><td><button class="reject-btn" onclick="deleteDocument('${d.id}','${d.file_path}')">`+pt('Verwijder','Delete')+`</button></td></tr>`).join('') +
       '</tbody></table>';
@@ -2901,11 +3411,11 @@ async function deleteDocument(id, path) {
 async function loadForum() {
   const el = document.getElementById('forum-list');
   if (!sb) { el.innerHTML = '<p style="color:#c62828">&#9888; Not connected. Open via Live Server or deploy online.</p>'; return; }
-  el.innerHTML = '<p style="color:var(--gray-500)">Loading...</p>';
+  el.innerHTML = '<p style="color:var(--gray-600)">Loading...</p>';
   try {
     const { data, error } = await sb.from('forum_threads').select('*, profiles(first_name,last_name)').order('created_at', { ascending: false });
     if (error) { el.innerHTML = `<p style="color:red">Error: ${error.message}</p>`; return; }
-    if (!data.length) { el.innerHTML = '<div style="text-align:center;padding:40px 20px;color:var(--gray-500)"><div style="font-size:2rem;margin-bottom:12px">&#128172;</div><p style="margin:0">' + pt('Nog geen discussies gestart. Wees de eerste!','No discussions yet. Be the first to start one!') + '</p></div>'; return; }
+    if (!data.length) { el.innerHTML = '<div style="text-align:center;padding:40px 20px;color:var(--gray-600)"><div style="font-size:2rem;margin-bottom:12px">&#128172;</div><p style="margin:0">' + pt('Nog geen discussies gestart. Wees de eerste!','No discussions yet. Be the first to start one!') + '</p></div>'; return; }
     el.innerHTML = data.map(t => {
       const name = t.profiles ? t.profiles.first_name + ' ' + t.profiles.last_name : pt('Beheerder','Admin');
       return `<div class="forum-thread"><h3 class="ft-title">${t.title}</h3><p class="ft-body">${t.body}</p><div class="ft-meta">${pt('Geplaatst door','Posted by')} ${name} &middot; ${new Date(t.created_at).toLocaleDateString(lang==='nl'?'nl-BE':'en-GB')}</div></div>`;
@@ -2916,10 +3426,10 @@ async function loadForum() {
 async function loadAdminForum() {
   const list = document.getElementById('admin-forum-list');
   if (!sb) { list.innerHTML = '<p style="color:#c62828">&#9888; Not connected.</p>'; return; }
-  list.innerHTML = '<p style="color:var(--gray-500)">Loading...</p>';
+  list.innerHTML = '<p style="color:var(--gray-600)">Loading...</p>';
   try {
     const { data } = await sb.from('forum_threads').select('*').order('created_at', { ascending: false });
-    if (!data || !data.length) { list.innerHTML = '<p style="color:var(--gray-500)">' + pt('Nog geen discussies.','No threads yet.') + '</p>'; return; }
+    if (!data || !data.length) { list.innerHTML = '<p style="color:var(--gray-600)">' + pt('Nog geen discussies.','No threads yet.') + '</p>'; return; }
     list.innerHTML = `<table class="admin-table"><thead><tr><th>${pt('Titel','Title')}</th><th>${pt('Datum','Date')}</th><th>${pt('Actie','Action')}</th></tr></thead><tbody>` +
       data.map(t => `<tr><td>${t.title}</td><td>${new Date(t.created_at).toLocaleDateString(lang==='nl'?'nl-BE':'en-GB')}</td><td><button class="reject-btn" onclick="deleteThread('${t.id}')">`+pt('Verwijder','Delete')+`</button></td></tr>`).join('') +
       '</tbody></table>';
@@ -2949,11 +3459,11 @@ async function deleteThread(id) {
 async function loadPendingUsers() {
   const el = document.getElementById('pending-list');
   if (!sb) { el.innerHTML = '<p style="color:#c62828">&#9888; Not connected. Open via Live Server or deploy online.</p>'; return; }
-  el.innerHTML = '<p style="color:var(--gray-500)">Loading...</p>';
+  el.innerHTML = '<p style="color:var(--gray-600)">Loading...</p>';
   try {
     const { data, error } = await sb.from('profiles').select('*').eq('status','pending').order('created_at');
     if (error) { el.innerHTML = `<p style="color:red">Error: ${error.message}</p>`; return; }
-    if (!data.length) { el.innerHTML = '<p style="color:var(--gray-500)">' + pt('Geen openstaande aanvragen.','No pending registrations.') + '</p>'; return; }
+    if (!data.length) { el.innerHTML = '<p style="color:var(--gray-600)">' + pt('Geen openstaande aanvragen.','No pending registrations.') + '</p>'; return; }
     el.innerHTML = `<table class="admin-table"><thead><tr><th>${pt('Naam','Name')}</th><th>${pt('E-mail','Email')}</th><th>${pt('Instelling','Institution')}</th><th>${pt('Beroep','Profession')}</th><th>${pt('Acties','Actions')}</th></tr></thead><tbody>` +
       data.map(u => `<tr><td>${u.first_name} ${u.last_name}</td><td>${u.email}</td><td>${u.institution||''}</td><td>${u.profession||''}</td><td><button class="approve-btn" onclick="approveUser('${u.id}')">`+pt('Goedkeuren','Approve')+`</button> <button class="reject-btn" onclick="rejectUser('${u.id}')">`+pt('Afwijzen','Reject')+`</button></td></tr>`).join('') +
       '</tbody></table>';
@@ -2963,11 +3473,11 @@ async function loadPendingUsers() {
 async function loadAllUsers() {
   const el = document.getElementById('allusers-list');
   if (!sb) { el.innerHTML = '<p style="color:#c62828">&#9888; Not connected. Open via Live Server or deploy online.</p>'; return; }
-  el.innerHTML = '<p style="color:var(--gray-500)">Loading...</p>';
+  el.innerHTML = '<p style="color:var(--gray-600)">Loading...</p>';
   try {
     const { data, error } = await sb.from('profiles').select('*').order('created_at');
     if (error) { el.innerHTML = `<p style="color:red">Error: ${error.message}</p>`; return; }
-    if (!data.length) { el.innerHTML = '<p style="color:var(--gray-500)">' + pt('Nog geen gebruikers.','No users yet.') + '</p>'; return; }
+    if (!data.length) { el.innerHTML = '<p style="color:var(--gray-600)">' + pt('Nog geen gebruikers.','No users yet.') + '</p>'; return; }
     el.innerHTML = `<table class="admin-table"><thead><tr><th>${pt('Naam','Name')}</th><th>${pt('E-mail','Email')}</th><th>${pt('Type','Type')}</th><th>${pt('Rol','Role')}</th><th>${pt('Status','Status')}</th><th>${pt('Actie','Action')}</th></tr></thead><tbody>` +
       data.map(u => `<tr>
         <td>${u.first_name} ${u.last_name}</td>
@@ -3011,10 +3521,22 @@ async function removeUser(id) {
   await sb.from('profiles').delete().eq('id', id);
   loadAllUsers();
 }
+function dismissCookieBanner() {
+  const b = document.getElementById('cookieBanner');
+  if (b) b.classList.remove('on');
+  try { localStorage.setItem('cookie_ack', '1'); } catch(e) {}
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initSupabase();
   load();
   portalInit();
+  try {
+    if (!localStorage.getItem('cookie_ack')) {
+      const b = document.getElementById('cookieBanner');
+      if (b) b.classList.add('on');
+    }
+  } catch(e) {}
   document.getElementById('footYear').textContent = new Date().getFullYear();
   restoreDesign();
   updateHeroStats();
@@ -3025,9 +3547,14 @@ document.addEventListener('DOMContentLoaded', () => {
   renderAboutPills();
   applyTranslations();
   restoreContent();
+  initMotion();
   initReveal();
 });
 window.addEventListener('message',function(e){
+  if(e.data&&e.data.type==='px_navigate'&&e.data.page){
+    showPage(e.data.page);
+    return;
+  }
   if(e.data&&e.data.type==='px_request_lang'){
     var fr=document.getElementById('academy-frame');
     if(fr)try{fr.contentWindow.postMessage({type:'px_lang',lang:lang},'*');}catch(ex){}
