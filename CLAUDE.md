@@ -47,7 +47,9 @@ Bron: FWO-TBM T000226N (+ doctoraatsplan). Bij twijfel: vragen, niet gokken.
   = **≥ 80%** van het gemiddelde activiteitenprofiel, **7 dagen/week**, elke 3 maanden uitgelezen,
   met **primair analysepunt op 12 maanden**.
 - **F-Scan GO:** in-shoe, software **FootVIEW Pro**, **≥ 12 mid-gait stappen/voet**, comfortsnelheid (±5% bij follow-up),
-  dunne naadloze katoenen sok, piekdruk per **7 regio's via Multimask**. **Afgenomen door het STUDIETEAM.**
+  dunne naadloze katoenen sok, piekdruk per **8 regio's via Multimask** (hiel, mediale middenvoet,
+  laterale middenvoet, metatarsaal 1, metatarsaal 2-3, metatarsaal 4-5, hallux, tenen 2-5 — hallux en
+  tenen 2-5 apart, niet meer samengevoegd). **Afgenomen door het STUDIETEAM.**
   Usual Care = **geblindeerd** (niet tonen/bespreken).
 - **Novel pedar:** draadloze **in-shoe** druksensor-inlegzolen, gekoppeld aan de **novel database**-software.
   Kalibratie via het **trublu**-toestel (belasten tot 6 bar; softwaarde binnen **5%** van de manometer = ok,
