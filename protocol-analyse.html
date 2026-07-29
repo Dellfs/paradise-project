@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PARADISE — Methodologische analyse: visitplanning &amp; eCRF-structuur</title>
+<meta name="description" content="Interne methodologische analyse van het PARADISE-protocol: visitplanning, eCRF-structuur en overlapanalyse — enkel voor het onderzoeksteam.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap"></noscript>
+<link rel="stylesheet" href="styles/tokens.css">
+<style>
+:root{--pd:var(--par-dark);--pm:var(--par-mid);--pl:var(--par-light);--ac:var(--par-orange);--ink:#0D2035;--soft:#33485f;--muted:#6a7e92;--bg:#F4F8FC;--band:#e9f1f8;--card:#fff;--line:#d3e3f0;--green:#2f8f5b;--green-soft:#e2f0ea;--red:#c0392b;--red-soft:#fbe5e2;--radius:14px;--shadow:0 1px 2px rgba(0,64,122,.06),0 14px 36px -26px rgba(0,64,122,.4)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-b);line-height:1.55}
+.px{max-width:1040px;margin:0 auto;padding:24px 20px 70px}
+.topbar{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.kicker{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--pm)}
+.bc-home{font-size:12.5px;font-weight:600;color:var(--muted);text-decoration:none}
+.bc-home:hover{color:var(--pm)}
+.spacer{flex:1}
+.lang{font:700 13px var(--font-b),sans-serif;color:var(--pm);background:#fff;border:1px solid var(--pm);border-radius:99px;padding:6px 13px;cursor:pointer}.lang:hover{background:var(--band)}.embedded .topbar{display:none!important}
+h1{font-size:clamp(26px,4vw,38px);font-weight:700;color:var(--pd);line-height:1.1;margin:6px 0 12px;letter-spacing:-.01em}
+h2{font-size:22px;font-weight:700;color:var(--pd);margin:0 0 4px}
+.lead{font-size:16.5px;color:var(--soft);max-width:70ch;margin:0 0 8px}
+.sh{font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--pm);font-weight:700;margin:34px 0 12px}
+.muted{color:var(--muted);font-size:13px}
+a{color:var(--pm)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:680px){.grid2{grid-template-columns:1fr}}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}@media(max-width:760px){.grid3{grid-template-columns:1fr 1fr}}@media(max-width:520px){.grid3{grid-template-columns:1fr}}
+.stat{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+.stat .n{font-size:30px;font-weight:800;color:var(--pm);line-height:1}
+.stat .l{font-size:13px;color:var(--soft);margin-top:6px}
+.note{border-radius:12px;padding:13px 16px;margin:12px 0;border-left:5px solid;font-size:14.5px}
+.note .lab{display:block;font-weight:700;margin-bottom:3px}
+.note.tip{background:var(--band);border-color:var(--pm)}.note.tip .lab{color:var(--pm)}
+.note.warn{background:#fff4e8;border-color:var(--ac)}.note.warn .lab{color:var(--ac)}
+.note.ground{background:#eef6ee;border-color:var(--green)}.note.ground .lab{color:var(--green)}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px;border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+.tbl th{background:var(--pm);color:#fff;text-align:left;padding:10px 12px;font-size:12px;text-transform:uppercase}
+.tbl td{padding:10px 12px;border-top:1px solid var(--line);background:#fff;vertical-align:top}
+.tbl td:first-child{font-weight:700;color:var(--pd);white-space:nowrap}
+.tbl.center td,.tbl.center th{text-align:center}
+.tbl.center td:first-child{text-align:left}
+.steps{counter-reset:s;list-style:none;padding:0;margin:8px 0}
+.steps li{counter-increment:s;position:relative;padding:8px 0 8px 40px;border-bottom:1px dashed var(--line);font-size:14.5px}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(s);position:absolute;left:0;top:7px;width:26px;height:26px;border-radius:50%;background:var(--pd);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:700}
+.steps b{color:var(--pd)}
+
+.timeline{display:flex;gap:8px;overflow-x:auto;padding:6px 2px 16px}
+.tnode{flex:0 0 auto;min-width:100px;text-align:center;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 8px;box-shadow:var(--shadow)}
+.tnode .tv{font:800 13px var(--font-b);color:var(--pd)}
+.tnode .tl{font-size:11px;color:var(--soft);margin-top:2px}
+.tnode.major{border-color:var(--ac);background:#fff8f0}
+.tnode.end{background:var(--pd)}
+.tnode.end .tv,.tnode.end .tl{color:#fff}
+
+.ecrf{display:inline-flex;align-items:center;gap:4px;font:700 12px var(--font-b);color:var(--pm);background:var(--band);border:1px solid var(--line);border-radius:99px;padding:3px 10px;text-decoration:none;margin:2px}
+.ecrf:hover{background:#fff;border-color:var(--pm)}
+.ecrf::after{content:'\2193';font-weight:700}
+.ecrf.off{color:var(--muted);background:#f2f5f8;cursor:default}
+.ecrf.off::after{content:''}
+.ecrflist{display:flex;flex-wrap:wrap;gap:2px;margin-top:6px}
+
+.vgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}@media(max-width:760px){.vgrid{grid-template-columns:1fr 1fr}}@media(max-width:520px){.vgrid{grid-template-columns:1fr}}
+.vcard{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px}
+.vcard.major{border-color:var(--ac)}
+.vcard .vh{display:flex;align-items:baseline;gap:8px;margin-bottom:6px}
+.vcard .vn{font:800 18px var(--font-b);color:var(--pd)}
+.vcard .vt{font:700 11.5px var(--font-b);text-transform:uppercase;letter-spacing:.05em;color:var(--pm)}
+.vcard p{font-size:13.5px;color:var(--soft);margin:0}
+
+.ov-row{display:grid;grid-template-columns:130px 1fr 110px;gap:12px;align-items:start;padding:13px 0;border-top:1px dashed var(--line)}
+.ov-row:first-child{border-top:none}
+@media(max-width:680px){.ov-row{grid-template-columns:1fr}.ov-row .tag{justify-self:start}}
+.ov-row .dom{font:700 13px var(--font-b);color:var(--pd)}
+.ov-row .pair{font-size:13.5px;color:var(--soft)}
+.ov-row .pair b{color:var(--pd)}
+.tag{display:inline-block;font:700 11px var(--font-b);border-radius:99px;padding:4px 10px;text-transform:uppercase;letter-spacing:.04em;justify-self:end;white-space:nowrap}
+.tag.now{background:var(--red-soft);color:var(--red)}
+.tag.keep{background:var(--green-soft);color:var(--green)}
+
+.cmp ul{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:9px}
+.cmp li{position:relative;padding-left:24px;font-size:14px;color:var(--soft)}
+.cmp.old li::before{content:'\2013';position:absolute;left:2px;color:var(--red);font-weight:800}
+.cmp.new li::before{content:'\2713';position:absolute;left:2px;color:var(--green);font-weight:800}
+.cmp h3{font-size:14px;text-transform:uppercase;letter-spacing:.05em;color:var(--pd);margin:0}
+
+.chipbar{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.fchip{font:700 12.5px var(--font-b);border:1.5px solid var(--line);background:#fff;color:var(--pd);border-radius:99px;padding:6px 14px;cursor:pointer;min-height:40px;display:inline-flex;align-items:center}
+.row-dropped td{color:var(--muted)!important;text-decoration:line-through}
+.row-dropped .ecrf{text-decoration:none}
+.dropped-badge{display:inline-block;font:700 10px var(--font-b);text-decoration:none;text-transform:uppercase;letter-spacing:.04em;background:var(--red-soft);color:var(--red);border-radius:99px;padding:2px 8px;margin-left:6px;vertical-align:middle}
+.fchip:hover{border-color:var(--pm)}
+.fchip.active{background:var(--pm);border-color:var(--pm);color:#fff}
+
+.refs{list-style:none;padding:0;margin:0;counter-reset:r}
+.refs li{counter-increment:r;position:relative;padding:9px 0 9px 34px;border-bottom:1px solid var(--line);font-size:12.8px;color:var(--soft)}
+.refs li::before{content:"[" counter(r) "]";position:absolute;left:0;top:9px;font-weight:800;color:var(--pm)}
+.refs a{font-weight:600;word-break:break-all}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="px"><div class="topbar"><a href="index.html" class="bc-home">&#8592; Home</a><span class="kicker">PARADISE &#8212; Methodologische analyse</span><span class="spacer"></span><button type="button" class="lang" id="lang">EN</button></div><div id="app"></div></div>
+<script>
+
+var lang='nl';try{lang=localStorage.getItem('px_lang')||'nl';}catch(e){}
+function tr(x){return Array.isArray(x)?(lang==='nl'?x[0]:x[1]):x;}
+function setLang(L){lang=L;try{localStorage.setItem('px_lang',L);}catch(e){}}
+var activeTypeFilter=null;
+function normDash(s){return s.replace(/[‐-―−]/g,'-');}
+
+var ECRF_FILES={
+"01":"(e)CRF/Per nummer/01_Screening voor toestemming.docx",
+"02":"(e)CRF/Per nummer/02_Toestemmingsformulier en kostenformulier (patient).docx",
+"03":"(e)CRF/Per nummer/03_Toestemmingsformulier sitepersoneel.docx",
+"04":"(e)CRF/Per nummer/04_Toestemmingsformulier therapeut.docx",
+"05":"(e)CRF/Per nummer/05_Toestemmingsformulier manager.docx",
+"06":"(e)CRF/Per nummer/06_Bevestiging geschiktheid baseline.docx",
+"07":"(e)CRF/Per nummer/07_Demografische gegevens en medische voorgeschiedenis.docx",
+"08":"(e)CRF/Per nummer/08_Screening voet en schoeisel.docx",
+"09":"(e)CRF/Per nummer/09_Meting plantaire druk - baseline.docx",
+"10":"(e)CRF/Per nummer/10_Voorschrift aangepaste voetorthese (CMFO).docx",
+"12":"(e)CRF/Per nummer/12_Tevredenheid over ulcuspreventie (VAS).docx",
+"13":"(e)CRF/Per nummer/13_Gebruik en bruikbaarheid aangepast schoeisel.docx",
+"14":"(e)CRF/Per nummer/14_Kennis voetzorg (NAFF-vragenlijst).docx",
+"15":"(e)CRF/Per nummer/15_Gezondheidsvaardigheden (HLS-EU-6-vragenlijst).docx",
+"16":"(e)CRF/Per nummer/16_Educatieboekje voetzorg.docx",
+"17":"(e)CRF/Per nummer/17_Script mondelinge voetzorg-educatie (SEBIA).docx",
+"18":"(e)CRF/Per nummer/18_Logboek educatie en vaardigheidstraining.docx",
+"19":"(e)CRF/Per nummer/19_Gebruikershandleiding MoveMonitor.docx",
+"19b":"(e)CRF/Per nummer/19b_Werkinstructie MoveMonitor (SOP Dynaport).docx",
+"20":"(e)CRF/Per nummer/20_Registratie toestelnummer MoveMonitor (UDI).docx",
+"21":"(e)CRF/Per nummer/21_Levenskwaliteit-vragenlijst (EQ-5D-5L).docx",
+"23":"(e)CRF/Per nummer/23_Aanpassing en controle voetorthese (visite 2).docx",
+"24":"(e)CRF/Per nummer/24_Meting drukherverdeling voetorthese.docx",
+"25":"(e)CRF/Per nummer/25_Registratie en activatie Orthotimer (UDI).docx",
+"25b":"(e)CRF/Per nummer/25b_Werkinstructie Orthotimer (SOP).docx",
+"26":"(e)CRF/Per nummer/26_Overtuigingen en gewoontes rond schoeisel.docx",
+"27":"(e)CRF/Per nummer/27_Teruggave toestelnummer MoveMonitor (UDI).docx",
+"28":"(e)CRF/Per nummer/28_Rapport activiteitenprofiel.docx",
+"29":"(e)CRF/Per nummer/29_Teach-back - controle begrip patient.docx",
+"30":"(e)CRF/Per nummer/30_Informatiefolder sensor Orthotimer voor patient.docx",
+"31":"(e)CRF/Per nummer/31_Bevraging therapietrouw schoeisel.docx",
+"32":"(e)CRF/Per nummer/32_Feedback over therapietrouw.docx",
+"33":"(e)CRF/Per nummer/33_Vervanging voetorthese of sensor.docx",
+"34":"(e)CRF/Per nummer/34b_iMCQ-vragenlijst (medische kosten).pdf",
+"35":"(e)CRF/Per nummer/35b_iPCQ-vragenlijst (productiviteit).pdf",
+"36":"(e)CRF/Per nummer/36_Classificatie ulcus (PEDIS).docx",
+"38":"(e)CRF/Per nummer/38_Classificatie ulcus (WIfI).docx",
+"39":"(e)CRF/Per nummer/39_Protocol procesevaluatie.docx",
+"40":"(e)CRF/Per nummer/40_Gestructureerd dagboek therapeut.docx",
+"41":"(e)CRF/Per nummer/41_Interviewgids patient.docx",
+"42":"(e)CRF/Per nummer/42_Interviewgids therapeut.docx",
+"43":"(e)CRF/Per nummer/43_Interviewgids management.docx",
+"44":"(e)CRF/Per nummer/44_Fidelity checklist SEBIA-interventie.docx",
+"45":"(e)CRF/Per nummer/45_Gezondheidseconomisch dagboek.docx",
+"45b":"(e)CRF/Per nummer/45b_Gezondheidseconomisch dagboek (vervolg).docx"
+};
+function ecrf(n,label){var f=ECRF_FILES[n];var txt=label||('eCRF '+n.replace('b',' bis'));if(f){return '<a class="ecrf" href="'+encodeURI(f)+'" target="_blank" rel="noopener" title="'+f.replace(/"/g,'&quot;')+'">'+txt+'</a>';}return '<span class="ecrf off" title="'+tr(["bestand niet beschikbaar","file not available"])+'">'+txt+'</span>';}
+function ecrfList(arr){return '<span class="ecrflist">'+arr.map(function(n){return ecrf(n);}).join('')+'</span>';}
+
+function applyEcrfFilters(){
+  var input=document.getElementById("ecrfSearch");
+  var q=normDash((input?input.value:"").trim().toLowerCase());
+  var rows=document.querySelectorAll("#ecrfMatrixBody tr");
+  var shown=0;
+  rows.forEach(function(row){
+    var hay=normDash((row.getAttribute("data-search")||"").toLowerCase());
+    var type=row.getAttribute("data-type")||"";
+    var textOk=!q||hay.indexOf(q)!==-1;
+    var typeOk=!activeTypeFilter||type===activeTypeFilter;
+    var match=textOk&&typeOk;
+    row.style.display=match?"":"none";
+    if(match) shown++;
+  });
+  var noMatch=document.getElementById("ecrfNoMatch");
+  if(noMatch) noMatch.style.display=shown?"none":"";
+}
+function wireEcrfFilters(){
+  var input=document.getElementById("ecrfSearch");
+  if(input) input.addEventListener("input",applyEcrfFilters);
+  document.querySelectorAll("[data-type-filter]").forEach(function(chip){
+    chip.addEventListener("click",function(){
+      var val=chip.getAttribute("data-type-filter");
+      activeTypeFilter=(activeTypeFilter===val)?null:val;
+      document.querySelectorAll("[data-type-filter]").forEach(function(c){
+        c.classList.toggle("active",c.getAttribute("data-type-filter")===activeTypeFilter);
+      });
+      applyEcrfFilters();
+    });
+  });
+  applyEcrfFilters();
+}
+function boot(){var app=document.getElementById("app");function paint(){document.documentElement.lang=lang;app.innerHTML=window.RENDER();var lb=document.getElementById("lang");if(lb)lb.textContent=(lang==="nl"?"EN":"NL");wireEcrfFilters();}window.repaint=paint;document.addEventListener("click",function(e){if(e.target.closest("#lang")){setLang(lang==="nl"?"en":"nl");paint();}});paint();}
+
+window.RENDER=function(){
+var h='';
+h+='<div class="kicker">'+tr(["Methodologische analyse","Methodological analysis"])+'</div>';
+h+='<h1>'+tr(["Van protocol naar praktijk: visitplanning &amp; eCRF-structuur","From protocol to practice: visit schedule &amp; eCRF structure"])+'</h1>';
+h+='<p class="lead">'+tr(["Een verkennende analyse van het goedgekeurde PARADISE-protocol (v1.0): hoe de visitplanning en de eCRF-structuur overzichtelijker georganiseerd kunnen worden, met minder overlap tussen vragenlijsten.","An exploratory analysis of the approved PARADISE protocol (v1.0): how the visit schedule and eCRF structure could be organised more transparently, with less overlap between questionnaires."])+'</p>';
+h+='<div class="note tip"><span class="lab">'+tr(["Enkel voor het onderzoeksteam","For the research team only"])+'</span>'+tr(["Deze analyse is verkennend en staat los van het goedgekeurde protocol (v1.0), dat van kracht blijft tot een amendement wordt goedgekeurd. Alle eCRF-links verwijzen naar de originele documenten in de studiemap.","This analysis is exploratory and is kept separate from the approved protocol (v1.0), which remains in force until an amendment is approved. All eCRF links point to the original documents in the study folder."])+'</div>';
+h+='<div class="note warn"><span class="lab">'+tr(["Amendement","Amendment"])+'</span>'+tr(["Beslissing van de PI: ","Decision by the PI: "])+DROPPED_NOTE+tr([" worden uit het protocol geschrapt. Ze blijven hieronder zichtbaar in de traceability-matrix (doorstreept, gemarkeerd “Geschrapt”) voor auditdoeleinden, maar tellen niet meer mee in de actieve domein-cijfers hierboven."," are being dropped from the protocol. They remain visible below in the traceability matrix (struck through, marked “Dropped”) for audit purposes, but no longer count toward the active domain figures above."])+'</div>';
+
+var DOMAIN_ORDER=["screening","baseline","clinical","selfcare","education","qol","health","overige","process"];
+var DOMAIN_INFO={
+ screening:{nl:"Screening",en:"Screening"},
+ baseline:{nl:"Baseline",en:"Baseline"},
+ clinical:{nl:"Clinical Outcomes",en:"Clinical Outcomes"},
+ selfcare:{nl:"Self-care &amp; Behaviour",en:"Self-care &amp; Behaviour"},
+ education:{nl:"Education (SEBIA)",en:"Education (SEBIA)"},
+ qol:{nl:"Quality of Life",en:"Quality of Life"},
+ health:{nl:"Health Economics",en:"Health Economics"},
+ overige:{nl:"Overige (randomisatie, tracking)",en:"Other (randomisation, tracking)"},
+ process:{nl:"Process Evaluation",en:"Process Evaluation"}
+};
+function domainLabel(k){return DOMAIN_INFO[k][lang==='nl'?'nl':'en'];}
+var DOMAIN_VISITS={
+ screening:"V0", baseline:"V1",
+ clinical:"V1, V2, V3&#8211;V8, "+tr(["ulcusvisite","ulcer visit"]),
+ selfcare:"V1, V2, V3&#8211;V8", education:"V1, V2, V3&#8211;V8",
+ qol:"V1, V3&#8211;V8", health:"V3&#8211;V8", overige:"V1, V2, V3&#8211;V8",
+ process:tr(["parallel, niet visitgebonden","parallel, not visit-bound"])
+};
+var DOMAIN_RQ={
+ screening:tr(["Toewijzing aan studiearm","Assignment to study arm"]),
+ baseline:tr(["Uitgangssituatie in kaart brengen","Characterise baseline status"]),
+ clinical:tr(["Ulcuspreventie","Ulcer prevention"]),
+ selfcare:tr(["Gedragsverandering","Behaviour change"]),
+ education:tr(["Zelfmanagement","Self-management"]),
+ qol:tr(["Kwaliteit van leven","Quality of life"]),
+ health:tr(["Kosteneffectiviteit","Cost-effectiveness"]),
+ overige:tr(["Administratieve traceerbaarheid","Administrative traceability"]),
+ process:tr(["Implementatie &amp; ervaring","Implementation &amp; experience"])
+};
+var DOMAIN_INSIGHT={
+ screening:tr(["eCRF 03&#8211;05 zijn eenmalige site-/therapeut-/managerformulieren, geen herhaalde patiëntstap.","eCRF 03&#8211;05 are one-off site/therapist/manager forms, not a repeated patient step."]),
+ baseline:tr(["Kleinste domein (1 eCRF) &#8212; enkel demografie, geen herhaling doorheen de studie.","Smallest domain (1 eCRF) &#8212; demographics only, never repeated."]),
+ clinical:tr(["Grootste domein (8 actieve eCRF&#8217;s, na schrapping van TWCS/Texas) en het enige dat zowel bij elke visit als bij de ulcusvisite terugkomt; combineert toestel-administratie (19, 25) met effectieve metingen (09, 24, 36, 38).","Largest domain (8 active eCRFs, after dropping TWCS/Texas) and the only one recurring at every visit and the ulcer visit; mixes device admin (19, 25) with actual measurements (09, 24, 36, 38)."]),
+ selfcare:tr(["Na schrapping van NVVP vooral bij V1 verzameld (12&#8211;15); slechts 1 item (31) keert nog terug bij elke follow-up.","After dropping NVVP, mostly captured at V1 (12&#8211;15); only 1 item (31) recurs at every follow-up."]),
+ education:tr(["Verspreid over drie niet-aaneengesloten nummerblokken (16&#8211;18, 28&#8211;30, 32) &#8212; zelfde eCRF-familie, verschillende visites.","Spread across three non-contiguous number blocks (16&#8211;18, 28&#8211;30, 32) &#8212; same eCRF family, different visits."]),
+ qol:tr(["Na schrapping van SF-36 nog maar 1 actief eCRF (EQ-5D-5L), met de hoogste meetfrequentie &#8212; elke visit vanaf V1.","After dropping SF-36, only 1 active eCRF remains (EQ-5D-5L), with the highest measurement frequency &#8212; every visit from V1 onward."]),
+ health:tr(["Enige domein met PDF-vragenlijsten i.p.v. de genummerde eCRF-Worddocumenten; start pas bij V3.","Only domain using PDF questionnaires instead of the numbered eCRF Word documents; starts only at V3."]),
+ overige:tr(["Grotendeels toestel-tracking (UDI-logs); geen eigen wetenschappelijk construct maar wel nodig voor traceability.","Mostly device tracking (UDI logs); not its own scientific construct but still needed for traceability."]),
+ process:tr(["Volledig kwalitatief (interviews, dagboek) en niet gekoppeld aan de vaste visitplanning.","Fully qualitative (interviews, diary) and not tied to the fixed visit schedule."])
+};
+var TYPE_ORDER=["vragenlijst","feedback","educatie","toestel","meting","classificatie","administratie","kwalitatief"];
+var TYPE_INFO={
+ vragenlijst:{nl:"Vragenlijst",en:"Questionnaire"},
+ feedback:{nl:"Feedback",en:"Feedback"},
+ educatie:{nl:"Educatie",en:"Education"},
+ toestel:{nl:"Toestel",en:"Device"},
+ meting:{nl:"Meting",en:"Measurement"},
+ classificatie:{nl:"Classificatie",en:"Classification"},
+ administratie:{nl:"Administratie",en:"Administrative"},
+ kwalitatief:{nl:"Kwalitatief",en:"Qualitative"}
+};
+function typeLabel(k){return TYPE_INFO[k][lang==='nl'?'nl':'en'];}
+// Rijformaat: [eCRF-nummer, domain, titel, visit(s), type, status?]
+// status "dropped" = geschrapt bij amendement, blijft zichtbaar in de matrix voor
+// traceability maar telt niet mee in de actieve domein-tellingen/inzichten.
+var DROPPED_NOTE=tr(["NVVP (11), SF-36 (22) en TWCS/Texas (37)","NVVP (11), SF-36 (22) and TWCS/Texas (37)"]);
+function isDropped(r){ return r[5]==="dropped"; }
+var ECRF_ROWS=[
+ ["01","screening",tr(["Screening vóór toestemming","Screening before consent"]),"V0","administratie"],
+ ["02","screening",tr(["Informed consent + kostenformulier","Informed consent + cost form"]),"V0","administratie"],
+ ["03","screening",tr(["Aanwijzing sitepersoneel (eenmalig)","Designated site personnel (one-off)"]),tr(["eenmalig, site","one-off, site"]),"administratie"],
+ ["04","screening",tr(["Informed consent therapeut (eenmalig)","Therapist informed consent (one-off)"]),tr(["eenmalig, therapeut","one-off, therapist"]),"administratie"],
+ ["05","screening",tr(["Informed consent manager (eenmalig)","Manager informed consent (one-off)"]),tr(["eenmalig, manager","one-off, manager"]),"administratie"],
+ ["06","screening",tr(["Baseline eligibility bevestigen","Confirm baseline eligibility"]),"V0","administratie"],
+ ["07","baseline",tr(["Demografie en medische voorgeschiedenis","Demographics and medical history"]),"V1","administratie"],
+ ["08","clinical",tr(["Voet- en schoeiselscreening","Foot and footwear screening"]),"V1, V3&#8211;V8","meting"],
+ ["09","clinical",tr(["Baseline plantaire drukmeting","Baseline plantar pressure measurement"]),"V1","meting"],
+ ["10","clinical",tr(["Voorschrift Diabetic CMFO","Diabetic CMFO prescription"]),"V1","toestel"],
+ ["11","selfcare","NVVP &#8212; "+tr(["zelfzorggedrag","self-care behaviour"]),"V1","vragenlijst","dropped"],
+ ["12","selfcare",tr(["Tevredenheid ulcuspreventie","Satisfaction with ulcer prevention"]),"V1","vragenlijst"],
+ ["13","selfcare","MOS &#8212; "+tr(["gebruik/bruikbaarheid schoeisel","use/usability of footwear"]),"V1","vragenlijst"],
+ ["14","selfcare","NAFF &#8212; "+tr(["voetzorgkennis","foot-care knowledge"]),"V1","vragenlijst"],
+ ["15","selfcare","HLS-EU-6 &#8212; "+tr(["gezondheidsvaardigheden","health literacy"]),"V1","vragenlijst"],
+ ["16","education",tr(["SEBIA &#8212; educatieboekje","SEBIA &#8212; education booklet"]),"V1","educatie"],
+ ["17","education",tr(["SEBIA &#8212; folder dagelijkse voetzorg","SEBIA &#8212; daily foot-care leaflet"]),"V1","educatie"],
+ ["18","education",tr(["SEBIA &#8212; demonstratie/oefensessie","SEBIA &#8212; demonstration/practice"]),"V1","educatie"],
+ ["19","clinical",tr(["MoveMonitor &#8212; gebruikershandleiding","MoveMonitor &#8212; user manual"]),"V1, V4","toestel"],
+ ["19b","clinical","SOP Dynaport","V1, V4","administratie"],
+ ["20","overige",tr(["MoveMonitor &#8212; UDI tracking","MoveMonitor &#8212; UDI tracking"]),"V1, V4","toestel"],
+ ["21","qol","EQ-5D-5L","V1, V3&#8211;V8","vragenlijst"],
+ ["22","qol","SF-36","V1, V3&#8211;V8","vragenlijst","dropped"],
+ ["23","overige",tr(["CMFO fitting &amp; verificatie (V2)","CMFO fitting &amp; verification (V2)"]),"V2","toestel"],
+ ["24","clinical",tr(["Drukherverdeling CMFO","CMFO pressure redistribution"]),"V2, V4, V6, V8","meting"],
+ ["25","clinical",tr(["Orthotimer &#8212; UDI/activatie","Orthotimer &#8212; UDI/activation"]),"V2&#8211;V8","toestel"],
+ ["25b","clinical","SOP Orthotimer","V2&#8211;V8","administratie"],
+ ["26","selfcare",tr(["Overtuigingen/gewoontes schoeisel","Beliefs/habits re. footwear"]),"V2","vragenlijst"],
+ ["27","overige",tr(["MoveMonitor &#8212; UDI tracking (terugname)","MoveMonitor &#8212; UDI tracking (return)"]),"V2, V4","toestel"],
+ ["28","education",tr(["SEBIA &#8212; activiteitsprofiel &amp; feedback","SEBIA &#8212; activity profile &amp; feedback"]),"V2","feedback"],
+ ["29","education","SEBIA &#8212; teach-back","V2","educatie"],
+ ["30","education",tr(["SEBIA &#8212; uitleg draagsensor","SEBIA &#8212; wear-sensor explanation"]),"V2","educatie"],
+ ["31","selfcare",tr(["Schoeiseladherentie bevragen","Footwear adherence interview"]),"V3&#8211;V8","vragenlijst"],
+ ["32","education",tr(["Feedback therapietrouw","Adherence feedback"]),"V2&#8211;V8","feedback"],
+ ["33","overige",tr(["Vervanging CMFO/sensor","CMFO/sensor replacement"]),"V3&#8211;V8","toestel"],
+ ["34","health","iMCQ","V3&#8211;V8","vragenlijst"],
+ ["35","health","iPCQ","V3&#8211;V8","vragenlijst"],
+ ["36","clinical","PEDIS",tr(["ulcusvisite","ulcer visit"]),"classificatie"],
+ ["37","clinical","TWCS (Texas)",tr(["ulcusvisite","ulcer visit"]),"classificatie","dropped"],
+ ["38","clinical","WIfI",tr(["ulcusvisite","ulcer visit"]),"classificatie"],
+ ["39","process","Process Evaluation Protocol",tr(["parallel","parallel"]),"kwalitatief"],
+ ["40","process",tr(["Structured diary &#8212; therapeut","Structured diary &#8212; therapist"]),tr(["parallel","parallel"]),"kwalitatief"],
+ ["41","process",tr(["Interview guide &#8212; patiënt","Interview guide &#8212; patient"]),tr(["parallel","parallel"]),"kwalitatief"],
+ ["42","process",tr(["Interview guide &#8212; therapeut","Interview guide &#8212; therapist"]),tr(["parallel","parallel"]),"kwalitatief"],
+ ["43","process",tr(["Interview guide &#8212; management","Interview guide &#8212; management"]),tr(["parallel","parallel"]),"kwalitatief"]
+];
+
+h+='<div class="sh">'+tr(["Achtergrond &amp; doel","Background &amp; purpose"])+'</div>';
+h+='<div class="grid2">';
+h+='<div class="card"><h2 style="font-size:17px">'+tr(["Achtergrond","Background"])+'</h2><p style="color:var(--soft);margin:8px 0 0;font-size:14px">'+tr(["Het protocol beschrijft de visitplanning en de eCRF-documenten gegroepeerd per fase (bv. V3&#8211;V8, V4/6/8), wat de opbouw minder transparant maakt. Deze analyse brengt de bestaande structuur in kaart: elke visit, elk eCRF-document en het onderliggende construct &#8212; vertrekkend van het goedgekeurde protocol (v1.0).","The protocol describes the visit schedule and eCRF documents grouped by phase (e.g. V3&#8211;V8, V4/6/8), which makes the structure less transparent. This analysis maps the existing structure: every visit, every eCRF document and its underlying construct &#8212; starting from the approved protocol (v1.0)."])+'</p></div>';
+h+='<div class="card"><h2 style="font-size:17px">'+tr(["Doel van de analyse","Purpose of the analysis"])+'</h2><p style="color:var(--soft);margin:8px 0 0;font-size:14px">'+tr(["Nagaan hoe visitplanning en eCRF-structuur overzichtelijker kunnen, overlap tussen vragenlijsten in kaart brengen, de patiëntbelasting per visit inschatten en traceability aantonen tussen eCRF, construct en onderzoeksvraag &#8212; met behoud van wetenschappelijke kwaliteit. Een verkennende analyse, duidelijk gescheiden van het oorspronkelijke, goedgekeurde protocol.","Explore how the visit schedule and eCRF structure could be clearer, map overlap between questionnaires, estimate patient burden per visit, and demonstrate traceability between eCRF, construct and research question &#8212; while preserving scientific quality. An exploratory analysis, clearly separated from the original, approved protocol."])+'</p></div>';
+h+='</div>';
+
+h+='<div class="sh">'+tr(["PARADISE in cijfers","PARADISE in numbers"])+'</div>';
+h+='<p class="lead" style="font-size:14.5px">'+tr(["Gerandomiseerde klinische studie bij diabetespatiënten met IWGDF-categorie 3 en een recent geheeld plantair ulcus. De negen visits en bijhorende eCRF-documenten vormen de basis van deze analyse.","Randomised clinical trial in diabetes patients with IWGDF category 3 and a recently healed plantar ulcer. The nine visits and associated eCRF documents form the basis of this analysis."])+'</p>';
+h+='<div class="grid3" style="grid-template-columns:repeat(4,1fr)">'
+ +'<div class="stat"><div class="n">9</div><div class="l">'+tr(["visits (V0&#8211;V8)","visits (V0&#8211;V8)"])+'</div></div>'
+ +'<div class="stat"><div class="n">'+ECRF_ROWS.filter(function(r){return !isDropped(r);}).length+'</div><div class="l">'+tr(["eCRF-documenten","eCRF documents"])+'</div></div>'
+ +'<div class="stat"><div class="n">'+DOMAIN_ORDER.length+'</div><div class="l">'+tr(["domeinen","domains"])+'</div></div>'
+ +'<div class="stat"><div class="n">6</div><div class="l">'+tr(["klinieken","clinics"])+'</div></div>'
+ +'</div>';
+
+h+='<div class="sh">'+tr(["Methode","Method"])+'</div>';
+h+='<ol class="steps">'
+ +'<li><b>'+tr(["Current protocol","Current protocol"])+'</b> &#8212; '+tr(["het goedgekeurde PARADISE-protocol (v1.0) als vertrekpunt.","the approved PARADISE protocol (v1.0) as starting point."])+'</li>'
+ +'<li><b>'+tr(["Protocol deconstruction","Protocol deconstruction"])+'</b> &#8212; '+tr(["visitplanning en eCRF-verwijzingen systematisch ontleed.","visit schedule and eCRF references systematically deconstructed."])+'</li>'
+ +'<li><b>eCRF inventory</b> &#8212; '+tr(["alle eCRF-documenten geïnventariseerd en genummerd.","all eCRF documents inventoried and numbered."])+'</li>'
+ +'<li><b>Construct mapping</b> &#8212; '+tr(["elk eCRF-document gekoppeld aan het onderliggende construct.","each eCRF document linked to its underlying construct."])+'</li>'
+ +'<li><b>Overlap analysis</b> &#8212; '+tr(["vragenlijsten met inhoudelijke overlap geïdentificeerd.","questionnaires with content overlap identified."])+'</li>'
+ +'<li><b>Traceability matrix</b> &#8212; '+tr(["eCRF, construct, onderzoeksvraag en visit gekoppeld.","eCRF, construct, research question and visit linked."])+'</li>'
+ +'<li><b>Optimized visit schedule</b> &#8212; '+tr(["voorstel voor een overzichtelijkere visitstructuur.","proposal for a clearer visit structure."])+'</li>'
+ +'</ol>';
+
+h+='<div class="sh">'+tr(["Visitplanning: V0 &#8211; V8","Visit schedule: V0 &#8211; V8"])+'</div>';
+var VIS=[["V0",tr(["Screening","Screening"]),0],["V1",tr(["Baseline","Baseline"]),0],["V2",tr(["CMFO","CMFO"]),0],["V3",tr(["Follow-up","Follow-up"]),0],["V4",tr(["Major FU","Major FU"]),1],["V5",tr(["Follow-up","Follow-up"]),0],["V6",tr(["Major FU","Major FU"]),1],["V7",tr(["Follow-up","Follow-up"]),0],["V8",tr(["End Study","End Study"]),2]];
+h+='<div class="timeline">'+VIS.map(function(v){var cls=v[2]===2?'end':(v[2]===1?'major':'');return '<div class="tnode '+cls+'"><div class="tv">'+v[0]+'</div><div class="tl">'+v[1]+'</div></div>';}).join('')+'</div>';
+
+h+='<div class="sh">'+tr(["Elke visit afzonderlijk, chronologisch (voorstel)","Each visit described separately, chronologically (proposal)"])+'</div>';
+var VPROP=[
+ ["V0",tr(["Screening","Screening"]),tr(["In-/exclusiecriteria, informed consent.","In-/exclusion criteria, informed consent."]),0],
+ ["V1",tr(["Baseline","Baseline"]),tr(["Demografie, foot screening, pressure, CMFO, QoL.","Demographics, foot screening, pressure, CMFO, QoL."]),0],
+ ["V2",tr(["CMFO-fitting","CMFO fitting"]),tr(["Pressure, CMFO, start Orthotimer.","Pressure, CMFO, Orthotimer start."]),0],
+ ["V3",tr(["Follow-up","Follow-up"]),tr(["Foot screening, Orthotimer, QoL, health economics.","Foot screening, Orthotimer, QoL, health economics."]),0],
+ ["V4",tr(["Major follow-up","Major follow-up"]),tr(["Idem V3 + pressure meting.","Same as V3 + pressure measurement."]),1],
+ ["V5",tr(["Follow-up","Follow-up"]),tr(["Foot screening, Orthotimer, QoL, health economics.","Foot screening, Orthotimer, QoL, health economics."]),0],
+ ["V6",tr(["Major follow-up","Major follow-up"]),tr(["Idem V3 + pressure meting.","Same as V3 + pressure measurement."]),1],
+ ["V7",tr(["Follow-up","Follow-up"]),tr(["Foot screening, Orthotimer, QoL, health economics.","Foot screening, Orthotimer, QoL, health economics."]),0],
+ ["V8",tr(["End of study","End of study"]),tr(["Idem V4 + eindevaluatie van de studie.","Same as V4 + end-of-study evaluation."]),2]
+];
+h+='<div class="vgrid">'+VPROP.map(function(v){var cls=v[3]===1?'major':'';return '<div class="vcard '+cls+'"><div class="vh"><span class="vn">'+v[0]+'</span><span class="vt">'+v[1]+'</span></div><p>'+v[2]+'</p></div>';}).join('')+'</div>';
+
+h+='<div class="sh">'+tr(["eCRF-domeinen: overzicht &amp; inzichten","eCRF domains: overview &amp; insights"])+'</div>';
+h+='<table class="tbl"><thead><tr><th>Domain</th><th>#</th><th>'+tr(["Visit(s)","Visit(s)"])+'</th><th>'+tr(["Onderzoeksvraag","Research question"])+'</th></tr></thead><tbody>'
+ +DOMAIN_ORDER.map(function(k){
+   var count=ECRF_ROWS.filter(function(r){return r[1]===k && !isDropped(r);}).length;
+   return '<tr><td>'+domainLabel(k)+'</td><td>'+count+'</td><td>'+DOMAIN_VISITS[k]+'</td><td>'+DOMAIN_RQ[k]+'</td></tr>';
+ }).join('')
+ +'</tbody></table>';
+h+='<div class="grid2" style="margin-top:14px">'
+ +DOMAIN_ORDER.map(function(k){ return '<div class="note tip"><span class="lab">'+domainLabel(k)+'</span>'+DOMAIN_INSIGHT[k]+'</div>'; }).join('')
+ +'</div>';
+
+h+='<div class="sh">'+tr(["Patiëntbelasting: schedule of assessments","Patient burden: schedule of assessments"])+'</div>';
+var SOA=[
+ [tr(["Screening","Screening"]),["✓","–","–","–","–","–","–","–","–"]],
+ [tr(["Demografie","Demographics"]),["–","✓","–","–","–","–","–","–","–"]],
+ [tr(["Foot Screening","Foot Screening"]),["–","✓","–","✓","✓","✓","✓","✓","✓"]],
+ ["Pressure",["–","✓","✓","–","✓","–","✓","–","✓"]],
+ ["CMFO",["–","✓","✓","–","–","–","–","–","–"]],
+ ["Orthotimer",["–","–","✓","✓","✓","✓","✓","✓","✓"]],
+ ["Quality of Life",["–","✓","–","✓","✓","✓","✓","✓","✓"]],
+ ["Health Economics",["–","–","–","✓","✓","✓","✓","✓","✓"]]
+];
+var BEL=[1,5,3,4,5,4,5,4,5];
+h+='<div style="overflow-x:auto"><table class="tbl center"><thead><tr><th>Construct</th><th>V0</th><th>V1</th><th>V2</th><th>V3</th><th>V4</th><th>V5</th><th>V6</th><th>V7</th><th>V8</th></tr></thead><tbody>';
+SOA.forEach(function(row){h+='<tr><td>'+row[0]+'</td>'+row[1].map(function(c){return '<td style="'+(c==='✓'?'color:var(--green);font-weight:800':'color:var(--muted)')+'">'+c+'</td>';}).join('')+'</tr>';});
+h+='<tr><td>'+tr(["Belasting","Burden"])+'</td>'+BEL.map(function(n){return '<td style="font-weight:800;color:var(--pd)">'+n+'</td>';}).join('')+'</tr>';
+h+='</tbody></table></div>';
+h+='<p class="muted" style="margin-top:8px">'+tr(["Minder metingen per visit verlaagt het risico op missing data en uitval.","Fewer measurements per visit lowers the risk of missing data and dropout."])+'</p>';
+
+h+='<div class="sh">'+tr(["Traceability-matrix: alle eCRF-documenten","Traceability matrix: all eCRF documents"])+'</div>';
+h+='<p class="lead" style="font-size:14px">'+tr(["Volledig overzicht van alle ","Full overview of all "])+ECRF_ROWS.length+tr([" eCRF-documenten met hun domain, type en visit(s). Zoek op nummer, titel of domain, of filter op type."," eCRF documents with their domain, type and visit(s). Search by number, title or domain, or filter by type."])+'</p>';
+h+='<div class="chipbar">'
+ +TYPE_ORDER.map(function(k){ return '<button type="button" class="fchip" data-type-filter="'+k+'">'+typeLabel(k)+'</button>'; }).join('')
+ +'</div>';
+h+='<div style="margin:4px 0 10px"><input id="ecrfSearch" type="text" placeholder="'+tr(["Zoek op nummer, titel, domain…","Search by number, title, domain…"])+'" style="width:100%;max-width:420px;padding:9px 14px;border:1px solid var(--line);border-radius:99px;font:600 14px var(--font-b);color:var(--pd)"></div>';
+h+='<div style="overflow-x:auto"><table class="tbl"><thead><tr><th>eCRF</th><th>'+tr(["Titel","Title"])+'</th><th>Domain</th><th>'+tr(["Type","Type"])+'</th><th>'+tr(["Visit(s)","Visit(s)"])+'</th></tr></thead><tbody id="ecrfMatrixBody">'
+ +ECRF_ROWS.map(function(r){
+   var key=(r[0]+' '+domainLabel(r[1])+' '+r[2]+' '+r[3]+' '+typeLabel(r[4])+' '+(isDropped(r)?'geschrapt dropped amendement':'')).toLowerCase().replace(/<[^>]+>/g,'').replace(/&[a-z]+;/g,' ').replace(/"/g,'&quot;');
+   var badge=isDropped(r)?'<span class="dropped-badge">'+tr(["Geschrapt","Dropped"])+'</span>':'';
+   return '<tr class="'+(isDropped(r)?'row-dropped':'')+'" data-search="'+key+'" data-type="'+r[4]+'"><td>'+ecrf(r[0])+badge+'</td><td>'+r[2]+'</td><td>'+domainLabel(r[1])+'</td><td>'+typeLabel(r[4])+'</td><td>'+r[3]+'</td></tr>';
+ }).join('')
+ +'</tbody></table></div>';
+h+='<p class="muted" id="ecrfNoMatch" style="display:none;margin-top:8px">'+tr(["Geen eCRF-documenten gevonden.","No matching eCRF documents."])+'</p>';
+
+h+='<div class="sh">'+tr(["Methodologische onderbouwing &#8212; referenties","Methodological basis &#8212; references"])+'</div>';
+h+='<ol class="refs">'
+ +'<li>Bus SA, Armstrong DG, Crews RT, Gooday C, Jarl G, Kirketerp-M&oslash;ller K, et al. Guidelines on offloading foot ulcers in persons with diabetes (IWGDF 2023 update). Diabetes Metab Res Rev. 2024;40(3):e3647. <a href="https://doi.org/10.1002/dmrr.3647" target="_blank" rel="noopener">doi:10.1002/dmrr.3647</a> &#8212; Monteiro-Soares M, Hamilton EJ, Russell DA, et al. Guidelines on the classification of foot ulcers in people with diabetes (IWGDF 2023 update). Diabetes Metab Res Rev. 2024;40(3):e3648. <a href="https://doi.org/10.1002/dmrr.3648" target="_blank" rel="noopener">doi:10.1002/dmrr.3648</a></li>'
+ +'<li>Chan AW, Tetzlaff JM, Altman DG, et al. SPIRIT 2013 Statement: Defining Standard Protocol Items for Clinical Trials. Ann Intern Med. 2013;158(3):200&#8211;207. <a href="https://doi.org/10.7326/0003-4819-158-3-201302050-00583" target="_blank" rel="noopener">doi:10.7326/0003-4819-158-3-201302050-00583</a></li>'
+ +'<li>National Research Council (US) Panel on Handling Missing Data in Clinical Trials. The Prevention and Treatment of Missing Data in Clinical Trials. Washington, DC: National Academies Press; 2010. <a href="https://doi.org/10.17226/12955" target="_blank" rel="noopener">doi:10.17226/12955</a></li>'
+ +'</ol>';
+h+='<p class="muted" style="margin-top:10px">'+tr(["Toegepast op PARADISE: [1] kadert de doelpopulatie, [2] de traceability-matrix, [3] de patiëntbelasting-analyse.","Applied to PARADISE: [1] frames the target population, [2] the traceability matrix, [3] the patient-burden analysis."])+'</p>';
+
+return h;
+};
+window.addEventListener('message',function(e){if(e.data&&e.data.type==='px_lang'){setLang(e.data.lang);if(window.repaint)window.repaint();}});
+if(window.self!==window.top){document.body.classList.add('embedded');}
+boot();
+</script>
+</body>
+</html>
