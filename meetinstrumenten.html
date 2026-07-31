@@ -125,7 +125,7 @@ window.RENDER=function(){
 var IC={"fscan": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M7 3c2 0 3 1.5 3 4 0 1.5.5 3 .5 5 0 3 1 5-2 6-2 .7-4-1-4-4 0-2 .5-3 .5-5C5.5 6 5 3 7 3Z\"/><circle cx=\"14.5\" cy=\"8\" r=\"1\"/><circle cx=\"16\" cy=\"11.5\" r=\"1\"/><circle cx=\"14\" cy=\"14.5\" r=\"1\"/></svg>", "pedar": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"4\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M7 8h.01M11 8h.01M15 8h.01M7 12h.01M11 12h.01M15 12h.01M7 16h.01M11 16h.01M15 16h.01\"/></svg>", "mm": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 7v5l3 2\"/></svg>", "ot": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 14c0-3.9 3.1-7 7-7s7 3.1 7 7\"/><path d=\"M3 14h18\"/><path d=\"M12 7V4\"/><path d=\"M9 4h6\"/></svg>"};
 var INST=[
  {k:'fscan',ic:IC.fscan,name:["F-Scan GO","F-Scan GO"],tag:["In-shoe drukmeting","In-shoe pressure"],who:["Studieteam","Study team"],
-  intro:["Meet de plantaire druk \u00edn de schoen tijdens het stappen en stuurt de offloading. Doel: <b>&lt;200 kPa</b> \u00f3f <b>\u226525%</b> lager dan baseline.","Measures in-shoe plantar pressure while walking and drives offloading. Goal: <b>&lt;200 kPa</b> or <b>\u226525%</b> below baseline."],
+  intro:["Meet de plantaire druk \u00edn de schoen tijdens het stappen, als aparte validatiestudie van het studieteam \u2014 stuurt geen klinische offloadingsbeslissing. Referentiedoel: <b>&lt;200 kPa</b> \u00f3f <b>\u226525%</b> lager dan baseline.","Measures in-shoe plantar pressure while walking, as a separate validation study run by the study team \u2014 does not drive the clinical offloading decision. Reference goal: <b>&lt;200 kPa</b> or <b>\u226525%</b> below baseline."],
   chips:[["500 Hz","500 Hz"],["8 regio's","8 regions"],["10\u2013862 kPa","10\u2013862 kPa"]],
   steps:[
    {phase:["Klaarzetten","Set up"],items:[
@@ -142,13 +142,13 @@ var INST=[
     ["Laat de deelnemer op comfortsnelheid stappen (\u00b1 10 m looppad; bij follow-up binnen \u00b15% van de baselinesnelheid) en registreer per voet minstens 12 midgait-stappen.","Have the participant walk at a comfortable pace (\u00b1 10 m walkway; at follow-up within \u00b15% of baseline pace) and record at least 12 mid-gait steps per foot."],
     ["Stop de opname na de laatste stap \u2014 ze wordt automatisch bewaard in het pati\u00ebntendossier.","Stop the recording after the last step \u2014 it is automatically saved in the patient record."],
     ["Verwerk de opname en verdeel de voet met de Multimask-tool in de 8 vaste drukregio's (hallux en tenen 2-5 apart).","Process the recording and divide the foot into the 8 fixed pressure regions with the Multimask tool (hallux and toes 2-5 separate)."],
-    ["Vergelijk de gemiddelde piekdruk per regio met de baseline tegen het offloadingdoel, en noteer de resultaten in REDCap.","Compare the average peak pressure per region with baseline against the offloading goal, and record the results in REDCap."]
+    ["Vergelijk de gemiddelde piekdruk per regio met de baseline (referentiewaarde &lt;200 kPa of ≥25% reductie), en noteer de resultaten in REDCap voor de validatiestudie — dit stuurt geen klinische beslissing.","Compare the average peak pressure per region with baseline (reference value &lt;200 kPa or ≥25% reduction), and record the results in REDCap for the validation study — this does not drive any clinical decision."]
    ]}
   ],
   sop:"eCRF-documenten/Per nummer/09_Meting plantaire druk - baseline.docx",
   sources:[["Tekscan — FootVIEW (patiëntendossierbeheer)","https://www.tekscan.com/products-solutions/software/footview"]]},
  {k:'pedar',ic:IC.pedar,name:["Novel pedar","Novel pedar"],tag:["In-shoe drukmeting \u00b7 in transitie","In-shoe pressure \u00b7 in transition"],who:["Zorgteam (DFC)","Care team (DFC)"],
-  intro:["Draadloze druksensor-inlegzolen \u00edn de schoen, verbonden met de novel database-software. Vervangt op termijn de F-Scan; loopt nu <b>parallel</b> ter vergelijking.","Wireless in-shoe pressure-sensor insoles, linked to the novel database software. Will replace the F-Scan; currently runs <b>in parallel</b> for comparison."],
+  intro:["Draadloze druksensor-inlegzolen \u00edn de schoen, verbonden met de novel database-software. Stuurt de effectieve offloadingsbeslissing (CMFO-aanpassing). Vervangt op termijn de F-Scan; loopt nu <b>parallel</b> ter vergelijking.","Wireless in-shoe pressure-sensor insoles, linked to the novel database software. Drives the actual offloading decision (CMFO adjustment). Will replace the F-Scan; currently runs <b>in parallel</b> for comparison."],
   chips:[["in-shoe insoles","in-shoe insoles"],["trublu-kalibratie","trublu calibration"],["novel database","novel database"]],
   steps:[
    {phase:["Klaarzetten & kalibreren","Set up & calibrate"],items:[
@@ -198,7 +198,7 @@ var INST=[
   steps:[
    {phase:["Patiënt & instellingen","Patient & settings"],items:[
     ["Maak in de Orthotimer-software een nieuw pati\u00ebntenprofiel aan (naam = deelnemersnummer; geboortedatum en geslacht blijven op de standaardwaarde, want geblindeerd).","Create a new patient profile in the Orthotimer software (name = participant number; date of birth and gender stay at the default value, since blinded)."],
-    ["Stel bij Instellingen in: eenheid Celsius, gewenste draagtijd 8 u/dag, temperatuurbereik voor de inlegzool 25\u201338,5 \u00b0C.","In Settings, set: unit Celsius, desired wearing time 8 h/day, insole temperature range 25\u201338.5 \u00b0C."]
+    ["Stel bij Instellingen in: eenheid Celsius, gewenste draagtijd ge\u00efndividualiseerd per deelnemer (80% van diens actieve/wakkere tijd, op basis van het baseline-beweegprofiel uit de MoveMonitor), temperatuurbereik voor de inlegzool 25\u201338,5 \u00b0C.","In Settings, set: unit Celsius, desired wearing time individualised per participant (80% of their active/awake time, based on the baseline MoveMonitor activity profile), insole temperature range 25\u201338.5 \u00b0C."]
    ]},
    {phase:["Activeren","Activate"],items:[
     ["Verbind de USB/Bluetooth-penreader, houd de pen op de 'O' van het Orthotimer-logo op de sensor tot het lampje oplicht en de app de sensor herkent.","Connect the USB/Bluetooth pen reader, hold it on the 'O' of the Orthotimer logo on the sensor until the light comes on and the app recognises it."],
