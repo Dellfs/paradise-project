@@ -158,6 +158,7 @@ var ECRF_FILES={
 "43":"(e)CRF/Per nummer/43_Interviewgids management.docx",
 "44":"(e)CRF/Per nummer/44_Fidelity checklist SEBIA-interventie.docx",
 "45":"(e)CRF/Per nummer/45_Gezondheidseconomisch dagboek.docx",
+"45a":"(e)CRF/Per nummer/45a_Gezondheidseconomisch dagboek (2-wekelijks, maand 0-3).docx",
 "45b":"(e)CRF/Per nummer/45b_Gezondheidseconomisch dagboek (vervolg).docx"
 };
 function ecrf(n,label){var f=ECRF_FILES[n];var txt=label||('eCRF '+n.replace('b',' bis'));if(f){return '<a class="ecrf" href="'+encodeURI(f)+'" target="_blank" rel="noopener" title="'+f.replace(/"/g,'&quot;')+'">'+txt+'</a>';}return '<span class="ecrf off" title="'+tr(["bestand niet beschikbaar","file not available"])+'">'+txt+'</span>';}
