@@ -159,7 +159,8 @@ var ECRF_FILES={
 "44":"(e)CRF/Per nummer/44_Fidelity checklist SEBIA-interventie.docx",
 "45":"(e)CRF/Per nummer/45_Gezondheidseconomisch dagboek.docx",
 "45a":"(e)CRF/Per nummer/45a_Gezondheidseconomisch dagboek (2-wekelijks, maand 0-3).docx",
-"45b":"(e)CRF/Per nummer/45b_Gezondheidseconomisch dagboek (vervolg).docx"
+"45b":"(e)CRF/Per nummer/45b_Gezondheidseconomisch dagboek (vervolg).docx",
+"46":"(e)CRF/Per nummer/46_AE-SAE Report Form.docx"
 };
 function ecrf(n,label){var f=ECRF_FILES[n];var txt=label||('eCRF '+n.replace('b',' bis'));if(f){return '<a class="ecrf" href="'+encodeURI(f)+'" target="_blank" rel="noopener" title="'+f.replace(/"/g,'&quot;')+'">'+txt+'</a>';}return '<span class="ecrf off" title="'+tr(["bestand niet beschikbaar","file not available"])+'">'+txt+'</span>';}
 function ecrfList(arr){return '<span class="ecrflist">'+arr.map(function(n){return ecrf(n);}).join('')+'</span>';}
@@ -206,7 +207,7 @@ h+='<p class="lead">'+tr(["Een verkennende analyse van het goedgekeurde PARADISE
 h+='<div class="note tip"><span class="lab">'+tr(["Enkel voor het onderzoeksteam","For the research team only"])+'</span>'+tr(["Deze analyse is verkennend en staat los van het goedgekeurde protocol (v1.0), dat van kracht blijft tot een amendement wordt goedgekeurd. Alle eCRF-links verwijzen naar de originele documenten in de studiemap.","This analysis is exploratory and is kept separate from the approved protocol (v1.0), which remains in force until an amendment is approved. All eCRF links point to the original documents in the study folder."])+'</div>';
 h+='<div class="note warn"><span class="lab">'+tr(["Amendement","Amendment"])+'</span>'+tr(["Beslissing van de PI: ","Decision by the PI: "])+DROPPED_NOTE+tr([" worden uit het protocol geschrapt. Ze blijven hieronder zichtbaar in de traceability-matrix (doorstreept, gemarkeerd “Geschrapt”) voor auditdoeleinden, maar tellen niet meer mee in de actieve domein-cijfers hierboven."," are being dropped from the protocol. They remain visible below in the traceability matrix (struck through, marked “Dropped”) for audit purposes, but no longer count toward the active domain figures above."])+'</div>';
 
-var DOMAIN_ORDER=["screening","baseline","clinical","selfcare","education","qol","health","overige","process"];
+var DOMAIN_ORDER=["screening","baseline","clinical","selfcare","education","qol","health","overige","process","safety"];
 var DOMAIN_INFO={
  screening:{nl:"Screening",en:"Screening"},
  baseline:{nl:"Baseline",en:"Baseline"},
@@ -216,7 +217,8 @@ var DOMAIN_INFO={
  qol:{nl:"Quality of Life",en:"Quality of Life"},
  health:{nl:"Health Economics",en:"Health Economics"},
  overige:{nl:"Overige (randomisatie, tracking)",en:"Other (randomisation, tracking)"},
- process:{nl:"Process Evaluation",en:"Process Evaluation"}
+ process:{nl:"Process Evaluation",en:"Process Evaluation"},
+ safety:{nl:"Veiligheid (AE/SAE)",en:"Safety (AE/SAE)"}
 };
 function domainLabel(k){return DOMAIN_INFO[k][lang==='nl'?'nl':'en'];}
 var DOMAIN_VISITS={
@@ -224,7 +226,8 @@ var DOMAIN_VISITS={
  clinical:"V1, V2, V3&#8211;V8, "+tr(["ulcusvisite","ulcer visit"]),
  selfcare:"V1, V2, V3&#8211;V8", education:"V1, V2, V3&#8211;V8",
  qol:"V1, V3&#8211;V8", health:"V3&#8211;V8", overige:"V1, V2, V3&#8211;V8",
- process:tr(["parallel, niet visitgebonden","parallel, not visit-bound"])
+ process:tr(["parallel, niet visitgebonden","parallel, not visit-bound"]),
+ safety:tr(["parallel, niet visitgebonden","parallel, not visit-bound"])
 };
 var DOMAIN_RQ={
  screening:tr(["Toewijzing aan studiearm","Assignment to study arm"]),
@@ -235,7 +238,8 @@ var DOMAIN_RQ={
  qol:tr(["Kwaliteit van leven","Quality of life"]),
  health:tr(["Kosteneffectiviteit","Cost-effectiveness"]),
  overige:tr(["Administratieve traceerbaarheid","Administrative traceability"]),
- process:tr(["Implementatie &amp; ervaring","Implementation &amp; experience"])
+ process:tr(["Implementatie &amp; ervaring","Implementation &amp; experience"]),
+ safety:tr(["Veiligheidsmonitoring (amputatie, mortaliteit)","Safety monitoring (amputation, mortality)"])
 };
 var DOMAIN_INSIGHT={
  screening:tr(["eCRF 03&#8211;05 zijn eenmalige site-/therapeut-/managerformulieren, geen herhaalde patiëntstap.","eCRF 03&#8211;05 are one-off site/therapist/manager forms, not a repeated patient step."]),
@@ -246,7 +250,8 @@ var DOMAIN_INSIGHT={
  qol:tr(["Na schrapping van SF-36 nog maar 1 actief eCRF (EQ-5D-5L), met de hoogste meetfrequentie &#8212; elke visit vanaf V1.","After dropping SF-36, only 1 active eCRF remains (EQ-5D-5L), with the highest measurement frequency &#8212; every visit from V1 onward."]),
  health:tr(["Enige domein met PDF-vragenlijsten i.p.v. de genummerde eCRF-Worddocumenten; start pas bij V3.","Only domain using PDF questionnaires instead of the numbered eCRF Word documents; starts only at V3."]),
  overige:tr(["Grotendeels toestel-tracking (UDI-logs); geen eigen wetenschappelijk construct maar wel nodig voor traceability.","Mostly device tracking (UDI logs); not its own scientific construct but still needed for traceability."]),
- process:tr(["Volledig kwalitatief (interviews, dagboek) en niet gekoppeld aan de vaste visitplanning.","Fully qualitative (interviews, diary) and not tied to the fixed visit schedule."])
+ process:tr(["Volledig kwalitatief (interviews, dagboek) en niet gekoppeld aan de vaste visitplanning.","Fully qualitative (interviews, diary) and not tied to the fixed visit schedule."]),
+ safety:tr(["Nieuw (2026): enige gestructureerde vastlegging van amputatie en overlijden, toegevoegd om de secundaire eindpunten uit de internationale Core Outcome Set (Staniszewska et al., 2024) te kunnen rapporteren.","New (2026): the only structured capture of amputation and mortality, added to support reporting of the secondary endpoints from the international Core Outcome Set (Staniszewska et al., 2024)."])
 };
 var TYPE_ORDER=["vragenlijst","feedback","educatie","toestel","meting","classificatie","administratie","kwalitatief"];
 var TYPE_INFO={
@@ -311,7 +316,8 @@ var ECRF_ROWS=[
  ["40","process",tr(["Structured diary &#8212; therapeut","Structured diary &#8212; therapist"]),tr(["parallel","parallel"]),"kwalitatief"],
  ["41","process",tr(["Interview guide &#8212; patiënt","Interview guide &#8212; patient"]),tr(["parallel","parallel"]),"kwalitatief"],
  ["42","process",tr(["Interview guide &#8212; therapeut","Interview guide &#8212; therapist"]),tr(["parallel","parallel"]),"kwalitatief"],
- ["43","process",tr(["Interview guide &#8212; management","Interview guide &#8212; management"]),tr(["parallel","parallel"]),"kwalitatief"]
+ ["43","process",tr(["Interview guide &#8212; management","Interview guide &#8212; management"]),tr(["parallel","parallel"]),"kwalitatief"],
+ ["46","safety",tr(["AE/SAE Report Form","AE/SAE Report Form"]),tr(["parallel","parallel"]),"administratie"]
 ];
 
 h+='<div class="sh">'+tr(["Achtergrond &amp; doel","Background &amp; purpose"])+'</div>';
