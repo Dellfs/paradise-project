@@ -160,7 +160,8 @@ var ECRF_FILES={
 "45":"(e)CRF/Per nummer/45_Gezondheidseconomisch dagboek.docx",
 "45a":"(e)CRF/Per nummer/45a_Gezondheidseconomisch dagboek (2-wekelijks, maand 0-3).docx",
 "45b":"(e)CRF/Per nummer/45b_Gezondheidseconomisch dagboek (vervolg).docx",
-"46":"(e)CRF/Per nummer/46_AE-SAE Report Form.docx"
+"46":"(e)CRF/Per nummer/46_AE-SAE Report Form.docx",
+"47":"(e)CRF/Per nummer/47_Ulcus-vervolgformulier.docx"
 };
 function ecrf(n,label){var f=ECRF_FILES[n];var txt=label||('eCRF '+n.replace('b',' bis'));if(f){return '<a class="ecrf" href="'+encodeURI(f)+'" target="_blank" rel="noopener" title="'+f.replace(/"/g,'&quot;')+'">'+txt+'</a>';}return '<span class="ecrf off" title="'+tr(["bestand niet beschikbaar","file not available"])+'">'+txt+'</span>';}
 function ecrfList(arr){return '<span class="ecrflist">'+arr.map(function(n){return ecrf(n);}).join('')+'</span>';}
@@ -312,6 +313,7 @@ var ECRF_ROWS=[
  ["36","clinical","PEDIS",tr(["ulcusvisite","ulcer visit"]),"classificatie"],
  ["37","clinical","TWCS (Texas)",tr(["ulcusvisite","ulcer visit"]),"classificatie","dropped"],
  ["38","clinical","WIfI",tr(["ulcusvisite","ulcer visit"]),"classificatie"],
+ ["47","clinical",tr(["Ulcus-vervolgformulier (genezingsstatus + Cardiff Wound Impact Schedule)","Ulcer follow-up form (healing status + Cardiff Wound Impact Schedule)"]),tr(["ulcusvisite, herhaald","ulcer visit, repeated"]),"meting"],
  ["39","process","Process Evaluation Protocol",tr(["parallel","parallel"]),"kwalitatief"],
  ["40","process",tr(["Structured diary &#8212; therapeut","Structured diary &#8212; therapist"]),tr(["parallel","parallel"]),"kwalitatief"],
  ["41","process",tr(["Interview guide &#8212; patiënt","Interview guide &#8212; patient"]),tr(["parallel","parallel"]),"kwalitatief"],
