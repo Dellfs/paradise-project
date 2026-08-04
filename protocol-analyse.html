@@ -161,7 +161,8 @@ var ECRF_FILES={
 "45a":"(e)CRF/Per nummer/45a_Gezondheidseconomisch dagboek (2-wekelijks, maand 0-3).docx",
 "45b":"(e)CRF/Per nummer/45b_Gezondheidseconomisch dagboek (vervolg).docx",
 "46":"(e)CRF/Per nummer/46_AE-SAE Report Form.docx",
-"47":"(e)CRF/Per nummer/47_Ulcus-vervolgformulier.docx"
+"47":"(e)CRF/Per nummer/47_Ulcus-vervolgformulier.docx",
+"48":"(e)CRF/Per nummer/48_Voetzorgfolder (patientenfolder).docx"
 };
 function ecrf(n,label){var f=ECRF_FILES[n];var txt=label||('eCRF '+n.replace('b',' bis'));if(f){return '<a class="ecrf" href="'+encodeURI(f)+'" target="_blank" rel="noopener" title="'+f.replace(/"/g,'&quot;')+'">'+txt+'</a>';}return '<span class="ecrf off" title="'+tr(["bestand niet beschikbaar","file not available"])+'">'+txt+'</span>';}
 function ecrfList(arr){return '<span class="ecrflist">'+arr.map(function(n){return ecrf(n);}).join('')+'</span>';}
@@ -288,7 +289,8 @@ var ECRF_ROWS=[
  ["14","selfcare","NAFF &#8212; "+tr(["voetzorgkennis","foot-care knowledge"]),"V1","vragenlijst"],
  ["15","selfcare","HLS-EU-6 &#8212; "+tr(["gezondheidsvaardigheden","health literacy"]),"V1","vragenlijst"],
  ["16","education",tr(["SEBIA &#8212; educatieboekje","SEBIA &#8212; education booklet"]),"V1","educatie"],
- ["17","education",tr(["SEBIA &#8212; folder dagelijkse voetzorg","SEBIA &#8212; daily foot-care leaflet"]),"V1","educatie"],
+ ["17","education",tr(["SEBIA &#8212; script interventie (therapeut)","SEBIA &#8212; intervention script (therapist)"]),"V1&#8211;V8","educatie"],
+ ["48","education",tr(["SEBIA &#8212; folder dagelijkse voetzorg (patient)","SEBIA &#8212; daily foot-care leaflet (patient)"]),"V1","educatie"],
  ["18","education",tr(["SEBIA &#8212; demonstratie/oefensessie","SEBIA &#8212; demonstration/practice"]),"V1","educatie"],
  ["19","clinical",tr(["MoveMonitor &#8212; gebruikershandleiding","MoveMonitor &#8212; user manual"]),"V1, V4","toestel"],
  ["19b","clinical","SOP Dynaport","V1, V4","administratie"],
