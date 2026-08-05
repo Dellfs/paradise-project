@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 640" width="1140" height="640" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="a3" markerWidth="8" markerHeight="8" refX="7" refY="2.6" orient="auto">
+      <path d="M0,0 L0,5.2 L7,2.6 z" fill="#1B3A5C"/>
+    </marker>
+    <marker id="a3d" markerWidth="8" markerHeight="8" refX="7" refY="2.6" orient="auto">
+      <path d="M0,0 L0,5.2 L7,2.6 z" fill="#8FA3B5"/>
+    </marker>
+  </defs>
+  <rect width="1140" height="640" fill="#FFFFFF"/>
+
+  <!-- column headers -->
+  <g font-size="12" font-weight="bold" fill="#1B3A5C" letter-spacing="1.1">
+    <text x="26" y="30">INPUTS</text>
+    <text x="248" y="30">ACTIVITIES</text>
+    <text x="474" y="30">OUTPUTS</text>
+    <text x="700" y="30">SHORT / MEDIUM TERM</text>
+    <text x="952" y="30">LONG TERM</text>
+  </g>
+  <line x1="26" y1="40" x2="1114" y2="40" stroke="#C8D3DE"/>
+
+  <!-- INPUTS -->
+  <rect x="26" y="58" width="196" height="152" rx="4" fill="#F4F6F8" stroke="#8FA3B5" stroke-width="1.4"/>
+  <text x="40" y="80" font-size="12" font-weight="bold" fill="#1B3A5C">Resources</text>
+  <g font-size="11" fill="#33475B">
+    <text x="40" y="100">Six accredited Diabetic</text><text x="40" y="115">Foot Clinics (3 academic,</text><text x="40" y="130">3 non-academic)</text>
+    <text x="40" y="150">Multidisciplinary teams</text>
+    <text x="40" y="168">F-Scan GO · Orthotimer ·</text><text x="40" y="183">MoveMonitor</text>
+    <text x="40" y="201">Certified pedorthists</text>
+  </g>
+  <rect x="26" y="222" width="196" height="86" rx="4" fill="#F4F6F8" stroke="#8FA3B5" stroke-width="1.4"/>
+  <text x="40" y="244" font-size="12" font-weight="bold" fill="#1B3A5C">Theory base</text>
+  <g font-size="11" fill="#33475B">
+    <text x="40" y="264">Biomechanical model:</text><text x="40" y="279">tissue stress → ulceration</text>
+    <text x="40" y="297">COM-B behavioural model</text>
+  </g>
+
+  <!-- ACTIVITIES -->
+  <rect x="248" y="58" width="196" height="118" rx="4" fill="#EAF1F7" stroke="#1B3A5C" stroke-width="1.5"/>
+  <text x="262" y="80" font-size="12" font-weight="bold" fill="#1B3A5C">Offloading optimisation</text>
+  <g font-size="11" fill="#33475B">
+    <text x="262" y="100">Baseline pressure mapping</text>
+    <text x="262" y="118">Iterative CMFO adjustment</text>
+    <text x="262" y="136">to &lt;200 kPa or ≥25%</text><text x="262" y="151">reduction from baseline</text>
+    <text x="262" y="169">Sensor integration</text>
+  </g>
+  <rect x="248" y="188" width="196" height="120" rx="4" fill="#EAF1F7" stroke="#1B3A5C" stroke-width="1.5"/>
+  <text x="262" y="210" font-size="12" font-weight="bold" fill="#1B3A5C">SEBIA (5 steps)</text>
+  <g font-size="11" fill="#33475B">
+    <text x="262" y="230">Tailored education</text>
+    <text x="262" y="248">Teach-back verification</text>
+    <text x="262" y="266">Collaborative review of</text><text x="262" y="281">objective wear-time data</text>
+    <text x="262" y="299">Barrier problem-solving</text>
+  </g>
+
+  <!-- OUTPUTS -->
+  <rect x="474" y="58" width="196" height="118" rx="4" fill="#EAF1F7" stroke="#1B3A5C" stroke-width="1.5"/>
+  <text x="488" y="80" font-size="12" font-weight="bold" fill="#1B3A5C">Delivered offloading</text>
+  <g font-size="11" fill="#33475B">
+    <text x="488" y="100">Achieved peak-pressure</text><text x="488" y="115">reduction per participant</text>
+    <text x="488" y="135">Recorded as fidelity</text><text x="488" y="150">measure, not assumed</text>
+  </g>
+  <rect x="474" y="188" width="196" height="120" rx="4" fill="#EAF1F7" stroke="#1B3A5C" stroke-width="1.5"/>
+  <text x="488" y="210" font-size="12" font-weight="bold" fill="#1B3A5C">Delivered support</text>
+  <g font-size="11" fill="#33475B">
+    <text x="488" y="230">Sessions delivered, dose,</text><text x="488" y="245">reach, adaptations</text>
+    <text x="488" y="265">Quality of delivery</text>
+    <text x="488" y="283">Sensor data completeness</text><text x="488" y="298">(monitored, ≥70% target)</text>
+  </g>
+
+  <!-- SHORT/MEDIUM -->
+  <rect x="700" y="58" width="222" height="104" rx="4" fill="#DCE9F2" stroke="#1B3A5C" stroke-width="1.6"/>
+  <text x="714" y="80" font-size="12" font-weight="bold" fill="#1B3A5C">Footwear adherence ↑</text>
+  <text x="714" y="99" font-size="10.5" fill="#0E7C86" font-weight="bold">CO-PRIMARY OUTCOME</text>
+  <g font-size="11" fill="#33475B">
+    <text x="714" y="120">Proportion of individualised,</text><text x="714" y="135">activity-derived wear-time</text><text x="714" y="150">target achieved</text>
+  </g>
+  <rect x="700" y="174" width="222" height="82" rx="4" fill="#DCE9F2" stroke="#1B3A5C" stroke-width="1.6"/>
+  <text x="714" y="196" font-size="12" font-weight="bold" fill="#1B3A5C">Tissue stress ↓</text>
+  <g font-size="11" fill="#33475B">
+    <text x="714" y="216">Cumulative plantar tissue</text><text x="714" y="231">stress — exploratory,</text><text x="714" y="246">dose–response (Fig. 5)</text>
+  </g>
+  <rect x="700" y="268" width="222" height="64" rx="4" fill="#F4F6F8" stroke="#8FA3B5" stroke-width="1.4"/>
+  <text x="714" y="290" font-size="12" font-weight="bold" fill="#1B3A5C">Knowledge and skills ↑</text>
+  <g font-size="11" fill="#33475B"><text x="714" y="310">Foot self-care (NAFF)</text><text x="714" y="325">Self-report bias quantified</text></g>
+
+  <!-- LONG TERM -->
+  <rect x="952" y="58" width="162" height="104" rx="4" fill="#1B3A5C"/>
+  <text x="1033" y="82" font-size="12.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Ulcer recurrence ↓</text>
+  <text x="1033" y="101" font-size="10.5" fill="#7FE3F0" text-anchor="middle" font-weight="bold">CO-PRIMARY</text>
+  <text x="1033" y="122" font-size="11" fill="#CFE0EC" text-anchor="middle">Time to first</text>
+  <text x="1033" y="137" font-size="11" fill="#CFE0EC" text-anchor="middle">adjudicated ulcer,</text>
+  <text x="1033" y="152" font-size="11" fill="#CFE0EC" text-anchor="middle">18 months</text>
+
+  <rect x="952" y="174" width="162" height="72" rx="4" fill="#EAF1F7" stroke="#1B3A5C" stroke-width="1.5"/>
+  <text x="1033" y="196" font-size="12" font-weight="bold" fill="#1B3A5C" text-anchor="middle">Cost-utility</text>
+  <text x="1033" y="215" font-size="11" fill="#33475B" text-anchor="middle">ICUR, QALYs</text>
+  <text x="1033" y="232" font-size="11" fill="#33475B" text-anchor="middle">5-year Markov</text>
+
+  <rect x="952" y="258" width="162" height="74" rx="4" fill="#EAF1F7" stroke="#1B3A5C" stroke-width="1.5"/>
+  <text x="1033" y="280" font-size="12" font-weight="bold" fill="#1B3A5C" text-anchor="middle">Scalability</text>
+  <text x="1033" y="299" font-size="11" fill="#33475B" text-anchor="middle">Transferability to</text>
+  <text x="1033" y="316" font-size="11" fill="#33475B" text-anchor="middle">routine DFC care</text>
+
+  <!-- causal arrows -->
+  <g stroke="#1B3A5C" stroke-width="1.7" fill="none" marker-end="url(#a3)">
+    <path d="M226,132 L244,132"/>
+    <path d="M226,250 L244,250"/>
+    <path d="M448,117 L470,117"/>
+    <path d="M448,248 L470,248"/>
+    <path d="M674,117 C688,117 688,200 696,212"/>
+    <path d="M674,248 C688,248 688,120 696,110"/>
+    <path d="M926,110 L948,110"/>
+    <path d="M926,212 C938,212 938,130 948,120"/>
+  </g>
+  <g stroke="#8FA3B5" stroke-width="1.5" fill="none" marker-end="url(#a3d)" stroke-dasharray="5,3">
+    <path d="M674,298 C688,298 688,120 696,112"/>
+    <path d="M926,110 C940,110 940,196 948,204"/>
+    <path d="M926,204 C940,204 940,286 948,292"/>
+  </g>
+
+  <!-- moderators band -->
+  <line x1="26" y1="368" x2="1114" y2="368" stroke="#C8D3DE"/>
+  <text x="26" y="392" font-size="12" font-weight="bold" fill="#1B3A5C" letter-spacing="1.1">CONTEXTUAL MODERATORS</text>
+  <rect x="26" y="404" width="348" height="76" rx="4" fill="#FBFCFD" stroke="#C8D3DE" stroke-width="1.2"/>
+  <text x="40" y="424" font-size="11.5" font-weight="bold" fill="#1B3A5C">Participant</text>
+  <g font-size="11" fill="#33475B">
+    <text x="40" y="443">Health literacy · foot deformity · activity level</text>
+    <text x="40" y="460">Peripheral artery disease · competing morbidity</text>
+    <text x="40" y="474">Indoor vs outdoor activity distribution</text>
+  </g>
+  <rect x="396" y="404" width="348" height="76" rx="4" fill="#FBFCFD" stroke="#C8D3DE" stroke-width="1.2"/>
+  <text x="410" y="424" font-size="11.5" font-weight="bold" fill="#1B3A5C">Professional</text>
+  <g font-size="11" fill="#33475B">
+    <text x="410" y="443">Motivational interviewing proficiency</text>
+    <text x="410" y="460">Pedorthist experience and learning effect</text>
+    <text x="410" y="474">Cross-arm diffusion of behavioural technique</text>
+  </g>
+  <rect x="766" y="404" width="348" height="76" rx="4" fill="#FBFCFD" stroke="#C8D3DE" stroke-width="1.2"/>
+  <text x="780" y="424" font-size="11.5" font-weight="bold" fill="#1B3A5C">Organisational</text>
+  <g font-size="11" fill="#33475B">
+    <text x="780" y="443">Academic vs non-academic centre</text>
+    <text x="780" y="460">Caseload · clinic time · staffing continuity</text>
+    <text x="780" y="474">RIZIV–INAMI reimbursement of footwear</text>
+  </g>
+
+  <!-- assumptions -->
+  <line x1="26" y1="510" x2="1114" y2="510" stroke="#C8D3DE"/>
+  <text x="26" y="534" font-size="12" font-weight="bold" fill="#1B3A5C" letter-spacing="1.1">KEY ASSUMPTIONS THE PROCESS EVALUATION TESTS</text>
+  <g font-size="11.5" fill="#33475B">
+    <text x="26" y="556">1 — Generalist multidisciplinary teams can deliver SEBIA with fidelity under routine caseloads, without dedicated research staff.</text>
+    <text x="26" y="576">2 — Behavioural support converts non-adherent participants into adherent ones, and the change is sustained after intervention contacts cease.</text>
+    <text x="26" y="596">3 — Pressure targets achievable in specialist research settings remain achievable in non-academic clinics.</text>
+    <text x="26" y="616">4 — Sensor data completeness is sufficient to characterise offloading exposure; prior attempts failed on this point, not on concept.</text>
+  </g>
+  <g font-size="10.5" fill="#5A6B7D">
+    <text x="700" y="636">Solid arrows: hypothesised causal pathway.  Dashed arrows: secondary or reinforcing pathways.</text>
+  </g>
+</svg>
