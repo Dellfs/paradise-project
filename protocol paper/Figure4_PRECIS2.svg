@@ -21,14 +21,14 @@
   <text x="340" y="227" font-size="9.5" fill="#5A6B7D">3</text>
   <text x="340" y="187" font-size="9.5" fill="#5A6B7D">4</text>
   <text x="340" y="147" font-size="9.5" fill="#5A6B7D">5</text>
-  <polygon points="336,216 434.989,212.029 487.66,303.258 434.727,387 374.99,437.125 283.329,474.713 202.632,407 184.34,303.258 211.299,181.387" fill="#0E7C86" fill-opacity="0.22" stroke="#0E7C86" stroke-width="2.4"/>
+  <polygon points="336,216 434.989,212.029 487.66,303.258 434.727,387 374.99,437.125 283.329,474.713 237.273,387 184.34,303.258 211.299,181.387" fill="#0E7C86" fill-opacity="0.22" stroke="#0E7C86" stroke-width="2.4"/>
   <circle cx="336" cy="216" r="5" fill="#0E7C86" stroke="#FFFFFF" stroke-width="1.5"/>
   <circle cx="434.989" cy="212.029" r="5" fill="#0E7C86" stroke="#FFFFFF" stroke-width="1.5"/>
   <circle cx="487.66" cy="303.258" r="5" fill="#0E7C86" stroke="#FFFFFF" stroke-width="1.5"/>
   <circle cx="434.727" cy="387" r="5" fill="#0E7C86" stroke="#FFFFFF" stroke-width="1.5"/>
   <circle cx="374.99" cy="437.125" r="5" fill="#0E7C86" stroke="#FFFFFF" stroke-width="1.5"/>
   <circle cx="283.329" cy="474.713" r="5" fill="#0E7C86" stroke="#FFFFFF" stroke-width="1.5"/>
-  <circle cx="202.632" cy="407" r="5" fill="#0E7C86" stroke="#FFFFFF" stroke-width="1.5"/>
+  <circle cx="237.273" cy="387" r="5" fill="#0E7C86" stroke="#FFFFFF" stroke-width="1.5"/>
   <circle cx="184.34" cy="303.258" r="5" fill="#0E7C86" stroke="#FFFFFF" stroke-width="1.5"/>
   <circle cx="211.299" cy="181.387" r="5" fill="#0E7C86" stroke="#FFFFFF" stroke-width="1.5"/>
   <text x="336" y="112" font-size="11.5" fill="#1B3A5C" font-weight="bold" text-anchor="middle">Eligibility</text>
@@ -44,7 +44,7 @@
   <text x="262.808" y="544.094" font-size="11.5" fill="#1B3A5C" font-weight="bold" text-anchor="end">Flexibility: adherence</text>
   <text x="262.808" y="558.094" font-size="11.5" fill="#0E7C86" font-weight="bold" text-anchor="end">4</text>
   <text x="150.671" y="450" font-size="11.5" fill="#1B3A5C" font-weight="bold" text-anchor="end">Follow-up</text>
-  <text x="150.671" y="464" font-size="11.5" fill="#0E7C86" font-weight="bold" text-anchor="end">4</text>
+  <text x="150.671" y="464" font-size="11.5" fill="#0E7C86" font-weight="bold" text-anchor="end">3</text>
   <text x="125.251" y="296.839" font-size="11.5" fill="#1B3A5C" font-weight="bold" text-anchor="end">Primary outcome</text>
   <text x="125.251" y="310.839" font-size="11.5" fill="#0E7C86" font-weight="bold" text-anchor="end">4</text>
   <text x="198.443" y="162.066" font-size="11.5" fill="#1B3A5C" font-weight="bold" text-anchor="end">Primary analysis</text>
@@ -54,7 +54,7 @@
   <rect x="690" y="123" width="22" height="18" rx="3" fill="#0E7C86"/>
   <text x="701" y="136" font-size="11.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">3</text>
   <text x="722" y="136" font-size="11.5" fill="#1B3A5C" font-weight="bold">Eligibility</text>
-  <text x="722" y="151" font-size="10.2" fill="#33475B">IWGDF category 3 only; vascular, renal and mobility exclusions</text>
+  <text x="722" y="151" font-size="10.2" fill="#33475B">IWGDF category 3 only; dialysis and ischaemia excluded</text>
   <rect x="690" y="167" width="22" height="18" rx="3" fill="#0E7C86"/>
   <text x="701" y="180" font-size="11.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">4</text>
   <text x="722" y="180" font-size="11.5" fill="#1B3A5C" font-weight="bold">Recruitment</text>
@@ -74,21 +74,21 @@
   <rect x="690" y="343" width="22" height="18" rx="3" fill="#0E7C86"/>
   <text x="701" y="356" font-size="11.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">4</text>
   <text x="722" y="356" font-size="11.5" fill="#1B3A5C" font-weight="bold">Flexibility: adherence</text>
-  <text x="722" y="371" font-size="10.2" fill="#33475B">No intensity modification; concomitant care unrestricted</text>
+  <text x="722" y="371" font-size="10.2" fill="#33475B">Adherence support is the intervention, not a trial measure</text>
   <rect x="690" y="387" width="22" height="18" rx="3" fill="#0E7C86"/>
-  <text x="701" y="400" font-size="11.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">4</text>
+  <text x="701" y="400" font-size="11.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">3</text>
   <text x="722" y="400" font-size="11.5" fill="#1B3A5C" font-weight="bold">Follow-up</text>
-  <text x="722" y="415" font-size="10.2" fill="#33475B">Three-monthly, as in routine category 3 review; extra measures</text>
+  <text x="722" y="415" font-size="10.2" fill="#33475B">Extra visits at screening and month 1; far heavier measurement</text>
   <rect x="690" y="431" width="22" height="18" rx="3" fill="#0E7C86"/>
   <text x="701" y="444" font-size="11.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">4</text>
   <text x="722" y="444" font-size="11.5" fill="#1B3A5C" font-weight="bold">Primary outcome</text>
-  <text x="722" y="459" font-size="10.2" fill="#33475B">Ulcer recurrence, directly patient-relevant; adjudication blinded</text>
+  <text x="722" y="459" font-size="10.2" fill="#33475B">Recurrence is patient-relevant; the adherence co-primary is not</text>
   <rect x="690" y="475" width="22" height="18" rx="3" fill="#0E7C86"/>
   <text x="701" y="488" font-size="11.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">5</text>
   <text x="722" y="488" font-size="11.5" fill="#1B3A5C" font-weight="bold">Primary analysis</text>
   <text x="722" y="503" font-size="10.2" fill="#33475B">Intention-to-treat, all randomised participants retained</text>
   <line x1="30" y1="614" x2="990" y2="614" stroke="#C8D3DE" stroke-width="1"/>
-  <text x="30" y="636" font-size="11" fill="#33475B">Ratings were assigned by the trial team against the design as specified in this protocol. PARADISE is pragmatic in whom it recruits, where it is delivered and how</text>
-  <text x="30" y="654" font-size="11" fill="#33475B">it is analysed, and more explanatory in organisation and flexibility of delivery: the trial adds motivational-interviewing training and in-shoe pressure measurement to</text>
-  <text x="30" y="672" font-size="11" fill="#33475B">routine practice, and delivers SEBIA as a five-step protocol rather than at clinician discretion. This is the trade-off a trial of an as-yet unreimbursed service must make.</text>
+  <text x="30" y="636" font-size="11" fill="#33475B">Ratings were assigned by the trial team against the design as specified in this protocol. PARADISE is pragmatic in whom it recruits, where it is delivered and how it is</text>
+  <text x="30" y="654" font-size="11" fill="#33475B">analysed, and more explanatory in organisation, flexibility of delivery and follow-up: the trial adds motivational-interviewing training and in-shoe pressure measurement to</text>
+  <text x="30" y="672" font-size="11" fill="#33475B">routine practice, delivers SEBIA as a five-step protocol, and measures far more at each visit than usual care does. That is the trade-off a trial of an unreimbursed service makes.</text>
   </svg>
