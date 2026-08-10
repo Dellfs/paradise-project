@@ -31,9 +31,22 @@ python figuren-src\maak_fig2_en_fig4.py
 python figuren-src\maak_fig1_en_af7.py
 ```
 
-**In een tekeneditor.** De SVG's zijn gewone SVG en openen in Inkscape (gratis)
-of Illustrator. Handig om iets te verslepen, maar let op: voor figuur 1, 2, 4 en
-de powercurve overschrijft het script je werk bij de volgende run.
+**In Inkscape.** Alle zes de figuren openen gewoon in Inkscape of Illustrator —
+het is standaard SVG zonder scripts of externe verwijzingen, dus alles is
+selecteerbaar en versleepbaar. Voor figuur 3 en 5 is dit de aangewezen weg.
+
+Voor figuur 1, 2, 4 en de powercurve kan het ook, maar dan geldt: het
+generatorscript overschrijft je werk zodra iemand het opnieuw draait. Kies dus
+één van beide. Wil je in Inkscape blijven werken, verwijder of hernoem dan het
+bijbehorende script, zodat niemand er per ongeluk overheen gaat.
+
+Twee praktische punten bij Inkscape:
+
+- Sla op als **Plain SVG**, niet als Inkscape SVG. Dat laatste voegt eigen
+  metadata toe die tijdschriften soms weigeren en die het bestand fors groter maakt.
+- Zet tekst niet om naar paden tenzij de uitgever daarom vraagt. Zolang het
+  tekst blijft, blijven de controlescripts werken en kan de redactie de figuur
+  nog corrigeren.
 
 **In een teksteditor.** SVG is platte tekst. Een label verplaatsen is de `x` of
 `y` van dat `<text>`-element wijzigen. Coördinaten lopen van linksboven.
@@ -62,7 +75,27 @@ gericht één soort probleem zoekt.
 
 De breedtemeting gebruikt Helvetica-metriek. Arial wijkt daar minimaal van af,
 dus een marge van enkele pixels blijft verstandig. Deze controles vervangen geen
-blik op het resultaat: ze vinden overlap, geen scheve compositie.
+blik op het resultaat: ze vinden overlap, geen scheve compositie. Een losse
+pijlpunt of een scheve pijl komt er niet uit, want daar zit geen tekst bij —
+die twee fouten in figuur 1 zijn pas gevonden door de figuur te bekijken.
+
+## Snel naar PNG kijken
+
+Er staat geen SVG-rasterizer op het systeem, maar Edge kan het headless. Handig
+om een figuur te bekijken zonder Inkscape te openen, en om een PNG te maken als
+een tijdschrift daarom vraagt:
+
+```powershell
+$edge = "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+$map  = "C:/Users/janou/OneDrive - KU Leuven/Documents/PhD Brugge/Site/protocol paper"
+& $edge --headless --disable-gpu --screenshot="fig2.png" --window-size=1020,640 `
+        "file:///$map/Figure2_intervention_pathway.svg"
+```
+
+Geef bij `--window-size` de afmetingen uit de `viewBox` van het bestand op,
+anders wordt de figuur afgesneden of komt er witruimte omheen. Draai je er
+meerdere achter elkaar, geef dan elk een eigen `--user-data-dir`, anders slaat
+alleen de eerste aan.
 
 ## Huisstijl
 
