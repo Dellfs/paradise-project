@@ -45,10 +45,14 @@ f1.append('<line x1="%g" y1="%g" x2="%g" y2="%g" stroke="%s" stroke-width="1.4" 
           % (mid + 180, 118, 720, 118, NAVY))
 
 f1.append(doos(mid, 130, 360, 42, ['Randomised (n = 144), stratified by centre'], LICHT, NAVY))
-f1.append(pijl(mid + 180, 172, mid + 180, 196))
-f1.append('<line x1="200" y1="196" x2="820" y2="196" stroke="%s" stroke-width="1.4"/>' % NAVY)
-f1.append(pijl(200, 196, 200, 226))
-f1.append(pijl(820, 196, 820, 226))
+# stomp aansluiten op de verdeelbalk: een pijlpunt op een T-splitsing wijst nergens heen
+f1.append('<line x1="%g" y1="172" x2="%g" y2="196" stroke="%s" stroke-width="1.4"/>'
+          % (mid + 180, mid + 180, NAVY))
+# de verdeelbalk eindigt boven het midden van de toewijzingsboxen (210 en 830),
+# gelijk met alle pijlen daaronder
+f1.append('<line x1="210" y1="196" x2="830" y2="196" stroke="%s" stroke-width="1.4"/>' % NAVY)
+f1.append(pijl(210, 196, 210, 226))
+f1.append(pijl(830, 196, 830, 226))
 
 f1.append(doos(60, 226, 300, 74, ['Allocated to PARADISE (n = 72)',
                                   '\u2022 Received allocated intervention (n = \u2026)',
