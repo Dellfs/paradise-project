@@ -31,6 +31,23 @@ ER  -
 
 TY  - JOUR
 AU  - Bus, S.A.
+AU  - Haspels, R.
+AU  - Busch-Westbroek, T.E.
+TI  - Evaluation and optimization of therapeutic footwear for neuropathic diabetic foot patients using in-shoe plantar pressure analysis
+T2  - Diabetes care
+PY  - 2011
+VL  - 34
+IS  - 7
+SP  - 1595
+EP  - 1600
+DO  - 10.2337/dc10-2206
+UR  - https://doi.org/10.2337/dc10-2206
+AB  - ObjectiveTherapeutic footwear for diabetic foot patients aims to reduce the risk of ulceration by relieving mechanical pressure on the foot. However, footwear efficacy is generally not assessed in clinical practice. The purpose of this study was to assess the value of in-shoe plantar pressure analysis to evaluate and optimize the pressure-reducing effects of diabetic therapeutic footwear.Research design and methodsDynamic in-shoe plantar pressure distribution was measured in 23 neuropathic diabetic foot patients wearing fully customized footwear. Regions of interest (with peak pressure>200 kPa) were selected and targeted for pressure optimization by modifying the shoe or insole. After each of a maximum of three rounds of modifications, the effect on in-shoe plantar pressure was measured. Successful optimization was achieved with a peak pressure reduction of >25% (criterion A) or below an absolute level of 200 kPa (criterion B).ResultsIn 35 defined regions, mean peak pressure was significantly reduced from 303 (SD 77) to 208 (46) kPa after an average 1.6 rounds of footwear modifications (P<0.001). This result constitutes a 30.2% pressure relief (range 18-50% across regions). All regions were successfully optimized: 16 according to criterion A, 7 to criterion B, and 12 to criterion A and B. Footwear optimization lasted on average 53 min.ConclusionsThese findings suggest that in-shoe plantar pressure analysis is an effective and efficient tool to evaluate and guide footwear modifications that significantly reduce pressure in the neuropathic diabetic foot. This result provides an objective approach to instantly improve footwear quality, which should reduce the risk for pressure-related plantar foot ulcers.
+N1  - PARADISE protocolpaper, referentie 3
+ER  - 
+
+TY  - JOUR
+AU  - Bus, S.A.
 AU  - Zwaferink, J.B.
 AU  - Dahmen, R.
 AU  - Busch-Westbroek, T.
@@ -42,7 +59,7 @@ SP  - e3237
 DO  - 10.1002/dmrr.3237
 UR  - https://doi.org/10.1002/dmrr.3237
 AB  - Supported by evidence-based guidelines, custom-made footwear is often prescribed to people with diabetes who are at risk for ulceration. However, these guidelines do not specify the footwear design features, despite available scientific evidence for these features. We aimed to develop a design protocol to support custom-made footwear prescription for people with diabetes and peripheral neuropathy. The population of interest was people with diabetes who are at moderate-to-high risk of developing a foot ulcer, for whom custom-made footwear (shoes and/or insoles) can be prescribed. A group of experts from rehabilitation medicine, orthopaedic shoe technology (pedorthics) and diabetic foot research, reviewed the scientific literature and met during 12 face-to-face meetings to develop a footwear design algorithm and evidence-based pressure-relief algorithm as parts of the protocol. Consensus was reached where evidence was not available. Fourteen domains of foot pathology in combination with loss of protective sensation were specified for the footwear design algorithm and for each domain shoe-specific and insole (orthosis)-specific features were defined. Most insole-related features and some shoe-related features were evidence based, whereas most shoe-related features were consensus based. The pressure-relief algorithm was evidence based using recent footwear trial data and specifically targeted patients with a healed plantar foot ulcer. These footwear design and pressure-relief algorithms are the first of their kind and should facilitate more uniform decision making in the prescription and manufacturing of adequate shoes for moderate-to-high-risk patients, reducing variation in footwear provision and improving clinical outcome in the prevention of diabetic foot ulcers.
-N1  - PARADISE protocolpaper, referentie 3
+N1  - PARADISE protocolpaper, referentie 4
 ER  - 
 
 TY  - JOUR
@@ -63,7 +80,7 @@ SP  - e3651
 DO  - 10.1002/dmrr.3651
 UR  - https://doi.org/10.1002/dmrr.3651
 AB  - AimsThis is the 2023 International Working Group on the Diabetic Foot guideline on the prevention of foot ulcers in persons with diabetes, which updates the 2019 guideline. This guideline is targeted at clinicians and other healthcare professionals.Materials and methodsWe followed the Grading of Recommendations, Assessment, Development and Evaluations methodology to devise clinical questions and critically important outcomes in the PICO format, to conduct a systematic review of the medical-scientific literature including, where appropriate, meta-analyses, and to write recommendations and their rationale. The recommendations are based on the quality of evidence found in the systematic review, expert opinion where (sufficient) evidence was not available, and a weighing of the desirable and undesirable effects of an intervention, as well as patient preferences, costs, equity, feasibility and applicability.ResultsWe recommend screening a person with diabetes at very low risk of foot ulceration annually for the loss of protective sensation and peripheral artery disease, and screening persons at higher risk at higher frequencies for additional risk factors. For preventing a foot ulcer, educate persons at-risk about appropriate foot self-care, educate not to walk without suitable foot protection, and treat any pre-ulcerative lesion on the foot. Educate moderate-to-high risk people with diabetes to wear properly fitting, accommodative, therapeutic footwear, and consider coaching them to monitor foot skin temperature. Prescribe therapeutic footwear that has a demonstrated plantar pressure relieving effect during walking, to help prevent plantar foot ulcer recurrence. Consider advising people at low-to-moderate risk to undertake a, preferably supervised, foot-ankle exercise programme to reduce ulcer risk factors, and consider communicating that a total increase in weight-bearing activity of 1000 steps/day is likely safe with regards to risk of ulceration. In people with non-rigid hammertoe with pre-ulcerative lesion, consider flexor tendon tenotomy. We suggest not to use a nerve decompression procedure to help prevent foot ulcers. Provide integrated foot care for moderate-to-high-risk people with diabetes to help prevent (recurrence of) ulceration.ConclusionsThese recommendations should help healthcare professionals to provide better care for persons with diabetes at risk of foot ulceration, to increase the number of ulcer-free days and reduce the patient and healthcare burden of diabetes-related foot disease.
-N1  - PARADISE protocolpaper, referentie 4
+N1  - PARADISE protocolpaper, referentie 5
 ER  - 
 
 TY  - JOUR
@@ -84,26 +101,27 @@ EP  - 4116
 DO  - 10.2337/dc13-0996
 UR  - https://doi.org/10.2337/dc13-0996
 AB  - ObjectiveCustom-made footwear is the treatment of choice to prevent foot ulcer recurrence in diabetes. This footwear primarily aims to offload plantar regions at high ulcer risk. However, ulcer recurrence rates are high. We assessed the effect of offloading-improved custom-made footwear and the role of footwear adherence on plantar foot ulcer recurrence.Research design and methodsWe randomly assigned 171 neuropathic diabetic patients with a recently healed plantar foot ulcer to custom-made footwear with improved and subsequently preserved offloading (∼20% peak pressure relief by modifying the footwear) or to usual care (i.e., nonimproved custom-made footwear). Primary outcome was plantar foot ulcer recurrence in 18 months. Secondary outcome was ulcer recurrence in patients with an objectively measured adherence of ≥80% of steps taken.ResultsOn the basis of intention-to-treat, 33 of 85 patients (38.8%) with improved footwear and 38 of 86 patients (44.2%) with usual care had a recurrent ulcer (relative risk -11%, odds ratio 0.80 [95% CI 0.44-1.47], P = 0.48). Ulcer-free survival curves were not significantly different between groups (P = 0.40). In the 79 patients (46% of total group) with high adherence, 9 of 35 (25.7%) with improved footwear and 21 of 44 (47.8%) with usual care had a recurrent ulcer (relative risk -46%, odds ratio 0.38 [0.15-0.99], P = 0.045).ConclusionsOffloading-improved custom-made footwear does not significantly reduce the incidence of plantar foot ulcer recurrence in diabetes compared with custom-made footwear that does not undergo such improvement, unless it is worn as recommended.
-N1  - PARADISE protocolpaper, referentie 5
+N1  - PARADISE protocolpaper, referentie 6
 ER  - 
 
 TY  - JOUR
 AU  - van Netten, J.J.
-AU  - Raspovic, A.
+AU  - Price, P.E.
 AU  - Lavery, L.A.
 AU  - Monteiro-Soares, M.
 AU  - Rasmussen, A.
-AU  - Sacco, I.C.N.
+AU  - Jubiz, Y.
 AU  - Bus, S.A.
 TI  - Prevention of foot ulcers in the at-risk patient with diabetes: a systematic review
 T2  - Diabetes/metabolism research and reviews
-PY  - 2020
-VL  - 36 Suppl 1
-SP  - e3270
-DO  - 10.1002/dmrr.3270
-UR  - https://doi.org/10.1002/dmrr.3270
-AB  - Prevention of foot ulcers in patients with diabetes is important to help reduce the substantial burden on both patient and health resources. A comprehensive analysis of reported interventions is needed to better inform healthcare professionals about effective prevention. The aim of this systematic review is to investigate the effectiveness of interventions to help prevent both first and recurrent foot ulcers in persons with diabetes who are at risk for this complication. We searched the available medical scientific literature in PubMed, EMBASE, CINAHL, and the Cochrane databases for original research studies on preventative interventions. We screened trial registries for additional studies not found in our search and unpublished trials. Two independent reviewers assessed data from controlled studies for methodological quality, and extracted and presented this in evidence and risk of bias tables. From the 13,490 records screened, 35 controlled studies and 46 non-controlled studies were included. Few controlled studies, which were of generally low to moderate quality, were identified on the prevention of a first foot ulcer. For the prevention of recurrent plantar foot ulcers, there is benefit for the use of daily foot skin temperature measurements, and for therapeutic footwear with demonstrated plantar pressure relief, provided it is consistently worn by the patient. For prevention of ulcer recurrence, there is some evidence for providing integrated foot care, and no evidence for a single session of education.Surgical interventions have been shown effective in selected patients, but the evidence base is small. Foot-related exercises do not appear to prevent a first foot ulcer. A small increase in the level of weight-bearing daily activities does not seem to increase the risk for foot ulceration. The evidence base to support the use of specific self-management and footwear interventions for the prevention of recurrent plantar foot ulcers is quite strong. The evidence is weak for the use of other, sometimes widely applied, interventions, and is practically non-existent for the prevention of a first foot ulcer and non-plantar foot ulcer.
-N1  - PARADISE protocolpaper, referentie 6
+PY  - 2016
+VL  - 32 Suppl 1
+SP  - 84
+EP  - 98
+DO  - 10.1002/dmrr.2701
+UR  - https://doi.org/10.1002/dmrr.2701
+AB  - BackgroundPrevention of foot ulcers in patients with diabetes is extremely important to help reduce the enormous burden of foot ulceration on both patient and health resources. A comprehensive analysis of reported interventions is not currently available, but is needed to better inform caregivers about effective prevention. The aim of this systematic review is to investigate the effectiveness of interventions to prevent first and recurrent foot ulcers in persons with diabetes who are at risk for ulceration.MethodsThe available medical scientific literature in PubMed, EMBASE, CINAHL and the Cochrane database was searched for original research studies on preventative interventions. Both controlled and non-controlled studies were selected. Data from controlled studies were assessed for methodological quality by two independent reviewers.ResultsFrom the identified records, a total of 30 controlled studies (of which 19 RCTs) and another 44 non-controlled studies were assessed and described. Few controlled studies, of generally low to moderate quality, were identified on the prevention of a first foot ulcer. For the prevention of recurrent plantar foot ulcers, multiple RCTs with low risk of bias show the benefit for the use of daily foot skin temperature measurements and consequent preventative actions, as well as for therapeutic footwear that demonstrates to relieve plantar pressure and that is worn by the patient. To prevent recurrence, some evidence exists for integrated foot care when it includes a combination of professional foot treatment, therapeutic footwear and patient education; for just a single session of patient education, no evidence exists. Surgical interventions can be effective in selected patients, but the evidence base is small.ConclusionThe evidence base to support the use of specific self-management and footwear interventions for the prevention of recurrent plantar foot ulcers is quite strong, but is small for the use of other, sometimes widely applied, interventions and is practically nonexistent for the prevention of a first foot ulcer and non-plantar foot ulcer.
+N1  - PARADISE protocolpaper, referentie 7
 ER  - 
 
 TY  - JOUR
@@ -121,7 +139,7 @@ EP  - 1961
 DO  - 10.1007/s00125-008-1110-0
 UR  - https://doi.org/10.1007/s00125-008-1110-0
 AB  - Aims/hypothesisThis observer-blind, randomised controlled trial was designed to determine the effect of a foot care education programme in the secondary prevention of foot ulcers.MethodsPeople with newly healed foot ulcers attending one of three specialist clinics were allocated to receive either targeted, one-to-one education or usual care, using a computer-generated random allocation sequence that had been prepared in advance but which was concealed from the clinical researcher. The primary outcome was ulcer incidence at 12 months. Secondary outcomes were ulcer incidence at 6 months and incidence of amputation, mood (Hospital Anxiety and Depression Scale) and quality of life (Diabetic Foot Ulcer Scale) at 6 and 12 months. Protective foot care behaviours (Nottingham Assessment of Functional Footcare) were assessed at 12 months.ResultsThere were 87 (mean [SD] age 63.5 [12.1] years) patients in the intervention group and 85 control patients (mean [SD] age 64.9 [10.9] years). The groups were comparable at baseline. No significant differences (p > 0.05) were observed between groups in ulcer incidence at either 6 months (intervention 30%, control 21%) or 12 months (intervention 41%, control 41%). Recommended foot care behaviours at 12 months were better in the intervention than in the control group (p = 0.03), but education had no significant (p > 0.05) effect on mood, quality of life or amputations.Conclusions/interpretationEven though the intervention was associated with improved foot care behaviour, there was no evidence that this programme of targeted education was associated with clinical benefit in this population when compared with usual care. The usefulness and optimal delivery of education to such a high-risk group requires further evaluation.Trial registrationClinicalTrials.gov NCT00729456 FUNDING: Diabetes UK project grant RD02/0002535.
-N1  - PARADISE protocolpaper, referentie 7
+N1  - PARADISE protocolpaper, referentie 8
 ER  - 
 
 TY  - JOUR
@@ -146,7 +164,7 @@ EP  - e318
 DO  - 10.1016/S2589-7500(19)30128-1
 UR  - https://doi.org/10.1016/S2589-7500(19)30128-1
 AB  - BackgroundPrevention of diabetic foot ulcer recurrence in high risk patients, using current standard of care methods, remains a challenge. We hypothesised that an innovative intelligent insole system would be effective in reducing diabetic foot ulcer recurrence in such patients.MethodsIn this prospective, randomised, proof-of-concept study, patients with diabetes, and with peripheral neuropathy and a recent history of plantar foot ulceration were recruited from two multidisciplinary outpatient diabetic foot clinics in the UK, and were randomly assigned to either intervention or control. All patients received an insole system, which measured plantar pressure continuously during daily life. The intervention group received audiovisual alerts via a smartwatch linked to the insole system and offloading instructions when aberrant pressures were detected; the control group did not receive any alerts. The primary outcome was plantar foot ulcer occurrence within 18 months. This trial is registered with ISRCTN, ISRCTN05585501, and is closed to accrual and complete.FindingsBetween March 18, 2014, and Dec 20, 2016, 90 patients were recruited and consented to the study, and 58 completed the study. At follow-up, ten ulcers from 8638 person-days were recorded in the control group and four ulcers from 11 835 person-days in the intervention group: a 71% reduction in ulcer incidence in the intervention group compared with the control group (incidence rate ratio 0·29, 95% CI, 0·09-0·93; p=0·037). The number of patients who ulcerated was similar between groups (six of 26 [control group] vs four of 32 [intervention group]; p=0·29); however, individual plantar sites ulcerated more often in the control group (ten of 416) than in the intervention group (four of 512; p=0·047). In an exploratory analysis of good compliers (n=40), ulcer incidence was reduced by 86% in the intervention group versus control group (incidence rate ratio 0·14, 95% CI 0·03-0·63; p=0·011). In the exploratory analysis, plantar callus severity (change from baseline to 6 months) was greater in re-ulcerating patients (6·5, IQR 4·0-8·3) than non-re-ulcerating patients (2·0, 0·0-4·8; p=0·040).InterpretationTo our knowledge, this study is the first to show that continuous plantar pressure monitoring and dynamic offloading guidance, provided by an innovative intelligent insole system, can lead to a reduction in diabetic foot ulcer site recurrence.FundingDiabetes UK and Orpyx Medical Technologies.
-N1  - PARADISE protocolpaper, referentie 8
+N1  - PARADISE protocolpaper, referentie 9
 ER  - 
 
 TY  - JOUR
@@ -166,7 +184,7 @@ EP  - 1618
 DO  - 10.2337/dc12-1330
 UR  - https://doi.org/10.2337/dc12-1330
 AB  - ObjectivePrescription custom-made footwear can only be effective in preventing diabetic foot ulcers if worn by the patient. Particularly, the high prevalence of recurrent foot ulcers focuses the attention on adherence, for which objective data are nonexisting. We objectively assessed adherence in patients with high risk of ulcer recurrence and evaluated what determines adherence.Research design and methodsIn 107 patients with diabetes, neuropathy, a recently healed plantar foot ulcer, and custom-made footwear, footwear use was measured during 7 consecutive days using a shoe-worn, temperature-based monitor. Daily step count was measured simultaneously using an ankle-worn activity monitor. Patients logged time away from home. Adherence was calculated as the percentage of steps that prescription footwear was worn. Determinants of adherence were evaluated in multivariate linear regression analysis.ResultsMean ± SD adherence was 71 ± 25%. Adherence at home was 61 ± 32%, over 3,959 ± 2,594 steps, and away from home 87 ± 26%, over 2,604 ± 2,507 steps. In 35 patients with low adherence (<60%), adherence at home was 28 ± 24%. Lower BMI, more severe foot deformity, and more appealing footwear were significantly associated with higher adherence.ConclusionsThe results show that adherence to wearing custom-made footwear is insufficient, particularly at home where patients exhibit their largest walking activity. This low adherence is a major threat for reulceration. These objective findings provide directions for improvement in adherence, which could include prescribing specific off-loading footwear for indoors, and they set a reference for future comparative research on footwear adherence in diabetes.
-N1  - PARADISE protocolpaper, referentie 9
+N1  - PARADISE protocolpaper, referentie 10
 ER  - 
 
 TY  - JOUR
@@ -184,7 +202,7 @@ EP  - 92
 DO  - 10.1016/j.clinbiomech.2018.02.012
 UR  - https://doi.org/10.1016/j.clinbiomech.2018.02.012
 AB  - BackgroundMechanical stress is important in causing and healing plantar diabetic foot ulcers, but almost always studied as peak pressure only. Measuring cumulative plantar tissue stress combines plantar pressure and ambulatory activity, and better defines the load on ulcers. Our aim was to explore differences in cumulative plantar tissue stress between people with healing and non-healing plantar diabetic foot ulcers.MethodsWe analyzed a subgroup of 31 patients from a randomized clinical trial, treated with a removable offloading device for their plantar diabetic forefoot ulcer. We measured in-device dynamic plantar pressure and daily stride count to calculate cumulative plantar tissue stress at the ulcer location and associated this with ulcer healing and ulcer surface area reduction at four weeks (Student's t and chi-square test for significance, Cohen's d for effect size).FindingsIn 12 weeks, 68% (n = 21) of the ulcers healed and 32% (n = 10) did not. No statistically significant differences were found for cumulative plantar tissue stress, plantar pressure or ambulatory activity between people with healed and not-healed ulcers. Cumulative plantar tissue stress was 25% lower for people with healed ulcers (155 vs. 207 MPa·s/day; P = 0.71; Effect size: d = 0.29). Post-hoc analyses in the 27 patients who self-reported to be adherent to wearing the device showed that cumulative plantar tissue stress was 49% lower for those who reached ≥75% ulcer surface area reduction at four weeks (140 vs. 275 MPa·s/day; P = 0.09; d = 0.76); smaller differences and effect sizes were found for peak pressure (24%), peak pressure-time integral (30%) and ambulatory activity (26%); (P-value range: 0.14-0.97; Cohen's d range: 0.14-0.70).InterpretationMeasuring cumulative plantar tissue stress may provide insight beyond that obtained from plantar pressure or ambulatory activity alone, with regard to diabetic foot ulcer healing using removable offloading devices. These explorative findings provide baseline data for further studies on this relevant topic.
-N1  - PARADISE protocolpaper, referentie 10
+N1  - PARADISE protocolpaper, referentie 11
 ER  - 
 
 TY  - JOUR
@@ -208,7 +226,7 @@ SP  - 2411
 DO  - 10.3390/s24082411
 UR  - https://doi.org/10.3390/s24082411
 AB  - Reducing high mechanical stress is imperative to heal diabetes-related foot ulcers. We explored the association of cumulative plantar tissue stress (CPTS) and plantar foot ulcer healing, and the feasibility of measuring CPTS, in two prospective cohort studies (Australia (AU) and The Netherlands (NL)). Both studies used multiple sensors to measure factors to determine CPTS: plantar pressures, weight-bearing activities, and adherence to offloading treatments, with thermal stress response also measured to estimate shear stress in the AU-study. The primary outcome was ulcer healing at 12 weeks. Twenty-five participants were recruited: 13 in the AU-study and 12 in the NL-study. CPTS data were complete for five participants (38%) at baseline and one (8%) during follow-up in the AU-study, and one (8%) at baseline and zero (0%) during follow-up in the NL-study. Reasons for low completion at baseline were technical issues (AU-study: 31%, NL-study: 50%), non-adherent participants (15% and 8%) or combinations (15% and 33%); and at follow-up refusal of participants (62% and 25%). These underpowered findings showed that CPTS was non-significantly lower in people who healed compared with non-healed people (457 [117; 727], 679 [312; 1327] MPa·s/day). Current feasibility of CPTS seems low, given technical challenges and non-adherence, which may reflect the burden of treating diabetes-related foot ulcers.
-N1  - PARADISE protocolpaper, referentie 11
+N1  - PARADISE protocolpaper, referentie 12
 ER  - 
 
 TY  - JOUR
@@ -228,7 +246,7 @@ SP  - e70099
 DO  - 10.1111/dme.70099
 UR  - https://doi.org/10.1111/dme.70099
 AB  - AimsPlantar foot ulcers are a burdensome complication of diabetes caused by abnormal foot biomechanics. Predicting foot ulcers aids in their prevention, but the value of peak pressure-the most used biomechanical parameter-is only moderate. We aimed to improve prediction based on the more comprehensive load measure cumulative plantar tissue stress (CPTS).MethodsWe prospectively observed 60 participants with diabetes at high foot ulcer risk for 12 months. At baseline, we assessed demographic and clinical characteristics-including plantar pre-ulcers (i.e., abundant callus, haemorrhage, blister, fissure)-and measured barefoot and in-shoe plantar pressures during walking and standing. Daily-life weight-bearing activity and adherence to prescribed footwear were assessed over 7 days after baseline. The primary outcome was plantar foot ulceration during the 12-month follow-up. CPTS was calculated (in GPa.s/day) from the above foot-loading factors and analysed for predicting foot ulcers and its association with pre-ulcers, using multivariate regression analyses.ResultsTwenty-two participants (37%) developed a plantar forefoot ulcer. CPTS was not a significant predictor (odds ratio (OR) = 0.90 (95% confidence interval (CI): 0.50-1.59)) but pre-ulcers at baseline (OR = 9.97, 95%CI: 1.41-70.65) and walking speed (in m/s) (OR = 0.01, 95%CI: 0.00-0.32) were. CPTS was significantly associated with pre-ulcers (OR = 2.38, 95%CI: 1.02-5.54).ConclusionsCPTS did not predict plantar foot ulceration in our high-risk participants, but our findings support the mechanical pathway of plantar foot ulceration through pre-ulcer development and indicate lower walking speed as an important predictor. Assessing walking speed and early identifying and treating pre-ulcers will help predict and prevent plantar foot ulcers in high-risk people with diabetes.
-N1  - PARADISE protocolpaper, referentie 12
+N1  - PARADISE protocolpaper, referentie 13
 ER  - 
 
 TY  - JOUR
@@ -249,7 +267,7 @@ EP  - 1705
 DO  - 10.2337/dc13-2470
 UR  - https://doi.org/10.2337/dc13-2470
 AB  - ObjectiveRecurrence of plantar foot ulcers is a common and major problem in diabetes but not well understood. Foot biomechanics and patient behavior may be important. The aim was to identify risk factors for ulcer recurrence and to establish targets for ulcer prevention.Research design and methodsAs part of a footwear trial, 171 neuropathic diabetic patients with a recently healed plantar foot ulcer and custom-made footwear were followed for 18 months or until ulceration. Demographic data, disease-related parameters, presence of minor lesions, barefoot and in-shoe plantar peak pressures, footwear adherence, and daily stride count were entered in a multivariate multilevel logistic regression model of plantar foot ulcer recurrence.ResultsA total of 71 patients had a recurrent ulcer. Significant independent predictors were presence of minor lesions (odds ratio 9.06 [95% CI 2.98-27.57]), day-to-day variation in stride count (0.93 [0.89-0.99]), and cumulative duration of past foot ulcers (1.03 [1.00-1.06]). Significant independent predictors for those 41 recurrences suggested to be the result of unrecognized repetitive trauma were presence of minor lesions (10.95 [5.01-23.96]), in-shoe peak pressure <200 kPa with footwear adherence >80% (0.43 [0.20-0.94]), barefoot peak pressure (1.11 [1.00-1.22]), and day-to-day variation in stride count (0.91 [0.86-0.96]).ConclusionsThe presence of a minor lesion was clearly the strongest predictor, while recommended use of adequately offloading footwear was a strong protector against ulcer recurrence from unrecognized repetitive trauma. These outcomes define clear targets for diabetic foot screening and ulcer prevention.
-N1  - PARADISE protocolpaper, referentie 13
+N1  - PARADISE protocolpaper, referentie 14
 ER  - 
 
 TY  - JOUR
@@ -267,7 +285,7 @@ EP  - 926
 DO  - 10.2340/16501977-2494
 UR  - https://doi.org/10.2340/16501977-2494
 AB  - ObjectiveAdherence is a prerequisite for the effectiveness of orthopaedic footwear. The aim of this study is to assess the validity of a new temperature sensor for objective assessment of footwear use and non-use.DesignObservational study.MethodsThe validity of a temperature sensor (Orthotimer, Balingen, Germany) to discriminate between time periods of use and non-use of footwear over a period of 48 h was assessed using 3 algorithms, in 10 healthy participants (mean age 32.8 years (standard deviation (SD) 14.1 years)). Footwear use measured with the sensor was compared with a reference standard, footwear use measured with a time-lapse sports camera secured to the shoe.Main outcome measureHours of footwear use.ResultsMean footwear use measured with the camera was 8.10 (SD 2.46) h per day. Mean footwear uses measured with the sensor and calculated with the 3 algorithms were 8.16 (SD 2.37), 8.86 (SD 2.48) and 4.91 (SD 3.17) h per day for the Groningen algorithm, algorithm-25, and algorithm-29, respectively. The correlation between footwear use assessed with the camera and with the sensor was: rGroningen = 0.995, ralg25 = 0.919 and ralg29 = 0.680).ConclusionThe temperature sensor is a valid instrument to measure footwear use and non-use when using the Groningen algorithm.
-N1  - PARADISE protocolpaper, referentie 14
+N1  - PARADISE protocolpaper, referentie 15
 ER  - 
 
 TY  - JOUR
@@ -282,7 +300,7 @@ SP  - 42
 DO  - 10.1186/1748-5908-6-42
 UR  - https://doi.org/10.1186/1748-5908-6-42
 AB  - BackgroundImproving the design and implementation of evidence-based practice depends on successful behaviour change interventions. This requires an appropriate method for characterising interventions and linking them to an analysis of the targeted behaviour. There exists a plethora of frameworks of behaviour change interventions, but it is not clear how well they serve this purpose. This paper evaluates these frameworks, and develops and evaluates a new framework aimed at overcoming their limitations.MethodsA systematic search of electronic databases and consultation with behaviour change experts were used to identify frameworks of behaviour change interventions. These were evaluated according to three criteria: comprehensiveness, coherence, and a clear link to an overarching model of behaviour. A new framework was developed to meet these criteria. The reliability with which it could be applied was examined in two domains of behaviour change: tobacco control and obesity.ResultsNineteen frameworks were identified covering nine intervention functions and seven policy categories that could enable those interventions. None of the frameworks reviewed covered the full range of intervention functions or policies, and only a minority met the criteria of coherence or linkage to a model of behaviour. At the centre of a proposed new framework is a 'behaviour system' involving three essential conditions: capability, opportunity, and motivation (what we term the 'COM-B system'). This forms the hub of a 'behaviour change wheel' (BCW) around which are positioned the nine intervention functions aimed at addressing deficits in one or more of these conditions; around this are placed seven categories of policy that could enable those interventions to occur. The BCW was used reliably to characterise interventions within the English Department of Health's 2010 tobacco control strategy and the National Institute of Health and Clinical Excellence's guidance on reducing obesity.ConclusionsInterventions and policies to change behaviour can be usefully characterised by means of a BCW comprising: a 'behaviour system' at the hub, encircled by intervention functions and then by policy categories. Research is needed to establish how far the BCW can lead to more efficient design of effective interventions.
-N1  - PARADISE protocolpaper, referentie 15
+N1  - PARADISE protocolpaper, referentie 16
 ER  - 
 
 TY  - JOUR
@@ -301,7 +319,7 @@ EP  - 325
 DO  - 10.1002/dmrr.2752
 UR  - https://doi.org/10.1002/dmrr.2752
 AB  - The International Working Group on the Diabetic Foot recommends that auditing should be part of the organization of diabetic foot care, the efforts required for data collection and analysis being balanced by the expected benefits. In Germany legislature demands measures of quality management for in- and out-patient facilities, and, in 2003, the Germany Working Group on the Diabetic Foot defined and developed a certification procedure for diabetic foot centres to be recognized as 'specialized'. This includes a description of management facilities, treatment procedures and outcomes, as well as the organization of mutual auditing visits between the centres. Outcome data is collected at baseline and 6 months on 30 consecutive patients. By 2014 almost 24,000 cases had been collected and analysed. Since 2005 Belgian multidisciplinary diabetic foot clinics could apply for recognition by health authorities. For continued recognition diabetic foot clinics need to treat at least 52 patients with a new foot problem (Wagner 2 or more or active Charcot foot) per annum. Baseline and 6-month outcome data of these patients are included in an audit-feedback initiative. Although originally fully independent of each other, the common goal of these two initiatives is quality improvement of national diabetic foot care, and hence exchanges between systems has commenced. In future, the German and Belgian accreditation models might serve as templates for comparable initiatives in other countries. Just recently the International Working Group on the Diabetic Foot initiated a working group for further discussion of accreditation and auditing models (International Working Group on the Diabetic Foot AB(B)A Working Group).
-N1  - PARADISE protocolpaper, referentie 16
+N1  - PARADISE protocolpaper, referentie 17
 ER  - 
 
 TY  - JOUR
@@ -352,7 +370,7 @@ SP  - e081477
 DO  - 10.1136/bmj-2024-081477
 UR  - https://doi.org/10.1136/bmj-2024-081477
 AB  - ImportanceThe protocol of a randomised trial is the foundation for study planning, conduct, reporting, and external review. However, trial protocols vary in their completeness and often do not address key elements of design and conduct. The SPIRIT (Standard Protocol Items: Recommendations for Interventional Trials) statement was first published in 2013 as guidance to improve the completeness of trial protocols. Periodic updates incorporating the latest evidence and best practices are needed to ensure that the guidance remains relevant to users.ObjectiveTo systematically update the SPIRIT recommendations for minimum items to address in the protocol of a randomised trial.DesignWe completed a scoping review and developed a project specific database of empirical and theoretical evidence to generate a list of potential changes to the SPIRIT 2013 checklist. The list was enriched with recommendations provided by lead authors of existing SPIRIT/CONSORT (Consolidated Standards of Reporting Trials) extensions (Harms, Outcomes, Non-pharmacological Treatment) and other reporting guidelines (TIDieR). The potential modifications were rated in a three-round Delphi survey followed by a consensus meeting.FindingsOverall, 317 individuals participated in the Delphi consensus process and 30 experts attended the consensus meeting. The process led to the addition of two new protocol items, revision to five items, deletion/merger of five items, and integration of key items from other relevant reporting guidelines. Notable changes include a new open science section, additional emphasis on the assessment of harms and description of interventions and comparators, and a new item on how patients and the public will be involved in trial design, conduct, and reporting. The updated SPIRIT 2025 statement consists of an evidence based checklist of 34 minimum items to address in a trial protocol, along with a diagram illustrating the schedule of enrolment, interventions, and assessments for trial participants. To facilitate implementation, we also developed an expanded version of the SPIRIT 2025 checklist and an accompanying explanation and elaboration document.Conclusions and relevanceWidespread endorsement and adherence to the updated SPIRIT 2025 statement have the potential to enhance the transparency and completeness of trial protocols for the benefit of investigators, trial participants, patients, funders, research ethics committees, journals, trial registries, policymakers, regulators, and other reviewers.
-N1  - PARADISE protocolpaper, referentie 17
+N1  - PARADISE protocolpaper, referentie 18
 ER  - 
 
 TY  - JOUR
@@ -380,7 +398,7 @@ SP  - g1687
 DO  - 10.1136/bmj.g1687
 UR  - https://doi.org/10.1136/bmj.g1687
 AB  - Without a complete published description of interventions, clinicians and patients cannot reliably implement interventions that are shown to be useful, and other researchers cannot replicate or build on research findings. The quality of description of interventions in publications, however, is remarkably poor. To improve the completeness of reporting, and ultimately the replicability, of interventions, an international group of experts and stakeholders developed the Template for Intervention Description and Replication (TIDieR) checklist and guide. The process involved a literature review for relevant checklists and research, a Delphi survey of an international panel of experts to guide item selection, and a face to face panel meeting. The resultant 12 item TIDieR checklist (brief name, why, what (materials), what (procedure), who provided, how, where, when and how much, tailoring, modifications, how well (planned), how well (actual)) is an extension of the CONSORT 2010 statement (item 5) and the SPIRIT 2013 statement (item 11). While the emphasis of the checklist is on trials, the guidance is intended to apply across all evaluative study designs. This paper presents the TIDieR checklist and guide, with an explanation and elaboration for each item, and examples of good reporting. The TIDieR checklist and guide should improve the reporting of interventions and make it easier for authors to structure accounts of their interventions, reviewers and editors to assess the descriptions, and readers to use the information.
-N1  - PARADISE protocolpaper, referentie 18
+N1  - PARADISE protocolpaper, referentie 19
 ER  - 
 
 TY  - JOUR
@@ -397,7 +415,7 @@ VL  - 350
 SP  - h2147
 DO  - 10.1136/bmj.h2147
 UR  - https://doi.org/10.1136/bmj.h2147
-N1  - PARADISE protocolpaper, referentie 19
+N1  - PARADISE protocolpaper, referentie 20
 ER  - 
 
 TY  - JOUR
@@ -448,7 +466,7 @@ SP  - e081123
 DO  - 10.1136/bmj-2024-081123
 UR  - https://doi.org/10.1136/bmj-2024-081123
 AB  - BackgroundWell designed and properly executed randomised trials are considered the most reliable evidence on the benefits of healthcare interventions. However, there is overwhelming evidence that the quality of reporting is not optimal. The CONSORT (Consolidated Standards of Reporting Trials) statement was designed to improve the quality of reporting and provides a minimum set of items to be included in a report of a randomised trial. CONSORT was first published in 1996, then updated in 2001 and 2010. Here, we present the updated CONSORT 2025 statement, which aims to account for recent methodological advancements and feedback from end users.MethodsWe conducted a scoping review of the literature and developed a project-specific database of empirical and theoretical evidence related to CONSORT, to generate a list of potential changes to the checklist. The list was enriched with recommendations provided by the lead authors of existing CONSORT extensions (Harms, Outcomes, Non-pharmacological Treatment), other related reporting guidelines (TIDieR) and recommendations from other sources (eg, personal communications). The list of potential changes to the checklist was assessed in a large, international, online, three-round Delphi survey involving 317 participants and discussed at a two-day online expert consensus meeting of 30 invited international experts.ResultsWe have made substantive changes to the CONSORT checklist. We added seven new checklist items, revised three items, deleted one item, and integrated several items from key CONSORT extensions. We also restructured the CONSORT checklist, with a new section on open science. The CONSORT 2025 statement consists of a 30-item checklist of essential items that should be included when reporting the results of a randomised trial and a diagram for documenting the flow of participants through the trial. To facilitate implementation of CONSORT 2025, we have also developed an expanded version of the CONSORT 2025 checklist, with bullet points eliciting critical elements of each item.ConclusionAuthors, editors, reviewers, and other potential users should use CONSORT 2025 when writing and evaluating manuscripts of randomised trials to ensure that trial reports are clear and transparent.
-N1  - PARADISE protocolpaper, referentie 20
+N1  - PARADISE protocolpaper, referentie 21
 ER  - 
 
 TY  - JOUR
@@ -466,7 +484,7 @@ SP  - 207
 EP  - 211
 DO  - 10.1002/pdi.1099
 UR  - https://doi.org/10.1002/pdi.1099
-N1  - PARADISE protocolpaper, referentie 21
+N1  - PARADISE protocolpaper, referentie 22
 ER  - 
 
 TY  - JOUR
@@ -482,7 +500,7 @@ SP  - 1795
 DO  - 10.3390/s24061795
 UR  - https://doi.org/10.3390/s24061795
 AB  - We aimed to assess the success rate and facilitators of and the barriers to the implementation of in-shoe plantar pressure measurements in footwear practice for people with diabetes at high risk of foot ulceration. Eleven Dutch footwear practices were partly supported in purchasing a pressure measurement system. Over a 2.5-year period, trained shoe technicians evaluated 1030 people with diabetes (range: 13 to 156 across practices). The implementation success and associated facilitators and barriers were evaluated quantitatively using completed measurement forms and pressure measurement data obtained during four monitoring sessions and qualitatively through semi-structured interviews with technicians. Across the 11 practices, the primary target group (people with diabetes and a healed plantar foot ulcer) represented 25-90% of all the patients measured. The results showed that three practices were successful, five moderately successful, and three not successful. The facilitators included support by the company management board, collaboration with a prescribing physician, measurement sessions separate from the outpatient clinic, and a (dedicated) shoe technician experiencing a learning effect. The barriers included investment costs, usability aspects, and limited awareness among shoe technicians. In-shoe plantar pressure measurements can be implemented to a moderate to large degree in diabetic footwear practice. The barriers to and facilitators of implementation are organizational, logistical, financial, or technical, and the barriers are modifiable, supporting future implementation.
-N1  - PARADISE protocolpaper, referentie 22
+N1  - PARADISE protocolpaper, referentie 23
 ER  - 
 
 TY  - JOUR
@@ -501,7 +519,7 @@ SP  - 3635
 DO  - 10.3390/jcm14113635
 UR  - https://doi.org/10.3390/jcm14113635
 AB  - Background: Wearing custom-made footwear is key in diabetes-related foot ulcer prevention. However, adhering to wearing footwear is challenging, in particular at home. Evidence-based interventions with proven effect are needed, but scarce. We developed a multi-modal intervention to improve custom-made footwear use, and investigated short-term efficacy. Methods: We used a multidisciplinary multiphase approach to develop a three-modality intervention: structured education, motivational interviewing, and custom-made indoor footwear. To assess efficacy, we measured mean 2-week wearing time of custom-made footwear with a validated sensor, at baseline and after three months (primary outcome), and in the two weeks directly before and after each modality was administered (secondary outcomes). We assessed differences between timepoints using within-subjects paired t-tests. Results: 53 participants with high risk for ulceration were included: 30 with low [<8 h/day] baseline adherence), 17% females, mean age 66 (SD: 10) years, all with peripheral neuropathy and a recent foot ulcer (mean time since healing: 6 (SD: 9) months). Wearing time increased non-significantly from 4.0 (SD: 2.5) at baseline to 5.5 (SD: 4.3) after three months in the low adherence group (p = 0.068); this was 11.9 (SD: 2.3) to 12.0 (SD: 2.8) in the high adherence group (p = 0.898). Following provision of indoor footwear, wearing time increased significantly for low baseline adherence (∆2.7 h/day (95% CI: 1.0-4.4; p = 0.004) and high baseline adherence (∆2.0 h/day (95% CI: 0.5-3.4; p = 0.010). Following structured education, wearing time increased non-significantly in those with low baseline adherence (∆1.0 h/day (95% CI: -0.2-2.2; p = 0.098). Following motivational interviewing, wearing time remained similar in both groups. Conclusions: The multi-modal intervention program combining structured education, motivational interviewing and custom-made indoor footwear did not result in a statistically significant improvement in the wearing time of custom-made footwear after three months. However, significant improvements followed the provision of indoor footwear, and clinically relevant improvements followed structured education in people with low adherence, providing avenues for implementation and research.
-N1  - PARADISE protocolpaper, referentie 23
+N1  - PARADISE protocolpaper, referentie 24
 ER  - 
 
 TY  - JOUR
@@ -530,7 +548,7 @@ SP  - e3654
 DO  - 10.1002/dmrr.3654
 UR  - https://doi.org/10.1002/dmrr.3654
 AB  - Multiple disciplines are involved in the management of diabetes-related foot disease and a common vocabulary is essential for clear communication. Based on the systematic reviews of the literature that form the basis of the International Working Group on the Diabetic Foot (IWGDF) Guidelines, the IWGDF has developed a set of definitions and criteria for diabetes-related foot disease. This document describes the 2023 update of these definitions and criteria. We suggest these definitions be used consistently in both clinical practice and research, to facilitate clear communication with people with diabetes-related foot disease and between professionals around the world.
-N1  - PARADISE protocolpaper, referentie 24
+N1  - PARADISE protocolpaper, referentie 25
 ER  - 
 
 TY  - JOUR
@@ -551,7 +569,7 @@ EP  - 574
 DO  - 10.2340/16501977-2339
 UR  - https://doi.org/10.2340/16501977-2339
 AB  - ObjectiveTherapeutic footwear is often prescribed at considerable cost. Foot-care specialists normally assess the wear-and-tear of therapeutic footwear in order to monitor the adequacy of the prescribed footwear and to gain an indicator of its use. We developed a simple, rapid, easily applicable indicator of wear-and-tear of therapeutic footwear: the wear-and-tear scale. The aim of this study was to investigate the intra- and inter-rater reliability of the wear-and-tear scale.MethodsA test set of 100 therapeutic shoes was assembled; 24 raters (6 inexperienced and 6 experienced physiatrists, and 6 inexperienced and 6 experienced orthopaedic shoe technicians) rated the degree of wear-and-tear of the shoes on the scale (range 0-100) twice on 1 day with a 4-h interval (short-term) and twice over a 4-week interval (long-term). Generalizability theory was applied for the analysis.ResultsShort-term, long-term and overall intra-rater reliability was excellent (coefficients 0.99, 0.99 and 0.98; standard error of measurement (SEM) 2.6, 2.9 and 3.9; smallest detectable changes (SDC) 7.3, 8.0 and 10.8, respectively). Inter-rater reliability between professions, experience and inexperienced raters, and overall was excellent (coefficients 0.97, 0.98 and 0.93; SEM 4.9, 4.5, and 8.1; SDC 13.7, 12.4 and 22.5, respectively).ConclusionThe wear-and-tear scale has excellent intra-rater, inter-rater, and overall reliability.
-N1  - PARADISE protocolpaper, referentie 25
+N1  - PARADISE protocolpaper, referentie 26
 ER  - 
 
 TY  - JOUR
@@ -591,7 +609,7 @@ EP  - 1968
 DO  - 10.2337/dc24-1112
 UR  - https://doi.org/10.2337/dc24-1112
 AB  - ObjectiveDiabetes affects 537 million people globally, with 34% expected to develop foot ulceration in their lifetime. Diabetes-related foot ulceration causes strain on health care systems worldwide, necessitating provision of high-quality evidence to guide their management. Given heterogeneity of reported outcomes, a core outcome set (COS) was developed to standardize outcome measures in studies assessing treatments for diabetes-related foot ulceration.Research design and methodsThe COS was developed using Core Outcome Measures in Effectiveness Trials (COMET) methodology. A systematic review and patient interviews generated a long list of outcomes that were rated by patients and experts using a nine-point Likert scale (from 1 [not important] to 9 [critical]) in the first round of the Delphi survey. Based on predefined criteria, outcomes without consensus were reprioritized in a second Delphi round. Critical outcomes and those without consensus after two Delphi rounds were discussed in the consensus meeting where the COS was ratified.ResultsThe systematic review and patient interviews generated 103 candidate outcomes. The two consecutive Delphi rounds were completed by 336 and 176 respondents, resulting in an overall second round response rate of 52%. Of 37 outcomes discussed in the consensus meeting (22 critical and 15 without consensus after the second round), 8 formed the COS: wound healing, time to healing, new/recurrent ulceration, infection, major amputation, minor amputation, health-related quality of life, and mortality.ConclusionsThe proposed COS for studies assessing treatments for diabetes-related foot ulceration was developed using COMET methodology. Its adoption by the research community will facilitate assessment of comparative effectiveness of current and evolving interventions.
-N1  - PARADISE protocolpaper, referentie 26
+N1  - PARADISE protocolpaper, referentie 27
 ER  - 
 
 TY  - JOUR
@@ -608,7 +626,7 @@ SP  - e002593
 DO  - 10.1136/bmjdrc-2021-002593
 UR  - https://doi.org/10.1136/bmjdrc-2021-002593
 AB  - IntroductionTo explore changes in footwear adherence following provision of custom-made indoor footwear in people with diabetes at high risk for plantar foot ulceration and in possession of regular custom-made footwear.Research design and methodsAdherence indoors and outdoors was assessed objectively as percentage of steps custom-made footwear was worn, at baseline (in regular custom-made footwear), and at 1 and 12 months after providing custom-made indoor footwear (in both indoor and regular footwear). Primary group: participants with low (<80%) baseline indoor adherence; secondary group: participants with high (≥80%) baseline indoor adherence. Peak plantar pressures of the indoor footwear were compared with the regular custom-made footwear. Footwear usability was evaluated at 3 months via a questionnaire. At 12 months, ulcer recurrence was assessed through participant/prescriber reporting.ResultsOf 31 participants, 23 had low baseline indoor adherence (<80%). Overall adherence in this group increased statistically significant from median 65% (IQR: 56%-72%) at baseline to 77% (60%-89%) at 1 month (p=0.002) and 87% (60%-93%) at 12 months (p<0.001). This was due to a significant increase in adherence indoors: baseline: 48% (21%-63%); 1 month: 71% (50%-83%) (p=0.001); and 12 months: 77% (40%-91%) (p<0.001). Mean peak plantar pressures were comparable between the indoor and regular custom-made footwear. Participants were positive about usability. One-year ulcer recurrence rate was 26%.ConclusionsFootwear adherence increased in the short-term and long-term after provision of custom-made indoor footwear in people at high risk of diabetic foot ulceration with low baseline adherence, because they actively wore their newly provided indoor footwear inside their house. Footwear adherence may be helped by using both regular and indoor custom-made footwear in clinical practice; the effect on ulcer recurrence should be investigated in future trials.
-N1  - PARADISE protocolpaper, referentie 27
+N1  - PARADISE protocolpaper, referentie 28
 ER  - 
 
 TY  - JOUR
@@ -640,7 +658,7 @@ PY  - 2026
 DO  - 10.1007/s00125-026-06815-1
 UR  - https://doi.org/10.1007/s00125-026-06815-1
 AB  - Aims/hypothesisFoot ulceration is a common complication of diabetes and is associated with high mortality and costs. The quality of evidence to inform clinical practice is limited, partly because clinical studies do not consistently report baseline participant characteristics. This study aimed to develop a core descriptor set (CDS), a minimum set of descriptors to be measured in all studies evaluating interventions for people with diabetes-related foot ulceration.MethodsA longlist of descriptors was generated through a systematic review of studies assessing interventions for diabetes-related foot ulcers, pre-registered with PROSPERO (CRD42019128250). The identified descriptors were then ranked based on perceived importance by healthcare professionals from different fields and geographical locations using a nine-point Likert scale in the first round of a Delphi survey. Using standardised criteria, descriptors without consensus were re-ranked in round two. Critical descriptors and those without consensus after the Delphi process were discussed in the consensus meeting to finalise the CDS.ResultsThe systematic review yielded 95 candidate descriptors. The two Delphi rounds were completed by 102 and 69 healthcare professionals, respectively. The Delphi process identified 34 critically important descriptors and 13 descriptors without consensus, which were discussed in the consensus meeting. The ratified CDS included 28 descriptors across nine domains: demographic variables; individual factors; ulcer characteristics; limb characteristics; ongoing medical interventions; previous surgical interventions; medication history; biochemical measurements; and quality of life/function/symptoms.Conclusions/interpretationThis CDS reflects characteristics important to health professionals and researchers when reporting clinical studies on diabetes-related foot ulceration. Its use will aid the reporting of future studies.
-N1  - PARADISE protocolpaper, referentie 28
+N1  - PARADISE protocolpaper, referentie 29
 ER  - 
 
 TY  - JOUR
@@ -656,7 +674,7 @@ IS  - 4
 SP  - 70
 DO  - 10.3390/diabetology7040070
 UR  - https://doi.org/10.3390/diabetology7040070
-N1  - PARADISE protocolpaper, referentie 29
+N1  - PARADISE protocolpaper, referentie 30
 ER  - 
 
 TY  - JOUR
@@ -680,7 +698,7 @@ EP  - 367
 DO  - 10.1007/s40273-013-0032-y
 UR  - https://doi.org/10.1007/s40273-013-0032-y
 AB  - Economic evaluations of health interventions pose a particular challenge for reporting. There is also a need to consolidate and update existing guidelines and promote their use in a user friendly manner. The Consolidated Health Economic Evaluation Reporting Standards (CHEERS) statement is an attempt to consolidate and update previous health economic evaluation guidelines efforts into one current, useful reporting guidance. The primary audiences for the CHEERS statement are researchers reporting economic evaluations and the editors and peer reviewers assessing them for publication.The need for new reporting guidance was identified by a survey of medical editors. A list of possible items based on a systematic review was created. A two round, modified Delphi panel consisting of representatives from academia, clinical practice, industry, government, and the editorial community was conducted. Out of 44 candidate items, 24 items and accompanying recommendations were developed. The recommendations are contained in a user friendly, 24 item checklist. A copy of the statement, accompanying checklist, and this report can be found on the ISPOR Health Economic Evaluations Publication Guidelines Task Force website ( www.ispor.org/TaskForces/EconomicPubGuidelines.asp ).We hope CHEERS will lead to better reporting, and ultimately, better health decisions. To facilitate dissemination and uptake, the CHEERS statement is being co-published across 10 health economics and medical journals. We encourage other journals and groups, to endorse CHEERS. The author team plans to review the checklist for an update in five years.
-N1  - PARADISE protocolpaper, referentie 30
+N1  - PARADISE protocolpaper, referentie 31
 ER  - 
 
 TY  - RPRT
@@ -691,7 +709,7 @@ TI  - Kostenhandleiding voor economische evaluaties in de gezondheidszorg: metho
 PY  - 2024
 PB  - Zorginstituut Nederland
 CY  - Diemen
-N1  - PARADISE protocolpaper, referentie 31
+N1  - PARADISE protocolpaper, referentie 32
 ER  - 
 
 TY  - JOUR
@@ -724,7 +742,7 @@ EP  - 1834
 DO  - 10.1007/s00125-008-1089-6
 UR  - https://doi.org/10.1007/s00125-008-1089-6
 AB  - Aims/hypothesisThe aim of the present study was to investigate resource utilisation and associated costs in patients with diabetic foot ulcers and to analyse differences in resource utilisation between individuals with or without peripheral arterial disease (PAD) and/or infection.MethodsData on resource utilisation were collected prospectively in a European multicentre study. Data on 1,088 patients were available for the analysis of resource use, and data on 821 patients were included in the costing analysis. Costs were calculated for each patient by multiplying the country-specific direct and indirect unit costs by the number of resources used from inclusion into the study up to a defined endpoint. Country-specific costs were converted into purchasing power standards.ResultsResource use and costs varied between outcome groups and between disease severity groups. The highest costs per patient were for hospitalisation, antibiotics, amputations and other surgery. All types of resource utilisation and costs increased with the severity of disease. The total cost per patient was more than four times higher for patients with infection and PAD at inclusion than for patients in the least severe group, who had neither.Conclusions/interpretationImportant differences in resource use and costs were found between different patient groups. The costs are highest for individuals with both peripheral arterial disease and infection, and these are mainly related to substantial costs for hospitalisation. In view of the magnitude of the costs associated with in-hospital stay, reducing the number and duration of hospital admissions seems an attractive option to decrease costs in diabetic foot disease.
-N1  - PARADISE protocolpaper, referentie 32
+N1  - PARADISE protocolpaper, referentie 33
 ER  - 
 
 TY  - JOUR
@@ -740,7 +758,7 @@ EP  - 2087
 DO  - 10.1007/s001250100013
 UR  - https://doi.org/10.1007/s001250100013
 AB  - Aims/hypothesisWe analysed the cost-effectiveness of intensified prevention in diabetic patients with different risks for foot ulcers and lower extremity amputations. Specifically, we examined whether the additional prevention costs associated with present recommendations would be offset by reduced costs of future foot ulcers and amputations.MethodsMarkov-based 5-year cost-utility simulations of current versus optimal prevention were done for hypothetical cohorts of diabetic patients older than 24 years. The model included eight possible health states for four risk groups. A population of 1677 diabetes patients provided data on present foot ulcer prevention and general mortality. Optimal prevention was defined according to the International Consensus on the Diabetic Foot. Model assumptions, transition probabilities and other data included in the model were based on published literature. The main outcome measures were cumulative incidences of foot ulcers, amputations and deaths, costs, cost-effectiveness, and quality-adjusted life years.ResultsAn intensified prevention strategy including patient education, foot care and footwear is cost-effective if the risk for foot ulcers and lower extremity amputations can be reduced by 25 %. This is valid for all patients with diabetes except those with no specific risk factors.Conclusion/interpretationProviding all diabetic patients at risk or high risk for foot ulcers and amputations with adequate prevention would be a cost-effective or even cost-saving strategy.
-N1  - PARADISE protocolpaper, referentie 33
+N1  - PARADISE protocolpaper, referentie 34
 ER  - 
 
 TY  - JOUR
@@ -757,7 +775,7 @@ EP  - 907
 DO  - 10.2337/diacare.27.4.901
 UR  - https://doi.org/10.2337/diacare.27.4.901
 AB  - ObjectiveTo estimate the lifetime health and economic effects of optimal prevention and treatment of the diabetic foot according to international standards and to determine the cost-effectiveness of these interventions in the Netherlands.Research design and methodsA risk-based Markov model was developed to simulate the onset and progression of diabetic foot disease in patients with newly diagnosed type 2 diabetes managed with care according to guidelines for their lifetime. Mean survival time, quality of life, foot complications, and costs were the outcome measures assessed. Current care was the reference comparison. Data from Dutch studies on the epidemiology of diabetic foot disease, health care use, and costs, complemented with information from international studies, were used to feed the model.ResultsCompared with current care, guideline-based care resulted in improved life expectancy, gain of quality-adjusted life-years (QALYs), and reduced incidence of foot complications. The lifetime costs of management of the diabetic foot following guideline-based care resulted in a cost per QALY gained of < 25,000 US dollars, even for levels of preventive foot care as low as 10%. The cost-effectiveness varied sharply, depending on the level of foot ulcer reduction attained.ConclusionsManagement of the diabetic foot according to guideline-based care improves survival, reduces diabetic foot complications, and is cost-effective and even cost saving compared with standard care.
-N1  - PARADISE protocolpaper, referentie 34
+N1  - PARADISE protocolpaper, referentie 35
 ER  - 
 
 TY  - JOUR
@@ -774,7 +792,7 @@ SP  - e3805
 DO  - 10.1002/dmrr.3805
 UR  - https://doi.org/10.1002/dmrr.3805
 AB  - AimsDiabetes-related foot ulcers are common, costly, and frequently recur. Multiple interventions help prevent these ulcers. However, none of these have been prospectively investigated for cost-effectiveness. Our aim was to evaluate the cost-effectiveness of at-home skin temperature monitoring to help prevent diabetes-related foot ulcer recurrence.Materials and methodsMulticenter randomized controlled trial. We randomized 304 persons at high diabetes-related foot ulcer risk to either usual foot care plus daily at-home foot skin temperature monitoring (intervention) or usual care alone (control). Primary outcome was cost-effectiveness based on foot care costs and quality-adjusted life years (QALY) during 18 months follow-up. Foot care costs included costs for ulcer prevention (e.g., footwear, podiatry) and for ulcer treatment when required (e.g., consultation, hospitalisation, amputation). Incremental cost-effectiveness ratios were calculated for intervention versus usual care using probabilistic sensitivity analysis for willingness-to-pay/accept levels up to €100,000.ResultsThe intervention had a 45% probability of being cost-effective at a willingness-to-accept of €50,000 per QALY lost. This resulted from (non-significantly) lower foot care costs in the intervention group (€6067 vs. €7376; p = 0.45) because of (significantly) fewer participants with ulcer recurrence(s) in 18 months (36% vs. 47%; p = 0.045); however, QALYs were (non-significantly) lower in the intervention group (1.09 vs. 1.12; p = 0.35), especially in those without foot ulcer recurrence (1.09 vs. 1.17; p = 0.10).ConclusionsAt-home skin temperature monitoring for diabetes-related foot ulcer prevention compared with usual care is at best equally cost-effective. The intervention resulted in cost-savings due to preventing foot ulcer recurrence and related costs, but this came at the expense of QALY loss, potentially from self-monitoring burdens.
-N1  - PARADISE protocolpaper, referentie 35
+N1  - PARADISE protocolpaper, referentie 36
 ER  - 
 
 TY  - JOUR
@@ -796,5 +814,5 @@ VL  - 350
 SP  - h1258
 DO  - 10.1136/bmj.h1258
 UR  - https://doi.org/10.1136/bmj.h1258
-N1  - PARADISE protocolpaper, referentie 36
+N1  - PARADISE protocolpaper, referentie 37
 ER  - 
