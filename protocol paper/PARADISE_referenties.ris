@@ -546,59 +546,6 @@ N1  - PARADISE protocolpaper, referentie 24
 ER  - 
 
 TY  - JOUR
-AU  - Lincoln, N.B.
-AU  - Jeffcoate, W.J.
-AU  - Ince, P.
-AU  - Smith, M.
-AU  - Radford, K.A.
-TI  - Validation of a new measure of protective footcare behaviour: the Nottingham Assessment of Functional Footcare (NAFF)
-T2  - Practical Diabetes International
-PY  - 2007
-VL  - 24
-IS  - 4
-SP  - 207
-EP  - 211
-DO  - 10.1002/pdi.1099
-UR  - https://doi.org/10.1002/pdi.1099
-N1  - PARADISE protocolpaper, referentie 25
-ER  - 
-
-TY  - JOUR
-AU  - Zwaferink, J.B.J.
-AU  - Nollet, F.
-AU  - Bus, S.A.
-TI  - In-Shoe Pressure Measurements in Diabetic Footwear Practice: Success Rate and Facilitators of and Barriers to Implementation
-T2  - Sensors (Basel, Switzerland)
-PY  - 2024
-VL  - 24
-IS  - 6
-SP  - 1795
-DO  - 10.3390/s24061795
-UR  - https://doi.org/10.3390/s24061795
-AB  - We aimed to assess the success rate and facilitators of and the barriers to the implementation of in-shoe plantar pressure measurements in footwear practice for people with diabetes at high risk of foot ulceration. Eleven Dutch footwear practices were partly supported in purchasing a pressure measurement system. Over a 2.5-year period, trained shoe technicians evaluated 1030 people with diabetes (range: 13 to 156 across practices). The implementation success and associated facilitators and barriers were evaluated quantitatively using completed measurement forms and pressure measurement data obtained during four monitoring sessions and qualitatively through semi-structured interviews with technicians. Across the 11 practices, the primary target group (people with diabetes and a healed plantar foot ulcer) represented 25-90% of all the patients measured. The results showed that three practices were successful, five moderately successful, and three not successful. The facilitators included support by the company management board, collaboration with a prescribing physician, measurement sessions separate from the outpatient clinic, and a (dedicated) shoe technician experiencing a learning effect. The barriers included investment costs, usability aspects, and limited awareness among shoe technicians. In-shoe plantar pressure measurements can be implemented to a moderate to large degree in diabetic footwear practice. The barriers to and facilitators of implementation are organizational, logistical, financial, or technical, and the barriers are modifiable, supporting future implementation.
-N1  - PARADISE protocolpaper, referentie 26
-ER  - 
-
-TY  - JOUR
-AU  - van Netten, J.J.
-AU  - Vossen, L.E.
-AU  - Driebergen, F.M.
-AU  - Wolthuis, D.
-AU  - Merkx, M.J.M.
-AU  - Bus, S.A.
-TI  - Short-Term Efficacy of a Multi-Modal Intervention Program to Improve Custom-Made Footwear Use in People at High Risk of Diabetes-Related Foot Ulceration
-T2  - Journal of clinical medicine
-PY  - 2025
-VL  - 14
-IS  - 11
-SP  - 3635
-DO  - 10.3390/jcm14113635
-UR  - https://doi.org/10.3390/jcm14113635
-AB  - Background: Wearing custom-made footwear is key in diabetes-related foot ulcer prevention. However, adhering to wearing footwear is challenging, in particular at home. Evidence-based interventions with proven effect are needed, but scarce. We developed a multi-modal intervention to improve custom-made footwear use, and investigated short-term efficacy. Methods: We used a multidisciplinary multiphase approach to develop a three-modality intervention: structured education, motivational interviewing, and custom-made indoor footwear. To assess efficacy, we measured mean 2-week wearing time of custom-made footwear with a validated sensor, at baseline and after three months (primary outcome), and in the two weeks directly before and after each modality was administered (secondary outcomes). We assessed differences between timepoints using within-subjects paired t-tests. Results: 53 participants with high risk for ulceration were included: 30 with low [<8 h/day] baseline adherence), 17% females, mean age 66 (SD: 10) years, all with peripheral neuropathy and a recent foot ulcer (mean time since healing: 6 (SD: 9) months). Wearing time increased non-significantly from 4.0 (SD: 2.5) at baseline to 5.5 (SD: 4.3) after three months in the low adherence group (p = 0.068); this was 11.9 (SD: 2.3) to 12.0 (SD: 2.8) in the high adherence group (p = 0.898). Following provision of indoor footwear, wearing time increased significantly for low baseline adherence (∆2.7 h/day (95% CI: 1.0-4.4; p = 0.004) and high baseline adherence (∆2.0 h/day (95% CI: 0.5-3.4; p = 0.010). Following structured education, wearing time increased non-significantly in those with low baseline adherence (∆1.0 h/day (95% CI: -0.2-2.2; p = 0.098). Following motivational interviewing, wearing time remained similar in both groups. Conclusions: The multi-modal intervention program combining structured education, motivational interviewing and custom-made indoor footwear did not result in a statistically significant improvement in the wearing time of custom-made footwear after three months. However, significant improvements followed the provision of indoor footwear, and clinically relevant improvements followed structured education in people with low adherence, providing avenues for implementation and research.
-N1  - PARADISE protocolpaper, referentie 27
-ER  - 
-
-TY  - JOUR
 AU  - van Netten, J.J.
 AU  - Bus, S.A.
 AU  - Apelqvist, J.
@@ -624,6 +571,59 @@ SP  - e3654
 DO  - 10.1002/dmrr.3654
 UR  - https://doi.org/10.1002/dmrr.3654
 AB  - Multiple disciplines are involved in the management of diabetes-related foot disease and a common vocabulary is essential for clear communication. Based on the systematic reviews of the literature that form the basis of the International Working Group on the Diabetic Foot (IWGDF) Guidelines, the IWGDF has developed a set of definitions and criteria for diabetes-related foot disease. This document describes the 2023 update of these definitions and criteria. We suggest these definitions be used consistently in both clinical practice and research, to facilitate clear communication with people with diabetes-related foot disease and between professionals around the world.
+N1  - PARADISE protocolpaper, referentie 25
+ER  - 
+
+TY  - JOUR
+AU  - Lincoln, N.B.
+AU  - Jeffcoate, W.J.
+AU  - Ince, P.
+AU  - Smith, M.
+AU  - Radford, K.A.
+TI  - Validation of a new measure of protective footcare behaviour: the Nottingham Assessment of Functional Footcare (NAFF)
+T2  - Practical Diabetes International
+PY  - 2007
+VL  - 24
+IS  - 4
+SP  - 207
+EP  - 211
+DO  - 10.1002/pdi.1099
+UR  - https://doi.org/10.1002/pdi.1099
+N1  - PARADISE protocolpaper, referentie 26
+ER  - 
+
+TY  - JOUR
+AU  - Zwaferink, J.B.J.
+AU  - Nollet, F.
+AU  - Bus, S.A.
+TI  - In-Shoe Pressure Measurements in Diabetic Footwear Practice: Success Rate and Facilitators of and Barriers to Implementation
+T2  - Sensors (Basel, Switzerland)
+PY  - 2024
+VL  - 24
+IS  - 6
+SP  - 1795
+DO  - 10.3390/s24061795
+UR  - https://doi.org/10.3390/s24061795
+AB  - We aimed to assess the success rate and facilitators of and the barriers to the implementation of in-shoe plantar pressure measurements in footwear practice for people with diabetes at high risk of foot ulceration. Eleven Dutch footwear practices were partly supported in purchasing a pressure measurement system. Over a 2.5-year period, trained shoe technicians evaluated 1030 people with diabetes (range: 13 to 156 across practices). The implementation success and associated facilitators and barriers were evaluated quantitatively using completed measurement forms and pressure measurement data obtained during four monitoring sessions and qualitatively through semi-structured interviews with technicians. Across the 11 practices, the primary target group (people with diabetes and a healed plantar foot ulcer) represented 25-90% of all the patients measured. The results showed that three practices were successful, five moderately successful, and three not successful. The facilitators included support by the company management board, collaboration with a prescribing physician, measurement sessions separate from the outpatient clinic, and a (dedicated) shoe technician experiencing a learning effect. The barriers included investment costs, usability aspects, and limited awareness among shoe technicians. In-shoe plantar pressure measurements can be implemented to a moderate to large degree in diabetic footwear practice. The barriers to and facilitators of implementation are organizational, logistical, financial, or technical, and the barriers are modifiable, supporting future implementation.
+N1  - PARADISE protocolpaper, referentie 27
+ER  - 
+
+TY  - JOUR
+AU  - van Netten, J.J.
+AU  - Vossen, L.E.
+AU  - Driebergen, F.M.
+AU  - Wolthuis, D.
+AU  - Merkx, M.J.M.
+AU  - Bus, S.A.
+TI  - Short-Term Efficacy of a Multi-Modal Intervention Program to Improve Custom-Made Footwear Use in People at High Risk of Diabetes-Related Foot Ulceration
+T2  - Journal of clinical medicine
+PY  - 2025
+VL  - 14
+IS  - 11
+SP  - 3635
+DO  - 10.3390/jcm14113635
+UR  - https://doi.org/10.3390/jcm14113635
+AB  - Background: Wearing custom-made footwear is key in diabetes-related foot ulcer prevention. However, adhering to wearing footwear is challenging, in particular at home. Evidence-based interventions with proven effect are needed, but scarce. We developed a multi-modal intervention to improve custom-made footwear use, and investigated short-term efficacy. Methods: We used a multidisciplinary multiphase approach to develop a three-modality intervention: structured education, motivational interviewing, and custom-made indoor footwear. To assess efficacy, we measured mean 2-week wearing time of custom-made footwear with a validated sensor, at baseline and after three months (primary outcome), and in the two weeks directly before and after each modality was administered (secondary outcomes). We assessed differences between timepoints using within-subjects paired t-tests. Results: 53 participants with high risk for ulceration were included: 30 with low [<8 h/day] baseline adherence), 17% females, mean age 66 (SD: 10) years, all with peripheral neuropathy and a recent foot ulcer (mean time since healing: 6 (SD: 9) months). Wearing time increased non-significantly from 4.0 (SD: 2.5) at baseline to 5.5 (SD: 4.3) after three months in the low adherence group (p = 0.068); this was 11.9 (SD: 2.3) to 12.0 (SD: 2.8) in the high adherence group (p = 0.898). Following provision of indoor footwear, wearing time increased significantly for low baseline adherence (∆2.7 h/day (95% CI: 1.0-4.4; p = 0.004) and high baseline adherence (∆2.0 h/day (95% CI: 0.5-3.4; p = 0.010). Following structured education, wearing time increased non-significantly in those with low baseline adherence (∆1.0 h/day (95% CI: -0.2-2.2; p = 0.098). Following motivational interviewing, wearing time remained similar in both groups. Conclusions: The multi-modal intervention program combining structured education, motivational interviewing and custom-made indoor footwear did not result in a statistically significant improvement in the wearing time of custom-made footwear after three months. However, significant improvements followed the provision of indoor footwear, and clinically relevant improvements followed structured education in people with low adherence, providing avenues for implementation and research.
 N1  - PARADISE protocolpaper, referentie 28
 ER  - 
 
