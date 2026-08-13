@@ -168,14 +168,19 @@ def hoogte(tekst, breedte, gr, ra=1.3):
     return regels * gr * ra * 2
 
 
-def bol(s, x, y, d, tekst, kl='licht', klein=False):
-    """Genummerde bol voor stappen en handelingen."""
+def bol(s, x, y, d, tekst, kl='licht', klein=False, vul='tegel2', rand=None):
+    """Genummerde bol voor stappen en handelingen.
+
+    Het tekstvak valt samen met de cirkel en is verticaal gecentreerd; met een
+    losse verschuiving zakt het cijfer altijd net te laag, omdat de regelafstand
+    boven de letter meetelt.
+    """
     o = s.shapes.add_shape(MSO_SHAPE.OVAL, px(x), px(y), px(d), px(d))
-    o.fill.solid(); o.fill.fore_color.rgb = rgb('tegel2')
-    o.line.color.rgb = rgb(kl); o.line.width = Pt(1)
+    o.fill.solid(); o.fill.fore_color.rgb = rgb(vul)
+    o.line.color.rgb = rgb(rand or kl); o.line.width = Pt(1)
     o.shadow.inherit = False
-    txt(s, x, y + (7 if klein else 9), d, 30, tekst, gr=12.5 if klein else 15,
-        kl=kl, vet=True, uit=PP_ALIGN.CENTER, font=FONT_M)
+    txt(s, x, y, d, d, tekst, gr=12.5 if klein else 15, kl=kl, vet=True,
+        uit=PP_ALIGN.CENTER, font=FONT_M, ra=1.0, anker=MSO_ANCHOR.MIDDLE)
     return o
 
 
@@ -706,20 +711,10 @@ for i, d in enumerate(SLIDES, 1):
         for j, (naam2, uitleg, fx, ft) in enumerate(d['regios']):
             # genummerde speld op de voet, met hetzelfde nummer in de lijst
             cx, cy = MX + fx * MW, MY + MH * (1 - ft)
-            o = s.shapes.add_shape(MSO_SHAPE.OVAL, px(cx - 22), px(cy - 22), px(44), px(44))
-            o.fill.solid(); o.fill.fore_color.rgb = rgb('bg')
-            o.line.color.rgb = rgb('wit'); o.line.width = Pt(1.5)
-            o.shadow.inherit = False
-            txt(s, cx - 22, cy - 13, 44, 30, str(j + 1), gr=16, kl='wit', vet=True,
-                uit=PP_ALIGN.CENTER, font=FONT_M)
+            bol(s, cx - 22, cy - 22, 44, str(j + 1), 'wit', vul='bg')
             y = 300 + j * 116
             liniaal(s, 1000, y, 820)
-            o2 = s.shapes.add_shape(MSO_SHAPE.OVAL, px(1000), px(y + 26), px(40), px(40))
-            o2.fill.solid(); o2.fill.fore_color.rgb = rgb('tegel2')
-            o2.line.color.rgb = rgb('licht'); o2.line.width = Pt(1)
-            o2.shadow.inherit = False
-            txt(s, 1000, y + 35, 40, 30, str(j + 1), gr=15, kl='licht', vet=True,
-                uit=PP_ALIGN.CENTER, font=FONT_M)
+            bol(s, 1000, y + 26, 40, str(j + 1), 'licht')
             txt(s, 1064, y + 22, 760, 44, naam2, gr=20, kl='ink', vet=True)
             txt(s, 1066, y + 64, 760, 40, uitleg, gr=14.5, kl='gedempt')
         txt(s, 100, 1006, 1400, 30, d['voet'], gr=11.5, kl='gedempt', font=FONT_M)
