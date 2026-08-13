@@ -738,9 +738,11 @@ for i, d in enumerate(SLIDES, 1):
                 font=FONT_M, caps=True, sp=1.5)
             txt(s, x, y + 150, 1140, 100, p['waarvoor'], gr=16.5, kl='gedempt', ra=1.35)
             for k, regel in enumerate(p['bereik']):
-                txt(s, x + k * 560, y + 256, 540, 40, regel, gr=16, kl='ink',
-                    font=FONT_M)
-        txt(s, 100, 1006, 1500, 30, d['voet'], gr=11.5, kl='gedempt', font=FONT_M)
+                txt(s, x + k * 560, y + 256, 580, 40, regel, gr=16, kl='ink',
+                    font=FONT_M, omslag=False)
+        liniaal(s, 100, 940, 1720)
+        txt(s, 100, 962, 1720, 60, d['consortium'], gr=13, kl='gedempt', ra=1.35)
+        paginering(s, i)
 
     else:
         raise SystemExit('onbekend type: %s' % t)

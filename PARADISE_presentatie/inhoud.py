@@ -422,19 +422,25 @@ SLIDES = [
  dict(t='contact', morph='morph',
       kicker='Wie u aanspreekt',
       kop='Voor als er iets misloopt',
+      # Adres en e-mail komen uit het corresponding-authorblok van het manuscript.
       personen=[
           dict(naam='Janou De Buyser',
                rol='Doctoraatsonderzoeker · dagelijkse opvolging',
                waarvoor='Uw eerste aanspreekpunt: inclusies, metingen, REDCap, '
                         'sensoren en alles wat in de praktijk vastloopt.',
-               bereik=['▮ e-mailadres', '▮ telefoonnummer']),
+               bereik=['janou.debuyser@kuleuven.be',
+                       'Spoorwegstraat 12 · Brugge']),
           dict(naam='prof. dr. Kevin Deschamps',
                rol='Promotor',
                waarvoor='Wetenschappelijke vragen, de opzet van de studie en '
                         'afspraken op het niveau van uw centrum.',
-               bereik=['kevin.deschamps@kuleuven.be',
+               bereik=['Revalidatiewetenschappen',
                        'KU Leuven · Campus Brugge']),
       ],
+      consortium='Consortium: KU Leuven — Revalidatiewetenschappen (Musculoskeletal '
+                 'Research Group) en Volksgezondheid en Eerstelijnszorg · Vrije '
+                 'Universiteit Brussel — Geneeskunde en Farmacie. Co-promotoren: '
+                 'Fabienne Dobbels, Maaike Fobelets en Koen Putman.',
       voet='PARADISE · FWO TBM T000226N · S71769',
       tip='Laat deze dia staan tijdens het napraten. Zeg erbij dat kleine dingen '
           'ook mogen — een sensor die niet uitleest is geen domme vraag.',
