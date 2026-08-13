@@ -116,7 +116,7 @@ SLIDES = [
  dict(t='statraster', morph='morph',
       kicker='Waar we staan',
       kop='144 patiënten, 24 per centrum',
-      klein=[('Ontwerp', 'Multicentrisch · open-label · superioriteit'),
+      klein=[('Per centrum', '24 deelnemers — 12 PARADISE en 12 gebruikelijke zorg'),
              ('Controlegroep', 'Gebruikelijke zorg, onveranderd'),
              ('Co-primair', 'Recidief op 18 mnd  +  draagtijd op 12 mnd'),
              ('Positief', 'Alleen als béíde eindpunten halen')],
@@ -238,7 +238,7 @@ SLIDES = [
                   'De meting waarop de norm getoetst wordt, per doelregio.')],
       slot='Alle drie de condities staan op hetzelfde formulier. Slaat u er één '
            'over, dan is de vergelijking onbruikbaar.',
-      voet='eCRF-document 24 · comfortsnelheid, ± 5% bij follow-up · ≥ 12 mid-gait stappen per voet',
+      voet='eCRF-document 24 · de norm wordt per doelregio getoetst, niet over de hele voet',
       tip='Dit is de dia waar in de praktijk de meeste fouten gemaakt worden. '
           'Loop de drie condities traag door en benoem dat conditie 2 vaak '
           'vergeten wordt.',
@@ -289,10 +289,14 @@ SLIDES = [
                         'amputatie of resectie van een metatarsaalkop — niet de '
                         'eerste — tussen 18 maanden en 2 weken geleden',
                         'Stapt zelfstandig blootsvoets, zonder hulpmiddelen',
-                        'Heeft beschermend schoeisel of aanvaardt het']),
+                        'Heeft beschermend schoeisel, of aanvaardt het: volledig '
+                        'maatwerk, of maatzolen in semi-orthopedisch of '
+                        'extra-diep confectieschoeisel']),
       rechts=dict(titel='Niet', kleur='oranje',
                   items=['Amputatie proximaal van de MTP-gewrichten',
                          'Actief ulcus of Charcot-deformiteit',
+                         'Kritische ischemie — PEDIS graad 3',
+                         'Immunosuppressieve therapie',
                          'Nierfunctievervangende therapie',
                          'Overleving < 18 maanden, beoordeeld door de arts',
                          'Kan geen toestemming geven of instructies volgen',
@@ -357,6 +361,8 @@ SLIDES = [
                    'Toets de norm per doelregio. Niet gehaald? Pas aan en meet '
                    'opnieuw — twee extra tests zijn voorzien.',
                    'Noteer welke aanpassingen u hebt uitgevoerd.',
+                   'Is de norm gehaald, laat dan een tweede, identiek paar zolen '
+                   'maken. Beide paren blijven in gebruik.',
                    'Plaats en activeer de Orthotimer in de zool en registreer het '
                    'toestelnummer.',
                    'Voer het SEBIA-gesprek met teach-back en geef de sensorfolder mee.'],
@@ -382,6 +388,8 @@ SLIDES = [
                    'niet-veroordelend.',
                    'Op maand 6 en 12: herhaal de drukmeting in de drie condities.',
                    'Op maand 6: tweede week MoveMonitor.',
+                   'Beoordeel beide paren zolen. Het paar dat onderhoud nodig '
+                   'heeft gaat naar de pedorthist, inclusief toplaag.',
                    'Vervang zool of sensor als dat nodig is, en leg dat vast.',
                    'Vul de kwaliteit-van-leven- en kostenvragenlijsten aan.'],
       documenten=[('24', 'Drukherverdeling'), ('28', 'Activiteit'),
@@ -414,8 +422,8 @@ SLIDES = [
       kaarten=[dict(naam='Novel pedar', sub='Druk', groot='8', onder='voetregio\'s',
                     foto='pedar.png',
                     regels=['Blootsvoets met tape, en in de schoen met en zonder zool',
-                            'Trublu-kalibratie op 6 bar, elke drie maanden',
-                            'Minstens twaalf mid-gait stappen per voet'],
+                            'Trublu-kalibratie minstens elke drie maanden',
+                            'De F-Scan GO is een aparte meting van het studieteam'],
                     wie='Uw team meet'),
                dict(naam='Orthotimer', sub='Draagtijd', groot='15', onder='minuten',
                     foto='orthotimer.png',
@@ -438,6 +446,30 @@ SLIDES = [
       tip='Laat deze dia even staan zonder te praten. De sensor is fysiek zo '
           'klein dat het beeld het argument al maakt.',
       interactie='Geef er een door de zaal terwijl u praat.'),
+
+ dict(t='sop', morph='morph',
+      kicker='De zool · protocol 5.4.2',
+      kop='Hoe de CMFO is opgebouwd',
+      instellingen=[('Basislaag', '5 mm microkurk, shore 55'),
+                    ('Toplaag bij maatwerk', '5 mm EVA, shore 35-40'),
+                    ('Toplaag bij confectie', '6 mm EVA, shore 35-40'),
+                    ('Metatarsaalbalk', '9-10 mm hoog, shore ~55'),
+                    ('Positie van de balk', '6-11 mm proximaal'),
+                    ('Deklaag', '3 mm gesloten + 3 mm open cel')],
+      stappen=['Ligt er maar één regio hoog, of zit daar het vorige ulcus, gebruik '
+               'dan een lokale pad of dome in plaats van een balk over alle kopjes.',
+               'Pas aan zolang de norm niet gehaald is, of zolang podoloog en '
+               'pedorthist samen oordelen dat er nog winst te halen is.',
+               'Is de norm gehaald, maak dan een tweede, identiek paar.',
+               'Vanaf maand 3 beoordeelt u bij elk kwartaalbezoek beide paren en '
+               'knapt u het paar op dat aan onderhoud toe is, deklaag inbegrepen.'],
+      valkuil='De patiënt houdt twee paren in gebruik, niet één: er is er altijd '
+              'één beschikbaar terwijl het andere onderhouden wordt. Neemt u er één '
+              'in zonder vervanging, dan daalt de draagtijd door úw ingreep.',
+      tip='Dit is de dia voor de pedorthisten. De opbouw ligt vast in het protocol '
+          'en is dus geen vrije keuze — het is een medisch hulpmiddel binnen een studie.',
+      interactie='Vraag of deze opbouw afwijkt van wat ze vandaag maken. Waar het '
+                 'afwijkt, noteer dat: het is input voor de procesevaluatie.'),
 
  dict(t='sop', morph='morph',
       kicker='SOP · eCRF-document 25b',
