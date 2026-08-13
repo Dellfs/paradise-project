@@ -61,3 +61,19 @@ while stapel:
             gezien.add((nx, ny))
             stapel.append((nx, ny))
 bewaar(im.crop(im.getbbox()), 'merk.png')
+
+
+# Duotoon: grijswaarden omzetten naar de blauwfamilie van de huisstijl, zodat
+# een foto die aflopend over de dia ligt bij het palet hoort in plaats van
+# ertegen te vloeken.
+def duotoon(bron, donker=(0x04, 0x18, 0x2A), licht=(0x8F, 0xD6, 0xF5)):
+    g = bron.convert('L')
+    lut = []
+    for kanaal in range(3):
+        lut += [int(round(donker[kanaal] + (licht[kanaal] - donker[kanaal]) * i / 255.0))
+                for i in range(256)]
+    return Image.merge('RGB', (g, g, g)).point(lut)
+
+
+im = Image.open(os.path.join(BRON, 'content_products-orthotimer_en.webp')).convert('RGB')
+bewaar(duotoon(im.crop((110, 800, 1990, 1460))), 'sensor_vol.png')

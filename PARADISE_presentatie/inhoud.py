@@ -13,6 +13,7 @@ geverifieerde manuscript.
 # zodat het hele deck uit dezelfde blauwfamilie komt.
 K = {
     'bg':      '04182A',
+    'grond2':  '072138',
     'tegel':   '0A2A44',
     'tegel2':  '113A57',
     'glas':    '17486B',
@@ -142,6 +143,21 @@ SLIDES = [
       voet='Novel pedar · in-shoe · piekdruk per regio via Multimask',
       tip='Wijs de rode plek aan. Zeg er niets bij. Klik dan pas door.',
       interactie='Vraag: "waar verwacht u de piek?" Laat ze wijzen voor u de dia toont.'),
+
+ dict(t='drukzoom', morph='morph', fase='voor',
+      kicker='Inzoomen op de voorvoet',
+      kop='Waar de norm getoetst wordt',
+      waarde='312',
+      # naam, uitleg, en de plek op de voet (0-1 in de breedte, 0 = hiel tot 1 = teen)
+      regios=[('Metatarsaal 1', 'onder de grote teen — tweede meest getroffen plek', 0.30, 0.68),
+              ('Metatarsaal 2-3', 'de hete plek op deze meting, en de klassieke ulcusplek', 0.44, 0.66),
+              ('Metatarsaal 4-5', 'laterale voorvoet, meestal lagere druk', 0.70, 0.63),
+              ('Hallux', 'apart bekeken, niet meer samengeteld met de tenen', 0.28, 0.91),
+              ('Tenen 2-5', 'eigen regio sinds de laatste maskerversie', 0.55, 0.90)],
+      voet='Acht regio\'s via Multimask · hier vijf van de voorvoet in beeld',
+      tip='De camera duikt de voet in. Zeg: "dit is wat de software eruit haalt — '
+          'niet één getal voor de hele voet, maar acht."',
+      interactie='Vraag de podologen of ze de maskers zelf al gelegd hebben.'),
 
  dict(t='drukmeting', morph='morph', fase='na',
       kicker='Wat de zool ermee doet',
@@ -276,6 +292,14 @@ SLIDES = [
                ('05', '18 mnd', 'Afsluiten en resultaten delen.')],
       tip='Stap 3 is het hart: eerst láát u hem schatten, dán toont u de data.',
       interactie='Rollenspel van twee minuten met een vrijwilliger uit de zaal.'),
+
+ dict(t='aflopend', morph='morph',
+      foto='sensor_vol.png',
+      kicker='De tweede component, in het echt',
+      kop='Negen bij dertien millimeter.\nMeer merkt de patiënt niet.',
+      tip='Laat deze dia even staan zonder te praten. De sensor is fysiek zo klein '
+          'dat het beeld het argument al maakt.',
+      interactie='Geef er een door de zaal terwijl u praat.'),
 
  dict(t='drieluik', morph='morph',
       kicker='De techniek',

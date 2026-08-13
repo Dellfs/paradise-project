@@ -63,7 +63,7 @@ def tegel(s, x, y, w, h, vul='tegel', rand='rand', alpha=None, rond=True, naam=N
 
 def txt(s, x, y, w, h, regels, gr=16, kl='ink', vet=False, font=FONT,
         uit=PP_ALIGN.LEFT, ra=1.25, sp=0, anker=MSO_ANCHOR.TOP, caps=False, naam=None,
-        omslag=True):
+        omslag=True, vloei=None):
     tb = s.shapes.add_textbox(px(x), px(y), px(w), px(h))
     if naam:
         tb.name = naam
@@ -92,6 +92,20 @@ def txt(s, x, y, w, h, regels, gr=16, kl='ink', vet=False, font=FONT,
         s2 = ex.get('sp', sp)
         if s2:
             run.font._rPr.set('spc', str(int(s2 * 100)))
+        vk = ex.get('vk', vloei)
+        if vk:
+            # kleurverloop dwars door de letters, in de gradiënt van het merk
+            rPr = run.font._rPr
+            oud = rPr.find(qn('a:solidFill'))
+            if oud is not None:
+                rPr.remove(oud)
+            rPr.insert(0, etree.fromstring(
+                '<a:gradFill xmlns:a="http://schemas.openxmlformats.org/drawingml/'
+                '2006/main"><a:gsLst>'
+                '<a:gs pos="0"><a:srgbClr val="%s"/></a:gs>'
+                '<a:gs pos="100000"><a:srgbClr val="%s"/></a:gs>'
+                '</a:gsLst><a:lin ang="2700000" scaled="0"/></a:gradFill>'
+                % (K[vk[0]], K[vk[1]])))
     return tb
 
 
@@ -150,18 +164,48 @@ def liniaal(s, x, y, w, kl='rand', dik=1.5):
     return r
 
 
-def foto(s, bestand, x, y, w, h, naam=None):
-    """Past een foto passend in het vak x,y,w,h en centreert hem daarin."""
+def foto(s, bestand, x, y, w, h, naam=None, alpha=None, vullend=False):
+    """Plaatst een foto in het vak x,y,w,h.
+
+    vullend=False past hem passend in en centreert; vullend=True laat hem het
+    vak volledig vullen en over de randen lopen, zoals een aflopend beeld.
+    alpha (0-100) maakt hem doorschijnend, voor beeld dat achtergrond is.
+    """
     pad = os.path.join(BEELD, bestand)
     with Image.open(pad) as im:
         bw, bh = im.size
-    f = min(w / bw, h / bh)
+    f = max(w / bw, h / bh) if vullend else min(w / bw, h / bh)
     fw, fh = bw * f, bh * f
     p = s.shapes.add_picture(pad, px(x + (w - fw) / 2), px(y + (h - fh) / 2),
                              px(fw), px(fh))
     if naam:
         p.name = naam
+    if alpha is not None:
+        blip = p._element.blipFill.find(qn('a:blip'))
+        etree.SubElement(blip, qn('a:alphaModFix')).set('amt', str(int(alpha * 1000)))
     return p
+
+
+# De instellingslogo's zijn merkbestanden die ik niet mag namaken. Zet ze als
+# kuleuven.png en vub.png in beeld\ en ze verschijnen automatisch; zolang ze er
+# niet zijn, staat de naam er getypt.
+PARTNERS = [('kuleuven.png', 'KU Leuven', 'Campus Brugge'),
+            ('vub.png', 'VUB', 'Vrije Universiteit Brussel'),
+            (None, 'FWO', 'TBM T000226N')]
+
+
+def partners(s, y=904):
+    """Balk met de instellingen, onderaan de openings- en slotdia."""
+    liniaal(s, 100, y - 26, 1720)
+    x = 100
+    for bestand, naam, sub in PARTNERS:
+        pad = bestand and os.path.join(BEELD, bestand)
+        if pad and os.path.exists(pad):
+            foto(s, bestand, x, y, 300, 76)
+        else:
+            txt(s, x, y + 6, 340, 40, naam, gr=21, kl='ink', vet=True)
+            txt(s, x + 2, y + 46, 420, 34, sub, gr=12, kl='gedempt', font=FONT_M)
+        x += 480
 
 
 def merk(s, t):
@@ -170,7 +214,7 @@ def merk(s, t):
     if t == 'hero_titel':
         foto(s, 'merk.png', 1500, 196, 280, 300, naam='merk')
     elif t == 'sectie':
-        foto(s, 'merk.png', 1440, 300, 320, 340, naam='merk')
+        pass  # de sectiedia draagt het merk al reusachtig op de achtergrond
     elif t == 'slot':
         foto(s, 'merk.png', 1380, 320, 330, 350, naam='merk')
     elif t == 'pauze':
@@ -221,11 +265,39 @@ leeg = prs.slide_layouts[6]
 TOT = len(SLIDES)
 
 
+def verloop(vorm, van, naar, hoek=5400000):
+    """Lineair kleurverloop op een vorm; hoek in 1/60000 graad."""
+    sp = vorm.fill._xPr
+    for k in ('a:solidFill', 'a:noFill', 'a:gradFill', 'a:blipFill', 'a:pattFill'):
+        oud = sp.find(qn(k))
+        if oud is not None:
+            sp.remove(oud)
+    xml = (
+        '<a:gradFill xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" '
+        'rotWithShape="1"><a:gsLst>'
+        '<a:gs pos="0"><a:srgbClr val="%s"/></a:gs>'
+        '<a:gs pos="100000"><a:srgbClr val="%s"/></a:gs>'
+        '</a:gsLst><a:lin ang="%d" scaled="0"/></a:gradFill>' % (K[van], K[naar], hoek))
+    el = etree.fromstring(xml)
+    # De volgorde binnen spPr ligt vast: de vulling hoort ná de geometrie.
+    geom = sp.find(qn('a:prstGeom'))
+    if geom is None:
+        geom = sp.find(qn('a:custGeom'))
+    if geom is None:
+        sp.insert(0, el)
+    else:
+        geom.addnext(el)
+
+
 def nieuw():
+    """Elke dia krijgt een verlopende grond in plaats van een vlakke kleur:
+    diep navy linksboven, iets lichter rechtsonder. Subtiel, maar het haalt de
+    dia's uit het vlakke."""
     s = prs.slides.add_slide(leeg)
     bg = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, px(B), px(H))
-    bg.fill.solid(); bg.fill.fore_color.rgb = rgb('bg')
     bg.line.fill.background(); bg.shadow.inherit = False
+    bg.fill.solid(); bg.fill.fore_color.rgb = rgb('bg')
+    verloop(bg, 'grond2', 'bg', 5400000)
     return s
 
 
@@ -245,14 +317,18 @@ for i, d in enumerate(SLIDES, 1):
         txt(s, 156, 552, 1300, 70, d['staart'], gr=18, kl='gedempt', font=FONT_L)
         for j, (g, l) in enumerate(d['tegels']):
             x, w = kol(j * 4, 4)
-            tegel(s, x, 664, w, 210, 'tegel2', 'rand')
-            txt(s, x + 34, 698, w - 60, 120, g, gr=56, kl='licht', vet=True, ra=1.0)
-            txt(s, x + 36, 810, w - 60, 40, l, gr=14, kl='gedempt', font=FONT_M,
+            tegel(s, x, 640, w, 200, 'tegel2', 'rand')
+            txt(s, x + 34, 672, w - 60, 116, g, gr=54, kl='licht', vet=True, ra=1.0)
+            txt(s, x + 36, 782, w - 60, 40, l, gr=14, kl='gedempt', font=FONT_M,
                 caps=True, sp=1.4)
-        txt(s, 100, 1006, 1500, 30, d['voet'], gr=11.5, kl='gedempt', font=FONT_M)
+        partners(s, 900)
+        txt(s, 100, 1022, 1500, 30, d['voet'], gr=11.5, kl='gedempt', font=FONT_M)
 
     elif t == 'sectie':
-        txt(s, 100, 292, 700, 320, d['nr'], gr=150, kl='licht', vet=True, ra=0.9, naam='hero')
+        # het merk loopt reusachtig van de dia af: grafisch, niet decoratief
+        foto(s, 'merk.png', 1080, -180, 1100, 1400, alpha=14, naam='merkgroot')
+        txt(s, 100, 292, 700, 320, d['nr'], gr=150, vet=True, ra=0.9, naam='hero',
+            vloei=('licht', 'oranje'))
         txt(s, 100, 626, 1400, 140, d['titel'], gr=56, kl='ink', vet=True, naam='sectietitel')
         txt(s, 104, 786, 1300, 80, d['regel'], gr=21, kl='gedempt', font=FONT_L)
         paginering(s, i)
@@ -432,6 +508,56 @@ for i, d in enumerate(SLIDES, 1):
                 txt(s, 560 + j * 660, 770, 600, 200, r, gr=16.5, kl='gedempt', ra=1.35)
         paginering(s, i)
 
+    elif t == 'aflopend':
+        # Aflopend beeld tot in de vier randen, met een verloop eroverheen zodat
+        # de tekst leesbaar blijft. Eén regel, verder niets.
+        foto(s, d['foto'], 0, 0, 1920, 1080, vullend=True, naam='!!beeld')
+        # verloop van doorzichtig bovenaan naar bijna dicht onderaan, zodat de
+        # tekst leesbaar wordt zonder het beeld af te dekken
+        scrim = tegel(s, 0, 0, 1920, 1080, 'bg', None, rond=False)
+        verloop(scrim, 'bg', 'bg', 5400000)
+        sf = scrim.fill._xPr.find(qn('a:gradFill'))
+        for gs, a in zip(sf.iter(qn('a:gs')), (6, 94)):
+            etree.SubElement(gs.find(qn('a:srgbClr')), qn('a:alpha')).set(
+                'val', str(a * 1000))
+        kicker(s, d['kicker'], y=706)
+        txt(s, 100, 754, 1500, 240, d['kop'], gr=44, kl='ink', vet=True, ra=1.15,
+            naam='!!sectietitel')
+        paginering(s, i)
+
+    elif t == 'drukzoom':
+        # Zelfde cellen, zelfde !!-namen, alleen een ander kader: de camera
+        # duikt de voorvoet in. Morph maakt daar een inzoom van.
+        # Zuivere schaalsprong van 2,6× ten opzichte van dia 9: de cellen houden
+        # hun onderlinge verhouding, dus de camera zoomt in plaats van te rekken.
+        MX, MY, MW, MH = -85, 240, 1170, 1794
+        beeld.drukmat(s, MX, MY, MW, MH,
+                      beeld.NA if d['fase'] == 'na' else beeld.VOOR, sleutel='p',
+                      piek=float(d['waarde']))
+        kicker(s, d['kicker'])
+        kop(s, d['kop'], naam='!!sectietitel')
+        for j, (naam2, uitleg, fx, ft) in enumerate(d['regios']):
+            # genummerde speld op de voet, met hetzelfde nummer in de lijst
+            cx, cy = MX + fx * MW, MY + MH * (1 - ft)
+            o = s.shapes.add_shape(MSO_SHAPE.OVAL, px(cx - 22), px(cy - 22), px(44), px(44))
+            o.fill.solid(); o.fill.fore_color.rgb = rgb('bg')
+            o.line.color.rgb = rgb('wit'); o.line.width = Pt(1.5)
+            o.shadow.inherit = False
+            txt(s, cx - 22, cy - 13, 44, 30, str(j + 1), gr=16, kl='wit', vet=True,
+                uit=PP_ALIGN.CENTER, font=FONT_M)
+            y = 300 + j * 116
+            liniaal(s, 1000, y, 820)
+            o2 = s.shapes.add_shape(MSO_SHAPE.OVAL, px(1000), px(y + 26), px(40), px(40))
+            o2.fill.solid(); o2.fill.fore_color.rgb = rgb('tegel2')
+            o2.line.color.rgb = rgb('licht'); o2.line.width = Pt(1)
+            o2.shadow.inherit = False
+            txt(s, 1000, y + 35, 40, 30, str(j + 1), gr=15, kl='licht', vet=True,
+                uit=PP_ALIGN.CENTER, font=FONT_M)
+            txt(s, 1064, y + 22, 760, 44, naam2, gr=20, kl='ink', vet=True)
+            txt(s, 1066, y + 64, 760, 40, uitleg, gr=14.5, kl='gedempt')
+        txt(s, 100, 1006, 1400, 30, d['voet'], gr=11.5, kl='gedempt', font=FONT_M)
+        paginering(s, i)
+
     elif t == 'drukmeting':
         # De sensormatrix is geen illustratie maar de meting zelf: dezelfde
         # cellen op beide dia's, alleen de kleur verandert. Morph laat de
@@ -459,12 +585,17 @@ for i, d in enumerate(SLIDES, 1):
 
     elif t == 'vijfluik':
         kicker(s, d['kicker']); kop(s, d['kop'], naam='sectietitel')
+        # de stappen staan op één lijn: het ís een reeks, dus laat dat zien
+        liniaal(s, 100, 388, 1720, 'rand', 2)
         for j, (nr, wanneer, wat) in enumerate(d['stappen']):
             x = 100 + j * 348
-            tegel(s, x, 330, 324, 540, 'tegel', 'rand')
-            txt(s, x + 28, 364, 260, 60, nr, gr=27, kl='licht', vet=True, font=FONT_M)
-            txt(s, x + 28, 440, 268, 66, wanneer, gr=20, kl='ink', vet=True)
-            txt(s, x + 28, 524, 268, 320, wat, gr=15, kl='gedempt', ra=1.38)
+            o = s.shapes.add_shape(MSO_SHAPE.OVAL, px(x + 18), px(370), px(36), px(36))
+            o.fill.solid(); o.fill.fore_color.rgb = rgb('licht')
+            o.line.color.rgb = rgb('bg'); o.line.width = Pt(3); o.shadow.inherit = False
+            tegel(s, x, 440, 324, 400, 'tegel', 'rand')
+            txt(s, x + 28, 474, 260, 60, nr, gr=27, kl='licht', vet=True, font=FONT_M)
+            txt(s, x + 28, 546, 268, 66, wanneer, gr=20, kl='ink', vet=True)
+            txt(s, x + 28, 628, 268, 190, wat, gr=15, kl='gedempt', ra=1.38)
         paginering(s, i)
 
     elif t == 'drieluik':
@@ -575,12 +706,13 @@ for i, d in enumerate(SLIDES, 1):
         paginering(s, i)
 
     elif t == 'slot':
-        txt(s, 100, 296, 1200, 230, d['kop'], gr=96, kl='ink', vet=True, ra=1.0, naam='hero')
-        txt(s, 104, 548, 1300, 80, d['regel'], gr=23, kl='licht', font=FONT_L)
-        tegel(s, 100, 660, 1000, 244, 'tegel', 'rand')
-        txt(s, 148, 700, 920, 190,
+        txt(s, 100, 250, 1200, 230, d['kop'], gr=96, kl='ink', vet=True, ra=1.0, naam='hero')
+        txt(s, 104, 496, 1300, 80, d['regel'], gr=23, kl='licht', font=FONT_L)
+        tegel(s, 100, 596, 1000, 224, 'tegel', 'rand')
+        txt(s, 148, 634, 920, 180,
             [(r, {'voor': 8}) for r in d['contact']], gr=16.5, kl='gedempt', ra=1.4)
-        txt(s, 100, 1006, 1500, 30, d['voet'], gr=11.5, kl='gedempt', font=FONT_M)
+        partners(s, 900)
+        txt(s, 100, 1022, 1500, 30, d['voet'], gr=11.5, kl='gedempt', font=FONT_M)
 
     else:
         raise SystemExit('onbekend type: %s' % t)
