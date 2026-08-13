@@ -199,9 +199,14 @@ SLIDES = [
              ('Controlegroep', 'Gebruikelijke zorg, onveranderd'),
              ('Co-primair', 'Recidief op 18 mnd  +  draagtijd op 12 mnd'),
              ('Positief', 'Alleen als béíde eindpunten halen')],
+      centra=['AZORG', 'AZ Sint-Jan Brugge', 'AZ Groeninge',
+              'UZ Gent', 'UZ Leuven', 'UZ Antwerpen'],
+      centra_label='De zes deelnemende voetklinieken',
       tip='De laatste tegel is de belangrijkste: wij hebben twee eindpunten nodig, '
-          'niet één. Dat maakt de lat hoog en dat weten we.',
-      interactie='Geen. Laat ze lezen.'),
+          'niet één. Dat maakt de lat hoog en dat weten we. Wijs onderaan hun '
+          'eigen centrum aan — 24 van die 144 stippen zijn van hen.',
+      interactie='Vraag of ze de andere vijf centra kennen. Het maakt van zes '
+                 'losse klinieken één netwerk.'),
 
  dict(t='dubbelkolom', morph='morph',
       kicker='Selectie',

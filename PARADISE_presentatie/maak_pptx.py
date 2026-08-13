@@ -454,11 +454,20 @@ for i, d in enumerate(SLIDES, 1):
             gr=30, kl='ink', vet=True, ra=1.3)
         for j, (k2, v) in enumerate(d['klein']):
             x, w = kol((j % 2) * 6, 6)
-            y = 606 + (j // 2) * 132
-            tegel(s, x, y, w, 114, 'tegel', 'rand')
-            txt(s, x + 30, y + 20, w - 60, 34, k2, gr=12, kl='licht', vet=True,
+            y = 588 + (j // 2) * 126
+            tegel(s, x, y, w, 110, 'tegel', 'rand')
+            txt(s, x + 30, y + 18, w - 60, 34, k2, gr=12, kl='licht', vet=True,
                 font=FONT_M, caps=True, sp=1.4)
-            txt(s, x + 30, y + 58, w - 60, 46, v, gr=15.5, kl='ink')
+            txt(s, x + 30, y + 56, w - 60, 46, v, gr=15.5, kl='ink')
+        # de zes centra bij naam: dat maakt van zes losse klinieken één netwerk
+        liniaal(s, 100, 858, 1720)
+        txt(s, 100, 878, 900, 34, d['centra_label'], gr=12, kl='gedempt', vet=True,
+            font=FONT_M, caps=True, sp=1.4)
+        for j, naam2 in enumerate(d['centra']):
+            cx = 100 + j * 288
+            tegel(s, cx, 926, 276, 52, 'tegel2', 'rand')
+            txt(s, cx, 941, 276, 34, naam2, gr=13, kl='ink', vet=True,
+                uit=PP_ALIGN.CENTER, omslag=False)
         paginering(s, i)
 
     elif t == 'steun':
