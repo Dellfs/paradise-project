@@ -6,7 +6,7 @@ het resultaat komt in beeld/ en wordt door maak_pptx.py ingevoegd.
 """
 import os, sys
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
-from PIL import Image
+from PIL import Image, ImageChops
 
 HIER = os.path.dirname(os.path.abspath(__file__))
 BRON = os.path.dirname(HIER)
@@ -82,3 +82,21 @@ bewaar(duotoon(im.crop((110, 800, 1990, 1460))), 'sensor_vol.png')
 # er niets hoeft te worden opgerekt.
 im = Image.open(os.path.join(BRON, 'janou.jpeg')).convert('RGB')
 bewaar(im.crop((0, 46, 1024, 1369)), 'janou.png')
+
+
+# De instellingslogo's staan op wit met donkerblauwe letters. Ze op de donkere
+# dia leggen zou ze onleesbaar maken en hun huisstijl schenden, dus ze komen in
+# een wit vlak. Hier zetten we ze plat op wit en snijden we de witrand weg.
+def op_wit(bron):
+    im = Image.open(bron).convert('RGBA')
+    vlak = Image.new('RGBA', im.size, (255, 255, 255, 255))
+    vlak.alpha_composite(im)
+    vlak = vlak.convert('RGB')
+    # witrand wegsnijden: alles wat van zuiver wit afwijkt hoort bij het merk
+    verschil = ImageChops.invert(vlak)
+    kader = verschil.getbbox()
+    return vlak.crop(kader) if kader else vlak
+
+
+bewaar(op_wit(os.path.join(BRON, 'kuleuven-brugge.png')), 'kuleuven.png')
+bewaar(op_wit(os.path.join(BRON, 'Vrije_Universiteit_Brussel_logo.svg.webp')), 'vub.png')

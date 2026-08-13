@@ -195,17 +195,27 @@ PARTNERS = [('kuleuven.png', 'KU Leuven', 'Campus Brugge'),
 
 
 def partners(s, y=904):
-    """Balk met de instellingen, onderaan de openings- en slotdia."""
+    """Balk met de instellingen, onderaan de openings- en slotdia.
+
+    De logo's staan op wit met donkerblauwe letters, dus ze krijgen een wit
+    vlak. Dat is ook hoe beide instellingen hun merk voorschrijven op een
+    donkere ondergrond.
+    """
     liniaal(s, 100, y - 26, 1720)
-    x = 100
+    x, hoog = 100, 62
     for bestand, naam, sub in PARTNERS:
         pad = bestand and os.path.join(BEELD, bestand)
         if pad and os.path.exists(pad):
-            foto(s, bestand, x, y, 300, 76)
+            # het witte vlak past zich aan het logo aan in plaats van omgekeerd
+            with Image.open(pad) as im:
+                breed = hoog * im.size[0] / float(im.size[1])
+            tegel(s, x, y, breed + 48, hoog + 34, 'wit', None)
+            foto(s, bestand, x + 24, y + 17, breed, hoog)
+            x += breed + 48 + 40
         else:
-            txt(s, x, y + 6, 340, 40, naam, gr=21, kl='ink', vet=True)
-            txt(s, x + 2, y + 46, 420, 34, sub, gr=12, kl='gedempt', font=FONT_M)
-        x += 480
+            txt(s, x, y + 8, 340, 40, naam, gr=21, kl='ink', vet=True)
+            txt(s, x + 2, y + 48, 420, 34, sub, gr=12, kl='gedempt', font=FONT_M)
+            x += 400
 
 
 def merk(s, t):
