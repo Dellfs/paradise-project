@@ -297,6 +297,31 @@ def morph(s, soort='morph'):
     s._element.append(etree.fromstring(xml))
 
 
+def uitklappen(slides):
+    """Zet elke bezoekdia om in een overzicht plus één dia per handeling.
+
+    Een keynote loopt op tempo: één gedachte per dia, groot gezet, en doorklikken.
+    De dichte tabel blijft staan als overzichtsdia en in de sprekersnotities, maar
+    op het scherm komt telkens één handeling.
+    """
+    uit = []
+    for d in slides:
+        uit.append(d)
+        if d['t'] != 'bezoek':
+            continue
+        n = len(d['handelingen'])
+        for j, h in enumerate(d['handelingen']):
+            uit.append(dict(t='stap', morph='morph', visite=d['kicker'],
+                            nr=j + 1, totaal=n, tekst=h,
+                            documenten=d['documenten'] if j == n - 1 else [],
+                            letop=d['letop'] if j == n - 1 else None,
+                            tip=d.get('tip', '') if j == 0 else '',
+                            interactie=d.get('interactie', '') if j == 0 else ''))
+    return uit
+
+
+SLIDES = uitklappen(SLIDES)
+
 prs = Presentation()
 prs.slide_width, prs.slide_height = Inches(13.333), Inches(7.5)
 leeg = prs.slide_layouts[6]
@@ -582,38 +607,59 @@ for i, d in enumerate(SLIDES, 1):
         paginering(s, i)
 
     elif t == 'bezoek':
-        # het werkblad van de sessie: links wat u doet, rechts wat u invult
-        kicker(s, d['kicker']); kop(s, d['kop'], naam='!!sectietitel')
-        tegel(s, 100, 236, 520, 44, 'glas', None)
-        txt(s, 100, 247, 520, 32, d['wanneer'], gr=13, kl='licht', vet=True,
+        # titelkaart van het bezoek; de handelingen komen erna, één per dia
+        gloed(s, 1180, 180, 760, 'licht', 5)
+        kicker(s, d['kicker'])
+        ht = hoogte(d['kop'], 1100, 56, 1.1)
+        txt(s, 100, 300, 1100, ht + 40, d['kop'], gr=56, kl='ink', vet=True, ra=1.1,
+            naam='!!sectietitel')
+        yc = 300 + ht + 84
+        tegel(s, 100, yc, 560, 48, 'glas', None)
+        txt(s, 100, yc + 12, 560, 34, d['wanneer'], gr=14, kl='licht', vet=True,
             uit=PP_ALIGN.CENTER, font=FONT_M)
-        txt(s, 100, 314, 900, 34, 'Wat u doet', gr=12.5, kl='gedempt', vet=True,
-            font=FONT_M, caps=True, sp=1.5)
-        y = 360
-        for j, h in enumerate(d['handelingen']):
-            bol(s, 100, y, 32, str(j + 1), 'licht', klein=True)
-            hh = hoogte(h, 980, 13.5)
-            txt(s, 148, y - 2, 980, hh + 10, h, gr=13.5, kl='ink', ra=1.3)
-            y += hh + 26
-        txt(s, 1180, 314, 640, 34, 'Wat u invult', gr=12.5, kl='gedempt', vet=True,
-            font=FONT_M, caps=True, sp=1.5)
-        for j, (nr, naam2) in enumerate(d['documenten']):
-            x = 1180 + (j % 2) * 330
-            yd = 360 + (j // 2) * 54
-            tegel(s, x, yd, 314, 44, 'tegel2', 'rand')
-            txt(s, x + 14, yd + 11, 60, 30, nr, gr=13, kl='licht', vet=True, font=FONT_M)
-            txt(s, x + 72, yd + 13, 234, 30, naam2, gr=11.5, kl='ink', omslag=False)
-        yl = 360 + ((len(d['documenten']) + 1) // 2) * 54 + 28
-        # het blok moet binnen de dia blijven, ook bij een lange documentenlijst
-        for gl in (14.5, 13.5, 12.5, 11.5, 10.5):
-            hl = hoogte(d['letop'], 600, gl, 1.35)
-            if yl + hl + 108 <= 986:
+        for j, (g, l) in enumerate(((str(len(d['handelingen'])), 'handelingen'),
+                                    (str(len(d['documenten'])), 'formulieren'))):
+            x = 1260 + j * 300
+            txt(s, x, 560, 260, 130, g, gr=64, kl='licht', vet=True, ra=1.0)
+            txt(s, x + 2, 690, 260, 40, l, gr=13.5, kl='gedempt', font=FONT_M,
+                caps=True, sp=1.4)
+        liniaal(s, 100, 900, 1720)
+        txt(s, 100, 924, 1720, 40, d['wie'], gr=15, kl='gedempt')
+        paginering(s, i)
+
+    elif t == 'stap':
+        # keynotetempo: één handeling per dia, groot, met een voortgangsrail
+        kicker(s, d['visite'])
+        txt(s, 100, 236, 340, 300, '%02d' % d['nr'], gr=150, kl='licht', vet=True,
+            ra=0.9, omslag=False, uit=PP_ALIGN.RIGHT, naam='!!stapnr')
+        ruimte = 330 if d['documenten'] else 560
+        for gs in (40, 36, 32, 28, 24):
+            if hoogte(d['tekst'], 1320, gs, 1.25) <= ruimte:
                 break
-        tegel(s, 1180, yl, 640, hl + 108, 'tegel', 'oranje')
-        txt(s, 1220, yl + 24, 560, 34, 'Let op', gr=12.5, kl='oranje', vet=True,
-            font=FONT_M, caps=True, sp=1.5)
-        txt(s, 1220, yl + 66, 560, hl + 20, d['letop'], gr=gl, kl='ink', ra=1.35)
-        txt(s, 100, 1006, 1500, 30, d['wie'], gr=11.5, kl='gedempt', font=FONT_M)
+        txt(s, 500, 250, 1320, ruimte + 20, d['tekst'], gr=gs, kl='ink', vet=True,
+            ra=1.25, naam='!!staptekst')
+        if d['documenten']:
+            txt(s, 470, 640, 1350, 34, 'Wat u hierbij invult', gr=12.5, kl='gedempt',
+                vet=True, font=FONT_M, caps=True, sp=1.5)
+            for j, (nr, naam2) in enumerate(d['documenten']):
+                x = 470 + (j % 5) * 272
+                y = 686 + (j // 5) * 54
+                tegel(s, x, y, 262, 44, 'tegel2', 'rand')
+                txt(s, x + 12, y + 12, 56, 30, nr, gr=12, kl='licht', vet=True,
+                    font=FONT_M)
+                txt(s, x + 66, y + 14, 190, 28, naam2, gr=10.5, kl='ink', omslag=False)
+        if d['letop']:
+            liniaal(s, 100, 858, 1720)
+            txt(s, 100, 880, 200, 34, 'Let op', gr=12.5, kl='oranje', vet=True,
+                font=FONT_M, caps=True, sp=1.5)
+            txt(s, 320, 876, 1500, 90, d['letop'], gr=15.5, kl='ink', ra=1.3)
+        # rail onderaan: waar zit u in de reeks
+        bw = 1720.0 / d['totaal']
+        for k in range(d['totaal']):
+            aan = k == d['nr'] - 1
+            r = liniaal(s, 100 + k * bw + 4, 1006, bw - 8,
+                        'licht' if aan else 'rand', 6 if aan else 3)
+            r.name = '!!rail%d' % k
         paginering(s, i)
 
     elif t == 'sop':
