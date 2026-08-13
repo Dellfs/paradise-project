@@ -41,11 +41,33 @@
 - Minimale opmaak; vermijd overbodige headers/bullets.
 
 ## Inhoudelijke juistheid — PARADISE-feiten (NIET wijzigen zonder bron)
+
+> **Lees eerst `PARADISE_BRONNEN.md`.** Dat bestand bevat het volledige, nagelezen
+> beeld uit het protocol en alle 47 eCRF-documenten: bezoekschema per visite met de
+> bijhorende formulieren, geschiktheidscriteria, de opbouw van de CMFO per schoentype,
+> de instellingen van beide toestellen, de SAE-termijnen, en de openstaande
+> tegenstrijdigheden. Wijkt iets hieronder daarvan af, dan wint `PARADISE_BRONNEN.md`.
+
 Bron: FWO-TBM T000226N (+ doctoraatsplan). Bij twijfel: vragen, niet gokken.
 - **Offloadingdoel:** piekdruk **< 200 kPa ÓF ≥ 25% reductie** t.o.v. baseline (NIET 20%; "óf", niet "én").
 - **Twee co-primaire eindpunten:** (1) voetulcus-recidief over 18 maanden; (2) schoeisel-adherentie
-  = **≥ 80%** van het gemiddelde activiteitenprofiel, **7 dagen/week**, elke 3 maanden uitgelezen,
-  met **primair analysepunt op 12 maanden**.
+  = **≥ 80%** van het gemiddelde activiteitenprofiel, **7 dagen/week**, elke 3 maanden uitgelezen.
+  **Beide worden op 18 maanden geëvalueerd.** Let op: protocolparagraaf 3.2.2.2 zegt nog
+  "primary analysis timepoint at 12 months"; dat is een restant. De synopsis, de
+  steekproefberekening (71% vs 85% op 18 maanden) en de statistische analyse zeggen alle drie
+  18 maanden. Het protocol moet daar rechtgezet worden.
+- **Drukmeting herhaald op maand 6, 12 én 18** (protocol 5.4.2.2), niet alleen 6 en 12.
+- **CMFO-opbouw hangt af van het schoentype** (protocol 5.4.2, eCRF 23 deel A1):
+  in een **volledig op maat gemaakte schoen** 5 mm microkurk (shore 55) + 5 mm EVA (shore 35-40);
+  in een **confectieschoen** 6 mm EVA (shore 35-40), zónder kurk. Deklaag in beide gevallen
+  3 mm gesloten-cellig op 3 mm open-cellig, volledige lengte. Metatarsaalbalk 9-10 mm hoog,
+  6-11 mm proximaal van de kopjes — of een lokale pad als maar één regio hoog ligt.
+  Pasvorm wordt apart beoordeeld in **binnen- én buitenschoeisel**, met fotodocumentatie.
+- **Twee paren CMFO:** zodra de drukdoelen gehaald zijn wordt een identiek duplicaatpaar gemaakt.
+  Vanaf maand 3 worden beide paren per kwartaal beoordeeld en om beurt onderhouden; de patiënt
+  wisselt **niet dagelijks**.
+- **Schoeiselcriterium = drie situaties:** volledig maatwerk ('orthopedisch schoeisel'), óf maatzolen
+  in semi-orthopedisch schoeisel, óf maatzolen in adequaat confectieschoeisel met extra diepte.
 - **F-Scan GO:** in-shoe, software **FootVIEW Pro**, **≥ 12 mid-gait stappen/voet**, comfortsnelheid (±5% bij follow-up),
   dunne naadloze katoenen sok, piekdruk per **8 regio's via Multimask** (hiel, mediale middenvoet,
   laterale middenvoet, metatarsaal 1, metatarsaal 2-3, metatarsaal 4-5, hallux, tenen 2-5 — hallux en

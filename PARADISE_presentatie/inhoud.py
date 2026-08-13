@@ -49,15 +49,19 @@ def kol(i, span=1):
 # Het traject staat apart: vijf dia's tekenen hetzelfde canvas onder een andere
 # camera-instelling, dus de gegevens mogen maar op één plek staan.
 # De derde waarde is het soort moment; die bepaalt de kleur van de stip.
-PUNTEN = [('Screening', 'geschiktheid', 'start'),
-          ('Baseline', 'meting', 'meting'),
-          ('1', 'voorschrift', 'zorg'),
-          ('3', 'zool + sensor', 'meting'),
-          ('6', 'meting', 'meting'),
-          ('9', 'begeleiding', 'zorg'),
-          ('12', 'meting', 'meting'),
-          ('15', 'begeleiding', 'zorg'),
-          ('18', 'meting + einde', 'eind')]
+# Bezoekstructuur volgens protocol 5.5: screening vóór toestemming, dan visite 0
+# tot 8. Het voorschrift valt op visite 1 en de aflevering op visite 2, tussen
+# veertien dagen en één maand — niet op maand 1 en maand 3.
+PUNTEN = [('Screen', 'geschiktheid', 'start'),
+          ('V0', 'loting', 'start'),
+          ('V1', 'baseline', 'meting'),
+          ('V2', 'zool + sensor', 'meting'),
+          ('M3', 'opvolging', 'zorg'),
+          ('M6', 'meting', 'meting'),
+          ('M9', 'opvolging', 'zorg'),
+          ('M12', 'meting', 'meting'),
+          ('M15', 'opvolging', 'zorg'),
+          ('M18', 'meting + einde', 'eind')]
 
 SOORT = [('meting', 'meetmoment'), ('zorg', 'begeleiding'),
          ('start', 'start en afronding')]
@@ -215,7 +219,7 @@ SLIDES = [
       kicker='Na optimalisatie',
       kop='Wanneer is het goed genoeg',
       waarde='186', plek='piekdruk in de doelregio na aanpassing',
-      norm='40% lager  ·  onder 200 kPa  ·  beide criteria',
+      norm='40% lager  ·  onder 200 kPa  ·  beide criteria gehaald',
       regels=['De norm geldt per doelregio: piekdruk onder 200 kPa óf minstens '
               '25% lager dan de baselinemeting van diezelfde regio.',
               'Haalt u de norm niet, dan past u aan en meet u opnieuw. Het '
@@ -227,7 +231,7 @@ SLIDES = [
 
  dict(t='meetreeks', morph='morph',
       kicker='Het meetprotocol',
-      kop='Drie condities op maand 3',
+      kop='Drie condities bij de aflevering',
       condities=[('01', 'Blootsvoets',
                   'Sensoren met dubbelzijdige tape op de voet, standaardkous '
                   'erover. Dit is het referentiebeeld.'),
@@ -241,7 +245,7 @@ SLIDES = [
       voet='eCRF-document 24 · de norm wordt per doelregio getoetst, niet over de hele voet',
       tip='Dit is de dia waar in de praktijk de meeste fouten gemaakt worden. '
           'Loop de drie condities traag door en benoem dat conditie 2 vaak '
-          'vergeten wordt.',
+          'vergeten wordt. Dezelfde drie condities komen terug op maand 6, 12 en 18.',
       interactie='Vraag: "wie meet er vandaag al in de schoen zonder zool?"'),
 
  dict(t='sectie', morph='morph', nr='03', titel='Het traject',
@@ -249,36 +253,37 @@ SLIDES = [
 
  dict(t='traject', morph='morph',
       kicker='Het traject',
-      kop='Negen contactmomenten',
+      kop='Screening plus negen visites',
       groot='18',
       punt='maanden, van screening tot afronding',
-      slot='Het ritme is elke drie maanden: hetzelfde ritme als de controle die '
-           'deze patiënten volgens de richtlijn al krijgen.',
+      slot='Visite 0 tot 2 liggen dicht op elkaar: toestemming, baseline, en de '
+           'zool binnen de maand. Daarna is het ritme elke drie maanden, hetzelfde '
+           'ritme als de controle die deze patiënten al krijgen.',
       tip='Geef eerst het overzicht. De volgende dia\'s lopen elk moment af.',
       interactie='Geen. De detaildia\'s komen hierna.'),
 
  dict(t='bezoek', morph='morph',
-      kicker='Moment 1',
-      kop='Screening, vóór de toestemming',
-      wanneer='Kort · in het gewone consult',
-      handelingen=['Beoordeel de in- en exclusiecriteria op het screeningsformulier.',
-                   'Noteer de patiënt op de identificatielijst en ken een '
-                   'deelnemerscode toe.',
-                   'Is de patiënt geschikt, geef dan de informatie- en '
-                   'toestemmingsformulieren mee.',
+      kicker='Screening en visite 0',
+      kop='Geschiktheid, toestemming, loting',
+      wanneer='Kort \u00b7 in het gewone consult',
+      handelingen=['Screening v\u00f3\u00f3r de toestemming: beoordeel de in- en '
+                   'exclusiecriteria en noteer de pati\u00ebnt op de identificatielijst.',
+                   'Is de pati\u00ebnt geschikt, overloop dan de informatie- en '
+                   'toestemmingsformulieren en laat tekenen.',
+                   'Visite 0: bevestig de geschiktheid met het baselineformulier.',
+                   'De PI opent de volgende verzegelde envelop en deelt de pati\u00ebnt '
+                   'in. Pas dan is bekend in welke arm hij zit.',
                    'Niet geschikt? Noteer de reden. Ook dat is studiedata.'],
-      documenten=[('00', 'Identificatielijst'),
-                  ('01', 'Screening'),
-                  ('02', 'Toestemming')],
-      letop='Screening gebeurt vóór de toestemming en blijft daarom beperkt tot '
-            'wat nodig is om geschiktheid te beoordelen. Vul geen andere '
-            'formulieren in voordat de patiënt getekend heeft.',
-      wie='Arts bevestigt geschiktheid · podoloog of studiemedewerker vult in',
-      tip='Benadruk de volgorde: screenen, dan pas toestemming, dan pas de rest. '
-          'Andersom is een protocolafwijking.',
-      interactie='Deel het screeningsformulier uit en laat ze het invullen voor '
-                 'een patiënt die ze vorige week zagen.'),
-
+      documenten=[('00', 'Identificatielijst'), ('01', 'Screening'),
+                  ('02', 'Toestemming'), ('06', 'Geschiktheid')],
+      letop='De volgorde ligt vast: screenen, tekenen, geschiktheid bevestigen, dan '
+            'pas loten. Vul geen enkel ander formulier in voordat de pati\u00ebnt '
+            'getekend heeft.',
+      wie='Arts bevestigt geschiktheid \u00b7 PI loot \u00b7 podoloog vult in',
+      tip='Benadruk dat de loting door de PI gebeurt met verzegelde enveloppen, vier '
+          'blokken van zes per centrum. Niemand kiest zelf.',
+      interactie='Deel het screeningsformulier uit en laat ze het invullen voor een '
+                 'pati\u00ebnt die ze vorige week zagen.'),
  dict(t='dubbelkolom', morph='morph',
       kicker='Screening',
       kop='Wie komt in aanmerking',
@@ -308,108 +313,112 @@ SLIDES = [
       interactie='Vraag per criterium of het in hun patiëntenbestand vaak voorkomt.'),
 
  dict(t='bezoek', morph='morph',
-      kicker='Moment 2',
-      kop='Baseline',
+      kicker='Visite 1',
+      kop='Baseline \u2014 meten en voorschrijven',
       wanneer='Het langste bezoek van de studie',
-      handelingen=['Bevestig de geschiktheid en leg demografie en '
-                   'voorgeschiedenis vast.',
-                   'Screen voet en schoeisel, en klasseer een eventueel ulcus.',
-                   'Voer de drukmeting blootsvoets uit: drie metingen per voet.',
-                   'Bepaal en noteer de drie doelregio\'s.',
-                   'Neem de vragenlijsten af vóór het educatiegesprek: NAFF en '
-                   'HLS-EU-6, daarna EQ-5D-5L.',
+      handelingen=['Demografie en voorgeschiedenis, inclusief nierfunctie, eGFR, '
+                   'hartaandoening en diabetesmedicatie.',
+                   'Voet- en schoeiselscreening, en klasseer een eventueel ulcus.',
+                   'Drukmeting blootsvoets: drie metingen per voet.',
+                   'Bepaal de drie doelregio\'s en schrijf de zool voor, m\u00e9t die '
+                   'regio\'s op het voorschrift.',
+                   'Vragenlijsten v\u00f3\u00f3r het educatiegesprek: NAFF en HLS-EU-6. '
+                   'Daarna tevredenheid, schoeiselgebruik en EQ-5D-5L.',
+                   'SEBIA stap 1: educatie op maat, voordoen, en de pati\u00ebnt het '
+                   'zelf laten uitvoeren. Leg dat vast in het logboek.',
                    'Geef de MoveMonitor mee voor zeven dagen en registreer het '
-                   'toestelnummer.',
-                   'Voer het eerste SEBIA-gesprek en geef het educatieboekje mee.'],
-      documenten=[('06', 'Geschiktheid'), ('07', 'Demografie'),
-                  ('08', 'Voet en schoeisel'), ('09', 'Drukmeting'),
-                  ('14', 'NAFF'), ('15', 'HLS-EU-6'), ('16', 'Educatieboekje'),
+                   'toestelnummer.'],
+      documenten=[('07', 'Demografie'), ('08', 'Voet en schoeisel'),
+                  ('09', 'Drukmeting'), ('10', 'Voorschrift CMFO'),
+                  ('12', 'Tevredenheid'), ('13', 'Schoeiselgebruik'),
+                  ('14', 'NAFF'), ('15', 'HLS-EU-6'),
+                  ('16', 'Educatieboekje'), ('18', 'Logboek educatie'),
                   ('19', 'MoveMonitor'), ('20', 'UDI MoveMonitor'),
-                  ('21', 'EQ-5D-5L'), ('26', 'Overtuigingen')],
-      letop='NAFF en HLS-EU-6 gaan vóór de educatie. Neemt u ze erna af, dan meet '
-            'u uw eigen uitleg in plaats van de voorkennis van de patiënt.',
-      wie='Podoloog meet en begeleidt · arts bevestigt · studiemedewerker registreert',
-      tip='Dit is het bezoek dat uitloopt. Zeg hoeveel tijd u ervoor moet '
-          'inplannen en waarom de volgorde vastligt.',
-      interactie='Laat ze in duo\'s de volgorde van de zeven handelingen leggen '
-                 'met de formulieren op tafel.'),
-
+                  ('21', 'EQ-5D-5L'), ('48', 'Voetzorgfolder')],
+      letop='Het voorschrift van de zool gebeurt hier, op de baseline \u2014 niet later. '
+            'En NAFF en HLS-EU-6 gaan v\u00f3\u00f3r de educatie, anders meet u uw '
+            'eigen uitleg in plaats van de voorkennis van de pati\u00ebnt.',
+      wie='Podoloog meet \u00b7 arts schrijft voor \u00b7 studiemedewerker registreert',
+      tip='Dit bezoek loopt uit. Zeg hoeveel tijd u ervoor moet inplannen en waarom de '
+          'volgorde vastligt.',
+      interactie='Laat ze in duo\'s de volgorde van de handelingen leggen met de '
+                 'formulieren op tafel.'),
  dict(t='bezoek', morph='morph',
-      kicker='Moment 3 · maand 1',
-      kop='Het voorschrift',
-      wanneer='Kort bezoek, geen meting',
-      handelingen=['Schrijf de aangepaste voetorthese voor op basis van het '
-                   'baselinebeeld en de drie doelregio\'s.',
-                   'Noteer de doelregio\'s expliciet op het voorschrift, zodat de '
-                   'pedorthist weet waar de ontlasting moet komen.',
-                   'Spreek de afleverafspraak op maand 3 af.'],
-      documenten=[('10', 'Voorschrift CMFO')],
-      letop='Zonder de drie doelregio\'s op het voorschrift maakt de pedorthist '
-            'een zool op gevoel. Dan is de meting op maand 3 niet toetsbaar.',
-      wie='Arts of podoloog schrijft voor · pedorthist ontvangt',
-      tip='Dit is het kortste bezoek en tegelijk het scharnier tussen meting en '
-          'zool. Benadruk de overdracht.',
-      interactie='Vraag de pedorthisten wat zij nu op een voorschrift missen.'),
-
- dict(t='bezoek', morph='morph',
-      kicker='Moment 4 · maand 3',
+      kicker='Visite 2 \u00b7 veertien dagen tot \u00e9\u00e9n maand',
       kop='Aflevering, optimalisatie en sensor',
       wanneer='Het technisch zwaarste bezoek',
-      handelingen=['Lever de zool af en controleer pasvorm en aandrukpunten.',
-                   'Meet de drie condities: blootsvoets, in de schoen zonder '
-                   'zool, in de schoen met zool.',
-                   'Toets de norm per doelregio. Niet gehaald? Pas aan en meet '
-                   'opnieuw — twee extra tests zijn voorzien.',
-                   'Noteer welke aanpassingen u hebt uitgevoerd.',
-                   'Is de norm gehaald, laat dan een tweede, identiek paar zolen '
-                   'maken. Beide paren blijven in gebruik.',
+      handelingen=['Lever de zool af. Controleer de pasvorm in het b\u00ednnenschoeisel '
+                   '\u00e9n het b\u00faitenschoeisel, en neem de foto\'s.',
+                   'Meet de drukherverdeling en toets de norm per doelregio.',
+                   'Niet gehaald? Pas aan en meet opnieuw. Is ze gehaald, laat dan een '
+                   'tweede, identiek paar maken.',
                    'Plaats en activeer de Orthotimer in de zool en registreer het '
                    'toestelnummer.',
-                   'Voer het SEBIA-gesprek met teach-back en geef de sensorfolder mee.'],
+                   'Neem de MoveMonitor terug en registreer de teruggave.',
+                   'SEBIA stap 2: bespreek het activiteitenprofiel, doe de teach-back '
+                   'en geef de sensorfolder mee.',
+                   'Bevraag de overtuigingen en gewoontes rond schoeisel.'],
       documenten=[('23', 'Aanpassing'), ('24', 'Drukherverdeling'),
                   ('24b', 'Opvolgtool'), ('25', 'UDI Orthotimer'),
-                  ('25b', 'SOP Orthotimer'), ('29', 'Teach-back'),
+                  ('26', 'Overtuigingen'), ('27', 'Teruggave MoveMon.'),
+                  ('28', 'Activiteitsprofiel'), ('29', 'Teach-back'),
                   ('30', 'Sensorfolder')],
-      letop='De Orthotimer gaat pas in de zool nadat de norm gehaald is. Anders '
-            'meet u draagtijd van een zool die nog aangepast wordt.',
-      wie='Pedorthist past aan · podoloog meet en plaatst de sensor',
-      tip='Plan hier het meeste tijd in de sessie. Dit bezoek bepaalt of de '
+      letop='De Orthotimer gaat pas in de zool nadat de norm gehaald is. En de uren per '
+            'dag die u instelt komen uit het activiteitenprofiel van d\u00ede '
+            'pati\u00ebnt \u2014 daarom moet de MoveMonitor eerst terug zijn.',
+      wie='Pedorthist past aan \u00b7 podoloog meet, plaatst de sensor en begeleidt',
+      tip='Plan hier de meeste tijd van de sessie voor. Dit bezoek bepaalt of de '
           'primaire uitkomst bruikbaar wordt.',
-      interactie='Demonstreer het plaatsen en activeren van een Orthotimer op '
-                 'een losse zool.'),
-
+      interactie='Demonstreer het plaatsen en activeren van een Orthotimer op een '
+                 'losse zool.'),
  dict(t='bezoek', morph='morph',
-      kicker='Momenten 5 tot 9 · maand 6 tot 18',
-      kop='Opvolging, elke drie maanden',
+      kicker='Visites 3 tot 8 \u00b7 maand 3 tot 18',
+      kop='Driemaandelijkse opvolging',
       wanneer='In het gewone consult',
-      handelingen=['Elk bezoek: lees de Orthotimer uit, vervang de batterij en '
-                   'registreer de uitlezing.',
-                   'Bevraag de therapietrouw en bespreek de uitdraai '
-                   'niet-veroordelend.',
-                   'Op maand 6, 12 én 18: herhaal de drukmeting in de drie '
-                   'condities en pas opnieuw aan als de norm niet gehaald is.',
-                   'Op maand 6: tweede week MoveMonitor.',
-                   'Beoordeel beide paren zolen. Het paar dat onderhoud nodig '
-                   'heeft gaat naar de pedorthist, inclusief toplaag.',
-                   'Vervang zool of sensor als dat nodig is, en leg dat vast.',
-                   'Vul de kwaliteit-van-leven- en kostenvragenlijsten aan.'],
-      documenten=[('24', 'Drukherverdeling'), ('28', 'Activiteit'),
-                  ('31', 'Therapietrouw'), ('32', 'Feedback'),
+      handelingen=['Voet- en schoeiselscreening, zoals bij de baseline.',
+                   'Bevraag de therapietrouw, lees de Orthotimer uit en bespreek de '
+                   'uitdraai niet-veroordelend.',
+                   'Beoordeel beide paren zolen. Het paar dat onderhoud nodig heeft '
+                   'gaat naar de pedorthist, deklaag inbegrepen.',
+                   'Vervang zool of sensor als dat nodig is en leg dat vast.',
+                   'Neem de vragenlijsten af: levenskwaliteit, medische consumptie en '
+                   'productiviteit.',
+                   'Op maand 6 een tweede week MoveMonitor.'],
+      documenten=[('08', 'Voet en schoeisel'), ('31', 'Therapietrouw'),
+                  ('25', 'Uitlezing sensor'), ('32', 'Feedback'),
                   ('33', 'Vervanging'), ('21', 'EQ-5D-5L'),
-                  ('45b', 'Kostendagboek')],
-      letop='Beide co-primaire uitkomsten worden op 18 maanden geëvalueerd, maar '
-            'de draagtijd is een gemiddelde over de hele periode. Elke gemiste '
-            'uitlezing verzwakt dus het eindresultaat van die patiënt.',
-      wie='Podoloog leest uit en begeleidt · arts beoordeelt laesies',
-      tip='Benadruk dat uitlezen enkel ter plaatse kan. Koppel het aan een '
-          'bezoek dat toch al gepland is.',
+                  ('34', 'iMCQ'), ('35', 'iPCQ'), ('45b', 'Kostendagboek')],
+      letop='Uitlezen kan alleen ter plaatse. Koppel het aan een bezoek dat toch al '
+            'gepland is \u2014 een gemiste uitlezing verzwakt de draagtijd van die '
+            'pati\u00ebnt over de hele periode.',
+      wie='Podoloog leest uit en begeleidt \u00b7 arts beoordeelt laesies',
+      tip='Dit zijn zes identieke bezoeken. Zeg dat expliciet: het ritme is elke drie '
+          'maanden en de handelingen zijn elke keer dezelfde.',
       interactie='Vraag hoe zij een gemiste afspraak in de praktijk opvangen.'),
 
+ dict(t='bezoek', morph='morph',
+      kicker='Visites 4, 6 en 8 \u00b7 maand 6, 12 en 18',
+      kop='Wat er drie keer extra bij komt',
+      wanneer='Bovenop de driemaandelijkse opvolging',
+      handelingen=['Herhaal de drukmeting in de drie condities en toets opnieuw per '
+                   'doelregio.',
+                   'Ligt de piekdruk boven 200 kPa, of is er nog winst haalbaar, pas '
+                   'dan opnieuw aan volgens dezelfde procedure.',
+                   'Op maand 18 ook de tevredenheidsschaal opnieuw afnemen, zodat de '
+                   'verandering tegenover baseline gemeten kan worden.'],
+      documenten=[('24', 'Drukherverdeling'), ('24b', 'Opvolgtool'),
+                  ('12', 'Tevredenheid \u2014 maand 18')],
+      letop='Drie extra meetmomenten, niet twee. Maand 18 telt mee: beide co-primaire '
+            'uitkomsten worden op achttien maanden ge\u00ebvalueerd.',
+      wie='Podoloog meet \u00b7 pedorthist past aan',
+      tip='Dit is de dia die het vaakst vergeten wordt bij het inplannen. Zet de drie '
+          'data nu al in de agenda van de pati\u00ebnt.',
+      interactie='Laat elk centrum benoemen wie de drukmeting op maand 18 zal doen.'),
  dict(t='traject', morph='morph',
       kicker='Het traject',
       kop='Terug naar het geheel',
-      groot='9',
-      punt='momenten, één zorgpad',
+      groot='10',
+      punt='contactmomenten, één zorgpad',
       slot='Het verschil met vandaag zit niet in hoe vaak u de patiënt ziet, maar '
            'in wat u bij elk bezoek wéét: wat de zool doet en wat er gedragen is.',
       tip='Sluit blok 3 hiermee af. De zaal herkent de dia van het begin.',

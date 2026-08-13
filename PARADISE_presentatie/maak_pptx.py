@@ -604,11 +604,15 @@ for i, d in enumerate(SLIDES, 1):
             txt(s, x + 14, yd + 11, 60, 30, nr, gr=13, kl='licht', vet=True, font=FONT_M)
             txt(s, x + 72, yd + 13, 234, 30, naam2, gr=11.5, kl='ink', omslag=False)
         yl = 360 + ((len(d['documenten']) + 1) // 2) * 54 + 28
-        hl = hoogte(d['letop'], 600, 14.5, 1.35)
+        # het blok moet binnen de dia blijven, ook bij een lange documentenlijst
+        for gl in (14.5, 13.5, 12.5, 11.5, 10.5):
+            hl = hoogte(d['letop'], 600, gl, 1.35)
+            if yl + hl + 108 <= 986:
+                break
         tegel(s, 1180, yl, 640, hl + 108, 'tegel', 'oranje')
         txt(s, 1220, yl + 24, 560, 34, 'Let op', gr=12.5, kl='oranje', vet=True,
             font=FONT_M, caps=True, sp=1.5)
-        txt(s, 1220, yl + 66, 560, hl + 20, d['letop'], gr=14.5, kl='ink', ra=1.35)
+        txt(s, 1220, yl + 66, 560, hl + 20, d['letop'], gr=gl, kl='ink', ra=1.35)
         txt(s, 100, 1006, 1500, 30, d['wie'], gr=11.5, kl='gedempt', font=FONT_M)
         paginering(s, i)
 
