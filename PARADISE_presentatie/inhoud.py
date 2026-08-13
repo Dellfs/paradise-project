@@ -57,7 +57,7 @@ PUNTEN = [('Screening', 'geschiktheid', 'start'),
           ('9', 'begeleiding', 'zorg'),
           ('12', 'meting', 'meting'),
           ('15', 'begeleiding', 'zorg'),
-          ('18', 'afronding', 'eind')]
+          ('18', 'meting + einde', 'eind')]
 
 SOORT = [('meting', 'meetmoment'), ('zorg', 'begeleiding'),
          ('start', 'start en afronding')]
@@ -118,7 +118,7 @@ SLIDES = [
       kop='144 patiënten, 24 per centrum',
       klein=[('Per centrum', '24 deelnemers — 12 PARADISE en 12 gebruikelijke zorg'),
              ('Controlegroep', 'Gebruikelijke zorg, onveranderd'),
-             ('Co-primair', 'Recidief op 18 mnd  +  draagtijd op 12 mnd'),
+             ('Co-primair', 'Recidief én draagtijd, beide op 18 maanden'),
              ('Positief', 'Alleen als béíde eindpunten halen')],
       centra=CENTRA,
       centra_label='De zes deelnemende voetklinieken',
@@ -386,7 +386,8 @@ SLIDES = [
                    'registreer de uitlezing.',
                    'Bevraag de therapietrouw en bespreek de uitdraai '
                    'niet-veroordelend.',
-                   'Op maand 6 en 12: herhaal de drukmeting in de drie condities.',
+                   'Op maand 6, 12 én 18: herhaal de drukmeting in de drie '
+                   'condities en pas opnieuw aan als de norm niet gehaald is.',
                    'Op maand 6: tweede week MoveMonitor.',
                    'Beoordeel beide paren zolen. Het paar dat onderhoud nodig '
                    'heeft gaat naar de pedorthist, inclusief toplaag.',
@@ -396,8 +397,9 @@ SLIDES = [
                   ('31', 'Therapietrouw'), ('32', 'Feedback'),
                   ('33', 'Vervanging'), ('21', 'EQ-5D-5L'),
                   ('45b', 'Kostendagboek')],
-      letop='Maand 12 is het primaire analysepunt voor draagtijd. Een gemiste '
-            'uitlezing op dat moment kost u de primaire uitkomst van die patiënt.',
+      letop='Beide co-primaire uitkomsten worden op 18 maanden geëvalueerd, maar '
+            'de draagtijd is een gemiddelde over de hele periode. Elke gemiste '
+            'uitlezing verzwakt dus het eindresultaat van die patiënt.',
       wie='Podoloog leest uit en begeleidt · arts beoordeelt laesies',
       tip='Benadruk dat uitlezen enkel ter plaatse kan. Koppel het aan een '
           'bezoek dat toch al gepland is.',
@@ -448,26 +450,28 @@ SLIDES = [
       interactie='Geef er een door de zaal terwijl u praat.'),
 
  dict(t='sop', morph='morph',
-      kicker='De zool · protocol 5.4.2',
+      kicker='De zool · protocol 5.4.2 en eCRF 23',
       kop='Hoe de CMFO is opgebouwd',
-      instellingen=[('Basislaag', '5 mm microkurk, shore 55'),
-                    ('Toplaag bij maatwerk', '5 mm EVA, shore 35-40'),
-                    ('Toplaag bij confectie', '6 mm EVA, shore 35-40'),
+      instellingen=[('Basis in maatschoen', '5 mm microkurk (55) + 5 mm EVA'),
+                    ('Basis in confectie', '6 mm EVA — géén kurk'),
+                    ('Deklaag, in beide', '3 mm gesloten + 3 mm open cel'),
                     ('Metatarsaalbalk', '9-10 mm hoog, shore ~55'),
                     ('Positie van de balk', '6-11 mm proximaal'),
-                    ('Deklaag', '3 mm gesloten + 3 mm open cel')],
-      stappen=['Ligt er maar één regio hoog, of zit daar het vorige ulcus, gebruik '
-               'dan een lokale pad of dome in plaats van een balk over alle kopjes.',
+                    ('Of lokale pad', 'als maar één regio hoog ligt')],
+      stappen=['Controleer de pasvorm in het bínnenschoeisel én het '
+               'búitenschoeisel. Beide staan als apart deel op het formulier.',
+               'Neem de foto\'s: orthese van boven, onder en opzij, in beide '
+               'schoenen, plus de schoenen zelf.',
                'Pas aan zolang de norm niet gehaald is, of zolang podoloog en '
                'pedorthist samen oordelen dat er nog winst te halen is.',
-               'Is de norm gehaald, maak dan een tweede, identiek paar.',
-               'Vanaf maand 3 beoordeelt u bij elk kwartaalbezoek beide paren en '
-               'knapt u het paar op dat aan onderhoud toe is, deklaag inbegrepen.'],
-      valkuil='De patiënt houdt twee paren in gebruik, niet één: er is er altijd '
-              'één beschikbaar terwijl het andere onderhouden wordt. Neemt u er één '
-              'in zonder vervanging, dan daalt de draagtijd door úw ingreep.',
-      tip='Dit is de dia voor de pedorthisten. De opbouw ligt vast in het protocol '
-          'en is dus geen vrije keuze — het is een medisch hulpmiddel binnen een studie.',
+               'Is de norm gehaald, maak dan een tweede, identiek paar.'],
+      valkuil='De opbouw hangt af van de schoen. In een volledig op maat gemaakte '
+              'schoen is de basis 5 mm microkurk plus 5 mm EVA; in een confectieschoen '
+              'is het 6 mm EVA zonder kurk. Wisselt de patiënt van schoentype, dan '
+              'klopt de zool niet meer.',
+      tip='Dit is de dia voor de pedorthisten. Benadruk dat de zool anders is in een '
+          'orthopedische schoen dan in een confectieschoen, en dat de pasvorm in '
+          'bínnen- én buitenschoeisel apart beoordeeld wordt.',
       interactie='Vraag of deze opbouw afwijkt van wat ze vandaag maken. Waar het '
                  'afwijkt, noteer dat: het is input voor de procesevaluatie.'),
 
