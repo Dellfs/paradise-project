@@ -18,7 +18,7 @@ from pptx.oxml.ns import qn
 from lxml import etree
 from PIL import Image
 
-from inhoud import SLIDES, K, FONT, FONT_L, FONT_M, kol, PUNTEN
+from inhoud import SLIDES, K, FONT, FONT_L, FONT_M, kol, PUNTEN, SOORT
 import beeld
 
 HIER = os.path.dirname(os.path.abspath(__file__))
@@ -164,7 +164,22 @@ def foto(s, bestand, x, y, w, h, naam=None):
     return p
 
 
-def kicker(s, t, kl='teal', y=90):
+def merk(s, t):
+    """Het PARADISE-merk: groot op de openings-, sectie- en slotdia, klein
+    rechtsboven op de inhoudsdia's."""
+    if t == 'hero_titel':
+        foto(s, 'merk.png', 1500, 196, 280, 300, naam='merk')
+    elif t == 'sectie':
+        foto(s, 'merk.png', 1440, 300, 320, 340, naam='merk')
+    elif t == 'slot':
+        foto(s, 'merk.png', 1380, 320, 330, 350, naam='merk')
+    elif t == 'pauze':
+        foto(s, 'merk.png', 890, 118, 140, 160, naam='merk')
+    else:
+        foto(s, 'merk.png', 1742, 58, 76, 76, naam='merk')
+
+
+def kicker(s, t, kl='licht', y=90):
     txt(s, 100, y, 1500, 34, t, gr=12.5, kl=kl, vet=True, font=FONT_M, sp=2.4, caps=True)
 
 
@@ -226,18 +241,18 @@ for i, d in enumerate(SLIDES, 1):
         tegel(s, 100, 150, 1720, 470, 'tegel', 'rand', alpha=60)
         txt(s, 150, 206, 1400, 270, d['boven'], gr=110, kl='ink', vet=True,
             ra=0.92, naam='hero')
-        txt(s, 156, 442, 1200, 90, d['onder'], gr=36, kl='teal', vet=True)
+        txt(s, 156, 442, 1200, 90, d['onder'], gr=36, kl='licht', vet=True)
         txt(s, 156, 552, 1300, 70, d['staart'], gr=18, kl='gedempt', font=FONT_L)
         for j, (g, l) in enumerate(d['tegels']):
             x, w = kol(j * 4, 4)
             tegel(s, x, 664, w, 210, 'tegel2', 'rand')
-            txt(s, x + 34, 698, w - 60, 120, g, gr=56, kl='teal', vet=True, ra=1.0)
+            txt(s, x + 34, 698, w - 60, 120, g, gr=56, kl='licht', vet=True, ra=1.0)
             txt(s, x + 36, 810, w - 60, 40, l, gr=14, kl='gedempt', font=FONT_M,
                 caps=True, sp=1.4)
         txt(s, 100, 1006, 1500, 30, d['voet'], gr=11.5, kl='gedempt', font=FONT_M)
 
     elif t == 'sectie':
-        txt(s, 100, 292, 700, 320, d['nr'], gr=150, kl='teal', vet=True, ra=0.9, naam='hero')
+        txt(s, 100, 292, 700, 320, d['nr'], gr=150, kl='licht', vet=True, ra=0.9, naam='hero')
         txt(s, 100, 626, 1400, 140, d['titel'], gr=56, kl='ink', vet=True, naam='sectietitel')
         txt(s, 104, 786, 1300, 80, d['regel'], gr=21, kl='gedempt', font=FONT_L)
         paginering(s, i)
@@ -247,13 +262,13 @@ for i, d in enumerate(SLIDES, 1):
         for j, (nr, naam, sub) in enumerate(d['tegels']):
             x, w = kol(j * 3, 3)
             tegel(s, x, 340, w, 480, 'tegel', 'rand')
-            txt(s, x + 30, 380, w - 60, 66, nr, gr=28, kl='teal', vet=True, font=FONT_M)
+            txt(s, x + 30, 380, w - 60, 66, nr, gr=28, kl='licht', vet=True, font=FONT_M)
             txt(s, x + 30, 466, w - 60, 120, naam, gr=23, kl='ink', vet=True, ra=1.15)
             txt(s, x + 30, 606, w - 60, 180, sub, gr=15, kl='gedempt', ra=1.35)
         paginering(s, i)
 
     elif t == 'hero_cijfer':
-        acc = d.get('accent', 'teal')
+        acc = d.get('accent', 'licht')
         gloed(s, -160, 40, 820, acc, 6)
         # het cijfer loopt bewust buiten het kader: schaal als beeldmiddel
         txt(s, 60, 120, 1200, 520, d['cijfer'], gr=250, kl=acc, vet=True, ra=0.82,
@@ -271,9 +286,9 @@ for i, d in enumerate(SLIDES, 1):
                 staaf(s, 1000, yy + 42, 700, 40, waarde / 100.0, acc)
                 txt(s, 1720, yy + 38, 110, 44, '%d%%' % waarde, gr=22, kl='ink', vet=True)
                 yy += 118
-            merkstreep(s, 1000 + 700 * 0.80, 344, 348)
-            txt(s, 1000 + 700 * 0.80 - 100, 704, 200, 36, 'norm 80%', gr=13, kl='ink',
-                vet=True, font=FONT_M, uit=PP_ALIGN.CENTER)
+            merkstreep(s, 1000 + 700 * 0.80, 344, 348, 'oranje')
+            txt(s, 1000 + 700 * 0.80 - 100, 704, 200, 36, 'norm 80%', gr=13,
+                kl='oranje', vet=True, font=FONT_M, uit=PP_ALIGN.CENTER)
         else:
             for j, (g, l) in enumerate(d['tegels']):
                 x, w = kol(8, 4)
@@ -330,10 +345,10 @@ for i, d in enumerate(SLIDES, 1):
         for j, c in enumerate((d['een'], d['twee'])):
             x, w = kol(j * 6, 6)
             tegel(s, x, 320, w, 570, 'tegel', 'rand')
-            txt(s, x + 40, 354, 200, 60, c['nr'], gr=26, kl='teal', vet=True, font=FONT_M)
+            txt(s, x + 40, 354, 200, 60, c['nr'], gr=26, kl='licht', vet=True, font=FONT_M)
             txt(s, x + 40, 418, w - 80, 110, c['naam'], gr=24, kl='ink', vet=True, ra=1.15)
             tegel(s, x + 40, 548, w - 80, 84, 'glas', None)
-            txt(s, x + 40, 572, w - 80, 48, c['kern'], gr=18, kl='teal', vet=True,
+            txt(s, x + 40, 572, w - 80, 48, c['kern'], gr=18, kl='licht', vet=True,
                 uit=PP_ALIGN.CENTER, font=FONT_M)
             txt(s, x + 40, 668, w - 80, 200,
                 [(r, {'voor': 13}) for r in c['regels']], gr=15, kl='gedempt', ra=1.35)
@@ -342,11 +357,11 @@ for i, d in enumerate(SLIDES, 1):
     elif t == 'statraster':
         kicker(s, d['kicker']); kop(s, d['kop'], naam='sectietitel')
         # 144 deelnemers als puntenmatrix, 72 per arm
-        kleuren = ['teal'] * 72 + ['koraal'] * 72
+        kleuren = ['licht'] * 72 + ['oranje'] * 72
         matrix(s, 100, 300, 144, 24, 26, 12, kleuren)
-        txt(s, 100, 520, 400, 40, '72 PARADISE', gr=13, kl='teal', vet=True,
+        txt(s, 100, 520, 400, 40, '72 PARADISE', gr=13, kl='licht', vet=True,
             font=FONT_M, sp=1.4)
-        txt(s, 380, 520, 400, 40, '72 GEBRUIKELIJKE ZORG', gr=13, kl='koraal',
+        txt(s, 380, 520, 400, 40, '72 GEBRUIKELIJKE ZORG', gr=13, kl='oranje',
             vet=True, font=FONT_M, sp=1.4)
         txt(s, 1080, 286, 740, 250,
             'Elke stip is een patiënt die u zelf includeert.\n24 per kliniek.',
@@ -355,7 +370,7 @@ for i, d in enumerate(SLIDES, 1):
             x, w = kol((j % 2) * 6, 6)
             y = 606 + (j // 2) * 132
             tegel(s, x, y, w, 114, 'tegel', 'rand')
-            txt(s, x + 30, y + 20, w - 60, 34, k2, gr=12, kl='teal', vet=True,
+            txt(s, x + 30, y + 20, w - 60, 34, k2, gr=12, kl='licht', vet=True,
                 font=FONT_M, caps=True, sp=1.4)
             txt(s, x + 30, y + 58, w - 60, 46, v, gr=15.5, kl='ink')
         paginering(s, i)
@@ -368,9 +383,9 @@ for i, d in enumerate(SLIDES, 1):
             liniaal(s, 100, y, 980)
             txt(s, 100, y + 26, 980, 50, k2, gr=21, kl='ink', vet=True)
             txt(s, 102, y + 76, 960, 60, v, gr=15.5, kl='gedempt', ra=1.3)
-        tegel(s, 1180, 300, 640, 622, 'tegel2', 'amber')
-        gloed(s, 1260, 322, 480, 'amber', 5)
-        txt(s, 1224, 340, 560, 300, d['cijfer'], gr=150, kl='amber', vet=True, ra=0.9,
+        tegel(s, 1180, 300, 640, 622, 'tegel2', 'oranje')
+        gloed(s, 1260, 322, 480, 'oranje', 5)
+        txt(s, 1224, 340, 560, 300, d['cijfer'], gr=150, kl='oranje', vet=True, ra=0.9,
             uit=PP_ALIGN.CENTER, naam='hero')
         txt(s, 1224, 640, 560, 62, d['cijfer_label'], gr=30, kl='ink', vet=True,
             uit=PP_ALIGN.CENTER)
@@ -400,17 +415,18 @@ for i, d in enumerate(SLIDES, 1):
         band = tegel(s, 0, 190, 1920, 520, 'tegel', None, rond=False)
         band.name = '!!band'
         if t == 'traject':
-            beeld.canvas(s, PUNTEN, txt, liniaal, 1.0, 960, 454, 960, 480)
-            txt(s, 100, 764, 320, 230, d['groot'], gr=96, kl='amber', vet=True,
+            beeld.canvas(s, PUNTEN, txt, liniaal, 1.0, 960, 454, 960, 460)
+            beeld.legende(s, 104, 632, SOORT, txt)
+            txt(s, 100, 742, 320, 230, d['groot'], gr=96, kl='licht', vet=True,
                 ra=1.0, omslag=False, naam='!!camera')
-            txt(s, 460, 782, 1340, 66, d['punt'], gr=30, kl='ink', vet=True)
-            txt(s, 462, 858, 1340, 120, d['slot'], gr=18, kl='gedempt', ra=1.4)
+            txt(s, 400, 758, 1400, 66, d['punt'], gr=30, kl='ink', vet=True)
+            txt(s, 402, 832, 1400, 150, d['slot'], gr=18, kl='gedempt', ra=1.4)
         else:
             beeld.canvas(s, PUNTEN, txt, liniaal, d['schaal'], d['mid'], 454,
                          d.get('ox', 560), 500)
             p = d['paneel']
             liniaal(s, 100, 748, 1720)
-            txt(s, 100, 772, 420, 60, p['titel'], gr=24, kl='amber', vet=True,
+            txt(s, 100, 772, 420, 60, p['titel'], gr=24, kl='oranje', vet=True,
                 naam='!!camera')
             for j, r in enumerate(p['regels']):
                 txt(s, 560 + j * 660, 770, 600, 200, r, gr=16.5, kl='gedempt', ra=1.35)
@@ -426,7 +442,7 @@ for i, d in enumerate(SLIDES, 1):
                       beeld.NA if d['fase'] == 'na' else beeld.VOOR, sleutel='p',
                       piek=float(d['waarde']))
         beeld.schaalbalk(s, 145, 930, 300, 16, txt)
-        acc = 'teal' if d['fase'] == 'na' else 'koraal'
+        acc = 'licht' if d['fase'] == 'na' else 'oranje'
         txt(s, 560, 250, 700, 300, d['waarde'], gr=150, kl=acc, vet=True, ra=0.9,
             omslag=False, naam='!!piek')
         txt(s, 1080, 300, 200, 80, 'kPa', gr=44, kl=acc, vet=True, font=FONT_L,
@@ -434,7 +450,7 @@ for i, d in enumerate(SLIDES, 1):
         txt(s, 564, 528, 1200, 60, d['plek'], gr=22, kl='ink', vet=True,
             naam='!!plek')
         tegel(s, 560, 618, 1260, 96, 'glas', None, naam='!!norm')
-        txt(s, 560, 646, 1260, 46, d['norm'], gr=22, kl='amber', vet=True,
+        txt(s, 560, 646, 1260, 46, d['norm'], gr=22, kl='oranje', vet=True,
             uit=PP_ALIGN.CENTER, font=FONT_M, naam='!!normtekst')
         txt(s, 560, 760, 1260, 200,
             [(r, {'voor': 12}) for r in d['regels']], gr=17, kl='gedempt', ra=1.35)
@@ -446,7 +462,7 @@ for i, d in enumerate(SLIDES, 1):
         for j, (nr, wanneer, wat) in enumerate(d['stappen']):
             x = 100 + j * 348
             tegel(s, x, 330, 324, 540, 'tegel', 'rand')
-            txt(s, x + 28, 364, 260, 60, nr, gr=27, kl='teal', vet=True, font=FONT_M)
+            txt(s, x + 28, 364, 260, 60, nr, gr=27, kl='licht', vet=True, font=FONT_M)
             txt(s, x + 28, 440, 268, 66, wanneer, gr=20, kl='ink', vet=True)
             txt(s, x + 28, 524, 268, 320, wat, gr=15, kl='gedempt', ra=1.38)
         paginering(s, i)
@@ -459,11 +475,11 @@ for i, d in enumerate(SLIDES, 1):
         tegel(s, gx, 310, gw, 630, 'tegel', 'rand')
         foto(s, g['foto'], gx + 40, 344, gw - 80, 262)
         txt(s, gx + 44, 626, 380, 70, g['naam'], gr=32, kl='ink', vet=True)
-        txt(s, gx + 46, 700, 380, 36, g['sub'], gr=12.5, kl='teal', vet=True,
+        txt(s, gx + 46, 700, 380, 36, g['sub'], gr=12.5, kl='licht', vet=True,
             font=FONT_M, caps=True, sp=1.6)
         txt(s, gx + 44, 734, 380, 60, g['groot'] + '  ' + g['onder'], gr=24,
-            kl='teal', vet=True, ra=1.0)
-        txt(s, gx + 44, 800, 380, 40, g['wie'], gr=13, kl='amber', vet=True,
+            kl='licht', vet=True, ra=1.0)
+        txt(s, gx + 44, 800, 380, 40, g['wie'], gr=13, kl='oranje', vet=True,
             font=FONT_M, caps=True, sp=1.3)
         txt(s, gx + 448, 626, gw - 492, 280,
             [(r, {'voor': 10}) for r in g['regels']], gr=14.5, kl='gedempt', ra=1.3)
@@ -475,13 +491,13 @@ for i, d in enumerate(SLIDES, 1):
             foto(s, c['foto'], x + 36, y + 36, 316, 230)
             tx = x + 400
             txt(s, tx, y + 30, 420, 54, c['naam'], gr=25, kl='ink', vet=True)
-            txt(s, tx + 2, y + 88, 420, 34, c['sub'], gr=12, kl='teal', vet=True,
+            txt(s, tx + 2, y + 88, 420, 34, c['sub'], gr=12, kl='licht', vet=True,
                 font=FONT_M, caps=True, sp=1.5)
             txt(s, tx, y + 120, 420, 56, c['groot'] + '  ' + c['onder'], gr=22,
-                kl='teal', vet=True, ra=1.0)
+                kl='licht', vet=True, ra=1.0)
             txt(s, tx, y + 174, w - 440, 90,
                 [(r, {'voor': 6}) for r in c['regels']], gr=14, kl='gedempt', ra=1.28)
-            txt(s, tx, y + 264, 420, 36, c['wie'], gr=12.5, kl='amber', vet=True,
+            txt(s, tx, y + 264, 420, 36, c['wie'], gr=12.5, kl='oranje', vet=True,
                 font=FONT_M, caps=True, sp=1.3)
         paginering(s, i)
 
@@ -494,18 +510,18 @@ for i, d in enumerate(SLIDES, 1):
             txt(s, 100, y + 34, 420, 60, rol, gr=27, kl='ink', vet=True)
             for k, p in enumerate(punten):
                 px_ = 560 + k * 428
-                punt(s, px_, y + 48, 11, 'teal')
+                punt(s, px_, y + 48, 11, 'licht')
                 txt(s, px_ + 26, y + 36, 372, 90, p, gr=15.5, kl='gedempt', ra=1.3)
         liniaal(s, 100, 960, 1720)
         paginering(s, i)
 
     elif t == 'statement':
-        kicker(s, d['kicker'], kl='koraal')
+        kicker(s, d['kicker'], kl='oranje')
         txt(s, 100, 168, 1080, 400, d['kop'], gr=54, kl='ink', vet=True, ra=1.08, naam='hero')
         tegel(s, 100, 646, 1080, 244, 'tegel', 'rand')
         txt(s, 144, 690, 1000, 190, d['body'], gr=17.5, kl='gedempt', ra=1.45)
-        tegel(s, 1240, 320, 580, 554, 'tegel2', 'koraal')
-        txt(s, 1288, 366, 490, 38, 'Uitzondering', gr=12.5, kl='koraal', vet=True,
+        tegel(s, 1240, 320, 580, 554, 'tegel2', 'oranje')
+        txt(s, 1288, 366, 490, 38, 'Uitzondering', gr=12.5, kl='oranje', vet=True,
             font=FONT_M, caps=True, sp=1.6)
         txt(s, 1288, 430, 490, 400, d['uitzondering'], gr=18, kl='ink', ra=1.45)
         paginering(s, i)
@@ -517,15 +533,15 @@ for i, d in enumerate(SLIDES, 1):
             x, w = kol((j % 2) * 6, 6)
             y = 336 + (j // 2) * 142
             tegel(s, x, y, w, 122, 'tegel', 'rand')
-            txt(s, x + 32, y + 22, w - 64, 36, k2, gr=12.5, kl='teal', vet=True,
+            txt(s, x + 32, y + 22, w - 64, 36, k2, gr=12.5, kl='licht', vet=True,
                 font=FONT_M, caps=True, sp=1.4)
             txt(s, x + 32, y + 64, w - 64, 46, v, gr=17, kl='ink')
-        tegel(s, 100, 646, 1720, 150, 'tegel2', 'teal')
+        tegel(s, 100, 646, 1720, 150, 'tegel2', 'licht')
         txt(s, 150, 692, 1620, 110, d['slot'], gr=19, kl='ink', ra=1.4)
         paginering(s, i)
 
     elif t == 'pauze':
-        kicker(s, d['kicker'], kl='amber')
+        kicker(s, d['kicker'], kl='oranje')
         txt(s, 100, 372, 1720, 280, d['kop'], gr=120, kl='ink', vet=True,
             uit=PP_ALIGN.CENTER, ra=1.0, naam='hero')
         txt(s, 100, 700, 1720, 70, d['regel'], gr=23, kl='gedempt',
@@ -540,7 +556,7 @@ for i, d in enumerate(SLIDES, 1):
             y = 300 + (j // 2) * 226
             liniaal(s, x, y, w)
             txt(s, x, y + 26, w, 60, v, gr=19, kl='ink', vet=True, ra=1.2)
-            txt(s, x, y + 96, 30, 40, '—', gr=15, kl='teal', vet=True)
+            txt(s, x, y + 96, 30, 40, '—', gr=15, kl='licht', vet=True)
             txt(s, x + 40, y + 94, w - 40, 100, a, gr=15.5, kl='gedempt', ra=1.35)
         paginering(s, i)
 
@@ -549,26 +565,27 @@ for i, d in enumerate(SLIDES, 1):
         kicker(s, d['kicker']); kop(s, d['kop'], naam='sectietitel')
         tegel(s, 100, 300, 1720, 622, 'tegel', 'rand')
         for j, (g, m, sub) in enumerate(d['tegels']):
-            y = 344 + j * 146
+            y = 336 + j * 150
             if j:
                 liniaal(s, 168, y - 26, 1584)
-            txt(s, 118, y, 300, 120, g, gr=54, kl='teal', vet=True, ra=1.0,
+            txt(s, 118, y, 300, 120, g, gr=54, kl='licht', vet=True, ra=1.0,
                 uit=PP_ALIGN.RIGHT, omslag=False)
-            txt(s, 470, y + 8, 900, 60, m, gr=26, kl='ink', vet=True)
-            txt(s, 472, y + 62, 1250, 50, sub, gr=16, kl='gedempt')
+            txt(s, 470, y, 900, 60, m, gr=26, kl='ink', vet=True)
+            txt(s, 472, y + 66, 1250, 50, sub, gr=16, kl='gedempt', ra=1.0)
         paginering(s, i)
 
     elif t == 'slot':
         txt(s, 100, 296, 1200, 230, d['kop'], gr=96, kl='ink', vet=True, ra=1.0, naam='hero')
-        txt(s, 104, 548, 1300, 80, d['regel'], gr=23, kl='teal', font=FONT_L)
-        tegel(s, 100, 664, 1000, 226, 'tegel', 'rand')
-        txt(s, 148, 708, 920, 170,
-            [(r, {'voor': 8}) for r in d['contact']], gr=16.5, kl='gedempt', ra=1.45)
+        txt(s, 104, 548, 1300, 80, d['regel'], gr=23, kl='licht', font=FONT_L)
+        tegel(s, 100, 660, 1000, 244, 'tegel', 'rand')
+        txt(s, 148, 700, 920, 190,
+            [(r, {'voor': 8}) for r in d['contact']], gr=16.5, kl='gedempt', ra=1.4)
         txt(s, 100, 1006, 1500, 30, d['voet'], gr=11.5, kl='gedempt', font=FONT_M)
 
     else:
         raise SystemExit('onbekend type: %s' % t)
 
+    merk(s, t)
     notitie(s, d)
     morph(s, d.get('morph', 'morph'))
 

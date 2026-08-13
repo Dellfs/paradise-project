@@ -57,11 +57,13 @@ def _rand(t):
 
 
 # ------------------------------------------------------------------ kleurband
-# Koud navy → teal → amber → koraal. Sequentieel, en het blijft in de huisstijl.
-BAND = [(0.00, (0x14, 0x22, 0x2E)), (0.18, (0x17, 0x3E, 0x52)),
-        (0.36, (0x1B, 0x74, 0x82)), (0.52, (0x2B, 0xB9, 0xAD)),
-        (0.66, (0x8F, 0xC0, 0x6A)), (0.78, (0xE0, 0xA3, 0x3D)),
-        (0.90, (0xE4, 0x67, 0x4E)), (1.00, (0xFF, 0x3B, 0x2A))]
+# Dit is de kleurband uit het PARADISE-logo zelf: de voetafdruk in het merk is
+# een drukmat, van diep blauw via cyaan en geel naar oranje en rood. De schaal
+# van de dia's en het logo zijn dus letterlijk dezelfde.
+BAND = [(0.00, (0x05, 0x1D, 0x33)), (0.16, (0x0D, 0x3A, 0x63)),
+        (0.32, (0x1D, 0x8D, 0xB0)), (0.48, (0x52, 0xBD, 0xEC)),
+        (0.62, (0xFF, 0xD2, 0x4A)), (0.80, (0xFF, 0x7A, 0x00)),
+        (1.00, (0xE8, 0x33, 0x1E))]
 
 
 def kleur(v):
@@ -158,6 +160,19 @@ def schaalbalk(s, x, y, w, h, txt, maxwaarde=400):
 W_LINKS, W_BREED = 100, 1720
 W_AS, W_LABEL, W_TAAK = 454, 330, 506
 
+# De stip zegt wat voor moment het is, niet of het extra is.
+KLEUR_SOORT = {'meting': 'licht', 'zorg': 'mid', 'start': 'oranje', 'eind': 'oranje'}
+
+
+def legende(s, x, y, soorten, txt):
+    """Drie stippen met een label: wat betekent welke kleur op de tijdlijn."""
+    for i, (soort, wat) in enumerate(soorten):
+        cx = x + i * 400
+        o = s.shapes.add_shape(MSO_SHAPE.OVAL, px(cx), px(y), px(18), px(18))
+        o.fill.solid(); o.fill.fore_color.rgb = rgb(KLEUR_SOORT[soort])
+        o.line.fill.background(); o.shadow.inherit = False
+        txt(s, cx + 30, y - 6, 360, 34, wat, gr=13, kl='gedempt', font=FONT_M)
+
 
 def station_x(j, n):
     stap = W_BREED / n
@@ -185,11 +200,10 @@ def canvas(s, punten, txt, liniaal, schaal=1.0, cx=960.0, cy=540.0,
     lijn.name = '!!as'
 
     for j, p in enumerate(punten):
-        wanneer, wat = p[0], p[1]
-        extra = len(p) > 2 and p[2]
-        kl = 'amber' if extra else ('teal' if wat else 'rand')
+        wanneer, wat, soort = p[0], p[1], p[2]
+        kl = KLEUR_SOORT.get(soort, 'mid')
         wx = station_x(j, n)
-        dm = (34 if extra else 24) * schaal
+        dm = (30 if soort in ('start', 'eind') else 24) * schaal
         c = s.shapes.add_shape(MSO_SHAPE.OVAL, px(X(wx) - dm / 2),
                                px(Y(W_AS + 2) - dm / 2), px(dm), px(dm))
         c.fill.solid(); c.fill.fore_color.rgb = rgb(kl)
@@ -198,14 +212,9 @@ def canvas(s, punten, txt, liniaal, schaal=1.0, cx=960.0, cy=540.0,
         c.name = '!!stip%d' % j
 
         t1 = txt(s, X(wx - stap / 2), Y(W_LABEL), stap * schaal, 44 * schaal,
-                 wanneer, gr=17 * schaal, kl='amber' if extra else 'ink',
+                 wanneer, gr=(15 if len(wanneer) > 4 else 17) * schaal, kl='ink',
                  vet=True, uit=PP_ALIGN.CENTER, font=FONT_M)
         t1.name = '!!maand%d' % j
-        if extra:
-            t2 = txt(s, X(wx - stap / 2), Y(W_LABEL + 56), stap * schaal,
-                     32 * schaal, 'nieuw', gr=10.5 * schaal, kl='amber',
-                     vet=True, uit=PP_ALIGN.CENTER, font=FONT_M, caps=True, sp=1.6)
-            t2.name = '!!nieuw%d' % j
         if wat:
             t3 = txt(s, X(wx - stap / 2 + 10), Y(W_TAAK), (stap - 20) * schaal,
                      90 * schaal, wat, gr=13.5 * schaal, kl='gedempt',

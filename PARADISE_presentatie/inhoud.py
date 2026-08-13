@@ -8,18 +8,21 @@ Alle cijfers komen uit het protocol (versie 1.0, 17/05/2026) en het
 geverifieerde manuscript.
 """
 
+# Huisstijl PARADISE: par-dark #00407A, par-mid #1D8DB0, par-light #52BDEC,
+# par-orange #FF7A00. De grond en de tegels zijn donkere tinten van par-dark,
+# zodat het hele deck uit dezelfde blauwfamilie komt.
 K = {
-    'bg':      '0B1622',
-    'tegel':   '16242F',
-    'tegel2':  '1E3040',
-    'glas':    '223749',
-    'rand':    '2C4356',
-    'ink':     'F4F8FB',
-    'gedempt': '93A9BA',
-    'teal':    '2BB9AD',
-    'teal_d':  '0E7C86',
-    'amber':   'E0A33D',
-    'koraal':  'E4674E',
+    'bg':      '04182A',
+    'tegel':   '0A2A44',
+    'tegel2':  '113A57',
+    'glas':    '17486B',
+    'rand':    '215B84',
+    'ink':     'F2F8FC',
+    'gedempt': '8FB6D0',
+    'navy':    '00407A',
+    'mid':     '1D8DB0',
+    'licht':   '52BDEC',
+    'oranje':  'FF7A00',
     'wit':     'FFFFFF',
 }
 
@@ -38,11 +41,19 @@ def kol(i, span=1):
 
 # Het traject staat apart: vijf dia's tekenen hetzelfde canvas onder een andere
 # camera-instelling, dus de gegevens mogen maar op één plek staan.
-PUNTEN = [('Screen', 'geschiktheid', True), ('Base', 'meting', False),
-          ('1', 'voorschrift', True), ('3', 'zool + sensor', False),
-          ('6', 'meting', False), ('9', 'controle', False),
-          ('12', 'meting', False), ('15', 'controle', False),
-          ('18', 'einde', False)]
+# De derde waarde is het soort moment; die bepaalt de kleur van de stip.
+PUNTEN = [('Screening', 'geschiktheid', 'start'),
+          ('Baseline', 'meting', 'meting'),
+          ('1', 'voorschrift', 'zorg'),
+          ('3', 'zool + sensor', 'meting'),
+          ('6', 'meting', 'meting'),
+          ('9', 'begeleiding', 'zorg'),
+          ('12', 'meting', 'meting'),
+          ('15', 'begeleiding', 'zorg'),
+          ('18', 'afronding', 'eind')]
+
+SOORT = [('meting', 'meetmoment'), ('zorg', 'begeleiding'),
+         ('start', 'start en afronding')]
 
 
 SLIDES = [
@@ -76,7 +87,7 @@ SLIDES = [
       kop='krijgt binnen een jaar\neen nieuw ulcus',
       tegels=[('60%', 'na drie jaar'), ('65%', 'na vijf jaar'), ('2,5×', 'hogere sterfte')],
       voet='Armstrong, Boulton & Bus · N Engl J Med 2017',
-      accent='koraal',
+      accent='oranje',
       tip='Laat het getal even alleen staan. Zeg dan pas: "dit is uw eigen praktijk."',
       interactie='Morph vanaf de sectiedia: het cijfer groeit uit de titel.'),
 
@@ -85,10 +96,10 @@ SLIDES = [
       kop='Het lag niet aan de zool',
       links=dict(titel='Iedereen', sub='intention-to-treat', groot='38,8',
                  ref=44.2, ref_lbl='Gewone maatzool', int_lbl='Drukgeoptimaliseerd',
-                 slot='Geen verschil — p = 0,48', kleur='koraal'),
+                 slot='Geen verschil — p = 0,48', kleur='oranje'),
       rechts=dict(titel='Wie hem droeg', sub='≥ 80% van de stappen', groot='25,7',
                   ref=47.8, ref_lbl='Gewone maatzool', int_lbl='Drukgeoptimaliseerd',
-                  slot='Bijna gehalveerd — p = 0,045', kleur='teal'),
+                  slot='Bijna gehalveerd — p = 0,045', kleur='licht'),
       punchline='De interventie werkte. Bij de 46% die hem aandeed.',
       voet='Bus et al. · Diabetes Care 2013 · DIAFOS, 171 deelnemers',
       tip='Wijs eerst links aan, laat het bezinken, wijs dan rechts. '
@@ -102,16 +113,16 @@ SLIDES = [
       meter=dict(label='Draagtijd tegenover de norm van 80%',
                  staven=[('Gemiddeld', 71), ('Thuis', 61), ('Buitenshuis', 87)]),
       voet='Waaijman et al. · Diabetes Care 2013 · 107 patiënten',
-      accent='amber',
+      accent='licht',
       tip='Het venijn zit in de derde tegel: binnen zetten ze méér stappen dan buiten.',
       interactie='Vraag: "wat schat u dat úw patiënten halen?" Laat ze roepen voor u klikt.'),
 
  dict(t='formule', morph='morph',
       kicker='Het mechanisme',
       kop='Belasting is een product,\ngeen optelsom',
-      delen=[('Piekdruk', 'per stap', 'teal', 'Bijgestuurd'),
+      delen=[('Piekdruk', 'per stap', 'licht', 'Bijgestuurd'),
              ('Activiteit', 'stappen per dag', 'gedempt', 'Gemeten'),
-             ('Draagtijd', 'wérd hij gedragen', 'teal', 'Bijgestuurd')],
+             ('Draagtijd', 'wérd hij gedragen', 'licht', 'Bijgestuurd')],
       slot='Eén factor op nul maakt het product nul. Daarom sturen we er twee bij.',
       tip='Teken het maalteken in de lucht. Product, niet som — dat is het hele punt.',
       interactie='Morph: de drie tegels komen samen uit één punt.'),
@@ -179,14 +190,14 @@ SLIDES = [
  dict(t='dubbelkolom', morph='morph',
       kicker='Selectie',
       kop='Wie komt in aanmerking',
-      links=dict(titel='Wél', kleur='teal',
+      links=dict(titel='Wél', kleur='licht',
                  items=['IWGDF-risicocategorie 3',
                         'Genezen plantair ulcus of partiële amputatie',
                         'PEDIS-perfusie 1 of 2, stabiel',
                         'Stapt zelfstandig blootsvoets',
                         'Heeft of aanvaardt maatschoeisel',
                         'Begrijpt Nederlands']),
-      rechts=dict(titel='Niet', kleur='koraal',
+      rechts=dict(titel='Niet', kleur='oranje',
                   items=['Kritische ischemie',
                          'Actief ulcus of Charcot',
                          'Nierfunctievervanging',
@@ -198,33 +209,35 @@ SLIDES = [
 
  dict(t='traject', morph='morph',
       kicker='Het traject',
-      kop='Negen momenten, twee nieuw',
-      groot='+2',
-      punt='bezoeken komen erbij',
-      slot='De zeven andere momenten vallen samen met de controle die de patiënt '
-           'sowieso al krijgt. Alleen de screening en maand 1 zijn extra.',
-      tip='Dit is uw belangrijkste geruststelling. Zeg het traag. Klik daarna '
-          'door: de tijdlijn zoomt in op elke fase en komt op het eind weer terug.',
-      interactie='Vraag voor u inzoomt: "welke fase kost ú het meeste tijd?" '
+      kop='Negen contactmomenten',
+      groot='18',
+      punt='maanden, van screening tot afronding',
+      slot='Het ritme is elke drie maanden: hetzelfde ritme als de controle die '
+           'deze patiënten volgens de richtlijn al krijgen.',
+      tip='Dit is voor een deel van de zaal de eerste kennismaking met het '
+          'traject. Geef eerst het overzicht, klik dan door: de tijdlijn zoomt '
+          'in op elke fase en komt op het eind weer terug.',
+      interactie='Vraag voor u inzoomt: "over welke fase wilt u het meest weten?" '
                  'Zoom dan als eerste naar die fase.'),
 
  dict(t='zoom', morph='morph', schaal=2.4, mid=291,
       kicker='Fase 1 · vóór de eerste zool',
       kop='Screening en baseline',
       paneel=dict(titel='Wat er gebeurt',
-                  regels=['Screening: risicocategorie 3, vaatstatus, kan de patiënt mee — '
-                          'dit is het enige echt nieuwe bezoek.',
+                  regels=['Screening: risicocategorie 3, vaatstatus en of de patiënt '
+                          'zelfstandig stapt. Kort, en vóór de toestemming.',
                           'Baseline: drukmeting met de pedar, een week MoveMonitor mee '
                           'naar huis, en het eerste SEBIA-gesprek.']),
-      tip='Zeg expliciet dat de screening vóór de toestemming gebeurt en dus kort is.',
+      tip='Leg uit dat de screening vóór de toestemming gebeurt en dus kort is: '
+          'u kijkt enkel of iemand in aanmerking komt.',
       interactie='Morph: de camera zoomt in op de eerste twee stippen.'),
 
  dict(t='zoom', morph='morph', schaal=2.4, mid=673,
       kicker='Fase 2 · de zool komt',
       kop='Maand 1 en maand 3',
       paneel=dict(titel='Wat er gebeurt',
-                  regels=['Maand 1: het voorschrift voor de maatzool. Kort bezoek, '
-                          'het tweede en laatste extra moment.',
+                  regels=['Maand 1: het voorschrift voor de maatzool. Een kort '
+                          'bezoek, zonder meting.',
                           'Maand 3: aflevering, de Orthotimer gaat in de zool, en de '
                           'meting wordt herhaald tot de norm gehaald is.']),
       tip='Hier zit het meeste werk voor de pedorthist. Kijk hem of haar aan.',
@@ -245,10 +258,10 @@ SLIDES = [
  dict(t='traject', morph='morph',
       kicker='Het traject',
       kop='Terug naar het geheel',
-      groot='7/9',
-      punt='momenten waren er sowieso al',
-      slot='U ziet de patiënt niet vaker. U ziet hem beter: bij elk bezoek weet u '
-           'wat de zool doet en wat er gedragen is.',
+      groot='9',
+      punt='momenten, één zorgpad',
+      slot='Het verschil met vandaag zit niet in hoe vaak u de patiënt ziet, maar '
+           'in wat u bij elk bezoek wéét: wat de zool doet en wat er gedragen is.',
       tip='Dit is dezelfde dia als het begin van het blok. De zaal herkent hem, '
           'en dat is precies het effect dat u wilt.',
       interactie='Laat hem staan tijdens de vragen over het traject.'),
