@@ -16,10 +16,13 @@ from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
 from pptx.enum.shapes import MSO_SHAPE
 from pptx.oxml.ns import qn
 from lxml import etree
+from PIL import Image
 
-from inhoud import SLIDES, K, FONT, FONT_L, FONT_M, kol
+from inhoud import SLIDES, K, FONT, FONT_L, FONT_M, kol, PUNTEN
+import beeld
 
 HIER = os.path.dirname(os.path.abspath(__file__))
+BEELD = os.path.join(HIER, 'beeld')
 DOEL = os.path.join(HIER, 'PARADISE_informatiesessie_voetklinieken.pptx')
 
 B, H = 1920, 1080
@@ -34,11 +37,13 @@ def rgb(n):
     return RGBColor.from_string(K[n])
 
 
-def tegel(s, x, y, w, h, vul='tegel', rand='rand', alpha=None, rond=True):
+def tegel(s, x, y, w, h, vul='tegel', rand='rand', alpha=None, rond=True, naam=None):
     """Bento-tegel; alpha geeft het glaseffect."""
     vorm = s.shapes.add_shape(
         MSO_SHAPE.ROUNDED_RECTANGLE if rond else MSO_SHAPE.RECTANGLE,
         px(x), px(y), px(w), px(h))
+    if naam:
+        vorm.name = naam
     vorm.fill.solid()
     vorm.fill.fore_color.rgb = rgb(vul)
     if alpha is not None:
@@ -57,12 +62,13 @@ def tegel(s, x, y, w, h, vul='tegel', rand='rand', alpha=None, rond=True):
 
 
 def txt(s, x, y, w, h, regels, gr=16, kl='ink', vet=False, font=FONT,
-        uit=PP_ALIGN.LEFT, ra=1.25, sp=0, anker=MSO_ANCHOR.TOP, caps=False, naam=None):
+        uit=PP_ALIGN.LEFT, ra=1.25, sp=0, anker=MSO_ANCHOR.TOP, caps=False, naam=None,
+        omslag=True):
     tb = s.shapes.add_textbox(px(x), px(y), px(w), px(h))
     if naam:
         tb.name = naam
     tf = tb.text_frame
-    tf.word_wrap = True
+    tf.word_wrap = omslag
     tf.vertical_anchor = anker
     tf.margin_left = tf.margin_right = tf.margin_top = tf.margin_bottom = 0
     if isinstance(regels, str):
@@ -87,6 +93,75 @@ def txt(s, x, y, w, h, regels, gr=16, kl='ink', vet=False, font=FONT,
         if s2:
             run.font._rPr.set('spc', str(int(s2 * 100)))
     return tb
+
+
+def punt(s, x, y, d, kl):
+    """Losse stip voor de puntenmatrix."""
+    o = s.shapes.add_shape(MSO_SHAPE.OVAL, px(x), px(y), px(d), px(d))
+    o.fill.solid(); o.fill.fore_color.rgb = rgb(kl)
+    o.line.fill.background(); o.shadow.inherit = False
+    return o
+
+
+def matrix(s, x, y, n, per_rij, d, spatie, kleuren):
+    """Puntenmatrix: n stippen, kleur per index via de lijst kleuren."""
+    for i in range(n):
+        r, k = divmod(i, per_rij)
+        punt(s, x + k * (d + spatie), y + r * (d + spatie), d, kleuren[i])
+
+
+def staaf(s, x, y, w, h, deel, kl, achter='tegel2'):
+    """Horizontale staaf met gevuld aandeel (deel = 0..1)."""
+    b = s.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, px(x), px(y), px(w), px(h))
+    b.fill.solid(); b.fill.fore_color.rgb = rgb(achter)
+    b.line.fill.background(); b.shadow.inherit = False
+    b.adjustments[0] = 0.5
+    if deel > 0:
+        f = s.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, px(x), px(y), px(w * deel), px(h))
+        f.fill.solid(); f.fill.fore_color.rgb = rgb(kl)
+        f.line.fill.background(); f.shadow.inherit = False
+        f.adjustments[0] = 0.5
+    return b
+
+
+def merkstreep(s, x, y, h, kl='ink'):
+    """Verticale streefwaardestreep over een staaf."""
+    m = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, px(x), px(y), px(3), px(h))
+    m.fill.solid(); m.fill.fore_color.rgb = rgb(kl)
+    m.line.fill.background(); m.shadow.inherit = False
+    return m
+
+
+def gloed(s, x, y, d, kl, alpha=7):
+    """Grote, bijna doorzichtige cirkel: geeft diepte achter een heldia."""
+    o = s.shapes.add_shape(MSO_SHAPE.OVAL, px(x), px(y), px(d), px(d))
+    o.fill.solid(); o.fill.fore_color.rgb = rgb(kl)
+    sf = o.fill.fore_color._xFill.find(qn('a:srgbClr'))
+    etree.SubElement(sf, qn('a:alpha')).set('val', str(int(alpha * 1000)))
+    o.line.fill.background(); o.shadow.inherit = False
+    return o
+
+
+def liniaal(s, x, y, w, kl='rand', dik=1.5):
+    """Haarlijn als scheiding — vervangt een kader waar een kader te veel is."""
+    r = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, px(x), px(y), px(w), px(dik))
+    r.fill.solid(); r.fill.fore_color.rgb = rgb(kl)
+    r.line.fill.background(); r.shadow.inherit = False
+    return r
+
+
+def foto(s, bestand, x, y, w, h, naam=None):
+    """Past een foto passend in het vak x,y,w,h en centreert hem daarin."""
+    pad = os.path.join(BEELD, bestand)
+    with Image.open(pad) as im:
+        bw, bh = im.size
+    f = min(w / bw, h / bh)
+    fw, fh = bw * f, bh * f
+    p = s.shapes.add_picture(pad, px(x + (w - fw) / 2), px(y + (h - fh) / 2),
+                             px(fw), px(fh))
+    if naam:
+        p.name = naam
+    return p
 
 
 def kicker(s, t, kl='teal', y=90):
@@ -179,32 +254,57 @@ for i, d in enumerate(SLIDES, 1):
 
     elif t == 'hero_cijfer':
         acc = d.get('accent', 'teal')
-        txt(s, 96, 178, 1000, 400, d['cijfer'], gr=170, kl=acc, vet=True, ra=0.88, naam='hero')
-        txt(s, 496, 232, 200, 130, d['suffix'], gr=58, kl=acc, vet=True, font=FONT_L)
-        txt(s, 104, 588, 900, 200, d['kop'], gr=30, kl='ink', vet=True, ra=1.2)
-        for j, (g, l) in enumerate(d['tegels']):
-            x, w = kol(8, 4)
-            y = 180 + j * 216
-            tegel(s, x, y, w, 190, 'tegel', 'rand')
-            txt(s, x + 32, y + 28, w - 60, 96, g, gr=42, kl='ink', vet=True, ra=1.0)
-            txt(s, x + 34, y + 124, w - 60, 40, l, gr=13.5, kl='gedempt',
-                font=FONT_M, caps=True, sp=1.3)
+        gloed(s, -160, 40, 820, acc, 6)
+        # het cijfer loopt bewust buiten het kader: schaal als beeldmiddel
+        txt(s, 60, 120, 1200, 520, d['cijfer'], gr=250, kl=acc, vet=True, ra=0.82,
+            naam='hero')
+        txt(s, 700, 208, 240, 160, d['suffix'], gr=76, kl=acc, vet=True, font=FONT_L)
+        txt(s, 104, 626, 860, 200, d['kop'], gr=32, kl='ink', vet=True, ra=1.2)
+        if d.get('meter'):
+            # meter met streefwaarde: laat zien hoe ver het van de norm ligt
+            m = d['meter']
+            txt(s, 1000, 300, 800, 36, m['label'], gr=13, kl='gedempt', font=FONT_M,
+                caps=True, sp=1.4)
+            yy = 350
+            for lbl, waarde in m['staven']:
+                txt(s, 1000, yy, 260, 36, lbl, gr=15, kl='gedempt')
+                staaf(s, 1000, yy + 42, 700, 40, waarde / 100.0, acc)
+                txt(s, 1720, yy + 38, 110, 44, '%d%%' % waarde, gr=22, kl='ink', vet=True)
+                yy += 118
+            merkstreep(s, 1000 + 700 * 0.80, 344, 348)
+            txt(s, 1000 + 700 * 0.80 - 100, 704, 200, 36, 'norm 80%', gr=13, kl='ink',
+                vet=True, font=FONT_M, uit=PP_ALIGN.CENTER)
+        else:
+            for j, (g, l) in enumerate(d['tegels']):
+                x, w = kol(8, 4)
+                y = 180 + j * 216
+                tegel(s, x, y, w, 190, 'tegel', 'rand')
+                txt(s, x + 32, y + 28, w - 60, 96, g, gr=42, kl='ink', vet=True, ra=1.0)
+                txt(s, x + 34, y + 124, w - 60, 40, l, gr=13.5, kl='gedempt',
+                    font=FONT_M, caps=True, sp=1.3)
         txt(s, 100, 1006, 1400, 30, d['voet'], gr=11.5, kl='gedempt', font=FONT_M)
         paginering(s, i)
 
     elif t == 'splitsing':
         kicker(s, d['kicker']); kop(s, d['kop'], naam='sectietitel')
-        for j, kant in enumerate((d['links'], d['rechts'])):
-            x, w = kol(j * 6, 6)
-            tegel(s, x, 320, w, 440, 'tegel', 'rand')
-            txt(s, x + 40, 354, w - 80, 48, kant['titel'], gr=21, kl='ink', vet=True)
-            txt(s, x + 40, 404, w - 80, 34, kant['sub'], gr=12.5, kl='gedempt', font=FONT_M)
-            txt(s, x + 40, 456, w - 80, 190, kant['groot'] + '%', gr=76, kl=kant['kleur'],
-                vet=True, ra=0.95)
-            txt(s, x + 44, 626, w - 80, 44, kant['klein'], gr=15.5, kl='gedempt')
-            txt(s, x + 40, 690, w - 80, 48, kant['slot'], gr=18, kl=kant['kleur'], vet=True)
-        txt(s, 100, 812, 1720, 70, d['punchline'], gr=25, kl='ink', vet=True,
-            uit=PP_ALIGN.CENTER)
+        # proportionele staven: lengte draagt de vergelijking, niet het cijfer
+        y = 288
+        for kant in (d['links'], d['rechts']):
+            liniaal(s, 100, y, 1720)
+            txt(s, 100, y + 26, 600, 50, kant['titel'], gr=22, kl='ink', vet=True)
+            txt(s, 102, y + 82, 600, 34, kant['sub'], gr=13, kl='gedempt', font=FONT_M)
+            for lbl, waarde, kl in ((kant['ref_lbl'], kant['ref'], 'gedempt'),
+                                    (kant['int_lbl'], float(kant['groot'].replace(',', '.')),
+                                     kant['kleur'])):
+                yy = y + (140 if kl == 'gedempt' else 206)
+                txt(s, 100, yy + 8, 320, 34, lbl, gr=14, kl='gedempt', font=FONT_M)
+                staaf(s, 440, yy, 1080, 46, waarde / 50.0, kl)
+                txt(s, 1560, yy - 4, 220, 54,
+                    ('%.1f' % waarde).replace('.', ',') + '%', gr=27, kl=kl, vet=True)
+            txt(s, 100, y + 274, 900, 44, kant['slot'], gr=18, kl=kant['kleur'], vet=True)
+            y += 356
+        txt(s, 900, 934, 920, 60, d['punchline'], gr=24, kl='ink', vet=True,
+            uit=PP_ALIGN.RIGHT)
         txt(s, 100, 1006, 1400, 30, d['voet'], gr=11.5, kl='gedempt', font=FONT_M)
         paginering(s, i)
 
@@ -241,51 +341,104 @@ for i, d in enumerate(SLIDES, 1):
 
     elif t == 'statraster':
         kicker(s, d['kicker']); kop(s, d['kop'], naam='sectietitel')
-        for j, (g, l) in enumerate(d['groot']):
-            x, w = kol(j * 3, 3)
-            tegel(s, x, 320, w, 230, 'tegel', 'rand')
-            txt(s, x + 30, 352, w - 60, 116, g, gr=50, kl='teal', vet=True, ra=1.0)
-            txt(s, x + 32, 474, w - 60, 40, l, gr=13, kl='gedempt', font=FONT_M,
-                caps=True, sp=1.3)
+        # 144 deelnemers als puntenmatrix, 72 per arm
+        kleuren = ['teal'] * 72 + ['koraal'] * 72
+        matrix(s, 100, 300, 144, 24, 26, 12, kleuren)
+        txt(s, 100, 520, 400, 40, '72 PARADISE', gr=13, kl='teal', vet=True,
+            font=FONT_M, sp=1.4)
+        txt(s, 380, 520, 400, 40, '72 GEBRUIKELIJKE ZORG', gr=13, kl='koraal',
+            vet=True, font=FONT_M, sp=1.4)
+        txt(s, 1080, 286, 740, 250,
+            'Elke stip is een patiënt die u zelf includeert.\n24 per kliniek.',
+            gr=30, kl='ink', vet=True, ra=1.3)
         for j, (k2, v) in enumerate(d['klein']):
             x, w = kol((j % 2) * 6, 6)
-            y = 586 + (j // 2) * 132
-            tegel(s, x, y, w, 114, 'tegel2', 'rand')
+            y = 606 + (j // 2) * 132
+            tegel(s, x, y, w, 114, 'tegel', 'rand')
             txt(s, x + 30, y + 20, w - 60, 34, k2, gr=12, kl='teal', vet=True,
                 font=FONT_M, caps=True, sp=1.4)
             txt(s, x + 30, y + 58, w - 60, 46, v, gr=15.5, kl='ink')
+        paginering(s, i)
+
+    elif t == 'steun':
+        # asymmetrisch: lijst links, één groot geruststellend cijfer rechts
+        kicker(s, d['kicker']); kop(s, d['kop'], naam='sectietitel')
+        for j, (k2, v) in enumerate(d['rijen']):
+            y = 314 + j * 152
+            liniaal(s, 100, y, 980)
+            txt(s, 100, y + 26, 980, 50, k2, gr=21, kl='ink', vet=True)
+            txt(s, 102, y + 76, 960, 60, v, gr=15.5, kl='gedempt', ra=1.3)
+        tegel(s, 1180, 300, 640, 622, 'tegel2', 'amber')
+        gloed(s, 1260, 322, 480, 'amber', 5)
+        txt(s, 1224, 340, 560, 300, d['cijfer'], gr=150, kl='amber', vet=True, ra=0.9,
+            uit=PP_ALIGN.CENTER, naam='hero')
+        txt(s, 1224, 640, 560, 62, d['cijfer_label'], gr=30, kl='ink', vet=True,
+            uit=PP_ALIGN.CENTER)
+        txt(s, 1230, 722, 540, 160, d['cijfer_regel'], gr=16, kl='gedempt', ra=1.4,
+            uit=PP_ALIGN.CENTER)
         paginering(s, i)
 
     elif t == 'dubbelkolom':
         kicker(s, d['kicker']); kop(s, d['kop'], naam='sectietitel')
         for j, kant in enumerate((d['links'], d['rechts'])):
             x, w = kol(j * 6, 6)
-            tegel(s, x, 320, w, 560, 'tegel', 'rand')
-            tegel(s, x + 40, 354, 120, 46, kant['kleur'], None)
-            txt(s, x + 40, 366, 120, 34, kant['titel'], gr=13.5, kl='bg', vet=True,
+            tegel(s, x, 314, w, 606, 'tegel', 'rand')
+            tegel(s, x + 40, 348, 120, 46, kant['kleur'], None)
+            txt(s, x + 40, 360, 120, 34, kant['titel'], gr=13.5, kl='bg', vet=True,
                 uit=PP_ALIGN.CENTER, font=FONT_M, caps=True, sp=1.3)
-            txt(s, x + 40, 438, w - 80, 420,
-                [(it, {'voor': 17}) for it in kant['items']], gr=16, kl='gedempt', ra=1.3)
+            txt(s, x + 40, 432, w - 80, 470,
+                [(it, {'voor': 15}) for it in kant['items']], gr=15.5, kl='gedempt',
+                ra=1.3)
         paginering(s, i)
 
-    elif t == 'tijdlijn':
-        kicker(s, d['kicker']); kop(s, d['kop'], naam='sectietitel')
-        n = len(d['punten'])
-        bx, bw = 100, 1720
-        stap = bw / n
-        tegel(s, bx, 430, bw, 3, 'rand', None, rond=False)
-        for j, (wanneer, wat) in enumerate(d['punten']):
-            cx = bx + stap * j + stap / 2
-            c = s.shapes.add_shape(MSO_SHAPE.OVAL, px(cx - 13), px(419), px(26), px(26))
-            c.fill.solid(); c.fill.fore_color.rgb = rgb('teal' if wat else 'rand')
-            c.line.color.rgb = rgb('bg'); c.line.width = Pt(2.5); c.shadow.inherit = False
-            txt(s, cx - stap / 2, 356, stap, 44, wanneer, gr=16, kl='ink', vet=True,
-                uit=PP_ALIGN.CENTER, font=FONT_M)
-            if wat:
-                txt(s, cx - stap / 2, 478, stap, 70, wat, gr=13, kl='teal',
-                    uit=PP_ALIGN.CENTER, font=FONT_M)
-        tegel(s, 100, 640, 1720, 220, 'tegel', 'rand')
-        txt(s, 150, 698, 1620, 130, d['slot'], gr=22, kl='ink', ra=1.45)
+    elif t in ('traject', 'zoom'):
+        # Doorlopend canvas: elke dia toont hetzelfde traject onder een andere
+        # camera-instelling. Morph koppelt de vormen via hun !!-naam en maakt
+        # er een vloeiende in- of uitzoom van in plaats van een dia-wissel.
+        kicker(s, d['kicker'], y=56)
+        kop(s, d['kop'], y=96, naam='!!sectietitel')
+        band = tegel(s, 0, 190, 1920, 520, 'tegel', None, rond=False)
+        band.name = '!!band'
+        if t == 'traject':
+            beeld.canvas(s, PUNTEN, txt, liniaal, 1.0, 960, 454, 960, 480)
+            txt(s, 100, 764, 320, 230, d['groot'], gr=96, kl='amber', vet=True,
+                ra=1.0, omslag=False, naam='!!camera')
+            txt(s, 460, 782, 1340, 66, d['punt'], gr=30, kl='ink', vet=True)
+            txt(s, 462, 858, 1340, 120, d['slot'], gr=18, kl='gedempt', ra=1.4)
+        else:
+            beeld.canvas(s, PUNTEN, txt, liniaal, d['schaal'], d['mid'], 454,
+                         d.get('ox', 560), 500)
+            p = d['paneel']
+            liniaal(s, 100, 748, 1720)
+            txt(s, 100, 772, 420, 60, p['titel'], gr=24, kl='amber', vet=True,
+                naam='!!camera')
+            for j, r in enumerate(p['regels']):
+                txt(s, 560 + j * 660, 770, 600, 200, r, gr=16.5, kl='gedempt', ra=1.35)
+        paginering(s, i)
+
+    elif t == 'drukmeting':
+        # De sensormatrix is geen illustratie maar de meting zelf: dezelfde
+        # cellen op beide dia's, alleen de kleur verandert. Morph laat de
+        # drukpiek daardoor letterlijk afkoelen.
+        kicker(s, d['kicker'])
+        kop(s, d['kop'], naam='!!sectietitel')
+        beeld.drukmat(s, 70, 216, 450, 690,
+                      beeld.NA if d['fase'] == 'na' else beeld.VOOR, sleutel='p',
+                      piek=float(d['waarde']))
+        beeld.schaalbalk(s, 145, 930, 300, 16, txt)
+        acc = 'teal' if d['fase'] == 'na' else 'koraal'
+        txt(s, 560, 250, 700, 300, d['waarde'], gr=150, kl=acc, vet=True, ra=0.9,
+            omslag=False, naam='!!piek')
+        txt(s, 1080, 300, 200, 80, 'kPa', gr=44, kl=acc, vet=True, font=FONT_L,
+            naam='!!eenheid')
+        txt(s, 564, 528, 1200, 60, d['plek'], gr=22, kl='ink', vet=True,
+            naam='!!plek')
+        tegel(s, 560, 618, 1260, 96, 'glas', None, naam='!!norm')
+        txt(s, 560, 646, 1260, 46, d['norm'], gr=22, kl='amber', vet=True,
+            uit=PP_ALIGN.CENTER, font=FONT_M, naam='!!normtekst')
+        txt(s, 560, 760, 1260, 200,
+            [(r, {'voor': 12}) for r in d['regels']], gr=17, kl='gedempt', ra=1.35)
+        txt(s, 100, 1006, 1400, 30, d['voet'], gr=11.5, kl='gedempt', font=FONT_M)
         paginering(s, i)
 
     elif t == 'vijfluik':
@@ -299,31 +452,51 @@ for i, d in enumerate(SLIDES, 1):
         paginering(s, i)
 
     elif t == 'drieluik':
+        # echte bento: één groot vlak links, twee gestapelde rechts
         kicker(s, d['kicker']); kop(s, d['kop'], naam='sectietitel')
-        for j, c in enumerate(d['kaarten']):
-            x, w = kol(j * 4, 4)
-            tegel(s, x, 320, w, 570, 'tegel', 'rand')
-            txt(s, x + 32, 354, w - 64, 54, c['naam'], gr=23, kl='ink', vet=True)
-            txt(s, x + 32, 408, w - 64, 36, c['sub'], gr=12, kl='teal', vet=True,
-                font=FONT_M, caps=True, sp=1.4)
-            txt(s, x + 32, 462, w - 64, 124, c['groot'], gr=58, kl='teal', vet=True, ra=1.0)
-            txt(s, x + 34, 582, w - 64, 40, c['onder'], gr=13.5, kl='gedempt', font=FONT_M)
-            txt(s, x + 32, 652, w - 64, 150,
-                [(r, {'voor': 12}) for r in c['regels']], gr=14, kl='gedempt', ra=1.32)
-            tegel(s, x + 32, 808, w - 64, 52, 'glas', None)
-            txt(s, x + 32, 822, w - 64, 36, c['wie'], gr=13.5, kl='teal', vet=True,
-                uit=PP_ALIGN.CENTER)
+        g, rest = d['kaarten'][0], d['kaarten'][1:]
+        gx, gw = kol(0, 6)
+        tegel(s, gx, 310, gw, 630, 'tegel', 'rand')
+        foto(s, g['foto'], gx + 40, 344, gw - 80, 262)
+        txt(s, gx + 44, 626, 380, 70, g['naam'], gr=32, kl='ink', vet=True)
+        txt(s, gx + 46, 700, 380, 36, g['sub'], gr=12.5, kl='teal', vet=True,
+            font=FONT_M, caps=True, sp=1.6)
+        txt(s, gx + 44, 734, 380, 60, g['groot'] + '  ' + g['onder'], gr=24,
+            kl='teal', vet=True, ra=1.0)
+        txt(s, gx + 44, 800, 380, 40, g['wie'], gr=13, kl='amber', vet=True,
+            font=FONT_M, caps=True, sp=1.3)
+        txt(s, gx + 448, 626, gw - 492, 280,
+            [(r, {'voor': 10}) for r in g['regels']], gr=14.5, kl='gedempt', ra=1.3)
+        for j, c in enumerate(rest):
+            x, w = kol(6, 6)
+            y = 310 + j * 328
+            tegel(s, x, y, w, 302, 'tegel', 'rand')
+            tegel(s, x + 24, y + 24, 340, 254, c.get('vlak', 'tegel2'), None)
+            foto(s, c['foto'], x + 36, y + 36, 316, 230)
+            tx = x + 400
+            txt(s, tx, y + 30, 420, 54, c['naam'], gr=25, kl='ink', vet=True)
+            txt(s, tx + 2, y + 88, 420, 34, c['sub'], gr=12, kl='teal', vet=True,
+                font=FONT_M, caps=True, sp=1.5)
+            txt(s, tx, y + 120, 420, 56, c['groot'] + '  ' + c['onder'], gr=22,
+                kl='teal', vet=True, ra=1.0)
+            txt(s, tx, y + 174, w - 440, 90,
+                [(r, {'voor': 6}) for r in c['regels']], gr=14, kl='gedempt', ra=1.28)
+            txt(s, tx, y + 264, 420, 36, c['wie'], gr=12.5, kl='amber', vet=True,
+                font=FONT_M, caps=True, sp=1.3)
         paginering(s, i)
 
     elif t == 'vierluik':
+        # rijen in plaats van kolommen: leest sneller en breekt het kaartenritme
         kicker(s, d['kicker']); kop(s, d['kop'], naam='sectietitel')
         for j, (rol, punten) in enumerate(d['kolommen']):
-            x, w = kol(j * 3, 3)
-            tegel(s, x, 320, w, 520, 'tegel', 'rand')
-            tegel(s, x, 320, w, 78, 'tegel2', None)
-            txt(s, x + 28, 342, w - 56, 46, rol, gr=20, kl='teal', vet=True)
-            txt(s, x + 28, 432, w - 56, 380,
-                [(p, {'voor': 17}) for p in punten], gr=15, kl='gedempt', ra=1.32)
+            y = 304 + j * 164
+            liniaal(s, 100, y, 1720)
+            txt(s, 100, y + 34, 420, 60, rol, gr=27, kl='ink', vet=True)
+            for k, p in enumerate(punten):
+                px_ = 560 + k * 428
+                punt(s, px_, y + 48, 11, 'teal')
+                txt(s, px_ + 26, y + 36, 372, 90, p, gr=15.5, kl='gedempt', ra=1.3)
+        liniaal(s, 100, 960, 1720)
         paginering(s, i)
 
     elif t == 'statement':
@@ -360,23 +533,29 @@ for i, d in enumerate(SLIDES, 1):
         paginering(s, i)
 
     elif t == 'vraagraster':
+        # geen kaders: enkel haarlijnen, vraag in wit, antwoord ingesprongen
         kicker(s, d['kicker']); kop(s, d['kop'], naam='sectietitel')
         for j, (v, a) in enumerate(d['paren']):
             x, w = kol((j % 2) * 6, 6)
-            y = 306 + (j // 2) * 238
-            tegel(s, x, y, w, 208, 'tegel', 'rand')
-            txt(s, x + 32, y + 26, w - 64, 66, v, gr=17.5, kl='ink', vet=True, ra=1.2)
-            txt(s, x + 32, y + 102, w - 64, 92, a, gr=15, kl='gedempt', ra=1.35)
+            y = 300 + (j // 2) * 226
+            liniaal(s, x, y, w)
+            txt(s, x, y + 26, w, 60, v, gr=19, kl='ink', vet=True, ra=1.2)
+            txt(s, x, y + 96, 30, 40, '—', gr=15, kl='teal', vet=True)
+            txt(s, x + 40, y + 94, w - 40, 100, a, gr=15.5, kl='gedempt', ra=1.35)
         paginering(s, i)
 
     elif t == 'afspraak':
+        # één blad in plaats van vier tegels: dit leest als een overeenkomst
         kicker(s, d['kicker']); kop(s, d['kop'], naam='sectietitel')
+        tegel(s, 100, 300, 1720, 622, 'tegel', 'rand')
         for j, (g, m, sub) in enumerate(d['tegels']):
-            x, w = kol(j * 3, 3)
-            tegel(s, x, 330, w, 470, 'tegel', 'rand')
-            txt(s, x + 30, 370, w - 60, 136, g, gr=58, kl='teal', vet=True, ra=1.0)
-            txt(s, x + 30, 514, w - 60, 54, m, gr=20, kl='ink', vet=True)
-            txt(s, x + 30, 582, w - 60, 190, sub, gr=14.5, kl='gedempt', ra=1.35)
+            y = 344 + j * 146
+            if j:
+                liniaal(s, 168, y - 26, 1584)
+            txt(s, 118, y, 300, 120, g, gr=54, kl='teal', vet=True, ra=1.0,
+                uit=PP_ALIGN.RIGHT, omslag=False)
+            txt(s, 470, y + 8, 900, 60, m, gr=26, kl='ink', vet=True)
+            txt(s, 472, y + 62, 1250, 50, sub, gr=16, kl='gedempt')
         paginering(s, i)
 
     elif t == 'slot':
