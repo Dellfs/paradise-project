@@ -414,11 +414,30 @@ SLIDES = [
  dict(t='slot', morph='morph',
       kop='Doe mee',
       regel='PARADISE start zodra de goedkeuringen binnen zijn.',
-      contact=['Janou De Buyser · doctoraatsonderzoeker',
-               'KU Leuven · Revalidatiewetenschappen · Campus Brugge',
-               'prof. dr. Kevin Deschamps · kevin.deschamps@kuleuven.be'],
       voet='Protocolversie 1.0 · 17 mei 2026 · S71769',
-      tip='Laat deze staan tijdens het napraten. Contactgegevens moeten zichtbaar '
-          'blijven terwijl mensen naar u toe komen.',
+      tip='Twee woorden, verder niets. Dit is het moment waarop u vraagt of ze '
+          'meedoen — laat de dia dat niet verzachten.',
       interactie='Deel de eenpager uit. Vraag wie een inclusiekandidaat in gedachten heeft.'),
+
+ dict(t='contact', morph='morph',
+      kicker='Wie u aanspreekt',
+      kop='Voor als er iets misloopt',
+      personen=[
+          dict(naam='Janou De Buyser',
+               rol='Doctoraatsonderzoeker · dagelijkse opvolging',
+               waarvoor='Uw eerste aanspreekpunt: inclusies, metingen, REDCap, '
+                        'sensoren en alles wat in de praktijk vastloopt.',
+               bereik=['▮ e-mailadres', '▮ telefoonnummer']),
+          dict(naam='prof. dr. Kevin Deschamps',
+               rol='Promotor',
+               waarvoor='Wetenschappelijke vragen, de opzet van de studie en '
+                        'afspraken op het niveau van uw centrum.',
+               bereik=['kevin.deschamps@kuleuven.be',
+                       'KU Leuven · Campus Brugge']),
+      ],
+      voet='PARADISE · FWO TBM T000226N · S71769',
+      tip='Laat deze dia staan tijdens het napraten. Zeg erbij dat kleine dingen '
+          'ook mogen — een sensor die niet uitleest is geen domme vraag.',
+      interactie='Loop rond terwijl de dia staat. Wie een vraag heeft, komt naar '
+                 'het gezicht dat op het scherm staat.'),
 ]

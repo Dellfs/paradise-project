@@ -77,3 +77,8 @@ def duotoon(bron, donker=(0x04, 0x18, 0x2A), licht=(0x8F, 0xD6, 0xF5)):
 
 im = Image.open(os.path.join(BRON, 'content_products-orthotimer_en.webp')).convert('RGB')
 bewaar(duotoon(im.crop((110, 800, 1990, 1460))), 'sensor_vol.png')
+
+# Portret voor de contactdia, bijgesneden op de verhouding van het vak zodat
+# er niets hoeft te worden opgerekt.
+im = Image.open(os.path.join(BRON, 'janou.jpeg')).convert('RGB')
+bewaar(im.crop((0, 46, 1024, 1369)), 'janou.png')

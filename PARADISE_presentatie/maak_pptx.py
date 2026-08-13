@@ -706,13 +706,31 @@ for i, d in enumerate(SLIDES, 1):
         paginering(s, i)
 
     elif t == 'slot':
-        txt(s, 100, 250, 1200, 230, d['kop'], gr=96, kl='ink', vet=True, ra=1.0, naam='hero')
-        txt(s, 104, 496, 1300, 80, d['regel'], gr=23, kl='licht', font=FONT_L)
-        tegel(s, 100, 596, 1000, 224, 'tegel', 'rand')
-        txt(s, 148, 634, 920, 180,
-            [(r, {'voor': 8}) for r in d['contact']], gr=16.5, kl='gedempt', ra=1.4)
+        txt(s, 100, 300, 1200, 230, d['kop'], gr=110, kl='ink', vet=True, ra=1.0,
+            naam='hero')
+        txt(s, 104, 566, 1400, 80, d['regel'], gr=25, kl='licht', font=FONT_L)
         partners(s, 900)
         txt(s, 100, 1022, 1500, 30, d['voet'], gr=11.5, kl='gedempt', font=FONT_M)
+
+    elif t == 'contact':
+        # De dia die blijft staan tijdens het napraten: gezicht erbij, zodat
+        # mensen weten wie ze moeten aanspreken.
+        kicker(s, d['kicker'])
+        kop(s, d['kop'], naam='!!sectietitel')
+        tegel(s, 100, 300, 500, 620, 'tegel2', 'rand')
+        foto(s, 'janou.png', 116, 316, 468, 588, naam='portret')
+        x = 680
+        for j, p in enumerate(d['personen']):
+            y = 300 + j * 310
+            liniaal(s, x, y, 1140)
+            txt(s, x, y + 26, 1000, 60, p['naam'], gr=30, kl='ink', vet=True)
+            txt(s, x + 2, y + 100, 900, 36, p['rol'], gr=13, kl='licht', vet=True,
+                font=FONT_M, caps=True, sp=1.5)
+            txt(s, x, y + 150, 1140, 100, p['waarvoor'], gr=16.5, kl='gedempt', ra=1.35)
+            for k, regel in enumerate(p['bereik']):
+                txt(s, x + k * 560, y + 256, 540, 40, regel, gr=16, kl='ink',
+                    font=FONT_M)
+        txt(s, 100, 1006, 1500, 30, d['voet'], gr=11.5, kl='gedempt', font=FONT_M)
 
     else:
         raise SystemExit('onbekend type: %s' % t)
