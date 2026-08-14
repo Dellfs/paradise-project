@@ -13,7 +13,7 @@ letters van de decks waarin hij hoort; de bouwer filtert daarop.
 | `opleiding` | `PARADISE_opleidingssessie_voetklinieken.pptx` | 60-75 min | De medewerkers van de zes centra. Volledig, met de stapreeks per bezoek. |
 | `kort` | `PARADISE_centra_kort.pptx` | 20 min | Opfrissing voor wie de opleiding al volgde. Bezoeken compact op één dia. |
 | `board` | `PARADISE_board.pptx` | 15-20 min | Directie, stuurgroep, financier. Met tijdlijn, de vier toezeggingen en de risico's. |
-| `congres` | `PARADISE_congres.pptx` | 12-15 min | Vakgenoten. Met de steekproefberekening en het analyseplan. |
+| `congres` | `PARADISE_congres.pptx` | 15 min | Vakgenoten. Volgt de opbouw van het protocolmanuscript. |
 | `extern` | `PARADISE_extern.pptx` | 15 min | Externe partners, andere ziekenhuizen, industrie. |
 | `outreach` | `PARADISE_outreach.pptx` | 10 min | Breed publiek en pers. Geen jargon, geen formuliernummers. |
 
@@ -54,8 +54,18 @@ voor de leesvolgorde van het bestand.
 | Van pilot tot laatste patiënt | board, extern | De vier fasen met de lopende fase in oranje. De enige dia die zegt wanneer het klaar is. |
 | Vier toezeggingen | board | De concrete vraag aan de organisatie: 24 inclusies, één PI, tijd, een looppad van tien meter. |
 | Vier risico's | board, extern | Met het inclusierisico bovenaan, zodat u het zelf benoemt. |
-| Twee eindpunten, twee berekeningen | congres | De twee steekproefberekeningen naast elkaar, met de intersectie-unietoets als gevolg. |
-| Hoe we het toetsen | congres | Het analyseplan in vier regels. |
+| PARADISE toetst overdracht | congres | De these van het manuscript, meteen na het puntenraster. |
+| Drie strategieën, één patroon | congres | Offloading, educatie en digitale feedback, elk met hun cijfer. |
+| Drie dingen zijn veranderd | congres | Waarom de studie nu pas kan: sensor, COM-B, RIZIV-erkenning. |
+| Twee eindpunten, twee berekeningen | congres | De twee steekproefberekeningen naast elkaar. |
+| De power die telt, is de gezamenlijke | congres | 74% tot 84%. Het cijfer dat protocollen doorgaans niet noemen. |
+| Hoe we het toetsen | congres | Cox met Fine-Gray, beta-regressie, estimands, imputatie. |
+| Twee evaluaties, parallel | congres | Gezondheidseconomie en procesevaluatie. |
+| Een nulresultaat is ook een resultaat | congres | Wat elke uitkomst betekent. De slotdia. |
+
+Het congresdeck volgt de opbouw van `protocol paper/PARADISE_protocol_manuscript.docx`
+en gebruikt de cijfers daaruit. Wijzigt het manuscript, dan wijzigen die dia's mee —
+de betrokken velden staan in `inhoud.py` bij de dia's met `voor='c'`.
 
 ## Foto's inplakken
 

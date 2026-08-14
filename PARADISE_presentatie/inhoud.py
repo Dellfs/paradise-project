@@ -88,9 +88,9 @@ DECKS = {
     'congres': dict(
         letter='c', bestand='PARADISE_congres.pptx',
         onder='Studieopzet · wetenschappelijke sessie',
-        duur='12 tot 15 minuten',
-        wie='Vakgenoten. Rationale, ontwerp, eindpunten en methodologie; geen '
-            'praktische afspraken.'),
+        duur='15 minuten',
+        wie='Vakgenoten. Volgt de opbouw van het protocolmanuscript: rationale, '
+            'ontwerp, eindpunten, power en analyseplan.'),
     'outreach': dict(
         letter='u', bestand='PARADISE_outreach.pptx',
         onder='Waarom deze studie er is',
@@ -161,7 +161,7 @@ SLIDES = [
       kop='144 patiënten, 24 per centrum',
       klein=[('Per centrum', '24 deelnemers — 12 PARADISE en 12 gebruikelijke zorg'),
              ('Controlegroep', 'Gebruikelijke zorg, onveranderd'),
-             ('Co-primair', 'Recidief én draagtijd, beide op 18 maanden'),
+             ('Co-primair', 'Recidief op 18 maanden, draagtijd op 12'),
              ('Positief', 'Alleen als béíde eindpunten halen')],
       centra=CENTRA,
       centra_label='De zes deelnemende voetklinieken',
@@ -230,6 +230,10 @@ SLIDES = [
           'opmerken, bent u de regie kwijt.',
       interactie='Vraag welk risico zij zelf het grootst achten.'),
 
+ dict(t='knal', voor='c', morph='morph', kleur='licht', kleur2='mid',
+      kop='PARADISE toetst geen werkzaamheid.\nPARADISE toetst overdracht.',
+      onder='Elk onderdeel bestaat al. Geen enkel onderdeel werkte alleen.'),
+
  dict(t='sectie', voor='obcue', morph='morph', nr='01', titel='Waarom zo',
       regel='Vier cijfers verklaren waarom er twee normen zijn.'),
 
@@ -241,6 +245,29 @@ SLIDES = [
       accent='oranje',
       tip='Dit is het probleem waar de hele studie op staat. Eén dia, dan door.',
       interactie='Geen. Dit is context, geen discussie.'),
+
+ dict(t='melden', voor='c', morph='morph',
+      kicker='Wat er al geprobeerd is',
+      kop='Drie strategie\u00ebn, \u00e9\u00e9n patroon',
+      rijen=[('Drukgestuurd schoeisel',
+              'De pivotale multicentrische trial haalde haar primaire eindpunt '
+              'niet: 38,8% tegenover 44,2% recidief. Het verschil zat bij wie de '
+              'schoen dr\u00f3\u00e9g.', 'p = 0,48'),
+             ('Patienteneducatie',
+              'In de IWGDF-review had losstaande educatie geen aantoonbaar '
+              'preventief effect. Het mediane behandeleffect was negatief.',
+              'mediaan \u221213,4%'),
+             ('Continue digitale feedback',
+              'Een slimme inlegzool met realtime waarschuwingen verminderde '
+              'recidief \u2014 opnieuw vooral bij wie het toestel bleef gebruiken.',
+              'proof of concept'),
+             ('Het patroon', 'Elk onderdeel adresseert een noodzakelijke '
+                             'voorwaarde. Geen enkel onderdeel adresseert een '
+                             'voldoende voorwaarde.', '\u2014')],
+      slot='Geen drie teleurstellingen maar \u00e9\u00e9n: telkens echt, telkens voorwaardelijk.',
+      tip='Dit is de dia die de zaal het argument geeft. Neem er tijd voor; de '
+          'rest van de studieopzet volgt hieruit.',
+      interactie='Geen.'),
 
  dict(t='splitsing', voor='obce', morph='morph',
       kicker='Dezelfde schoen, twee uitkomsten',
@@ -282,49 +309,24 @@ SLIDES = [
           'meting én de sensor allebei moeten kloppen.',
       interactie='Morph: de drie tegels komen samen uit één punt.'),
 
- dict(t='power', voor='c', morph='morph',
-      kicker='Steekproefberekening',
-      kop='Twee eindpunten, twee berekeningen',
-      kanten=[dict(tag='Co-primair 1', naam='Ulcusrecidief op 18 maanden',
-                   rijen=[('Aanname controle', '50% recidief'),
-                          ('Aanname interventie', '25% recidief'),
-                          ('Toets', 'log-rank, tweezijdig'),
-                          ('Alfa en power', '0,05 \u00b7 80%'),
-                          ('Uitval', '15% in beide armen')],
-                   nodig='62 per arm \u2192 124, gestratificeerd 130'),
-              dict(tag='Co-primair 2', naam='Schoeiseltherapietrouw',
-                   rijen=[('Aanname controle', '71%, SD 25%'),
-                          ('Aanname interventie', '85%'),
-                          ('Toets', 't-toets, onafhankelijk'),
-                          ('Alfa en power', '0,05 \u00b7 80%'),
-                          ('Uitval', '15%')],
-                   nodig='50 per arm \u2192 100, met uitval 115')],
-      slot='144 dekt beide berekeningen met marge. Omdat béíde eindpunten moeten '
-           'halen is dit een intersectie-unietoets: geen multipliciteitscorrectie, '
-           'maar wel een lagere gezamenlijke power.',
-      slotlabel='Gevolg voor de power',
-      voet='Protocol \u00a73.2.2.1 en \u00a73.2.2.2 \u00b7 exponentiële tijden tot recidief aangenomen',
-      tip='Dit is de dia waar de vraag komt. Benoem de gezamenlijke power zelf, '
-          'vóór iemand in de zaal het doet.',
-      interactie='Geen. Laat de vraag komen.'),
-
  dict(t='melden', voor='c', morph='morph',
-      kicker='Analyseplan',
-      kop='Hoe we het toetsen',
-      rijen=[('Recidief', 'Percentage deelnemers met een recidief, chi-kwadraat. '
-                          'Verloop over de tijd met log-rank en Kaplan-Meier, '
-                          'rekening houdend met sterfte.', 'co-primair'),
-             ('Therapietrouw', 'Onafhankelijke t-toets, uitgaande van een normale '
-                               'verdeling.', 'co-primair'),
-             ('Subgroep', 'Hoge tegenover lage therapietrouw op de vooraf bepaalde '
-                          '80%-drempel, om het effect van adherentie op recidief '
-                          'te schatten.', 'vooraf'),
-             ('Secundair', 'T-toets of Mann-Whitney bij interval- en ratiodata; '
-                           'chi-kwadraat of Fisher bij nominale en ordinale data.',
-                           'secundair')],
-      slot='De primaire analyse is gestratificeerd naar centrum. Daarom 130 in '
-           'plaats van 124, en 144 na verdeling over zes centra.',
-      tip='Kort houden. Wie meer wil weten vraagt het, en dan hebt u het SAP.',
+      kicker='Waarom deze studie nu pas kan',
+      kop='Drie dingen zijn veranderd',
+      rijen=[('Therapietrouw is meetbaar',
+              'De temperatuursensor in orthopedisch schoeisel is gevalideerd. '
+              'Zelfrapportage overschat systematisch; nu is draagtijd een '
+              'toetsbaar doel in plaats van een aanname.', 'sensor'),
+             ('De mislukking is verklaarbaar',
+              'Kennisoverdracht raakt onder COM-B enkel capability. Opportunity '
+              'en motivation \u2014 wat thuis gebeurt, jarenlang, ongezien \u2014 bleven '
+              'onaangeroerd.', 'COM-B'),
+             ('De context bestaat',
+              'Belgi\u00eb erkent multidisciplinaire voetklinieken met '
+              'opleidingseisen en minimumvolumes. Dat is de plek waar preventie '
+              'uiteindelijk moet landen.', 'RIZIV-INAMI')],
+      slot='Daarom is therapietrouw hier een co-primair eindpunt, en geen '
+           'mediator die je achteraf afleidt.',
+      tip='Drie redenen, drie zinnen. Dit is het scharnier naar de opzet.',
       interactie='Geen.'),
 
  dict(t='sectie', voor='obce', morph='morph', nr='02', titel='De meting',
@@ -574,7 +576,7 @@ SLIDES = [
       tip='Dit is de dia die het vaakst vergeten wordt bij het inplannen. Zet de drie '
           'data nu al in de agenda van de pati\u00ebnt.',
       interactie='Laat elk centrum benoemen wie de drukmeting op maand 18 zal doen.'),
- dict(t='traject', voor='obcke', morph='morph',
+ dict(t='traject', voor='obke', morph='morph',
       kicker='Het traject',
       kop='Terug naar het geheel',
       groot='10',
@@ -610,7 +612,7 @@ SLIDES = [
           'vraag komt gegarandeerd.',
       interactie='Laat de toestellen rondgaan. Fysiek werkt beter dan een dia.'),
 
- dict(t='aflopend', voor='obcue', morph='morph',
+ dict(t='aflopend', voor='obue', morph='morph',
       foto='sensor_vol.png',
       kicker='De sensor in het echt',
       kop='Negen bij dertien millimeter.\nMeer merkt de patiënt niet.',
@@ -718,6 +720,118 @@ SLIDES = [
       tip='Dit is de dia waar u stilvalt. Geen haast. Vraag of het helder is '
           'voordat u doorgaat.',
       interactie='Laat iemand het in eigen woorden herhalen. Zo weet u of het zit.'),
+
+ dict(t='sectie', voor='c', morph='morph', nr='04',
+      titel='Eindpunten en analyse',
+      regel='Twee eindpunten, \u00e9\u00e9n op \u00e9\u00e9n op het causale model.'),
+
+ dict(t='power', voor='c', morph='morph',
+      kicker='Steekproefberekening',
+      kop='Twee eindpunten, twee berekeningen',
+      kanten=[dict(tag='Co-primair 1', naam='Ulcusrecidief op 18 maanden',
+                   rijen=[('Aanname controle', '50% recidief'),
+                          ('Aanname interventie', '25%, hazard ratio 0,42'),
+                          ('Toets', 'log-rank, tweezijdig, \u03b1 = 0,05'),
+                          ('Power', '80% \u2192 41 events nodig'),
+                          ('Uitval', '15%')],
+                   nodig='108 \u2192 127 met uitval \u2192 130 gestratificeerd'),
+              dict(tag='Co-primair 2', naam='Therapietrouw op 12 maanden',
+                   rijen=[('Aanname controle', '71%, SD 25%'),
+                          ('Aanname interventie', '85%, effectgrootte 0,56'),
+                          ('Toets', 't-toets, tweezijdig, \u03b1 = 0,05'),
+                          ('Power', '80% \u2192 50 per groep'),
+                          ('Uitval', '15%')],
+                   nodig='100 \u2192 118 met uitval')],
+      slot='Zes centra maal 24 is 144. Dat cijfer komt niet uit de berekening '
+           'maar uit de rekruteringscapaciteit per centrum, en het overtreft '
+           'beide minima.',
+      slotlabel='Waarom dan 144',
+      voet='Manuscript, steekproefberekening \u00b7 exponentieel verdeelde tijden tot recidief aangenomen',
+      tip='Dit is de dia waar de vraag komt. Benoem de gezamenlijke power zelf, '
+          'v\u00f3\u00f3r iemand in de zaal het doet \u2014 de volgende dia doet dat.',
+      interactie='Geen. Laat de vraag komen.'),
+
+ dict(t='eerlijk', voor='c', morph='morph',
+      kicker='Wat het co-primaire criterium kost',
+      kop='De power die telt, is de gezamenlijke',
+      intro='De studie is pas positief als b\u00e9\u00edde eindpunten significant zijn.',
+      rijen=[('Recidief apart', '84% \u2014 en 90% bij volledige opvolging'),
+             ('Therapietrouw apart', '87% \u2014 en 92% bij volledige opvolging'),
+             ('Beide samen', '74% tot 84%, naargelang de correlatie'),
+             ('Bij een half zo groot effect', '64% bij 30% \u00b7 40% bij 35%')],
+      slot='Protocollen met co-primaire eindpunten rapporteren doorgaans alleen '
+           'het cijfer per eindpunt. Dat overschat de kans op het criterium '
+           'waarop de studie werkelijk beoordeeld wordt.',
+      tip='Dit is de dia die u onderscheidt van de rest van het programma. '
+          'Niemand rapporteert dit uit zichzelf.',
+      interactie='Geen.'),
+
+ dict(t='melden', voor='c', morph='morph',
+      kicker='Analyseplan',
+      kop='Hoe we het toetsen',
+      rijen=[('Recidief', 'Cox-regressie gestratificeerd naar centrum, met de '
+                          'toewijzing als enige covariaat. Sterfte is een '
+                          'competing risk, geen censuur: Fine-Gray en cumulatieve '
+                          'incidentie ernaast.', 'co-primair'),
+             ('Therapietrouw', 'Beta-regressie met logit-link, want het is een '
+                               'proportie met een plafond. Lineaire regressie als '
+                               'gevoeligheidsanalyse.', 'co-primair'),
+             ('Intercurrente events', 'De twee eindpunten zijn elkaars '
+                                      'intercurrente event: wie ulcereert draagt '
+                                      'terecht geen zool meer. Hypothetische '
+                                      'strategie voor therapietrouw.', 'estimand'),
+             ('Ontbrekende data', 'Multipele imputatie, 50 datasets. Een '
+                                  'tipping-pointanalyse toont hoe extreem het '
+                                  'moet worden om de conclusie te kantelen.',
+                                  'MAR')],
+      slot='Positief alleen als beide eindpunten significant zijn. Daarom blijft '
+           'de familiegewijze fout onder 0,05 en is geen correctie nodig.',
+      tip='Kort houden. Wie meer wil weten vraagt het, en dan hebt u het SAP.',
+      interactie='Geen.'),
+
+ dict(t='duo', voor='c', morph='morph',
+      kicker='Wat er naast de trial loopt',
+      kop='Twee evaluaties, parallel',
+      een=dict(nr='01', naam='Gezondheidseconomische evaluatie',
+               kern='Kosten-utiliteit, betalersperspectief',
+               regels=['EQ-5D-5L elke drie maanden, gewaardeerd met de Belgische '
+                       'waardeset.',
+                       'Zorggebruik prospectief met iMCQ en iPCQ, plus dagboek en '
+                       'dossier.',
+                       'Markov tot vijf jaar. Kosten per vermeden ulcus \u00e9n per '
+                       'QALY, naast elkaar.']),
+      twee=dict(nr='02', naam='Procesevaluatie',
+                kern='MRC-kader, drie domeinen',
+                regels=['Implementatie: fideliteit, dosis, bereik, aanpassingen.',
+                        'Mechanismen en context: wat de uitvoering per centrum '
+                        'bepaalt.',
+                        'Interviews, gestructureerde observatie en '
+                        'therapeutendagboeken.']),
+      tip='De procesevaluatie is geen bijlage. Bij een nulresultaat is zij het '
+          'enige wat mechanisme van uitvoering onderscheidt.',
+      interactie='Geen.'),
+
+ dict(t='vraagraster', voor='c', morph='morph',
+      kicker='Wat we hoe dan ook leren',
+      kop='Een nulresultaat is ook een resultaat',
+      paren=[('Therapietrouw stijgt, recidief niet',
+              'Dan faalt de biomechanische premisse: geoptimaliseerd schoeisel '
+              'dr\u00e1gen volstaat niet. Het veld moet stoppen preventiefalen aan '
+              'de pati\u00ebnt toe te schrijven.'),
+             ('Therapietrouw stijgt niet',
+              'Dan faalde de gedragscomponent. De fideliteitsdata zeggen of het '
+              'ontwerp tekortschoot of de uitvoering.'),
+             ('Beide stijgen',
+              'Dan werkt een ge\u00efntegreerde dienst onder routineomstandigheden '
+              '\u2014 zonder dat we weten welk onderdeel het deed. Ontleden vraagt '
+              'een factori\u00eble opzet die het Belgische netwerk niet kan leveren.'),
+             ('Hoe dan ook',
+              'Druk, activiteit en draagtijd worden bij 144 deelnemers over '
+              'achttien maanden gelijktijdig gemeten. Dat is de eerste dataset '
+              'van die omvang, ongeacht de uitkomst.')],
+      tip='Sluit hiermee af. Dit is het antwoord op de vraag of de studie de '
+          'moeite waard is als ze negatief uitvalt.',
+      interactie='Geen.'),
 
  dict(t='melden', voor='ok', morph='morph',
       kicker='Wat u meldt, en hoe snel',

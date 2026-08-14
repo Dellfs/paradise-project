@@ -6,6 +6,11 @@ in de originele documenten, niet uit het geheugen gereconstrueerd.
 
 **Bronnen.** `(e)CRF/Protocol_PARADISE_17_05_2026.docx` (124.000 tekens) en de 47
 documenten in `(e)CRF/Per nummer/`. Nagelezen op 13 augustus 2026.
+`protocol paper/PARADISE_protocol_manuscript.docx` volledig nagelezen op 14 augustus
+2026; dat is het jongste document en gaat mee met de indiening bij de ethische
+commissie. **Waar het manuscript en het protocol elkaar tegenspreken, is het
+manuscript leidend** en staat de tegenspraak in §14 zodat het protocol bijgewerkt
+kan worden.
 
 **Regel.** Wijkt een tekst af van dit bestand, dan is de tekst fout — tenzij het
 protocol intussen gewijzigd is. Bij een wijziging: eerst hier aanpassen, met de
@@ -55,13 +60,14 @@ door de **PI** sequentieel geopend ná inclusie. (§5.3.2)
    het vastgestelde gemiddelde activiteitenprofiel**, **7 dagen per week**. Elke drie
    maanden uitgelezen.
 
-> **Tegenstrijdigheid in het protocol — op te lossen.** Drie plaatsen zeggen dat beide
-> eindpunten op **18 maanden** geëvalueerd worden: de synopsis ("assessments performed
-> every 3 months, up to 18 months"), de **steekproefberekening** (71% vs 85% draagtijd
-> *op 18 maanden*) en de statistische analyse ("average compliance over 18 months
-> should be ≥ 80%"). Eén plaats, §3.2.2.2, zegt nog "primary analysis timepoint at
-> **12 months**". Omdat de power op het 18-maandencontrast berekend is, is 18 maanden
-> leidend. **§3.2.2.2 moet aangepast worden.**
+> **Beslecht door het manuscript (14 augustus 2026).** Het protocol sprak zichzelf
+> tegen over het analysepunt voor therapietrouw: drie plaatsen zeiden 18 maanden
+> (synopsis, steekproefberekening, statistische analyse), §3.2.2.2 zei 12 maanden.
+> Het manuscript kiest expliciet: **recidief op 18 maanden, therapietrouw primair op
+> 12 maanden**, met het volledige 18-maandenprofiel als secundaire samenvatting
+> ("the primary analysis timepoint at 12 months and the full 18-month profile
+> reported as a secondary summary"). Dat is dus de te volgen formulering.
+> **Het protocol moet op de drie andere plaatsen bijgewerkt worden, niet §3.2.2.2.**
 
 ### Secundair
 Aandeel met recidief op de plantaire zijde · aandeel met recidief op vooraf bepaalde,
@@ -373,19 +379,68 @@ unieke deelnemerscode.
 
 ---
 
-## 11. Statistiek (§7.1)
+## 11. Statistiek
 
-- **Eerste co-primair eindpunt**: percentage deelnemers met een recidief (elk type,
-  plantair, of op hoogrisicoplekken) via chi-kwadraat; verloop over de tijd met
-  log-ranktoetsen en Kaplan-Meier, rekening houdend met sterfte.
-- **Subgroepanalyse**: hoge versus lage therapietrouw op basis van de vooraf bepaalde
-  80%-drempel (gemiddelde therapietrouw over 18 maanden ≥ 80%).
-- **Tweede co-primair eindpunt**: onafhankelijke t-toets, aangenomen dat de data normaal
-  verdeeld zijn.
-- **Secundaire uitkomsten**: t-toets of Mann-Whitney U bij interval- of ratiodata;
-  chi-kwadraat of Fisher exact bij nominale of ordinale data.
-- **Steekproef**: 130 nodig, opgehoogd tot 144 (24 per centrum × 6). Voor therapietrouw
-  wordt 71% (SD 25%) in Usual Care en 85% in Optimal Care op 18 maanden verwacht.
+Het protocol (§7.1) beschrijft de analyse in grove lijnen; het manuscript werkt ze
+volledig uit en is op dit punt **leidend**. Wat hieronder staat, komt uit het
+manuscript, met het protocol ernaast waar het afwijkt.
+
+### Steekproefberekening
+
+| | Recidief | Therapietrouw |
+| --- | --- | --- |
+| Aanname controle | 50% recidief op 18 maanden | 71%, SD 25% |
+| Aanname interventie | 25% (hazard ratio 0,42) | 85% (effectgrootte 0,56) |
+| Toets | tweezijdige log-rank, α = 0,05 | tweezijdige t-toets, α = 0,05 |
+| Power | 80% → 41 events → 108 deelnemers | 80% → 50 per groep |
+| Met 15% uitval | 127, protocol zet 130 wegens stratificatie | 118 |
+
+**144** (6 × 24) volgt uit de rekruteringscapaciteit per centrum, niet uit de
+berekening, en overtreft beide minima.
+
+> De 50%-vs-25%-aanname komt **niet** uit de gerandomiseerde vergelijking van Bus
+> 2013 (44,2% vs 38,8%, p = 0,48) maar uit de **adherente subgroep** (47,8% vs
+> 25,7%). Ze is alleen verdedigbaar onder de eigen hypothese van de studie: dat
+> SEBIA niet-adherente deelnemers adherent maakt. Het manuscript zegt dat expliciet.
+
+### Bereikte power
+
+| | Bij 15% uitval (122 analyseerbaar) | Bij volledige opvolging |
+| --- | --- | --- |
+| Recidief | 84% | 90% |
+| Therapietrouw | 87% | 92% |
+| **Beide samen** | **74% tot 84%** | **83% tot 90%** |
+
+De ondergrens geldt bij onafhankelijkheid, de bovengrens (het laagste eindpuntcijfer)
+bij toenemende correlatie. Bij een afgezwakt effect: 64% bij 30% recidief, 52% bij
+32,5%, 40% bij 35%.
+
+### Analyseplan
+
+- **Populatie**: intention-to-treat voor beide co-primaire eindpunten; per-protocol
+  als gevoeligheidsanalyse.
+- **Multipliciteit**: de studie is pas positief als **beide** eindpunten significant
+  zijn (tweezijdig α = 0,05). Daarom blijft de familiegewijze fout onder 0,05 en is
+  **geen correctie** nodig — een intersectie-unietoets.
+- **Recidief**: Cox-regressie gestratificeerd naar centrum, toewijzing als enige
+  covariaat. Sterfte is een **competing risk**, geen niet-informatieve censurering:
+  Fine-Gray en cumulatieve incidentiefuncties ernaast. Proportionele hazards getoetst
+  met Schoenfeld-residuen; bij schending is de RMST op 18 maanden de primaire schatter.
+- **Therapietrouw**: **beta-regressie met logit-link** (het is een proportie met een
+  plafond), lineaire regressie gecorrigeerd voor centrum als gevoeligheidsanalyse,
+  Mann-Whitney als verdelingsvrije vergelijking. Longitudinaal met gemengde modellen.
+- **Estimands en intercurrente events**: de twee eindpunten zijn **elkaars**
+  intercurrente event — wie ulcereert draagt terecht geen zool meer. Hypothetische
+  strategie voor therapietrouw (draagtijd gecensureerd vanaf de ulcusdatum),
+  treatment-policy voor recidief.
+- **Ontbrekende data**: MAR aangenomen, multipele imputatie met 50 datasets,
+  tipping-pointanalyse voor afwijkingen van MAR.
+- **Subgroepen**: vier, vooraf bepaald, elk getoetst met een interactieterm —
+  diabetestype, eerdere kleine amputatie versus enkel genezen ulcus, baseline
+  therapietrouw boven of onder 80%, en academisch versus niet-academisch centrum.
+
+> Het protocol beschrijft nog chi-kwadraat voor recidief en een gewone t-toets voor
+> therapietrouw. Dat is de oudere formulering; het manuscript vervangt ze. Zie §14.
 
 ---
 
@@ -470,8 +525,11 @@ moet worden, en zo ja, het protocol aanvullen.
 
 ## 14. Openstaande punten
 
-1. **§3.2.2.2 zegt nog "12 months"** als primair analysepunt voor therapietrouw, terwijl
-   de rest van het protocol en de poweranalyse 18 maanden aanhouden. Rechtzetten.
+1. **Het analysepunt voor therapietrouw: protocol bijwerken, niet het manuscript.**
+   Het manuscript kiest 12 maanden als primair analysepunt met het 18-maandenprofiel
+   als secundaire samenvatting. De synopsis, de steekproefberekening en §7.1 van het
+   protocol zeggen nog 18 maanden. Die drie moeten mee, anders wijkt de indiening af
+   van het protocol dat erbij zit.
 2. **eCRF 01 mist twee exclusiecriteria** (PEDIS graad 3 en immunosuppressie) en de
    inclusie-eis "stabiele vaatstatus". Aanvullen vóór de EC-indiening.
 3. **Geen werkinstructie voor de pedar-meting.** Voor de MoveMonitor (19b) en de
@@ -490,3 +548,24 @@ moet worden, en zo ja, het protocol aanvullen.
    beslist is. De centra voeren zelf niets in; de invoer gebeurt door het
    onderzoeksteam. Het deck belooft daarom geen werkwijze en de spreker zegt alleen dat
    er bericht over volgt.
+
+De volgende vier kwamen op 14 augustus 2026 uit het manuscript.
+
+10. **SEBIA stap 2 staat op het verkeerde moment.** Het manuscript zegt "Step 2, at the
+    three-month visit and coinciding with orthosis delivery and sensor integration".
+    Maar volgens protocol §5.5 en de eCRF-set gebeurt de aflevering van de zool, de
+    optimalisatie en de sensorplaatsing op **visite 2, veertien dagen tot één maand**
+    na het voorschrift — niet op maand 3. Eén van beide moet wijken; de eCRF-set en de
+    presentaties volgen het protocol.
+11. **Het manuscript beschrijft de statistiek anders dan het protocol.** Cox met
+    Fine-Gray en beta-regressie tegenover chi-kwadraat en een gewone t-toets (zie §11).
+    Het manuscript is inhoudelijk het sterkere plan; het protocol en het SAP moeten
+    erop aansluiten vóór de indiening, anders wijkt de vooraf vastgelegde analyse af
+    van de gepubliceerde.
+12. **Het aantal opvolgvisites verschilt.** Het manuscript zegt "follow-up visits occur
+    at 1, 3, 6, 9, 12, 15 and 18 months" (zeven), het protocol beschrijft er tien
+    contactmomenten inclusief screening, randomisatie en baseline. Beide kunnen kloppen
+    als "maand 1" gelijkstaat aan visite 2, maar dan is dat beter expliciet gemaakt.
+13. **Nog in te vullen in het manuscript** (staat er als ▮): registratienummer en
+    registratiedatum, de startdatum van de rekrutering, de PPI-paragraaf, de rol van de
+    financier, belangenconflicten, auteursbijdragen en dankwoord.

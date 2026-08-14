@@ -617,14 +617,15 @@ for i, d in enumerate(SLIDES, 1):
         kicker(s, d['kicker']); kop(s, d['kop'], naam='sectietitel')
         for j, c in enumerate((d['een'], d['twee'])):
             x, w = kol(j * 6, 6)
-            tegel(s, x, 320, w, 570, 'tegel', 'rand')
+            tegel(s, x, 320, w, 664, 'tegel', 'rand')
             txt(s, x + 40, 354, 200, 60, c['nr'], gr=26, kl='licht', vet=True, font=FONT_M)
             txt(s, x + 40, 418, w - 80, 110, c['naam'], gr=24, kl='ink', vet=True, ra=1.15)
             tegel(s, x + 40, 548, w - 80, 84, 'glas', None)
             txt(s, x + 40, 572, w - 80, 48, c['kern'], gr=18, kl='licht', vet=True,
                 uit=PP_ALIGN.CENTER, font=FONT_M)
-            txt(s, x + 40, 668, w - 80, 200,
-                [(r, {'voor': 13}) for r in c['regels']], gr=15, kl='gedempt', ra=1.35)
+            txt(s, x + 40, 656, w - 80, 310,
+                [(r, {'voor': 12}) for r in c['regels']], gr=14.5, kl='gedempt',
+                ra=1.32)
         paginering(s, i)
 
     elif t == 'statraster':
@@ -936,8 +937,11 @@ for i, d in enumerate(SLIDES, 1):
             txt(s, 520, y + 24, 980, 90, hoe, gr=15, kl='gedempt', ra=1.32)
             txt(s, 1560, y + 26, 260, 40, nrs, gr=13, kl='licht', vet=True,
                 font=FONT_M, uit=PP_ALIGN.RIGHT)
-        tegel(s, 100, 846, 1720, 116, 'tegel', 'licht')
-        txt(s, 150, 874, 1620, 70, d['slot'], gr=19, kl='ink', ra=1.4)
+        # het slotvlak eindigt altijd op dezelfde hoogte en groeit naar boven
+        hs = hoogte(d['slot'], 1620, 19, 1.4) * 1.22
+        hb = max(116, hs + 46)
+        tegel(s, 100, 962 - hb, 1720, hb, 'tegel', 'licht')
+        txt(s, 150, 990 - hb, 1620, hb - 56, d['slot'], gr=19, kl='ink', ra=1.4)
         paginering(s, i)
 
     elif t == 'check':
@@ -1116,8 +1120,10 @@ for i, d in enumerate(SLIDES, 1):
             txt(s, x + 32, y + 22, w - 64, 36, k2, gr=12.5, kl='licht', vet=True,
                 font=FONT_M, caps=True, sp=1.4)
             txt(s, x + 32, y + 64, w - 64, 46, v, gr=17, kl='ink')
-        tegel(s, 100, 646, 1720, 150, 'tegel2', 'licht')
-        txt(s, 150, 692, 1620, 110, d['slot'], gr=19, kl='ink', ra=1.4)
+        # het slotvlak groeit mee met de tekst in plaats van hem af te snijden
+        hs = hoogte(d['slot'], 1620, 19, 1.4) * 1.22
+        tegel(s, 100, 646, 1720, max(150, hs + 84), 'tegel2', 'licht')
+        txt(s, 150, 692, 1620, max(110, hs + 12), d['slot'], gr=19, kl='ink', ra=1.4)
         paginering(s, i)
 
     elif t == 'pauze':
@@ -1131,13 +1137,17 @@ for i, d in enumerate(SLIDES, 1):
     elif t == 'vraagraster':
         # geen kaders: enkel haarlijnen, vraag in wit, antwoord ingesprongen
         kicker(s, d['kicker']); kop(s, d['kop'], naam='sectietitel')
+        # vier paren krijgen een ruimere regelafstand dan zes: de stap volgt het
+        # aantal rijen in plaats van vast te staan
+        stap = min(252, int((980 - 300) / max(1, -(-len(d['paren']) // 2))))
         for j, (v, a) in enumerate(d['paren']):
             x, w = kol((j % 2) * 6, 6)
-            y = 300 + (j // 2) * 226
+            y = 300 + (j // 2) * stap
             liniaal(s, x, y, w)
             txt(s, x, y + 26, w, 60, v, gr=19, kl='ink', vet=True, ra=1.2)
             txt(s, x, y + 96, 30, 40, '—', gr=15, kl='licht', vet=True)
-            txt(s, x + 40, y + 94, w - 40, 100, a, gr=15.5, kl='gedempt', ra=1.35)
+            txt(s, x + 40, y + 94, w - 40, stap - 110, a, gr=15.5, kl='gedempt',
+                ra=1.35)
         paginering(s, i)
 
     elif t == 'afspraak':
