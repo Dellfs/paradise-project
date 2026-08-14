@@ -96,8 +96,8 @@ SLIDES = [
               ('Uitlezen', 'de Orthotimer en de MoveMonitor correct instellen, '
                            'uitlezen en terugkoppelen'),
               ('Begeleiden', 'een SEBIA-gesprek voeren, inclusief teach-back'),
-              ('Registreren', 'invoeren in REDCap, en weten wat u meldt als er '
-                              'iets afwijkt')],
+              ('Vastleggen', 'de formulieren volledig invullen, en weten wat u '
+                             'meldt als er iets afwijkt')],
       slot='Wie een van deze zes niet aandurft na vandaag, moet dat zeggen. '
            'Daar is deze sessie voor.',
       tip='Loop de zes titels traag door. Dit is de belofte van de dag en het '
@@ -111,7 +111,7 @@ SLIDES = [
       tegels=[('01', 'Waarom zo', 'De vier cijfers achter de twee normen'),
               ('02', 'De meting', 'Drukmeting, doelregio\'s en de norm'),
               ('03', 'Het traject', 'Bezoek per bezoek, met de formulieren'),
-              ('04', 'Toestellen en regels', 'SOP\'s, SEBIA, blindering, REDCap')],
+              ('04', 'Toestellen en regels', 'SOP\'s, SEBIA, blindering, melden')],
       tip='Blok 3 is het langste en het belangrijkste. Plan uw tijd zo dat u '
           'daar niet doorheen moet jagen.',
       interactie='Vraag of iemand een blok wil ruilen van plaats. Wie kiest, '
@@ -338,7 +338,7 @@ SLIDES = [
       letop='Het voorschrift van de zool gebeurt hier, op de baseline \u2014 niet later. '
             'En NAFF en HLS-EU-6 gaan v\u00f3\u00f3r de educatie, anders meet u uw '
             'eigen uitleg in plaats van de voorkennis van de pati\u00ebnt.',
-      wie='Podoloog meet \u00b7 arts schrijft voor \u00b7 studiemedewerker registreert',
+      wie='Podoloog meet \u00b7 arts schrijft voor \u00b7 het onderzoeksteam verwerkt',
       tip='Dit bezoek loopt uit. Zeg hoeveel tijd u ervoor moet inplannen en waarom de '
           'volgorde vastligt.',
       interactie='Laat ze in duo\'s de volgorde van de handelingen leggen met de '
@@ -599,8 +599,8 @@ SLIDES = [
               'Training door een psycholoog — alle centra dezelfde'),
              ('SOP\'s en draaiboeken',
               'Per handeling, met de eCRF-nummers erbij'),
-             ('REDCap',
-              'Instructie plus een testomgeving om in te oefenen'),
+             ('Gegevensinvoer',
+              'Doet het onderzoeksteam. U vult de formulieren in, verder niets'),
              ('Eén contactpunt',
               'Eén nummer, één mailadres, voor alles')],
       cijfer='0', cijfer_label='sancties',
@@ -631,7 +631,8 @@ SLIDES = [
              'De Orthotimer instellen met de juiste uren per dag voor díé patiënt',
              'De MoveMonitor instellen, meegeven en uitlezen',
              'Een SEBIA-gesprek voeren met teach-back',
-             'Weten wat u meldt, aan wie, en binnen welke termijn'],
+             'De formulieren volledig invullen en weten wat u meldt, aan wie en '
+             'binnen welke termijn'],
       slot='Acht handelingen. Wie er één niet aandurft, meldt dat nu — dan plannen '
            'we een tweede sessie. Dat is geen zwakte, dat is hoe u fouten in de '
            'data voorkomt.',
@@ -666,7 +667,7 @@ SLIDES = [
       personen=[
           dict(naam='Janou De Buyser',
                rol='Doctoraatsonderzoeker · dagelijkse opvolging',
-               waarvoor='Uw eerste aanspreekpunt: inclusies, metingen, REDCap, '
+               waarvoor='Uw eerste aanspreekpunt: inclusies, metingen, formulieren, '
                         'sensoren en alles wat in de praktijk vastloopt.',
                bereik=['janou.debuyser@kuleuven.be',
                        'Spoorwegstraat 12 · Brugge']),
