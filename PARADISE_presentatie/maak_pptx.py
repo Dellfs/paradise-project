@@ -19,6 +19,10 @@ from lxml import etree
 from PIL import Image
 
 from inhoud import SLIDES, K, FONT, FONT_L, FONT_M, kol, PUNTEN, SOORT, DECKS
+from spreektekst import ZEG, stap_tekst
+from spreektekst import sleutel as zeg_sleutel
+
+ONTBREEKT = set()  # dia's zonder spreektekst, gemeld na het bouwen
 
 # Welk deck bouwen we? `python maak_pptx.py board` of `... alle`.
 KEUZE = (sys.argv[1] if len(sys.argv) > 1 else 'opleiding').lower()
@@ -272,8 +276,13 @@ def kop(s, t, y=132, gr=40, kl='ink', w=1560, naam=None):
 
 
 def notitie(s, d):
+    """Sprekersnotitie: eerst wat u zegt, dan de tip en het interactiemoment."""
+    zeg = d.get('zeg') or ZEG.get(zeg_sleutel(d), '')
+    if not zeg:
+        ONTBREEKT.add(zeg_sleutel(d))
     tf = s.notes_slide.notes_text_frame
-    tf.text = ('PRESENTATIETIP\n' + d.get('tip', '') +
+    tf.text = ('WAT U ZEGT\n' + zeg +
+               '\n\nPRESENTATIETIP\n' + d.get('tip', '') +
                '\n\nINTERACTIE\n' + d.get('interactie', ''))
 
 
@@ -321,6 +330,7 @@ def uitklappen(slides, aan=True):
                             nr=j + 1, totaal=n, tekst=h, bijschrift=bij,
                             documenten=d['documenten'] if j == n - 1 else [],
                             letop=d['letop'] if j == n - 1 else None,
+                            zeg=stap_tekst(j + 1, n, j == n - 1),
                             tip=d.get('tip', '') if j == 0 else '',
                             interactie=d.get('interactie', '') if j == 0 else ''))
     return uit
@@ -1201,4 +1211,7 @@ for i, d in enumerate(SLIDES, 1):
     morph(s, d.get('morph', 'morph'))
 
 prs.save(DOEL)
+if ONTBREEKT:
+    print('Geen spreektekst in spreektekst.py voor: %s'
+          % ' · '.join(sorted(ONTBREEKT)))
 print("%d dia's · %.0f KB · %s" % (TOT, os.path.getsize(DOEL) / 1024, os.path.basename(DOEL)))

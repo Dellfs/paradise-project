@@ -99,6 +99,7 @@ tweekolommig met kader en bijschrift.
 | Bestand | Inhoud |
 | --- | --- |
 | `inhoud.py` | alle tekst, cijfers, presentatietips en interactiemomenten. Hier past u de inhoud aan. |
+| `spreektekst.py` | wat u bij elke dia zegt. Hier studeert u uit. |
 | `maak_pptx.py` | de opmaak: één blok per diatype. Hier past u de vormgeving aan. |
 | `beeld.py` | de getekende beelden: de drukmat en het trajectcanvas. |
 | `maak_beelden.py` | snijdt de productfoto's uit de hoofdmap bij. |
@@ -137,4 +138,32 @@ bij het geheel. De schaal en het middelpunt staan per zoomdia in `inhoud.py`
 - **Kleuren**: `K` bovenaan `inhoud.py`; de kleurband van de drukmat is `BAND`
   in `beeld.py`.
 
-Elke dia draagt in het notitieveld een presentatietip en een interactiemoment.
+## De spreektekst
+
+Elke dia draagt in het notitieveld drie dingen, in deze volgorde:
+
+```text
+WAT U ZEGT        de uitgeschreven spreektekst, hoogstens vier zinnen
+PRESENTATIETIP    waar u op moet letten terwijl u het zegt
+INTERACTIE        wat u aan de zaal vraagt, of "geen"
+```
+
+De spreektekst staat in **`spreektekst.py`**, niet in `inhoud.py`. Dat is met
+opzet: zo hebt u één bestand om uit te studeren, los van de opmaak. De sleutel
+is de kop van de dia.
+
+Zes huisregels houden het instudeerbaar. Ze staan bovenaan `spreektekst.py` en
+komen hierop neer: vier zinnen per dia, de eerste zin is de bewering en niet wat
+er te zien is, één cijfer hardop, de laatste zin is de brug naar de volgende
+dia, gelijkaardige dia's krijgen hetzelfde stramien, en alles in spreektaal.
+
+Dat laatste doet het meeste werk. Elke hoofdstukdia opent met "Blok N", elke
+bezoekdia met het bezoeknummer, en elke stapdia met "Stap x van y" — die laatste
+worden gegenereerd door `stap_tekst()`, zodat de veertig stapdia's van het
+opleidingsdeck letterlijk dezelfde zinsbouw hebben.
+
+Vergeet u een dia, dan meldt `maak_pptx.py` dat bij het bouwen:
+
+```text
+Geen spreektekst in spreektekst.py voor: <kop van de dia>
+```

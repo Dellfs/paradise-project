@@ -570,8 +570,8 @@ SLIDES = [
                    'verandering tegenover baseline gemeten kan worden.'],
       documenten=[('24', 'Drukherverdeling'), ('24b', 'Opvolgtool'),
                   ('12', 'Tevredenheid \u2014 maand 18')],
-      letop='Drie extra meetmomenten, niet twee. Maand 18 telt mee: beide co-primaire '
-            'uitkomsten worden op achttien maanden ge\u00ebvalueerd.',
+      letop='Drie extra meetmomenten, niet twee. Maand 18 telt mee: het recidief '
+            'wordt over de volle achttien maanden geteld.',
       wie='Podoloog meet \u00b7 pedorthist past aan',
       tip='Dit is de dia die het vaakst vergeten wordt bij het inplannen. Zet de drie '
           'data nu al in de agenda van de pati\u00ebnt.',

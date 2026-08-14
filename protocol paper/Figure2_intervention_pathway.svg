@@ -5,7 +5,7 @@
   <text x="30" y="49" font-size="11" fill="#5A6B7D">Both arms receive usual care on an identical visit schedule; the components below are additional to it.</text>
   <text x="30" y="78" font-size="11" fill="#1B3A5C" font-weight="bold" letter-spacing="1.1">MONTH</text>
   <text x="244.625" y="78" font-size="12" fill="#1B3A5C" font-weight="bold" text-anchor="middle">Base</text>
-  <text x="341.875" y="78" font-size="12" fill="#1B3A5C" font-weight="bold" text-anchor="middle">1</text>
+  <text x="341.875" y="78" font-size="12" fill="#1B3A5C" font-weight="bold" text-anchor="middle">V2</text>
   <text x="439.125" y="78" font-size="12" fill="#1B3A5C" font-weight="bold" text-anchor="middle">3</text>
   <text x="536.375" y="78" font-size="12" fill="#1B3A5C" font-weight="bold" text-anchor="middle">6</text>
   <text x="633.625" y="78" font-size="12" fill="#1B3A5C" font-weight="bold" text-anchor="middle">9</text>
@@ -27,17 +27,15 @@
   <text x="44" y="135" font-size="12" fill="#1B3A5C" font-weight="bold">optimisation</text>
   <rect x="44" y="170" width="117.4" height="14" rx="2" fill="#0E7C86"/>
   <text x="50" y="180.5" font-size="9.5" fill="#FFFFFF" font-weight="bold">PARADISE ARM ONLY</text>
-  <rect x="199.625" y="112" width="90" height="53" rx="3" fill="#EAF1F7" stroke="#1B3A5C" stroke-width="1.4"/>
+  <rect x="194.625" y="112" width="100" height="60" rx="3" fill="#EAF1F7" stroke="#1B3A5C" stroke-width="1.4"/>
   <text x="244.625" y="128" font-size="10.2" fill="#1B3A5C" font-weight="bold" text-anchor="middle">Baseline pressure</text>
   <text x="244.625" y="140.6" font-size="9.8" fill="#33475B" text-anchor="middle">Novel pedar,</text>
   <text x="244.625" y="153.2" font-size="9.8" fill="#33475B" text-anchor="middle">8-region mask</text>
-  <rect x="296.875" y="112" width="90" height="40" rx="3" fill="#EAF1F7" stroke="#1B3A5C" stroke-width="1.4"/>
-  <text x="341.875" y="128" font-size="10.2" fill="#1B3A5C" font-weight="bold" text-anchor="middle">CMFO</text>
-  <text x="341.875" y="140.6" font-size="9.8" fill="#33475B" text-anchor="middle">prescription</text>
-  <rect x="394.125" y="112" width="90" height="53" rx="3" fill="#EAF1F7" stroke="#1B3A5C" stroke-width="1.4"/>
-  <text x="439.125" y="128" font-size="10.2" fill="#1B3A5C" font-weight="bold" text-anchor="middle">CMFO delivery</text>
-  <text x="439.125" y="140.6" font-size="9.8" fill="#33475B" text-anchor="middle">+ Orthotimer</text>
-  <text x="439.125" y="153.2" font-size="9.8" fill="#33475B" text-anchor="middle">integration</text>
+  <text x="244.625" y="166" font-size="9.8" fill="#1B3A5C" font-weight="bold" text-anchor="middle">+ CMFO prescription</text>
+  <rect x="296.875" y="112" width="90" height="53" rx="3" fill="#EAF1F7" stroke="#1B3A5C" stroke-width="1.4"/>
+  <text x="341.875" y="128" font-size="10.2" fill="#1B3A5C" font-weight="bold" text-anchor="middle">CMFO delivery</text>
+  <text x="341.875" y="140.6" font-size="9.8" fill="#33475B" text-anchor="middle">+ Orthotimer</text>
+  <text x="341.875" y="153.2" font-size="9.8" fill="#33475B" text-anchor="middle">integration</text>
   <rect x="491.375" y="112" width="90" height="53" rx="3" fill="#EAF1F7" stroke="#1B3A5C" stroke-width="1.4"/>
   <text x="536.375" y="128" font-size="10.2" fill="#1B3A5C" font-weight="bold" text-anchor="middle">Re-measurement</text>
   <text x="536.375" y="140.6" font-size="9.8" fill="#33475B" text-anchor="middle">+ CMFO</text>
@@ -46,10 +44,11 @@
   <text x="730.875" y="128" font-size="10.2" fill="#1B3A5C" font-weight="bold" text-anchor="middle">Re-measurement</text>
   <text x="730.875" y="140.6" font-size="9.8" fill="#33475B" text-anchor="middle">+ CMFO</text>
   <text x="730.875" y="153.2" font-size="9.8" fill="#33475B" text-anchor="middle">replacement</text>
-  <rect x="880.375" y="112" width="90" height="40" rx="3" fill="#EAF1F7" stroke="#1B3A5C" stroke-width="1.4"/>
-  <text x="925.375" y="128" font-size="10.2" fill="#1B3A5C" font-weight="bold" text-anchor="middle">CMFO</text>
-  <text x="925.375" y="140.6" font-size="9.8" fill="#33475B" text-anchor="middle">replacement</text>
-  <text x="200" y="184" font-size="9.5" fill="#5A6B7D" font-style="italic">Target: peak pressure &lt; 200 kPa or ≥ 25% reduction</text>
+  <rect x="880.375" y="112" width="90" height="53" rx="3" fill="#EAF1F7" stroke="#1B3A5C" stroke-width="1.4"/>
+  <text x="925.375" y="128" font-size="10.2" fill="#1B3A5C" font-weight="bold" text-anchor="middle">Re-measurement</text>
+  <text x="925.375" y="140.6" font-size="9.8" fill="#33475B" text-anchor="middle">+ CMFO</text>
+  <text x="925.375" y="153.2" font-size="9.8" fill="#33475B" text-anchor="middle">replacement</text>
+  <text x="200" y="190" font-size="9.5" fill="#5A6B7D" font-style="italic">Target: peak pressure &lt; 200 kPa or ≥ 25% reduction</text>
   <rect x="30" y="206" width="944" height="96" rx="4" fill="#FAFCFD" stroke="#C8D3DE" stroke-width="1"/>
   <text x="44" y="228" font-size="12" fill="#1B3A5C" font-weight="bold">SEBIA behavioural</text>
   <text x="44" y="243" font-size="12" fill="#1B3A5C" font-weight="bold">programme</text>
@@ -59,10 +58,10 @@
   <text x="244.625" y="236" font-size="10.2" fill="#0E7C86" font-weight="bold" text-anchor="middle">Step 1</text>
   <text x="244.625" y="248.6" font-size="9.8" fill="#33475B" text-anchor="middle">Education, NAFF,</text>
   <text x="244.625" y="261.2" font-size="9.8" fill="#33475B" text-anchor="middle">health literacy</text>
-  <rect x="394.125" y="220" width="90" height="53" rx="3" fill="#E6F4F4" stroke="#0E7C86" stroke-width="1.4"/>
-  <text x="439.125" y="236" font-size="10.2" fill="#0E7C86" font-weight="bold" text-anchor="middle">Step 2</text>
-  <text x="439.125" y="248.6" font-size="9.8" fill="#33475B" text-anchor="middle">Indoor-wear educ.</text>
-  <text x="439.125" y="261.2" font-size="9.8" fill="#33475B" text-anchor="middle">teach-back</text>
+  <rect x="296.875" y="220" width="90" height="53" rx="3" fill="#E6F4F4" stroke="#0E7C86" stroke-width="1.4"/>
+  <text x="341.875" y="236" font-size="10.2" fill="#0E7C86" font-weight="bold" text-anchor="middle">Step 2</text>
+  <text x="341.875" y="248.6" font-size="9.8" fill="#33475B" text-anchor="middle">Indoor-wear educ.</text>
+  <text x="341.875" y="261.2" font-size="9.8" fill="#33475B" text-anchor="middle">teach-back</text>
   <rect x="491.375" y="220" width="90" height="53" rx="3" fill="#E6F4F4" stroke="#0E7C86" stroke-width="1.4"/>
   <text x="536.375" y="236" font-size="10.2" fill="#0E7C86" font-weight="bold" text-anchor="middle">Step 3</text>
   <text x="536.375" y="248.6" font-size="9.8" fill="#33475B" text-anchor="middle">Self-assessment</text>
@@ -87,8 +86,8 @@
   <text x="44" y="351" font-size="12" fill="#1B3A5C" font-weight="bold">monitoring</text>
   <rect x="44" y="382" width="67.8" height="14" rx="2" fill="#8FA3B5"/>
   <text x="50" y="392.5" font-size="9.5" fill="#FFFFFF" font-weight="bold">BOTH ARMS</text>
-  <text x="394.125" y="334" font-size="10" fill="#1B3A5C" font-weight="bold">Orthotimer — continuous wear-time recording, read out every three months</text>
-  <rect x="394.125" y="342" width="576.25" height="12" rx="3" fill="#DCE9F2" stroke="#1B3A5C" stroke-width="1.2"/>
+  <text x="296.875" y="334" font-size="10" fill="#1B3A5C" font-weight="bold">Orthotimer — continuous wear-time recording, read out every three months</text>
+  <rect x="296.875" y="342" width="673.5" height="12" rx="3" fill="#DCE9F2" stroke="#1B3A5C" stroke-width="1.2"/>
   <circle cx="439.125" cy="348" r="4" fill="#1B3A5C"/>
   <circle cx="536.375" cy="348" r="4" fill="#1B3A5C"/>
   <circle cx="633.625" cy="348" r="4" fill="#1B3A5C"/>
@@ -99,7 +98,7 @@
   <text x="244.625" y="378" font-size="9.8" fill="#33475B" text-anchor="middle">MoveMonitor 7 d</text>
   <rect x="491.375" y="364" width="90" height="20" rx="3" fill="#EDF1F4" stroke="#8FA3B5" stroke-width="1.2"/>
   <text x="536.375" y="378" font-size="9.8" fill="#33475B" text-anchor="middle">MoveMonitor 7 d</text>
-  <text x="394.125" y="396" font-size="9.5" fill="#5A6B7D" font-style="italic">Wear-time data withheld in usual care</text>
+  <text x="296.875" y="396" font-size="9.5" fill="#5A6B7D" font-style="italic">Wear-time data withheld in usual care</text>
   <rect x="30" y="414" width="944" height="96" rx="4" fill="#F4F6F8" stroke="#C8D3DE" stroke-width="1"/>
   <text x="44" y="436" font-size="12" fill="#1B3A5C" font-weight="bold">Co-primary</text>
   <text x="44" y="451" font-size="12" fill="#1B3A5C" font-weight="bold">outcomes</text>
