@@ -72,6 +72,44 @@ CENTRA = ['AZORG', 'AZ Sint-Jan Brugge', 'AZ Groeninge',
 
 SLIDES = [
 
+ dict(t='titel_foto', morph='fade', foto='plaatshouder.png',
+      boven='PARADISE', onder='Opleidingssessie \u00b7 zes voetklinieken',
+      voet='Protocolversie 1.0 \u00b7 17 mei 2026 \u00b7 S71769',
+      tip='KIES \u00c9\u00c9N VAN DE VIER TITELVARIANTEN EN VERWIJDER DE ANDERE DRIE. VARIANT A \u2014 aflopende foto. Zet uw Adobe-foto in '
+          'beeld\\stock\\, draai verwerk_stock.py, en vervang het kader met '
+          'rechtsklik en Afbeelding wijzigen. Kies een liggend beeld met koele '
+          'tonen en veel donker onderaan, anders vecht de titel met de foto.',
+      interactie='Laat de dia staan terwijl de zaal binnenkomt.'),
+
+ dict(t='titel_poster', morph='fade',
+      boven='PARADISE', onder='opleidingssessie',
+      tegels=[('6', 'voetklinieken'), ('144', 'deelnemers'),
+              ('18', 'maanden opvolging')],
+      voet='Protocolversie 1.0 \u00b7 17 mei 2026 \u00b7 S71769',
+      tip='KIES \u00c9\u00c9N VAN DE VIER TITELVARIANTEN EN VERWIJDER DE ANDERE DRIE. VARIANT B \u2014 typografische poster. Geen beeld: de schaal '
+          'van de studie is het beeld. Werkt het best als u de drie regels traag '
+          'voorleest en dan pas doorklikt.',
+      interactie='Vraag: "zes centra, en u bent er \u00e9\u00e9n van. Weet u wie '
+                 'de andere vijf zijn?"'),
+
+ dict(t='titel_duo', morph='fade',
+      boven='PARADISE', onder='Opleidingssessie voor de zes voetklinieken',
+      voet='Illustratief voorbeeld van een drukgestuurde aanpassing \u00b7 Protocolversie 1.0 \u00b7 17 mei 2026 \u00b7 S71769',
+      tip='KIES \u00c9\u00c9N VAN DE VIER TITELVARIANTEN EN VERWIJDER DE ANDERE DRIE. VARIANT C \u2014 het argument van de studie in \u00e9\u00e9n '
+          'beeld. Wijs van links naar rechts terwijl u de eerste zin zegt. Let op: '
+          'dit is een illustratief voorbeeld, geen resultaat \u2014 dat staat er '
+          'ook zo bij.',
+      interactie='Vraag wie dit verschil in zijn eigen praktijk al gemeten heeft.'),
+
+ dict(t='titel_vlak', morph='fade',
+      boven='PARADISE', onder='Opleidingssessie voor de zes voetklinieken',
+      tegels=[('6', 'centra'), ('144', 'deelnemers'), ('18', 'maanden')],
+      voet='Protocolversie 1.0 \u00b7 17 mei 2026 \u00b7 S71769',
+      tip='KIES \u00c9\u00c9N VAN DE VIER TITELVARIANTEN EN VERWIJDER DE ANDERE DRIE. VARIANT D \u2014 \u00e9\u00e9n vlak, \u00e9\u00e9n woord. Par-dark '
+          'over de volle dia, dus het sterkste contrast met alles wat daarna komt. '
+          'Zeg niets tijdens de eerste drie tellen.',
+      interactie='Geen. Laat de kleur het werk doen.'),
+
  dict(t='hero_titel', morph='fade',
       boven='PARADISE',
       onder='Opleidingssessie',

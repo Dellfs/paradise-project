@@ -249,7 +249,7 @@ def partners(s, y=904):
 def merk(s, t):
     """Het PARADISE-merk: groot op de openings-, sectie- en slotdia, klein
     rechtsboven op de inhoudsdia's."""
-    if t in ('hero_titel', 'sectie', 'knal'):
+    if t in ('hero_titel', 'sectie', 'knal', 'titel_foto', 'titel_duo'):
         pass  # deze dia's plaatsen het merk zelf, of dragen er geen
     elif t == 'nooit':
         pass  # sectiedia draagt het merk al groot; een knaldia draagt niets
@@ -374,7 +374,75 @@ def paginering(s, i):
 for i, d in enumerate(SLIDES, 1):
     t, s = d['t'], nieuw()
 
-    if t == 'hero_titel':
+    if t == 'titel_foto':
+        # A — aflopende foto, type rustig onderaan. Het beeld draagt alles.
+        foto(s, d.get('foto', 'plaatshouder.png'), 0, 0, 1920, 1080,
+             vullend=True, naam='fotokader')
+        scrim = tegel(s, 0, 0, 1920, 1080, 'bg', None, rond=False)
+        verloop(scrim, 'bg', 'bg', 5400000)
+        for gs4, a, pos in zip(list(scrim.fill._xPr.find(qn('a:gradFill'))
+                                    .iter(qn('a:gs'))), (10, 96), ('0', '62000')):
+            etree.SubElement(gs4.find(qn('a:srgbClr')), qn('a:alpha')).set(
+                'val', str(a * 1000))
+            gs4.set('pos', pos)
+        foto(s, 'merk.png', 100, 96, 130, 146)
+        txt(s, 100, 606, 1400, 260, d['boven'], gr=124, kl='ink', vet=True,
+            ra=0.9, omslag=False, naam='hero')
+        txt(s, 106, 850, 1400, 60, d['onder'], gr=28, kl='licht', vet=True)
+        partners(s, 952)
+        txt(s, 1120, 1034, 720, 30, d['voet'], gr=11, kl='gedempt', font=FONT_M,
+            uit=PP_ALIGN.RIGHT, omslag=False)
+
+    elif t == 'titel_poster':
+        # B — geen beeld: de schaal van de studie is het beeld
+        txt(s, 100, 96, 1200, 40, d['boven'] + '   ·   ' + d['onder'], gr=15,
+            kl='licht', vet=True, font=FONT_M, caps=True, sp=2.2)
+        for j, (g, l) in enumerate(d['tegels']):
+            y = 200 + j * 232
+            liniaal(s, 100, y, 1720)
+            txt(s, 100, y + 26, 460, 220, g, gr=112, kl='licht', vet=True, ra=0.92,
+                omslag=False)
+            txt(s, 560, y + 96, 1260, 90, l, gr=48, kl='ink', vet=True, ra=1.0,
+                omslag=False)
+        partners(s, 952)
+        txt(s, 1120, 1034, 720, 30, d['voet'], gr=11, kl='gedempt', font=FONT_M,
+            uit=PP_ALIGN.RIGHT, omslag=False)
+
+    elif t == 'titel_duo':
+        # C — het argument van de studie in één beeld: dezelfde voet, twee keer
+        foto(s, 'merk.png', 100, 96, 118, 132)
+        txt(s, 260, 108, 900, 60, d['boven'], gr=40, kl='ink', vet=True)
+        txt(s, 262, 200, 900, 40, d['onder'], gr=16, kl='gedempt', font=FONT_M)
+        for j, (haard, piek, lbl, kl) in enumerate(
+                ((beeld.VOOR, 312, 'vandaag', 'oranje'),
+                 (beeld.NA, 186, 'met PARADISE', 'licht'))):
+            x = 250 + j * 800
+            beeld.drukmat(s, x, 268, 440, 560, haard, sleutel='d%d' % j, piek=float(piek))
+            txt(s, x - 30, 844, 500, 130, '%d' % piek, gr=64, kl=kl, vet=True,
+                ra=1.0, uit=PP_ALIGN.CENTER)
+            txt(s, x - 30, 968, 500, 40, 'kPa  ·  ' + lbl, gr=14, kl='gedempt',
+                font=FONT_M, uit=PP_ALIGN.CENTER, caps=True, sp=1.4)
+        liniaal(s, 1000, 540, 100, 'gedempt', 3)
+        txt(s, 100, 1040, 1720, 30, d['voet'], gr=11, kl='gedempt', font=FONT_M)
+
+    elif t == 'titel_vlak':
+        # D — één vlak, één woord. Par-dark als grond: institutioneel en luid.
+        vlak = tegel(s, 0, 0, 1920, 1080, 'navy', None, rond=False)
+        verloop(vlak, 'navy', 'mid', 2700000)
+        txt(s, 100, 320, 1740, 340, d['boven'], gr=166, kl='wit', vet=True,
+            ra=0.86, omslag=False, naam='hero')
+        liniaal(s, 106, 636, 1000, 'wit', 4)
+        txt(s, 106, 672, 1400, 60, d['onder'], gr=30, kl='wit', vet=True)
+        for j, (g, l) in enumerate(d['tegels']):
+            x = 106 + j * 300
+            txt(s, x, 820, 280, 80, g, gr=40, kl='wit', vet=True, ra=1.0)
+            txt(s, x + 2, 888, 280, 40, l, gr=12.5, kl='wit', font=FONT_M,
+                caps=True, sp=1.4)
+        partners(s, 952)
+        txt(s, 1120, 1034, 720, 30, d['voet'], gr=11, kl='wit', font=FONT_M,
+            uit=PP_ALIGN.RIGHT, omslag=False)
+
+    elif t == 'hero_titel':
         # De drukmat zelf is het openingsbeeld: een voet die van de dia loopt,
         # op volle kleur, met de hete plek als brandpunt. Daarover een verloop
         # dat links dichtloopt zodat de titel leest.
