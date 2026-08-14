@@ -485,3 +485,8 @@ moet worden, en zo ja, het protocol aanvullen.
    aanduiden voordat er opgeleid wordt.
 7. **Texas Wound Classification** bestaat als formulier maar staat niet in het protocol.
 8. **De folder dagelijkse voetzorg** (Engelse set, document 17) is nog niet opgemaakt.
+9. **Hoe de ingevulde formulieren bij het onderzoeksteam raken, ligt nog niet vast** —
+   bewaren op papier in het centrum, of doorsturen via manGO. Niet communiceren tot het
+   beslist is. De centra voeren zelf niets in; de invoer gebeurt door het
+   onderzoeksteam. Het deck belooft daarom geen werkwijze en de spreker zegt alleen dat
+   er bericht over volgt.

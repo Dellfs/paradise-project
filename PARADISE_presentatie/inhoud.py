@@ -606,7 +606,9 @@ SLIDES = [
       cijfer='0', cijfer_label='sancties',
       cijfer_regel='Wijkt u af van het protocol, dan meldt u dat. '
                    'Het wordt geregistreerd, niet afgestraft.',
-      tip='Het cijfer rechts ontspant de zaal. Zeg het expliciet en wacht even.',
+      tip='Het cijfer rechts ontspant de zaal. Zeg het expliciet en wacht even. '
+          'Vraagt iemand hoe de ingevulde formulieren bij ons raken: zeg dat daar '
+          'bericht over volgt. Beloof geen werkwijze, want die ligt nog niet vast.',
       interactie='Geen.'),
 
  dict(t='vraagraster', morph='morph',
@@ -615,7 +617,8 @@ SLIDES = [
       paren=[('Patiënt wil de sensor niet', 'Dan niet geschikt. Draagtijd ís een hoofduitkomst.'),
              ('Zool haalt de norm niet', 'Twee extra tests, dan noteert u wat wél bereikt is.'),
              ('Mag ik nog adviseren?', 'Alles wat u vandaag doet, blijft u doen.'),
-             ('Wie leest de sensor uit?', 'Uw team, ter plaatse, bij elk bezoek.'),
+             ('En de ingevulde formulieren?', 'Daar volgt bericht over. Invoeren '
+                                              'doet het onderzoeksteam.'),
              ('Onze data?', 'Gepseudonimiseerd, tien jaar, binnen de toestemming.'),
              ('Zien wij resultaten?', 'Eén publicatie, ongeacht de uitkomst.')],
       tip='Sla over wat al gevraagd is. Deze dia is een vangnet, geen programma.',
