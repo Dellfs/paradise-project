@@ -251,8 +251,8 @@ def merk(s, t):
     rechtsboven op de inhoudsdia's."""
     if t == 'hero_titel':
         foto(s, 'merk.png', 1500, 196, 280, 300, naam='merk')
-    elif t == 'sectie':
-        pass  # de sectiedia draagt het merk al reusachtig op de achtergrond
+    elif t in ('sectie', 'knal'):
+        pass  # sectiedia draagt het merk al groot; een knaldia draagt niets
     elif t == 'slot':
         foto(s, 'merk.png', 1380, 320, 330, 350, naam='merk')
     elif t == 'pauze':
@@ -389,13 +389,32 @@ for i, d in enumerate(SLIDES, 1):
         partners(s, 900)
         txt(s, 100, 1022, 1500, 30, d['voet'], gr=11.5, kl='gedempt', font=FONT_M)
 
+    elif t == 'knal':
+        # Kleuromkering over de volle dia: één zin, verder niets. Deze dia's
+        # breken het ritme en zijn het enige moment waarop de zaal niet leest
+        # maar luistert.
+        vlak = tegel(s, 0, 0, 1920, 1080, d.get('kleur', 'oranje'), None, rond=False)
+        verloop(vlak, d.get('kleur', 'oranje'), d.get('kleur2', 'oranje'), 2700000)
+        # elke harde regelovergang is een eigen alinea; die tellen apart mee
+        for gk in (96, 84, 72, 62, 54):
+            regels = sum(max(1, -(-len(r) // max(1, int((1620 / 2.0) / (gk * 0.5)))))
+                         for r in d['kop'].split('\n'))
+            if regels * gk * 1.06 * 2.4 <= 620:
+                break
+        txt(s, 150, 240, 1620, 660, d['kop'], gr=gk, kl='bg', vet=True, ra=1.06,
+            naam='!!knal')
+        if d.get('onder'):
+            txt(s, 154, 946, 1500, 44, d['onder'], gr=17, kl='bg', font=FONT_M)
+
     elif t == 'sectie':
-        # het merk loopt reusachtig van de dia af: grafisch, niet decoratief
-        foto(s, 'merk.png', 1080, -180, 1100, 1400, alpha=14, naam='merkgroot')
-        txt(s, 100, 292, 700, 320, d['nr'], gr=150, vet=True, ra=0.9, naam='hero',
-            vloei=('licht', 'oranje'))
-        txt(s, 100, 626, 1400, 140, d['titel'], gr=56, kl='ink', vet=True, naam='sectietitel')
-        txt(s, 104, 786, 1300, 80, d['regel'], gr=21, kl='gedempt', font=FONT_L)
+        # het merk loopt reusachtig van de dia af, en het nummer loopt van de
+        # bovenrand: schaal als beeldmiddel in plaats van een nette kop
+        foto(s, 'merk.png', 1040, -220, 1240, 1520, alpha=14, naam='merkgroot')
+        txt(s, 90, -70, 900, 460, d['nr'], gr=260, vet=True, ra=0.82, naam='hero',
+            vloei=('licht', 'oranje'), omslag=False)
+        txt(s, 100, 560, 1400, 160, d['titel'], gr=76, kl='ink', vet=True,
+            naam='sectietitel')
+        txt(s, 104, 760, 1300, 80, d['regel'], gr=23, kl='gedempt', font=FONT_L)
         paginering(s, i)
 
     elif t == 'keuze':

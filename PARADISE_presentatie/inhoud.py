@@ -229,6 +229,14 @@ SLIDES = [
           'En de vergelijking gebeurt per regio, niet over de hele voet.',
       interactie='Vraag de pedorthisten hoeveel aanpassingsrondes realistisch zijn.'),
 
+ dict(t='knal', morph='morph', kleur='oranje', kleur2='oranje',
+      kop='Niet minder belasting.\nBelasting op een plek die het aankan.',
+      onder='Dat is de hele interventie.',
+      tip='Zeg deze twee zinnen en zwijg dan. Laat de dia staan tot iemand '
+          'ongemakkelijk wordt. Dit is het enige moment in blok 2 waarop de '
+          'zaal niets te lezen heeft.',
+      interactie='Geen. Bewust geen.'),
+
  dict(t='meetreeks', morph='morph',
       kicker='Het meetprotocol',
       kop='Drie condities bij de aflevering',
@@ -631,6 +639,13 @@ SLIDES = [
              ('Zien wij resultaten?', 'Eén publicatie, ongeacht de uitkomst.')],
       tip='Sla over wat al gevraagd is. Deze dia is een vangnet, geen programma.',
       interactie='Toon hem alleen als de vragen opdrogen.'),
+
+ dict(t='knal', morph='morph', kleur='licht', kleur2='mid',
+      kop='Vanaf de eerste pati\u00ebnt\ndoet u dit zelf.',
+      onder='Wij leiden op, wij voeren in. De handelingen zijn van u.',
+      tip='Dit is de overgang naar de bekwaamheidscheck. Zeg het rustig; het '
+          'is geen dreigement maar een vaststelling.',
+      interactie='Geen.'),
 
  dict(t='check', morph='morph',
       kicker='Bekwaamheidscheck',
