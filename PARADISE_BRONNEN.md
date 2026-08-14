@@ -551,12 +551,14 @@ moet worden, en zo ja, het protocol aanvullen.
 
 De volgende vier kwamen op 14 augustus 2026 uit het manuscript.
 
-10. **SEBIA stap 2 staat op het verkeerde moment.** Het manuscript zegt "Step 2, at the
-    three-month visit and coinciding with orthosis delivery and sensor integration".
-    Maar volgens protocol §5.5 en de eCRF-set gebeurt de aflevering van de zool, de
-    optimalisatie en de sensorplaatsing op **visite 2, veertien dagen tot één maand**
-    na het voorschrift — niet op maand 3. Eén van beide moet wijken; de eCRF-set en de
-    presentaties volgen het protocol.
+10. ~~**SEBIA stap 2 staat op het verkeerde moment.**~~ **Opgelost op 14 augustus
+    2026.** Het manuscript zette het voorschrift op maand 1 en de aflevering plus
+    sensorplaatsing op maand 3; protocol §5.5 en eCRF 23 zetten ze op de
+    baselinevisite en op **visite 2, veertien dagen tot één maand** later. Het
+    manuscript is bijgewerkt: lopende tekst, tabel 2 (kolom "1" heet nu V2), tabel 3,
+    tabel 4 en figuur 2. Meteen mee rechtgezet: de drukmeting ook op 18 maanden, de
+    opbouw van de CMFO per schoentype, en het analysepunt voor therapietrouw in
+    tabel 3.
 11. **Het manuscript beschrijft de statistiek anders dan het protocol.** Cox met
     Fine-Gray en beta-regressie tegenover chi-kwadraat en een gewone t-toets (zie §11).
     Het manuscript is inhoudelijk het sterkere plan; het protocol en het SAP moeten
