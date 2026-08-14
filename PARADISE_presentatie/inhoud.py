@@ -319,15 +319,18 @@ SLIDES = [
       handelingen=['Demografie en voorgeschiedenis, inclusief nierfunctie, eGFR, '
                    'hartaandoening en diabetesmedicatie.',
                    'Voet- en schoeiselscreening, en klasseer een eventueel ulcus.',
-                   'Drukmeting blootsvoets: drie metingen per voet.',
-                   'Bepaal de drie doelregio\'s en schrijf de zool voor, m\u00e9t die '
-                   'regio\'s op het voorschrift.',
+                   ('Drukmeting blootsvoets: drie metingen per voet.',
+                    'Sensoren met dubbelzijdige tape op de blote voet, kous erover'),
+                   ('Bepaal de drie doelregio\'s en schrijf de zool voor, m\u00e9t die '
+                    'regio\'s op het voorschrift.',
+                    'Schermafdruk van de multimask met de drie regio\'s aangeduid'),
                    'Vragenlijsten v\u00f3\u00f3r het educatiegesprek: NAFF en HLS-EU-6. '
                    'Daarna tevredenheid, schoeiselgebruik en EQ-5D-5L.',
                    'SEBIA stap 1: educatie op maat, voordoen, en de pati\u00ebnt het '
                    'zelf laten uitvoeren. Leg dat vast in het logboek.',
-                   'Geef de MoveMonitor mee voor zeven dagen en registreer het '
-                   'toestelnummer.'],
+                   ('Geef de MoveMonitor mee voor zeven dagen en registreer het '
+                    'toestelnummer.',
+                    'Toestel om het middel, ter hoogte van L5')],
       documenten=[('07', 'Demografie'), ('08', 'Voet en schoeisel'),
                   ('09', 'Drukmeting'), ('10', 'Voorschrift CMFO'),
                   ('12', 'Tevredenheid'), ('13', 'Schoeiselgebruik'),
@@ -347,13 +350,15 @@ SLIDES = [
       kicker='Visite 2 \u00b7 veertien dagen tot \u00e9\u00e9n maand',
       kop='Aflevering, optimalisatie en sensor',
       wanneer='Het technisch zwaarste bezoek',
-      handelingen=['Lever de zool af. Controleer de pasvorm in het b\u00ednnenschoeisel '
-                   '\u00e9n het b\u00faitenschoeisel, en neem de foto\'s.',
+      handelingen=[('Lever de zool af. Controleer de pasvorm in het b\u00ednnenschoeisel '
+                    '\u00e9n het b\u00faitenschoeisel, en neem de foto\'s.',
+                    'De zool in de schoen, boven- en onderaanzicht'),
                    'Meet de drukherverdeling en toets de norm per doelregio.',
                    'Niet gehaald? Pas aan en meet opnieuw. Is ze gehaald, laat dan een '
                    'tweede, identiek paar maken.',
-                   'Plaats en activeer de Orthotimer in de zool en registreer het '
-                   'toestelnummer.',
+                   ('Plaats en activeer de Orthotimer in de zool en registreer het '
+                    'toestelnummer.',
+                    'De uitsparing in de zool met de sensor erin'),
                    'Neem de MoveMonitor terug en registreer de teruggave.',
                    'SEBIA stap 2: bespreek het activiteitenprofiel, doe de teach-back '
                    'en geef de sensorfolder mee.',
@@ -376,10 +381,12 @@ SLIDES = [
       kop='Driemaandelijkse opvolging',
       wanneer='In het gewone consult',
       handelingen=['Voet- en schoeiselscreening, zoals bij de baseline.',
-                   'Bevraag de therapietrouw, lees de Orthotimer uit en bespreek de '
-                   'uitdraai niet-veroordelend.',
-                   'Beoordeel beide paren zolen. Het paar dat onderhoud nodig heeft '
-                   'gaat naar de pedorthist, deklaag inbegrepen.',
+                   ('Bevraag de therapietrouw, lees de Orthotimer uit en bespreek de '
+                    'uitdraai niet-veroordelend.',
+                    'De pen op de sensor, of de uitdraai op het scherm'),
+                   ('Beoordeel beide paren zolen. Het paar dat onderhoud nodig heeft '
+                    'gaat naar de pedorthist, deklaag inbegrepen.',
+                    'Twee paren naast elkaar, versleten en nieuw'),
                    'Vervang zool of sensor als dat nodig is en leg dat vast.',
                    'Neem de vragenlijsten af: levenskwaliteit, medische consumptie en '
                    'productiviteit.',
@@ -400,8 +407,9 @@ SLIDES = [
       kicker='Visites 4, 6 en 8 \u00b7 maand 6, 12 en 18',
       kop='Wat er drie keer extra bij komt',
       wanneer='Bovenop de driemaandelijkse opvolging',
-      handelingen=['Herhaal de drukmeting in de drie condities en toets opnieuw per '
-                   'doelregio.',
+      handelingen=[('Herhaal de drukmeting in de drie condities en toets opnieuw per '
+                    'doelregio.',
+                    'De drie condities naast elkaar op het scherm'),
                    'Ligt de piekdruk boven 200 kPa, of is er nog winst haalbaar, pas '
                    'dan opnieuw aan volgens dezelfde procedure.',
                    'Op maand 18 ook de tevredenheidsschaal opnieuw afnemen, zodat de '

@@ -311,8 +311,10 @@ def uitklappen(slides):
             continue
         n = len(d['handelingen'])
         for j, h in enumerate(d['handelingen']):
+            # een handeling mag ook (tekst, fotobijschrift) zijn
+            h, bij = h if isinstance(h, tuple) else (h, None)
             uit.append(dict(t='stap', morph='morph', visite=d['kicker'],
-                            nr=j + 1, totaal=n, tekst=h,
+                            nr=j + 1, totaal=n, tekst=h, bijschrift=bij,
                             documenten=d['documenten'] if j == n - 1 else [],
                             letop=d['letop'] if j == n - 1 else None,
                             tip=d.get('tip', '') if j == 0 else '',
@@ -632,11 +634,19 @@ for i, d in enumerate(SLIDES, 1):
         kicker(s, d['visite'])
         txt(s, 100, 236, 340, 300, '%02d' % d['nr'], gr=150, kl='licht', vet=True,
             ra=0.9, omslag=False, uit=PP_ALIGN.RIGHT, naam='!!stapnr')
-        ruimte = 330 if d['documenten'] else 560
+        if d.get('bijschrift'):
+            # tweekolommig: handeling links, fotokader rechts om later te vullen
+            tw, ruimte = 620, 480
+            foto(s, 'plaatshouder.png', 1120, 250, 700, 440, naam='fotokader')
+            txt(s, 1120, 706, 700, 60, d['bijschrift'], gr=13.5, kl='gedempt',
+                font=FONT_M)
+        else:
+            tw = 1320
+            ruimte = 330 if d['documenten'] else 560
         for gs in (40, 36, 32, 28, 24):
-            if hoogte(d['tekst'], 1320, gs, 1.25) <= ruimte:
+            if hoogte(d['tekst'], tw, gs, 1.25) <= ruimte:
                 break
-        txt(s, 500, 250, 1320, ruimte + 20, d['tekst'], gr=gs, kl='ink', vet=True,
+        txt(s, 500, 250, tw, ruimte + 20, d['tekst'], gr=gs, kl='ink', vet=True,
             ra=1.25, naam='!!staptekst')
         if d['documenten']:
             txt(s, 470, 640, 1350, 34, 'Wat u hierbij invult', gr=12.5, kl='gedempt',

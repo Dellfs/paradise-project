@@ -6,7 +6,7 @@ het resultaat komt in beeld/ en wordt door maak_pptx.py ingevoegd.
 """
 import os, sys
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
-from PIL import Image, ImageChops
+from PIL import Image, ImageChops, ImageDraw
 
 HIER = os.path.dirname(os.path.abspath(__file__))
 BRON = os.path.dirname(HIER)
@@ -100,3 +100,35 @@ def op_wit(bron):
 
 bewaar(op_wit(os.path.join(BRON, 'kuleuven-brugge.png')), 'kuleuven.png')
 bewaar(op_wit(os.path.join(BRON, 'Vrije_Universiteit_Brussel_logo.svg.webp')), 'vub.png')
+
+
+# Plaatshouder voor de foto's die later ingeplakt worden. Het is een echte
+# afbeelding, geen tekstvak: daardoor kan hij vervangen worden met rechtsklikken
+# en 'Afbeelding wijzigen', waarbij kader en uitsnede bewaard blijven.
+def plaatshouder(breed=1600, hoog=1000):
+    im = Image.new('RGB', (breed, hoog), (0x11, 0x3A, 0x57))
+    d = ImageDraw.Draw(im)
+    for i in range(hoog):
+        f = i / float(hoog)
+        d.line([(0, i), (breed, i)],
+               fill=(int(0x11 + 6 * f), int(0x3A + 8 * f), int(0x57 + 10 * f)))
+    rand = (0x52, 0xBD, 0xEC)
+    stip, gat, m = 22, 16, 26
+    for x in range(m, breed - m, stip + gat):
+        d.line([(x, m), (min(x + stip, breed - m), m)], fill=rand, width=4)
+        d.line([(x, hoog - m), (min(x + stip, breed - m), hoog - m)], fill=rand, width=4)
+    for y in range(m, hoog - m, stip + gat):
+        d.line([(m, y), (m, min(y + stip, hoog - m))], fill=rand, width=4)
+        d.line([(breed - m, y), (breed - m, min(y + stip, hoog - m))], fill=rand, width=4)
+    # eenvoudig fototeken in het midden
+    cx, cy, w, h = breed // 2, hoog // 2, breed // 7, breed // 10
+    d.rounded_rectangle([cx - w, cy - h, cx + w, cy + h], radius=18,
+                        outline=rand, width=5)
+    d.rounded_rectangle([cx - w // 3, cy - h - 22, cx + w // 3, cy - h],
+                        radius=8, outline=rand, width=5)
+    d.ellipse([cx - h // 2, cy - h // 2, cx + h // 2, cy + h // 2],
+              outline=rand, width=5)
+    return im
+
+
+bewaar(plaatshouder(), 'plaatshouder.png')
