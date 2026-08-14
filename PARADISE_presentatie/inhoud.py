@@ -75,9 +75,9 @@ SLIDES = [
  dict(t='hero_titel', morph='fade',
       boven='PARADISE',
       onder='Opleidingssessie',
-      staart='Zo voert u het protocol uit — bezoek per bezoek, formulier per formulier',
-      tegels=[('6', 'centra'), ('24', 'inclusies per centrum'), ('18', 'maanden')],
-      voet='Opleiding studiepersoneel · protocolversie 1.0 · 17 mei 2026 · S71769',
+      staart='Zo voert u het protocol uit, bezoek per bezoek',
+      tegels=[('6', 'voetklinieken'), ('144', 'deelnemers'), ('18', 'maanden')],
+      voet='Protocolversie 1.0 · 17 mei 2026 · S71769',
       tip='U hoeft niemand meer te overtuigen: de centra zitten al in het '
           'consortium. Zeg dat expliciet in de eerste zin, dan weet de zaal dat '
           'dit een werksessie is en geen pitch.',

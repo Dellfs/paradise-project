@@ -249,9 +249,9 @@ def partners(s, y=904):
 def merk(s, t):
     """Het PARADISE-merk: groot op de openings-, sectie- en slotdia, klein
     rechtsboven op de inhoudsdia's."""
-    if t == 'hero_titel':
-        foto(s, 'merk.png', 1500, 196, 280, 300, naam='merk')
-    elif t in ('sectie', 'knal'):
+    if t in ('hero_titel', 'sectie', 'knal'):
+        pass  # deze dia's plaatsen het merk zelf, of dragen er geen
+    elif t == 'nooit':
         pass  # sectiedia draagt het merk al groot; een knaldia draagt niets
     elif t == 'slot':
         foto(s, 'merk.png', 1380, 320, 330, 350, naam='merk')
@@ -375,19 +375,40 @@ for i, d in enumerate(SLIDES, 1):
     t, s = d['t'], nieuw()
 
     if t == 'hero_titel':
-        tegel(s, 100, 150, 1720, 470, 'tegel', 'rand', alpha=60)
-        txt(s, 150, 206, 1400, 270, d['boven'], gr=110, kl='ink', vet=True,
-            ra=0.92, naam='hero')
-        txt(s, 156, 442, 1200, 90, d['onder'], gr=36, kl='licht', vet=True)
-        txt(s, 156, 552, 1300, 70, d['staart'], gr=18, kl='gedempt', font=FONT_L)
+        # De drukmat zelf is het openingsbeeld: een voet die van de dia loopt,
+        # op volle kleur, met de hete plek als brandpunt. Daarover een verloop
+        # dat links dichtloopt zodat de titel leest.
+        beeld.drukmat(s, 990, -230, 960, 1520, beeld.VOOR, sleutel='t',
+                      piek=396.0)
+        scrim = tegel(s, 0, 0, 1920, 1080, 'bg', None, rond=False)
+        verloop(scrim, 'bg', 'bg', 0)
+        sf = scrim.fill._xPr.find(qn('a:gradFill'))
+        stops = list(sf.iter(qn('a:gs')))
+        for gs2, a, pos in zip(stops, (100, 0), ('0', '78000')):
+            etree.SubElement(gs2.find(qn('a:srgbClr')), qn('a:alpha')).set(
+                'val', str(a * 1000))
+            gs2.set('pos', pos)
+        foto(s, 'merk.png', 100, 120, 150, 168, naam='merk')
+        txt(s, 100, 336, 1300, 300, d['boven'], gr=132, kl='ink', vet=True,
+            ra=0.9, naam='hero', omslag=False)
+        txt(s, 106, 590, 1100, 90, d['onder'], gr=40, kl='licht', vet=True)
+        txt(s, 108, 682, 1000, 70, d['staart'], gr=18, kl='gedempt', font=FONT_L)
+        liniaal(s, 100, 774, 1000)
         for j, (g, l) in enumerate(d['tegels']):
-            x, w = kol(j * 4, 4)
-            tegel(s, x, 640, w, 200, 'tegel2', 'rand')
-            txt(s, x + 34, 672, w - 60, 116, g, gr=54, kl='licht', vet=True, ra=1.0)
-            txt(s, x + 36, 782, w - 60, 40, l, gr=14, kl='gedempt', font=FONT_M,
+            x = 100 + j * 330
+            txt(s, x, 798, 300, 90, g, gr=44, kl='licht', vet=True, ra=1.0)
+            txt(s, x + 2, 878, 300, 40, l, gr=12.5, kl='gedempt', font=FONT_M,
                 caps=True, sp=1.4)
-        partners(s, 900)
-        txt(s, 100, 1022, 1500, 30, d['voet'], gr=11.5, kl='gedempt', font=FONT_M)
+        # tweede verloop onderaan, zodat de partnerbalk op een rustige grond staat
+        voetscrim = tegel(s, 0, 890, 1920, 190, 'bg', None, rond=False)
+        verloop(voetscrim, 'bg', 'bg', 5400000)
+        sv = voetscrim.fill._xPr.find(qn('a:gradFill'))
+        for gs3, a in zip(list(sv.iter(qn('a:gs'))), (0, 94)):
+            etree.SubElement(gs3.find(qn('a:srgbClr')), qn('a:alpha')).set(
+                'val', str(a * 1000))
+        partners(s, 952)
+        txt(s, 1120, 1034, 720, 30, d['voet'], gr=11, kl='gedempt', font=FONT_M,
+            uit=PP_ALIGN.RIGHT, omslag=False)
 
     elif t == 'knal':
         # Kleuromkering over de volle dia: één zin, verder niets. Deze dia's
