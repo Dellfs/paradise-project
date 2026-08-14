@@ -6,9 +6,36 @@ PowerPoint-vormen en echte tekstvakken, dus u kunt achteraf nog alles aanpassen.
 ## Opnieuw bouwen
 
 ```powershell
-python maak_beelden.py    # eenmalig: snijdt de toestelfoto's bij naar beeld\
-python maak_pptx.py       # bouwt PARADISE_informatiesessie_voetklinieken.pptx
+python maak_beelden.py    # eenmalig: snijdt de toestelfoto's en logo's bij
+python maak_pptx.py       # bouwt PARADISE_opleidingssessie_voetklinieken.pptx
 ```
+
+## Foto's inplakken
+
+Acht stapdia's hebben een fotokader. De plaatshouder is een **echte afbeelding**,
+dus vervangen gaat met **rechtsklik → Afbeelding wijzigen**: kader, positie en
+uitsnede blijven behouden en de lay-out verschuift niet.
+
+Stockfoto's eerst klaarmaken:
+
+```powershell
+# zet de gedownloade foto's in beeld\stock\
+python verwerk_stock.py
+```
+
+Van elke foto komen er twee versies in `beeld\`:
+
+| Bestand | Wanneer gebruiken |
+| --- | --- |
+| `<naam>_kleur.png` | Instructiebeeld waar de kleur informatie draagt: de groene sensor, een rode huidzone. |
+| `<naam>_duo.png` | Sfeerbeeld en achtergronden. Omgezet naar de blauwfamilie, zodat het niet uit de toon valt. |
+
+Beide zijn bijgesneden op de verhouding van het kader (700 × 440), dus ze passen
+zonder vervorming.
+
+Wilt u ergens anders ook een kader, maak van die handeling in `inhoud.py` een
+tuple: `('de handeling', 'wat er op de foto staat')`. De dia wordt dan
+tweekolommig met kader en bijschrift.
 
 ## Wat waar staat
 
