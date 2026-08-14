@@ -70,9 +70,50 @@ CENTRA = ['AZORG', 'AZ Sint-Jan Brugge', 'AZ Groeninge',
           'UZ Gent', 'UZ Leuven', 'UZ Antwerpen']
 
 
+# Uit dezelfde inhoud worden zes decks gebouwd. Elke dia draagt een label `voor`
+# met de letters van de decks waarin hij hoort:
+#   o opleiding · b board · c congres · u outreach · k kort · e extern
+DECKS = {
+    'opleiding': dict(
+        letter='o', bestand='PARADISE_opleidingssessie_voetklinieken.pptx',
+        onder='Opleidingssessie · zes voetklinieken',
+        duur='60 tot 75 minuten', uitklappen=True,
+        wie='De medewerkers van de zes deelnemende voetklinieken.'),
+    'board': dict(
+        letter='b', bestand='PARADISE_board.pptx',
+        onder='Stand van zaken · stuurgroep en directie',
+        duur='15 tot 20 minuten',
+        wie='Ziekenhuisdirectie, stuurgroep en financier. Wat het is, hoe groot, '
+            'wat het van de organisatie vraagt.'),
+    'congres': dict(
+        letter='c', bestand='PARADISE_congres.pptx',
+        onder='Studieopzet · wetenschappelijke sessie',
+        duur='12 tot 15 minuten',
+        wie='Vakgenoten. Rationale, ontwerp, eindpunten en methodologie; geen '
+            'praktische afspraken.'),
+    'outreach': dict(
+        letter='u', bestand='PARADISE_outreach.pptx',
+        onder='Waarom deze studie er is',
+        duur='10 minuten',
+        wie='Breed publiek, patiëntenverenigingen, pers. Geen jargon, geen '
+            'formuliernummers.'),
+    'kort': dict(
+        letter='k', bestand='PARADISE_centra_kort.pptx',
+        onder='Opfrissing voor de centra',
+        duur='20 minuten',
+        wie='Medewerkers die de opleiding al volgden. Het traject, de regels en '
+            'de contactgegevens.'),
+    'extern': dict(
+        letter='e', bestand='PARADISE_extern.pptx',
+        onder='Het onderzoek en het netwerk',
+        duur='15 minuten',
+        wie='Externe partners, andere ziekenhuizen, industrie.'),
+}
+
+
 SLIDES = [
 
- dict(t='titel_foto', morph='fade', foto='plaatshouder.png',
+ dict(t='titel_foto', voor='obcuke', morph='fade', foto='plaatshouder.png',
       boven='PARADISE', onder='Opleidingssessie \u00b7 zes voetklinieken',
       voet='Protocolversie 1.0 \u00b7 17 mei 2026 \u00b7 S71769',
       tip='Het beeld draagt deze dia, dus de foto moet raak zijn. Zet hem in '
@@ -82,7 +123,7 @@ SLIDES = [
       interactie='Laat de dia staan terwijl de zaal binnenkomt. Zeg pas iets als '
                  'iedereen zit.'),
 
- dict(t='doel', morph='morph',
+ dict(t='doel', voor='ok', morph='morph',
       kicker='Waarom u hier zit',
       kop='Na vandaag kunt u dit zelf',
       doelen=[('Screenen', 'beoordelen of een patiënt in aanmerking komt, en de '
@@ -103,7 +144,7 @@ SLIDES = [
       interactie='Laat iedereen op een blad de zes overschrijven en aanduiden '
                  'welke ze al beheersen. Op het eind vullen ze dat opnieuw in.'),
 
- dict(t='keuze', morph='morph',
+ dict(t='keuze', voor='o', morph='morph',
       kicker='Programma van vandaag',
       kop='Vier blokken',
       tegels=[('01', 'Waarom zo', 'De vier cijfers achter de twee normen'),
@@ -115,7 +156,7 @@ SLIDES = [
       interactie='Vraag of iemand een blok wil ruilen van plaats. Wie kiest, '
                  'luistert beter.'),
 
- dict(t='statraster', morph='morph',
+ dict(t='statraster', voor='obcuke', morph='morph',
       kicker='Waar we staan',
       kop='144 patiënten, 24 per centrum',
       klein=[('Per centrum', '24 deelnemers — 12 PARADISE en 12 gebruikelijke zorg'),
@@ -129,10 +170,10 @@ SLIDES = [
       interactie='Vraag of ze de andere vijf centra kennen. Het maakt van zes '
                  'losse klinieken één netwerk.'),
 
- dict(t='sectie', morph='morph', nr='01', titel='Waarom zo',
+ dict(t='sectie', voor='obcue', morph='morph', nr='01', titel='Waarom zo',
       regel='Vier cijfers verklaren waarom er twee normen zijn.'),
 
- dict(t='hero_cijfer', morph='morph',
+ dict(t='hero_cijfer', voor='obcuke', morph='morph',
       cijfer='40', suffix='%',
       kop='krijgt binnen een jaar\neen nieuw ulcus',
       tegels=[('60%', 'na drie jaar'), ('65%', 'na vijf jaar'), ('2,5×', 'hogere sterfte')],
@@ -141,7 +182,7 @@ SLIDES = [
       tip='Dit is het probleem waar de hele studie op staat. Eén dia, dan door.',
       interactie='Geen. Dit is context, geen discussie.'),
 
- dict(t='splitsing', morph='morph',
+ dict(t='splitsing', voor='obce', morph='morph',
       kicker='Dezelfde schoen, twee uitkomsten',
       kop='Waarom druk alléén niet volstaat',
       links=dict(titel='Iedereen', sub='intention-to-treat', groot='38,8',
@@ -156,7 +197,7 @@ SLIDES = [
           'een willekeurig getal.',
       interactie='Geen.'),
 
- dict(t='hero_cijfer', morph='morph',
+ dict(t='hero_cijfer', voor='obce', morph='morph',
       cijfer='71', suffix='%',
       kop='draagtijd — gemeten,\nniet gevraagd',
       tegels=[('61%', 'thuis'), ('4000', 'stappen binnen'), ('2600', 'stappen buiten')],
@@ -169,7 +210,7 @@ SLIDES = [
           'SEBIA.',
       interactie='Vraag wat zij schatten bij hun eigen patiënten.'),
 
- dict(t='formule', morph='morph',
+ dict(t='formule', voor='obcuke', morph='morph',
       kicker='Het mechanisme',
       kop='Belasting is een product,\ngeen optelsom',
       delen=[('Piekdruk', 'per stap', 'licht', 'Bijgestuurd'),
@@ -181,10 +222,10 @@ SLIDES = [
           'meting én de sensor allebei moeten kloppen.',
       interactie='Morph: de drie tegels komen samen uit één punt.'),
 
- dict(t='sectie', morph='morph', nr='02', titel='De meting',
+ dict(t='sectie', voor='oce', morph='morph', nr='02', titel='De meting',
       regel='Wat u meet, hoe u het meet, en wanneer het goed genoeg is.'),
 
- dict(t='drukmeting', morph='morph', fase='voor',
+ dict(t='drukmeting', voor='obcuke', morph='morph', fase='voor',
       kicker='Baseline · blootsvoets',
       kop='Elke sensor een cijfer',
       waarde='312', plek='piekdruk op metatarsaal 2-3',
@@ -198,7 +239,7 @@ SLIDES = [
           'drie, en het gemiddelde telt.',
       interactie='Vraag wie al blootsvoets gemeten heeft met sensoren op de voet.'),
 
- dict(t='drukzoom', morph='morph', fase='voor',
+ dict(t='drukzoom', voor='oc', morph='morph', fase='voor',
       kicker='Inzoomen op de voorvoet',
       kop='Acht regio\'s, drie doelregio\'s',
       waarde='312',
@@ -213,7 +254,7 @@ SLIDES = [
           'Die drie legt u vast — daarop wordt de norm getoetst.',
       interactie='Laat ze op deze dia aanwijzen welke drie zij zouden kiezen.'),
 
- dict(t='drukmeting', morph='morph', fase='na',
+ dict(t='drukmeting', voor='obcuke', morph='morph', fase='na',
       kicker='Na optimalisatie',
       kop='Wanneer is het goed genoeg',
       waarde='186', plek='piekdruk in de doelregio na aanpassing',
@@ -227,7 +268,7 @@ SLIDES = [
           'En de vergelijking gebeurt per regio, niet over de hele voet.',
       interactie='Vraag de pedorthisten hoeveel aanpassingsrondes realistisch zijn.'),
 
- dict(t='knal', morph='morph', kleur='oranje', kleur2='oranje',
+ dict(t='knal', voor='obcuke', morph='morph', kleur='oranje', kleur2='oranje',
       kop='Niet minder belasting.\nBelasting op een plek die het aankan.',
       onder='Dat is de hele interventie.',
       tip='Zeg deze twee zinnen en zwijg dan. Laat de dia staan tot iemand '
@@ -235,7 +276,7 @@ SLIDES = [
           'zaal niets te lezen heeft.',
       interactie='Geen. Bewust geen.'),
 
- dict(t='meetreeks', morph='morph',
+ dict(t='meetreeks', voor='oc', morph='morph',
       kicker='Het meetprotocol',
       kop='Drie condities bij de aflevering',
       condities=[('01', 'Blootsvoets',
@@ -254,10 +295,10 @@ SLIDES = [
           'vergeten wordt. Dezelfde drie condities komen terug op maand 6, 12 en 18.',
       interactie='Vraag: "wie meet er vandaag al in de schoen zonder zool?"'),
 
- dict(t='sectie', morph='morph', nr='03', titel='Het traject',
+ dict(t='sectie', voor='obcke', morph='morph', nr='03', titel='Het traject',
       regel='Negen contactmomenten. Per moment: wat u doet en wat u invult.'),
 
- dict(t='traject', morph='morph',
+ dict(t='traject', voor='obcuke', morph='morph',
       kicker='Het traject',
       kop='Screening plus negen visites',
       groot='18',
@@ -268,7 +309,7 @@ SLIDES = [
       tip='Geef eerst het overzicht. De volgende dia\'s lopen elk moment af.',
       interactie='Geen. De detaildia\'s komen hierna.'),
 
- dict(t='bezoek', morph='morph',
+ dict(t='bezoek', voor='ok', morph='morph',
       kicker='Screening en visite 0',
       kop='Geschiktheid, toestemming, loting',
       wanneer='Kort \u00b7 in het gewone consult',
@@ -290,7 +331,7 @@ SLIDES = [
           'blokken van zes per centrum. Niemand kiest zelf.',
       interactie='Deel het screeningsformulier uit en laat ze het invullen voor een '
                  'pati\u00ebnt die ze vorige week zagen.'),
- dict(t='dubbelkolom', morph='morph',
+ dict(t='dubbelkolom', voor='oc', morph='morph',
       kicker='Screening',
       kop='Wie komt in aanmerking',
       links=dict(titel='Wél', kleur='licht',
@@ -318,7 +359,7 @@ SLIDES = [
           'sensoren er niet in passen.',
       interactie='Vraag per criterium of het in hun patiëntenbestand vaak voorkomt.'),
 
- dict(t='bezoek', morph='morph',
+ dict(t='bezoek', voor='ok', morph='morph',
       kicker='Visite 1',
       kop='Baseline \u2014 meten en voorschrijven',
       wanneer='Het langste bezoek van de studie',
@@ -352,7 +393,7 @@ SLIDES = [
           'volgorde vastligt.',
       interactie='Laat ze in duo\'s de volgorde van de handelingen leggen met de '
                  'formulieren op tafel.'),
- dict(t='bezoek', morph='morph',
+ dict(t='bezoek', voor='ok', morph='morph',
       kicker='Visite 2 \u00b7 veertien dagen tot \u00e9\u00e9n maand',
       kop='Aflevering, optimalisatie en sensor',
       wanneer='Het technisch zwaarste bezoek',
@@ -382,7 +423,7 @@ SLIDES = [
           'primaire uitkomst bruikbaar wordt.',
       interactie='Demonstreer het plaatsen en activeren van een Orthotimer op een '
                  'losse zool.'),
- dict(t='bezoek', morph='morph',
+ dict(t='bezoek', voor='ok', morph='morph',
       kicker='Visites 3 tot 8 \u00b7 maand 3 tot 18',
       kop='Driemaandelijkse opvolging',
       wanneer='In het gewone consult',
@@ -409,7 +450,7 @@ SLIDES = [
           'maanden en de handelingen zijn elke keer dezelfde.',
       interactie='Vraag hoe zij een gemiste afspraak in de praktijk opvangen.'),
 
- dict(t='bezoek', morph='morph',
+ dict(t='bezoek', voor='ok', morph='morph',
       kicker='Visites 4, 6 en 8 \u00b7 maand 6, 12 en 18',
       kop='Wat er drie keer extra bij komt',
       wanneer='Bovenop de driemaandelijkse opvolging',
@@ -428,7 +469,7 @@ SLIDES = [
       tip='Dit is de dia die het vaakst vergeten wordt bij het inplannen. Zet de drie '
           'data nu al in de agenda van de pati\u00ebnt.',
       interactie='Laat elk centrum benoemen wie de drukmeting op maand 18 zal doen.'),
- dict(t='traject', morph='morph',
+ dict(t='traject', voor='obcke', morph='morph',
       kicker='Het traject',
       kop='Terug naar het geheel',
       groot='10',
@@ -438,10 +479,10 @@ SLIDES = [
       tip='Sluit blok 3 hiermee af. De zaal herkent de dia van het begin.',
       interactie='Vraag welk moment hun het meest zorgen baart.'),
 
- dict(t='sectie', morph='morph', nr='04', titel='Toestellen en regels',
+ dict(t='sectie', voor='oue', morph='morph', nr='04', titel='Toestellen en regels',
       regel='De instellingen, het gesprek, en de vier regels die vastliggen.'),
 
- dict(t='drieluik', morph='morph',
+ dict(t='drieluik', voor='obcuke', morph='morph',
       kicker='De techniek',
       kop='Drie toestellen',
       kaarten=[dict(naam='Novel pedar', sub='Druk', groot='8', onder='voetregio\'s',
@@ -464,7 +505,7 @@ SLIDES = [
           'vraag komt gegarandeerd.',
       interactie='Laat de toestellen rondgaan. Fysiek werkt beter dan een dia.'),
 
- dict(t='aflopend', morph='morph',
+ dict(t='aflopend', voor='obcue', morph='morph',
       foto='sensor_vol.png',
       kicker='De sensor in het echt',
       kop='Negen bij dertien millimeter.\nMeer merkt de patiënt niet.',
@@ -472,7 +513,7 @@ SLIDES = [
           'klein dat het beeld het argument al maakt.',
       interactie='Geef er een door de zaal terwijl u praat.'),
 
- dict(t='sop', morph='morph',
+ dict(t='sop', voor='o', morph='morph',
       kicker='De zool · protocol 5.4.2 en eCRF 23',
       kop='Hoe de CMFO is opgebouwd',
       instellingen=[('Basis in maatschoen', '5 mm microkurk (55) + 5 mm EVA'),
@@ -498,7 +539,7 @@ SLIDES = [
       interactie='Vraag of deze opbouw afwijkt van wat ze vandaag maken. Waar het '
                  'afwijkt, noteer dat: het is input voor de procesevaluatie.'),
 
- dict(t='sop', morph='morph',
+ dict(t='sop', voor='o', morph='morph',
       kicker='SOP · eCRF-document 25b',
       kop='Orthotimer instellen',
       instellingen=[('Type', 'Insole'),
@@ -522,7 +563,7 @@ SLIDES = [
           'uren per dag: dat is de brug tussen de MoveMonitor en de Orthotimer.',
       interactie='Laat iemand de instellingen voordoen op een testsensor.'),
 
- dict(t='sop', morph='morph',
+ dict(t='sop', voor='o', morph='morph',
       kicker='SOP · eCRF-document 19b',
       kop='MoveMonitor instellen',
       instellingen=[('Testtype', 'MoviMonitor'),
@@ -546,7 +587,7 @@ SLIDES = [
       interactie='Vraag wie de toestellen in hun centrum beheert. Dat moet één '
                  'persoon zijn.'),
 
- dict(t='vijfluik', morph='morph',
+ dict(t='vijfluik', voor='oce', morph='morph',
       kicker='SEBIA · eCRF-document 17',
       kop='Vijf gespreksmomenten',
       stappen=[('01', 'Baseline', 'Vragenlijsten eerst, dan educatie op maat, '
@@ -560,7 +601,7 @@ SLIDES = [
           'mee en een nieuwe afspraak.',
       interactie='Rollenspel van twee minuten met een vrijwilliger uit de zaal.'),
 
- dict(t='statement', morph='morph',
+ dict(t='statement', voor='ock', morph='morph',
       kicker='De enige regel die u écht moet onthouden',
       kop='Meetwaarden gaan\nniet naar de\ncontrolegroep',
       body='Ook zij krijgen een drukmeting en dragen een sensor — anders kunnen we de '
@@ -573,7 +614,7 @@ SLIDES = [
           'voordat u doorgaat.',
       interactie='Laat iemand het in eigen woorden herhalen. Zo weet u of het zit.'),
 
- dict(t='melden', morph='morph',
+ dict(t='melden', voor='ok', morph='morph',
       kicker='Wat u meldt, en hoe snel',
       kop='Voorvallen en afwijkingen',
       rijen=[('Nieuw ulcus', 'Ulcus-vervolgformulier plus PEDIS- en WIfI-classificatie. '
@@ -591,7 +632,7 @@ SLIDES = [
       interactie='Vraag of iemand een situatie kan bedenken waarvan hij niet '
                  'weet of het gemeld moet worden. Bespreek er twee.'),
 
- dict(t='vierluik', morph='morph',
+ dict(t='vierluik', voor='obk', morph='morph',
       kicker='Verdeling',
       kop='Wie doet wat',
       kolommen=[('Podoloog', ['Voert de drukmetingen uit', 'Levert SEBIA',
@@ -606,7 +647,7 @@ SLIDES = [
       interactie='Vraag per rij: "herkenbaar, of mis ik iets?" Pas de '
                  'taakverdeling ter plekke aan als dat nodig is.'),
 
- dict(t='steun', morph='morph',
+ dict(t='steun', voor='obk', morph='morph',
       kicker='Ondersteuning',
       kop='Wat u van ons krijgt',
       rijen=[('Motiverende gespreksvoering',
@@ -625,7 +666,7 @@ SLIDES = [
           'bericht over volgt. Beloof geen werkwijze, want die ligt nog niet vast.',
       interactie='Geen.'),
 
- dict(t='vraagraster', morph='morph',
+ dict(t='vraagraster', voor='ok', morph='morph',
       kicker='Wat u gaat vragen',
       kop='Vooruitlopend',
       paren=[('Patiënt wil de sensor niet', 'Dan niet geschikt. Draagtijd ís een hoofduitkomst.'),
@@ -638,14 +679,14 @@ SLIDES = [
       tip='Sla over wat al gevraagd is. Deze dia is een vangnet, geen programma.',
       interactie='Toon hem alleen als de vragen opdrogen.'),
 
- dict(t='knal', morph='morph', kleur='licht', kleur2='mid',
+ dict(t='knal', voor='ok', morph='morph', kleur='licht', kleur2='mid',
       kop='Vanaf de eerste pati\u00ebnt\ndoet u dit zelf.',
       onder='Wij leiden op, wij voeren in. De handelingen zijn van u.',
       tip='Dit is de overgang naar de bekwaamheidscheck. Zeg het rustig; het '
           'is geen dreigement maar een vaststelling.',
       interactie='Geen.'),
 
- dict(t='check', morph='morph',
+ dict(t='check', voor='o', morph='morph',
       kicker='Bekwaamheidscheck',
       kop='Kunt u dit nu zelf?',
       items=['Beoordelen of een patiënt geschikt is, en dat vastleggen vóór de toestemming',
@@ -665,7 +706,7 @@ SLIDES = [
       interactie='Verzamel de blaadjes. Waar drie of meer mensen dezelfde '
                  'handeling aanvinken, plant u een extra sessie.'),
 
- dict(t='register', morph='morph',
+ dict(t='register', voor='ob', morph='morph',
       kicker='Voor het dossier',
       kop='Het opleidingsregister',
       body='ISO 14155 vraagt dat per medewerker aantoonbaar is welke training hij '
@@ -685,7 +726,7 @@ SLIDES = [
       interactie='Tel hardop hoeveel handtekeningen u nodig hebt en hoeveel er al '
                  'staan.'),
 
- dict(t='contact', morph='morph',
+ dict(t='contact', voor='obcuke', morph='morph',
       kicker='Wie u aanspreekt',
       kop='Voor als er iets misloopt',
       personen=[

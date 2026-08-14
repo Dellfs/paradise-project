@@ -18,12 +18,14 @@ from pptx.oxml.ns import qn
 from lxml import etree
 from PIL import Image
 
-from inhoud import SLIDES, K, FONT, FONT_L, FONT_M, kol, PUNTEN, SOORT
+from inhoud import SLIDES, K, FONT, FONT_L, FONT_M, kol, PUNTEN, SOORT, DECKS
+
+# Welk deck bouwen we? `python maak_pptx.py board` of `... alle`.
+KEUZE = (sys.argv[1] if len(sys.argv) > 1 else 'opleiding').lower()
 import beeld
 
 HIER = os.path.dirname(os.path.abspath(__file__))
 BEELD = os.path.join(HIER, 'beeld')
-DOEL = os.path.join(HIER, 'PARADISE_opleidingssessie_voetklinieken.pptx')
 
 B, H = 1920, 1080
 SCH = 13.333 / B
@@ -297,17 +299,19 @@ def morph(s, soort='morph'):
     s._element.append(etree.fromstring(xml))
 
 
-def uitklappen(slides):
-    """Zet elke bezoekdia om in een overzicht plus één dia per handeling.
+def uitklappen(slides, aan=True):
+    """Zet elke bezoekdia om in een titelkaart plus één dia per handeling.
 
     Een keynote loopt op tempo: één gedachte per dia, groot gezet, en doorklikken.
-    De dichte tabel blijft staan als overzichtsdia en in de sprekersnotities, maar
-    op het scherm komt telkens één handeling.
+    Alleen het opleidingsdeck heeft die uitwerking nodig; de kortere decks tonen
+    het bezoek als één compacte dia. Het veld `kaart` zegt welke van de twee.
     """
     uit = []
     for d in slides:
+        if d['t'] == 'bezoek':
+            d = dict(d, kaart=aan)
         uit.append(d)
-        if d['t'] != 'bezoek':
+        if d['t'] != 'bezoek' or not aan:
             continue
         n = len(d['handelingen'])
         for j, h in enumerate(d['handelingen']):
@@ -322,7 +326,19 @@ def uitklappen(slides):
     return uit
 
 
-SLIDES = uitklappen(SLIDES)
+if KEUZE not in DECKS:
+    raise SystemExit('Onbekend deck: %s. Kies uit: %s'
+                     % (KEUZE, ', '.join(sorted(DECKS))))
+DECK = DECKS[KEUZE]
+DOEL = os.path.join(HIER, DECK['bestand'])
+
+# alleen de dia's die voor dit deck bedoeld zijn, en de ondertitel op maat
+SLIDES = [dict(d) for d in SLIDES if DECK['letter'] in d['voor']]
+for d in SLIDES:
+    if d['t'].startswith('titel'):
+        d['onder'] = DECK['onder']
+
+SLIDES = uitklappen(SLIDES, aan=DECK.get('uitklappen', False))
 
 prs = Presentation()
 prs.slide_width, prs.slide_height = Inches(13.333), Inches(7.5)
@@ -714,6 +730,36 @@ for i, d in enumerate(SLIDES, 1):
             txt(s, 960, y + 30, 812, 100, uitleg, gr=15.5, kl='gedempt', ra=1.32)
         txt(s, 100, 848, 1720, 90, d['slot'], gr=19, kl='oranje', vet=True, ra=1.4)
         txt(s, 100, 1006, 1500, 30, d['voet'], gr=11.5, kl='gedempt', font=FONT_M)
+        paginering(s, i)
+
+    elif t == 'bezoek' and not d.get('kaart'):
+        # compacte versie: alles op één dia, voor de decks zonder stapreeks
+        kicker(s, d['kicker']); kop(s, d['kop'], naam='!!sectietitel')
+        tegel(s, 100, 236, 560, 44, 'glas', None)
+        txt(s, 100, 247, 560, 32, d['wanneer'], gr=13, kl='licht', vet=True,
+            uit=PP_ALIGN.CENTER, font=FONT_M)
+        y = 322
+        for j, h in enumerate(d['handelingen']):
+            h = h[0] if isinstance(h, tuple) else h
+            bol(s, 100, y, 30, str(j + 1), 'licht', klein=True)
+            hh = hoogte(h, 1020, 13, 1.28)
+            txt(s, 146, y - 2, 1020, hh + 10, h, gr=13, kl='ink', ra=1.28)
+            y += hh + 22
+        txt(s, 1220, 322, 600, 34, 'Wat u invult', gr=12, kl='gedempt', vet=True,
+            font=FONT_M, caps=True, sp=1.5)
+        nrs = '   '.join(nr for nr, _ in d['documenten'])
+        txt(s, 1220, 366, 600, 120, nrs, gr=19, kl='licht', vet=True, font=FONT_M,
+            ra=1.4)
+        # PowerPoint zet regels iets ruimer dan de schatting; vandaar de marge
+        for gl in (14, 13, 12, 11):
+            hl = hoogte(d['letop'], 520, gl, 1.3) * 1.22
+            if hl <= 344:
+                break
+        tegel(s, 1220, 520, 600, hl + 96, 'tegel', 'oranje')
+        txt(s, 1258, 542, 520, 34, 'Let op', gr=12, kl='oranje', vet=True,
+            font=FONT_M, caps=True, sp=1.5)
+        txt(s, 1258, 580, 520, hl + 20, d['letop'], gr=gl, kl='ink', ra=1.3)
+        txt(s, 100, 1006, 1500, 30, d['wie'], gr=11.5, kl='gedempt', font=FONT_M)
         paginering(s, i)
 
     elif t == 'bezoek':

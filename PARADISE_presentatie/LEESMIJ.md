@@ -3,12 +3,44 @@
 De presentatie wordt gegenereerd, niet met de hand gemaakt. Alles blijft echte
 PowerPoint-vormen en echte tekstvakken, dus u kunt achteraf nog alles aanpassen.
 
+## Zes decks uit één bron
+
+Dezelfde inhoud levert zes presentaties. Elke dia draagt een label `voor` met de
+letters van de decks waarin hij hoort; de bouwer filtert daarop.
+
+| Deck | Bestand | Duur | Voor wie |
+| --- | --- | --- | --- |
+| `opleiding` | `PARADISE_opleidingssessie_voetklinieken.pptx` | 60-75 min | De medewerkers van de zes centra. Volledig, met de stapreeks per bezoek. |
+| `kort` | `PARADISE_centra_kort.pptx` | 20 min | Opfrissing voor wie de opleiding al volgde. Bezoeken compact op één dia. |
+| `board` | `PARADISE_board.pptx` | 15-20 min | Directie, stuurgroep, financier. Wat het is, hoe groot, wat het vraagt. |
+| `congres` | `PARADISE_congres.pptx` | 12-15 min | Vakgenoten. Rationale, ontwerp, eindpunten, methodologie. |
+| `extern` | `PARADISE_extern.pptx` | 15 min | Externe partners, andere ziekenhuizen, industrie. |
+| `outreach` | `PARADISE_outreach.pptx` | 10 min | Breed publiek en pers. Geen jargon, geen formuliernummers. |
+
 ## Opnieuw bouwen
 
 ```powershell
 python maak_beelden.py    # eenmalig: snijdt de toestelfoto's en logo's bij
-python maak_pptx.py       # bouwt PARADISE_opleidingssessie_voetklinieken.pptx
+python maak_alles.py      # bouwt alle zes de decks
+python maak_pptx.py board # of één deck apart
 ```
+
+### Een dia aan een ander deck toevoegen
+
+Pas het veld `voor=` aan bij die dia in `inhoud.py`:
+
+```python
+dict(t='statement', voor='ock', ...)   # opleiding, congres, kort
+```
+
+De letters: **o** opleiding · **b** board · **c** congres · **u** outreach ·
+**k** kort · **e** extern. De titeldia hoort in alle zes en krijgt per deck een
+eigen ondertitel; die staat in `DECKS` bovenaan `inhoud.py`, samen met de
+bestandsnaam en de richttijd.
+
+Alleen het opleidingsdeck klapt de bezoeken uit tot één dia per handeling
+(`uitklappen=True` in `DECKS`). De andere decks tonen het bezoek compact op één
+dia.
 
 ## Foto's inplakken
 
