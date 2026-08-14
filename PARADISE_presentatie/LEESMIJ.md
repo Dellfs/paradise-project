@@ -12,8 +12,8 @@ letters van de decks waarin hij hoort; de bouwer filtert daarop.
 | --- | --- | --- | --- |
 | `opleiding` | `PARADISE_opleidingssessie_voetklinieken.pptx` | 60-75 min | De medewerkers van de zes centra. Volledig, met de stapreeks per bezoek. |
 | `kort` | `PARADISE_centra_kort.pptx` | 20 min | Opfrissing voor wie de opleiding al volgde. Bezoeken compact op één dia. |
-| `board` | `PARADISE_board.pptx` | 15-20 min | Directie, stuurgroep, financier. Wat het is, hoe groot, wat het vraagt. |
-| `congres` | `PARADISE_congres.pptx` | 12-15 min | Vakgenoten. Rationale, ontwerp, eindpunten, methodologie. |
+| `board` | `PARADISE_board.pptx` | 15-20 min | Directie, stuurgroep, financier. Met tijdlijn, de vier toezeggingen en de risico's. |
+| `congres` | `PARADISE_congres.pptx` | 12-15 min | Vakgenoten. Met de steekproefberekening en het analyseplan. |
 | `extern` | `PARADISE_extern.pptx` | 15 min | Externe partners, andere ziekenhuizen, industrie. |
 | `outreach` | `PARADISE_outreach.pptx` | 10 min | Breed publiek en pers. Geen jargon, geen formuliernummers. |
 
@@ -41,6 +41,21 @@ bestandsnaam en de richttijd.
 Alleen het opleidingsdeck klapt de bezoeken uit tot één dia per handeling
 (`uitklappen=True` in `DECKS`). De andere decks tonen het bezoek compact op één
 dia.
+
+De hoofdstuknummers op de tussendia's worden **per deck opnieuw genummerd**.
+Valt een hoofdstuk buiten een deck, dan schuift de rest op; er staat dus nooit
+een gat als 01 - 03 in de reeks. Het cijfer in `inhoud.py` doet er alleen toe
+voor de leesvolgorde van het bestand.
+
+### Wat elk deck als enige heeft
+
+| Dia | Deck | Waarom daar |
+| --- | --- | --- |
+| Van pilot tot laatste patiënt | board, extern | De vier fasen met de lopende fase in oranje. De enige dia die zegt wanneer het klaar is. |
+| Vier toezeggingen | board | De concrete vraag aan de organisatie: 24 inclusies, één PI, tijd, een looppad van tien meter. |
+| Vier risico's | board, extern | Met het inclusierisico bovenaan, zodat u het zelf benoemt. |
+| Twee eindpunten, twee berekeningen | congres | De twee steekproefberekeningen naast elkaar, met de intersectie-unietoets als gevolg. |
+| Hoe we het toetsen | congres | Het analyseplan in vier regels. |
 
 ## Foto's inplakken
 

@@ -338,6 +338,14 @@ for d in SLIDES:
     if d['t'].startswith('titel'):
         d['onder'] = DECK['onder']
 
+# hoofdstuknummers lopen door per deck: valt er een hoofdstuk weg, dan schuift de
+# rest op, zodat er nooit een gat als 01 - 03 in de reeks staat
+nr = 0
+for d in SLIDES:
+    if d['t'] == 'sectie':
+        nr += 1
+        d['nr'] = '%02d' % nr
+
 SLIDES = uitklappen(SLIDES, aan=DECK.get('uitklappen', False))
 
 prs = Presentation()
@@ -852,6 +860,71 @@ for i, d in enumerate(SLIDES, 1):
         txt(s, 148, yv + 22, 300, 34, 'Valkuil', gr=12.5, kl='oranje', vet=True,
             font=FONT_M, caps=True, sp=1.5)
         txt(s, 148, yv + 62, 1620, hv + 20, d['valkuil'], gr=15, kl='ink', ra=1.35)
+        paginering(s, i)
+
+    elif t == 'fasen':
+        # vier fasen op één lijn: waar staan we, en wat komt er nog
+        kicker(s, d['kicker']); kop(s, d['kop'], naam='!!sectietitel')
+        n = len(d['fasen'])
+        stap = 1720.0 / n
+        liniaal(s, 100, 470, 1720, 'rand', 3)
+        for j, (periode, naam2, wat, nu) in enumerate(d['fasen']):
+            cx = 100 + stap * j + stap / 2
+            dm = 30 if nu else 22
+            o = s.shapes.add_shape(MSO_SHAPE.OVAL, px(cx - dm / 2), px(472 - dm / 2),
+                                   px(dm), px(dm))
+            o.fill.solid()
+            o.fill.fore_color.rgb = rgb('oranje' if nu else 'licht')
+            o.line.color.rgb = rgb('bg'); o.line.width = Pt(3)
+            o.shadow.inherit = False
+            txt(s, cx - stap / 2, 330, stap, 40, periode, gr=15,
+                kl='oranje' if nu else 'gedempt', vet=True, font=FONT_M,
+                uit=PP_ALIGN.CENTER)
+            txt(s, cx - stap / 2, 382, stap, 60, naam2, gr=22, kl='ink', vet=True,
+                uit=PP_ALIGN.CENTER)
+            txt(s, cx - stap / 2 + 20, 526, stap - 40, 200, wat, gr=14.5,
+                kl='gedempt', uit=PP_ALIGN.CENTER, ra=1.35)
+        hf = hoogte(d['slot'], 1620, 18, 1.4) * 1.22
+        tegel(s, 100, 786, 1720, hf + 60, 'tegel', 'licht')
+        txt(s, 150, 812, 1620, hf + 20, d['slot'], gr=18, kl='ink', ra=1.4)
+        paginering(s, i)
+
+    elif t == 'power':
+        # de twee steekproefberekeningen naast elkaar, met de consequentie eronder
+        kicker(s, d['kicker']); kop(s, d['kop'], naam='!!sectietitel')
+        # de kaart groeit mee met het aantal rijen, en de chip sluit hem af
+        kaarthoogte = 0
+        for j, p in enumerate(d['kanten']):
+            x, w = kol(j * 6, 6)
+            y = 428
+            for sleutel, waarde in p['rijen']:
+                y += max(54, hoogte(waarde, w - 336, 14.5, 1.2) * 1.22 + 22)
+            kaarthoogte = max(kaarthoogte, y + 92 - 286)
+        for j, p in enumerate(d['kanten']):
+            x, w = kol(j * 6, 6)
+            tegel(s, x, 286, w, kaarthoogte, 'tegel', 'rand')
+            txt(s, x + 36, 314, w - 72, 40, p['tag'], gr=12, kl='licht', vet=True,
+                font=FONT_M, caps=True, sp=1.5)
+            txt(s, x + 36, 356, w - 72, 70, p['naam'], gr=25, kl='ink', vet=True)
+            y = 428
+            for sleutel, waarde in p['rijen']:
+                liniaal(s, x + 36, y, w - 72)
+                hw = hoogte(waarde, w - 336, 14.5, 1.2) * 1.22
+                txt(s, x + 36, y + 16, 250, 34, sleutel, gr=13, kl='gedempt',
+                    omslag=False)
+                txt(s, x + 300, y + 14, w - 336, hw + 10, waarde, gr=14.5,
+                    kl='ink', vet=True, ra=1.2)
+                y += max(54, hw + 22)
+            tegel(s, x + 36, y + 10, w - 72, 50, 'glas', None)
+            txt(s, x + 36, y + 22, w - 72, 40, p['nodig'], gr=16, kl='licht',
+                vet=True, uit=PP_ALIGN.CENTER, font=FONT_M)
+        ys = 286 + kaarthoogte + 22
+        hs = hoogte(d['slot'], 1620, 15.5, 1.3) * 1.22
+        tegel(s, 100, ys, 1720, hs + 84, 'tegel', 'oranje')
+        txt(s, 148, ys + 20, 700, 34, d.get('slotlabel', 'Gevolg'), gr=12.5,
+            kl='oranje', vet=True, font=FONT_M, caps=True, sp=1.5, omslag=False)
+        txt(s, 148, ys + 58, 1620, hs + 18, d['slot'], gr=15.5, kl='ink', ra=1.3)
+        txt(s, 100, 1042, 1500, 30, d['voet'], gr=11, kl='gedempt', font=FONT_M)
         paginering(s, i)
 
     elif t == 'melden':

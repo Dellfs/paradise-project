@@ -170,6 +170,66 @@ SLIDES = [
       interactie='Vraag of ze de andere vijf centra kennen. Het maakt van zes '
                  'losse klinieken één netwerk.'),
 
+ dict(t='fasen', voor='be', morph='morph',
+      kicker='Waar we staan',
+      kop='Van pilot tot laatste patiënt',
+      fasen=[('sep 2026 \u2013 feb 2027', 'Pilot',
+              'Protocol en meetprocedures uitproberen in de zes centra. '
+              'Opleiding en bekwaamheidscheck.', True),
+             ('feb 2027 \u2013 feb 2028', 'Inclusie',
+              'Twaalf maanden rekruteren. 24 deelnemers per centrum, twee per '
+              'maand.', False),
+             ('tot sep 2029', 'Opvolging',
+              'Elke deelnemer achttien maanden. De laatste inclusie bepaalt '
+              'de einddatum.', False),
+             ('2029 \u2013 2030', 'Analyse',
+              'Uitkomsten, gezondheidseconomie en procesevaluatie. \u00c9\u00e9n '
+              'publicatie, ongeacht de uitkomst.', False)],
+      slot='De inclusieperiode is het enige wat de einddatum verschuift. Elke '
+           'maand vertraging in de rekrutering is een maand later klaar.',
+      tip='Dit is de dia waar het board naar kijkt. Zeg expliciet dat de pilot '
+          'nu loopt en dat februari 2027 de harde startdatum is.',
+      interactie='Vraag of hun centrum de twee inclusies per maand haalbaar acht.'),
+
+ dict(t='melden', voor='b', morph='morph',
+      kicker='Wat we van uw organisatie vragen',
+      kop='Vier toezeggingen',
+      rijen=[('24 inclusies', 'Over twaalf maanden, dus gemiddeld twee per maand. '
+                              'Onder de twaalf per centrum wordt de studie '
+                              'onderbemand.', '24'),
+             ('Eén vaste PI', 'Plus een gedelegeerd team dat de opleiding volgt en '
+                              'het opleidingsregister tekent.', '1'),
+             ('Tijd per bezoek', 'Baseline loopt uit; de andere bezoeken vallen '
+                                 'samen met de controle die de patiënt al krijgt.',
+                                 '9'),
+             ('Een looppad', 'Tien meter volstaat. Meer ruimte of extra apparatuur '
+                             'is niet nodig.', '10 m')],
+      slot='Wat we níét vragen: gegevensinvoer. Dat doet het onderzoeksteam.',
+      tip='Dit is de vraag. Wees concreet en beloof niets over wat u niet weet.',
+      interactie='Vraag per punt of het haalbaar is. Twijfel nu is beter dan '
+                 'uitval straks.'),
+
+ dict(t='melden', voor='be', morph='morph',
+      kicker='Wat er mis kan gaan',
+      kop='Vier risico\'s, en wat we eraan doen',
+      rijen=[('Te trage inclusie', 'Gefaseerde rekrutering is voorzien; de '
+                                   'haalbaarheid per centrum wordt in de pilot '
+                                   'getoetst.', 'hoog'),
+             ('Contaminatie tussen de armen', 'Blindering in de software van alle '
+                                              'toestellen, aparte formulieren per '
+                                              'arm, en een SEBIA-boekje ook in de '
+                                              'controlegroep.', 'middel'),
+             ('Uitval', 'Vijftien procent is ingecalculeerd in de '
+                        'steekproefberekening.', 'middel'),
+             ('Beide eindpunten moeten halen', 'De lat ligt hoog en dat is een '
+                                               'bewuste keuze: druk zonder '
+                                               'draagtijd zegt niets.', 'laag')],
+      slot='Het grootste risico is niet wetenschappelijk maar organisatorisch: '
+           'of de centra hun 24 halen.',
+      tip='Benoem het inclusierisico eerst en zelf. Als het board het moet '
+          'opmerken, bent u de regie kwijt.',
+      interactie='Vraag welk risico zij zelf het grootst achten.'),
+
  dict(t='sectie', voor='obcue', morph='morph', nr='01', titel='Waarom zo',
       regel='Vier cijfers verklaren waarom er twee normen zijn.'),
 
@@ -222,7 +282,52 @@ SLIDES = [
           'meting én de sensor allebei moeten kloppen.',
       interactie='Morph: de drie tegels komen samen uit één punt.'),
 
- dict(t='sectie', voor='oce', morph='morph', nr='02', titel='De meting',
+ dict(t='power', voor='c', morph='morph',
+      kicker='Steekproefberekening',
+      kop='Twee eindpunten, twee berekeningen',
+      kanten=[dict(tag='Co-primair 1', naam='Ulcusrecidief op 18 maanden',
+                   rijen=[('Aanname controle', '50% recidief'),
+                          ('Aanname interventie', '25% recidief'),
+                          ('Toets', 'log-rank, tweezijdig'),
+                          ('Alfa en power', '0,05 \u00b7 80%'),
+                          ('Uitval', '15% in beide armen')],
+                   nodig='62 per arm \u2192 124, gestratificeerd 130'),
+              dict(tag='Co-primair 2', naam='Schoeiseltherapietrouw',
+                   rijen=[('Aanname controle', '71%, SD 25%'),
+                          ('Aanname interventie', '85%'),
+                          ('Toets', 't-toets, onafhankelijk'),
+                          ('Alfa en power', '0,05 \u00b7 80%'),
+                          ('Uitval', '15%')],
+                   nodig='50 per arm \u2192 100, met uitval 115')],
+      slot='144 dekt beide berekeningen met marge. Omdat béíde eindpunten moeten '
+           'halen is dit een intersectie-unietoets: geen multipliciteitscorrectie, '
+           'maar wel een lagere gezamenlijke power.',
+      slotlabel='Gevolg voor de power',
+      voet='Protocol \u00a73.2.2.1 en \u00a73.2.2.2 \u00b7 exponentiële tijden tot recidief aangenomen',
+      tip='Dit is de dia waar de vraag komt. Benoem de gezamenlijke power zelf, '
+          'vóór iemand in de zaal het doet.',
+      interactie='Geen. Laat de vraag komen.'),
+
+ dict(t='melden', voor='c', morph='morph',
+      kicker='Analyseplan',
+      kop='Hoe we het toetsen',
+      rijen=[('Recidief', 'Percentage deelnemers met een recidief, chi-kwadraat. '
+                          'Verloop over de tijd met log-rank en Kaplan-Meier, '
+                          'rekening houdend met sterfte.', 'co-primair'),
+             ('Therapietrouw', 'Onafhankelijke t-toets, uitgaande van een normale '
+                               'verdeling.', 'co-primair'),
+             ('Subgroep', 'Hoge tegenover lage therapietrouw op de vooraf bepaalde '
+                          '80%-drempel, om het effect van adherentie op recidief '
+                          'te schatten.', 'vooraf'),
+             ('Secundair', 'T-toets of Mann-Whitney bij interval- en ratiodata; '
+                           'chi-kwadraat of Fisher bij nominale en ordinale data.',
+                           'secundair')],
+      slot='De primaire analyse is gestratificeerd naar centrum. Daarom 130 in '
+           'plaats van 124, en 144 na verdeling over zes centra.',
+      tip='Kort houden. Wie meer wil weten vraagt het, en dan hebt u het SAP.',
+      interactie='Geen.'),
+
+ dict(t='sectie', voor='obce', morph='morph', nr='02', titel='De meting',
       regel='Wat u meet, hoe u het meet, en wanneer het goed genoeg is.'),
 
  dict(t='drukmeting', voor='obcuke', morph='morph', fase='voor',
@@ -479,7 +584,7 @@ SLIDES = [
       tip='Sluit blok 3 hiermee af. De zaal herkent de dia van het begin.',
       interactie='Vraag welk moment hun het meest zorgen baart.'),
 
- dict(t='sectie', voor='oue', morph='morph', nr='04', titel='Toestellen en regels',
+ dict(t='sectie', voor='obue', morph='morph', nr='04', titel='Toestellen en regels',
       regel='De instellingen, het gesprek, en de vier regels die vastliggen.'),
 
  dict(t='drieluik', voor='obcuke', morph='morph',
