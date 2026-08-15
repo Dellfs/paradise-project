@@ -342,6 +342,11 @@ ZEG = {
         'elke nieuwe medewerker opnieuw, en bij elke protocolwijziging opnieuw. '
         'Het register blijft bij u; wij krijgen een kopie.',
 
+    'referenties':
+        'Deze dia laat u staan tijdens de vragen. Alles wat u genoemd hebt, '
+        'staat hier met nummer en citaat, in dezelfde nummering als het '
+        'protocolmanuscript.',
+
     'Voor als er iets misloopt':
         'Tot slot: wie u aanspreekt. Praktische vragen — inclusies, metingen, '
         'formulieren, sensoren — komen bij mij. Wetenschappelijke vragen en '

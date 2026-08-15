@@ -88,7 +88,7 @@ DECKS = {
     'congres': dict(
         letter='c', bestand='PARADISE_congres.pptx',
         onder='Studieopzet · wetenschappelijke sessie',
-        duur='15 minuten',
+        duur='15 minuten', taal='en',
         wie='Vakgenoten. Volgt de opbouw van het protocolmanuscript: rationale, '
             'ontwerp, eindpunten, power en analyseplan.'),
     'outreach': dict(
@@ -775,7 +775,6 @@ SLIDES = [
            'maar uit de rekruteringscapaciteit per centrum, en het overtreft '
            'beide minima.',
       slotlabel='Waarom dan 144',
-      voet='Manuscript, steekproefberekening \u00b7 exponentieel verdeelde tijden tot recidief aangenomen',
       tip='Dit is de dia waar de vraag komt. Benoem de gezamenlijke power zelf, '
           'v\u00f3\u00f3r iemand in de zaal het doet \u2014 de volgende dia doet dat.',
       interactie='Geen. Laat de vraag komen.'),

@@ -13,7 +13,7 @@ letters van de decks waarin hij hoort; de bouwer filtert daarop.
 | `opleiding` | `PARADISE_opleidingssessie_voetklinieken.pptx` | 60-75 min | De medewerkers van de zes centra. Volledig, met de stapreeks per bezoek. |
 | `kort` | `PARADISE_centra_kort.pptx` | 20 min | Opfrissing voor wie de opleiding al volgde. Bezoeken compact op één dia. |
 | `board` | `PARADISE_board.pptx` | 15-20 min | Directie, stuurgroep, financier. Met tijdlijn, de vier toezeggingen en de risico's. |
-| `congres` | `PARADISE_congres.pptx` | 15 min | Vakgenoten. Volgt de opbouw van het protocolmanuscript. |
+| `congres` | `PARADISE_congres.pptx` | 15 min | Vakgenoten, **in het Engels**. Volgt de opbouw van het protocolmanuscript. |
 | `extern` | `PARADISE_extern.pptx` | 15 min | Externe partners, andere ziekenhuizen, industrie. |
 | `outreach` | `PARADISE_outreach.pptx` | 10 min | Breed publiek en pers. Geen jargon, geen formuliernummers. |
 
@@ -100,6 +100,8 @@ tweekolommig met kader en bijschrift.
 | --- | --- |
 | `inhoud.py` | alle tekst, cijfers, presentatietips en interactiemomenten. Hier past u de inhoud aan. |
 | `spreektekst.py` | wat u bij elke dia zegt. Hier studeert u uit. |
+| `bronnen.py` | de referentielijst van het manuscript, en welke dia op welke referentie steunt. |
+| `vertaling.py` | het woordenboek Nederlands-Engels voor het congresdeck. |
 | `maak_pptx.py` | de opmaak: één blok per diatype. Hier past u de vormgeving aan. |
 | `beeld.py` | de getekende beelden: de drukmat en het trajectcanvas. |
 | `maak_beelden.py` | snijdt de productfoto's uit de hoofdmap bij. |
@@ -167,3 +169,43 @@ Vergeet u een dia, dan meldt `maak_pptx.py` dat bij het bouwen:
 ```text
 Geen spreektekst in spreektekst.py voor: <kop van de dia>
 ```
+
+## Referenties
+
+Elke dia die een externe bewering doet, draagt linksonder een bronregel:
+
+```text
+Bron  9 · Bus 2013, DIAFOS   |   13 · Waaijman 2013
+```
+
+Achteraan elk deck staat automatisch een **referentiedia** met de volledige
+citaties van alles wat in dát deck geclaimd is — alleen die, niet de hele lijst.
+De nummering is identiek aan die van `protocol paper/
+PARADISE_protocol_manuscript.docx`, zodat dia en manuscript naar hetzelfde
+nummer verwijzen.
+
+Welke dia op welke referentie steunt, staat in `BIJ_DIA` in `bronnen.py`, met de
+kop van de dia als sleutel. Een dia die niets externs beweert — een
+hoofdstukdia, het bezoekschema, de contactdia — staat er niet in. De citaties
+worden op de dia ingekort tot eerste auteur, tijdschrift en jaar; de volledige
+auteurslijst hoort in het manuscript.
+
+## Het congresdeck in het Engels
+
+`inhoud.py` blijft Nederlands. Het congresdeck draagt `taal='en'` in `DECKS`, en
+dan gaat elke dia door `vertaling.py`: een woordenboek Nederlands → Engels dat
+recursief over de diadefinitie loopt. Wat in het woordenboek staat wordt
+vervangen, de rest blijft ongemoeid — daarom hoeven kleurnamen, toestelnamen en
+eCRF-nummers er niet in.
+
+De spreektekst gaat door dezelfde vertaalslag. De **presentatietips en de
+interactiemomenten blijven met opzet Nederlands**: die leest alleen u.
+
+Ontbreekt er een zin, dan meldt de bouwer welke:
+
+```text
+Nog niet vertaald in vertaling.py (1):
+   Zes centra maal 24 is 144.
+```
+
+Zolang die melding leeg blijft, staat er geen Nederlands op het Engelse scherm.

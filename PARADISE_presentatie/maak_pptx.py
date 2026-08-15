@@ -21,8 +21,17 @@ from PIL import Image
 from inhoud import SLIDES, K, FONT, FONT_L, FONT_M, kol, PUNTEN, SOORT, DECKS
 from spreektekst import ZEG, stap_tekst
 from spreektekst import sleutel as zeg_sleutel
+import bronnen
+import vertaling
 
 ONTBREEKT = set()  # dia's zonder spreektekst, gemeld na het bouwen
+GEBRUIKT = []      # referentienummers die in dit deck voorkomen
+
+# Dia's die de volle breedte of de volle hoogte gebruiken dragen geen bronregel;
+# daar zou hij het beeld breken. Hun bron staat op de dia ervoor of erna.
+GEEN_BRONREGEL = {'titel_foto', 'titel_poster', 'titel_duo', 'titel_vlak',
+                  'hero_titel', 'sectie', 'knal', 'pauze', 'slot', 'contact',
+                  'referenties'}
 
 # Welk deck bouwen we? `python maak_pptx.py board` of `... alle`.
 KEUZE = (sys.argv[1] if len(sys.argv) > 1 else 'opleiding').lower()
@@ -275,6 +284,18 @@ def kop(s, t, y=132, gr=40, kl='ink', w=1560, naam=None):
     txt(s, 100, y, w, 200, t, gr=gr, kl=kl, vet=True, ra=1.1, naam=naam)
 
 
+def bronregel(s, d):
+    """De korte verwijzing linksonder, en het nummer onthouden voor achteraan."""
+    nrs = d.get('bron') or bronnen.BIJ_DIA.get(zeg_sleutel(d), ())
+    if not nrs:
+        return
+    GEBRUIKT.extend(nrs)
+    if d['t'] in GEEN_BRONREGEL:
+        return
+    txt(s, 100, 1044, 1720, 28, bronnen.regel(nrs, TAAL['bron']), gr=10,
+        kl='gedempt', font=FONT_M)
+
+
 def notitie(s, d):
     """Sprekersnotitie: eerst wat u zegt, dan de tip en het interactiemoment."""
     zeg = d.get('zeg') or ZEG.get(zeg_sleutel(d), '')
@@ -357,6 +378,37 @@ for d in SLIDES:
         d['nr'] = '%02d' % nr
 
 SLIDES = uitklappen(SLIDES, aan=DECK.get('uitklappen', False))
+
+# Labels die per taal verschillen. Het deck bepaalt de taal; de inhoud zelf komt
+# uit vertaling.py.
+TAAL = dict(bron='Bron', referenties='Referenties',
+            ref_kicker='Waar de cijfers vandaan komen',
+            ref_regel='De nummering volgt die van het protocolmanuscript.')
+if DECK.get('taal') == 'en':
+    TAAL = dict(bron='Source', referenties='References',
+                ref_kicker='Where the numbers come from',
+                ref_regel='Numbering follows the protocol manuscript.')
+    # spreektekst en bronnummers eerst opzoeken op de Nederlandse kop, want na
+    # het vertalen bestaat die sleutel niet meer
+    for d in SLIDES:
+        d.setdefault('zeg', ZEG.get(zeg_sleutel(d), ''))
+        d.setdefault('bron', bronnen.BIJ_DIA.get(zeg_sleutel(d), ()))
+    SLIDES = [vertaling.vertaal(d) for d in SLIDES]
+    # De tijdlijn en de legende komen niet uit een dia maar uit inhoud.py zelf.
+    # Alleen het label mag mee: het eerste veld is een code, het derde een
+    # kleursleutel.
+    PUNTEN = [(code, vertaling._str(label), soort)
+              for code, label, soort in PUNTEN]
+    SOORT = [(code, vertaling._str(label)) for code, label in SOORT]
+
+
+def T(zin):
+    """Losse tekst uit de opmaak zelf, die per taal moet meebewegen."""
+    return vertaling._str(zin) if DECK.get('taal') == 'en' else zin
+
+# de referentiedia sluit het deck af; welke nummers erop staan blijkt pas na
+# het tekenen, dus de dia zelf wordt als laatste gevuld
+SLIDES.append(dict(t='referenties', voor=DECK['letter'], morph='fade'))
 
 prs = Presentation()
 prs.slide_width, prs.slide_height = Inches(13.333), Inches(7.5)
@@ -570,7 +622,7 @@ for i, d in enumerate(SLIDES, 1):
                 txt(s, 1720, yy + 38, 110, 44, '%d%%' % waarde, gr=22, kl='ink', vet=True)
                 yy += 118
             merkstreep(s, 1000 + 700 * 0.80, 344, 348, 'oranje')
-            txt(s, 1000 + 700 * 0.80 - 100, 704, 200, 36, 'norm 80%', gr=13,
+            txt(s, 1000 + 700 * 0.80 - 100, 704, 200, 36, T('norm 80%'), gr=13,
                 kl='oranje', vet=True, font=FONT_M, uit=PP_ALIGN.CENTER)
         else:
             for j, (g, l) in enumerate(d['tegels']):
@@ -654,7 +706,7 @@ for i, d in enumerate(SLIDES, 1):
         txt(s, 380, 520, 400, 40, '72 GEBRUIKELIJKE ZORG', gr=13, kl='oranje',
             vet=True, font=FONT_M, sp=1.4)
         txt(s, 1080, 286, 740, 250,
-            'Elke stip is een patiënt die u zelf includeert.\n24 per kliniek.',
+            T('Elke stip is een patiënt die u zelf includeert.\n24 per kliniek.'),
             gr=30, kl='ink', vet=True, ra=1.3)
         for j, (k2, v) in enumerate(d['klein']):
             x, w = kol((j % 2) * 6, 6)
@@ -922,7 +974,13 @@ for i, d in enumerate(SLIDES, 1):
             tegel(s, x, 286, w, kaarthoogte, 'tegel', 'rand')
             txt(s, x + 36, 314, w - 72, 40, p['tag'], gr=12, kl='licht', vet=True,
                 font=FONT_M, caps=True, sp=1.5)
-            txt(s, x + 36, 356, w - 72, 70, p['naam'], gr=25, kl='ink', vet=True)
+            # de eindpuntnaam moet op één regel blijven, anders duwt hij de
+            # eerste aanname weg — in het Engels is hij langer dan in het
+            # Nederlands
+            gr = 25
+            while gr > 16 and hoogte(p['naam'], w - 72, gr, 1.1) * 1.22 > 56:
+                gr -= 1
+            txt(s, x + 36, 356, w - 72, 70, p['naam'], gr=gr, kl='ink', vet=True)
             y = 428
             for sleutel, waarde in p['rijen']:
                 liniaal(s, x + 36, y, w - 72)
@@ -935,13 +993,12 @@ for i, d in enumerate(SLIDES, 1):
             tegel(s, x + 36, y + 10, w - 72, 50, 'glas', None)
             txt(s, x + 36, y + 22, w - 72, 40, p['nodig'], gr=16, kl='licht',
                 vet=True, uit=PP_ALIGN.CENTER, font=FONT_M)
-        ys = 286 + kaarthoogte + 22
+        ys = 286 + kaarthoogte + 18
         hs = hoogte(d['slot'], 1620, 15.5, 1.3) * 1.22
-        tegel(s, 100, ys, 1720, hs + 84, 'tegel', 'oranje')
-        txt(s, 148, ys + 20, 700, 34, d.get('slotlabel', 'Gevolg'), gr=12.5,
+        tegel(s, 100, ys, 1720, hs + 76, 'tegel', 'oranje')
+        txt(s, 148, ys + 18, 700, 34, d.get('slotlabel') or T('Gevolg'), gr=12.5,
             kl='oranje', vet=True, font=FONT_M, caps=True, sp=1.5, omslag=False)
-        txt(s, 148, ys + 58, 1620, hs + 18, d['slot'], gr=15.5, kl='ink', ra=1.3)
-        txt(s, 100, 1042, 1500, 30, d['voet'], gr=11, kl='gedempt', font=FONT_M)
+        txt(s, 148, ys + 54, 1620, hs + 18, d['slot'], gr=15.5, kl='ink', ra=1.3)
         paginering(s, i)
 
     elif t == 'melden':
@@ -1121,7 +1178,7 @@ for i, d in enumerate(SLIDES, 1):
         tegel(s, 100, 646, 1080, 244, 'tegel', 'rand')
         txt(s, 144, 690, 1000, 190, d['body'], gr=17.5, kl='gedempt', ra=1.45)
         tegel(s, 1240, 320, 580, 554, 'tegel2', 'oranje')
-        txt(s, 1288, 366, 490, 38, 'Uitzondering', gr=12.5, kl='oranje', vet=True,
+        txt(s, 1288, 366, 490, 38, T('Uitzondering'), gr=12.5, kl='oranje', vet=True,
             font=FONT_M, caps=True, sp=1.6)
         txt(s, 1288, 430, 490, 400, d['uitzondering'], gr=18, kl='ink', ra=1.45)
         paginering(s, i)
@@ -1209,10 +1266,35 @@ for i, d in enumerate(SLIDES, 1):
         txt(s, 100, 962, 1720, 60, d['consortium'], gr=13, kl='gedempt', ra=1.35)
         paginering(s, i)
 
+    elif t == 'referenties':
+        # de volledige citaties van alles wat in dít deck geclaimd is, in twee
+        # kolommen en op nummer, zodat de zaal kan meelezen met de bronregels
+        kicker(s, TAAL['ref_kicker']); kop(s, TAAL['referenties'],
+                                           naam='sectietitel')
+        alle = bronnen.lijst(GEBRUIKT)
+        # boven de zestien titels wordt twee kolommen te lang; dan drie
+        kolommen = 3 if len(alle) > 16 else 2
+        gr = 10.5 if kolommen == 3 else 12
+        per = -(-len(alle) // kolommen)
+        for j in range(kolommen):
+            x, w = kol(j * (12 // kolommen), 12 // kolommen)
+            y = 292
+            for nummer, citaat in alle[j * per:(j + 1) * per]:
+                h = hoogte(citaat, w - 52, gr, 1.32) * 1.22
+                txt(s, x, y, 44, 30, str(nummer), gr=gr, kl='licht', vet=True,
+                    font=FONT_M, uit=PP_ALIGN.RIGHT)
+                txt(s, x + 52, y, w - 52, h + 8, citaat, gr=gr, kl='gedempt',
+                    ra=1.32)
+                y += h + 14
+        txt(s, 100, 1006, 1500, 30, TAAL['ref_regel'], gr=11, kl='gedempt',
+            font=FONT_M)
+        paginering(s, i)
+
     else:
         raise SystemExit('onbekend type: %s' % t)
 
     merk(s, t)
+    bronregel(s, d)
     notitie(s, d)
     morph(s, d.get('morph', 'morph'))
 
@@ -1220,4 +1302,8 @@ prs.save(DOEL)
 if ONTBREEKT:
     print('Geen spreektekst in spreektekst.py voor: %s'
           % ' · '.join(sorted(ONTBREEKT)))
+if vertaling.ONVERTAALD:
+    print('Nog niet vertaald in vertaling.py (%d):' % len(vertaling.ONVERTAALD))
+    for zin in sorted(vertaling.ONVERTAALD):
+        print('   %s' % zin[:110])
 print("%d dia's · %.0f KB · %s" % (TOT, os.path.getsize(DOEL) / 1024, os.path.basename(DOEL)))
