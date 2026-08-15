@@ -625,15 +625,21 @@ for i, d in enumerate(SLIDES, 1):
 
     elif t == 'duo':
         kicker(s, d['kicker']); kop(s, d['kop'], naam='sectietitel')
+        # de kaart eindigt waar de opsomming eindigt: drie regels laten geen
+        # leeg vlak achter, vier lopen er niet uit
+        breed = kol(0, 6)[1] - 80
+        lijst = max(sum(hoogte(r, breed, 14.5, 1.32) * 1.22 + 12
+                        for r in c['regels']) for c in (d['een'], d['twee']))
+        kaarthoogte = int(336 + lijst + 16)
         for j, c in enumerate((d['een'], d['twee'])):
             x, w = kol(j * 6, 6)
-            tegel(s, x, 320, w, 664, 'tegel', 'rand')
+            tegel(s, x, 320, w, kaarthoogte, 'tegel', 'rand')
             txt(s, x + 40, 354, 200, 60, c['nr'], gr=26, kl='licht', vet=True, font=FONT_M)
             txt(s, x + 40, 418, w - 80, 110, c['naam'], gr=24, kl='ink', vet=True, ra=1.15)
             tegel(s, x + 40, 548, w - 80, 84, 'glas', None)
             txt(s, x + 40, 572, w - 80, 48, c['kern'], gr=18, kl='licht', vet=True,
                 uit=PP_ALIGN.CENTER, font=FONT_M)
-            txt(s, x + 40, 656, w - 80, 310,
+            txt(s, x + 40, 656, w - 80, lijst + 16,
                 [(r, {'voor': 12}) for r in c['regels']], gr=14.5, kl='gedempt',
                 ra=1.32)
         paginering(s, i)

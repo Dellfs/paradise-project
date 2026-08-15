@@ -85,41 +85,59 @@ ZEG = {
         'meest zorgen?',
 
     # ------------------------------------------------------ blok 1, waarom
+    # De boog van blok 1: inzet, spanning, mislukking, verklaring, omslag.
+    # Elke dia geeft de volgende door; lees ze één keer na elkaar en u hoort het.
     'Waarom zo':
-        'Blok één: waarom de studie zo is opgezet. Vier cijfers, en daarna '
-        'begrijpt u waarom er twee normen zijn in plaats van één.',
+        'Blok één. Ik geef u vier cijfers. Na het vierde weet u waarom deze '
+        'studie twee normen heeft in plaats van één, en waarom niemand die tot '
+        'nu toe samen gehaald heeft.',
 
     'krijgt binnen een jaar\neen nieuw ulcus':
         'Veertig procent krijgt binnen één jaar een nieuw ulcus. Na vijf jaar is '
         'dat vijfenzestig. En de sterfte ligt tweeënhalf keer hoger dan bij '
-        'diabetes zonder ulcus. Genezing is dus geen eindpunt maar remissie.',
+        'diabetes zonder ulcus — na een amputatie zelfs boven de zeventig '
+        'procent. Dit is geen wondprobleem. Dit is een overlevingsprobleem.',
+
+    'Driekwart is te voorkomen.\nVeertig procent komt terug.':
+        'En dan het cijfer dat het onverdraaglijk maakt. Driekwart van deze '
+        'ulcera is in principe te voorkomen. Toch komt veertig procent binnen '
+        'het jaar terug. Dat gat tussen wat kan en wat gebeurt — daar gaat deze '
+        'studie over.',
 
     "Drie strategieën, één patroon":
-        'Drie strategieën zijn getest. Drukgestuurd schoeisel haalde zijn '
-        'eindpunt niet. Educatie alleen had zelfs een negatief mediaan effect. '
-        'Digitale feedback werkte, maar opnieuw alleen bij wie het toestel bleef '
-        'gebruiken.',
+        'Het is niet zo dat niemand het geprobeerd heeft. Drukgestuurd '
+        'schoeisel haalde zijn eindpunt niet. Educatie alleen had zelfs een '
+        'negatief mediaan effect. Digitale feedback werkte, maar opnieuw alleen '
+        'bij wie het toestel bleef gebruiken.',
 
     'Waarom druk alléén niet volstaat':
-        'Dezelfde schoen, twee uitkomsten. Over iedereen: geen verschil. Bij wie '
-        'hem tachtig procent van de stappen dróég: bijna gehalveerd. Daarom '
-        'meten wij niet alleen druk, maar ook draagtijd.',
+        'Dit is de beste poging die er ligt: drukgeoptimaliseerd maatschoeisel, '
+        'multicentrisch en gerandomiseerd. Over iedereen samen: geen verschil. '
+        'Bij wie hem dróég: bijna gehalveerd. Het verschil zat dus niet in de '
+        'schoen.',
 
     'draagtijd — gemeten,\nniet gevraagd':
-        'Eenenzeventig procent draagtijd, gemeten met een sensor en niet '
-        'gevraagd. Thuis zakt het naar eenenzestig, en juist thuis worden de '
-        'meeste stappen gezet. Minder dan een derde haalt de tachtig procent.',
+        'Daar zit het. Eenenzeventig procent draagtijd, gemeten met een sensor '
+        'en niet gevraagd. Thuis zakt het naar eenenzestig, en juist thuis '
+        'worden de meeste stappen gezet. De schoen stond in de gang terwijl de '
+        'patiënt door het huis liep.',
 
     'Belasting is een product,\ngeen optelsom':
         'Belasting is een product, geen optelsom. Piekdruk maal activiteit maal '
-        'draagtijd. Eén factor op nul maakt het hele product nul. Daarom heeft '
-        'PARADISE twee normen en niet één.',
+        'draagtijd. Eén factor op nul maakt het hele product nul. Een perfecte '
+        'zool in de kast beschermt niets.',
 
     'Drie dingen zijn veranderd':
         'Waarom kan deze studie nu pas? Drie dingen zijn veranderd. De sensor '
         'maakt therapietrouw meetbaar, COM-B verklaart waaróm educatie faalde, '
-        'en België heeft erkende voetklinieken met opleidingseisen. Daarom is '
-        'therapietrouw hier een eindpunt en geen mediator.',
+        'en België heeft erkende voetklinieken met opleidingseisen. De '
+        'onderdelen liggen er dus klaar.',
+
+    'Eén dienst, geen drie losse maatregelen':
+        'Daarom doen wij het anders. Geen drie losse maatregelen, maar één '
+        'dienst met twee normen: de zool moet de druk hálen, én hij moet '
+        'gedragen wórden. Beide gemeten, beide bijgestuurd, en beide door uw '
+        'eigen team. Dat is nog nooit samen getoetst.',
 
     # ------------------------------------------------------ blok 2, meting
     'De meting':

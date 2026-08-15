@@ -240,11 +240,19 @@ SLIDES = [
  dict(t='hero_cijfer', voor='obcuke', morph='morph',
       cijfer='40', suffix='%',
       kop='krijgt binnen een jaar\neen nieuw ulcus',
-      tegels=[('60%', 'na drie jaar'), ('65%', 'na vijf jaar'), ('2,5×', 'hogere sterfte')],
+      tegels=[('65%', 'na vijf jaar'), ('2,5×', 'hogere sterfte'),
+              ('> 70%', 'sterfte na amputatie')],
       voet='Armstrong, Boulton & Bus · N Engl J Med 2017',
       accent='oranje',
       tip='Dit is het probleem waar de hele studie op staat. Eén dia, dan door.',
       interactie='Geen. Dit is context, geen discussie.'),
+
+ dict(t='knal', voor='obcuke', morph='morph',
+      kop='Driekwart is te voorkomen.\nVeertig procent komt terug.',
+      onder='Dat gat is waar deze studie over gaat.',
+      tip='Zeg dit traag en zwijg dan twee tellen. Dit is de enige dia in blok '
+          '1 waar de zaal niet leest maar luistert.',
+      interactie='Geen. De stilte doet het werk.'),
 
  dict(t='melden', voor='c', morph='morph',
       kicker='Wat er al geprobeerd is',
@@ -328,6 +336,27 @@ SLIDES = [
            'mediator die je achteraf afleidt.',
       tip='Drie redenen, drie zinnen. Dit is het scharnier naar de opzet.',
       interactie='Geen.'),
+
+ dict(t='duo', voor='obcuke', morph='morph',
+      kicker='Wat PARADISE anders doet',
+      kop='E\u00e9n dienst, geen drie losse maatregelen',
+      een=dict(nr='01', naam='De zool h\u00e1\u00e1lt de norm',
+               kern='< 200 kPa \u00f3f 25% lager',
+               regels=['Gemeten bij de aflevering, in drie condities.',
+                       "Aangepast tot de norm gehaald is in elk van de drie "
+                       "doelregio's.",
+                       'Herhaald op maand 6, 12 en 18.']),
+      twee=dict(nr='02', naam='En hij w\u00f3rdt gedragen',
+                kern='80% van zijn eigen activiteitenprofiel',
+                regels=['Een sensor in de zool meet de draagtijd, continu.',
+                        'Elke drie maanden uitgelezen en samen bekeken.',
+                        'Vijf gesprekken die op die data staan, niet op goede '
+                        'raad.']),
+      tip='Dit is de kanteldia. Alles ervoor is het probleem, alles erna is de '
+          'uitvoering. Zeg met zoveel woorden dat dit nog nooit samen getoetst '
+          'is.',
+      interactie='Vraag welke van de twee normen zij het moeilijkst achten. '
+                 'Het antwoord is bijna altijd de tweede.'),
 
  dict(t='sectie', voor='obce', morph='morph', nr='02', titel='De meting',
       regel='Wat u meet, hoe u het meet, en wanneer het goed genoeg is.'),
