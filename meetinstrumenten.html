@@ -228,12 +228,40 @@ INST.forEach(function(d){
  if(d.k==='ot'){h+='<div class="sh">'+tr(["Adherentie-feedback (SEBIA)","Adherence feedback (SEBIA)"])+'</div>'+feedback();}
  h+='</div>';
 });
+// De zool zelf is geen meetinstrument, maar wel het voorwerp waar elke meting
+// over gaat. Opbouw en onderhoud staan daarom hier, niet alleen in het protocol.
+h+='<div class="card" style="margin:16px 0">';
+h+='<div class="inst"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 3c2.6 0 4 1.6 4 4.2 0 2.6-1.2 3.6-1.2 5.6 0 2.2 1.4 3 1.4 5.1 0 2.3-1.6 3.6-3.9 3.6-2.4 0-4.3-1.6-4.3-4.4 0-4 1.3-5.6 1.3-9.1C5.8 5.1 6.4 3 8.5 3Z"/><path d="M15.5 8.5h3M15.5 12h3M15.5 15.5h3"/></svg></span>'
+ +'<div><div class="kicker">'+tr(["De interventie zelf","The intervention itself"])+'</div><h2>'+tr(["De maatzool (CMFO)","The custom insole (CMFO)"])+'</h2></div>'
+ +'<span class="who" style="margin-left:auto">\ud83d\udc64 '+tr(["Pedorthist","Pedorthist"])+'</span></div>';
+h+='<p style="color:var(--soft);margin:10px 0 0">'+tr(["Alles wat hierboven gemeten wordt, gaat over d\u00e9ze zool. De opbouw ligt vast in het protocol en hangt af van het schoentype waarin hij gedragen wordt \u2014 een volledig maatgemaakte schoen vraagt een andere opbouw dan een confectieschoen met extra diepte.","Everything measured above concerns this insole. Its build-up is fixed in the protocol and depends on the type of shoe it is worn in \u2014 a fully custom-made shoe calls for a different build-up than an extra-depth off-the-shelf shoe."])+'</p>';
+h+='<div class="chips"><span class="chip">'+tr(["opbouw per schoentype","build-up per shoe type"])+'</span><span class="chip">'+tr(["twee identieke paren","two identical pairs"])+'</span><span class="chip">&lt;200 kPa '+tr(["\u00f3f","or"])+' \u226525%</span></div>';
+
+h+='<div class="sh">'+tr(["Opbouw per schoentype","Build-up per shoe type"])+'</div>';
+h+='<table class="tbl"><thead><tr><th>'+tr(["Laag","Layer"])+'</th><th>'+tr(["Volledig maatwerk","Fully custom-made shoe"])+'</th><th>'+tr(["Confectie met extra diepte","Extra-depth off-the-shelf"])+'</th></tr></thead><tbody>'
+ +'<tr><td>'+tr(["Basis","Base"])+'</td><td>'+tr(["5 mm microkurk (shore 55)","5 mm micro-cork (shore 55)"])+'</td><td>'+tr(["geen kurk","no cork"])+'</td></tr>'
+ +'<tr><td>'+tr(["Draaglaag","Contact layer"])+'</td><td>'+tr(["5 mm EVA (shore 35\u201340)","5 mm EVA (shore 35\u201340)"])+'</td><td>'+tr(["6 mm EVA (shore 35\u201340)","6 mm EVA (shore 35\u201340)"])+'</td></tr>'
+ +'<tr><td>'+tr(["Deklaag","Top cover"])+'</td><td colspan="2">'+tr(["3 mm gesloten-cellig op 3 mm open-cellig, over de volle lengte","3 mm closed-cell over 3 mm open-cell, full length"])+'</td></tr>'
+ +'<tr><td>'+tr(["Steun en ontlasting","Support and relief"])+'</td><td colspan="2">'+tr(["3\u20135 mm mediale voetboogsteun \u00b7 metatarsaalbalk 9\u201310 mm hoog, 6\u201311 mm proximaal van de kopjes \u2014 of een lokale pad als maar \u00e9\u00e9n regio hoog ligt \u00b7 lokale uitsparing bij fragiele of prominente zones","3\u20135 mm medial arch support \u00b7 metatarsal bar 9\u201310 mm high, 6\u201311 mm proximal to the heads \u2014 or a local pad if only one region is elevated \u00b7 local depth relief at fragile or prominent zones"])+'</td></tr>'
+ +'</tbody></table>';
+h+='<p class="muted" style="margin-top:8px">'+tr(["Pasvorm wordt apart beoordeeld in het b\u00ednnenschoeisel \u00e9n het b\u00faitenschoeisel, met fotodocumentatie (eCRF 23).","Fit is assessed separately in the ínner and the óuter footwear, with photographic documentation (eCRF 23)."])+'</p>';
+
+h+='<div class="sh">'+tr(["Twee identieke paren","Two identical pairs"])+'</div>';
+h+='<ul class="steps">'
+ +'<li>'+tr(["Zodra de drukdoelen gehaald zijn op visite 2, laat u een <b>identiek duplicaatpaar</b> maken. Pas dan, niet eerder \u2014 anders dupliceert u een zool die de norm niet haalt.","As soon as the pressure targets are met at visit 2, an <b>identical duplicate pair</b> is made. Only then, not before \u2014 otherwise you duplicate an insole that misses the target."])+'</li>'
+ +'<li>'+tr(["Vanaf maand 3 beoordeelt u <b>beide paren</b> bij elk kwartaalbezoek. Het paar dat onderhoud nodig heeft gaat naar de pedorthist, deklaag inbegrepen; het andere blijft in gebruik.","From month 3 on, <b>both pairs</b> are assessed at every quarterly visit. The pair needing maintenance goes to the pedorthist, top cover included; the other stays in use."])+'</li>'
+ +'<li>'+tr(["De deelnemer wisselt <b>niet dagelijks</b> tussen de paren. Het tweede paar bestaat om onderhoud mogelijk te maken zonder dat iemand zonder zool valt.","The participant does <b>not</b> alternate between pairs from day to day. The second pair exists so that maintenance never leaves anyone without an insole."])+'</li>'
+ +'<li>'+tr(["De Orthotimer zit in het paar dat gedragen wordt. Verhuist de sensor bij een vervanging, registreer dan het nieuwe toestelnummer (eCRF 33).","The Orthotimer sits in the pair that is worn. If the sensor moves during a replacement, record the new device number (eCRF 33)."])+'</li>'
+ +'</ul>';
+h+='<div class="note tip" style="margin-top:12px"><span class="lab">'+tr(["Schoeiselcriterium","Footwear criterion"])+'</span>'+tr(["Drie situaties komen in aanmerking: volledig maatwerk (orthopedisch schoeisel), maatzolen in semi-orthopedisch schoeisel, of maatzolen in adequaat confectieschoeisel met extra diepte.","Three situations qualify: fully custom-made (orthopaedic) footwear, custom insoles in semi-orthopaedic footwear, or custom insoles in adequate extra-depth off-the-shelf footwear."])+'</div>';
+h+='</div>';
 h+='<div class="sh">'+tr(["Wie doet wat","Who does what"])+'</div>';
 h+='<table class="tbl"><thead><tr><th>'+tr(["Instrument","Instrument"])+'</th><th>'+tr(["Afname door","Performed by"])+'</th><th>'+tr(["Wanneer","When"])+'</th></tr></thead><tbody>';
 h+='<tr><td>F-Scan GO</td><td>'+tr(["Studieteam","Study team"])+'</td><td>'+tr(["Baseline, 2w\u20131m, 6/12/18 mnd","Baseline, 2w\u20131m, 6/12/18 mo"])+'</td></tr>';
 h+='<tr><td>Novel pedar</td><td>'+tr(["Zorgteam (DFC)","Care team (DFC)"])+'</td><td>'+tr(["Transitie \u00b7 parallel met F-Scan","Transition \u00b7 parallel with F-Scan"])+'</td></tr>';
 h+='<tr><td>MoveMonitor</td><td>'+tr(["Zorgteam (DFC)","Care team (DFC)"])+'</td><td>'+tr(["Volle week, baseline + 6 mnd","Full week, baseline + 6 mo"])+'</td></tr>';
 h+='<tr><td>Orthotimer</td><td>'+tr(["Zorgteam (DFC)","Care team (DFC)"])+'</td><td>'+tr(["In de CMFO; uitlezen + vervangen elke 3 mnd","In the CMFO; read out + replace every 3 mo"])+'</td></tr>';
+h+='<tr><td>'+tr(["Maatzool (CMFO)","Custom insole (CMFO)"])+'</td><td>'+tr(["Pedorthist","Pedorthist"])+'</td><td>'+tr(["Voorschrift visite 1 \u00b7 aflevering visite 2 \u00b7 beide paren elk kwartaal","Prescribed at visit 1 \u00b7 delivered at visit 2 \u00b7 both pairs every quarter"])+'</td></tr>';
 h+='</tbody></table>';
 h+='<div class="note tip" style="margin-top:18px"><span class="lab">'+tr(["Twee co-primaire eindpunten","Two co-primary endpoints"])+'</span>'+tr(["(1) Voetulcus-recidief over 18 maanden en (2) schoeisel-adherentie (\u226580% van het activiteitenprofiel, 7 d/week; primair analysepunt op 12 maanden).","(1) Foot-ulcer recurrence over 18 months and (2) footwear adherence (\u226580% of the activity profile, 7 d/week; primary analysis point at 12 months)."])+'</div>';
 return h;
