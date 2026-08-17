@@ -207,7 +207,7 @@ h+='<div class="kicker">'+tr(["Methodologische analyse","Methodological analysis
 h+='<h1>'+tr(["Van protocol naar praktijk: visitplanning &amp; eCRF-structuur","From protocol to practice: visit schedule &amp; eCRF structure"])+'</h1>';
 h+='<p class="lead">'+tr(["Een verkennende analyse van het goedgekeurde PARADISE-protocol (v1.0): hoe de visitplanning en de eCRF-structuur overzichtelijker georganiseerd kunnen worden, met minder overlap tussen vragenlijsten.","An exploratory analysis of the approved PARADISE protocol (v1.0): how the visit schedule and eCRF structure could be organised more transparently, with less overlap between questionnaires."])+'</p>';
 h+='<div class="note tip"><span class="lab">'+tr(["Enkel voor het onderzoeksteam","For the research team only"])+'</span>'+tr(["Deze analyse is verkennend en staat los van het goedgekeurde protocol (v1.0), dat van kracht blijft tot een amendement wordt goedgekeurd. Alle eCRF-links verwijzen naar de originele documenten in de studiemap.","This analysis is exploratory and is kept separate from the approved protocol (v1.0), which remains in force until an amendment is approved. All eCRF links point to the original documents in the study folder."])+'</div>';
-h+='<div class="note warn"><span class="lab">'+tr(["Amendement","Amendment"])+'</span>'+tr(["Beslissing van de PI: ","Decision by the PI: "])+DROPPED_NOTE+tr([" worden uit het protocol geschrapt. Ze blijven hieronder zichtbaar in de traceability-matrix (doorstreept, gemarkeerd “Geschrapt”) voor auditdoeleinden, maar tellen niet meer mee in de actieve domein-cijfers hierboven."," are being dropped from the protocol. They remain visible below in the traceability matrix (struck through, marked “Dropped”) for audit purposes, but no longer count toward the active domain figures above."])+'</div>';
+h+='<div class="note warn"><span class="lab">'+tr(["Amendement","Amendment"])+'</span>'+tr(["Beslissing van de PI: ","Decision by the PI: "])+tr(["NVVP (11), SF-36 (22) en TWCS/Texas (37)","NVVP (11), SF-36 (22) and TWCS/Texas (37)"])+tr([" worden uit het protocol geschrapt. Ze blijven hieronder zichtbaar in de traceability-matrix (doorstreept, gemarkeerd “Geschrapt”) voor auditdoeleinden, maar tellen niet meer mee in de actieve domein-cijfers hierboven."," are being dropped from the protocol. They remain visible below in the traceability matrix (struck through, marked “Dropped”) for audit purposes, but no longer count toward the active domain figures above."])+'</div>';
 
 var DOMAIN_ORDER=["screening","baseline","clinical","selfcare","education","qol","health","overige","process","safety"];
 var DOMAIN_INFO={
@@ -270,7 +270,6 @@ function typeLabel(k){return TYPE_INFO[k][lang==='nl'?'nl':'en'];}
 // Rijformaat: [eCRF-nummer, domain, titel, visit(s), type, status?]
 // status "dropped" = geschrapt bij amendement, blijft zichtbaar in de matrix voor
 // traceability maar telt niet mee in de actieve domein-tellingen/inzichten.
-var DROPPED_NOTE=tr(["NVVP (11), SF-36 (22) en TWCS/Texas (37)","NVVP (11), SF-36 (22) and TWCS/Texas (37)"]);
 function isDropped(r){ return r[5]==="dropped"; }
 var ECRF_ROWS=[
  ["01","screening",tr(["Screening vóór toestemming","Screening before consent"]),"V0","administratie"],

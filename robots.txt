@@ -1,4 +1,11 @@
 User-agent: *
 Allow: /
 
+# Werkinstrumenten voor het studieteam: niet bedoeld voor zoekmachines.
+Disallow: /visite-checklist.html
+Disallow: /protocol-analyse.html
+Disallow: /PARADISE_Draagpatroon_uploader.html
+Disallow: /McRoberts_Beweegpatroon_uploader.html
+Disallow: /PARADISE_Feedback_Draagpatroon_20feb-3apr2026.html
+
 Sitemap: https://belgianfootpressure.be/sitemap.xml
