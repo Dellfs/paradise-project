@@ -915,12 +915,17 @@ function showConfirm(model, goalFromFile){
   // of past het aan; het wordt nooit stilzwijgend overgenomen.
   let activitySummary = null;
   try{ const raw = localStorage.getItem('pvc_activity_summary'); activitySummary = raw ? JSON.parse(raw) : null; }catch(e){}
-  const suggestedGoal = (activitySummary && activitySummary.avgWBHours) ? Math.round(activitySummary.avgWBHours*10)/10 : null;
+  // Draagdoel = de waaktijd, de tijd tussen de twee nachten. De MoveMonitor geeft
+  // per dag alleen categorie-totalen; de waaktijd vraagt eén schatting (welk deel
+  // van de ligtijd nachtslaap is), de gewichtsdragende tijd een optelsom van vier
+  // categorieën. Oudere samenvattingen dragen alleen avgWBHours; die blijven werken.
+  const goalBron = (activitySummary && activitySummary.avgWakeHours) || (activitySummary && activitySummary.avgWBHours) || null;
+  const suggestedGoal = goalBron ? Math.round(goalBron*10)/10 : null;
   const goalHint = suggestedGoal
-    ? '<span style="color:var(--g400)">Voorgesteld uit het beweegpatroon ('+fmtShort(new Date(activitySummary.savedAt))+'). De norm van 80% zit al in de kleuren</span>'
+    ? '<span style="color:var(--g400)">Voorgesteld: de waaktijd uit het beweegpatroon ('+fmtShort(new Date(activitySummary.savedAt))+'). De norm van 80% zit al in de kleuren</span>'
     : goalFromFile
       ? '<span style="color:var(--g400)">Bestand bevat '+nf(goal)+' u/dag — pas aan indien nodig</span>'
-      : '<span style="color:var(--g400)">Gewichtsdragende tijd per dag — niet 80% daarvan; die zit al in de kleuren</span>';
+      : '<span style="color:var(--g400)">Waaktijd per dag, tussen de twee nachten — niet 80% daarvan; die zit al in de kleuren</span>';
   const goalInputHTML =
     '<input type="number" id="goalInput" min="0.5" max="24" step="0.5" placeholder="bijv. 8"'+
     (suggestedGoal ? ' value="'+suggestedGoal+'"' : '')+

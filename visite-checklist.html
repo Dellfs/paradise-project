@@ -382,19 +382,19 @@ function actionStatusHTML(actionKey){
   if(!summary) return '<span class="status-pill pending">Nog niet verwerkt</span>';
   var detail = actionKey === "orthotimer"
     ? summary.pct + "% van doel · " + nf1(summary.meanWearHours) + " u/dag"
-    : "WB " + nf1(summary.avgWBHours) + " u/dag";
+    : "waaktijd " + nf1(summary.avgWakeHours || summary.avgWBHours) + " u/dag";
   return '<span class="status-pill done">✓ Verwerkt ' + fmtDate(summary.savedAt) + " · " + detail + '</span>';
 }
 
 function comboScoreBlock(wear, activity){
-  var wb = activity.avgWBHours;
+  var wb = activity.avgWakeHours || activity.avgWBHours;
   var pct = wb > 0 ? Math.round(Math.min(wear.meanWearHours / wb, 1) * 100) : 0;
   var lvl = pct >= 80 ? "good" : pct >= 60 ? "mid" : "low";
   return '<div class="combo-done">✓ Beide verwerkt — beweegpatroon ' + fmtDate(activity.savedAt) + ' · draagpatroon ' + fmtDate(wear.savedAt) + '</div>' +
     '<h3>Gezamenlijk feedbackdocument — schoeiseladherentie</h3>' +
     '<p class="step-desc">Eén rapport op basis van beide toestellen samen — geen apart draagpatroon- of beweegpatroonrapport nodig. Benadering op basis van dag-gemiddelden; geen gesynchroniseerde epoch-data tussen de twee toestellen.</p>' +
     '<div class="combo-score ' + lvl + '">' + pct + '%</div>' +
-    '<p class="step-desc">Gemiddeld <strong>' + nf1(wear.meanWearHours) + ' u/dag</strong> schoeisel gedragen tegenover <strong>' + nf1(wb) + ' u/dag</strong> gewichtsdragende tijd (WB) — dat is <strong>' + pct + '%</strong> dekking van de tijd dat de patiënt op de voeten stond of liep.</p>' +
+    '<p class="step-desc">Gemiddeld <strong>' + nf1(wear.meanWearHours) + ' u/dag</strong> schoeisel gedragen tegenover <strong>' + nf1(wb) + ' u/dag</strong> waaktijd — dat is <strong>' + pct + '%</strong> dekking van de tijd dat de patiënt op de voeten stond of liep.</p>' +
     '<div class="combo-actions"><button type="button" class="step-open" onclick="window.print()">Afdrukken</button></div>';
 }
 
@@ -405,7 +405,7 @@ function comboStepHTML(step){
   if(wear && activity){
     body = comboScoreBlock(wear, activity);
   } else if(activity && !wear){
-    body = '<span class="status-pill done">✓ Beweegpatroon verwerkt · WB ' + nf1(activity.avgWBHours) + ' u/dag</span>' +
+    body = '<span class="status-pill done">✓ Beweegpatroon verwerkt · waaktijd ' + nf1(activity.avgWakeHours || activity.avgWBHours) + ' u/dag</span>' +
       '<div class="step-action"><button type="button" class="step-open" data-open="orthotimer">Volgende: draagpatroon (Orthotimer) verwerken →</button>' +
       '<span class="step-action-hint">Stap 2 van 2 — het draagdoel wordt automatisch voorgesteld op basis van het beweegpatroon.</span></div>';
   } else if(wear && !activity){

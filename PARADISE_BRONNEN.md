@@ -549,7 +549,22 @@ moet worden, en zo ja, het protocol aanvullen.
    onderzoeksteam. Het deck belooft daarom geen werkwijze en de spreker zegt alleen dat
    er bericht over volgt.
 
-14. **Het draagdoel is op drie plaatsen anders gedefinieerd. Te beslissen.**
+14. **Het draagdoel: beslist op 17 augustus 2026 — de waaktijd.**
+
+    **Beslissing van de PI:** het draagdoel is de **waaktijd, de tijd tussen de
+    twee nachten**, uit het baseline-MoveMonitorprofiel. 80% daarvan is de norm,
+    en die 80% wordt **één keer** toegepast. Reden: de MoveMonitor levert per dag
+    alleen categorietotalen, geen tijdstippen. De gewichtsdragende tijd is dan een
+    optelsom van vier categorieën die elk hun eigen meetfout dragen; de waaktijd
+    vraagt maar één schatting — welk deel van de ligtijd nachtslaap is. De site
+    rekent en benoemt het overal zo.
+
+    **Gevolg voor het manuscript.** Daar staat nu dat het doel de tijd is die
+    nodig is om de eigen *weight-bearing activity* in beschermend schoeisel af te
+    leggen. Dat moet mee naar de waaktijd, in de Methods (Outcome measures), in
+    tabel 3 en in de figuurlegende van figuur 5. Nog te doen.
+
+    Ter herinnering, dit was de situatie ervoor:
     - Protocol/eCRF (§8 hierboven): de norm is **80% van de gemiddelde actieve
       tijd** uit het baseline-MoveMonitorprofiel — één getal, dat je in de
       Orthotimer invult.
@@ -560,11 +575,9 @@ moet worden, en zo ja, het protocol aanvullen.
       gewichtsdragende tijd (lopen, traplopen, staan, schuifelen), groen vanaf
       80% daarvan.
 
-    Dat is niet hetzelfde. "Actieve tijd" leest als het waakvenster en is veel
-    groter dan de gewichtsdragende tijd. En wie de oude handleiding volgde — zet
-    de Orthotimer op 80% — en daarna in de uitleesmodule opnieuw op 80% getoetst
-    werd, kreeg **0,8 × 0,8 = 64%** als feitelijke lat. De site volgt nu overal
-    het manuscript; het protocol moet volgen of het manuscript moet wijken.
+    Wie de oude handleiding volgde — zet de Orthotimer op 80% — en daarna in de
+    uitleesmodule opnieuw op 80% getoetst werd, kreeg **0,8 × 0,8 = 64%** als
+    feitelijke lat. Dat is nu weg.
 
 De volgende vier kwamen op 14 augustus 2026 uit het manuscript.
 

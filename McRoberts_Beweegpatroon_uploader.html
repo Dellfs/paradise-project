@@ -320,8 +320,8 @@ function render(m){
     'Totaal '+(m.steps_total!=null?m.steps_total.toLocaleString('nl-BE')+' stappen gemeten over de gedragen dagen.':'')+
     (valid.length>=3?
       '<span class="act-hint">'+
-        'Gem. gewichtsdragende tijd (WB): <strong>'+nf1(avgWBTime)+'&thinsp;u/dag</strong>'+
-        ' &nbsp;·&nbsp; Gem. waaktijd (OOB-benadering): <strong>'+nf1(avgWakeTime)+'&thinsp;u/dag</strong>'+
+        'Gem. waaktijd, tussen de twee nachten: <strong>'+nf1(avgWakeTime)+'&thinsp;u/dag</strong> — dit is het draagdoel'+
+        ' &nbsp;·&nbsp; ter info, gewichtsdragende tijd: <strong>'+nf1(avgWBTime)+'&thinsp;u/dag</strong>'+
       '</span>':'');
 
   // Deelt de kernresultaten met de visite-checklist (voor het gecombineerd feedbackdocument
