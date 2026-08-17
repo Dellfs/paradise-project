@@ -693,7 +693,7 @@ function render(model){
     ' uur per dag</strong>. Op '+reached+' van de '+full.length+' meetdagen werd dat doel volledig gehaald.';
 
   // ---- legend (relatief aan doel) ----
-  document.getElementById('lgOk').textContent  = '— '+nf(0.8*goal)+' uur of meer per dag';
+  document.getElementById('lgOk').textContent  = '— '+nf(0.8*goal)+' uur of meer per dag (de norm: 80% van '+nf(goal)+' u waaktijd)';
   document.getElementById('lgMid').textContent = '— '+nf(0.6*goal)+' tot '+nf(0.8*goal)+' uur per dag';
   document.getElementById('lgLow').textContent = '— minder dan '+nf(0.6*goal)+' uur';
 

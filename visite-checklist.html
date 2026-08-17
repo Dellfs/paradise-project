@@ -394,7 +394,7 @@ function comboScoreBlock(wear, activity){
     '<h3>Gezamenlijk feedbackdocument — schoeiseladherentie</h3>' +
     '<p class="step-desc">Eén rapport op basis van beide toestellen samen — geen apart draagpatroon- of beweegpatroonrapport nodig. Benadering op basis van dag-gemiddelden; geen gesynchroniseerde epoch-data tussen de twee toestellen.</p>' +
     '<div class="combo-score ' + lvl + '">' + pct + '%</div>' +
-    '<p class="step-desc">Gemiddeld <strong>' + nf1(wear.meanWearHours) + ' u/dag</strong> schoeisel gedragen tegenover <strong>' + nf1(wb) + ' u/dag</strong> waaktijd — dat is <strong>' + pct + '%</strong> dekking van de tijd dat de patiënt op de voeten stond of liep.</p>' +
+    '<p class="step-desc">Gemiddeld <strong>' + nf1(wear.meanWearHours) + ' u/dag</strong> schoeisel gedragen tegenover <strong>' + nf1(wb) + ' u/dag</strong> waaktijd — dat is <strong>' + pct + '%</strong>. De norm is 80% van de waaktijd, hier <strong>' + nf1(wb * 0.8) + ' u/dag</strong>.</p>' +
     '<div class="combo-actions"><button type="button" class="step-open" onclick="window.print()">Afdrukken</button></div>';
 }
 
