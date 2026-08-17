@@ -549,6 +549,23 @@ moet worden, en zo ja, het protocol aanvullen.
    onderzoeksteam. Het deck belooft daarom geen werkwijze en de spreker zegt alleen dat
    er bericht over volgt.
 
+14. **Het draagdoel is op drie plaatsen anders gedefinieerd. Te beslissen.**
+    - Protocol/eCRF (§8 hierboven): de norm is **80% van de gemiddelde actieve
+      tijd** uit het baseline-MoveMonitorprofiel — één getal, dat je in de
+      Orthotimer invult.
+    - Manuscript: het doel is de **gewichtsdragende tijd** (de tijd die nodig is
+      om de eigen belasting in beschermend schoeisel af te leggen); adherentie is
+      het bereikte aandeel daarvan, en 80% is de responderdrempel.
+    - De uitleesmodule op de site rekent volgens het manuscript: doel = volle
+      gewichtsdragende tijd (lopen, traplopen, staan, schuifelen), groen vanaf
+      80% daarvan.
+
+    Dat is niet hetzelfde. "Actieve tijd" leest als het waakvenster en is veel
+    groter dan de gewichtsdragende tijd. En wie de oude handleiding volgde — zet
+    de Orthotimer op 80% — en daarna in de uitleesmodule opnieuw op 80% getoetst
+    werd, kreeg **0,8 × 0,8 = 64%** als feitelijke lat. De site volgt nu overal
+    het manuscript; het protocol moet volgen of het manuscript moet wijken.
+
 De volgende vier kwamen op 14 augustus 2026 uit het manuscript.
 
 10. ~~**SEBIA stap 2 staat op het verkeerde moment.**~~ **Opgelost op 14 augustus

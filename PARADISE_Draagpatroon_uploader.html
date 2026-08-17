@@ -309,7 +309,7 @@ html, body { background: #8FA8BA; font-family: 'DM Sans', sans-serif; color: var
   <div class="eyebrow">PARADISE · Orthotimer</div>
   <h1>Maak een <em>draagpatroon-overzicht</em> uit een Orthotimer-export</h1>
   <p class="lead">Sleep het <strong>.tef</strong>-exportbestand hierheen. De pagina leest de draaguren per dag uit en vult automatisch het feedbackdocument in dat u met de patiënt bespreekt.</p>
-  <p class="lead" style="margin-top:-6px"><strong>De gegevens blijven op dit toestel.</strong> De pagina rekent alles in uw eigen browser uit; er wordt niets geüpload, opgeslagen of doorgestuurd. Sluit u het tabblad, dan is het bestand weg.</p>
+  <p class="lead" style="margin-top:-6px"><strong>De gegevens blijven op dit toestel.</strong> Alles wordt in uw browser berekend; er vertrekt niets. Tabblad dicht is bestand weg.</p>
 
   <div class="drop" id="drop">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -917,10 +917,10 @@ function showConfirm(model, goalFromFile){
   try{ const raw = localStorage.getItem('pvc_activity_summary'); activitySummary = raw ? JSON.parse(raw) : null; }catch(e){}
   const suggestedGoal = (activitySummary && activitySummary.avgWBHours) ? Math.round(activitySummary.avgWBHours*10)/10 : null;
   const goalHint = suggestedGoal
-    ? '<span style="color:var(--g400)">Voorgesteld op basis van het beweegpatroon (WB-tijd, verwerkt '+fmtShort(new Date(activitySummary.savedAt))+') — pas aan indien nodig</span>'
+    ? '<span style="color:var(--g400)">Voorgesteld uit het beweegpatroon ('+fmtShort(new Date(activitySummary.savedAt))+'). De norm van 80% zit al in de kleuren</span>'
     : goalFromFile
       ? '<span style="color:var(--g400)">Bestand bevat '+nf(goal)+' u/dag — pas aan indien nodig</span>'
-      : '<span style="color:var(--g400)">Voer het met de patiënt afgesproken draagdoel in</span>';
+      : '<span style="color:var(--g400)">Gewichtsdragende tijd per dag — niet 80% daarvan; die zit al in de kleuren</span>';
   const goalInputHTML =
     '<input type="number" id="goalInput" min="0.5" max="24" step="0.5" placeholder="bijv. 8"'+
     (suggestedGoal ? ' value="'+suggestedGoal+'"' : '')+
