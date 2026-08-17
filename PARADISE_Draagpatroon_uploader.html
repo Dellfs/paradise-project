@@ -440,7 +440,13 @@ html, body { background: #8FA8BA; font-family: 'DM Sans', sans-serif; color: var
 const WD  = ['ma','di','wo','do','vr','za','zo'];
 const MND = ['','jan','feb','mrt','apr','mei','jun','jul','aug','sep','okt','nov','dec'];
 const MNDLONG = ['','januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december'];
-const YMAX = 16; // y-as top in uren
+// De y-as top groeit mee met het doel: minstens 16 uur, en altijd twee uur
+// boven het draagdoel, afgerond op een veelvoud van vier zodat de ticks
+// (0, 4, 8, ...) blijven kloppen.
+let YMAX = 16;
+function zetYas(goal){
+  YMAX = Math.max(16, Math.ceil((goal + 2) / 4) * 4);
+}
 const LOW_VOLTAGE = 2.5;
 let currentMean = null, currentGoal = null, prevMean = null;
 
@@ -562,6 +568,7 @@ function renderWeekday(full, goal){
   const avgs=buckets.map(b=>b.length?b.reduce((a,c)=>a+c,0)/b.length:null);
   card.style.display='flex';
 
+  zetYas(goal);
   const yax=document.getElementById('wdYaxis'); yax.innerHTML='';
   for(let u=0;u<=YMAX;u+=4){
     const t=document.createElement('div'); t.className='ytick';
@@ -699,6 +706,7 @@ function render(model){
 
   // ---- y-as + gridlines + doel-lijn ----
   const yaxis = document.getElementById('yaxis'); yaxis.innerHTML='';
+  zetYas(goal);
   for(let u=0; u<=YMAX; u+=4){
     const t=document.createElement('div'); t.className='ytick';
     t.style.bottom=(u/YMAX*100)+'%'; t.textContent=u+'u'; yaxis.appendChild(t);
