@@ -93,7 +93,7 @@ r = runWith(
 );
 check('matching encounterId -> gecombineerd rapport verschijnt', r.html.includes('Gezamenlijk feedbackdocument'));
 const scoreMatch = r.html.match(/combo-score \w+">(\d+)%/);
-check('combo-score rekent op de waaktijd, niet op WB (7.5/8.0 -> 94%)', scoreMatch && scoreMatch[1] === '94');
+check('combo-score rekent op de waaktijd (7.5/8.0 -> 94%)', scoreMatch && scoreMatch[1] === '94');
 
 // D. Verlopen data (correcte encounterId, maar te oud)
 const oldDate = new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString(); // 6 u geleden

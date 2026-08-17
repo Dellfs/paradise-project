@@ -918,15 +918,16 @@ function showConfirm(model, goalFromFile){
         : '<span style="color:var(--low)">✖ '+discrepancies.length+' verschil(len) gevonden — handmatige invoer vereist</span>')
     : '<span class="cf-missing">geen sessiedata beschikbaar in dit bestand</span>';
 
-  // Draagdoel-invulveld: voorgesteld op basis van de gewichtsdragende tijd (WB) uit een recent
+  // Draagdoel-invulveld: voorgesteld op basis van de waaktijd uit een recent
   // verwerkt beweegpatroon (McRoberts), indien beschikbaar — anders leeg. De clinicus bevestigt
   // of past het aan; het wordt nooit stilzwijgend overgenomen.
   let activitySummary = null;
   try{ const raw = localStorage.getItem('pvc_activity_summary'); activitySummary = raw ? JSON.parse(raw) : null; }catch(e){}
   // Draagdoel = de waaktijd, de tijd tussen de twee nachten. De MoveMonitor geeft
-  // per dag alleen categorie-totalen; de waaktijd vraagt eén schatting (welk deel
-  // van de ligtijd nachtslaap is), de gewichtsdragende tijd een optelsom van vier
-  // categorieën. Oudere samenvattingen dragen alleen avgWBHours; die blijven werken.
+  // per dag alleen totalen, geen tijdstippen. De waaktijd vraagt één schatting
+  // (welk deel van de ligtijd nachtslaap is) en is toetsbaar tegen de
+  // Orthotimer, die ook per dag telt. Oudere samenvattingen dragen alleen
+  // avgWBHours; die blijven werken.
   const goalBron = (activitySummary && activitySummary.avgWakeHours) || (activitySummary && activitySummary.avgWBHours) || null;
   const suggestedGoal = goalBron ? Math.round(goalBron*10)/10 : null;
   const goalHint = suggestedGoal

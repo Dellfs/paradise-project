@@ -387,9 +387,13 @@ function actionStatusHTML(actionKey){
 }
 
 function comboScoreBlock(wear, activity){
-  var wb = activity.avgWakeHours || activity.avgWBHours;
-  var pct = wb > 0 ? Math.round(Math.min(wear.meanWearHours / wb, 1) * 100) : 0;
+  // Noemer is de waaktijd: beide toestellen tellen per kalenderdag, dus dit is
+  // een toetsbare verhouding. De begrenzing op 100% vangt meetruis op; met de
+  // waaktijd als noemer kan draagtijd de noemer niet echt overschrijden.
+  var wakker = activity.avgWakeHours || activity.avgWBHours;
+  var pct = wakker > 0 ? Math.round(Math.min(wear.meanWearHours / wakker, 1) * 100) : 0;
   var lvl = pct >= 80 ? "good" : pct >= 60 ? "mid" : "low";
+  var wb = wakker;
   return '<div class="combo-done">✓ Beide verwerkt — beweegpatroon ' + fmtDate(activity.savedAt) + ' · draagpatroon ' + fmtDate(wear.savedAt) + '</div>' +
     '<h3>Gezamenlijk feedbackdocument — schoeiseladherentie</h3>' +
     '<p class="step-desc">Eén rapport op basis van beide toestellen samen — geen apart draagpatroon- of beweegpatroonrapport nodig. Benadering op basis van dag-gemiddelden; geen gesynchroniseerde epoch-data tussen de twee toestellen.</p>' +

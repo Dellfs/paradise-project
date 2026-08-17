@@ -553,27 +553,33 @@ moet worden, en zo ja, het protocol aanvullen.
 
     **Beslissing van de PI:** het draagdoel is de **waaktijd, de tijd tussen de
     twee nachten**, uit het baseline-MoveMonitorprofiel. 80% daarvan is de norm,
-    en die 80% wordt **één keer** toegepast. Reden: de MoveMonitor levert per dag
-    alleen categorietotalen, geen tijdstippen. De gewichtsdragende tijd is dan een
-    optelsom van vier categorieën die elk hun eigen meetfout dragen; de waaktijd
-    vraagt maar één schatting — welk deel van de ligtijd nachtslaap is. De site
-    rekent en benoemt het overal zo.
+    en die 80% wordt **één keer** toegepast. De site rekent en benoemt het overal
+    zo, en de term *gewichtsdragende tijd* is uit de teksten verdwenen.
+
+    **Twee redenen, en de tweede is doorslaggevend.**
+
+    1. *Klinisch.* De patiënt hoort zijn schoeisel aan te hebben zolang hij op
+       is, niet alleen tijdens de belaste minuten. De waaktijd is dus meteen ook
+       de boodschap: schoenen aan wanneer u uit bed komt, uit wanneer u erin
+       gaat.
+    2. *Meettechnisch.* We kunnen **niet nagaan of het schoeisel gedragen werd
+       tíjdens** die belaste minuten. De Orthotimer levert draaguren per
+       kalenderdag, de MoveMonitor activiteitstotalen per kalenderdag; er is geen
+       gesynchroniseerde epoch-data tussen beide toestellen. De doorsnede
+       "belast én gedragen" is dus niet gemeten. Delen door de belaste tijd
+       suggereert een doorsnede die er niet is, en kan boven de 100% uitkomen —
+       de oude code moest daarom op 100% begrenzen, wat de incoherentie verborg
+       in plaats van oploste. Delen door de waaktijd is wél toetsbaar: beide
+       toestellen dekken dezelfde kalenderdag.
+
+    Ter grootte-orde, uit `tests/sensor-movemonitor.test.js` op een gewone week:
+    staand of stappend **7,6 u/dag**, waaktijd **15,5 u/dag**. De norm gaat
+    daarmee van 6,1 naar **12,4 u/dag**.
 
     **Gevolg voor het manuscript.** Daar staat nu dat het doel de tijd is die
     nodig is om de eigen *weight-bearing activity* in beschermend schoeisel af te
     leggen. Dat moet mee naar de waaktijd, in de Methods (Outcome measures), in
     tabel 3 en in de figuurlegende van figuur 5. Nog te doen.
-
-    Ter herinnering, dit was de situatie ervoor:
-    - Protocol/eCRF (§8 hierboven): de norm is **80% van de gemiddelde actieve
-      tijd** uit het baseline-MoveMonitorprofiel — één getal, dat je in de
-      Orthotimer invult.
-    - Manuscript: het doel is de **gewichtsdragende tijd** (de tijd die nodig is
-      om de eigen belasting in beschermend schoeisel af te leggen); adherentie is
-      het bereikte aandeel daarvan, en 80% is de responderdrempel.
-    - De uitleesmodule op de site rekent volgens het manuscript: doel = volle
-      gewichtsdragende tijd (lopen, traplopen, staan, schuifelen), groen vanaf
-      80% daarvan.
 
     Wie de oude handleiding volgde — zet de Orthotimer op 80% — en daarna in de
     uitleesmodule opnieuw op 80% getoetst werd, kreeg **0,8 × 0,8 = 64%** als

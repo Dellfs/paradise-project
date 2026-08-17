@@ -91,11 +91,11 @@ const wake = geparsed.reduce((s, d) => {
   return s + Math.max(0, 24 - slaap);
 }, 0) / 7;
 
-console.log('\n  gewichtsdragende tijd : ' + wb.toFixed(1) + ' u/dag');
+console.log('\n  staand of stappend    : ' + wb.toFixed(1) + ' u/dag');
 console.log('  waaktijd              : ' + wake.toFixed(1) + ' u/dag  <- het draagdoel');
 console.log('  norm 80%              : ' + (wake * 0.8).toFixed(1) + ' u/dag');
 toets('waaktijd in een plausibel bereik (13-18 u)', wake > 13 && wake < 18);
-toets('waaktijd ruim boven de gewichtsdragende tijd', wake > wb * 1.5);
+toets('waaktijd ruim boven de tijd staand of stappend', wake > wb * 1.5);
 
 // ---- wat als een dag ontbreekt of onvolledig is -------------------------
 console.log('\nOnvolledige week');

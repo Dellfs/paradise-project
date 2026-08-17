@@ -230,7 +230,8 @@ function render(m){
   const notWorn=days.filter(d=>d.wear===0);
   const avgWear=worn.length?worn.reduce((a,b)=>a+b.wear,0)/worn.length:0;
 
-  // Primaire maat: gewichtsdragende tijd (WB) = lopen + traplopen + staan + schuifelen
+  // Achtergrondcijfer: de tijd staand of stappend. Niet de noemer voor
+  // adherentie - zie de toelichting hieronder bij de waaktijd.
   const avgWBTime = valid.length
     ? valid.reduce((s,d)=>s+d.leaf.walking+d.leaf.stairs+d.leaf.standing+d.leaf.shuffling,0)/valid.length
     : 0;
@@ -244,8 +245,15 @@ function render(m){
         return sum + Math.max(0, 24 - sleep);
       }, 0) / validForWake.length
     : valid.reduce((a,d)=>a+d.wear,0)/(valid.length||1);
-  // Geen doel-berekening: studieadherentie = (WB ∩ schoeisel) / WB vereist
-  // gesynchroniseerde epoch-data van McRoberts én Orthotimer — niet beschikbaar in PDF.
+  // De waaktijd is de noemer voor het draagdoel, en wel om twee redenen.
+  // Ten eerste hoort het schoeisel aan zolang de patient op is, niet alleen
+  // tijdens de belaste minuten. Ten tweede, en dwingender: we kunnen niet
+  // nagaan of het schoeisel gedragen werd *tijdens* die belaste minuten. De
+  // Orthotimer levert draaguren per dag, deze PDF activiteitstotalen per dag;
+  // er is geen gesynchroniseerde epoch-data tussen beide toestellen. Delen
+  // door de belaste tijd suggereert een doorsnede die niet gemeten is en kan
+  // boven 100% uitkomen. Delen door de waaktijd is wel toetsbaar: beide
+  // toestellen dekken dezelfde kalenderdag.
 
   document.getElementById('hPeriod').textContent=fmtFull(first)+' t/m '+fmtFull(last);
   document.getElementById('hSubj').textContent=m.subject;
@@ -321,7 +329,7 @@ function render(m){
     (valid.length>=3?
       '<span class="act-hint">'+
         'Gem. waaktijd, tussen de twee nachten: <strong>'+nf1(avgWakeTime)+'&thinsp;u/dag</strong> — dit is het draagdoel'+
-        ' &nbsp;·&nbsp; ter info, gewichtsdragende tijd: <strong>'+nf1(avgWBTime)+'&thinsp;u/dag</strong>'+
+        ' &nbsp;·&nbsp; waarvan staand of stappend: <strong>'+nf1(avgWBTime)+'&thinsp;u/dag</strong>'+
       '</span>':'');
 
   // Deelt de kernresultaten met de visite-checklist (voor het gecombineerd feedbackdocument
