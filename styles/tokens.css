@@ -222,3 +222,55 @@ html.lenis body {
 .lenis.lenis-stopped {
   overflow: hidden;
 }
+
+/* ---------------------------------------------------------------------------
+   Afdrukken. De handleiding, de patiëntenpagina en het protocol worden op
+   papier gelezen — aan de meettafel of thuis aan de keukentafel. Zonder deze
+   regels komt de navigatie mee, verdwijnt de tekst in lichtgrijs, en breken
+   kaarten midden op de paginarand.
+
+   Pagina's met een eigen @media print-blok (index, academy, visite-checklist,
+   de uitleesmodules) overschrijven dit waar nodig; deze regels zijn met opzet
+   laag in specificiteit gehouden.
+--------------------------------------------------------------------------- */
+@media print {
+  :root {
+    --color-text: #000;
+    --color-muted-600: #333;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+    font-size: 11pt;
+  }
+
+  /* Navigatie, taalknoppen en terugkeerlinks horen niet op papier */
+  nav, .topbar, .nav, .site-header, .site-footer, .backlink, .lang,
+  .skip-link, .cookie-banner, [data-print="hide"] {
+    display: none !important;
+  }
+
+  /* Niets mag over een paginarand breken wat als één geheel gelezen wordt */
+  .card, .note, table, figure, blockquote, li {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  h1, h2, h3 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  /* Een link op papier is waardeloos zonder zijn adres, behalve een ankerlink */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    word-break: break-all;
+  }
+
+  /* Vlakken en schaduwen kosten toner en voegen niets toe */
+  * {
+    box-shadow: none !important;
+  }
+}

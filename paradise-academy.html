@@ -41,8 +41,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-b)
 .pips{display:flex;gap:5px;margin-left:6px}.pip{width:9px;height:9px;border-radius:50%;background:#d8d2c4;transition:.3s}.pip.on{background:var(--teal)}
 .spacer{flex:1}
 .lang{font:700 13px var(--font-b);color:var(--teal);background:#fff;border:1px solid var(--teal);border-radius:99px;padding:6px 13px;cursor:pointer}.lang:hover{background:var(--teal-soft)}
-.hero{position:relative;overflow:hidden;padding:60px 0 30px}
-.footbg{position:absolute;right:-26px;top:0;width:330px;opacity:.10;pointer-events:none}.footbg svg{width:100%}
+.hero{overflow:hidden;position:relative;overflow:hidden;padding:60px 0 30px}
+.footbg{position:absolute;right:-26px;top:0;width:330px;max-width:60%;opacity:.10;pointer-events:none;overflow:hidden}.footbg svg{width:100%;display:block}
 .hero .eyebrow{margin-bottom:14px}
 .hero h1{font-family:var(--font-h),serif;font-weight:500;font-size:clamp(33px,5.5vw,56px);line-height:1.04;margin:0 0 16px;max-width:18ch;color:var(--ink)}
 .hero .sub{font-size:18px;color:var(--soft);max-width:58ch;margin:0 0 26px}
