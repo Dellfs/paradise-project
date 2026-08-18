@@ -8,8 +8,23 @@
 <script src="vendor/pdf.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-:root{--navy:#0D2137;--teal:#00838F;--white:#fff;--off:#F5F8FC;--g100:#EBF1F7;--g200:#C8D8E8;--g400:#7A9BBB;--g600:#3D5C75;
---active:#2E7D32;--active2:#66BB6A;--stand:#E6A23C;--stand2:#FFCC80;--sed:#5C7C99;--sed2:#9FB6CC;}
+:root{
+  /* Afgeleid van styles/tokens.css; lokale namen blijven, waarden gedeeld. */
+  --navy:var(--color-text);
+  --teal:var(--color-brand-600);
+  --white:var(--color-surface);
+  --off:var(--color-surface-soft);
+  --g100:var(--color-surface-muted);
+  --g200:var(--color-border);
+  --g400:var(--color-muted-400);
+  --g600:var(--color-muted-600);
+  --active:var(--color-ok);
+  --active2:#66BB6A;
+  --stand:#E6A23C;
+  --stand2:#FFCC80;
+  --sed:var(--color-muted-500);
+  --sed2:var(--color-muted-300);
+}
 html,body{background:#8FA8BA;font-family:'DM Sans',sans-serif;color:var(--navy);}
 .app-bar{background:linear-gradient(135deg,#0D2137,#1A3A55 55%,#0D4D6B);color:#fff;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:50;}
 .app-bar .brand{display:flex;align-items:center;gap:10px;}.app-bar img{height:26px;}.app-bar b{font-size:13px;}.app-bar span{font-size:11px;color:#7ABFCC;}

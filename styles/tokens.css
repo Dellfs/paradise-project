@@ -10,6 +10,16 @@
   --color-brand-300: #52BDEC;
   --color-accent-orange: #FF7A00;
   --color-accent-red: #FF2200;
+
+  /* Statuskleuren. Semantisch, dus los van de merkkleuren: ze zeggen "goed",
+     "let op" of "te laag", niet "PARADISE". De uitleesmodules kleuren er hun
+     draagbalken mee, de checklist zijn score. */
+  --color-ok: #2E7D32;
+  --color-ok-soft: #E8F4E9;
+  --color-warn: #E65100;
+  --color-warn-soft: #FFF3E0;
+  --color-alert: #C62828;
+  --color-alert-soft: #FFEBEE;
   --color-accent-purple: #8B30C9;
   --color-accent-cyan: #4DC8E8;
   --color-surface: #FFFFFF;

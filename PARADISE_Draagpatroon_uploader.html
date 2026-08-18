@@ -12,20 +12,22 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --navy:   #0D2137;
-  --teal:   #00838F;
-  --white:  #FFFFFF;
-  --off:    #F5F8FC;
-  --g100:   #EBF1F7;
-  --g200:   #C8D8E8;
-  --g400:   #7A9BBB;
-  --g600:   #3D5C75;
-  --ok:     #2E7D32;
-  --ok-bg:  #E8F4E9;
-  --mid:    #E65100;
-  --mid-bg: #FFF3E0;
-  --low:    #C62828;
-  --low-bg: #FFEBEE;
+  /* Afgeleid van styles/tokens.css: de namen hieronder blijven, hun waarden
+     komen uit de gedeelde huisstijl. */
+  --navy:   var(--color-text);
+  --teal:   var(--color-brand-600);
+  --white:  var(--color-surface);
+  --off:    var(--color-surface-soft);
+  --g100:   var(--color-surface-muted);
+  --g200:   var(--color-border);
+  --g400:   var(--color-muted-400);
+  --g600:   var(--color-muted-600);
+  --ok:     var(--color-ok);
+  --ok-bg:  var(--color-ok-soft);
+  --mid:    var(--color-warn);
+  --mid-bg: var(--color-warn-soft);
+  --low:    var(--color-alert);
+  --low-bg: var(--color-alert-soft);
 }
 
 html, body { background: #8FA8BA; font-family: 'DM Sans', sans-serif; color: var(--navy); }
@@ -326,7 +328,7 @@ html, body { background: #8FA8BA; font-family: 'DM Sans', sans-serif; color: var
     <input type="date" id="dateTalk">
   </div>
 
-  <p class="note-priv">Verwerking gebeurt volledig in uw browser — er wordt niets geüpload of opgeslagen. Doel-draaguren worden uit de Orthotimer-draagregel gelezen (terugval: 12&nbsp;u/dag).</p>
+  <p class="note-priv">Het draagdoel komt uit de waaktijd van het beweegpatroon, of uit de draagregel in het bestand. Staat geen van beide klaar, dan vult u het zelf in — er wordt niets stilzwijgend aangenomen.</p>
   <div class="err" id="err"></div>
 </div>
 
