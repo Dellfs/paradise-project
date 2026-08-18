@@ -107,6 +107,20 @@ r = runWith(
 );
 check('verlopen wear-summary (>4u oud) -> geen gecombineerd rapport', !r.html.includes('Gezamenlijk feedbackdocument'));
 
+// D2. Waaktijd niet af te leiden -> geen score, wel een uitleg
+r = runWith(
+  { care: 'optimal', visit: 'v4', checked: {}, values: {} },
+  {
+    encounterId: 'enc_huidig',
+    wear: { savedAt: new Date().toISOString(), meanWearHours: 7.5, pct: 94, encounterId: 'enc_huidig' },
+    activity: { savedAt: new Date().toISOString(), avgWakeHours: null, avgWBHours: 7.6, encounterId: 'enc_huidig' }
+  }
+);
+check('zonder waaktijd verschijnt er geen percentage',
+      !/combo-score \w+">\d+%/.test(r.html));
+check('zonder waaktijd wordt uitgelegd waarom', r.html.includes('kon niet uit het beweegpatroon afgeleid'));
+check('de belaste tijd wordt niet stilletjes als noemer gebruikt', !r.html.includes('99%'));
+
 // E. V3 (routine, enkel Orthotimer, geen combo-stap)
 r = runWith({ care: 'optimal', visit: 'v3', checked: {}, values: {} });
 check('v3 heeft losse orthotimer-actie, geen combo-kaart', r.html.includes('data-open="orthotimer"') && !r.html.includes('combo-report'));

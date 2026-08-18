@@ -382,7 +382,8 @@ function actionStatusHTML(actionKey){
   if(!summary) return '<span class="status-pill pending">Nog niet verwerkt</span>';
   var detail = actionKey === "orthotimer"
     ? summary.pct + "% van doel · " + nf1(summary.meanWearHours) + " u/dag"
-    : "waaktijd " + nf1(summary.avgWakeHours || summary.avgWBHours) + " u/dag";
+    : (summary.avgWakeHours ? "waaktijd " + nf1(summary.avgWakeHours) + " u/dag"
+                            : "waaktijd niet af te leiden");
   return '<span class="status-pill done">✓ Verwerkt ' + fmtDate(summary.savedAt) + " · " + detail + '</span>';
 }
 
@@ -390,8 +391,13 @@ function comboScoreBlock(wear, activity){
   // Noemer is de waaktijd: beide toestellen tellen per kalenderdag, dus dit is
   // een toetsbare verhouding. De begrenzing op 100% vangt meetruis op; met de
   // waaktijd als noemer kan draagtijd de noemer niet echt overschrijden.
-  var wakker = activity.avgWakeHours || activity.avgWBHours;
-  var pct = wakker > 0 ? Math.round(Math.min(wear.meanWearHours / wakker, 1) * 100) : 0;
+  var wakker = activity.avgWakeHours;
+  if(!(wakker > 0)) return '<div class="combo-done">✓ Beide verwerkt</div>' +
+    '<h3>Gezamenlijk feedbackdocument — schoeiseladherentie</h3>' +
+    '<p class="step-desc">De waaktijd kon niet uit het beweegpatroon afgeleid worden, ' +
+    'dus er is geen noemer om de draagtijd tegen af te zetten. Vul het draagdoel ' +
+    'handmatig in bij het verwerken van het draagpatroon.</p>';
+  var pct = Math.round(Math.min(wear.meanWearHours / wakker, 1) * 100);
   var lvl = pct >= 80 ? "good" : pct >= 60 ? "mid" : "low";
   var wb = wakker;
   return '<div class="combo-done">✓ Beide verwerkt — beweegpatroon ' + fmtDate(activity.savedAt) + ' · draagpatroon ' + fmtDate(wear.savedAt) + '</div>' +
@@ -409,7 +415,7 @@ function comboStepHTML(step){
   if(wear && activity){
     body = comboScoreBlock(wear, activity);
   } else if(activity && !wear){
-    body = '<span class="status-pill done">✓ Beweegpatroon verwerkt · waaktijd ' + nf1(activity.avgWakeHours || activity.avgWBHours) + ' u/dag</span>' +
+    body = '<span class="status-pill done">✓ Beweegpatroon verwerkt · ' + (activity.avgWakeHours ? 'waaktijd ' + nf1(activity.avgWakeHours) + ' u/dag' : 'waaktijd niet af te leiden') + '</span>' +
       '<div class="step-action"><button type="button" class="step-open" data-open="orthotimer">Volgende: draagpatroon (Orthotimer) verwerken →</button>' +
       '<span class="step-action-hint">Stap 2 van 2 — het draagdoel wordt automatisch voorgesteld op basis van het beweegpatroon.</span></div>';
   } else if(wear && !activity){

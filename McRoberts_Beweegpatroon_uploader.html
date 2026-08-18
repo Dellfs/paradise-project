@@ -239,12 +239,19 @@ function render(m){
   // Waaktijd (OOB): slaap = langste ligperiode ≈ totale ligtijd − (bouts−1) × 0,5 u
   const MIN_SHORT_LYING = 0.5;
   const validForWake = valid.filter(d=>d.leaf.lying > 0 && (d.leaf.lyingBouts||0) > 0);
-  const avgWakeTime = validForWake.length
-    ? validForWake.reduce((sum,d)=>{
-        const sleep=Math.max(0, d.leaf.lying - Math.max(0,(d.leaf.lyingBouts-1)*MIN_SHORT_LYING));
-        return sum + Math.max(0, 24 - sleep);
-      }, 0) / validForWake.length
-    : valid.reduce((a,d)=>a+d.wear,0)/(valid.length||1);
+  // Geen terugval op de draagtijd van het toestel: dat is hoe lang de
+  // MoveMonitor om zat, niet hoe lang de patient op was. Lukt de afleiding
+  // niet, of valt ze buiten een menselijk bereik, dan is de waaktijd null en
+  // vult de clinicus het draagdoel zelf in.
+  const WAAK_MIN = 8, WAAK_MAX = 20;
+  let avgWakeTime = null;
+  if(validForWake.length){
+    const w = validForWake.reduce((sum,d)=>{
+      const sleep=Math.max(0, d.leaf.lying - Math.max(0,(d.leaf.lyingBouts-1)*MIN_SHORT_LYING));
+      return sum + Math.max(0, 24 - sleep);
+    }, 0) / validForWake.length;
+    if(w >= WAAK_MIN && w <= WAAK_MAX) avgWakeTime = w;
+  }
   // De waaktijd is de noemer voor het draagdoel, en wel om twee redenen.
   // Ten eerste hoort het schoeisel aan zolang de patient op is, niet alleen
   // tijdens de belaste minuten. Ten tweede, en dwingender: we kunnen niet
@@ -328,7 +335,9 @@ function render(m){
     'Totaal '+(m.steps_total!=null?m.steps_total.toLocaleString('nl-BE')+' stappen gemeten over de gedragen dagen.':'')+
     (valid.length>=3?
       '<span class="act-hint">'+
-        'Gem. waaktijd, tussen de twee nachten: <strong>'+nf1(avgWakeTime)+'&thinsp;u/dag</strong> — dit is het draagdoel'+
+        (avgWakeTime===null
+          ? '<strong style="color:#B45309">Waaktijd niet af te leiden uit dit bestand</strong> — vul het draagdoel handmatig in'
+          : 'Gem. waaktijd, tussen de twee nachten: <strong>'+nf1(avgWakeTime)+'&thinsp;u/dag</strong> — dit is het draagdoel')+
         ' &nbsp;·&nbsp; waarvan staand of stappend: <strong>'+nf1(avgWBTime)+'&thinsp;u/dag</strong>'+
       '</span>':'');
 

@@ -449,6 +449,7 @@ function zetYas(goal){
 }
 const LOW_VOLTAGE = 2.5;
 let currentMean = null, currentGoal = null, prevMean = null;
+let currentFirst = null;  // eerste meetdag van de huidige periode
 
 function nf(h){ return (Math.round(h*10)/10).toString().replace('.', ','); }
 function dParts(s){ const d=new Date(s); return d; } // ISO-achtig
@@ -541,7 +542,8 @@ function renderExcluded(excluded){
 
 function renderConsistency(full, goal){
   let maxStreak=0, cur=0;
-  for(const d of full){ if(d.hours>=goal){cur++;if(cur>maxStreak)maxStreak=cur;}else cur=0; }
+  const norm = 0.8 * goal;
+  for(const d of full){ if(d.hours>=norm){cur++;if(cur>maxStreak)maxStreak=cur;}else cur=0; }
   const zeroCount=full.filter(d=>d.hours===0).length;
   const row=document.getElementById('consRow'); row.innerHTML='';
   const mk=(num,col,lbl,sub)=>{
@@ -629,6 +631,18 @@ async function handleSecondFile(file){
     const d2=parseDays(dX);
     if(d2.length<3) throw new Error('Te weinig meetdagen in vergelijkingsbestand');
     const f1=d2[0].date.getTime(), lN=d2[d2.length-1].date.getTime();
+    // De vorige periode hoort te eindigen voor de huidige begint. Zo niet, dan
+    // is dit vermoedelijk een ander bestand dan bedoeld.
+    if(currentFirst!==null && lN >= currentFirst.getTime()){
+      const fmt=d=>d.getDate()+' '+MND[d.getMonth()+1]+' '+d.getFullYear();
+      alert('Dit bestand loopt tot '+fmt(new Date(lN))+', maar de huidige periode '+
+            'begint al op '+fmt(currentFirst)+'. '+
+            'De vorige periode hoort te '+
+            'eindigen voor de huidige begint. Controleer of dit het juiste '+
+            'bestand van deze patient is.');
+      document.getElementById('prevFile').value='';
+      return;
+    }
     const full2=d2.filter(d=>d.date.getTime()!==f1&&d.date.getTime()!==lN);
     prevMean=full2.reduce((a,b)=>a+b.hours,0)/(full2.length||1);
     if(currentMean!==null) renderComparison(currentMean, currentGoal);
@@ -674,11 +688,13 @@ function render(model){
   const fullHours = full.map(d=>d.hours);
   const mean = fullHours.reduce((a,b)=>a+b,0) / (fullHours.length||1);
   const pct = Math.round(mean/goal*100);
-  const reached = full.filter(d=>d.hours>=goal).length;
+  // De norm is 80% van de waaktijd, dezelfde grens als de groene kleurcode.
+  const norm = 0.8 * goal;
+  const reached = full.filter(d=>d.hours>=norm).length;
   const zero = full.filter(d=>d.hours===0);
   const zeroSun = zero.filter(d=>d.date.getDay()===0).length;
   const spanDays = Math.round((last-first)/86400000)+1;
-  currentMean=mean; currentGoal=goal;
+  currentMean=mean; currentGoal=goal; currentFirst=first;
   const exclSet=excludedDates(excluded);
   renderConsistency(full, goal);
 
@@ -696,8 +712,9 @@ function render(model){
   sb.className = 'score lvl-'+lvl;
   document.getElementById('scoreNum').textContent = pct+'%';
   document.getElementById('scoreText').innerHTML =
-    'U droeg uw schoenen gemiddeld <strong>'+nf(mean)+' uur per dag</strong>; het advies is <strong>'+nf(goal)+
-    ' uur per dag</strong>. Op '+reached+' van de '+full.length+' meetdagen werd dat doel volledig gehaald.';
+    'U droeg uw schoenen gemiddeld <strong>'+nf(mean)+' uur per dag</strong>. U bent ongeveer <strong>'+nf(goal)+
+    ' uur per dag</strong> op de been; het doel is uw schoenen dan aan te houden, en de norm ligt op <strong>'+nf(norm)+
+    ' uur</strong>. Op '+reached+' van de '+full.length+' meetdagen haalde u die norm.';
 
   // ---- legend (relatief aan doel) ----
   document.getElementById('lgOk').textContent  = '— '+nf(0.8*goal)+' uur of meer per dag (de norm: 80% van '+nf(goal)+' u waaktijd)';
@@ -928,7 +945,7 @@ function showConfirm(model, goalFromFile){
   // (welk deel van de ligtijd nachtslaap is) en is toetsbaar tegen de
   // Orthotimer, die ook per dag telt. Oudere samenvattingen dragen alleen
   // avgWBHours; die blijven werken.
-  const goalBron = (activitySummary && activitySummary.avgWakeHours) || (activitySummary && activitySummary.avgWBHours) || null;
+  const goalBron = (activitySummary && activitySummary.avgWakeHours) || null;
   const suggestedGoal = goalBron ? Math.round(goalBron*10)/10 : null;
   const goalHint = suggestedGoal
     ? '<span style="color:var(--g400)">Voorgesteld: de waaktijd uit het beweegpatroon ('+fmtShort(new Date(activitySummary.savedAt))+'). De norm van 80% zit al in de kleuren</span>'
@@ -1035,7 +1052,10 @@ async function handleFile(file){
     const chipsXml = await get('chips.tdf');
     const infoXml  = await get('info_ng.tnf');
 
-    let goal = 12, goalFromFile = false;
+    // Geen stil standaarddoel: zonder waaktijd uit het beweegpatroon of een
+    // regel in het bestand moet de clinicus het zelf invullen. Een plausibel
+    // ogende 12 leidde tot percentages die nergens op sloegen.
+    let goal = 0, goalFromFile = false;
     if(rulesXml){
       const general = (rulesXml.match(/<WearingRule\b[\s\S]*?<\/WearingRule>/g)||[])
         .find(r=>/General_x003E_k__BackingField>true</.test(r)) || rulesXml;
@@ -1066,7 +1086,7 @@ function resetApp(){
   document.getElementById('file').value='';
   document.getElementById('prevFile').value='';
   document.getElementById('compStrip').classList.remove('show');
-  currentMean=null; currentGoal=null; prevMean=null; pendingModel=null;
+  currentMean=null; currentGoal=null; prevMean=null; currentFirst=null; pendingModel=null;
   window.scrollTo(0,0);
 }
 
