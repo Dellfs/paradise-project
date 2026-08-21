@@ -576,10 +576,17 @@ moet worden, en zo ja, het protocol aanvullen.
     staand of stappend **7,6 u/dag**, waaktijd **15,5 u/dag**. De norm gaat
     daarmee van 6,1 naar **12,4 u/dag**.
 
-    **Gevolg voor het manuscript.** Daar staat nu dat het doel de tijd is die
-    nodig is om de eigen *weight-bearing activity* in beschermend schoeisel af te
-    leggen. Dat moet mee naar de waaktijd, in de Methods (Outcome measures), in
-    tabel 3 en in de figuurlegende van figuur 5. Nog te doen.
+    **Manuscript bijgewerkt op 21 augustus 2026.** De twee alinea's die het
+    eindpunt definiëren — de meetopstelling en de formele definitie — spreken nu van
+    de waaktijd. Tabel 3 was al eerder gelijkgezet.
+
+    > **Niet aanraken:** op vijf andere plaatsen staat *weight-bearing activity*
+    > en daar hoort het te blijven staan. Die gaan over **cumulatieve plantaire
+    > weefselbelasting**, de exploratieve uitkomst: druk × gewichtsdragende
+    > activiteit × of het schoeisel gedragen werd. Dat is een ander construct dan
+    > het draagdoel, met een eigen literatuur. Wie daar de waaktijd invult, maakt
+    > de exploratieve analyse onjuist. Het gaat om de alinea's over CPTS, de
+    > exploratieve uitkomst, de datadeling-paragraaf en de legende van figuur 5.
 
     Wie de oude handleiding volgde — zet de Orthotimer op 80% — en daarna in de
     uitleesmodule opnieuw op 80% getoetst werd, kreeg **0,8 × 0,8 = 64%** als
