@@ -1011,8 +1011,7 @@ SLIDES = [
               'Zes opleidingen, zes drooglopen, de paper de deur uit.', False),
              ('februari 2027', 'Eerste patiënt',
               'Vanaf dan verandert er niets meer zonder amendement.', False)],
-      slot='Oktober is de zwaarste maand, en het meeste ervan is ontwerpwerk. '
-           'Wie daar uitloopt, loopt in november uit op de opleiding.',
+      slot='Oktober is de zwaarste maand. Februari verschuift niet.',
       tip='Wijs op februari: dat is de enige datum die niet verschuift.',
       interactie='Geen.'),
 
@@ -1035,8 +1034,7 @@ SLIDES = [
              ('Werkinstructie pedar',
               'Het enige toestel zonder SOP, terwijl de centra het zelf bedienen.',
               '2 d')],
-      slot='Vier dingen, en geen ervan kan wachten tot oktober: alles wat daarna '
-           'komt bouwt hierop voort.',
+      slot='Alles in oktober bouwt op deze vier voort.',
       tip='Het protocol is de spil: alles in oktober bouwt erop voort. Vraag de '
           'adjudicatieleden vandaag, want mensen van buiten hebben bedenktijd nodig.',
       interactie='Vraag wie zij zouden voorstellen voor de adjudicatie.'),
@@ -1081,8 +1079,8 @@ SLIDES = [
              ('Formulierenroute beslissen',
               'Papier in het centrum of via manGO. Zonder route weet niemand '
               'wat hij met een ingevuld formulier moet.', '½ d')],
-      slot='Plus het materiaalontwerp, de protocolpaper, en de afnameschema\u2019s '
-           'van Koen en Maaike voor de economische analyse en de procesevaluatie.',
+      slot='Plus materiaalontwerp, de protocolpaper, en de afnameschema\u2019s van '
+           'Koen en Maaike.',
       tip='Het fotoplatform heeft de langste doorlooptijd buiten uw controle. '
           'Begin er in week 5 aan, ook al is het pas in november af.',
       interactie='Geen.'),
@@ -1102,8 +1100,7 @@ SLIDES = [
              ('Drie documenten om',
               'SOP Orthotimer, activiteitenrapport en de decks gaan nog uit van de '
               'oude noemer en de oude eindpunten.', 'om')],
-      slot='Eén ontwerpstramien voor alles wat de patiënt meekrijgt. Wie drie '
-           'folders krijgt die er verschillend uitzien, leest er één.',
+      slot='Eén ontwerpstramien voor alles wat de patiënt meekrijgt.',
       tip='Reken ruim: patiëntmateriaal ontwerpen is trager dan het lijkt, want '
           'elke zin moet kloppen én begrijpelijk zijn.',
       interactie='Vraag wie er wil meelezen vanuit de praktijk.'),
@@ -1125,8 +1122,7 @@ SLIDES = [
               'en eigen netwerk.', '6 × ½ d'),
              ('Protocolpaper indienen',
               'Met registratienummer, SPIRIT en TIDieR als bijlage.', '1 d')],
-      slot='De droogloop is waar u ontdekt dat het netwerk de uitleessoftware '
-           'blokkeert, of dat het looppad als opslagruimte gebruikt wordt.',
+      slot='De droogloop legt bloot wat op papier klopte en in de praktijk niet.',
       tip='Plan de twee verste centra niet op dezelfde dag.',
       interactie='Vraag per centrum wie de droogloop trekt.'),
 
@@ -1145,8 +1141,7 @@ SLIDES = [
              ('Elke drempel één keer, zichtbaar',
               'Toon het tussenresultaat. Niet "80% van de waaktijd" maar "16 u '
               'waaktijd, norm 12,8 u".', '64%')],
-      slot='Alle drie zaten ze deze zomer in dit project, en geen ervan was zichtbaar '
-           'aan het scherm.',
+      slot='Alle drie zaten ze deze zomer in dit project.',
       tip='Vertel bij elk het echte voorval. Abstracte regels blijven niet hangen, '
           'het verhaal van de dubbele 80% wel.',
       interactie='Vraag of iemand een vierde voorbeeld herkent uit eigen werk.'),
@@ -1163,18 +1158,16 @@ SLIDES = [
              ('Wie het doet, schrijft het',
               'Een instructie geschreven vóór iemand mist de stap die vanzelf spreekt '
               'voor de schrijver.', 'samen')],
-      slot='En één toets die dit operationeel maakt: de verkeerd-doen-test in week 7.',
+      slot='Toets ze met de verkeerd-doen-test in week 7.',
       tip='Deze drie gaan over ontwerp, niet over opleiden. Dat is het punt.',
       interactie='Geen.'),
 
  dict(t='statement', voor='p', morph='morph',
       kicker='De goedkoopste controle die er is',
       kop='Geef het aan iemand\ndie de studie\nniet kent',
-      body='Elk formulier en elk toestel, met alleen de werkinstructie erbij. Kijk toe '
-            'en zeg niets. Waar hij aarzelt of het verkeerd invult, is het ontwerp fout '
-            '— niet de collega.',
-      uitzondering='Een halve dag werk. Vangt meer dan een week nalezen, omdat u ziet '
-                   'wat u zelf niet meer kunt zien.',
+      body='Elk formulier en elk toestel, met alleen de werkinstructie erbij. Kijk '
+           'toe en zeg niets. Waar hij aarzelt, is het ontwerp fout.',
+      uitzondering='Een halve dag werk, en het vangt meer dan een week nalezen.',
       tip='Dit is de dia waar mensen knikken. Vraag meteen wie zich beschikbaar stelt '
           'als proefkonijn.',
       interactie='Twee namen noteren voor week 7.'),
@@ -1209,8 +1202,8 @@ SLIDES = [
              'De protocolpaper ingediend, met registratienummer',
              'Begeleidings- en adjudicatiecommissie samengesteld',
              'Zoekstrategie van de scoping review vastgelegd'],
-      slot='Acht punten. Wat op 1 december nog openstaat, wordt in februari een '
-           'protocolafwijking op een patiënt.',
+      slot='Wat op 1 december openstaat, wordt in februari een protocolafwijking '
+           'op een patiënt.',
       tip='Loop ze één voor één af en vraag per punt wie eigenaar is.',
       interactie='Laat de stuurgroep hier ja of nee zeggen tegen februari.'),
 
