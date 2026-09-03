@@ -1026,20 +1026,20 @@ SLIDES = [
               'Eindpuntstructuur, statistiek, twaalf maanden voor therapietrouw, '
               'de waaktijd, en de tweede MoveMonitorweek. \u00c9\u00e9n versie, '
               '\u00e9\u00e9n datum.', '3 d'),
-             ('Statisticus aanstellen',
-              'Zitting in de stuurgroep, geblindeerd tot de primaire analyse, '
-              'schrijft het SAP. Er staat nergens een naam.', '1 d'),
+             ('Scoping review starten',
+              'Vraag kiezen en het protocol registreren voor de zoektocht begint. '
+              'Anders is het een literatuuroverzicht, geen review.', '2 d'),
              ('Twee commissies in gang zetten',
               'De begeleidingscommissie voor het doctoraat, en drie artsen van '
               'buiten voor de blinde adjudicatie.', '3 d'),
              ('Werkinstructie pedar',
               'Het enige toestel zonder SOP, terwijl de centra het zelf bedienen.',
               '2 d')],
-      slot='En de scoping review starten: vraag kiezen en het protocol registreren '
-           'vóór de zoektocht begint.',
-      tip='De statisticus is de stilste blokkade: zonder aanstelling geen SAP, en '
-          'het SAP moet vóór de eerste patiënt vastliggen.',
-      interactie='Vraag Kevin ter plekke om een naam.'),
+      slot='Vier dingen, en geen ervan kan wachten tot oktober: alles wat daarna '
+           'komt bouwt hierop voort.',
+      tip='Het protocol is de spil: alles in oktober bouwt erop voort. Vraag de '
+          'adjudicatieleden vandaag, want mensen van buiten hebben bedenktijd nodig.',
+      interactie='Vraag wie zij zouden voorstellen voor de adjudicatie.'),
 
  dict(t='duo', voor='p', morph='morph',
       kicker='Twee commissies, niet dezelfde mensen',
@@ -1079,10 +1079,10 @@ SLIDES = [
               'Keuze, gegevensbeschermingsbeoordeling, één aangeduide arts per '
               'centrum, en één testcasus doorlopen.', '3 d'),
              ('Formulierenroute beslissen',
-              'Papier in het centrum of via manGO. Zonder route weten zes centra '
-              'niet wat ze met een ingevuld formulier moeten.', '½ d')],
-      slot='Plus het materiaalontwerp en de protocolpaper afwerken — samen nog eens '
-           'acht dagen.',
+              'Papier in het centrum of via manGO. Zonder route weet niemand '
+              'wat hij met een ingevuld formulier moet.', '½ d')],
+      slot='Plus het materiaalontwerp, de protocolpaper, en de afnameschema\u2019s '
+           'van Koen en Maaike voor de economische analyse en de procesevaluatie.',
       tip='Het fotoplatform heeft de langste doorlooptijd buiten uw controle. '
           'Begin er in week 5 aan, ook al is het pas in november af.',
       interactie='Geen.'),
@@ -1182,16 +1182,18 @@ SLIDES = [
  dict(t='vierluik', voor='p', morph='morph',
       kicker='Verdeling over dertien weken',
       kop='Wie hoeveel',
-      kolommen=[('Janou · 40 d',
-                 ['Protocol, SOP’s en materiaal', 'Registratie en paper',
+      kolommen=[('Janou \u00b7 40 d',
+                 ['Protocol, SAP en materiaal', 'Registratie en paper',
                   'Opleiding en drooglopen']),
-                ('Kevin · 6 d',
-                 ['Protocol goedkeuren', 'Statisticus aanstellen',
-                  'Beide commissies werven']),
-                ('Statisticus · 5 d',
-                 ['SAP schrijven', 'Zitting stuurgroep', 'Blijft geblindeerd']),
-                ('Per centrum · 1 d',
-                 ['Team samenbrengen', 'Opleiding volgen', 'Droogloop uitvoeren'])],
+                ('Kevin \u00b7 6 d',
+                 ['Protocol goedkeuren', 'Beide commissies werven',
+                  'Co-auteurronde']),
+                ('Putman \u00b7 Fobelets',
+                 ['Gezondheidseconomische analyse', 'Procesevaluatie',
+                  'Beide afnameschema\u2019s']),
+                ('Dobbels \u00b7 SEBIA',
+                 ['De vijf gespreksmomenten', 'Motiverende gespreksvoering',
+                  'Fideliteitsafspraken'])],
       tip='Benoem dat de verdeling scheef is en waarom: voorbereidend werk is '
           'coördinatiewerk.',
       interactie='Vraag of de dag per centrum haalbaar is.'),

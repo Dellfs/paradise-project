@@ -362,10 +362,11 @@ ZEG = {
         'Blok één: september. De basis leggen. Bijna alles in oktober hangt aan deze '
         'maand, dus wat hier blijft liggen, kost dubbel.',
 
-    'Vijf dingen die af moeten':
-        'Vijf dingen, en één ervan is stiller dan de rest. Het protocol sluitend '
-        'maken kost drie dagen. Maar zonder aangestelde statisticus is er geen SAP, '
-        'en het SAP moet vóór de eerste patiënt vastliggen. Die naam wil ik vandaag.',
+    'Vier dingen die af moeten':
+        'Vier dingen, en geen ervan kan wachten. Het protocol sluitend maken kost '
+        'drie dagen, en alles daarna bouwt erop voort. De adjudicatiecommissie vraagt '
+        'mensen van buiten, dus die vraag gaat vandaag de deur uit. En de scoping '
+        'review begint met de vraagstelling, niet met lezen.',
 
     'Wie je nu moet vragen':
         'Twee commissies, en met opzet niet dezelfde mensen. De begeleidingscommissie '
@@ -422,9 +423,9 @@ ZEG = {
 
     'Wie hoeveel':
         'De verdeling is scheef en dat hoort ook: voorbereidend werk is '
-        'coördinatiewerk. Veertig dagen bij mij, vijf à zes bij Kevin, vijf bij de '
-        'statisticus in oktober, en één dag per centrum. Die laatste is de enige die '
-        'ik niet zelf in de hand heb.',
+        'co\u00f6rdinatiewerk. Veertig dagen bij mij, zes bij Kevin, en \u00e9\u00e9n dag '
+        'per centrum. Koen en Maaike dragen de economische analyse \u00e9n de '
+        'procesevaluatie, Fabienne draagt SEBIA. Die drie lopen door tot het einde.',
 
     'Waaraan u ziet dat het klaar is':
         'Acht punten, en ze zijn allemaal aantoonbaar. Geen inschattingen maar dingen '
