@@ -14,7 +14,8 @@ HIER = os.path.dirname(os.path.abspath(__file__))
 
 print('%-11s %-46s %s' % ('DECK', 'BESTAND', 'DUUR'))
 print('-' * 84)
-for naam in ('opleiding', 'kort', 'board', 'congres', 'extern', 'outreach'):
+for naam in ('opleiding', 'kort', 'board', 'congres', 'extern', 'outreach',
+             'planning'):
     r = subprocess.run([sys.executable, os.path.join(HIER, 'maak_pptx.py'), naam],
                        capture_output=True, text=True, encoding='utf-8',
                        errors='replace')

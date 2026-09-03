@@ -408,7 +408,10 @@ def T(zin):
 
 # de referentiedia sluit het deck af; welke nummers erop staan blijkt pas na
 # het tekenen, dus de dia zelf wordt als laatste gevuld
-SLIDES.append(dict(t='referenties', voor=DECK['letter'], morph='fade'))
+# Alleen als dit deck werkelijk naar literatuur verwijst. Een planningdeck
+# doet dat niet, en een lege referentiedia is erger dan geen.
+if any(d.get('bron') or bronnen.BIJ_DIA.get(zeg_sleutel(d)) for d in SLIDES):
+    SLIDES.append(dict(t='referenties', voor=DECK['letter'], morph='fade'))
 
 prs = Presentation()
 prs.slide_width, prs.slide_height = Inches(13.333), Inches(7.5)

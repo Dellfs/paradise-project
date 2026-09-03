@@ -91,6 +91,12 @@ DECKS = {
         duur='15 minuten', taal='en',
         wie='Vakgenoten. Volgt de opbouw van het protocolmanuscript: rationale, '
             'ontwerp, eindpunten, power en analyseplan.'),
+    'planning': dict(
+        letter='p', bestand='PARADISE_planning_sep-nov.pptx',
+        onder='Werkplan · september tot november 2026',
+        duur='20 minuten',
+        wie='Het onderzoeksteam en de stuurgroep. Wat er in dertien weken moet '
+            'gebeuren, door wie, en waaraan je ziet dat het af is.'),
     'outreach': dict(
         letter='u', bestand='PARADISE_outreach.pptx',
         onder='Waarom deze studie er is',
@@ -973,7 +979,246 @@ SLIDES = [
       interactie='Tel hardop hoeveel handtekeningen u nodig hebt en hoeveel er al '
                  'staan.'),
 
- dict(t='contact', voor='obcuke', morph='morph',
+ # ------------------------------------------------------------------------
+ # Werkplan september - november 2026. Eigen deck (voor='p'), zodat deze
+ # dia's in geen van de zes inhoudelijke decks meelopen.
+ # ------------------------------------------------------------------------
+ dict(t='keuze', voor='p', morph='morph',
+      kicker='Vier sporen tegelijk',
+      kop='Wat er de komende dertien weken loopt',
+      tegels=[('01', 'Opstart',
+               'Protocol, SAP, registratie, toestellen, opleiding, droogloop'),
+              ('02', 'Materiaal',
+               'Zesenveertig documenten, waarvan vier nog te ontwerpen'),
+              ('03', 'Publiceren',
+               'De protocolpaper indienen, de scoping review starten'),
+              ('04', 'Doctoraat',
+               'De begeleidingscommissie samenstellen en samenroepen')],
+      tip='Zeg meteen dat deze vier parallel lopen. Wie ze na elkaar plant, '
+          'haalt februari niet.',
+      interactie='Vraag welk spoor zij onderschatten. Meestal is dat materiaal.'),
+
+ dict(t='fasen', voor='p', morph='morph',
+      kicker='De dertien weken',
+      kop='Drie maanden, drie doelen',
+      fasen=[('september', 'De basis leggen',
+              'Protocol sluitend, statisticus aangesteld, beide commissies in '
+              'beweging.', True),
+             ('oktober', 'Ontwerpen en vastleggen',
+              'Registratie, SAP, fotoplatform, en het materiaal dat in november '
+              'gebruikt wordt.', False),
+             ('november', 'Opleiden en droogdraaien',
+              'Zes opleidingen, zes drooglopen, de paper de deur uit.', False),
+             ('februari 2027', 'Eerste patiënt',
+              'Vanaf dan verandert er niets meer zonder amendement.', False)],
+      slot='Oktober is de zwaarste maand, en het meeste ervan is ontwerpwerk. '
+           'Wie daar uitloopt, loopt in november uit op de opleiding.',
+      tip='Wijs op februari: dat is de enige datum die niet verschuift.',
+      interactie='Geen.'),
+
+ dict(t='sectie', voor='p', morph='morph', nr='01', titel='September',
+      regel='De basis leggen. Bijna alles in oktober hangt aan deze maand.'),
+
+ dict(t='melden', voor='p', morph='morph',
+      kicker='September · week 1 tot 4',
+      kop='Vier dingen die af moeten',
+      rijen=[('Protocol sluitend maken',
+              'Eindpuntstructuur, statistiek, twaalf maanden voor therapietrouw, '
+              'de waaktijd, en de tweede MoveMonitorweek. \u00c9\u00e9n versie, '
+              '\u00e9\u00e9n datum.', '3 d'),
+             ('Statisticus aanstellen',
+              'Zitting in de stuurgroep, geblindeerd tot de primaire analyse, '
+              'schrijft het SAP. Er staat nergens een naam.', '1 d'),
+             ('Twee commissies in gang zetten',
+              'De begeleidingscommissie voor het doctoraat, en drie artsen van '
+              'buiten voor de blinde adjudicatie.', '3 d'),
+             ('Werkinstructie pedar',
+              'Het enige toestel zonder SOP, terwijl de centra het zelf bedienen.',
+              '2 d')],
+      slot='En de scoping review starten: vraag kiezen en het protocol registreren '
+           'vóór de zoektocht begint.',
+      tip='De statisticus is de stilste blokkade: zonder aanstelling geen SAP, en '
+          'het SAP moet vóór de eerste patiënt vastliggen.',
+      interactie='Vraag Kevin ter plekke om een naam.'),
+
+ dict(t='duo', voor='p', morph='morph',
+      kicker='Twee commissies, niet dezelfde mensen',
+      kop='Wie je nu moet vragen',
+      een=dict(nr='01', naam='Begeleidingscommissie',
+               kern='promotor, co-promotoren, plus één of twee',
+               regels=['Kies aanvullend: het consortium dekt biomechanica, gedrag '
+                       'en economie, dus methodologie ontbreekt.',
+                       'Plan het eerste overleg meteen mee.',
+                       'De termijn staat in het doctoraatsreglement van de '
+                       'faculteit.']),
+      twee=dict(nr='02', naam='Adjudicatiecommissie',
+                kern='twee tot drie artsen van buiten de zes centra',
+                regels=['Beoordeelt elk ulcus geblindeerd, op geanonimiseerde '
+                        'documentatie en foto\u2019s.',
+                        'Moet bestaan vóór het eerste ulcus, niet vóór de eerste '
+                        'analyse.',
+                        'Houd deze los van de begeleidingscommissie: '
+                        'onafhankelijkheid is makkelijker vol te houden.']),
+      tip='Begin hier vroeg mee. Mensen buiten het consortium vragen bedenktijd.',
+      interactie='Vraag wie zij zouden aanspreken.'),
+
+ dict(t='sectie', voor='p', morph='morph', nr='02', titel='Oktober',
+      regel='Ontwerpen en vastleggen. De zwaarste maand van de drie.'),
+
+ dict(t='melden', voor='p', morph='morph',
+      kicker='Oktober · week 5 tot 8',
+      kop='Vastleggen wat november gebruikt',
+      rijen=[('De studie registreren',
+              'Moet vóór de eerste deelnemer. Het nummer vult meteen de open '
+              'velden in het manuscript en deblokkeert de indiening.', '½ d'),
+             ('SAP schrijven',
+              'Met \u00e9\u00e9n primair eindpunt eenvoudiger: geen '
+              'intersectie-unie, geen multipliciteitscorrectie. Ook de '
+              'waaktijdregel hoort hierin.', '5 d'),
+             ('Fotoplatform regelen',
+              'Keuze, gegevensbeschermingsbeoordeling, één aangeduide arts per '
+              'centrum, en één testcasus doorlopen.', '3 d'),
+             ('Formulierenroute beslissen',
+              'Papier in het centrum of via manGO. Zonder route weten zes centra '
+              'niet wat ze met een ingevuld formulier moeten.', '½ d')],
+      slot='Plus het materiaalontwerp en de protocolpaper afwerken — samen nog eens '
+           'acht dagen.',
+      tip='Het fotoplatform heeft de langste doorlooptijd buiten uw controle. '
+          'Begin er in week 5 aan, ook al is het pas in november af.',
+      interactie='Geen.'),
+
+ dict(t='melden', voor='p', morph='morph',
+      kicker='Materiaal',
+      kop='Wat er nog niet is',
+      rijen=[('Werkinstructie pedar',
+              'Ontbreekt volledig, terwijl de centra het toestel zelf bedienen.',
+              'nieuw'),
+             ('Slijtageschaal schoeisel',
+              'Staat als secundaire uitkomst in het protocol, maar er is geen '
+              'formulier.', 'nieuw'),
+             ('Voetzorgfolder (48)',
+              'Het document dat de patiënt mee naar huis krijgt en het vaakst '
+              'herleest. Nog niet opgemaakt.', 'nieuw'),
+             ('Drie documenten om',
+              'SOP Orthotimer, activiteitenrapport en de decks gaan nog uit van de '
+              'oude noemer en de oude eindpunten.', 'om')],
+      slot='Eén ontwerpstramien voor alles wat de patiënt meekrijgt. Wie drie '
+           'folders krijgt die er verschillend uitzien, leest er één.',
+      tip='Reken ruim: patiëntmateriaal ontwerpen is trager dan het lijkt, want '
+          'elke zin moet kloppen én begrijpelijk zijn.',
+      interactie='Vraag wie er wil meelezen vanuit de praktijk.'),
+
+ dict(t='sectie', voor='p', morph='morph', nr='03', titel='November',
+      regel='Van papier naar de meettafel. Zes opleidingen, zes drooglopen.'),
+
+ dict(t='melden', voor='p', morph='morph',
+      kicker='November · week 9 tot 13',
+      kop='Naar de praktijk',
+      rijen=[('Zes opleidingssessies',
+              'Podoloog, pedorthist, arts en management samen in één zaal. De '
+              'rollen grijpen in elkaar.', '6 × ½ d'),
+             ('Bekwaamheidscheck en register',
+              'Geen quiz maar een gesprek: kan deze persoon het zelf. Wie '
+              'twijfelt, zegt het daar.', 'inbegrepen'),
+             ('Zes drooglopen',
+              'De volledige keten met een verzonnen deelnemer, op eigen toestellen '
+              'en eigen netwerk.', '6 × ½ d'),
+             ('Protocolpaper indienen',
+              'Met registratienummer, SPIRIT en TIDieR als bijlage.', '1 d')],
+      slot='De droogloop is waar u ontdekt dat het netwerk de uitleessoftware '
+           'blokkeert, of dat het looppad als opslagruimte gebruikt wordt.',
+      tip='Plan de twee verste centra niet op dezelfde dag.',
+      interactie='Vraag per centrum wie de droogloop trekt.'),
+
+ dict(t='sectie', voor='p', morph='morph', nr='04', titel='Foolproof maken',
+      regel='Zes regels, elk uit een fout die deze zomer echt in dit project zat.'),
+
+ dict(t='melden', voor='p', morph='morph',
+      kicker='Regels 1 tot 3',
+      kop='Wat een fout onzichtbaar maakt',
+      rijen=[('Eén bron, de rest gegenereerd',
+              'Staat dezelfde tekst op twee plaatsen, dan lopen ze uit elkaar. Niet '
+              'misschien: zeker, en ongemerkt.', 'MOOC'),
+             ('Geen stille standaardwaarden',
+              'Een leeg veld dat zichzelf invult met iets plausibels is gevaarlijker '
+              'dan een leeg veld.', '12 u'),
+             ('Elke drempel één keer, zichtbaar',
+              'Toon het tussenresultaat. Niet "80% van de waaktijd" maar "16 u '
+              'waaktijd, norm 12,8 u".', '64%')],
+      slot='Alle drie zaten ze deze zomer in dit project, en geen ervan was zichtbaar '
+           'aan het scherm.',
+      tip='Vertel bij elk het echte voorval. Abstracte regels blijven niet hangen, '
+          'het verhaal van de dubbele 80% wel.',
+      interactie='Vraag of iemand een vierde voorbeeld herkent uit eigen werk.'),
+
+ dict(t='melden', voor='p', morph='morph',
+      kicker='Regels 4 tot 6',
+      kop='Wat een fout tegenhoudt',
+      rijen=[('Falen moet luid zijn',
+              'Een terugval die stil een ander getal gebruikt is erger dan een '
+              'foutmelding. Liever niets dan iets aannemelijks.', 'luid'),
+             ('Het formulier maakt fout moeilijk',
+              'Eenheid en bereik voordrukken. "Niet gemeten" als vakje, want een leeg '
+              'veld is dubbelzinnig.', 'ontwerp'),
+             ('Wie het doet, schrijft het',
+              'Een instructie geschreven vóór iemand mist de stap die vanzelf spreekt '
+              'voor de schrijver.', 'samen')],
+      slot='En één toets die dit operationeel maakt: de verkeerd-doen-test in week 7.',
+      tip='Deze drie gaan over ontwerp, niet over opleiden. Dat is het punt.',
+      interactie='Geen.'),
+
+ dict(t='statement', voor='p', morph='morph',
+      kicker='De goedkoopste controle die er is',
+      kop='Geef het aan iemand\ndie de studie\nniet kent',
+      body='Elk formulier en elk toestel, met alleen de werkinstructie erbij. Kijk toe '
+            'en zeg niets. Waar hij aarzelt of het verkeerd invult, is het ontwerp fout '
+            '— niet de collega.',
+      uitzondering='Een halve dag werk. Vangt meer dan een week nalezen, omdat u ziet '
+                   'wat u zelf niet meer kunt zien.',
+      tip='Dit is de dia waar mensen knikken. Vraag meteen wie zich beschikbaar stelt '
+          'als proefkonijn.',
+      interactie='Twee namen noteren voor week 7.'),
+
+ dict(t='vierluik', voor='p', morph='morph',
+      kicker='Verdeling over dertien weken',
+      kop='Wie hoeveel',
+      kolommen=[('Janou · 40 d',
+                 ['Protocol, SOP’s en materiaal', 'Registratie en paper',
+                  'Opleiding en drooglopen']),
+                ('Kevin · 6 d',
+                 ['Protocol goedkeuren', 'Statisticus aanstellen',
+                  'Beide commissies werven']),
+                ('Statisticus · 5 d',
+                 ['SAP schrijven', 'Zitting stuurgroep', 'Blijft geblindeerd']),
+                ('Per centrum · 1 d',
+                 ['Team samenbrengen', 'Opleiding volgen', 'Droogloop uitvoeren'])],
+      tip='Benoem dat de verdeling scheef is en waarom: voorbereidend werk is '
+          'coördinatiewerk.',
+      interactie='Vraag of de dag per centrum haalbaar is.'),
+
+ dict(t='check', voor='p', morph='morph',
+      kicker='Eind november',
+      kop='Waaraan u ziet dat het klaar is',
+      items=['Zes centra opgeleid, bekwaamheidscheck gedaan, register getekend',
+             'Zes ketens volledig doorlopen op eigen toestellen en eigen netwerk',
+             'Eén protocolversie in omloop, sluitend met het manuscript',
+             'SAP geschreven en de studie geregistreerd',
+             'Vier nieuwe materialen gemaakt, drie herzien, alles verkeerd geprobeerd',
+             'De protocolpaper ingediend, met registratienummer',
+             'Begeleidings- en adjudicatiecommissie samengesteld',
+             'Zoekstrategie van de scoping review vastgelegd'],
+      slot='Acht punten. Wat op 1 december nog openstaat, wordt in februari een '
+           'protocolafwijking op een patiënt.',
+      tip='Loop ze één voor één af en vraag per punt wie eigenaar is.',
+      interactie='Laat de stuurgroep hier ja of nee zeggen tegen februari.'),
+
+ dict(t='knal', voor='p', morph='morph',
+      kop='Februari verschuift niet.\nAlles ervoor wel.',
+      onder='Daarom staat het zware werk in oktober en niet in januari.',
+      tip='Sluit hiermee af en zeg niets meer.',
+      interactie='Geen.'),
+
+ dict(t='contact', voor='pobcuke', morph='morph',
       kicker='Wie u aanspreekt',
       kop='Voor als er iets misloopt',
       personen=[

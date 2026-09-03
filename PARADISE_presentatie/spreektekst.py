@@ -347,6 +347,94 @@ ZEG = {
         'staat hier met nummer en citaat, in dezelfde nummering als het '
         'protocolmanuscript.',
 
+    # ------------------------------------------------- werkplan sep-nov 2026
+    'Wat er de komende dertien weken loopt':
+        'Vier sporen, en ze lopen tegelijk. Opstart, materiaal, publiceren en het '
+        'doctoraat. Wie ze na elkaar plant haalt februari niet, want het materiaal '
+        'moet af zijn vóór de opleiding en de opleiding vóór de droogloop.',
+
+    'Drie maanden, drie doelen':
+        'September legt de basis, oktober is ontwerpen, november is de praktijk. '
+        'Oktober is de zwaarste maand en het meeste ervan is ontwerpwerk. Februari '
+        'staat vast — alles ervoor schuift, die datum niet.',
+
+    'September':
+        'Blok één: september. De basis leggen. Bijna alles in oktober hangt aan deze '
+        'maand, dus wat hier blijft liggen, kost dubbel.',
+
+    'Vijf dingen die af moeten':
+        'Vijf dingen, en één ervan is stiller dan de rest. Het protocol sluitend '
+        'maken kost drie dagen. Maar zonder aangestelde statisticus is er geen SAP, '
+        'en het SAP moet vóór de eerste patiënt vastliggen. Die naam wil ik vandaag.',
+
+    'Wie je nu moet vragen':
+        'Twee commissies, en met opzet niet dezelfde mensen. De begeleidingscommissie '
+        'draagt het doctoraat; de adjudicatiecommissie beoordeelt elk ulcus '
+        'geblindeerd en moet daarom buiten de zes centra staan. Begin nu: mensen van '
+        'buiten vragen bedenktijd.',
+
+    'Oktober':
+        'Blok twee: oktober. Ontwerpen en vastleggen. Alles wat in november gebruikt '
+        'wordt, moet deze maand af zijn.',
+
+    'Vastleggen wat november gebruikt':
+        'Vier vaste punten deze maand. Registreren kan nu het protocol stabiel is, en '
+        'dat nummer deblokkeert meteen de indiening van de paper. Het fotoplatform '
+        'heeft de langste doorlooptijd buiten onze controle — daar begin ik in week '
+        'vijf aan, ook al is het pas in november af.',
+
+    'Wat er nog niet is':
+        'Drie documenten bestaan niet en drie moeten om. De werkinstructie voor de '
+        'pedar ontbreekt volledig, terwijl de centra dat toestel zelf bedienen. Reken '
+        'ruim voor patiëntmateriaal: elke zin moet én kloppen én begrijpelijk zijn.',
+
+    'November':
+        'Blok drie: november. Van papier naar de meettafel. Zes opleidingen, zes '
+        'drooglopen, en de paper de deur uit.',
+
+    'Naar de praktijk':
+        'Zes opleidingen en zes drooglopen, elk een halve dag. De droogloop is het '
+        'punt van de hele maand: daar ontdek je dat het ziekenhuisnetwerk de '
+        'uitleessoftware blokkeert, of dat het looppad als opslagruimte gebruikt '
+        'wordt. Dat wil je nu weten en niet bij patiënt één.',
+
+    'Foolproof maken':
+        'Blok vier: foolproof maken. Zes regels, en elk ervan komt uit een fout die '
+        'deze zomer werkelijk in dit project zat.',
+
+    'Wat een fout onzichtbaar maakt':
+        'Drie manieren waarop een fout onzichtbaar blijft. Dezelfde tekst op twee '
+        'plaatsen loopt uit elkaar — dat gebeurde in de MOOC en een week lang stond er '
+        'een verkeerd antwoord. Een veld dat zichzelf invult met twaalf uur levert '
+        'percentages op die er normaal uitzien en nergens op slaan.',
+
+    'Wat een fout tegenhoudt':
+        'En drie manieren om ze tegen te houden. Laat het systeem liever niets doen '
+        'dan iets aannemelijks. Druk de eenheid voor en maak van "niet gemeten" een '
+        'vakje. En schrijf de instructie mét degene die de handeling doet, niet voor '
+        'hem.',
+
+    'Geef het aan iemand\ndie de studie\nniet kent':
+        'Dit is de goedkoopste controle die er is. Geef het formulier en het toestel '
+        'aan iemand die de studie niet kent, kijk toe en zeg niets. Waar hij aarzelt '
+        'is het ontwerp fout, niet de collega. Een halve dag, en het vangt meer dan '
+        'een week nalezen.',
+
+    'Wie hoeveel':
+        'De verdeling is scheef en dat hoort ook: voorbereidend werk is '
+        'coördinatiewerk. Veertig dagen bij mij, vijf à zes bij Kevin, vijf bij de '
+        'statisticus in oktober, en één dag per centrum. Die laatste is de enige die '
+        'ik niet zelf in de hand heb.',
+
+    'Waaraan u ziet dat het klaar is':
+        'Acht punten, en ze zijn allemaal aantoonbaar. Geen inschattingen maar dingen '
+        'die er zijn of niet zijn. Wat op één december nog openstaat, wordt in februari '
+        'een protocolafwijking op een patiënt.',
+
+    'Februari verschuift niet.\nAlles ervoor wel.':
+        'Rustig zeggen en dan zwijgen. Dit is de reden dat het zware werk in oktober '
+        'staat en niet in januari.',
+
     'Voor als er iets misloopt':
         'Tot slot: wie u aanspreekt. Praktische vragen — inclusies, metingen, '
         'formulieren, sensoren — komen bij mij. Wetenschappelijke vragen en '

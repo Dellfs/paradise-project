@@ -3,9 +3,9 @@
 De presentatie wordt gegenereerd, niet met de hand gemaakt. Alles blijft echte
 PowerPoint-vormen en echte tekstvakken, dus u kunt achteraf nog alles aanpassen.
 
-## Zes decks uit één bron
+## Zeven decks uit één bron
 
-Dezelfde inhoud levert zes presentaties. Elke dia draagt een label `voor` met de
+Dezelfde inhoud levert zeven presentaties. Elke dia draagt een label `voor` met de
 letters van de decks waarin hij hoort; de bouwer filtert daarop.
 
 | Deck | Bestand | Duur | Voor wie |
@@ -16,12 +16,13 @@ letters van de decks waarin hij hoort; de bouwer filtert daarop.
 | `congres` | `PARADISE_congres.pptx` | 15 min | Vakgenoten, **in het Engels**. Volgt de opbouw van het protocolmanuscript. |
 | `extern` | `PARADISE_extern.pptx` | 15 min | Externe partners, andere ziekenhuizen, industrie. |
 | `outreach` | `PARADISE_outreach.pptx` | 10 min | Breed publiek en pers. Geen jargon, geen formuliernummers. |
+| `planning` | `PARADISE_planning_sep-nov.pptx` | 20 min | Het werkplan september-november 2026: vier sporen, wie wat doet, en hoe je het foolproof maakt. Eigen dia's, geen studie-inhoud. |
 
 ## Opnieuw bouwen
 
 ```powershell
 python maak_beelden.py    # eenmalig: snijdt de toestelfoto's en logo's bij
-python maak_alles.py      # bouwt alle zes de decks
+python maak_alles.py      # bouwt alle zeven de decks
 python maak_pptx.py board # of één deck apart
 ```
 
@@ -34,7 +35,7 @@ dict(t='statement', voor='ock', ...)   # opleiding, congres, kort
 ```
 
 De letters: **o** opleiding · **b** board · **c** congres · **u** outreach ·
-**k** kort · **e** extern. De titeldia hoort in alle zes en krijgt per deck een
+**k** kort · **e** extern · **p** planning. De titeldia hoort in alle zeven en krijgt per deck een
 eigen ondertitel; die staat in `DECKS` bovenaan `inhoud.py`, samen met de
 bestandsnaam en de richttijd.
 
