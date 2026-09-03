@@ -53,12 +53,30 @@ door de **PI** sequentieel geopend ná inclusie. (§5.3.2)
 
 ## 2. Eindpunten
 
-### Co-primair
-1. **Voetulcusrecidief** over 18 maanden. Beide voeten, plantair én dorsaal
-   systematisch gescreend. Recidief = nieuw ulcus op dezelfde of een andere plek.
-2. **Schoeiseltherapietrouw**: het sensorgedragen schoeisel dragen gedurende **80% van
-   het vastgestelde gemiddelde activiteitenprofiel**, **7 dagen per week**. Elke drie
-   maanden uitgelezen.
+### Primair — één eindpunt sinds 3 september 2026
+**Voetulcusrecidief** over 18 maanden. Beide voeten, plantair én dorsaal
+systematisch gescreend. Recidief = nieuw ulcus op dezelfde of een andere plek.
+
+### Mediator, geen eindpunt
+**Schoeiseltherapietrouw**: het sensorgedragen schoeisel dragen gedurende **80% van
+de waaktijd**, **7 dagen per week**. Elke drie maanden uitgelezen, met 12 maanden
+als voornaamste analysepunt.
+
+> **Beslissing van de PI (3 september 2026).** Adherentie was co-primair; ze is nu de
+> **vooraf vastgelegde mediator** van het effect op recidief. De studie is positief op
+> recidief alleen. Adherentie wordt onverminderd objectief gemeten en volledig
+> gerapporteerd, maar draagt geen eigen succescriterium.
+>
+> Gevolgen die al doorgevoerd zijn in het manuscript en de figuren: de
+> steekproefberekening wordt door recidief alleen gedreven; de intersectie-unietoets
+> en de multipliciteitsredenering vervallen; de gezamenlijke power van 74-84% vervalt
+> en wordt de **84%** van de recidiefvergelijking (90% bij volledige opvolging). De
+> steekproefgrootte blijft 144 — recidief vroeg al 130, en 144 kwam uit de
+> rekruteringscapaciteit.
+>
+> Wat de opzet kost, staat nu ook in de discussie: het gedragsmechanisme wordt niet
+> meer confirmatoir getoetst. Een studie die de therapietrouw verhoogt zonder het
+> recidief te verlagen, is negatief op haar primaire eindpunt.
 
 > **Beslecht door het manuscript (14 augustus 2026).** Het protocol sprak zichzelf
 > tegen over het analysepunt voor therapietrouw: drie plaatsen zeiden 18 maanden
