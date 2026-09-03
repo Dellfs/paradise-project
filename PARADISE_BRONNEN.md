@@ -399,6 +399,21 @@ unieke deelnemerscode.
 
 ## 11. Statistiek
 
+> **Wie de analyse doet (3 september 2026).** De coördinerend onderzoeker voert de
+> statistische analyse zelf uit; er komt geen aparte studiestatisticus. Dat raakt één
+> belofte in het manuscript, want een geblindeerde statisticus was daar een van de drie
+> tegenwichten voor het open-label ontwerp.
+>
+> **Wat er nu staat:** de primaire analyse draait op een bestand waarin de toewijzing
+> **gemaskeerd is als A en B**, met de sleutel bij de onafhankelijke statisticus die de
+> randomisatievolgorde genereerde. Het SAP en de analysecode liggen vast vóór die sleutel
+> vrijkomt. In de beperkingen staat expliciet dat de analist niet onafhankelijk is van de
+> uitvoering.
+>
+> **Blijft onafhankelijk:** de statisticus die de randomisatievolgorde genereert. Die mag
+> geen aandeel hebben in rekrutering, uitvoering of uitkomstbeoordeling, en kan dus niet
+> dezelfde persoon zijn.
+
 Het protocol (§7.1) beschrijft de analyse in grove lijnen; het manuscript werkt ze
 volledig uit en is op dit punt **leidend**. Wat hieronder staat, komt uit het
 manuscript, met het protocol ernaast waar het afwijkt.
