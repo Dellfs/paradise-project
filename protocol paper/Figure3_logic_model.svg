@@ -71,7 +71,7 @@
   <!-- SHORT/MEDIUM -->
   <rect x="700" y="58" width="222" height="104" rx="4" fill="#DCE9F2" stroke="#1B3A5C" stroke-width="1.6"/>
   <text x="714" y="80" font-size="12" font-weight="bold" fill="#1B3A5C">Footwear adherence ↑</text>
-  <text x="714" y="99" font-size="10.5" fill="#0E7C86" font-weight="bold">CO-PRIMARY OUTCOME</text>
+  <text x="714" y="99" font-size="10.5" fill="#0E7C86" font-weight="bold">MEDIATOR</text>
   <g font-size="11" fill="#33475B">
     <text x="714" y="120">Proportion of individualised,</text><text x="714" y="135">activity-derived wear-time</text><text x="714" y="150">target achieved</text>
   </g>
@@ -87,7 +87,7 @@
   <!-- LONG TERM -->
   <rect x="952" y="58" width="162" height="104" rx="4" fill="#1B3A5C"/>
   <text x="1033" y="82" font-size="12.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Ulcer recurrence ↓</text>
-  <text x="1033" y="101" font-size="10.5" fill="#7FE3F0" text-anchor="middle" font-weight="bold">CO-PRIMARY</text>
+  <text x="1033" y="101" font-size="10.5" fill="#7FE3F0" text-anchor="middle" font-weight="bold">PRIMARY</text>
   <text x="1033" y="122" font-size="11" fill="#CFE0EC" text-anchor="middle">Time to first</text>
   <text x="1033" y="137" font-size="11" fill="#CFE0EC" text-anchor="middle">adjudicated ulcer,</text>
   <text x="1033" y="152" font-size="11" fill="#CFE0EC" text-anchor="middle">18 months</text>

@@ -23,8 +23,6 @@
   <line x1="90" y1="70" x2="90" y2="480" stroke="#5A6B7D" stroke-width="1.3"/>
   <line x1="90" y1="152" x2="860" y2="152" stroke="#B04A3A" stroke-width="1.2" stroke-dasharray="5,4"/>
   <text x="715" y="145" font-size="10.5" fill="#B04A3A">conventional 80% power</text>
-  <line x1="90" y1="123.3" x2="860" y2="123.3" stroke="#0E7C86" stroke-width="1.2" stroke-dasharray="2,3"/>
-  <text x="600" y="116.3" font-size="10.5" fill="#0E7C86">adherence endpoint, 87%</text>
   <polyline points="90,86.6648 99.625,88.1083 109.25,89.6382 118.875,91.2566 128.5,92.9656 138.125,94.767 147.75,96.6628 157.375,98.6543 167,100.743 176.625,102.931 186.25,105.218 195.875,107.605 205.5,110.094 215.125,112.684 224.75,115.377 234.375,118.171 244,121.068 253.625,124.066 263.25,127.165 272.875,130.364 282.5,133.663 292.125,137.06 301.75,140.554 311.375,144.142 321,147.825 330.625,151.598 340.25,155.461 349.875,159.41 359.5,163.443 369.125,167.558 378.75,171.752 388.375,176.02 398,180.361 407.625,184.77 417.25,189.245 426.875,193.781 436.5,198.375 446.125,203.023 455.75,207.721 465.375,212.464 475,217.249 484.625,222.072 494.25,226.927 503.875,231.812 513.5,236.721 523.125,241.65 532.75,246.595 542.375,251.551 552,256.514 561.625,261.479 571.25,266.443 580.875,271.401 590.5,276.348 600.125,281.281 609.75,286.196 619.375,291.088 629,295.953 638.625,300.788 648.25,305.589 657.875,310.352 667.5,315.073 677.125,319.75 686.75,324.379 696.375,328.956 706,333.48 715.625,337.946 725.25,342.352 734.875,346.696 744.5,350.974 754.125,355.186 763.75,359.328 773.375,363.399 783,367.396 792.625,371.319 802.25,375.165 811.875,378.933 821.5,382.622 831.125,386.232 840.75,389.76 850.375,393.206 860,396.57" fill="none" stroke="#1B3A5C" stroke-width="2.4"/>
   <circle cx="282.5" cy="133.663" r="5" fill="#1B3A5C"/>
   <text x="282.5" y="115" font-size="11" font-weight="bold" fill="#1B3A5C" text-anchor="middle">84%</text>
@@ -37,6 +35,6 @@
   <text x="667.5" y="303.073" font-size="11" font-weight="bold" fill="#1B3A5C" text-anchor="middle">40%</text>
   <text x="475" y="518" font-size="12" fill="#33475B" text-anchor="middle">Assumed 18-month recurrence under PARADISE</text>
   <text x="20" y="275" font-size="12" fill="#33475B" transform="rotate(-90 20 275)" text-anchor="middle">Power</text>
-  <text x="40" y="534" font-size="11" fill="#5A6B7D">Because the trial is declared positive only if both co-primary endpoints are met, the probability of succeeding on both is lower than either curve</text>
-  <text x="40" y="550" font-size="11" fill="#5A6B7D">alone — approximately 74% under the primary assumption if the endpoints are independent, and higher to the extent that they correlate.</text>
+  <text x="40" y="534" font-size="11" fill="#5A6B7D">Ulcer recurrence is the sole primary endpoint, so the power of the trial is the power of this curve. Footwear adherence is analysed as the</text>
+  <text x="40" y="550" font-size="11" fill="#5A6B7D">pre-specified mediator of that effect and does not carry a success criterion of its own.</text>
   </svg>
