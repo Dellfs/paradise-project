@@ -45,9 +45,18 @@ Maaike Fobelets en Koen Putman. Corresponderend auteur Janou De Buyser,
 `janou.debuyser@kuleuven.be`, Spoorwegstraat 12, 8200 Brugge.
 
 ### Randomisatie
-Gestratificeerde blokrandomisatie **per centrum**, vier blokken van zes deelnemers per
-kliniek. Toewijzingsverberging via **verzegelde enveloppen**, vooraf klaargemaakt en
-door de **PI** sequentieel geopend ná inclusie. (§5.3.2)
+Gestratificeerd **per centrum**, uit **één gebalanceerde permutatie van 24**: twaalf
+toewijzingen per arm in identieke ondoorzichtige enveloppen, samen geschud en daarna
+**genummerd**. De PI opent ze sequentieel, en pas **ná** bevestigde geschiktheid,
+getekende toestemming en de baselinemetingen. (§5.3.2)
+
+> **Bijgesteld op 3 september 2026.** Het manuscript sprak van blokken van wisselende
+> grootte uit een computergegenereerde volgorde; in de praktijk wordt fysiek geschud.
+> Twee gevolgen staan nu in het manuscript beschreven. De verhouding per centrum ligt
+> vast op 12:12, dus de laatste toewijzingen worden voorspelbaar naarmate een centrum
+> zijn doel nadert — de tegenmaatregel is de volgorde van handelen, niet het verbergen
+> van de verhouding. En het **nummeren na het schudden** behoudt het controlespoor:
+> de volgorde ligt vast en een overgeslagen envelop valt op.
 
 ---
 
