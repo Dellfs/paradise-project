@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Werkpakket 1 &mdash; tijdslijn &middot; PARADISE</title>
-<meta name="description" content="Interne tijdslijn van werkpakket 1 van de FWO-TBM PARADISE-studie: alle acht taken, hun deelactiviteiten, deliverables en mijlpalen, geijkt op het protocolmanuscript van september 2026.">
+<meta name="description" content="Interne tijdslijn van werkpakket 1 van de FWO-TBM PARADISE-studie: de acht taken, het bezoekschema, de staat van het manuscriptpakket en de openstaande punten.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,7 +23,7 @@
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-b);line-height:1.55;-webkit-font-smoothing:antialiased}
-.px{max-width:1100px;margin:0 auto;padding:22px 20px 80px}
+.px{max-width:1080px;margin:0 auto;padding:22px 20px 80px}
 
 .topbar{display:flex;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap}
 .bc-home{font-size:12.5px;font-weight:600;color:var(--muted);text-decoration:none}
@@ -33,12 +33,12 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-b);li
 .stamp{font-size:11.5px;color:var(--muted)}
 
 h1{font-family:var(--font-h);font-weight:400;font-size:clamp(28px,4.4vw,42px);color:var(--pd);line-height:1.08;margin:8px 0 12px;letter-spacing:-.005em}
-h3{font-size:15px;font-weight:700;color:var(--pd);margin:0 0 4px}
-.lead{font-size:16.5px;color:var(--soft);max-width:74ch;margin:0 0 6px}
-.sh{font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--pm);font-weight:700;margin:44px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--line)}
-p{max-width:74ch}
+h3{font-size:15px;font-weight:700;color:var(--pd);margin:24px 0 6px}
+.lead{font-size:16.5px;color:var(--soft);max-width:72ch;margin:0 0 6px}
+.sh{font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--pm);font-weight:700;margin:42px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--line)}
+p{max-width:74ch;margin:0 0 10px}
 a{color:var(--pm)}
-small,.muted{color:var(--muted);font-size:13px}
+.muted{color:var(--muted);font-size:13px}
 
 .stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:22px 0 4px}
 @media(max-width:860px){.stats{grid-template-columns:repeat(3,1fr)}}
@@ -56,22 +56,25 @@ small,.muted{color:var(--muted);font-size:13px}
 .note.alert{background:var(--alert-soft);border-color:var(--alert)}.note.alert .lab{color:var(--alert)}
 
 .scroller{overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch}
-.tbl{width:100%;border-collapse:collapse;font-size:13.5px;border-radius:12px;overflow:hidden;box-shadow:var(--shadow);background:#fff}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px;border-radius:12px;overflow:hidden;box-shadow:var(--shadow);background:#fff;margin-bottom:4px}
 .tbl th{background:var(--pm);color:#fff;text-align:left;padding:9px 12px;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;font-weight:700;white-space:nowrap}
 .tbl td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top}
 .tbl tbody tr:nth-child(even) td{background:#fbfdff}
 .tbl td.k{font-weight:700;color:var(--pd);white-space:nowrap}
 .tbl td.num{white-space:nowrap;font-variant-numeric:tabular-nums}
-.tbl.tight td,.tbl.tight th{padding:7px 9px;font-size:12.8px}
+.tbl td.id{font-weight:800;color:var(--pm);text-align:center;width:34px}
+.tbl.tight td,.tbl.tight th{padding:6px 8px;font-size:12.6px}
 .tbl.tight td.x{text-align:center;font-weight:700;color:var(--pm)}
-.src{display:inline-block;font:700 10px var(--font-b);border-radius:4px;padding:1px 6px;letter-spacing:.05em;text-transform:uppercase;vertical-align:2px;white-space:nowrap}
+.src{display:inline-block;font:700 10px var(--font-b);border-radius:4px;padding:1px 6px;letter-spacing:.05em;text-transform:uppercase;vertical-align:1px;white-space:nowrap}
 .src.ms{background:var(--ok-soft);color:var(--ok)}
 .src.pr{background:var(--band);color:var(--pm)}
 .src.fwo{background:#f2f5f8;color:var(--muted)}
+a.o{display:inline-block;font:800 10.5px var(--font-b);background:var(--warn-soft);color:var(--warn);border-radius:99px;padding:1px 7px;text-decoration:none;vertical-align:1px;white-space:nowrap}
+a.o:hover{background:var(--ac);color:#fff}
 
-/* ---- Gantt ---- */
-.gantt{min-width:900px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px 18px 12px}
-.g-row{display:grid;grid-template-columns:255px 1fr;gap:14px;align-items:center;padding:4px 0}
+/* Gantt */
+.gantt{min-width:880px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px 18px 12px}
+.g-row{display:grid;grid-template-columns:250px 1fr;gap:14px;align-items:center;padding:4px 0}
 .g-lab{font-size:12.5px;font-weight:600;color:var(--pd);line-height:1.25}
 .g-lab span{display:block;font-weight:400;font-size:11px;color:var(--muted)}
 .g-track{display:grid;grid-template-columns:repeat(48,1fr);height:24px;border-radius:6px;background-image:repeating-linear-gradient(90deg,var(--band) 0 1px,transparent 1px calc(100%/8))}
@@ -89,67 +92,49 @@ small,.muted{color:var(--muted);font-size:13px}
 .legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:14px;font-size:12px;color:var(--soft)}
 .legend i{display:inline-block;width:16px;height:10px;border-radius:3px;margin-right:6px;vertical-align:middle}
 
-/* ---- verticale tijdslijn ---- */
+/* tijdslijn */
 .tl{position:relative;margin:20px 0 0;padding-left:38px}
 .tl::before{content:'';position:absolute;left:13px;top:6px;bottom:6px;width:2px;background:linear-gradient(180deg,var(--pd),var(--pm) 45%,var(--pl) 75%,var(--ac))}
-.task{position:relative;margin-bottom:20px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px}
+.task{position:relative;margin-bottom:18px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px}
 .task::before{content:'';position:absolute;left:-32px;top:24px;width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid var(--pm)}
 .task.hard::before{border-color:var(--ac);background:var(--ac)}
 .task-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:2px}
-.tnum{font:800 13px var(--font-b);color:#fff;background:var(--pd);border-radius:6px;padding:3px 9px;letter-spacing:.02em}
+.tnum{font:800 13px var(--font-b);color:#fff;background:var(--pd);border-radius:6px;padding:3px 9px}
 .task.hard .tnum{background:var(--ac)}
-.ttitle{font-size:17.5px;font-weight:700;color:var(--pd);line-height:1.25;flex:1 1 260px}
+.ttitle{font-size:17.5px;font-weight:700;color:var(--pd);line-height:1.25;flex:1 1 240px}
 .tmeta{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 10px}
-.pill{font:700 11px var(--font-b);border-radius:99px;padding:4px 11px;letter-spacing:.03em;white-space:nowrap}
+.pill{font:700 11px var(--font-b);border-radius:99px;padding:4px 11px;white-space:nowrap}
 .pill.m{background:var(--band);color:var(--pm);border:1px solid var(--line)}
 .pill.d{background:var(--ok-soft);color:var(--ok)}
 .pill.w{background:var(--warn-soft);color:var(--warn)}
-.pill.p{background:#f2f5f8;color:var(--soft);border:1px solid var(--line)}
 .task > p{font-size:14.5px;color:var(--soft);margin:0 0 10px}
-
-.sub{border-top:1px dashed var(--line);padding-top:12px;margin-top:12px}
-.sub h3{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;font-size:14.5px}
-.sub h3 .cd{font:800 11.5px var(--font-b);color:var(--pm);background:var(--band);border-radius:5px;padding:2px 7px}
-.sub h3 .wk{font:600 11px var(--font-b);color:var(--muted);margin-left:auto;white-space:nowrap}
-.sub .who{font-size:12.5px;color:var(--muted);margin:2px 0 6px}
-.sub > p{font-size:13.5px;color:var(--soft)}
-.acts{list-style:none;margin:0 0 8px;padding:0}
-.acts li{position:relative;padding:4px 0 4px 20px;font-size:13.8px;color:var(--soft);line-height:1.5}
-.acts li::before{content:'';position:absolute;left:4px;top:12px;width:6px;height:6px;border-radius:50%;background:var(--pl)}
+.task h4{font:700 13px var(--font-b);color:var(--pd);margin:14px 0 4px;padding-top:10px;border-top:1px dashed var(--line)}
+.task h4:first-of-type{border-top:none;padding-top:0}
+.acts{list-style:none;margin:0 0 6px;padding:0}
+.acts li{position:relative;padding:3px 0 3px 18px;font-size:13.8px;color:var(--soft);line-height:1.5}
+.acts li::before{content:'';position:absolute;left:3px;top:11px;width:6px;height:6px;border-radius:50%;background:var(--pl)}
 .acts li b{color:var(--pd);font-weight:600}
-.deliv{font-size:13px;color:var(--ok);background:var(--ok-soft);border-radius:8px;padding:7px 11px;margin-top:6px;display:block}
-.deliv b{color:var(--ok);text-transform:uppercase;font-size:10.5px;letter-spacing:.07em;display:block}
+.deliv{font-size:12.5px;color:var(--ok);background:var(--ok-soft);border-radius:8px;padding:6px 11px;margin-top:8px;display:block}
 
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:14px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px}
-.card h3{margin-bottom:6px}
-.card p{font-size:13.5px;color:var(--soft);margin:0}
-.card ul{margin:8px 0 0;padding-left:18px;font-size:13.3px;color:var(--soft)}
-.card ul li{margin-bottom:4px}
-.card .cap{font:700 11px var(--font-b);text-transform:uppercase;letter-spacing:.07em;color:var(--pm);margin-bottom:5px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:15px}
+.card h3{margin:0 0 5px;font-size:14.5px}
+.card p{font-size:13.3px;color:var(--soft);margin:0}
+.card .cap{font:700 10.5px var(--font-b);text-transform:uppercase;letter-spacing:.07em;color:var(--pm);margin-bottom:4px}
 
-.mslist{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px 20px;margin-top:14px}
-.ms{display:grid;grid-template-columns:74px 1fr 150px;gap:12px;align-items:start;padding:12px 0;border-top:1px dashed var(--line)}
-.ms:first-child{border-top:none}
-@media(max-width:620px){.ms{grid-template-columns:64px 1fr}.ms .when{grid-column:1/-1;padding-left:76px;text-align:left}}
-.ms .id{font:800 13px var(--font-b);color:#fff;background:var(--pm);border-radius:6px;padding:4px 0;text-align:center}
-.ms .id.wp{background:var(--color-muted-400)}
-.ms .txt{font-size:14px;color:var(--soft)}
-.ms .txt b{color:var(--pd)}
-.ms .when{font-size:12.5px;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
-
-footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
-footer p{max-width:80ch;margin:0 0 6px}
+footer{margin-top:52px;padding-top:18px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+footer p{max-width:82ch;margin:0 0 6px}
 code{font-size:12px;background:var(--band);border-radius:4px;padding:1px 5px}
 
 @media print{
   body{background:#fff}
   .px{max-width:none;padding:0}
   .topbar{display:none}
-  .task,.card,.stat,.gantt,.tbl,.mslist{box-shadow:none;break-inside:avoid}
+  .task,.card,.stat,.gantt,.tbl{box-shadow:none;break-inside:avoid}
   .sh{break-after:avoid}
   .scroller{overflow:visible}
   .gantt{min-width:0}
+  a.o{background:none;color:var(--warn)}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -161,85 +146,41 @@ code{font-size:12px;background:var(--band);border-radius:4px;padding:1px 5px}
   <a href="index.html" class="bc-home">&#8592; Home</a>
   <span class="kicker">PARADISE &mdash; werkinstrument studieteam</span>
   <span class="spacer"></span>
-  <span class="stamp">Bijgewerkt 9 september 2026</span>
+  <span class="stamp">9 september 2026</span>
 </div>
 
 <h1>Werkpakket 1 &mdash; de klinische trial, taak voor taak</h1>
-<p class="lead">Acht taken, acht deliverables, achtenveertig maanden. Deze pagina houdt de taakstructuur van de
-FWO-aanvraag aan als skelet, maar vult ze in met de klinische inhoud van het <b>protocolmanuscript in de
-versie van 8 september 2026</b> &mdash; het document dat met de EC-indiening meegaat. Waar de aanvraag of het
-draaiboek iets anders zeggen, staat dat er expliciet bij.</p>
+<p class="lead">De taakstructuur komt uit de FWO-aanvraag, de inhoud uit het protocolmanuscript in de versie van
+8&nbsp;september 2026. Alles wat nog beslist of aangevuld moet worden, staat gebundeld
+<a class="o" href="#open">onderaan</a> &mdash; in de tekst hieronder verwijst een oranje nummer daarnaar.</p>
 
 <div class="stats">
   <div class="stat"><div class="n">8</div><div class="l">taken, 1.1 tot 1.8</div></div>
-  <div class="stat"><div class="n">48</div><div class="l">projectmaanden, sep 2026 &ndash; aug 2030</div></div>
+  <div class="stat"><div class="n">48</div><div class="l">projectmaanden, sep 26 &ndash; aug 30</div></div>
   <div class="stat"><div class="n">6</div><div class="l">diabetische voetklinieken</div></div>
   <div class="stat"><div class="n">144</div><div class="l">deelnemers, 24 per centrum</div></div>
   <div class="stat"><div class="n">1</div><div class="l">primair eindpunt: recidief</div></div>
 </div>
 
 <div class="note tip">
-  <span class="lab">Vier bronnen, in deze volgorde</span>
-  <p><span class="src ms">manuscript</span> <b>Protocolmanuscript, versie 8 september 2026.</b> Het jongste
-  document, gaat mee met de indiening bij de ethische commissie. Leidend voor alles wat de studie inhoudelijk
-  doet. <b>Let op:</b> de versie van 8 september wijkt op vier punten af van die van 3 september &mdash; de
-  eindpuntadjudicatie, de beschrijving van de randomisatie, de bewaartermijn en de monitoringopzet. Die
-  wijzigingen zijn hieronder verwerkt en waar nodig gemarkeerd.</p>
-  <p><span class="src pr">protocol</span> <b>Protocol v1.0, 17 mei 2026.</b> Leidend voor het bezoekschema
-  op eCRF-niveau, de veiligheidstermijnen en de details van de meetprocedures. Op enkele punten door het
-  manuscript ingehaald.</p>
-  <p><span class="src fwo">aanvraag</span> <b>FWO-TBM T000226N, ingediend 21 april 2025</b>, en het
-  <b>operationeel draaiboek v2.0</b> (mei 2026). Leveren de taakstructuur, de deliverables, de mijlpalen en
-  de Go/No-Go &mdash; maar hun klinische inhoud is op een aantal punten achterhaald.</p>
+  <span class="lab">Welke bron wint</span>
+  <p><span class="src ms">manuscript</span> Protocolmanuscript v. 8&nbsp;september 2026 &mdash; leidend voor alles
+  wat de studie inhoudelijk doet. <span class="src pr">protocol</span> Protocol v1.0 van 17&nbsp;mei 2026 &mdash;
+  leidend voor de eCRF-details, de meetprocedures en de veiligheidstermijnen. <span class="src fwo">aanvraag</span>
+  FWO-TBM T000226N (april 2025) en het operationeel draaiboek v2.0 &mdash; leveren de taken, deliverables,
+  mijlpalen en Go/No-Go, maar hun klinische inhoud is op punten achterhaald.</p>
+  <p>&ldquo;Werkpakket 1&rdquo; betekent hier het <b>FWO-werkpakket</b>: de RCT zelf. De andere vier zijn WP2
+  procesevaluatie, WP3 gezondheidseconomie, WP4 project- en databeheer, WP5 disseminatie. De interne nummering
+  van het draaiboek (WP-01 tot WP-07) is iets anders: dat zijn zeven fasen die samen de taken 1.1 tot 1.5
+  uitwerken.</p>
 </div>
 
-<div class="note tip">
-  <span class="lab">Twee dingen heten &ldquo;werkpakket 1&rdquo;</span>
-  <p><b>Dit is het FWO-werkpakket.</b> WP1 is de multicentrische RCT zelf. De vier andere: WP2
-  procesevaluatie, WP3 gezondheidseconomie, WP4 project- en databeheer, WP5 disseminatie. Het manuscript
-  spreekt van dr&iacute;e werkpakketten (de RCT, de procesevaluatie, de economische evaluatie) omdat het WP4 en
-  WP5 niet als aparte investigational work packages telt.</p>
-  <p><b>Niet te verwarren met</b> de interne nummering van het draaiboek (WP-01 tot WP-07 = fase 01 tot 07).
-  Die zeven fasen zijn de uitwerking van FWO-taken 1.1 tot 1.5; ze staan hieronder ingevouwen bij de taak
-  waar ze bij horen.</p>
-</div>
-
-<!-- ============================ MAANDAS ============================ -->
+<!-- ============================ MAANDAS + GANTT ============================ -->
 <div class="sh">De maandas</div>
-<p>De aanvraag telt in projectmaanden, het protocol in kalendermaanden. De studie start in
-<b>september 2026</b>, dus maand&nbsp;1 is september 2026. Alle omzettingen hieronder volgen die ene regel.</p>
-
-<div class="scroller">
-<table class="tbl">
-  <thead><tr><th>Projectmaand</th><th>M1</th><th>M6</th><th>M12</th><th>M18</th><th>M24</th><th>M30</th><th>M36</th><th>M42</th><th>M48</th></tr></thead>
-  <tbody>
-    <tr><td class="k">Kalender</td><td class="num">sep 26</td><td class="num">feb 27</td><td class="num">aug 27</td><td class="num">feb 28</td><td class="num">aug 28</td><td class="num">feb 29</td><td class="num">aug 29</td><td class="num">feb 30</td><td class="num">aug 30</td></tr>
-    <tr><td class="k">Protocol &amp; manuscript</td><td>start voorbereiding</td><td><b>eerste patiënt</b></td><td>&mdash;</td><td><b>laatste inclusie</b></td><td>&mdash;</td><td>&mdash;</td><td><b>laatste visite</b> (sep 29)</td><td>&mdash;</td><td>einde project</td></tr>
-    <tr><td class="k">FWO-planning</td><td>start</td><td>Go/No-Go</td><td>&mdash;</td><td>&mdash;</td><td>einde rekrutering</td><td>&mdash;</td><td>&mdash;</td><td>opvolging klaar</td><td>eindrapport</td></tr>
-  </tbody>
-</table>
-</div>
-
-<div class="note ok">
-  <span class="lab">Rekrutering: twaalf maanden, niet achttien</span>
-  <p>Het manuscript is hier expliciet: <b>&ldquo;over a 12-month recruitment window across all sites&rdquo;</b>, met
-  ongeveer twee deelnemers per centrum per maand. Het protocol zegt hetzelfde: rekrutering van februari 2027
-  tot februari 2028, opvolging tot september 2029. Alleen de FWO-aanvraag houdt nog achttien maanden aan
-  (taak 1.6, M6&ndash;24). <b>Twaalf maanden geldt.</b></p>
-  <p>Gevolg: de laatste opvolgvisite valt rond <b>M36&ndash;37 (september 2029)</b> in plaats van M42. Dat is
-  vijf tot zes maanden speling v&oacute;&oacute;r het analysevenster van taak 1.8, geen probleem &mdash; maar MS4
-  (rekrutering af op M24) en MS5/MS6 (opvolging af op M42) staan daarmee te laat in de FWO-planning en
-  kunnen naar voren.</p>
-</div>
-
-<div class="note warn">
-  <span class="lab">Nog een tweede as</span>
-  <p>Het doctoraatsplan zet de startdatum op 3&nbsp;juli 2026, de studie start in september 2026. Twee maanden
-  verschil tussen de mandaatas en de projectas; op deze pagina telt de projectas.</p>
-</div>
-
-<!-- ============================ GANTT ============================ -->
-<div class="sh">De acht taken over achtenveertig maanden</div>
+<p>Maand&nbsp;1 is september 2026. Het rekruteringsvenster is <b>twaalf maanden</b>: het manuscript zegt
+&ldquo;a 12-month recruitment window across all sites&rdquo; met ongeveer twee deelnemers per centrum per maand, en
+het protocol zegt februari 2027 tot februari 2028 met opvolging tot september 2029. Alleen de FWO-aanvraag houdt
+nog achttien maanden aan, waardoor haar mijlpalen een half jaar te laat staan <a class="o" href="#o23">20</a>.</p>
 
 <div class="scroller">
 <div class="gantt">
@@ -247,36 +188,34 @@ draaiboek iets anders zeggen, staat dat er expliciet bij.</p>
     <div class="g-ms">
       <span style="grid-column:6">&#9670; MS1&ndash;3</span>
       <span style="grid-column:19">&#9670; MS4</span>
-      <span style="grid-column:34">&#9670; MS5&ndash;8</span>
+      <span style="grid-column:34">&#9670; MS5&ndash;6</span>
       <span style="grid-column:45">&#9670; MS9</span>
     </div>
   </div>
-
-  <div class="g-row"><div class="g-lab">1.1 Ethiek en registratie<span>M1&ndash;5</span></div>
+  <div class="g-row"><div class="g-lab">1.1 Ethiek en registratie<span>M1&ndash;5 &middot; sep 26 &ndash; jan 27</span></div>
     <div class="g-track"><div class="g-bar prep" style="grid-column:1/6">dossier, centraal + zes lokaal + FAGG</div></div></div>
   <div class="g-row"><div class="g-lab">1.2 Assessment booklet<span>M1&ndash;5</span></div>
     <div class="g-track"><div class="g-bar prep" style="grid-column:1/6">meetinstrumenten en CRF&rsquo;s</div></div></div>
   <div class="g-row"><div class="g-lab">1.3 SOP&rsquo;s Usual en Optimal Care<span>M1&ndash;5</span></div>
     <div class="g-track"><div class="g-bar prep" style="grid-column:1/6">acht SOP&rsquo;s</div></div></div>
-  <div class="g-row"><div class="g-lab">1.4 Ulcusprotocol en adjudicatie<span>M1&ndash;5</span></div>
-    <div class="g-track"><div class="g-bar prep" style="grid-column:1/6">detectie, classificatie, geblindeerde beoordeling</div></div></div>
-  <div class="g-row"><div class="g-lab">1.5 Piloot en Go/No-Go<span>M5&ndash;6</span></div>
+  <div class="g-row"><div class="g-lab">1.4 Ulcusprotocol<span>M1&ndash;5</span></div>
+    <div class="g-track"><div class="g-bar prep" style="grid-column:1/6">detectie, classificatie, beoordeling</div></div></div>
+  <div class="g-row"><div class="g-lab">1.5 Piloot en Go/No-Go<span>M5&ndash;6 &middot; jan &ndash; feb 27</span></div>
     <div class="g-track"><div class="g-bar prep" style="grid-column:5/7">6&times;1</div></div></div>
-  <div class="g-row"><div class="g-lab">1.6 Rekrutering van 144<span>M6&ndash;18 volgens protocol</span></div>
+  <div class="g-row"><div class="g-lab">1.6 Rekrutering van 144<span>M6&ndash;18 &middot; feb 27 &ndash; feb 28</span></div>
     <div class="g-track">
-      <div class="g-bar rec" style="grid-column:6/19">twaalf maanden, twee per centrum per maand</div>
+      <div class="g-bar rec" style="grid-column:6/19">twee per centrum per maand</div>
       <div class="g-bar env" style="grid-column:19/25">FWO-marge</div>
     </div></div>
-  <div class="g-row"><div class="g-lab">1.7 Alle beoordelingen<span>M7&ndash;37 volgens protocol</span></div>
+  <div class="g-row"><div class="g-lab">1.7 Alle beoordelingen<span>M7&ndash;37 &middot; mrt 27 &ndash; sep 29</span></div>
     <div class="g-track">
       <div class="g-bar fu" style="grid-column:7/38">negen geplande contacten per deelnemer, achttien maanden elk</div>
       <div class="g-bar env" style="grid-column:38/43">marge</div>
     </div></div>
-  <div class="g-row"><div class="g-lab">1.8 Analyse en publicatie<span>M43&ndash;48</span></div>
+  <div class="g-row"><div class="g-lab">1.8 Analyse en publicatie<span>M43&ndash;48 &middot; mrt &ndash; aug 30</span></div>
     <div class="g-track"><div class="g-bar ana" style="grid-column:43/49">hoofdresultaat</div></div></div>
-  <div class="g-row"><div class="g-lab">Parallel: pedar tegenover F-Scan GO<span>doorlopend, geen eigen taaknummer</span></div>
+  <div class="g-row"><div class="g-lab">Parallel: pedar tegenover F-Scan GO<span>geen eigen taaknummer</span></div>
     <div class="g-track"><div class="g-bar par" style="grid-column:2/38"></div></div></div>
-
   <div class="g-row"><div class="g-lab"></div>
     <div class="g-axis">
       <span style="grid-column:1">M1</span><span style="grid-column:7">M7</span><span style="grid-column:13">M13</span>
@@ -284,628 +223,282 @@ draaiboek iets anders zeggen, staat dat er expliciet bij.</p>
       <span style="grid-column:37">M37</span><span style="grid-column:43">M43</span>
     </div>
   </div>
-
   <div class="legend">
     <span><i style="background:var(--pd)"></i>voorbereiding</span>
     <span><i style="background:var(--pm)"></i>rekrutering</span>
     <span><i style="background:var(--pl)"></i>interventie en opvolging</span>
     <span><i style="background:var(--ac)"></i>analyse</span>
-    <span><i style="background:repeating-linear-gradient(45deg,#dbe9f4,#dbe9f4 4px,#eef5fa 4px,#eef5fa 8px);border:1px dashed #8AADCC"></i>marge tussen protocol en FWO-planning</span>
-    <span><i style="background:repeating-linear-gradient(45deg,#8AADCC,#8AADCC 4px,#B0CEDE 4px,#B0CEDE 8px)"></i>deelstudie zonder taaknummer</span>
+    <span><i style="background:repeating-linear-gradient(45deg,#dbe9f4,#dbe9f4 4px,#eef5fa 4px,#eef5fa 8px);border:1px dashed #8AADCC"></i>marge tot de FWO-planning</span>
   </div>
 </div>
 </div>
 
-<div class="scroller" style="margin-top:16px">
-<table class="tbl">
-  <thead><tr><th>Taak</th><th>Wat</th><th>Maanden</th><th>Kalender</th><th>Deliverable</th><th>Trekker</th></tr></thead>
-  <tbody>
-    <tr><td class="k">1.1</td><td>Ethische indiening als multicentrische studie, melding bij het FAGG</td><td class="num">1&ndash;5</td><td class="num">sep 26 &ndash; jan 27</td><td class="num">D1.1</td><td>PhD-A + Deschamps</td></tr>
-    <tr><td class="k">1.2</td><td>Assessment booklet met alle klinische metingen</td><td class="num">1&ndash;5</td><td class="num">sep 26 &ndash; jan 27</td><td class="num">D1.2</td><td>PhD-A + PhD-B</td></tr>
-    <tr><td class="k">1.3</td><td>Gestandaardiseerde protocollen voor Usual Care en Optimal Care</td><td class="num">1&ndash;5</td><td class="num">sep 26 &ndash; jan 27</td><td class="num">D1.3</td><td>PhD-A + centra</td></tr>
-    <tr><td class="k">1.4</td><td>Protocol voor identificatie en documentatie van ulcera</td><td class="num">1&ndash;5</td><td class="num">sep 26 &ndash; jan 27</td><td class="num">D1.4</td><td>PhD-A + arts</td></tr>
-    <tr><td class="k">1.5</td><td>Piloot van PARADISE in de zes centra</td><td class="num">5&ndash;6</td><td class="num">jan &ndash; feb 27</td><td class="num">D1.5</td><td>PhD-A + lokale PI&rsquo;s</td></tr>
-    <tr><td class="k">1.6</td><td>144 deelnemers rekruteren</td><td class="num">6&ndash;18</td><td class="num">feb 27 &ndash; feb 28</td><td class="num">D1.6</td><td>Lokale PI&rsquo;s</td></tr>
-    <tr><td class="k">1.7</td><td>Alle beoordelingen bij de 144 deelnemers afronden</td><td class="num">7&ndash;37</td><td class="num">mrt 27 &ndash; sep 29</td><td class="num">D1.7</td><td>Centra + studieteam</td></tr>
-    <tr><td class="k">1.8</td><td>Analyse en publicatie van het klinische hoofdresultaat</td><td class="num">43&ndash;48</td><td class="num">mrt &ndash; aug 30</td><td class="num">D1.8</td><td>Co&ouml;rdinerend onderzoeker</td></tr>
-  </tbody>
-</table>
-</div>
-<p class="muted" style="margin-top:8px">Maanden 1.1 tot 1.5 en 1.8 komen uit de aanvraag; 1.6 en 1.7 zijn hier
-bijgesteld naar het rekruteringsvenster van twaalf maanden uit protocol en manuscript. De aanvraagtekst
-schrijft bij taak 1.7 &ldquo;D1.17&rdquo;: tikfout voor D1.7.</p>
-
 <!-- ============================ TIJDSLIJN ============================ -->
-<div class="sh">De tijdslijn, taak voor taak</div>
+<div class="sh">De acht taken</div>
 
 <div class="tl">
 
-<!-- ---------------- 1.1 ---------------- -->
 <div class="task hard">
   <div class="task-h"><span class="tnum">1.1</span><span class="ttitle">Ethische indiening en registratie</span></div>
-  <div class="tmeta">
-    <span class="pill m">M1&ndash;5 &middot; sep 26 &ndash; jan 27</span>
-    <span class="pill d">D1.1</span>
-    <span class="pill w">kritisch pad</span>
-    <span class="pill p">draaiboek fase 01</span>
-  </div>
-  <p>De harde blokkade voor alles wat met inclusie te maken heeft. De trial wordt gereguleerd als een
-  <b>klinisch onderzoek met een medisch hulpmiddel onder Verordening 2017/745</b> &mdash; niet omdat er
-  invasief gewerkt wordt, maar omdat de CMFO geen CE-markering draagt. Het Clinical Trial Center van UZ
-  Leuven klasseerde de studie als <b>intermediate risk</b> op precies die grond. In geen enkel centrum start
-  de rekrutering v&oacute;&oacute;r alle goedkeuringen binnen zijn.</p>
+  <div class="tmeta"><span class="pill m">M1&ndash;5</span><span class="pill d">D1.1</span><span class="pill w">kritisch pad</span></div>
+  <p>De trial wordt gereguleerd als klinisch onderzoek met een medisch hulpmiddel onder Verordening 2017/745 &mdash;
+  niet omdat er invasief gewerkt wordt, maar omdat de CMFO geen CE-markering draagt. Het Clinical Trial Center van
+  UZ&nbsp;Leuven klasseerde de studie op die grond als <b>intermediate risk</b>. Nergens start de rekrutering v&oacute;&oacute;r
+  alle goedkeuringen binnen zijn. Vertraagt dit meer dan vier weken, dan schuift de Go/No-Go mee.</p>
 
-  <div class="sub">
-    <h3><span class="cd">1.1a</span> Centrale indiening <span class="wk">week 1&ndash;8</span></h3>
-    <div class="who">PhD-A (Brugge) met prof.&nbsp;Deschamps &middot; EC UZ Leuven als centrale co&ouml;rdinerende commissie</div>
-    <ul class="acts">
-      <li><b>Clinical investigation plan</b> plus toestemmingsformulieren, patiëntmateriaal en de investigator&rsquo;s brochure indienen bij de EC UZ&nbsp;Leuven, bij de bevoegde autoriteit, &eacute;n bij de lokale commissie van elk centrum</li>
-      <li><b>Informed consent</b> in het Nederlands, leesniveau maximaal B1, met de GDPR-clausules. Ook de deelnemende therapeuten tekenen een toestemmingsformulier</li>
-      <li><b>Verzekering</b>: de sponsor draagt foutloze aansprakelijkheid volgens de wet van 7&nbsp;mei 2004 op de experimenten op de menselijke persoon, en dekt dat via een polis</li>
-      <li><b>Wettelijk kader</b> waarnaar het manuscript verwijst: ISO 14155:2020 &middot; Verordening (EU) 2017/745 &middot; Verordening (EU) 2016/679 &middot; de wet van 22&nbsp;december 2020 over medische hulpmiddelen &middot; het KB van 18&nbsp;mei 2021 over klinische onderzoeken met medische hulpmiddelen &middot; de wet van 22&nbsp;augustus 2002 over patiëntenrechten &middot; de Verklaring van Helsinki. ICH-GCP E6(R3) geldt daarnaast</li>
-      <li><b>Substantiële amendementen</b> vragen goedkeuring v&oacute;&oacute;r invoering; afwijkingen worden gedocumenteerd en gemeld</li>
-    </ul>
-    <span class="deliv"><b>Deliverable</b>Volledig dossier met ontvangstbevestiging van de centrale EC en de bevoegde autoriteit</span>
-  </div>
-
-  <div class="sub">
-    <h3><span class="cd">1.1b</span> Zes lokale goedkeuringen <span class="wk">M2&ndash;5</span></h3>
-    <div class="who">PhD-A met de site-investigator per centrum</div>
-    <div class="scroller" style="margin:8px 0">
-    <table class="tbl tight">
-      <thead><tr><th>Centrum</th><th>Plaats</th><th>Site-investigator</th><th>Type</th></tr></thead>
-      <tbody>
-        <tr><td class="k">UZ Leuven</td><td>Leuven</td><td>prof. Giovanni Matricali</td><td>academisch</td></tr>
-        <tr><td class="k">UZ Antwerpen</td><td>Edegem</td><td>prof. Eveline Dirinck</td><td>academisch</td></tr>
-        <tr><td class="k">UZ Gent</td><td>Gent</td><td>prof. Caren Randon</td><td>academisch</td></tr>
-        <tr><td class="k">AZORG</td><td>Aalst</td><td>prof. Frank Nobels</td><td>niet-academisch</td></tr>
-        <tr><td class="k">AZ Sint-Jan</td><td>Brugge</td><td>dr. Youri Taes</td><td>niet-academisch</td></tr>
-        <tr><td class="k">AZ Groeninge</td><td>Kortrijk</td><td>dr. Gertjan Vereecke</td><td>niet-academisch</td></tr>
-      </tbody>
-    </table>
-    </div>
-    <ul class="acts">
-      <li>Drie academische en drie niet-academische centra is een <b>ontwerpkeuze</b>, geen rekruteringsgemak: de studievraag gaat over levering onder gewone omstandigheden, en de interactie academisch tegenover niet-academisch is vooraf vastgelegd als subgroep</li>
-      <li><b>Site Agreement</b> per ziekenhuis, opgesteld met de juridische dienst van KU Leuven; subsidiecontract KU Leuven &harr; elk partnerziekenhuis</li>
-      <li>Opvolging van de lokale goedkeuringen in een tracking log</li>
-    </ul>
-    <span class="deliv"><b>Deliverable</b>Zes lokale goedkeuringsbrieven en zes getekende Site Agreements</span>
-  </div>
-
-  <div class="sub">
-    <h3><span class="cd">1.1c</span> Studieregistratie <span class="wk">M2, v&oacute;&oacute;r de eerste deelnemer</span></h3>
-    <ul class="acts">
-      <li>Registratie op <b>ClinicalTrials.gov</b> (ICMJE-verplichting) en <b>BELCRI</b></li>
-      <li>Het nummer vult meteen de open velden in het manuscript: registratienummer, registratiedatum en de startdatum van de rekrutering staan er nu nog als blanco</li>
-      <li>Resultaten moeten binnen <b>twaalf maanden na de laatste visite van de laatste deelnemer</b> in het register staan</li>
-    </ul>
-    <span class="deliv"><b>Deliverable</b>Registratienummers, gepubliceerd v&oacute;&oacute;r de eerste inclusie</span>
-  </div>
-
-  <div class="sub">
-    <h3><span class="cd">1.1d</span> Gegevensbescherming <span class="wk">M2&ndash;3</span></h3>
-    <ul class="acts">
-      <li>Verwerking conform de artikelen 5, 6, 9, 13-14, 25, 32 en 89 van de AVG &mdash; het manuscript somt ze expliciet op</li>
-      <li>Verwerkersovereenkomst per centrum; de verwerkingsactiviteit aanmelden bij de DPO; datastroomdiagram</li>
-      <li><b>Rechtstreeks identificerende gegevens gaan niet in het CRF</b>: geen naam, adres, contactgegevens, volledige geboortedatum, ziekenhuisnummer of rijksregisternummer. Alleen de pseudonieme deelnemerscode</li>
-      <li>Pseudonieme data alleen via beveiligde kanalen onder data transfer agreements naar sponsor en partners</li>
-      <li>Bronbestanden, ingevulde CRF&rsquo;s en het trial en investigator site master file worden <b>minstens vijftien jaar</b> bewaard na het einde van het onderzoek. De versie van 3 september zei nog tien jaar met een verwijzing naar ISO 14155:2020; de versie van 8 september zegt vijftien jaar met een verwijzing naar de bewaarvereisten van de studie zelf. Nagaan waar die vijftien jaar op steunt, want het is de strengere van de twee</li>
-    </ul>
-    <span class="deliv"><b>Deliverable</b>Getekende overeenkomsten, registerentry en datastroomdiagram</span>
-  </div>
-</div>
-
-<!-- ---------------- 1.2 ---------------- -->
-<div class="task">
-  <div class="task-h"><span class="tnum">1.2</span><span class="ttitle">Assessment booklet met alle klinische metingen</span></div>
-  <div class="tmeta">
-    <span class="pill m">M1&ndash;5 &middot; sep 26 &ndash; jan 27</span>
-    <span class="pill d">D1.2</span>
-    <span class="pill w">MS1</span>
-    <span class="pill p">draaiboek fase 02</span>
-  </div>
-  <p>Een handboek plus een educatief trainingspakket, samen met de adviescommissie. Het bundelt de
-  bevestiging van geschiktheid, de baselinekarakteristieken en alle uitkomstmaten. De baselinegegevens
-  volgen de <b>core descriptor set</b> voor dit veld: demografie, individuele factoren waaronder het stadium
-  chronische nierziekte, ulcus- en ledemaatkenmerken, lopende en vroegere behandelingen, medicatie,
-  biochemie en levenskwaliteit &mdash; zodat de studiepopulatie met andere studies vergelijkbaar is. De
-  uitkomstenset is getoetst aan de <b>core outcome set</b>: alle acht kernuitkomsten zijn gedekt, met
-  amputatie en sterfte via de meldingen van ongewenste voorvallen.</p>
-
-  <div class="sub">
-    <h3><span class="cd">1.2a</span> Gebruikstoestemming voor alle meetinstrumenten <span class="wk">M1&ndash;2</span></h3>
-    <ul class="acts">
-      <li><b>NAFF</b> (26 items) &mdash; toestemming en Nederlandse vertaling bevestigen</li>
-      <li><b>Gezondheidsvaardigheden</b> (HLS-EU-6) &mdash; open access, Nederlandse versie bevestigen</li>
-      <li><b>EQ-5D-5L NL</b> &mdash; licentieaanvraag bij de EuroQol Foundation: gratis academisch, registratie verplicht. Waardering met de waardenset uit de actuele Belgische HTA-richtlijn</li>
-      <li><b>iMCQ en iPCQ</b> &mdash; aanvragen bij iMTA Rotterdam, met handleiding</li>
-      <li><b>Slijtageschaal</b> (Dahmen) &mdash; scoringshandleiding opvragen. Het manuscript plant deze meting op visite 2 en op maand 6, 12 en 18; er is vandaag <b>geen eCRF dat ze scoort</b></li>
-      <li>Copyright-log bijhouden met alle toestemmingen</li>
-    </ul>
-    <span class="deliv"><b>Deliverable</b>Copyright-log en voor elk instrument een schriftelijk gebruiksrecht</span>
-  </div>
-
-  <div class="sub">
-    <h3><span class="cd">1.2b</span> CRF-formulieren per tijdstip <span class="wk">M2&ndash;4</span></h3>
-    <ul class="acts">
-      <li>De formulieren volgen tabel 2 van het manuscript &mdash; het schema van inclusie, interventies en beoordelingen in SPIRIT-2025-vorm. Zie taak 1.7 hieronder voor de volledige matrix</li>
-      <li><b>Papieren bronformulieren</b> worden ter plaatse ingevuld en daarna overgezet naar het elektronische CRF onder de pseudonieme code</li>
-      <li>Interne review door alle partners, daarna een pilottest met &eacute;&eacute;n testpatiënt per centrum</li>
-    </ul>
-    <div class="note warn" style="margin:10px 0 0">
-      <span class="lab">Nog te beslissen &mdash; en het manuscript loopt vooruit</span>
-      <p>Het manuscript schrijft dat de <b>sitemedewerkers</b> de gegevens overzetten naar het elektronische
-      CRF. In de interne afspraken staat dat de centra zelf niets invoeren en dat het onderzoeksteam de invoer
-      doet. Dat is niet hetzelfde, en het bepaalt zowel de opleiding als de gebruikersrollen in de databank.
-      Beslissen v&oacute;&oacute;r de opleidingssessies, en dan het manuscript of de afspraak bijstellen.</p>
-    </div>
-    <span class="deliv"><b>Deliverable</b>Gevalideerde CRF-set v1.0, consensus goedgekeurd</span>
-  </div>
-
-  <div class="sub">
-    <h3><span class="cd">1.2c</span> Patiëntenmateriaal voor SEBIA <span class="wk">M2&ndash;4</span></h3>
-    <ul class="acts">
-      <li><b>Folder dagelijkse voetzorg</b> (stap 1) &mdash; tekst plus illustraties; nog niet opgemaakt</li>
-      <li><b>Educatiekaart schoeisel</b> (stap 2) &mdash; binnen &eacute;n buiten dragen, want binnenshuis is de therapietrouw het laagst en worden de meeste stappen gezet</li>
-      <li><b>Uitlegfiche Orthotimer</b> (stap 2) &mdash; framing als &ldquo;uw sensor&rdquo;: enkel temperatuur, geen GPS, geluid of camera</li>
-      <li><b>Feedbacksjabloon therapietrouw</b> (stap 3 en 4) &mdash; visuele weergave van de sensordata</li>
-      <li>SEBIA leunt op teach-back en voordoen in plaats van op geschreven materiaal. Dat is een bewuste keuze: die structuur laat zich makkelijker vertalen of met beeld ondersteunen dan een folderprogramma</li>
-      <li>Leesbaarheidstest, maximaal B1, op drie pilootpatiënten</li>
-    </ul>
-    <span class="deliv"><b>Deliverable</b>Vier patiëntenmaterialen, goedgekeurd na patiëntenreview, ook digitaal</span>
-  </div>
-
-  <div class="sub">
-    <h3><span class="cd">1.2d</span> Consensusvergadering <span class="wk">M4</span></h3>
-    <ul class="acts">
-      <li>Pre-readmateriaal twee weken vooraf; online survey om discrepanties op voorhand op te sporen</li>
-      <li>Per instrument een kwartier review en een beslissing; goedkeuring in de notulen, ondertekend</li>
-      <li>Alle CRF&rsquo;s bijwerken naar v1.0 definitief</li>
-    </ul>
-    <span class="deliv"><b>Deliverable</b>Notulen en Assessment Booklet v1.0 definitief &mdash; dit is MS1</span>
-  </div>
-</div>
-
-<!-- ---------------- 1.3 ---------------- -->
-<div class="task">
-  <div class="task-h"><span class="tnum">1.3</span><span class="ttitle">Gestandaardiseerde protocollen voor Usual Care en Optimal Care</span></div>
-  <div class="tmeta">
-    <span class="pill m">M1&ndash;5 &middot; sep 26 &ndash; jan 27</span>
-    <span class="pill d">D1.3</span>
-    <span class="pill p">draaiboek fase 03</span>
-  </div>
-  <p>Zes domeinen vragen een systematische aanpak: klinische voetobservatie, kenmerken van schoeisel en CMFO
-  inclusief de slijtageschaal, drukmeting van kalibratie tot opslag, therapietrouw, activiteitsmonitoring, en
-  de gestructureerde educatie. Uitgewerkt als acht SOP&rsquo;s.</p>
-
-  <div class="note tip" style="margin:0 0 12px">
-    <span class="lab">Wat het verschil tussen de armen precies is</span>
-    <p><b>Beide armen</b> krijgen driemaandelijkse voetzorg en screening, een drukherverdelende CMFO, een
-    Orthotimer in de zool en een week MoveMonitor op baseline en op maand 6 &mdash; sensoren in beide armen is
-    een vereiste, anders is de mediatieanalyse niet te maken. Ook de in-shoe drukmeting gebeurt in beide armen,
-    voor de uitkomst.</p>
-    <p><b>Het verschil is wat er met de meting gebeurt.</b> In Usual Care worden de drukwaarden niet getoond of
-    besproken en stuurt de meting de zool niet; de educatie is zoals ze vandaag gegeven wordt. In Optimal Care
-    stuurt de meting de aanpassing van de zool, en wordt SEBIA gestructureerd geleverd.</p>
-    <p><b>De grens aan die blindering staat er expliciet bij:</b> elke pre-ulceratieve laesie, huidbreuk of
-    klinisch afwijkende bevinding tijdens een studiemeting wordt in beide armen onmiddellijk aan de
-    behandelend clinicus gemeld en volgens de routinezorg behandeld. De blindering geldt de drukwaarden, niet
-    de klinische bevindingen.</p>
-  </div>
-
-  <div class="sub">
-    <h3><span class="cd">SOP-1</span> Voetscreening en IWGDF-risicoclassificatie <span class="wk">M2</span></h3>
-    <ul class="acts">
-      <li>Volgorde van onderzoek, instrumenten en afkappunten; risicocategorie 3 bevestigen</li>
-      <li>Fotografieprotocol: standaardpositie, belichting, codering van bestandsnamen</li>
-      <li>Inter-rater reliability: twee podologen onafhankelijk, doel &kappa; &ge; 0,80 in de piloot</li>
-    </ul>
-  </div>
-
-  <div class="sub">
-    <h3><span class="cd">SOP-2</span> Plantaire drukmeting <span class="wk">M2&ndash;3</span></h3>
-    <div class="who">Technisch de zwaarste SOP</div>
-    <ul class="acts">
-      <li><b>Novel pedar &mdash; het klinische toestel.</b> In-shoe sensorzolen met de novel database-software, herhaald stappen over een looppad van tien meter, minstens <b>twaalf mid-gait stappen per voet</b>. Kalibratie met het trublu-toestel tot zes bar, overeenstemming binnen 5% van de referentiemanometer, minstens driemaandelijks gecontroleerd</li>
-      <li><b>F-Scan GO &mdash; alleen het studieteam.</b> Validatiedeelstudie met FootVIEW Pro. De metingen sturen g&eacute;&eacute;n klinische beslissing en raken de eindpunten niet</li>
-      <li><b>Acht regio&rsquo;s</b>: hiel, mediale middenvoet, laterale middenvoet, metatarsaal 1, metatarsaal 2-3, metatarsaal 4-5, hallux, tenen 2-5</li>
-      <li>Zelfgekozen comfortsnelheid bij baseline, daarna binnen 5% aangehouden; gestandaardiseerde dunne naadloze katoenen sokken</li>
-      <li><b>De norm.</b> De zoolgeometrie wordt iteratief aangepast onder drukfeedback tot de in-shoe piekdruk <b>onder 200&nbsp;kPa</b> ligt op alle eerder geulcereerde en hoogrisicoregio&rsquo;s, <b>&oacute;f</b> minstens <b>25% lager</b> is dan de eigen baseline &mdash; wat het eerst bereikt wordt. Het protocol operationaliseert dat als drie vooraf aangeduide doelregio&rsquo;s: de regio met de ulcusvoorgeschiedenis plus &eacute;&eacute;n of twee met de hoogste piekdruk</li>
-      <li><b>De behaalde drukreductie wordt per deelnemer geregistreerd en als fidelity-maat gerapporteerd</b>, zodat een negatief resultaat afgezet kan worden tegen de ontlasting die werkelijk geleverd is in plaats van tegen de bedoelde</li>
-      <li>Bestandsnamen, mapstructuur en upload; blinderingsprocedure zodat Usual Care de drukwaarden niet te zien krijgt</li>
-    </ul>
-    <div class="note warn" style="margin:10px 0 0">
-      <span class="lab">Ontbreekt vandaag</span>
-      <p>Voor de MoveMonitor en de Orthotimer bestaat een werkinstructie; <b>voor de pedar niet</b>, terwijl dat
-      het toestel is waarop de klinische beslissing rust. eCRF 09 en 24 zeggen w&aacute;t geregistreerd wordt, niet
-      h&oacute;e gemeten wordt. Dit is het eerste ontbrekende document van de reeks.</p>
-    </div>
-  </div>
-
-  <div class="sub">
-    <h3><span class="cd">SOP-3</span> Schoeisel, CMFO en plaatsing van de Orthotimer <span class="wk">M2&ndash;3</span></h3>
-    <ul class="acts">
-      <li><b>Opbouw per schoentype.</b> In volledig op maat gemaakt schoeisel draagt een basis van 5&nbsp;mm microkurk een laag van 5&nbsp;mm total-contact EVA; in confectieschoeisel met extra diepte 6&nbsp;mm EVA <b>zonder</b> kurkbasis</li>
-      <li><b>Beide afgewerkt met</b> een mediale steunzool van 3-5&nbsp;mm, een metatarsaalbalk van 9-10&nbsp;mm op 6-11&nbsp;mm proximaal van de metatarsaalkoppen, lokale dieptevrijgave op fragiele of prominente plaatsen, en een deklaag over de volledige lengte van 3&nbsp;mm gesloten-cellig schuim op 3&nbsp;mm open-cellig dempend schuim</li>
-      <li>Vervaardiging door een <b>gecertificeerd pedorthist</b> volgens het gepubliceerde ontwerpprotocol. Het manuscript benoemt dit als beperking: een positief resultaat toont aan dat d&eacute;ze dienst met d&eacute;ze fabricage werkt, niet dat elke maatzooldienst dat doet</li>
-      <li><b>Pasvorm apart beoordelen</b> in binnen- &eacute;n buitenschoeisel, met verplichte fotodocumentatie: orthese van boven, onder en opzij, in beide schoenen, en de schoenen zelf</li>
-      <li>Orthotimer in de zool integreren bij aflevering; sensor opnieuw integreren bij elke vervanging</li>
-    </ul>
-    <div class="note warn" style="margin:10px 0 0">
-      <span class="lab">Twee paren: staat in het protocol, niet in het manuscript</span>
-      <p>Het protocol en eCRF 23 beschrijven een <b>identiek duplicaatpaar</b> zodra de drukdoelen gehaald zijn,
-      met vanaf maand 3 een kwartaalbeoordeling van beide paren en onderhoud om beurt. Het manuscript vermeldt
-      geen tweede paar en zet de vervanging van de zool op <b>maand 6, 12 en 18</b>. Dat zijn twee verschillende
-      onderhoudsschema&rsquo;s. Kiezen v&oacute;&oacute;r de opleiding, want de pedorthisten moeten weten hoeveel paren ze
-      maken.</p>
-    </div>
-  </div>
-
-  <div class="sub">
-    <h3><span class="cd">SOP-4</span> Uitlezen en de therapietrouwbenchmark <span class="wk">M3</span></h3>
-    <ul class="acts">
-      <li><b>De noemer is de waaktijd</b>: de tijd tussen opstaan en gaan slapen, afgeleid uit het baselineprofiel van de MoveMonitor. Therapietrouw is het aandeel van dat gepersonaliseerde doel dat gehaald wordt, <b>gemiddeld over alle zeven dagen van de week</b></li>
-      <li>Een vaste dagnorm zou inactieve deelnemers benadelen en actieve vleien; daarom een individuele noemer</li>
-      <li><b>De 80% is een responderdrempel</b>, geen doel op zich: de hoofdanalyse behandelt therapietrouw als een continue proportie, en de dichotomisatie op 80% is vooraf vastgelegd als secundaire analyse van hetzelfde construct</li>
-      <li>De Orthotimer-instelling &ldquo;uren per dag&rdquo; per patiënt invullen; nooit een vaste waarde</li>
-      <li>Uitlezing driemaandelijks; script identiek over de zes centra, met peer-review en een testrapport</li>
-      <li>Het tussenresultaat tonen: niet &ldquo;80% van de waaktijd&rdquo; maar &ldquo;15,5&nbsp;u waaktijd, norm 12,4&nbsp;u&rdquo;</li>
-    </ul>
-    <div class="note alert" style="margin:10px 0 0">
-      <span class="lab">De dubbele 80%</span>
-      <p>Wie de Orthotimer op 80% zette en daarna in de uitleesmodule opnieuw op 80% toetste, kreeg
-      0,8&nbsp;&times;&nbsp;0,8&nbsp;=&nbsp;64% als feitelijke lat. Dat is rechtgezet en mag niet terugkomen: elke drempel
-      &eacute;&eacute;n keer, zichtbaar.</p>
-    </div>
-  </div>
-
-  <div class="sub">
-    <h3><span class="cd">SOP-5</span> SEBIA &mdash; het vijfstappenprotocol <span class="wk">M2&ndash;4</span></h3>
-    <div class="who">Geleverd door het klinische personeel van de centra &mdash; podologen, verpleegkundigen en artsen &mdash; gestandaardiseerd via opleiding in motiverende gespreksvoering door een psycholoog-expert</div>
-    <ul class="acts">
-      <li><b>Stap 1, baseline.</b> Voetzorggedrag meten met de NAFF en de gezondheidsvaardigheden bevragen, dan educatie op maat met schriftelijk materiaal, voordoen van de voetzorghandelingen en begeleide oefening. Dekt <b>capability</b></li>
-      <li><b>Stap 2, visite 2.</b> Kennis hertesten met teach-back, aanvullen waar het herinneren tekortschiet, educatie over binnen &eacute;n buiten dragen, en meedelen dat de draagtijd gemeten wordt om gerichte ondersteuning mogelijk te maken. Dekt <b>capability en opportunity</b></li>
-      <li><b>Stap 3, maand 6 en 12.</b> Zelfinschatting en verwoorden waarom en wanneer het schoeisel gedragen hoort te worden; daarna samen en niet-veroordelend de sensordata bekijken, patronen benoemen en periodes van lage therapietrouw uitdiepen. Dekt <b>opportunity en motivatie</b></li>
-      <li><b>Stap 4, maand 9 en 15.</b> Voetzelfzorg laten voordoen met het meegegeven materiaal, correct gedrag bekrachtigen, hiaten gericht bijwerken, en de uitdraai vergelijken met de vorige keer. De ondersteuning wordt afgestemd op de oorzaak: kennis, motivatie of praktische barrière</li>
-      <li><b>Stap 5, maand 18.</b> Afsluitende demonstratie en de resultaten delen; g&eacute;&eacute;n nieuwe interventie-inhoud</li>
-      <li><b>Geen enkel onderdeel steunt op kennisoverdracht alleen</b> &mdash; dat is precies waarom SEBIA zich onderscheidt van de educatiestrategieën die eerder faalden</li>
-      <li>Vanaf stap 3 is de inhoud <b>op maat</b> in plaats van een vast script. De intensiteit volgt de data: wie het goed doet krijgt korte bekrachtiging, wie het moeilijk heeft krijgt intensievere ondersteuning en een bijgesteld plan</li>
-    </ul>
-  </div>
-
-  <div class="sub">
-    <h3><span class="cd">SOP-6</span> Ulcusdetectie, documentatie en adjudicatie <span class="wk">M2</span></h3>
-    <p>Zie taak 1.4 &mdash; daar volledig uitgeschreven, omdat ze het primaire eindpunt draagt.</p>
-  </div>
-
-  <div class="sub">
-    <h3><span class="cd">SOP-7</span> Randomisatie en blindering <span class="wk">M3</span></h3>
-    <ul class="acts">
-      <li><b>Wat er nu in het manuscript staat</b> <span class="src ms">8 sep</span>: 1:1, gestratificeerd per centrum, met de toewijzing verborgen in <b>sequentieel genummerde, verzegelde enveloppen</b> die klaargemaakt en naar de centra verstuurd worden</li>
-      <li><b>Wanneer ze opengaan</b>: door de site-investigator, pas n&aacute; bevestigde geschiktheid, getekende toestemming en afgeronde baselinemetingen. Openen wordt gedocumenteerd met datum, uur en deelnemerscode; de integriteit van de enveloppen wordt bij monitoringbezoeken geverifieerd</li>
-      <li><b>Zoals het in de praktijk gebeurt</b> <span class="src pr">afgesproken 3 sep</span>: per centrum twaalf toewijzingen per arm in identieke ondoorzichtige enveloppen, samen <b>geschud</b> en <b>daarna</b> genummerd &mdash; &eacute;&eacute;n gebalanceerde permutatie van vierentwintig. Klaargemaakt door iemand van het co&ouml;rdinerende centrum zonder rol in rekrutering, interventie of uitkomstbeoordeling. Nummeren n&aacute; het schudden houdt het controlespoor: de volgorde ligt vast en een overgeslagen envelop valt op</li>
-      <li><b>De erkende zwakte</b>, ook uit die afspraak: omdat de verhouding per centrum vaststaat op twaalf om twaalf, worden de laatste toewijzingen voorspelbaar naarmate een centrum zijn doel nadert. De tegenmaatregel is de volgorde van handelen &mdash; de beslissing om te includeren ligt v&aacute;st v&oacute;&oacute;r de envelop opengaat</li>
-      <li><b>Geen blindering van deelnemers en behandelaars</b> &mdash; er bestaat geen geloofwaardige schijnbehandeling voor een educatie- en schoeiseldienst</li>
-      <li>Screeningslog van iedereen die overwogen werd, inclusief screen failures met reden &rarr; CONSORT-flowdiagram</li>
-    </ul>
-    <div class="note alert" style="margin:10px 0 0">
-      <span class="lab">Hier is inhoud verdwenen &mdash; en er staan nu drie versies naast elkaar</span>
-      <p>De versie van 3 september beschreef de methode volledig: de gebalanceerde permutatie van vierentwintig,
-      het schudden, het nummeren daarna, en wie de enveloppen klaarmaakt. In de versie van <b>8 september is dat
-      allemaal weg</b>; er staat alleen nog dat de toewijzing in sequentieel genummerde verzegelde enveloppen
-      zit. Daarmee ontbreekt de <b>methode van sequentiegeneratie</b>, die SPIRIT-item 16a wel vraagt.</p>
-      <p>Erger: het onderschrift van <b>figuur 1</b> zegt intussen &ldquo;centre-stratified randomisation with
-      variable permuted blocks&rdquo;. Blokken van wisselende grootte zijn i&eacute;ts anders dan &eacute;&eacute;n
-      gebalanceerde permutatie van vierentwintig, en het manuscript beschrijft geen van beide meer in de
-      methodesectie. Drie bronnen, drie verhalen. Kiezen en op alle drie de plaatsen gelijkzetten.</p>
-    </div>
-  </div>
-
-  <div class="sub">
-    <h3><span class="cd">SOP-8</span> Databeheer, monitoring en afwijkingen <span class="wk">M3&ndash;4</span></h3>
-    <ul class="acts">
-      <li><b>Geen routinematige externe monitor, maar w&eacute;l een aangestelde monitor.</b> Op grond van de risicoklassering &ldquo;intermediate&rdquo; vraagt het protocol geen onafhankelijke derdepartijmonitoring ter plaatse &mdash; maar dat heft de monitoringverplichting niet op. Een <b>gekwalificeerde monitor, aangesteld door het co&ouml;rdinerende team</b>, doet de centrale monitoring volgens een gedocumenteerd risicogebaseerd monitoringplan: rekruteringscijfers, toestemmingsdocumentatie, protocolafwijkingen, datavolledigheid, envelopintegriteit en veiligheidsrapportering. Bezoek ter plaatse en brondataverificatie volgen bij vooraf bepaalde drempels of onopgeloste bevindingen</li>
-      <li><b>Wat in de Trial Master File moet</b>: de kwalificaties van de monitor, de gedelegeerde verantwoordelijkheden, de monitoringrapporten, de opvolging van bevindingen en de correctieve en preventieve acties. Het co&ouml;rdinerende comit&eacute; bevestigt deze opzet en de verenigbaarheid met ISO 14155:2020 en ICH-GCP E6 <b>v&oacute;&oacute;r de indiening</b> &mdash; dat is dus een actiepunt binnen taak 1.1</li>
-      <li><b>Geen onafhankelijke data monitoring committee</b>, geen tussentijdse effectiviteitsanalyse en geen stopregels &mdash; de interventie is additief en beide armen krijgen onveranderd richtlijnconforme zorg</li>
-      <li><b>Wel een halfjaarlijkse veiligheidsreview</b> door de co&ouml;rdinerend onderzoeker en de zes site-PI&rsquo;s van de cumulatieve, per arm geaggregeerde ulceratie- en amputatiecijfers. Sinds 8 september staat er een <b>rekenregel</b> bij: het verschil in cumulatieve incidentie wordt berekend als PARADISE min usual care met de <b>Aalen-Johansen-schatter</b>, sterfte als concurrerende gebeurtenis. Ligt de ondergrens van het eenzijdige 95%-betrouwbaarheidsinterval boven nul procentpunt, dan volgt een ad-hoc onafhankelijke review en wordt de EC tegelijk verwittigd</li>
-      <li><b>Stuurgroep</b>: de co&ouml;rdinerend onderzoeker, <b>twee doctoraatsonderzoekers</b>, de zes site-PI&rsquo;s, <b>de psycholoog</b> en de gezondheidseconoom. Die groep keurt amendementen goed en beslist over verzoeken tot datatoegang</li>
-      <li><b>Sensordatavolledigheid is een gemonitorde studiemaat</b>, geen aanname: het aandeel deelnemers met tegelijk geldige draagtijd- én activiteitsdata wordt bij elke halfjaarlijkse review centraal nagekeken. Blijft dat onder <b>70%</b> in een centrum, dan volgt herscholing in het toestelgebruik en zo nodig vervanging van de sensoren</li>
-      <li>Datamanager doet consistentie- en bereikcontroles en stuurt queries; het databeheerplan legt datastromen, validatieregels en de database-lockprocedure vast</li>
-      <li>Protocolafwijkingen classificeren en loggen; het beleid rond ontbrekende data staat in het SAP</li>
-    </ul>
-  </div>
-</div>
-
-<!-- ---------------- 1.4 ---------------- -->
-<div class="task">
-  <div class="task-h"><span class="tnum">1.4</span><span class="ttitle">Protocol voor identificatie en documentatie van ulcera</span></div>
-  <div class="tmeta">
-    <span class="pill m">M1&ndash;5 &middot; sep 26 &ndash; jan 27</span>
-    <span class="pill d">D1.4</span>
-    <span class="pill w">draagt het primaire eindpunt</span>
-  </div>
-  <p>Het primaire eindpunt is <b>voetulcusrecidief over achttien maanden</b>: een nieuw ulcus op dezelfde of
-  een andere plek na volledige epithelialisatie van een vorig ulcus, volgens de IWGDF-definitie &mdash; een
-  breuk in de huid die minstens de epidermis en een deel van de dermis omvat. Geanalyseerd als tijd tot het
-  eerste ulcus, en daarnaast gerapporteerd als het aandeel deelnemers met minstens &eacute;&eacute;n ulcus aan
-  &eacute;&eacute;n van beide voeten.</p>
-
-  <div class="note alert" style="margin:0 0 12px">
-    <span class="lab">Een ulcus is g&eacute;&eacute;n exit uit de studie</span>
-    <p>De FWO-aanvraag schrijft dat de deelnemer bij een ulcus standaardzorg krijgt en de trial verlaat. <b>Het
-    manuscript doet dat niet.</b> De interventielevering loopt door tenzij de deelnemer zich terugtrekt, een
-    ulcus ontwikkelt dat actieve behandeling vraagt, of aan een stopcriterium voldoet &mdash; maar de
-    uitkomstopvolging gaat verder. Wie de interventie stopt, wordt uitgenodigd om aan de metingen te blijven
-    deelnemen; wie dat weigert, wordt om toestemming gevraagd om de ulcusstatus uit het dossier te halen,
-    zodat het primaire eindpunt vast te stellen blijft.</p>
-    <p>Dat is ook analytisch nodig: ulceratie is een <b>intercurrent event voor de therapietrouw</b> &mdash; wie
-    ulcereert stapt vaak over op een ander ontlastingsmiddel, waardoor de zool terecht niet meer gedragen
-    wordt. De draagtijd wordt daarom gecensureerd vanaf de ulcusdatum. Tijd tot genezing en ulcusernst zijn
-    bovendien secundaire uitkomsten, dus er moet n&aacute; het ulcus nog gemeten worden. <b>De aanvraagformulering
-    is achterhaald en mag niet in de SOP terechtkomen.</b></p>
-  </div>
-
+  <h4>Centrale indiening &middot; week 1&ndash;8</h4>
   <ul class="acts">
-    <li><b>Wat niet meetelt.</b> Wrijvings- of drukletsels aan de laterale of dorsale voet binnen <b>drie weken</b> na het in gebruik nemen van nieuw schoeisel of nieuwe zolen tellen niet als recidief &mdash; dat is voorbijgaande gewenning, geen terugkeer van de onderliggende pathologie</li>
-    <li><b>Melding en documentatie</b>: onmiddellijk aan de investigator; foto&rsquo;s, debridement, en classificatie met <b>PEDIS</b> en <b>WIfI</b>. Alles geanonimiseerd naar een beveiligd platform; per centrum beoordeelt een aangeduide arts de foto&rsquo;s</li>
-    <li><b>Wie het ulcus vaststelt</b> <span class="src ms">8 sep</span>: elk vermoed ulcus uit elk centrum wordt beoordeeld door een <b>multidisciplinair klinisch team</b> volgens vooraf bepaalde criteria, op basis van de beschikbare klinische documentatie en gestandaardiseerde foto&rsquo;s. Dezelfde procedure ongeacht de toewijzing; kennen teamleden de toewijzing uit de routinezorg, dan mag die informatie geen criterium zijn. <b>De beoordeling van dat team is de primaire vaststelling van de uitkomst</b>, niet die van het behandelende centrum alleen</li>
-    <li><b>Ongewenste voorvallen</b> worden bij elke geplande én ongeplande visite geregistreerd: AE&rsquo;s, SAE&rsquo;s, adverse device effects en device deficiencies. Verwachte toestelgerelateerde voorvallen: voorbijgaande wrijvingsletsels tijdens gewenning, lokale huidirritatie ter hoogte van de sensor, en ongemak door de zool</li>
-    <li><b>Ulceratie is tegelijk uitkomst en mogelijk ongewenst voorval.</b> Elk ulcus wordt als uitkomstgebeurtenis geregistreerd én beoordeeld op toestelgerelateerdheid; een ulcus dat causaal aan de orthese wordt toegeschreven, wordt als adverse device effect gemeld</li>
-    <li><b>SAE-termijnen</b> <span class="src pr">protocol</span>: naar de sponsor binnen 72&nbsp;uur; sponsor naar EC en FAGG binnen zeven dagen bij dood of levensbedreiging, plus maximaal acht dagen om het initiële rapport te vervolledigen; binnen vijftien dagen voor alle andere. Het manuscript verwijst hiervoor alleen naar &ldquo;de geldende rapporteringsvereisten&rdquo;</li>
-    <li><b>Niet melden als AE</b> <span class="src pr">protocol</span>: roodheid of kleine oppervlakkige huidvervorming door de apparatuur die binnen enkele minuten verdwijnt &mdash; wel routinematig in het dossier noteren</li>
-  </ul>
-  <div class="note alert" style="margin:12px 0 0">
-    <span class="lab">De adjudicatie is op 8 september van karakter veranderd &mdash; maar niet overal</span>
-    <p>Tot 3 september beschreef het manuscript een <b>onafhankelijke, voor de toewijzing geblindeerde
-    adjudicatiecommissie</b> die werkte op gede-identificeerde documentatie en foto&rsquo;s met schoeisel en sensor
-    verwijderd, en wier beslissing het primaire eindpunt vormde. In de versie van 8 september is dat een
-    <b>multidisciplinair klinisch team</b> geworden dat de toewijzing m&aacute;g kennen, zolang die geen criterium
-    is. Dat is een wezenlijk zwakkere waarborg tegen detectiebias in een open-label studie.</p>
-    <p><b>Vier plaatsen in hetzelfde document zijn niet mee veranderd</b> en beloven nog steeds
-    &ldquo;independent blinded endpoint adjudication&rdquo;: de sectie Strengths, de sectie Limitations, de
-    instrumentkolom van tabel 3 bij het primaire eindpunt, en de statistieksectie die spreekt van de eerste
-    <i>adjudicated</i> ulcus. Ook de ingevulde SPIRIT-checklist verwijst er bij item 3d en 24c nog naar.
-    Beslissen w&eacute;lke opzet het wordt, en dan alle zes de plaatsen gelijkzetten &mdash; een reviewer die dit
-    verschil ziet, leest het als een verzwakte blindering die verstopt is in de methodesectie.</p>
-    <p>Praktisch verschil voor de planning: een onafhankelijke commissie moet <b>geworven</b> worden bij artsen
-    van buiten de zes centra, en dat is werk met een doorlooptijd. Een multidisciplinair team uit de bestaande
-    centra niet. Dat maakt van deze keuze een planningsbeslissing en niet alleen een tekstbeslissing.</p>
-  </div>
-  <span class="deliv"><b>Deliverable</b>SOP-6 met ulcus-eventformulier, SAE-formulier en het charter van de beoordelende instantie</span>
-</div>
-
-<!-- ---------------- parallel ---------------- -->
-<div class="task">
-  <div class="task-h"><span class="tnum">&mdash;</span><span class="ttitle">Drie sporen zonder eigen taaknummer</span></div>
-  <div class="tmeta">
-    <span class="pill m">M1&ndash;5 en verder</span>
-    <span class="pill w">staan wel in de Go-criteria</span>
-    <span class="pill p">draaiboek fase 04, 05 en 07</span>
-  </div>
-  <p>Deze drie hebben geen nummer in de aanvraag, maar zonder alle drie is er geen Go. Ze horen functioneel
-  bij taak 1.3 en 1.5.</p>
-
-  <div class="sub">
-    <h3><span class="cd">A</span> Technologische infrastructuur <span class="wk">M1&ndash;5</span></h3>
-    <ul class="acts">
-      <li><b>Drukmeetsystemen</b> bestellen, leveren en installeren. Levertijd zes tot acht weken, dus bestellen in week 2. Servicecontract, reserveonderdelen en kalibratiemateriaal per centrum</li>
-      <li><b>Inter-rater reliability</b> per centrum: twee operatoren meten onafhankelijk bij minstens vijftien personen, doel ICC &ge; 0,80, met extra training en hertest onder de drempel. Ook oefenen op vervormde voeten</li>
-      <li><b>Orthotimer</b>: sensoren, uitleessoftware per centrum, serienummerregister, en een procedure voor defecte of verloren sensoren. Hoeveel er nodig zijn hangt af van de beslissing over &eacute;&eacute;n of twee paren zolen</li>
-      <li><b>MoveMonitor</b>: toestellen, uitgifte- en retourformulier met serienummer en conditierapport, logboek per apparaat, en een patiënteninstructiekaart</li>
-      <li><b>Databank</b>: modules voor screening, baseline, de zes opvolgtijdstippen, eventformulieren, randomisatie, afwijkingenlog en procesevaluatiedata. Logicacontroles, acceptatietest met &eacute;&eacute;n testgebruiker per centrum, versie-lock v&oacute;&oacute;r de piloot</li>
-    </ul>
-  </div>
-
-  <div class="sub">
-    <h3><span class="cd">B</span> Opleiding en certificering <span class="wk">M2&ndash;5</span></h3>
-    <ul class="acts">
-      <li><b>Module 1, theoretisch kader</b> (4&nbsp;u, centraal): pathofysiologie, rationale, COM-B, de taxonomie van gedragsveranderingstechnieken, IWGDF 2023, met kennistoets</li>
-      <li><b>Module 2, SEBIA</b> (4&nbsp;u, hands-on): drie casussen &mdash; lage kennis, lage motivatie, praktische barrière &mdash; rollenspel per stap, oefeningen motiverende gespreksvoering, competentieschaal 1 tot 4 per domein. De opleiding motiverende gespreksvoering door een psycholoog-expert is in het manuscript het middel waarmee SEBIA over de zes centra gestandaardiseerd wordt</li>
-      <li><b>Module 3, technologie</b> (2&nbsp;u, on-site per centrum): kalibratie zelf uitvoeren, de acht regio&rsquo;s, Orthotimer plaatsen en uitlezen, MoveMonitor uitgeven en verwerken, troubleshooting</li>
-      <li><b>Module 4, certificering</b> (4&nbsp;u): gesimuleerde patiëntcontacten met een trainingsacteur. Slaagdrempel: kennistoets &ge; 80% en alle competentiedomeinen &ge; 3 op 4. E&eacute;n remediëring mogelijk</li>
-      <li><b>Module 5, data-entry</b> (2&nbsp;u per centrum) &mdash; welke rol de centra hierin krijgen hangt af van de nog te nemen beslissing over de invoerroute (zie taak 1.2b)</li>
-      <li>Certificaten archiveren in de Trial Master File per centrum</li>
-    </ul>
-  </div>
-
-  <div class="sub">
-    <h3><span class="cd">C</span> Methodologische deelstudie: pedar tegenover F-Scan GO <span class="wk">M2 en verder, parallel aan de trial</span></h3>
-    <ul class="acts">
-      <li><b>Waarom</b>: de drempelwaarden &mdash; onder 200&nbsp;kPa of minstens 25% reductie &mdash; zijn afgeleid uit werk met Tekscan-technologie. Ze zonder methodevergelijking overzetten introduceert systematische bias</li>
-      <li><b>Status in het manuscript</b>: het studieteam voert de vergelijking parallel uit; de F-Scan GO-metingen sturen g&eacute;&eacute;n klinische beslissing en be&iuml;nvloeden de eindpunten niet. Het is dus geen voorwaarde v&oacute;&oacute;r de start, maar een deelstudie die meeloopt</li>
-      <li><b>Analyse</b>: Bland-Altman met bias en 95%-overeenstemmingsgrenzen per regio, ICC per regio, Passing-Bablok voor systematische en proportionele bias, ROC voor de drempelequivalentie, kappa voor de klinische beslissing</li>
-      <li><b>Ethiek</b>: CE-gemarkeerde apparatuur in routinezorg, geen experimentele interventie &mdash; amendement of aparte lichte procedure, afhankelijk van het EC-advies</li>
-    </ul>
-    <div class="note warn" style="margin:10px 0 0">
-      <span class="lab">Het draaiboek staat hier achter op de feiten</span>
-      <p>Draaiboek fase 07 beschrijft de studie nog als &ldquo;Novel-platform tegenover Tekscan&rdquo;, uit de tijd dat
-      de Novel emed een blootsvoets platformsysteem was, en maakt er een <b>voorwaarde voor de Go</b> van
-      (criterium 7). Sinds de pedar het klinische in-shoe toestel is, is het een <b>in-shoe tegenover in-shoe</b>
-      vergelijking, en zet het manuscript ze parallel aan de trial in plaats van ervoor. De kritische noot over
-      &ldquo;platform tegenover in-shoe&rdquo; vervalt, en Go-criterium 7 hoort herzien of geschrapt te worden.</p>
-    </div>
-  </div>
-</div>
-
-<!-- ---------------- 1.5 ---------------- -->
-<div class="task hard">
-  <div class="task-h"><span class="tnum">1.5</span><span class="ttitle">Piloot in de zes centra en de Go/No-Go-beslissing</span></div>
-  <div class="tmeta">
-    <span class="pill m">M5&ndash;6 &middot; jan &ndash; feb 27</span>
-    <span class="pill d">D1.5</span>
-    <span class="pill w">MS3 &middot; poort naar de rekrutering</span>
-    <span class="pill p">draaiboek fase 06</span>
-  </div>
-  <p>Een finale implementatie van de volledige PARADISE-levering over veertien dagen, met &eacute;&eacute;n patiënt per
-  centrum. Doel: resterende knelpunten vinden, formulieren bijschaven, en het team vertrouwd maken. Deze
-  patiënt maakt geen deel uit van de studiepopulatie en tekent een <b>aparte</b> toestemming die de piloot
-  beschrijft als een testrun, niet als een klinische studie.</p>
-
-  <div class="note tip" style="margin:0 0 12px">
-    <span class="lab">Alleen in de projectdocumenten</span>
-    <p>De piloot en de Go/No-Go staan in de FWO-aanvraag en het draaiboek, niet in het protocolmanuscript. Ze
-    zijn een intern kwaliteitsinstrument van het consortium, geen studieprocedure die de ethische commissie
-    beoordeelt &mdash; behalve de aparte pilootconsent, die wel goedgekeurd moet worden.</p>
-  </div>
-
-  <div class="sub">
-    <h3><span class="cd">1.5a</span> Selectie en toestemming <span class="wk">M4&ndash;5</span></h3>
-    <ul class="acts">
-      <li>Criteria: risicocategorie 0 tot 3 (niet verplicht 3), achttien jaar of ouder, Nederlandstalig, bereid tot twee bezoeken met veertien dagen ertussen, geen actief ulcus</li>
-      <li>De lokale PI bevestigt de pilootpatiënt in maand 4 en plant beide tijdsloten</li>
-    </ul>
-  </div>
-
-  <div class="sub">
-    <h3><span class="cd">1.5b</span> Pilootbezoek met verplichte tijdregistratie <span class="wk">M5&ndash;6</span></h3>
-    <div class="who">Gecertificeerde podoloog en technoloog, PhD-A als observator &mdash; minstens bij bezoek 1 in elk centrum</div>
-    <ul class="acts">
-      <li>Ontvangst en uitleg (5&nbsp;min) &middot; pilootconsent (5&nbsp;min) &middot; voetscreening volgens SOP-1 (15&nbsp;min)</li>
-      <li>Schoeiselbeoordeling en Orthotimer-plaatsing volgens SOP-3 (15&nbsp;min)</li>
-      <li>Drukmeting volgens SOP-2: kalibratie, wandelprotocol, regio-indeling (25&nbsp;min)</li>
-      <li>SEBIA stap 1: NAFF, educatie, teach-back, demonstratie (35&nbsp;min)</li>
-      <li>CRF invullen in de testomgeving (10&nbsp;min) &middot; evaluatieformulier in real time (5&nbsp;min)</li>
-      <li><b>Doel: onder negentig minuten productief, harde grens 115 minuten</b></li>
-      <li>Per activiteit noteren of de SOP duidelijk genoeg was, met stopwatch, en wat verrassend moeilijk bleek</li>
-    </ul>
-  </div>
-
-  <div class="sub">
-    <h3><span class="cd">1.5c</span> Debriefing en knelpuntenanalyse <span class="wk">M6, week 1&ndash;2</span></h3>
-    <ul class="acts">
-      <li>Per centrum een online debriefing van dertig minuten binnen de week na het bezoek</li>
-      <li>Elk knelpunt categoriseren als <b>kritisch</b> (blokkeert Go) of <b>optimaliseerbaar</b></li>
-      <li>Plenaire consortiumbijeenkomst van een uur na alle individuele debriefings</li>
-      <li>Beslisregel: één onopgelost kritisch knelpunt betekent No-Go en verlenging van de voorbereiding</li>
-      <li>Pilootrapport v1.0 met knelpuntenmatrix, SOP-updates naar v1.1, databank naar v1.1</li>
-    </ul>
-  </div>
-
-  <div class="sub">
-    <h3><span class="cd">1.5d</span> Formele Go/No-Go <span class="wk">M6, week 4</span></h3>
-    <div class="who">Voorzitter prof.&nbsp;Deschamps, alle PI&rsquo;s, PhD-A en PhD-B &middot; unanimiteit vereist voor Go</div>
-    <div class="scroller" style="margin-top:10px">
-    <table class="tbl">
-      <thead><tr><th>#</th><th>Criterium</th><th>Go-drempel</th><th>Bewijsstuk</th></tr></thead>
-      <tbody>
-        <tr><td class="k">1</td><td>Ethische goedkeuringen</td><td>Zeven op zeven &mdash; centraal plus zes lokaal, plus de bevoegde autoriteit</td><td>Goedkeuringsbrieven en registratienummers</td></tr>
-        <tr><td class="k">2</td><td>Site readiness</td><td>Zes op zes centra voldoen aan alle negen criteria</td><td>Ingevulde checklists</td></tr>
-        <tr><td class="k">3</td><td>Databank operationeel</td><td>Nul kritische bugs na acceptatietest, versie-locked</td><td>Testrapport en versielog</td></tr>
-        <tr><td class="k">4</td><td>Certificering zorgverleners</td><td>Minstens twee per centrum, dus twaalf of meer</td><td>Certificatenregister in de Trial Master File</td></tr>
-        <tr><td class="k">5</td><td>Pilootrapport</td><td>Nul onopgeloste kritische knelpunten</td><td>Pilootrapport v1.0</td></tr>
-        <tr><td class="k">6</td><td>Meetbetrouwbaarheid drukmeting</td><td>ICC &ge; 0,80 in alle centra, of gepoold</td><td>ICC-rapport</td></tr>
-        <tr><td class="k">7</td><td>Methodevergelijking pedar &ndash; F-Scan GO</td><td>Overeenstemmingsgrenzen gekwantificeerd</td><td>Bland-Altman-rapport</td></tr>
-      </tbody>
-    </table>
-    </div>
-    <div class="note warn" style="margin:12px 0">
-      <span class="lab">Twee criteria staan op het verkeerde toestel of op het verkeerde moment</span>
-      <p><b>Criterium 6</b> is in het draaiboek geformuleerd voor de F-Scan GO, omdat men er toen van uitging dat
-      de centra dat toestel zouden bedienen. De klinische meting gebeurt met de <b>pedar</b>; daar hoort de
-      ICC-drempel dus bij &mdash; en juist voor dat toestel bestaat nog geen werkinstructie.</p>
-      <p><b>Criterium 7</b> maakt van de methodevergelijking een voorwaarde v&oacute;&oacute;r de start, terwijl het
-      manuscript ze parallel aan de trial laat lopen zonder invloed op de klinische besluitvorming. Als de
-      pedar-drempels gelden zoals ze in het protocol staan, is dit geen startvoorwaarde meer.</p>
-    </div>
-    <p><b>Site readiness, negen verplichte criteria per centrum:</b> drukmeetsysteem operationeel met
-    kalibratietestrun &middot; minstens twee gecertificeerde zorgverleners (podoloog en technoloog) &middot;
-    databankaccount actief met geslaagde testlogin &middot; lokale ethische goedkeuring ontvangen &middot;
-    Orthotimer-sensoren, lezer en software aanwezig &middot; MoveMonitor aanwezig met bekend uitgifte- en
-    retourprotocol &middot; minstens tien sets van het assessment booklet &middot; loopruimte van minstens tien
-    meter &middot; back-upzorgverlener ge&iuml;dentificeerd met naam en contact.</p>
-    <p><b>Bij No-Go:</b> binnen een week een actieplan per onopgelost criterium, een nieuwe vergadering binnen
-    maximaal vier weken, de FWO-programmamanager informeren via het offici&euml;le kanaal, en de ethische commissie
-    informeren als de piloot tot een protocolwijziging leidt.</p>
-    <span class="deliv"><b>Deliverable</b>Ondertekende notulen met een formele Go en de startdatum van de inclusie</span>
-  </div>
-</div>
-
-<!-- ---------------- 1.6 ---------------- -->
-<div class="task">
-  <div class="task-h"><span class="tnum">1.6</span><span class="ttitle">144 deelnemers rekruteren</span></div>
-  <div class="tmeta">
-    <span class="pill m">M6&ndash;18 &middot; feb 27 &ndash; feb 28</span>
-    <span class="pill d">D1.6</span>
-    <span class="pill w">MS4</span>
-  </div>
-  <p>Zes centra, 24 deelnemers elk, twaalf per arm, over een venster van <b>twaalf maanden</b>. Dat komt neer
-  op ongeveer <b>twee inclusies per centrum per maand</b> &mdash; onder de doorstroom die de RIZIV-norm van
-  minstens 52 patiënten per jaar met een ulcus Wagner &ge; 2 of acute neuropathische osteoartropathie
-  impliceert.</p>
-  <ul class="acts">
-    <li><b>Hoe deelnemers gevonden worden</b>: retrospectieve screening van de raadplegingsagenda&rsquo;s plus prospectieve verwijzingen binnen de deelnemende klinieken</li>
-    <li><b>Screeningslog</b> van iedereen die overwogen werd, met screen failures en reden &rarr; CONSORT-flowdiagram</li>
-    <li><b>Als de centra sterk uiteenlopen</b> mag een gefaseerde inclusie ingezet worden om de capaciteit van het studieteam te volgen; elke zo&rsquo;n aanpassing wordt gedocumenteerd en gerapporteerd</li>
-    <li><b>Uitval</b>: 15% is een aanname, geen waarneming. Ze wordt tegen die aanname opgevolgd, en bij overschrijding wordt de rekrutering verlengd</li>
+    <li>Clinical investigation plan, toestemmingsformulieren, patiëntmateriaal en investigator&rsquo;s brochure naar de <b>EC UZ Leuven</b> (centrale co&ouml;rdinerende commissie), het <b>FAGG</b> en de <b>zes lokale commissies</b></li>
+    <li>Toestemming in het Nederlands op maximaal B1-niveau, met GDPR-clausules; ook de deelnemende therapeuten tekenen</li>
+    <li>Verzekering: de sponsor draagt foutloze aansprakelijkheid volgens de wet van 7&nbsp;mei 2004</li>
+    <li>Kader: ISO&nbsp;14155:2020 &middot; Verordening 2017/745 &middot; Verordening 2016/679 &middot; wet 22&nbsp;dec 2020 &middot; KB 18&nbsp;mei 2021 &middot; wet 22&nbsp;aug 2002 &middot; Verklaring van Helsinki &middot; ICH-GCP E6(R3)</li>
+    <li>De monitoringopzet moet v&oacute;&oacute;r de indiening bevestigd worden door het co&ouml;rdinerende comit&eacute; <a class="o" href="#o25">24</a></li>
   </ul>
 
-  <div class="scroller" style="margin-top:12px">
-  <table class="tbl">
-    <thead><tr><th>Geschiktheid volgens het manuscript</th><th>Detail</th></tr></thead>
+  <h4>Zes lokale goedkeuringen &middot; M2&ndash;5</h4>
+  <div class="scroller">
+  <table class="tbl tight">
+    <thead><tr><th>Centrum</th><th>Plaats</th><th>Site-investigator</th><th>Type</th></tr></thead>
     <tbody>
-      <tr><td class="k">Leeftijd en taal</td><td>Volwassen, &ge; 18 jaar, Nederlands begrijpend. Die taaleis is in de beperkingen erkend als een re&euml;el gelijkheidsprobleem, want de uitgesloten groep is niet willekeurig verdeeld</td></tr>
-      <tr><td class="k">Diabetes</td><td>Type 1 of 2 volgens ADA/EASD, zwangerschapsdiabetes uitgesloten</td></tr>
-      <tr><td class="k">Risicovoet</td><td>IWGDF categorie 3: een plantair ulcus genezen in de voorbije 18 maanden en minstens 2 weken v&oacute;&oacute;r inclusie, <b>&oacute;f</b> een partiële voetamputatie van een of meer tenen, <b>&oacute;f</b> resectie van een of meer metatarsaalkoppen</td></tr>
-      <tr><td class="k">Vaatstatus</td><td>PEDIS-perfusiegraad 1 of 2 en klinisch stabiel naar oordeel van de behandelende arts</td></tr>
-      <tr><td class="k">Mobiliteit</td><td>Zelfstandig en zonder hulpmiddelen blootsvoets kunnen stappen</td></tr>
-      <tr><td class="k">Schoeisel</td><td>In bezit van volledig maatwerk, of maatzolen in semi-orthopedisch of adequaat confectieschoeisel met extra diepte &mdash; of bereid over te stappen; RIZIV vergoedt dit</td></tr>
-      <tr><td class="k">Uitsluiting &mdash; amputatie</td><td>Straalamputatie, partieel of volledig, en majeure amputatie inclusief transmetatarsale voorvoetamputatie</td></tr>
-      <tr><td class="k">Uitsluiting &mdash; voet</td><td>Actief ulcus, actieve Charcot-neuro-artropathie, of een <b>genezen Charcot-vervorming met rocker-bottom</b> of vergelijkbare structurele collaps &mdash; daarvoor zijn het ontlastingsdoel en het meetprotocol niet gevalideerd</td></tr>
-      <tr><td class="k">Uitsluiting &mdash; vaat</td><td>PEDIS-perfusiegraad 3, kritische ischemie: enkeldruk &lt; 50&nbsp;mmHg, teendruk &lt; 30&nbsp;mmHg of transcutane zuurstofspanning &lt; 30&nbsp;mmHg</td></tr>
-      <tr><td class="k">Uitsluiting &mdash; overig</td><td>Nierfunctievervangende therapie <b>of immunosuppressieve therapie</b> &middot; ernstige ziekte die de overleving over 18 maanden beperkt &middot; wilsonbekwaamheid of instructies niet kunnen volgen &middot; hulpmiddelen die sensorplaatsing verhinderen, zoals een enkel-voetorthese &middot; weigering van het voorgeschreven schoeisel</td></tr>
+      <tr><td class="k">UZ Leuven</td><td>Leuven</td><td>prof. Giovanni Matricali</td><td>academisch</td></tr>
+      <tr><td class="k">UZ Antwerpen</td><td>Edegem</td><td>prof. Eveline Dirinck</td><td>academisch</td></tr>
+      <tr><td class="k">UZ Gent</td><td>Gent</td><td>prof. Caren Randon</td><td>academisch</td></tr>
+      <tr><td class="k">AZORG</td><td>Aalst</td><td>prof. Frank Nobels</td><td>niet-academisch</td></tr>
+      <tr><td class="k">AZ Sint-Jan</td><td>Brugge</td><td>dr. Youri Taes</td><td>niet-academisch</td></tr>
+      <tr><td class="k">AZ Groeninge</td><td>Kortrijk</td><td>dr. Gertjan Vereecke</td><td>niet-academisch</td></tr>
     </tbody>
   </table>
   </div>
+  <ul class="acts">
+    <li>Drie academische en drie niet-academische centra is een ontwerpkeuze: de studievraag gaat over levering onder gewone omstandigheden, en die interactie is vooraf vastgelegd als subgroep</li>
+    <li>Site Agreement per ziekenhuis en subsidiecontract KU&nbsp;Leuven &harr; elk partnerziekenhuis</li>
+  </ul>
 
-  <div class="note ok" style="margin:12px 0 0">
-    <span class="lab">Opgelost op 8 september: de hallux</span>
-    <p>De versie van 3 september sloot bij de inclusie een partiële amputatie van tenen <i>excluding the
-    hallux</i> in, tegen het protocol en de eCRF-set in. Dat is eruit: er staat nu &ldquo;a partial foot
-    amputation of one or more toes&rdquo;, zonder uitzondering. Sluit weer aan bij het protocol.</p>
-  </div>
-  <div class="note warn" style="margin:12px 0 0">
-    <span class="lab">Drie dingen om nu recht te zetten</span>
-    <p><b>De eerste metatarsaalkop.</b> Bij het wegwerken van de hallux-uitzondering is ook de tweede
-    uitzondering meegegaan: het manuscript zegt nu &ldquo;resection of one or more metatarsal head&rdquo;, terwijl
-    protocol en eCRF <b>niet de eerste</b> metatarsaalkop zeggen. Dat verruimt de doelpopulatie stilzwijgend.
-    Terugzetten &mdash; en meteen het enkelvoud &ldquo;head&rdquo; naar &ldquo;heads&rdquo; corrigeren.</p>
-    <p><b>Het screeningsformulier mist drie criteria</b>: de exclusies PEDIS-graad 3 en immunosuppressie, en de
-    inclusie-eis stabiele vaatstatus. Aanvullen, anders wijkt eCRF 01 af van het protocol.</p>
-    <p><b>MS4 staat op M24</b> in de FWO-planning, terwijl de rekrutering volgens protocol en manuscript op M18
-    af is. De mijlpaal kan naar voren.</p>
-  </div>
+  <h4>Registratie en gegevensbescherming &middot; M2&ndash;3</h4>
+  <ul class="acts">
+    <li>ClinicalTrials.gov en BELCRI, v&oacute;&oacute;r de eerste deelnemer. Resultaten binnen twaalf maanden na de laatste visite in het register</li>
+    <li>Verwerkersovereenkomst per centrum, aanmelding bij de DPO, datastroomdiagram. AVG-artikelen 5, 6, 9, 13-14, 25, 32 en 89</li>
+    <li>Geen naam, adres, contactgegevens, volledige geboortedatum, ziekenhuisnummer of rijksregisternummer in het CRF &mdash; alleen de pseudonieme code</li>
+    <li>Bewaartermijn <b>vijftien jaar</b> na afloop <a class="o" href="#o10">10</a></li>
+  </ul>
+  <span class="deliv"><b>D1.1</b> &mdash; volledig dossier met ontvangstbevestiging, zes lokale goedkeuringen, zes Site Agreements, registratienummers</span>
 </div>
 
-<!-- ---------------- 1.7 ---------------- -->
 <div class="task">
-  <div class="task-h"><span class="tnum">1.7</span><span class="ttitle">Alle beoordelingen bij de 144 deelnemers afronden</span></div>
-  <div class="tmeta">
-    <span class="pill m">M7&ndash;37 &middot; mrt 27 &ndash; sep 29</span>
-    <span class="pill d">D1.7</span>
-    <span class="pill w">MS5 en MS6</span>
-  </div>
-  <p>De langste taak, en de enige die per deelnemer telt in plaats van per project. Elke deelnemer doorloopt
-  <b>negen geplande contacten</b> over achttien maanden, plus ongeplande bezoeken bij een vermoeden van
-  ulceratie. De visites vallen samen met de driemaandelijkse podologische controle waaraan beide armen toch al
-  gebonden zijn, zodat er weinig extra verplaatsing bijkomt; reiskosten worden vergoed.</p>
+  <div class="task-h"><span class="tnum">1.2</span><span class="ttitle">Assessment booklet</span></div>
+  <div class="tmeta"><span class="pill m">M1&ndash;5</span><span class="pill d">D1.2</span><span class="pill w">MS1</span></div>
+  <p>Handboek en trainingspakket, samen met de adviescommissie. De baselinegegevens volgen de <b>core descriptor
+  set</b>: demografie, stadium chronische nierziekte, ulcus- en ledemaatkenmerken, behandelingen, medicatie,
+  biochemie en levenskwaliteit. De uitkomstenset dekt alle acht kernuitkomsten van de <b>core outcome set</b>, met
+  amputatie en sterfte via de meldingen van ongewenste voorvallen.</p>
+  <ul class="acts">
+    <li><b>Gebruiksrechten regelen</b> voor NAFF, HLS-EU-6, EQ-5D-5L (licentie EuroQol), iMCQ en iPCQ (iMTA), MOS-revised en de slijtageschaal &mdash; met een copyright-log</li>
+    <li><b>CRF-set</b> volgens tabel 2 van het manuscript (zie taak 1.7). Papieren bronformulieren, daarna overzetten naar het elektronische CRF <a class="o" href="#o20">23</a></li>
+    <li><b>Vier patiëntenmaterialen</b>: folder dagelijkse voetzorg <a class="o" href="#o18">18</a>, educatiekaart schoeisel, uitlegfiche Orthotimer (framing als &ldquo;uw sensor&rdquo;: enkel temperatuur, geen GPS, geluid of camera), feedbacksjabloon therapietrouw. Leesbaarheidstest op B1-niveau bij drie pilootpatiënten</li>
+    <li><b>Consensusvergadering in M4</b>: pre-read twee weken vooraf, per instrument een kwartier, goedkeuring in ondertekende notulen</li>
+  </ul>
+  <span class="deliv"><b>D1.2</b> &mdash; Assessment Booklet v1.0 definitief, consensus goedgekeurd (MS1)</span>
+</div>
 
+<div class="task">
+  <div class="task-h"><span class="tnum">1.3</span><span class="ttitle">Protocollen voor Usual en Optimal Care &mdash; acht SOP&rsquo;s</span></div>
+  <div class="tmeta"><span class="pill m">M1&ndash;5</span><span class="pill d">D1.3</span></div>
+  <p><b>Beide armen</b> krijgen driemaandelijkse voetzorg en screening, een drukherverdelende CMFO, een Orthotimer
+  in de zool, een week MoveMonitor op baseline en op maand 6, en de in-shoe drukmeting. <b>Het verschil is wat er
+  met de meting gebeurt</b>: in Usual Care worden de drukwaarden niet getoond of besproken en stuurt de meting de
+  zool niet, en is de educatie zoals ze vandaag gegeven wordt. Elke pre-ulceratieve laesie of klinisch afwijkende
+  bevinding wordt in b&eacute;ide armen onmiddellijk aan de behandelend clinicus gemeld &mdash; de blindering geldt de
+  drukwaarden, niet de klinische bevindingen. <a class="o" href="#o6">6</a></p>
+
+  <h4>SOP-1 &middot; Voetscreening en IWGDF-classificatie &middot; M2</h4>
+  <ul class="acts">
+    <li>Onderzoeksvolgorde, instrumenten en afkappunten; risicocategorie 3 bevestigen</li>
+    <li>Fotografieprotocol en beslisboom bij twijfel; inter-rater reliability &kappa;&nbsp;&ge;&nbsp;0,80 in de piloot</li>
+  </ul>
+
+  <h4>SOP-2 &middot; Plantaire drukmeting &middot; M2&ndash;3</h4>
+  <ul class="acts">
+    <li><b>Novel pedar &mdash; het klinische toestel.</b> In-shoe sensorzolen met de novel database-software, tien meter looppad, minstens twaalf mid-gait stappen per voet. Kalibratie met trublu tot zes bar, binnen 5% van de referentiemanometer, minstens driemaandelijks <a class="o" href="#o16">16</a></li>
+    <li><b>F-Scan GO &mdash; alleen het studieteam</b>, voor de methodevergelijking; stuurt geen klinische beslissing</li>
+    <li>Acht regio&rsquo;s: hiel, mediale en laterale middenvoet, metatarsaal 1, 2-3 en 4-5, hallux, tenen 2-5</li>
+    <li>Comfortsnelheid bij baseline, daarna binnen 5%; gestandaardiseerde dunne naadloze katoenen sokken</li>
+    <li><b>De norm.</b> Iteratief aanpassen tot de piekdruk <b>onder 200&nbsp;kPa</b> ligt op alle eerder geulcereerde en hoogrisicoregio&rsquo;s, <b>&oacute;f</b> minstens <b>25% lager</b> is dan de eigen baseline &mdash; wat het eerst bereikt wordt. Het protocol operationaliseert dat als drie vooraf aangeduide doelregio&rsquo;s</li>
+    <li>De behaalde reductie wordt per deelnemer geregistreerd en als <b>fidelity-maat</b> gerapporteerd <a class="o" href="#o8">8</a></li>
+  </ul>
+
+  <h4>SOP-3 &middot; Schoeisel, CMFO en Orthotimer &middot; M2&ndash;3</h4>
+  <ul class="acts">
+    <li><b>Opbouw per schoentype.</b> Volledig maatwerk: 5&nbsp;mm microkurk met 5&nbsp;mm total-contact EVA. Confectieschoen met extra diepte: 6&nbsp;mm EVA z&oacute;nder kurk</li>
+    <li><b>Beide afgewerkt met</b> een mediale steunzool van 3-5&nbsp;mm, een metatarsaalbalk van 9-10&nbsp;mm op 6-11&nbsp;mm proximaal van de kopjes, lokale dieptevrijgave, en een deklaag over de volledige lengte: 3&nbsp;mm gesloten-cellig op 3&nbsp;mm open-cellig</li>
+    <li>Vervaardiging door een gecertificeerd pedorthist volgens het gepubliceerde ontwerpprotocol</li>
+    <li>Pasvorm apart beoordelen in binnen- &eacute;n buitenschoeisel, met verplichte fotodocumentatie <a class="o" href="#o9">9</a></li>
+  </ul>
+
+  <h4>SOP-4 &middot; Uitlezen en de therapietrouwnorm &middot; M3</h4>
+  <ul class="acts">
+    <li><b>De noemer is de waaktijd</b>: de tijd tussen opstaan en gaan slapen, uit het baselineprofiel van de MoveMonitor. Therapietrouw is het aandeel van dat gepersonaliseerde doel dat gehaald wordt, gemiddeld over alle zeven dagen</li>
+    <li>Een vaste dagnorm zou inactieve deelnemers benadelen en actieve vleien &mdash; vandaar een individuele noemer</li>
+    <li><b>De 80% is een responderdrempel</b>, geen doel: de hoofdanalyse behandelt therapietrouw als continue proportie, de dichotomisatie op 80% is vooraf vastgelegd als secundair</li>
+    <li>Toon het tussenresultaat: niet &ldquo;80% van de waaktijd&rdquo; maar &ldquo;15,5&nbsp;u waaktijd, norm 12,4&nbsp;u&rdquo;. Wie de Orthotimer op 80% zette &eacute;n daarna opnieuw op 80% toetste, kreeg 0,8&nbsp;&times;&nbsp;0,8&nbsp;=&nbsp;64% als feitelijke lat</li>
+  </ul>
+
+  <h4>SOP-5 &middot; SEBIA, vijf stappen &middot; M2&ndash;4</h4>
+  <p style="font-size:13.5px">Geleverd door het klinische personeel van de centra &mdash; podologen,
+  verpleegkundigen en artsen &mdash; gestandaardiseerd via opleiding in motiverende gespreksvoering door een
+  psycholoog-expert. Geen enkel onderdeel steunt op kennisoverdracht alleen; dat is wat SEBIA onderscheidt van de
+  educatiestrategieën die eerder faalden.</p>
+  <ul class="acts">
+    <li><b>Stap 1, baseline.</b> NAFF en gezondheidsvaardigheden meten, dan educatie op maat met schriftelijk materiaal, voordoen en begeleide oefening &mdash; <i>capability</i></li>
+    <li><b>Stap 2, visite 2.</b> Kennis hertesten met teach-back, educatie over binnen &eacute;n buiten dragen, en meedelen dat de draagtijd gemeten wordt om gerichte ondersteuning mogelijk te maken &mdash; <i>capability en opportunity</i></li>
+    <li><b>Stap 3, maand 6 en 12.</b> Zelfinschatting en verwoorden waarom en wanneer; daarna samen en niet-veroordelend de sensordata bekijken, en periodes van lage therapietrouw uitdiepen &mdash; <i>opportunity en motivatie</i></li>
+    <li><b>Stap 4, maand 9 en 15.</b> Voetzelfzorg voordoen, hiaten gericht bijwerken, de uitdraai vergelijken met de vorige keer. Ondersteuning afgestemd op de oorzaak: kennis, motivatie of praktische barrière</li>
+    <li><b>Stap 5, maand 18.</b> Afsluitende demonstratie en resultaten delen; geen nieuwe inhoud</li>
+    <li>Vanaf stap 3 is de inhoud op maat, niet scriptmatig: wie het goed doet krijgt korte bekrachtiging, wie het moeilijk heeft intensievere ondersteuning</li>
+  </ul>
+
+  <h4>SOP-6 tot 8 &middot; ulcus, randomisatie, databeheer &middot; M2&ndash;4</h4>
+  <ul class="acts">
+    <li><b>SOP-6</b> &mdash; zie taak 1.4</li>
+    <li><b>SOP-7, randomisatie.</b> 1:1, gestratificeerd per centrum, toewijzing in sequentieel genummerde verzegelde enveloppen, geopend door de site-investigator pas n&aacute; bevestigde geschiktheid, toestemming en baselinemetingen. Openen gedocumenteerd met datum, uur en code; envelopintegriteit geverifieerd bij monitoring. De <b>methode van sequentiegeneratie</b> ligt niet vast <a class="o" href="#o2">2</a></li>
+    <li><b>Blindering.</b> Deelnemers en behandelaars kunnen niet geblindeerd worden. Tegenwichten: objectief vastgestelde uitkomsten, twee uitkomstbeoordelaars zonder aandeel in de levering, en de beoordeling van het ulcus <a class="o" href="#o1">1</a></li>
+    <li><b>SOP-8, databeheer.</b> Rollen, wekelijks querymanagement, classificatie en log van protocolafwijkingen, dagelijkse back-up. Datamanager doet consistentie- en bereikcontroles</li>
+    <li><b>Monitoring.</b> Geen routinematige externe monitor, maar w&eacute;l een gekwalificeerde monitor aangesteld door het co&ouml;rdinerende team, werkend volgens een gedocumenteerd risicogebaseerd plan. Bezoek ter plaatse en brondataverificatie bij vooraf bepaalde drempels. Kwalificaties, rapporten en corrigerende acties in de Trial Master File</li>
+    <li><b>Geen data monitoring committee</b>, geen tussentijdse effectiviteitsanalyse, geen stopregels. Wel een halfjaarlijkse veiligheidsreview van de cumulatieve, per arm geaggregeerde ulceratie- en amputatiecijfers, met de Aalen-Johansen-schatter en sterfte als concurrerende gebeurtenis: ligt de ondergrens van het eenzijdige 95%-interval boven nul, dan volgt een ad-hoc onafhankelijke review en wordt de EC verwittigd</li>
+    <li><b>Stuurgroep</b>: co&ouml;rdinerend onderzoeker, twee doctoraatsonderzoekers, zes site-PI&rsquo;s, de psycholoog en de gezondheidseconoom</li>
+  </ul>
+  <span class="deliv"><b>D1.3</b> &mdash; acht SOP&rsquo;s v1.0 met kalibratielog, regiomasker, MI-beslisboom en visitescripts</span>
+</div>
+
+<div class="task">
+  <div class="task-h"><span class="tnum">1.4</span><span class="ttitle">Ulcusprotocol</span></div>
+  <div class="tmeta"><span class="pill m">M1&ndash;5</span><span class="pill d">D1.4</span><span class="pill w">draagt het primaire eindpunt</span></div>
+  <p>Het primaire eindpunt is <b>voetulcusrecidief over achttien maanden</b>: een nieuw ulcus op dezelfde of een
+  andere plek na volledige epithelialisatie, volgens de IWGDF-definitie &mdash; een breuk in de huid die minstens de
+  epidermis en een deel van de dermis omvat. Geanalyseerd als tijd tot het eerste ulcus.</p>
+  <div class="note alert" style="margin:0 0 12px">
+    <span class="lab">Een ulcus is g&eacute;&eacute;n exit uit de studie</span>
+    <p>De FWO-aanvraag schrijft dat de deelnemer bij een ulcus standaardzorg krijgt en de trial verlaat. Het
+    manuscript doet dat niet: de interventielevering stopt indien nodig, maar de <b>uitkomstopvolging loopt
+    door</b>. Wie de interventie stopt wordt uitgenodigd de metingen voort te zetten; wie weigert, wordt om
+    toestemming gevraagd de ulcusstatus uit het dossier te halen. Analytisch kan het ook niet anders: ulceratie
+    is het intercurrente event voor de therapietrouw, en tijd tot genezing en ulcusernst zijn secundaire
+    uitkomsten. De aanvraagformulering mag niet in de SOP terechtkomen.</p>
+  </div>
+  <ul class="acts">
+    <li><b>Wat niet meetelt.</b> Wrijvings- of drukletsels aan de laterale of dorsale voet binnen drie weken na ingebruikname van nieuw schoeisel of nieuwe zolen &mdash; dat is gewenning, geen recidief</li>
+    <li><b>Melding en documentatie</b>: onmiddellijk aan de investigator; foto&rsquo;s, debridement, classificatie met PEDIS en WIfI. Geanonimiseerd naar een beveiligd platform, met per centrum een aangeduide arts</li>
+    <li><b>Wie de uitkomst vaststelt</b>: volgens het manuscript een multidisciplinair klinisch team dat vooraf bepaalde criteria toepast, ongeacht de toewijzing <a class="o" href="#o1">1</a></li>
+    <li><b>Ongewenste voorvallen</b> bij elke geplande &eacute;n ongeplande visite: AE&rsquo;s, SAE&rsquo;s, adverse device effects en device deficiencies. Verwacht: voorbijgaande wrijvingsletsels tijdens gewenning, huidirritatie bij de sensor, ongemak door de zool</li>
+    <li><b>Ulceratie is tegelijk uitkomst en mogelijk voorval</b>: elk ulcus wordt als uitkomst geregistreerd &eacute;n op toestelgerelateerdheid beoordeeld</li>
+    <li><b>SAE-termijnen</b> <span class="src pr">protocol</span>: naar de sponsor binnen 72&nbsp;uur; sponsor naar EC en FAGG binnen zeven dagen bij dood of levensbedreiging, plus maximaal acht dagen om te vervolledigen; binnen vijftien dagen voor alle andere</li>
+    <li><b>Niet melden als AE</b> <span class="src pr">protocol</span>: roodheid of kleine huidvervorming door de apparatuur die binnen enkele minuten verdwijnt &mdash; wel routinematig in het dossier</li>
+  </ul>
+  <span class="deliv"><b>D1.4</b> &mdash; SOP-6 met ulcus-eventformulier, SAE-formulier en het charter van de beoordelende instantie</span>
+</div>
+
+<div class="task">
+  <div class="task-h"><span class="tnum">&mdash;</span><span class="ttitle">Drie sporen zonder taaknummer</span></div>
+  <div class="tmeta"><span class="pill m">M1&ndash;5</span><span class="pill w">staan wel in de Go-criteria</span></div>
+  <p>Geen nummer in de aanvraag, maar zonder alle drie is er geen Go. Ze horen functioneel bij taak 1.3 en 1.5.</p>
+  <h4>Technologie</h4>
+  <ul class="acts">
+    <li>Drukmeetsystemen bestellen (levertijd zes tot acht weken, dus bestellen in week 2), installeren, servicecontract, reserveonderdelen en kalibratiemateriaal per centrum</li>
+    <li>Inter-rater reliability per centrum: twee operatoren, minstens vijftien personen, doel ICC&nbsp;&ge;&nbsp;0,80, ook op vervormde voeten</li>
+    <li>Orthotimer met uitleessoftware en serienummerregister; MoveMonitors met uitgifte- en retourformulier en instructiekaart</li>
+    <li>Databank: screening, baseline, zes opvolgtijdstippen, eventformulieren, randomisatie, afwijkingenlog, procesevaluatie. Logicacontroles, acceptatietest per centrum, versie-lock v&oacute;&oacute;r de piloot</li>
+  </ul>
+  <h4>Opleiding en certificering</h4>
+  <ul class="acts">
+    <li>Module 1 theoretisch kader (4&nbsp;u) &middot; module 2 SEBIA hands-on met drie casussen en rollenspel (4&nbsp;u) &middot; module 3 technologie on-site (2&nbsp;u) &middot; module 4 certificering met gesimuleerde patiëntcontacten (4&nbsp;u) &middot; module 5 data-entry (2&nbsp;u)</li>
+    <li>Slaagdrempel: kennistoets &ge;&nbsp;80% en alle competentiedomeinen &ge;&nbsp;3 op 4, met &eacute;&eacute;n remediëring. Certificaten in de Trial Master File</li>
+  </ul>
+  <h4>Methodevergelijking pedar &ndash; F-Scan GO</h4>
+  <ul class="acts">
+    <li><b>Waarom</b>: de drempelwaarden zijn afgeleid uit werk met Tekscan-technologie; ze zonder vergelijking overzetten introduceert systematische bias</li>
+    <li><b>Status</b>: het studieteam voert de vergelijking parallel aan de trial uit, zonder invloed op de klinische besluitvorming. Analyse met Bland-Altman, ICC per regio, Passing-Bablok, ROC voor de drempelequivalentie en kappa voor de klinische beslissing <a class="o" href="#o22">19</a></li>
+  </ul>
+</div>
+
+<div class="task hard">
+  <div class="task-h"><span class="tnum">1.5</span><span class="ttitle">Piloot en Go/No-Go</span></div>
+  <div class="tmeta"><span class="pill m">M5&ndash;6</span><span class="pill d">D1.5</span><span class="pill w">MS3</span></div>
+  <p>Veertien dagen volledige PARADISE-levering met &eacute;&eacute;n patiënt per centrum, risicocategorie 0 tot 3, geen
+  studiepatiënt, met een <b>aparte</b> toestemming die de piloot als testrun beschrijft. De piloot en de Go/No-Go
+  staan in de aanvraag en het draaiboek, niet in het manuscript: het is een intern kwaliteitsinstrument, alleen de
+  pilootconsent moet door de EC.</p>
+  <ul class="acts">
+    <li><b>Bezoek 1 met verplichte tijdregistratie</b>: ontvangst (5&nbsp;min), consent (5), voetscreening (15), schoeisel en Orthotimer (15), drukmeting (25), SEBIA stap 1 (35), CRF in de testomgeving (10), evaluatieformulier (5). <b>Doel onder negentig minuten productief, harde grens 115</b>. PhD-A observeert in elk centrum</li>
+    <li><b>Debriefing</b> per centrum binnen de week, dertig minuten; elk knelpunt als <b>kritisch</b> of <b>optimaliseerbaar</b>. Daarna een plenaire bijeenkomst. E&eacute;n onopgelost kritisch knelpunt betekent No-Go</li>
+    <li><b>Pilootrapport v1.0</b> met knelpuntenmatrix, SOP-updates naar v1.1, databank naar v1.1</li>
+  </ul>
+  <h4>Zeven Go-criteria &middot; M6, week 4 &middot; unanimiteit vereist</h4>
   <div class="scroller">
   <table class="tbl tight">
-    <thead><tr>
-      <th>Procedure</th><th>Screen</th><th>Base</th><th>V2</th><th>3</th><th>6</th><th>9</th><th>12</th><th>15</th><th>18</th><th>Ongepl.</th>
-    </tr></thead>
+    <thead><tr><th>#</th><th>Criterium</th><th>Drempel</th></tr></thead>
     <tbody>
-      <tr><td class="k">Geschiktheidsscreening</td><td class="x">&bull;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td class="k">Toestemming deelnemer en therapeut</td><td class="x">&bull;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="id">1</td><td>Ethische goedkeuringen</td><td>Zeven op zeven &mdash; centraal, zes lokaal, plus de bevoegde autoriteit</td></tr>
+      <tr><td class="id">2</td><td>Site readiness</td><td>Zes op zes centra voldoen aan alle negen criteria</td></tr>
+      <tr><td class="id">3</td><td>Databank</td><td>Nul kritische bugs na acceptatietest, versie-locked</td></tr>
+      <tr><td class="id">4</td><td>Certificering</td><td>Minstens twee zorgverleners per centrum</td></tr>
+      <tr><td class="id">5</td><td>Pilootrapport</td><td>Nul onopgeloste kritische knelpunten</td></tr>
+      <tr><td class="id">6</td><td>Meetbetrouwbaarheid</td><td>ICC &ge; 0,80 &mdash; maar op welk toestel? <a class="o" href="#o22">19</a></td></tr>
+      <tr><td class="id">7</td><td>Methodevergelijking</td><td>Overeenstemmingsgrenzen gekwantificeerd <a class="o" href="#o22">19</a></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p style="font-size:13.3px;margin-top:10px"><b>Site readiness, negen criteria per centrum:</b> drukmeetsysteem
+  operationeel met kalibratietestrun &middot; twee gecertificeerde zorgverleners &middot; databankaccount met
+  geslaagde testlogin &middot; lokale goedkeuring &middot; Orthotimer-sensoren, lezer en software &middot;
+  MoveMonitor met bekend uitgifte- en retourprotocol &middot; tien sets van het assessment booklet &middot;
+  loopruimte van tien meter &middot; back-upzorgverlener met naam en contact.</p>
+  <p style="font-size:13.3px"><b>Bij No-Go:</b> binnen een week een actieplan per onopgelost criterium, nieuwe
+  vergadering binnen vier weken, de FWO-programmamanager informeren, en de EC als de piloot tot een
+  protocolwijziging leidt.</p>
+  <span class="deliv"><b>D1.5</b> &mdash; pilootrapport en ondertekende notulen met een formele Go en de startdatum van de inclusie</span>
+</div>
+
+<div class="task">
+  <div class="task-h"><span class="tnum">1.6</span><span class="ttitle">144 deelnemers rekruteren</span></div>
+  <div class="tmeta"><span class="pill m">M6&ndash;18</span><span class="pill d">D1.6</span><span class="pill w">MS4</span></div>
+  <p>Zes centra, 24 deelnemers elk, twaalf per arm, over twaalf maanden &mdash; ongeveer twee inclusies per centrum
+  per maand, onder de doorstroom die de RIZIV-norm van minstens 52 patiënten per jaar impliceert. Deelnemers komen
+  uit retrospectieve screening van de raadplegingsagenda&rsquo;s en prospectieve verwijzingen. Iedereen die overwogen
+  werd komt met reden in de screeningslog en dus in het CONSORT-diagram. Lopen de centra sterk uiteen, dan mag een
+  gefaseerde inclusie ingezet worden. Uitval van 15% is een aanname en wordt daartegen opgevolgd; bij overschrijding
+  wordt de rekrutering verlengd.</p>
+  <div class="scroller">
+  <table class="tbl tight">
+    <thead><tr><th>Criterium</th><th>Inhoud</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Leeftijd en taal</td><td>&ge; 18 jaar, Nederlands begrijpend. Die taaleis is in de beperkingen erkend als een re&euml;el gelijkheidsprobleem</td></tr>
+      <tr><td class="k">Diabetes</td><td>Type 1 of 2 volgens ADA/EASD, zwangerschapsdiabetes uitgesloten</td></tr>
+      <tr><td class="k">Risicovoet</td><td>IWGDF categorie 3: plantair ulcus genezen in de voorbije 18 maanden en minstens 2 weken v&oacute;&oacute;r inclusie, <b>&oacute;f</b> partiële voetamputatie van een of meer tenen, <b>&oacute;f</b> resectie van een of meer metatarsaalkoppen <a class="o" href="#o5">5</a></td></tr>
+      <tr><td class="k">Vaatstatus</td><td>PEDIS-perfusiegraad 1 of 2, klinisch stabiel</td></tr>
+      <tr><td class="k">Mobiliteit</td><td>Zelfstandig en zonder hulpmiddelen blootsvoets kunnen stappen</td></tr>
+      <tr><td class="k">Schoeisel</td><td>Volledig maatwerk, of maatzolen in semi-orthopedisch of adequaat confectieschoeisel met extra diepte &mdash; of bereid over te stappen; RIZIV vergoedt dit</td></tr>
+      <tr><td class="k">Uitsluiting</td><td>Straalamputatie of majeure amputatie inclusief transmetatarsaal &middot; actief ulcus, actieve Charcot, of genezen Charcot met rocker-bottom &middot; PEDIS-graad 3 kritische ischemie (enkeldruk &lt; 50&nbsp;mmHg, teendruk &lt; 30&nbsp;mmHg of TcPO&#8322; &lt; 30&nbsp;mmHg) &middot; nierfunctievervangende of immunosuppressieve therapie &middot; ernstige ziekte die de overleving over 18 maanden beperkt &middot; wilsonbekwaamheid &middot; hulpmiddelen die sensorplaatsing verhinderen &middot; weigering van het schoeisel <a class="o" href="#o14">14</a></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <span class="deliv"><b>D1.6</b> &mdash; 144 deelnemers gerekruteerd, beoordeeld en gerandomiseerd (MS4)</span>
+</div>
+
+<div class="task">
+  <div class="task-h"><span class="tnum">1.7</span><span class="ttitle">Alle beoordelingen afronden</span></div>
+  <div class="tmeta"><span class="pill m">M7&ndash;37</span><span class="pill d">D1.7</span><span class="pill w">MS5 en MS6</span></div>
+  <p>De langste taak, en de enige die per deelnemer telt. Negen geplande contacten over achttien maanden, plus
+  ongeplande bezoeken bij vermoeden van ulceratie. De visites vallen samen met de driemaandelijkse podologische
+  controle waaraan beide armen toch al gebonden zijn; reiskosten worden vergoed.</p>
+  <div class="scroller">
+  <table class="tbl tight">
+    <thead><tr><th>Procedure</th><th>Screen</th><th>Base</th><th>V2</th><th>3</th><th>6</th><th>9</th><th>12</th><th>15</th><th>18</th><th>Ongepl.</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Geschiktheidsscreening en toestemming</td><td class="x">&bull;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
       <tr><td class="k">Randomisatie en toewijzing</td><td></td><td class="x">&bull;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
       <tr><td class="k">Voorschrift CMFO</td><td></td><td class="x">&bull;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
       <tr><td class="k">Aflevering CMFO + sensorintegratie</td><td></td><td></td><td class="x">&bull;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
       <tr><td class="k">Vervanging CMFO + sensor opnieuw</td><td></td><td></td><td></td><td></td><td class="x">&bull;</td><td></td><td class="x">&bull;</td><td></td><td class="x">&bull;</td><td></td></tr>
-      <tr><td class="k">SEBIA stap 1 &mdash; educatie</td><td></td><td class="x">&bull;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td class="k">SEBIA stap 2 &mdash; schoeisel, teach-back</td><td></td><td></td><td class="x">&bull;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td class="k">SEBIA stap 3 &mdash; zelfinschatting + sensorreview</td><td></td><td></td><td></td><td></td><td class="x">&bull;</td><td></td><td class="x">&bull;</td><td></td><td></td><td></td></tr>
-      <tr><td class="k">SEBIA stap 4 &mdash; voordoen + sensorreview</td><td></td><td></td><td></td><td></td><td></td><td class="x">&bull;</td><td></td><td class="x">&bull;</td><td></td><td></td></tr>
-      <tr><td class="k">SEBIA stap 5 &mdash; afsluiting</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="x">&bull;</td><td></td></tr>
+      <tr><td class="k">SEBIA stap 1 / 2 / 3 / 4 / 5</td><td></td><td class="x">1</td><td class="x">2</td><td></td><td class="x">3</td><td class="x">4</td><td class="x">3</td><td class="x">4</td><td class="x">5</td><td></td></tr>
       <tr><td class="k">Demografie, voorgeschiedenis, voetscreening</td><td></td><td class="x">&bull;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
       <tr><td class="k">Drukmeting (pedar)</td><td></td><td class="x">&bull;</td><td></td><td></td><td class="x">&bull;</td><td></td><td class="x">&bull;</td><td></td><td class="x">&bull;</td><td></td></tr>
       <tr><td class="k">NAFF en gezondheidsvaardigheden</td><td></td><td class="x">&bull;</td><td></td><td class="x">&bull;</td><td></td><td class="x">&bull;</td><td></td><td class="x">&bull;</td><td></td><td></td></tr>
@@ -915,461 +508,292 @@ schrijft bij taak 1.7 &ldquo;D1.17&rdquo;: tikfout voor D1.7.</p>
       <tr><td class="k">iMCQ / iPCQ, kosten</td><td></td><td></td><td></td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td></td></tr>
       <tr><td class="k">Zelfgerapporteerde therapietrouw (VAS)</td><td></td><td></td><td></td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td></td></tr>
       <tr><td class="k">MoveMonitor, zeven dagen</td><td></td><td class="x">&bull;</td><td></td><td></td><td class="x">&bull;</td><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td class="k">Orthotimer uitlezen en batterij vervangen</td><td></td><td></td><td></td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td></td></tr>
-      <tr><td class="k">Procesevaluatie: dagboek, interview, observatie</td><td></td><td></td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td></tr>
+      <tr><td class="k">Orthotimer uitlezen en batterij</td><td></td><td></td><td></td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td></td></tr>
+      <tr><td class="k">Procesevaluatie</td><td></td><td></td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td></tr>
       <tr><td class="k">Ongewenste voorvallen en comedicatie</td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td><td class="x">&bull;</td></tr>
     </tbody>
   </table>
   </div>
-  <p class="muted" style="margin-top:8px">Tabel 2 van het manuscript, in SPIRIT-2025-vorm. Maanden geteld vanaf de
-  randomisatie. V2 = tweede visite, veertien dagen tot &eacute;&eacute;n maand na baseline, waarop de orthese geleverd en
-  de sensor ge&iuml;ntegreerd wordt. Het protocol voegt hier nog een aparte <b>visite&nbsp;0</b> toe waarop de
-  geschiktheid in het ziekenhuis bevestigd wordt (eCRF 06) v&oacute;&oacute;r de toewijzing; het manuscript neemt die op
-  in de screenings- en baselinekolom.</p>
+  <p class="muted" style="margin-top:8px">Tabel 2 van het manuscript, SPIRIT-2025-vorm. Maanden vanaf de
+  randomisatie. V2 = tweede visite, veertien dagen tot &eacute;&eacute;n maand na baseline, waarop de orthese geleverd en de
+  sensor ge&iuml;ntegreerd wordt. Het protocol voegt hier nog een aparte visite&nbsp;0 toe voor de bevestiging van de
+  geschiktheid v&oacute;&oacute;r de toewijzing <a class="o" href="#o7">7</a>.</p>
 
   <div class="cards">
-    <div class="card">
-      <div class="cap">Doorlopend, driemaandelijks uitgelezen</div>
-      <h3>Orthotimer</h3>
-      <p>Temperatuursensor van 9 &times; 13 &times; 4,5&nbsp;mm, stof- en waterbestendig, in de maatzool van het
-      voorgeschreven schoeisel. Registreert datum, tijd en temperatuur elk kwartier met een precisie van
-      &plusmn; 0,1&nbsp;&deg;C, in een ringbuffer van honderd dagen, uitgelezen via RFID naar een USB-lezer. In beide
-      armen; alleen in Optimal Care wordt de uitlezing besproken.</p>
-    </div>
-    <div class="card">
-      <div class="cap">Twee volle weken</div>
-      <h3>MoveMonitor</h3>
-      <p>Zeven dagen op baseline en zeven dagen op maand 6, in beide armen. Levert de waaktijd waaruit het
-      gepersonaliseerde draagdoel volgt, en een objectieve maat van het activiteitenniveau voor SEBIA.</p>
-    </div>
-    <div class="card">
-      <div class="cap">Vier momenten</div>
-      <h3>Drukmeting</h3>
-      <p>Baseline, dan maand 6, 12 en 18. De pedar is het klinische toestel; de F-Scan GO wordt uitsluitend door
-      het studieteam gebruikt voor de methodevergelijking en raakt de eindpunten niet. Behaalde reductie wordt
-      per deelnemer geregistreerd als fidelity-maat.</p>
-    </div>
-    <div class="card">
-      <div class="cap">Ongepland</div>
-      <h3>Bij een ulcus</h3>
-      <p>Volgens taak 1.4: onmiddellijke melding, foto&rsquo;s, PEDIS en WIfI, geblindeerde adjudicatie. De
-      opvolging loopt door &mdash; tijd tot genezing en ulcusernst zijn secundaire uitkomsten.</p>
-    </div>
-    <div class="card">
-      <div class="cap">Kwaliteitsbewaking</div>
-      <h3>Wat centraal gevolgd wordt</h3>
-      <p>Rekruteringscijfers, toestemmingsdocumentatie, protocolafwijkingen, datavolledigheid,
-      envelopintegriteit en veiligheidsrapportering. Bij vooraf bepaalde drempels volgt verificatie ter
-      plaatse. Sensordatavolledigheid onder 70% in een centrum leidt tot herscholing.</p>
-    </div>
-    <div class="card">
-      <div class="cap">Halfjaarlijks</div>
-      <h3>Veiligheidsreview</h3>
-      <p>Cumulatieve, per arm geaggregeerde ulceratie- en amputatiecijfers, met de Aalen-Johansen-schatter en
-      sterfte als concurrerende gebeurtenis. Ligt de ondergrens van het eenzijdige 95%-interval boven nul, dan
-      volgt een ad-hoc onafhankelijke review en wordt de EC verwittigd.</p>
-    </div>
-    <div class="card">
-      <div class="cap">Na de laatste visite</div>
-      <h3>Nazorg</h3>
-      <p>Deelnemers mogen de zolen en het bijbehorende materiaal <b>houden</b>. Wat er daarna klinisch mee
-      gebeurt, is aan het deelnemende ziekenhuis. Deze paragraaf is op 8 september toegevoegd en dekt
-      SPIRIT-item 22 &mdash; zorg na afloop van de studie.</p>
-    </div>
+    <div class="card"><div class="cap">Driemaandelijks uitgelezen</div><h3>Orthotimer</h3>
+      <p>9&nbsp;&times;&nbsp;13&nbsp;&times;&nbsp;4,5&nbsp;mm, stof- en waterbestendig, in de maatzool. Datum, tijd en
+      temperatuur elk kwartier, precisie &plusmn;&nbsp;0,1&nbsp;&deg;C, ringbuffer van honderd dagen, uitgelezen via RFID.
+      In beide armen; alleen in Optimal Care besproken.</p></div>
+    <div class="card"><div class="cap">Twee volle weken</div><h3>MoveMonitor</h3>
+      <p>Zeven dagen op baseline en op maand 6, in beide armen. Levert de waaktijd waaruit het draagdoel volgt, en
+      een objectieve maat van het activiteitenniveau voor SEBIA.</p></div>
+    <div class="card"><div class="cap">Vier momenten</div><h3>Drukmeting</h3>
+      <p>Baseline, dan maand 6, 12 en 18. De pedar is het klinische toestel; de F-Scan GO is alleen van het
+      studieteam en raakt de eindpunten niet.</p></div>
+    <div class="card"><div class="cap">Doorlopend</div><h3>Datakwaliteit</h3>
+      <p>Het aandeel deelnemers met tegelijk geldige draagtijd- én activiteitsdata wordt bij elke halfjaarlijkse
+      review nagekeken. Onder <b>70%</b> in een centrum volgt herscholing, en zo nodig vervanging van de
+      sensoren.</p></div>
+    <div class="card"><div class="cap">Na de laatste visite</div><h3>Nazorg</h3>
+      <p>Deelnemers mogen de zolen en het materiaal houden. Wat er daarna klinisch mee gebeurt, is aan het
+      deelnemende ziekenhuis.</p></div>
   </div>
+  <span class="deliv"><b>D1.7</b> &mdash; alle beoordelingen afgerond (MS5 en MS6)</span>
 </div>
 
-<!-- ---------------- 1.8 ---------------- -->
 <div class="task hard">
-  <div class="task-h"><span class="tnum">1.8</span><span class="ttitle">Analyse en publicatie van het klinische hoofdresultaat</span></div>
-  <div class="tmeta">
-    <span class="pill m">M43&ndash;48 &middot; mrt &ndash; aug 30</span>
-    <span class="pill d">D1.8</span>
-    <span class="pill w">MS9</span>
-  </div>
-  <p>Databankafsluiting, analyse, manuscript. De analyses volgen ICH E9 en E9(R1), het klinische studierapport
-  ICH E3, en het <b>statistisch analyseplan wordt afgewerkt en versiebeheerd v&oacute;&oacute;r de database-lock</b> &mdash;
-  het wordt bovendien gepubliceerd of gedeponeerd v&oacute;&oacute;r dat moment.</p>
-  <div class="note warn" style="margin:0 0 12px">
-    <span class="lab">Ook hier is op 8 september iets verdwenen</span>
-    <p>De versie van 3 september zei in de beperkingen letterlijk: <i>&ldquo;The analysis is conducted by the
-    coordinating investigator rather than by an analyst independent of trial conduct; masking of allocation
-    labels and pre-specification of the analysis limit, but do not eliminate, the discretion this leaves.&rdquo;</i>
-    Die zin staat er niet meer in, en ook de maskering als A en B en de sleutelhouder komen nergens in het
-    document nog voor.</p>
-    <p>Dat is precies de erkenning die de opzet draagt. Zonder onafhankelijke statisticus is de niet-blinde
-    analist een re&euml;le beperking; ze benoemen kost niets en weglaten is wat een reviewer opmerkt. Terugzetten,
-    samen met de maskeringsprocedure &mdash; anders staat er een analyseplan zonder de waarborg die het
-    geloofwaardig maakt.</p>
-  </div>
+  <div class="task-h"><span class="tnum">1.8</span><span class="ttitle">Analyse en publicatie</span></div>
+  <div class="tmeta"><span class="pill m">M43&ndash;48</span><span class="pill d">D1.8</span><span class="pill w">MS9</span></div>
+  <p>Analyses volgen ICH&nbsp;E9 en E9(R1), het studierapport ICH&nbsp;E3. Het <b>statistisch analyseplan wordt
+  afgewerkt, versiebeheerd &eacute;n gepubliceerd of gedeponeerd v&oacute;&oacute;r de database-lock</b>. De analyse wordt gedaan
+  door de co&ouml;rdinerend onderzoeker, niet door een onafhankelijke analist <a class="o" href="#o4">4</a>.</p>
   <ul class="acts">
-    <li><b>Wie de analyse doet.</b> De co&ouml;rdinerend onderzoeker, niet een onafhankelijke analist. De afspraak van 3 september: de primaire analyse draait op een bestand waarin de toewijzing gemaskeerd is als A en B, met de sleutel bij de onafhankelijke statisticus die de randomisatievolgorde genereerde, en het SAP en de analysecode liggen vast v&oacute;&oacute;r die sleutel vrijkomt</li>
-    <li><b>Populaties.</b> Intention-to-treat als hoofdanalyse: alle gerandomiseerden in de arm waaraan ze toegewezen zijn, ongeacht wat ze gekregen hebben. Per-protocol als gevoeligheidsanalyse, met de majeure afwijkingen geblindeerd voor de uitkomst gedefinieerd v&oacute;&oacute;r de lock. Veiligheidsanalyses op iedereen die enig onderdeel gekregen heeft</li>
-    <li><b>Recidief.</b> Tijd van randomisatie tot het eerste geadjudiceerde ulcus, met Cox-regressie gestratificeerd naar centrum en toewijzing als enige covariaat. De <b>oorzaakspecifieke hazard is de primaire schatting</b>, met een Fine-Gray-subdistributiemodel en cumulatieve incidentiefuncties ernaast: sterfte is een concurrerend risico, en ze als niet-informatieve censurering behandelen zou de cumulatieve incidentie overschatten. Amputatie van de indexvoet wordt op dezelfde manier behandeld. Waar de twee modellen uiteenlopen worden beide gerapporteerd en wordt het verschil ge&iuml;nterpreteerd, niet weggekozen</li>
-    <li><b>Proportionele hazards</b> getoetst met geschaalde Schoenfeld-residuen en een log-min-log-plot; bij schending is de <b>RMST op achttien maanden</b> de primaire schatter. Omdat de steekproefberekening exponentiële gebeurtenistijden aannam, wordt een Weibull-model als gevoeligheidsanalyse gefit</li>
-    <li><b>Therapietrouw.</b> Beta-regressie met logit-link is de primaire analyse &mdash; het is een proportie tussen 0 en 1 met een plafond &mdash; met lineaire regressie gecorrigeerd voor centrum en robuuste standaardfouten als gevoeligheidsanalyse, en Mann-Whitney als verdelingsvrije vergelijking. Longitudinale trajecten met gemengde modellen, random intercepts voor deelnemer genest in centrum, om te zien of een verschil aanhoudt nadat de interventiecontacten stoppen</li>
-    <li><b>Multipliciteit.</b> E&eacute;n primair eindpunt, dus geen correctie: de familiegewijze fout voor die vergelijking is 0,05, tweezijdig. Al de rest &mdash; inclusief de vergelijking van therapietrouw en de mediatieanalyse &mdash; is secundair, wordt met een betrouwbaarheidsinterval gerapporteerd en verklaart de studie niet positief</li>
-    <li><b>Ontbrekende data.</b> MAR aangenomen; multipele imputatie met vijftig datasets op toewijzing, centrum, leeftijd, geslacht, diabetesduur, baseline piekdruk, ulcusvoorgeschiedenis en waargenomen therapietrouw, samengevoegd met de regels van Rubin. Voor therapietrouw wordt de complete-case-analyse ernaast gerapporteerd, want sensoruitval treft die uitkomst het hardst. Tipping-pointanalyse voor afwijkingen van MAR</li>
-    <li><b>Vier vooraf bepaalde subgroepen</b>, elk met een mechanistische reden en elk getoetst met een interactieterm in plaats van met toetsen binnen de subgroep: diabetestype &middot; eerdere kleine amputatie tegenover enkel genezen ulcus &middot; baseline therapietrouw boven of onder 80% &middot; academisch tegenover niet-academisch centrum, wat de vertaalhypothese van de studie rechtstreeks toetst</li>
-    <li><b>Mediatie</b> is vooraf vastgelegd als <b>ondersteunend, niet confirmatoir</b>; op basis van de vergelijking tussen de armen alleen wordt geen causale mediatieclaim gemaakt</li>
-    <li><b>Zelfrapportagebias</b> wordt apart gekwantificeerd met een Bland-Altman-analyse van sensormeting tegenover VAS</li>
-    <li><b>Publicatie.</b> E&eacute;n multicentrische publicatie, ongeacht richting of significantie. Deelnemende centra publiceren geen deelgegevens vooraf; elke site-publicatie gaat minstens dertig kalenderdagen v&oacute;&oacute;r indiening langs de sponsor. Rapportage volgens CONSORT 2025. Resultaten in het register binnen twaalf maanden na de laatste visite. Alle deelnemers krijgen een samenvatting in gewone taal, ongeacht de uitkomst</li>
+    <li><b>Populaties.</b> Intention-to-treat als hoofdanalyse; per-protocol als gevoeligheidsanalyse, met de majeure afwijkingen geblindeerd voor de uitkomst gedefinieerd v&oacute;&oacute;r de lock; veiligheidsanalyses op iedereen die enig onderdeel kreeg</li>
+    <li><b>Recidief.</b> Cox gestratificeerd naar centrum, toewijzing als enige covariaat. De <b>oorzaakspecifieke hazard is de primaire schatting</b>, met Fine-Gray en cumulatieve incidentiefuncties ernaast &mdash; sterfte is een concurrerend risico. Lopen de modellen uiteen, dan worden beide gerapporteerd. Proportionele hazards met Schoenfeld-residuen; bij schending is de <b>RMST op achttien maanden</b> de primaire schatter. Weibull als gevoeligheidsanalyse</li>
+    <li><b>Therapietrouw.</b> Beta-regressie met logit-link, gecorrigeerd voor centrum, met het marginale verschil en een 95%-interval; lineaire regressie met robuuste standaardfouten en Mann-Whitney als gevoeligheidsanalyses; longitudinaal met gemengde modellen, random intercepts voor deelnemer genest in centrum</li>
+    <li><b>Multipliciteit.</b> E&eacute;n primair eindpunt, dus geen correctie. Al de rest &mdash; ook de vergelijking van therapietrouw en de mediatieanalyse &mdash; is secundair en verklaart de studie niet positief. Mediatie is vooraf vastgelegd als <b>ondersteunend, niet confirmatoir</b></li>
+    <li><b>Ontbrekende data.</b> MAR; multipele imputatie met vijftig datasets op toewijzing, centrum, leeftijd, geslacht, diabetesduur, baseline piekdruk, ulcusvoorgeschiedenis en waargenomen therapietrouw; Rubin. Voor therapietrouw ook de complete-case-analyse. Tipping-pointanalyse</li>
+    <li><b>Vier vooraf bepaalde subgroepen</b>, elk met een interactieterm: diabetestype &middot; eerdere kleine amputatie tegenover enkel genezen ulcus &middot; baseline therapietrouw boven of onder 80% &middot; academisch tegenover niet-academisch centrum</li>
+    <li><b>Publicatie.</b> E&eacute;n multicentrische publicatie ongeacht de uitkomst; centra publiceren geen deelgegevens vooraf, en elke site-publicatie gaat dertig dagen vooraf langs de sponsor. CONSORT&nbsp;2025. Resultaten in het register binnen twaalf maanden na de laatste visite. Alle deelnemers krijgen een samenvatting in gewone taal</li>
   </ul>
-  <div class="note alert" style="margin:12px 0 0">
-    <span class="lab">E&eacute;n primair eindpunt sinds 3 september 2026</span>
-    <p>De aanvraag en het draaiboek gaan uit van <b>twee co-primaire eindpunten</b>. Het manuscript heeft
-    &eacute;&eacute;n primair eindpunt &mdash; recidief &mdash; met therapietrouw als vooraf vastgelegde <b>mediator</b>,
-    gerapporteerd als secundaire uitkomst. De intersectie-unietoets en de multipliciteitsredenering vervallen,
-    en de bereikte power is die van de recidiefvergelijking zelf: <b>84%</b> bij 122 analyseerbare deelnemers,
-    90% bij volledige opvolging. Bij een afgezwakt effect zakt ze naar 64% als het recidief tot 30% daalt in
-    plaats van 25%, 52% bij 32,5% en 40% bij 35%.</p>
-    <p><b>Wat er nog niet mee is:</b> de paragraaf Objectives en de Hypotheses van het manuscript zelf. Die
-    formuleren nog een dubbele doelstelling &mdash; recidief verlagen &eacute;n therapietrouw verhogen &mdash; en twee
-    hypothesen (i) en (ii). Dat spreekt de rest van het document tegen. Rechtzetten v&oacute;&oacute;r de indiening.</p>
+  <h4>Waar 144 vandaan komt</h4>
+  <div class="scroller">
+  <table class="tbl tight">
+    <thead><tr><th>&nbsp;</th><th>Recidief &mdash; primair</th><th>Therapietrouw &mdash; mediator</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Aanname</td><td>50% tegenover 25% op 18 maanden, hazard ratio 0,42</td><td>71% (SD 25%) tegenover 85%, effectgrootte 0,56</td></tr>
+      <tr><td class="k">Minimum bij 80% power</td><td>41 events &rarr; 108 deelnemers; met 15% uitval 127</td><td>50 per groep</td></tr>
+      <tr><td class="k">Bereikte power</td><td>84% bij 122 analyseerbaar, 90% bij volledige opvolging</td><td>ruimer dan nodig</td></tr>
+    </tbody>
+  </table>
   </div>
-  <span class="deliv"><b>Deliverable</b>Het klinische hoofdresultaat ingediend voor publicatie</span>
+  <p style="font-size:13.3px;margin-top:8px">De <b>144</b> (6&nbsp;&times;&nbsp;24) volgt uit gebalanceerde
+  rekruteringscapaciteit, niet uit de berekening. De aanname is optimistisch en het manuscript zegt dat zelf: de
+  50%-tegenover-25%-contrast komt niet uit de gerandomiseerde vergelijking van Bus&nbsp;2013 (44,2% tegenover 38,8%)
+  maar uit de <b>adherente subgroep</b> (47,8% tegenover 25,7%), en is alleen verdedigbaar onder de eigen hypothese
+  dat SEBIA niet-adherente deelnemers adherent maakt. Bij een afgezwakt effect zakt de power naar 64% (recidief 30%),
+  52% (32,5%) en 40% (35%).</p>
+  <span class="deliv"><b>D1.8</b> &mdash; het klinische hoofdresultaat ingediend voor publicatie (MS9)</span>
 </div>
 
 </div><!-- /tl -->
 
-<!-- ============================ STEEKPROEF ============================ -->
-<div class="sh">Waar 144 vandaan komt</div>
-<p>De steekproefgrootte wordt bepaald door het recidief; de precisie voor therapietrouw wordt ernaast
-gerapporteerd maar stuurt de berekening niet.</p>
+<!-- ============================ MIJLPALEN + RISICO'S ============================ -->
+<div class="sh">Mijlpalen en risico&rsquo;s</div>
 <div class="scroller">
 <table class="tbl">
-  <thead><tr><th>Stap</th><th>Recidief (primair)</th><th>Therapietrouw (mediator)</th></tr></thead>
+  <thead><tr><th>MS</th><th>Wat</th><th>Uit</th><th>FWO-planning</th><th>Volgens protocol</th></tr></thead>
   <tbody>
-    <tr><td class="k">Aanname controle</td><td>50% recidief op 18 maanden</td><td>71%, SD 25%</td></tr>
-    <tr><td class="k">Aanname interventie</td><td>25%, hazard ratio 0,42</td><td>85%, effectgrootte 0,56</td></tr>
-    <tr><td class="k">Toets</td><td>Tweezijdige log-rank, &alpha; = 0,05, 80% power</td><td>Tweezijdig, &alpha; = 0,05, 80% power</td></tr>
-    <tr><td class="k">Minimum</td><td>41 events &rarr; 108 deelnemers</td><td>50 per groep</td></tr>
-    <tr><td class="k">Met 15% uitval</td><td>127; het protocol zet 130 wegens stratificatie</td><td>&mdash;</td></tr>
-    <tr><td class="k">Uiteindelijk</td><td colspan="2"><b>144</b> (6 &times; 24), uit de gebalanceerde rekruteringscapaciteit per centrum &mdash; niet uit de berekening, en boven beide minima</td></tr>
+    <tr><td class="id">1</td><td>Boekjes en protocollen gemaakt</td><td class="num">1.2, 1.3</td><td class="num">M6 &middot; feb 27</td><td class="num">idem</td></tr>
+    <tr><td class="id">2</td><td>Gunstige ethische beoordeling verkregen</td><td class="num">1.1</td><td class="num">M6 &middot; feb 27</td><td class="num">idem</td></tr>
+    <tr><td class="id">3</td><td>Piloot en dataverzameling geslaagd</td><td class="num">1.5</td><td class="num">M6 &middot; feb 27</td><td class="num">idem</td></tr>
+    <tr><td class="id">4</td><td>144 gerekruteerd en gerandomiseerd</td><td class="num">1.6</td><td class="num">M24 &middot; aug 28</td><td class="num">M18 &middot; feb 28</td></tr>
+    <tr><td class="id">5</td><td>Optimal en Usual Care geleverd</td><td class="num">1.7</td><td class="num">M42 &middot; feb 30</td><td class="num">M37 &middot; sep 29</td></tr>
+    <tr><td class="id">6</td><td>Opvolgbeoordelingen afgerond</td><td class="num">1.7</td><td class="num">M42 &middot; feb 30</td><td class="num">M37 &middot; sep 29</td></tr>
+    <tr><td class="id">9</td><td>Rapport klinische effectiviteit</td><td class="num">1.8</td><td class="num">M48 &middot; aug 30</td><td class="num">idem</td></tr>
   </tbody>
 </table>
 </div>
-<div class="note warn">
-  <span class="lab">De aanname is optimistisch en het manuscript zegt dat zelf</span>
-  <p>De 50%-tegenover-25%-aanname komt <b>niet</b> uit de gerandomiseerde vergelijking van Bus 2013 (44,2%
-  tegenover 38,8%, p&nbsp;=&nbsp;0,48) maar uit de <b>adherente subgroep</b> (47,8% tegenover 25,7%). Ze is alleen
-  verdedigbaar onder de eigen hypothese van de studie: dat SEBIA niet-adherente deelnemers adherent maakt. De
-  50% voor de controlearm ligt net boven de 44,2% van Bus omdat PARADISE ook deelnemers met kleine amputaties
-  toelaat, een groep met hoger basisrisico. Lukt die omzetting maar gedeeltelijk, dan is de studie
-  ondergepowerd &mdash; en dat is precies waarom de power over afgezwakte scenario&rsquo;s gerapporteerd wordt.</p>
-</div>
+<p class="muted" style="margin-top:8px">MS7 en MS8 (M42) horen bij WP3 en WP2 maar leunen op data uit taak 1.7;
+MS10 tot MS12 vallen buiten dit werkpakket. <a class="o" href="#o23">20</a></p>
 
-<!-- ============================ MIJLPALEN ============================ -->
-<div class="sh">Mijlpalen</div>
-<p>Het project telt twaalf mijlpalen. Zes hangen rechtstreeks aan werkpakket 1; MS7 en MS8 horen bij WP3 en
-WP2 maar leunen op data uit taak 1.7. De data in de rechterkolom zijn die van de FWO-planning, met tussen
-haakjes de datum die volgt uit het rekruteringsvenster van twaalf maanden.</p>
-
-<div class="mslist">
-  <div class="ms"><div class="id">MS1</div><div class="txt"><b>Boekjes en protocollen gemaakt</b> &mdash; assessment booklet v1.0 en de acht SOP&rsquo;s. Uit taak 1.2 en 1.3.</div><div class="when">M6 &middot; feb 27</div></div>
-  <div class="ms"><div class="id">MS2</div><div class="txt"><b>Gunstige ethische beoordeling verkregen</b> &mdash; centraal, zes lokaal, plus de bevoegde autoriteit. Uit taak 1.1.</div><div class="when">M6 &middot; feb 27</div></div>
-  <div class="ms"><div class="id">MS3</div><div class="txt"><b>Piloot en dataverzameling geslaagd</b> &mdash; pilootrapport zonder onopgeloste kritische knelpunten, formele Go. Uit taak 1.5.</div><div class="when">M6 &middot; feb 27</div></div>
-  <div class="ms"><div class="id">MS4</div><div class="txt"><b>144 deelnemers gerekruteerd, beoordeeld en gerandomiseerd.</b> Uit taak 1.6.</div><div class="when">M24 &middot; aug 28<br><small>(M18 &middot; feb 28)</small></div></div>
-  <div class="ms"><div class="id">MS5</div><div class="txt"><b>Optimal Care en Usual Care geleverd</b> aan de respectieve armen. Uit taak 1.7.</div><div class="when">M42 &middot; feb 30<br><small>(M37 &middot; sep 29)</small></div></div>
-  <div class="ms"><div class="id">MS6</div><div class="txt"><b>Opvolgbeoordelingen afgerond.</b> Uit taak 1.7.</div><div class="when">M42 &middot; feb 30<br><small>(M37 &middot; sep 29)</small></div></div>
-  <div class="ms"><div class="id wp">MS7</div><div class="txt">Dataverzameling zorgconsumptie afgerond &mdash; WP3, gevoed door taak 1.7.</div><div class="when">M42 &middot; feb 30</div></div>
-  <div class="ms"><div class="id wp">MS8</div><div class="txt">Dataverzameling procesevaluatie afgerond &mdash; WP2, gelijklopend met taak 1.7.</div><div class="when">M42 &middot; feb 30</div></div>
-  <div class="ms"><div class="id">MS9</div><div class="txt"><b>Rapport klinische effectiviteit.</b> Uit taak 1.8.</div><div class="when">M48 &middot; aug 30</div></div>
-</div>
-
-<!-- ============================ RISICO'S ============================ -->
-<div class="sh">Risico&rsquo;s en tegenmaatregelen</div>
-<div class="scroller">
+<div class="scroller" style="margin-top:16px">
 <table class="tbl">
-  <thead><tr><th>Risico</th><th>Kans</th><th>Tegenmaatregel</th><th>Raakt</th></tr></thead>
+  <thead><tr><th>Risico</th><th>Kans</th><th>Tegenmaatregel</th></tr></thead>
   <tbody>
-    <tr><td>Uitval van apparatuur</td><td>laag</td><td>Onderhoud en test elke drie maanden, reservetoestellen, technische ondersteuning door de leveranciers, noodplan per toestel</td><td class="num">1.7</td></tr>
-    <tr><td>Vertraging in het ontwikkelen en piloteren van de protocollen</td><td>medium</td><td>Toegewezen taakco&ouml;rdinatoren, ondersteund door de werkpakketleider en de clinici</td><td class="num">1.1&ndash;1.5</td></tr>
-    <tr><td>Vertraging bij de ethische goedkeuring</td><td>medium</td><td>De aanvraag starten bij de toekenning van de subsidie, niet bij de projectstart</td><td class="num">1.1</td></tr>
-    <tr><td>Centra halen het aantal deelnemers niet binnen de termijn</td><td>medium</td><td>Maandelijkse opvolging; gefaseerde inclusie is voorzien in het manuscript; andere centra springen bij</td><td class="num">1.6</td></tr>
-    <tr><td>Lage fidelity van de zorgverlening</td><td>medium</td><td>Grondige opleiding met hands-on oefening en pilottesting; fidelity wordt bovendien <b>gemeten</b> via de procesevaluatie in plaats van aangenomen</td><td class="num">1.7</td></tr>
-    <tr><td>Ontbrekende klinische uitkomstdata</td><td>medium</td><td>Tijdige opvolging; ulcusstatus blijft uit het dossier vast te stellen bij wie de interventie stopt</td><td class="num">1.7</td></tr>
-    <tr><td>Onvolledige sensordata</td><td>medium</td><td>Volledigheid is een gemonitorde studiemaat; onder 70% in een centrum volgt herscholing en zo nodig vervanging van de sensoren</td><td class="num">1.7, 1.8</td></tr>
-    <tr><td>Contaminatie tussen de armen</td><td>medium</td><td>Aanvaard als bias richting de nulhypothese en <b>gemeten</b> via therapeutendagboeken; clusterrandomisatie werd afgewogen en verworpen &mdash; met zes clusters vallen centrum- en interventie-effect niet uit elkaar te halen</td><td class="num">1.7, 1.8</td></tr>
+    <tr><td>Uitval van apparatuur</td><td>laag</td><td>Onderhoud en test elke drie maanden, reservetoestellen, technische ondersteuning, noodplan per toestel</td></tr>
+    <tr><td>Vertraging in protocollen en piloot</td><td>medium</td><td>Toegewezen taakco&ouml;rdinatoren, ondersteund door de werkpakketleider en de clinici</td></tr>
+    <tr><td>Vertraging bij de ethische goedkeuring</td><td>medium</td><td>Aanvraag starten bij de toekenning van de subsidie, niet bij de projectstart</td></tr>
+    <tr><td>Rekrutering blijft achter</td><td>medium</td><td>Maandelijkse opvolging, gefaseerde inclusie, en bijspringen door andere centra</td></tr>
+    <tr><td>Lage fidelity van de zorgverlening</td><td>medium</td><td>Opleiding met hands-on oefening en pilottesting; fidelity wordt bovendien <b>gemeten</b> via de procesevaluatie</td></tr>
+    <tr><td>Ontbrekende uitkomstdata</td><td>medium</td><td>Tijdige opvolging; ulcusstatus blijft uit het dossier vast te stellen bij wie de interventie stopt</td></tr>
+    <tr><td>Onvolledige sensordata</td><td>medium</td><td>Volledigheid als gemonitorde studiemaat, met de drempel van 70%</td></tr>
+    <tr><td>Contaminatie tussen de armen</td><td>medium</td><td>Aanvaard als bias richting de nulhypothese en <b>gemeten</b> via therapeutendagboeken; clusterrandomisatie werd afgewogen en verworpen &mdash; met zes clusters vallen centrum- en interventie-effect niet uit elkaar te halen</td></tr>
   </tbody>
 </table>
-</div>
-
-<!-- ============================ VANDAAG ============================ -->
-<div class="sh">Waar taak 1.1 tot 1.5 vandaag staan</div>
-<p>September tot november 2026 is projectmaand 1 tot 3. Vier sporen lopen parallel; wie ze na elkaar plant,
-haalt februari niet.</p>
-
-<div class="cards">
-  <div class="card">
-    <div class="cap">September &middot; M1</div>
-    <h3>De basis leggen</h3>
-    <ul>
-      <li>Protocol sluitend maken met het manuscript: eindpuntstructuur, statistiek, twaalf maanden voor therapietrouw, de waaktijd, de tweede MoveMonitorweek</li>
-      <li>Werkinstructie voor de pedar schrijven &mdash; het enige klinische toestel zonder SOP</li>
-      <li><b>Beslissen wie het ulcus vaststelt</b>: een onafhankelijke geblindeerde commissie van buiten de centra, of het multidisciplinaire team dat er nu in het manuscript staat. Het eerste vraagt werving met doorlooptijd, het tweede niet &mdash; maar het manuscript spreekt zichzelf op zes plaatsen tegen tot dit beslist is</li>
-      <li>Begeleidingscommissie in gang zetten &mdash; en als het een onafhankelijke beoordelende commissie wordt, niet dezelfde mensen</li>
-      <li>De blanco declaraties invullen: belangenconflicten, auteursbijdragen, dankwoord, rol van de financier</li>
-      <li>Scoping review registreren v&oacute;&oacute;r de zoektocht begint</li>
-    </ul>
-  </div>
-  <div class="card">
-    <div class="cap">Oktober &middot; M2</div>
-    <h3>Vastleggen wat november gebruikt</h3>
-    <ul>
-      <li>De studie registreren &mdash; moet v&oacute;&oacute;r de eerste deelnemer, en vult de blanco velden in het manuscript</li>
-      <li>SAP schrijven; met &eacute;&eacute;n primair eindpunt eenvoudiger. De waaktijdregel hoort erin</li>
-      <li>Fotoplatform regelen: keuze, gegevensbeschermingsbeoordeling, &eacute;&eacute;n aangeduide arts per centrum, &eacute;&eacute;n testcasus &mdash; de beoordeling van het ulcus hangt eraan</li>
-      <li>Formulierenroute beslissen; het manuscript zegt nu &ldquo;site staff&rdquo;, de interne afspraak zegt het studieteam</li>
-      <li>Bijlage 3 en 6 samenstellen, en de monitoringopzet laten bevestigen door het co&ouml;rdinerende comit&eacute; &mdash; beide moeten er v&oacute;&oacute;r de indiening zijn</li>
-      <li>Vier nieuwe materialen ontwerpen, drie bestaande herzien</li>
-    </ul>
-  </div>
-  <div class="card">
-    <div class="cap">November &middot; M3</div>
-    <h3>Opleiden en droogdraaien</h3>
-    <ul>
-      <li>Zes opleidingssessies: podoloog, pedorthist, arts en management samen in &eacute;&eacute;n zaal</li>
-      <li>Bekwaamheidscheck en register &mdash; een gesprek, geen quiz</li>
-      <li>Zes drooglopen van de volledige keten, op eigen toestellen en eigen netwerk</li>
-      <li>Protocolpaper indienen met registratienummer, SPIRIT en TIDieR als bijlage</li>
-    </ul>
-  </div>
-</div>
-
-<div class="note tip" style="margin-top:18px">
-  <span class="lab">De goedkoopste controle die er is</span>
-  <p>Geef elk formulier en elk toestel aan iemand die de studie niet kent, met alleen de werkinstructie erbij.
-  Kijk toe en zeg niets. Waar die persoon aarzelt, is het ontwerp fout. Een halve dag werk, en het vangt meer
-  dan een week nalezen. Wat op 1 december openstaat, wordt in februari een protocolafwijking op een patiënt.</p>
 </div>
 
 <!-- ============================ PAKKET ============================ -->
-<div class="sh">Het manuscriptpakket &mdash; wat er is en wat ontbreekt</div>
-<p>Het manuscript begeleidt de EC-indiening, dus het pakket moet compleet zijn v&oacute;&oacute;r die indiening vertrekt.
-De stand op 9 september 2026, na inspectie van de map <code>protocol paper/</code>.</p>
-
+<div class="sh">Het manuscriptpakket</div>
 <div class="note alert">
   <span class="lab">De indiening is nog niet gebeurd</span>
-  <p>De sectie Trial status zegt het zelf: <i>&ldquo;Recruitment has not commenced. The investigation will not
-  begin until ethics committee and competent authority approvals have been obtained; this manuscript accompanies
-  that submission.&rdquo;</i> Het protocol is versie 1.0 van 17 mei 2026. De geplande startdatum van de rekrutering
-  staat er nog als blanco.</p>
+  <p>De sectie Trial status zegt het zelf: <i>&ldquo;Recruitment has not commenced. The investigation will not begin
+  until ethics committee and competent authority approvals have been obtained; this manuscript accompanies that
+  submission.&rdquo;</i> Protocol v1.0 van 17&nbsp;mei 2026. De geplande startdatum van de rekrutering staat er nog
+  als blanco.</p>
 </div>
 
-<h3 style="margin:22px 0 6px;font-size:16px">Figuren</h3>
+<h3>Figuren</h3>
 <div class="scroller">
 <table class="tbl">
-  <thead><tr><th>Figuur</th><th>Titel in de figuur zelf</th><th>Genoemd in de lopende tekst</th><th>Plaatsingsmarkering</th><th>Herkomst</th></tr></thead>
+  <thead><tr><th>Figuur</th><th>Titel in de figuur</th><th>Aangehaald in de tekst</th><th>Plaatsingsmarkering</th><th>Herkomst</th></tr></thead>
   <tbody>
-    <tr><td class="k">1 &mdash; CONSORT-stroomschema</td><td>ja</td><td>ja, bij Recruitment</td><td><b>ontbreekt</b></td><td>script</td></tr>
-    <tr><td class="k">2 &mdash; interventiepad</td><td>ja</td><td>ja, bij Interventions</td><td>ja</td><td>script</td></tr>
-    <tr><td class="k">3 &mdash; logisch model</td><td><b>ontbreekt</b></td><td>ja, bij Process evaluation</td><td>ja</td><td>met de hand</td></tr>
-    <tr><td class="k">4 &mdash; PRECIS-2-wiel</td><td>ja</td><td>ja, bij Methods</td><td><b>ontbreekt</b></td><td>script</td></tr>
+    <tr><td class="k">1 &mdash; CONSORT-stroomschema</td><td>ja</td><td>ja</td><td><b>ontbreekt</b></td><td>script</td></tr>
+    <tr><td class="k">2 &mdash; interventiepad</td><td>ja</td><td>ja</td><td>ja</td><td>script</td></tr>
+    <tr><td class="k">3 &mdash; logisch model</td><td><b>ontbreekt</b></td><td>ja</td><td>ja</td><td>met de hand</td></tr>
+    <tr><td class="k">4 &mdash; PRECIS-2-wiel</td><td>ja</td><td>ja</td><td><b>ontbreekt</b></td><td>script</td></tr>
     <tr><td class="k">5 &mdash; cumulatieve weefselbelasting</td><td><b>ontbreekt</b></td><td><b>nergens</b></td><td><b>ontbreekt</b></td><td>met de hand</td></tr>
-    <tr><td class="k">Additional file 7 &mdash; powercurve</td><td>ja</td><td>ja, bij Sample size</td><td>n.v.t.</td><td>script</td></tr>
+    <tr><td class="k">Additional file 7 &mdash; powercurve</td><td>ja</td><td>ja</td><td>n.v.t.</td><td>script</td></tr>
   </tbody>
 </table>
 </div>
+<p class="muted" style="margin-top:8px">Figuur 3 en 5 zijn precies de twee zonder generatorscript, met de hand
+geschreven &mdash; en daarom buiten de conventie gevallen. Geen enkele SVG heeft een <code>&lt;title&gt;</code> of
+<code>&lt;desc&gt;</code>, en geen enkele figuur zit in de docx. <a class="o" href="#o11">11</a>
+<a class="o" href="#o12">12</a></p>
 
-<div class="note warn">
-  <span class="lab">Vier dingen aan de figuren</span>
-  <p><b>Figuur 3 en 5 hebben geen titelregel in de figuur.</b> De vier andere openen met &ldquo;Figure 1.&nbsp;…&rdquo;
-  en een verklarende ondertitel; figuur 3 begint met &ldquo;INPUTS&rdquo; en figuur 5 met &ldquo;DETERMINANTS&rdquo;.
-  Dat is geen toeval: het zijn precies de twee figuren zonder generatorscript, met de hand geschreven. De
-  huisstijl van de set staat in <code>figuren-src/LEESMIJ.md</code>; de titel toevoegen is twee
-  <code>&lt;text&gt;</code>-regels in Inkscape of in de editor.</p>
-  <p><b>Figuur 5 wordt nergens in de lopende tekst genoemd.</b> Ze staat alleen in de lijst met
-  figuuronderschriften. In de versie van 3 september stond ze nog bij het exploratieve eindpunt
-  (&ldquo;Cumulative plantar tissue stress (Figure 5) is derived…&rdquo;); die verwijzing is weg. Vrijwel elk
-  tijdschrift stuurt een manuscript terug waarin een figuur niet aangehaald wordt.</p>
-  <p><b>Geen enkele SVG heeft een <code>&lt;title&gt;</code> of <code>&lt;desc&gt;</code>.</b> Sommige uitgevers
-  vragen dat voor toegankelijkheid. E&eacute;n regel per bestand.</p>
-  <p><b>De figuren zitten niet in het document.</b> De docx bevat geen enkele afbeelding; de zes SVG&rsquo;s staan
-  er los naast. Dat is voor de meeste tijdschriften de gewenste vorm, maar dan moeten de plaatsingsmarkeringen
-  wel kloppen &mdash; en die ontbreken voor figuur 1, 4 en 5, terwijl &ldquo;Insert table 2 here&rdquo; er
-  tw&eacute;&eacute; keer staat.</p>
-</div>
-
-<h3 style="margin:26px 0 6px;font-size:16px">Additional files</h3>
+<h3>Additional files</h3>
 <div class="scroller">
 <table class="tbl">
   <thead><tr><th>#</th><th>Wat</th><th>In de map</th><th>Stand van zaken</th></tr></thead>
   <tbody>
-    <tr><td class="k">1</td><td>Ingevulde SPIRIT 2025-checklist</td><td>ja, docx van 12 aug</td><td><b>Volledig.</b> Markeert zelf vijf items als &ldquo;not yet addressed&rdquo; en vier als &ldquo;partly addressed&rdquo; &mdash; zie hieronder. Verwijst bij item 3d en 24c nog naar de adjudicatiecommissie, die op 8 september uit het manuscript verdween</td></tr>
-    <tr><td class="k">2</td><td>Ingevulde TIDieR-checklist</td><td>ja, docx van 12 aug</td><td><b>Volledig.</b> Alle tien de items die op een protocol van toepassing zijn, zijn ingevuld; item 10 en 12 zijn terecht als niet-toepasselijk gemarkeerd</td></tr>
-    <tr><td class="k">3</td><td>Model informed consent</td><td><b>nee</b></td><td>Het materiaal bestaat wel: eCRF 02 (patiënt), 04 (therapeut) en 05 (manager). Samenvoegen tot &eacute;&eacute;n bijlage &mdash; dit kan vandaag</td></tr>
-    <tr><td class="k">4</td><td>Statistisch analyseplan</td><td><b>nee</b></td><td>Terecht: het manuscript zegt zelf &ldquo;to be deposited before database lock&rdquo;. Staat in de planning voor oktober</td></tr>
-    <tr><td class="k">5</td><td>Ethisch goedkeuringsdocument</td><td><b>nee</b></td><td>Kan nog niet bestaan &mdash; het manuscript begeleidt juist die indiening. De verklaring hoort dan te zeggen dat de goedkeuring nog volgt, en dat is precies waar de markering &ldquo;(rewrite ▮)&rdquo; nu staat</td></tr>
-    <tr><td class="k">6</td><td>Oorspronkelijk financieringsdocument</td><td><b>nee</b></td><td>Bestaat wel: <code>Goedkeuringen/FWO_SUBMITTED version_21_04_2025.pdf</code>. Kopiëren of eruit knippen wat de uitgever vraagt &mdash; ook dit kan vandaag</td></tr>
-    <tr><td class="k">7</td><td>Powercurve</td><td>ja, SVG</td><td>Compleet, met titel en toelichting in de figuur</td></tr>
+    <tr><td class="id">1</td><td>SPIRIT 2025-checklist</td><td>ja</td><td>Volledig ingevuld; markeert zelf vijf items als niet en vier als gedeeltelijk ingevuld &mdash; zie hieronder</td></tr>
+    <tr><td class="id">2</td><td>TIDieR-checklist</td><td>ja</td><td>Volledig: alle tien de items die op een protocol van toepassing zijn; item 10 en 12 terecht als niet-toepasselijk</td></tr>
+    <tr><td class="id">3</td><td>Model informed consent</td><td><b>nee</b></td><td>Bronmateriaal bestaat: eCRF 02, 04 en 05 <a class="o" href="#o13">13</a></td></tr>
+    <tr><td class="id">4</td><td>Statistisch analyseplan</td><td><b>nee</b></td><td>Terecht &mdash; het manuscript zegt zelf &ldquo;to be deposited before database lock&rdquo;. Staat voor oktober</td></tr>
+    <tr><td class="id">5</td><td>Ethisch goedkeuringsdocument</td><td><b>nee</b></td><td>Kan nog niet bestaan; het manuscript begeleidt juist die indiening</td></tr>
+    <tr><td class="id">6</td><td>Financieringsdocument</td><td><b>nee</b></td><td>Bestaat: <code>Goedkeuringen/FWO_SUBMITTED version_21_04_2025.pdf</code> <a class="o" href="#o13">13</a></td></tr>
+    <tr><td class="id">7</td><td>Powercurve</td><td>ja</td><td>Compleet, met titel en toelichting</td></tr>
   </tbody>
 </table>
 </div>
-<p class="muted" style="margin-top:8px">Twee van de vier ontbrekende bijlagen (3 en 6) zijn een kwestie van
-samenstellen uit bestaand materiaal. De andere twee (4 en 5) kunnen op dit moment niet bestaan en dat is geen
-tekortkoming, zolang de tekst dat zegt.</p>
 
-<h3 style="margin:26px 0 6px;font-size:16px">Wat er nog blanco staat in het manuscript</h3>
+<h3>Wat nog ingevuld moet worden</h3>
 <div class="scroller">
 <table class="tbl">
-  <thead><tr><th>Plaats</th><th>Wat ontbreekt</th><th>Wanneer op te lossen</th></tr></thead>
+  <thead><tr><th>Wat</th><th>Waar</th><th>SPIRIT-item</th><th>Wanneer</th></tr></thead>
   <tbody>
-    <tr><td class="k">Abstract &mdash; Trial registration</td><td>Registernummer en registratiedatum</td><td>Bij de registratie, taak 1.1c</td></tr>
-    <tr><td class="k">Trial status</td><td>Geplande startdatum van de rekrutering</td><td>Bij de Go-beslissing, taak 1.5d</td></tr>
-    <tr><td class="k">Declarations &mdash; Ethics approval</td><td>De markering &ldquo;(rewrite ▮)&rdquo;: de formulering moet nog aangepast worden aan het feit dat de goedkeuring nog niet binnen is</td><td>Nu</td></tr>
-    <tr><td class="k">Declarations &mdash; Competing interests</td><td>Volledig leeg</td><td>Nu &mdash; vijf auteurs bevragen</td></tr>
-    <tr><td class="k">Declarations &mdash; Authors&rsquo; contributions</td><td>Volledig leeg. Raakt ook SPIRIT-item 3a</td><td>Nu &mdash; ICMJE-criteria toepassen</td></tr>
-    <tr><td class="k">Declarations &mdash; Acknowledgements</td><td>Volledig leeg</td><td>Nu</td></tr>
-    <tr><td class="k">Lopende tekst</td><td>&ldquo;Insert table 1 here.&rdquo; staat als redactiemarkering middenin de sectie Setting</td><td>Nu &mdash; consistent maken met de andere markeringen</td></tr>
+    <tr><td class="k">Registratienummer en -datum</td><td>Abstract, Trial status</td><td class="num">4, 1b</td><td>Bij de registratie</td></tr>
+    <tr><td class="k">Startdatum rekrutering</td><td>Trial status</td><td class="num">&mdash;</td><td>Bij de Go-beslissing</td></tr>
+    <tr><td class="k">Belangenconflicten</td><td>Declarations</td><td class="num">7b</td><td>Nu &mdash; vijf auteurs bevragen</td></tr>
+    <tr><td class="k">Auteursbijdragen</td><td>Declarations</td><td class="num">3a</td><td>Nu &mdash; ICMJE-criteria</td></tr>
+    <tr><td class="k">Dankwoord</td><td>Declarations</td><td class="num">&mdash;</td><td>Nu</td></tr>
+    <tr><td class="k">Rol van de financier</td><td>Declarations, Funding</td><td class="num">3c</td><td>Nu &mdash; één alinea</td></tr>
+    <tr><td class="k">Onderbouwing patiëntbetrokkenheid</td><td>Patient and public involvement</td><td class="num">11</td><td>Nu &mdash; de tekst zegt al d&aacute;t het gedocumenteerd is, maar niet waar</td></tr>
+    <tr><td class="k">Herschrijfmarkering ethiekverklaring</td><td>Declarations</td><td class="num">&mdash;</td><td>Nu &mdash; formuleren dat de goedkeuring nog volgt</td></tr>
+    <tr><td class="k">Eisen aan wie de interventie levert</td><td>Interventions</td><td class="num">14b</td><td>Nu &mdash; de certificeringsdrempels uit het opleidingsspoor passen hier precies</td></tr>
+    <tr><td class="k">Ontblinderingsprocedure</td><td>Randomisation</td><td class="num">24c</td><td>Samen met open punt <a class="o" href="#o1">1</a></td></tr>
+    <tr><td class="k">Toestemming voor hergebruik van data</td><td>Availability of data</td><td class="num">32b</td><td>Vraagt een beslissing</td></tr>
   </tbody>
 </table>
 </div>
 
-<h3 style="margin:26px 0 6px;font-size:16px">Wat de SPIRIT-checklist zelf nog openhoudt</h3>
-<p>De ingevulde checklist is eerlijk over de gaten en benoemt ze als zodanig. Vijf items zijn nog niet
-ingevuld, vier gedeeltelijk. Ze zijn hieronder geordend naar wat je ermee kunt doen.</p>
+<h3>Wat er al vastligt</h3>
 <div class="scroller">
 <table class="tbl">
-  <thead><tr><th>Item</th><th>Wat</th><th>Status</th></tr></thead>
+  <thead><tr><th>Wat</th><th>Wanneer</th></tr></thead>
   <tbody>
-    <tr><td class="k">3a</td><td>Rollen van de protocolauteurs</td><td>Niet ingevuld &mdash; hangt aan Authors&rsquo; contributions</td></tr>
-    <tr><td class="k">3c</td><td>Rol van de financier in opzet, uitvoering, analyse en rapportering</td><td>Niet ingevuld &mdash; de FWO wordt genoemd, de rol niet beschreven</td></tr>
-    <tr><td class="k">4</td><td>Registratienummer en -datum</td><td>Niet ingevuld &mdash; volgt uit de registratie</td></tr>
-    <tr><td class="k">7b</td><td>Belangenconflicten</td><td>Niet ingevuld</td></tr>
-    <tr><td class="k">11</td><td>Patiënt- en publieksbetrokkenheid</td><td>Was niet ingevuld; het manuscript zegt sinds september dat de betrokkenheid <b>is</b> gedocumenteerd. De checklist loopt hier achter &mdash; en de onderbouwing zelf staat nog nergens</td></tr>
-    <tr><td class="k">1b</td><td>Gestructureerde samenvatting met de WHO-registratiedataset</td><td>Gedeeltelijk &mdash; kan pas af met het registratienummer</td></tr>
-    <tr><td class="k">14b</td><td>Geschiktheidscriteria voor wie de interventie levert</td><td>Gedeeltelijk &mdash; geen formele eisen aan de individuele zorgverlener beschreven. De certificeringsdrempels uit het opleidingsspoor zouden hier precies passen</td></tr>
-    <tr><td class="k">24c</td><td>Procedure om de blindering op te heffen</td><td>Gedeeltelijk &mdash; verwijst nog naar de adjudicatiecommissie. Herzien samen met de beslissing over de beoordelende instantie</td></tr>
-    <tr><td class="k">32b</td><td>Toestemming voor hergebruik van de data</td><td>Gedeeltelijk &mdash; het delen van de gegevens is beschreven, de toestemmingsbepalingen voor dat hergebruik niet</td></tr>
+    <tr><td class="k">Studienummer S71769 toegekend door het Clinical Trial Center</td><td class="num">april 2026</td></tr>
+    <tr><td class="k">Toelating tot inschrijving</td><td class="num">april 2026</td></tr>
+    <tr><td class="k">Data Management Plan v1</td><td class="num">14 april 2026</td></tr>
+    <tr><td class="k">Protocol v1.0</td><td class="num">17 mei 2026</td></tr>
+    <tr><td class="k">Mind the GAP-certificaat</td><td class="num">juni 2026</td></tr>
+    <tr><td class="k">47 eCRF-documenten in versie 1</td><td class="num">9 juli 2026</td></tr>
+    <tr><td class="k">Charter getekend</td><td class="num">8 juli 2026</td></tr>
+    <tr><td class="k">ICH-GCP E6(R3)-certificaat</td><td class="num">juli 2026</td></tr>
+    <tr><td class="k">SPIRIT- en TIDieR-checklist ingevuld</td><td class="num">12 augustus 2026</td></tr>
+    <tr><td class="k">Vijf figuren en de powercurve, met controlescripts</td><td class="num">aug &ndash; sep 2026</td></tr>
+    <tr><td class="k">Trial Master File &mdash; overzicht essentiële documenten</td><td class="num">opgezet</td></tr>
+    <tr><td class="k">Risicoklassering door het CTC: intermediate</td><td class="num">vastgelegd</td></tr>
   </tbody>
 </table>
 </div>
-<p class="muted" style="margin-top:8px">Vier van de negen (3a, 3c, 7b, en de onderbouwing bij 11) zijn puur
-redactiewerk dat vandaag af kan. Twee (1b en 4) lossen zichzelf op bij de registratie. Item 14b is een kleine
-toevoeging vanuit het opleidingsspoor. Alleen 24c en 32b vragen een echte beslissing.</p>
 
-<h3 style="margin:26px 0 6px;font-size:16px">Wat er al klaar of vastgelegd is</h3>
-<div class="cards">
-  <div class="card">
-    <div class="cap">Regelgevend</div>
-    <h3>Vastgelegd</h3>
-    <ul>
-      <li>Studienummer S71769 toegekend door het Clinical Trial Center (april 2026)</li>
-      <li>Protocol v1.0, 17 mei 2026</li>
-      <li>Data Management Plan v1, 14 april 2026</li>
-      <li>Trial Master File &mdash; overzicht essentiële documenten opgezet</li>
-      <li>Charter getekend, 8 juli 2026</li>
-      <li>Risicoklassering door het CTC: intermediate</li>
-    </ul>
-  </div>
-  <div class="card">
-    <div class="cap">Opleiding en bevoegdheid</div>
-    <h3>Behaald</h3>
-    <ul>
-      <li>ICH-GCP E6(R3)-certificaat, juli 2026</li>
-      <li>Mind the GAP-certificaat, juni 2026</li>
-      <li>Toelating tot inschrijving, april 2026</li>
-    </ul>
-  </div>
-  <div class="card">
-    <div class="cap">Studiemateriaal</div>
-    <h3>Af</h3>
-    <ul>
-      <li>47 eCRF-documenten in versie 1, 9 juli 2026</li>
-      <li>SPIRIT- en TIDieR-checklist ingevuld, 12 augustus 2026</li>
-      <li>Vijf figuren en de powercurve, met controlescripts op overlap en doorlopende lijnen</li>
-      <li>Referentiebestand met 70-plus bronnen</li>
-    </ul>
-  </div>
-  <div class="card">
-    <div class="cap">Nog niet</div>
-    <h3>Open</h3>
-    <ul>
-      <li>De EC-indiening zelf &mdash; centraal, bevoegde autoriteit en zes lokale commissies</li>
-      <li>Studieregistratie</li>
-      <li>Statistisch analyseplan</li>
-      <li>Werkinstructie pedar, folder voetzorg, scoreformulier slijtage</li>
-      <li>Bevestiging van de monitoringopzet door het co&ouml;rdinerende comit&eacute; &mdash; het manuscript zegt dat die er v&oacute;&oacute;r de indiening moet zijn</li>
-    </ul>
-  </div>
-</div>
-
-<!-- ============================ DISCREPANTIES ============================ -->
-<div class="sh">Wat er tussen de bronnen niet klopt</div>
-
-<h3 style="margin:18px 0 6px;font-size:16px">A &mdash; Beslecht door het manuscript: aanvraag en draaiboek bijwerken</h3>
+<!-- ============================ BESLECHT ============================ -->
+<div class="sh">Beslecht &mdash; aanvraag en draaiboek bijwerken</div>
+<p>Op deze punten is de aanvraag of het draaiboek achterhaald. Ze hoeven niet opnieuw besproken te worden, alleen
+doorgevoerd in de oudere documenten en in de opleidingsmaterialen.</p>
 <div class="scroller">
 <table class="tbl">
-  <thead><tr><th>Onderwerp</th><th>Aanvraag of draaiboek</th><th>Manuscript &mdash; dit geldt</th></tr></thead>
+  <thead><tr><th>Onderwerp</th><th>Aanvraag of draaiboek</th><th>Wat geldt</th></tr></thead>
   <tbody>
     <tr><td class="k">Eindpuntstructuur</td><td>Twee co-primaire eindpunten, intersectie-unietoets, gezamenlijke power 74-84%</td><td>E&eacute;n primair eindpunt (recidief); therapietrouw is mediator en secundaire uitkomst; power 84%</td></tr>
-    <tr><td class="k">Rekruteringsduur</td><td>Achttien maanden, M6&ndash;24</td><td>Twaalf maanden, ongeveer twee deelnemers per centrum per maand</td></tr>
-    <tr><td class="k">Na een ulcus</td><td>&ldquo;Standaardzorg en exit uit de trial&rdquo;</td><td>Geen exit: de interventie stopt indien nodig, de uitkomstopvolging loopt door; draagtijd gecensureerd vanaf de ulcusdatum</td></tr>
-    <tr><td class="k">Klinisch drukmeettoestel</td><td>F-Scan GO bij de centra</td><td>Novel pedar bij het klinische team; F-Scan GO alleen bij het studieteam, buiten de klinische besluitvorming</td></tr>
+    <tr><td class="k">Rekruteringsduur</td><td>Achttien maanden</td><td>Twaalf maanden, ongeveer twee per centrum per maand</td></tr>
+    <tr><td class="k">Na een ulcus</td><td>Standaardzorg en exit uit de trial</td><td>Geen exit; de uitkomstopvolging loopt door</td></tr>
+    <tr><td class="k">Klinisch drukmeettoestel</td><td>F-Scan GO bij de centra</td><td>Novel pedar bij het klinische team; F-Scan GO alleen bij het studieteam</td></tr>
     <tr><td class="k">Methodevergelijking</td><td>Novel-platform tegenover Tekscan, voorwaarde v&oacute;&oacute;r de Go</td><td>Pedar tegenover F-Scan GO, in-shoe tegenover in-shoe, parallel aan de trial</td></tr>
     <tr><td class="k">Aantal drukregio&rsquo;s</td><td>Zeven</td><td>Acht &mdash; hallux en tenen 2-5 apart</td></tr>
-    <tr><td class="k">Wondimpactvragenlijst</td><td>Cardiff Wound Impact Schedule op 4 en 12 weken na een ulcus</td><td>Komt in het manuscript niet voor. Beslissen of ze blijft; zo ja, dan hoort ze in tabel 3</td></tr>
-    <tr><td class="k">Statistiek</td><td>Chi-kwadraat voor recidief, t-toets voor therapietrouw</td><td>Cox met oorzaakspecifieke hazard plus Fine-Gray; beta-regressie met logit-link</td></tr>
+    <tr><td class="k">Statistiek</td><td>Chi-kwadraat en t-toets</td><td>Cox met oorzaakspecifieke hazard plus Fine-Gray; beta-regressie met logit-link</td></tr>
+    <tr><td class="k">Wondimpactvragenlijst</td><td>Cardiff op 4 en 12 weken na een ulcus</td><td>Komt in het manuscript niet voor. Beslissen of ze blijft; zo ja, opnemen in tabel 3</td></tr>
   </tbody>
 </table>
 </div>
 
-<h3 style="margin:26px 0 6px;font-size:16px">B &mdash; Tegenspraken b&iacute;nnen het manuscript: rechtzetten v&oacute;&oacute;r de indiening</h3>
+<!-- ============================ OPEN PUNTEN ============================ -->
+<div class="sh" id="open">Openstaande punten</div>
+<p>Vijfentwintig punten, geordend naar wat ze vragen. De nummers komen overeen met de oranje verwijzingen
+hierboven.</p>
+
+<h3>Tegenstrijdig binnen het manuscript &mdash; rechtzetten v&oacute;&oacute;r de indiening</h3>
 <div class="scroller">
 <table class="tbl">
-  <thead><tr><th>Onderwerp</th><th>Wat er niet klopt</th></tr></thead>
+  <thead><tr><th>#</th><th>Punt</th></tr></thead>
   <tbody>
-    <tr><td class="k">Doelstelling en hypothesen</td><td>De paragraaf Objectives en de Hypotheses formuleren nog een dubbel doel &mdash; recidief verlagen &eacute;n therapietrouw verhogen &mdash; terwijl de rest van het document &eacute;&eacute;n primair eindpunt hanteert</td></tr>
-    <tr><td class="k">Wie het ulcus vaststelt</td><td>De methodesectie beschrijft sinds 8 september een <b>multidisciplinair klinisch team</b> dat de toewijzing mag kennen. De secties Strengths en Limitations, de instrumentkolom van tabel 3 en de statistieksectie beloven nog steeds <b>onafhankelijke geblindeerde adjudicatie</b>, en de SPIRIT-checklist verwijst er bij item 3d en 24c naar. Zes plaatsen, twee verhalen</td></tr>
-    <tr><td class="k">Hoe de volgorde tot stand komt</td><td>De methodesectie beschrijft alleen nog sequentieel genummerde verzegelde enveloppen, zonder methode van sequentiegeneratie &mdash; wat SPIRIT-item 16a wel vraagt. Het onderschrift van figuur 1 zegt intussen &ldquo;variable permuted blocks&rdquo;, en de werkafspraak is &eacute;&eacute;n gebalanceerde permutatie van vierentwintig, geschud en daarna genummerd</td></tr>
-    <tr><td class="k">Wie de analyse doet</td><td>De erkenning dat de analist niet onafhankelijk is van de uitvoering, en de beschrijving van het als A en B gemaskeerde analysebestand, zijn op 8 september uit de beperkingen verdwenen</td></tr>
-    <tr><td class="k">De eerste metatarsaalkop</td><td>Bij het schrappen van de hallux-uitzondering is ook &ldquo;excluding the first&rdquo; bij de metatarsaalkoppen weggevallen. Protocol en eCRF houden die uitzondering wel aan, dus de doelpopulatie is stilzwijgend verruimd</td></tr>
-    <tr><td class="k">Figuur 5</td><td>Wordt nergens in de lopende tekst aangehaald, en heeft zelf geen titelregel. Figuur 3 mist die titelregel ook</td></tr>
-    <tr><td class="k">Wat &ldquo;Optimal Care&rdquo; omvat</td><td>Tabel 2 labelt het voorschrift en de aflevering van de CMFO als Optimal Care, en tabel 4 heet &ldquo;PARADISE (Optimal Care) intervention components&rdquo; met daarin ook de sensormonitoring. De lopende tekst zegt dat b&eacute;ide armen een CMFO en een sensor krijgen. E&eacute;n van beide moet aangepast</td></tr>
-    <tr><td class="k">Drukmeting op visite 2</td><td>Tabel 2 zet de drukmeting op baseline, 6, 12 en 18 &mdash; niet op visite 2, terwijl de interventie juist gedefinieerd is als iteratief aanpassen onder drukfeedback b&iacute;j de aflevering</td></tr>
-    <tr><td class="k">Baselinemeting: blootsvoets of in-shoe</td><td>Tabel 4 beschrijft de baselinemeting als in-shoe met de pedar, uitgevoerd door het studieteam. Het protocol en eCRF 09 beschrijven een blootsvoetse baselinemeting, drie per voet, en de lopende tekst zegt dat het klinische team meet</td></tr>
-    <tr><td class="k">Onderhoud van de zolen</td><td>Het manuscript vervangt de CMFO op maand 6, 12 en 18 en kent geen tweede paar. Protocol en eCRF 23 beschrijven een identiek duplicaatpaar met kwartaalbeoordeling van beide paren</td></tr>
-    <tr><td class="k">Wie de data invoert</td><td>Het manuscript zegt dat sitemedewerkers de papieren bronformulieren overzetten naar het elektronische CRF; de interne afspraak is dat de centra niets invoeren</td></tr>
-    <tr><td class="k">Aantal contactmomenten</td><td>Het manuscript telt negen geplande contacten (screening tot maand 18); het protocol voegt een aparte visite 0 toe voor de bevestiging van de geschiktheid v&oacute;&oacute;r de toewijzing</td></tr>
-    <tr><td class="k">Slijtageschaal</td><td>Gepland op visite 2 en op maand 6, 12 en 18, maar er is geen eCRF dat ze scoort</td></tr>
-    <tr><td class="k">Plaatsingsmarkeringen</td><td>&ldquo;Insert table 2 here&rdquo; staat tweemaal; voor figuur 1, 4 en 5 staat er geen enkele markering. &ldquo;Insert table 1 here.&rdquo; staat bovendien middenin een lopende alinea in de sectie Setting</td></tr>
-    <tr><td class="k">Bewaartermijn</td><td>Tien jaar op 3 september onder verwijzing naar ISO 14155:2020, vijftien jaar op 8 september onder verwijzing naar de bewaarvereisten van de studie. Nagaan welke geldt</td></tr>
+    <tr id="o1"><td class="id">1</td><td><b>Wie het ulcus vaststelt.</b> Tot 3&nbsp;september beschreef het manuscript een onafhankelijke, voor de toewijzing geblindeerde adjudicatiecommissie, werkend op gede-identificeerde documentatie en foto&rsquo;s met schoeisel en sensor verwijderd. Sinds 8&nbsp;september is dat een multidisciplinair klinisch team dat de toewijzing m&aacute;g kennen &mdash; een zwakkere waarborg tegen detectiebias in een open-label studie. <b>Zes plaatsen zijn niet mee veranderd</b> en beloven nog steeds onafhankelijke geblindeerde adjudicatie: Strengths, Limitations, de instrumentkolom van tabel 3, de statistieksectie (&ldquo;first <i>adjudicated</i> foot ulcer&rdquo;), en de SPIRIT-checklist bij item 3d en 24c. Ook een planningsbeslissing: een externe commissie moet geworven worden, een intern team niet</td></tr>
+    <tr id="o2"><td class="id">2</td><td><b>Hoe de randomisatievolgorde tot stand komt.</b> De methodesectie noemt alleen nog sequentieel genummerde verzegelde enveloppen, zonder methode van sequentiegeneratie &mdash; wat SPIRIT-item 16a wel vraagt. Het onderschrift van figuur 1 zegt intussen &ldquo;variable permuted blocks&rdquo;, en de werkafspraak is &eacute;&eacute;n gebalanceerde permutatie van vierentwintig, geschud en d&aacute;&aacute;rna genummerd, klaargemaakt door iemand zonder rol in rekrutering of uitkomstbeoordeling. Drie bronnen, drie verhalen</td></tr>
+    <tr id="o3"><td class="id">3</td><td><b>Doelstelling en hypothesen.</b> De paragrafen Objectives en Hypotheses formuleren nog een dubbel doel &mdash; recidief verlagen &eacute;n therapietrouw verhogen, met hypothesen (i) en (ii) &mdash; terwijl de rest van het document &eacute;&eacute;n primair eindpunt hanteert</td></tr>
+    <tr id="o4"><td class="id">4</td><td><b>De niet-onafhankelijke analist.</b> De erkenning dat de analyse door de co&ouml;rdinerend onderzoeker gebeurt en niet door een analist los van de uitvoering, en de beschrijving van het als A en B gemaskeerde analysebestand met de sleutel bij de onafhankelijke statisticus, zijn op 8&nbsp;september uit de beperkingen verdwenen. Dat is juist de waarborg die het analyseplan geloofwaardig maakt</td></tr>
+    <tr id="o5"><td class="id">5</td><td><b>De eerste metatarsaalkop.</b> Bij het schrappen van de hallux-uitzondering is ook &ldquo;excluding the first&rdquo; bij de metatarsaalkoppen weggevallen. Protocol en eCRF houden die uitzondering wel aan, dus de doelpopulatie is stilzwijgend verruimd. Meteen ook het enkelvoud &ldquo;head&rdquo; corrigeren</td></tr>
+    <tr id="o6"><td class="id">6</td><td><b>Wat &ldquo;Optimal Care&rdquo; omvat.</b> Tabel 2 labelt het voorschrift en de aflevering van de CMFO als Optimal Care, en tabel 4 heet &ldquo;PARADISE (Optimal Care) intervention components&rdquo; met daarin ook de sensormonitoring. De lopende tekst zegt dat b&eacute;ide armen een CMFO en een sensor krijgen</td></tr>
+    <tr id="o7"><td class="id">7</td><td><b>Drukmeting op visite 2, en het aantal contactmomenten.</b> Tabel 2 zet de drukmeting op baseline, 6, 12 en 18 &mdash; niet op visite 2, terwijl de interventie juist gedefinieerd is als iteratief aanpassen onder drukfeedback b&iacute;j de aflevering. Het manuscript telt negen geplande contacten; het protocol voegt daar een aparte visite&nbsp;0 aan toe voor de bevestiging van de geschiktheid</td></tr>
+    <tr id="o8"><td class="id">8</td><td><b>Baselinemeting: blootsvoets of in-shoe.</b> Tabel 4 beschrijft de baselinemeting als in-shoe met de pedar, uitgevoerd door het studieteam. Protocol en eCRF 09 beschrijven een blootsvoetse meting, drie per voet, en de lopende tekst zegt dat het klinische team meet</td></tr>
+    <tr id="o9"><td class="id">9</td><td><b>Onderhoud van de zolen.</b> Het manuscript vervangt de CMFO op maand 6, 12 en 18 en kent geen tweede paar. Protocol en eCRF 23 beschrijven een identiek duplicaatpaar met kwartaalbeoordeling van beide paren. De pedorthisten moeten weten hoeveel paren ze maken</td></tr>
+    <tr id="o10"><td class="id">10</td><td><b>Bewaartermijn.</b> Tien jaar op 3&nbsp;september onder verwijzing naar ISO 14155:2020, vijftien jaar op 8&nbsp;september onder verwijzing naar de bewaarvereisten van de studie. Nagaan waar de strengere op steunt</td></tr>
   </tbody>
 </table>
 </div>
 
-<h3 style="margin:26px 0 6px;font-size:16px">C &mdash; Nog open</h3>
+<h3>Redactie en pakket &mdash; kan grotendeels vandaag</h3>
 <div class="scroller">
 <table class="tbl">
-  <thead><tr><th>Punt</th><th>Stand van zaken</th></tr></thead>
+  <thead><tr><th>#</th><th>Punt</th></tr></thead>
   <tbody>
-    <tr><td class="k">Blanco velden in het manuscript</td><td>Zes stuks: registratienummer en -datum, de startdatum van de rekrutering, de herschrijfmarkering bij de ethiekverklaring, belangenconflicten, auteursbijdragen en dankwoord. Zie de tabel hierboven voor wanneer elk opgelost kan worden</td></tr>
-    <tr><td class="k">Bijlage 3 en 6</td><td>Ontbreken in de map terwijl het bronmateriaal bestaat: de toestemmingsformulieren (eCRF 02, 04, 05) en de FWO-aanvraag. Samenstellen v&oacute;&oacute;r de indiening</td></tr>
-    <tr><td class="k">Werkinstructie pedar</td><td>Bestaat niet, terwijl het klinische toestel en het primaire ontlastingsdoel eraan hangen</td></tr>
-    <tr><td class="k">Folder dagelijkse voetzorg</td><td>Nog niet opgemaakt</td></tr>
-    <tr><td class="k">Twee eCRF-sets</td><td>Twee nummeringen in omloop. E&eacute;n set als officieel aanduiden v&oacute;&oacute;r de opleidingssessies van november</td></tr>
-    <tr><td class="k">eCRF 01</td><td>Mist de exclusies PEDIS-graad 3 en immunosuppressie, en de inclusie-eis stabiele vaatstatus</td></tr>
-    <tr><td class="k">Texas Wound Classification</td><td>Bestaat als formulier maar staat noch in het protocol noch in het manuscript</td></tr>
-    <tr><td class="k">Go-criteria 6 en 7</td><td>Criterium 6 zet de ICC-drempel op het verkeerde toestel; criterium 7 maakt van een parallelle deelstudie een startvoorwaarde. Beide herzien v&oacute;&oacute;r de Go-vergadering</td></tr>
-    <tr><td class="k">MS4, MS5 en MS6</td><td>Staan in de FWO-planning op M24 en M42, terwijl protocol en manuscript op M18 en M37 uitkomen. Bij de eerste voortgangsrapportage rechtzetten</td></tr>
+    <tr id="o11"><td class="id">11</td><td><b>Figuur 3 en 5 hebben geen titelregel</b>, terwijl de vier andere openen met &ldquo;Figure&nbsp;n.&nbsp;…&rdquo; en een ondertitel. <b>Figuur 5 wordt bovendien nergens in de tekst aangehaald</b>; in de versie van 3&nbsp;september stond ze nog bij het exploratieve eindpunt. Vrijwel elk tijdschrift stuurt een manuscript terug waarin een figuur niet aangehaald wordt. Geen enkele SVG heeft een <code>&lt;title&gt;</code> of <code>&lt;desc&gt;</code></td></tr>
+    <tr id="o12"><td class="id">12</td><td><b>Plaatsingsmarkeringen.</b> &ldquo;Insert table 2 here&rdquo; staat tweemaal; voor figuur 1, 4 en 5 staat er geen enkele. &ldquo;Insert table 1 here.&rdquo; staat middenin een lopende alinea in de sectie Setting</td></tr>
+    <tr id="o13"><td class="id">13</td><td><b>Bijlage 3 en 6 ontbreken</b> terwijl het bronmateriaal bestaat: de toestemmingsformulieren (eCRF 02, 04, 05) en de ingediende FWO-aanvraag. Samenstellen v&oacute;&oacute;r de indiening. Bijlage 4 en 5 kunnen terecht nog niet bestaan</td></tr>
+    <tr id="o14"><td class="id">14</td><td><b>eCRF 01 mist drie criteria</b>: de exclusies PEDIS-graad 3 en immunosuppressie, en de inclusie-eis stabiele vaatstatus</td></tr>
+    <tr id="o15"><td class="id">15</td><td><b>De slijtageschaal heeft geen scoreformulier</b>, terwijl ze op visite 2 en op maand 6, 12 en 18 gepland staat</td></tr>
+    <tr id="o16"><td class="id">16</td><td><b>Er is geen werkinstructie voor de pedar</b>, terwijl dat het toestel is waarop de klinische beslissing rust. Voor de MoveMonitor en de Orthotimer bestaat er wel een</td></tr>
+    <tr id="o17"><td class="id">17</td><td><b>Twee eCRF-sets met verschillende nummering.</b> E&eacute;n set als officieel aanduiden v&oacute;&oacute;r de opleidingssessies</td></tr>
+    <tr id="o18"><td class="id">18</td><td><b>De folder dagelijkse voetzorg is nog niet opgemaakt</b> &mdash; het document dat de patiënt mee naar huis krijgt en het vaakst herleest</td></tr>
+    <tr id="o19"><td class="id">19</td><td><b>De Texas Wound Classification</b> bestaat als formulier maar staat noch in het protocol noch in het manuscript</td></tr>
+    <tr id="o20"><td class="id">20</td><td><b>De formulierenroute.</b> Het manuscript zegt nu dat &ldquo;academic staff&rdquo; de papieren bronformulieren overzet &mdash; dichter bij de afspraak dat de centra zelf niets invoeren dan de eerdere formulering &ldquo;site staff&rdquo;, maar de term is nog te vaag voor een opleiding en voor de gebruikersrollen in de databank</td></tr>
+    <tr id="o21"><td class="id">21</td><td><b>Zes blanco velden</b> in het manuscript &mdash; zie de tabel &ldquo;wat nog ingevuld moet worden&rdquo; hierboven</td></tr>
   </tbody>
 </table>
+</div>
+
+<h3>Projectdocumenten &mdash; bijwerken bij de eerste voortgangsrapportage</h3>
+<div class="scroller">
+<table class="tbl">
+  <thead><tr><th>#</th><th>Punt</th></tr></thead>
+  <tbody>
+    <tr id="o22"><td class="id">22</td><td><b>Go-criterium 6 en 7.</b> Criterium 6 zet de ICC-drempel van 0,80 op de F-Scan GO, uit de tijd dat men aannam dat de centra dat toestel bedienen; de klinische meting gebeurt met de pedar, dus daar hoort de drempel. Criterium 7 maakt van de methodevergelijking een startvoorwaarde, terwijl het manuscript ze parallel aan de trial laat lopen zonder invloed op de klinische besluitvorming</td></tr>
+    <tr id="o23"><td class="id">23</td><td><b>MS4, MS5 en MS6</b> staan in de FWO-planning op M24 en M42, terwijl protocol en manuscript op M18 en M37 uitkomen. Dat is speling, geen probleem &mdash; maar de mijlpalen moeten mee</td></tr>
+    <tr id="o24"><td class="id">24</td><td><b>De steekproefonderbouwing.</b> Het manuscript noemt nu 127 als statistisch minimum en gaat direct naar 144; de 130 uit het protocol, bedoeld om de stratificatie op te vangen, staat er niet meer in. Protocol en manuscript gelijkzetten</td></tr>
+    <tr id="o25"><td class="id">25</td><td><b>De monitoringopzet moet bevestigd worden</b> door het co&ouml;rdinerende comit&eacute; v&oacute;&oacute;r de indiening, inclusief de verenigbaarheid met ISO&nbsp;14155:2020 en ICH-GCP&nbsp;E6. Het manuscript belooft dat expliciet</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="note tip">
+  <span class="lab">Volgorde</span>
+  <p>Punt <b>1</b> eerst: het raakt zes plaatsen in het manuscript, de SPIRIT-checklist, en de werving van mensen
+  buiten het consortium. Daarna <b>2</b> tot <b>5</b>, want dat zijn tekstingrepen die de indiening blokkeren.
+  <b>11</b> tot <b>14</b> en de blanco velden zijn een halve dag redactiewerk. De rest kan mee met de eerste
+  voortgangsrapportage.</p>
 </div>
 
 <footer>
   <p><b>Bronnen.</b> <code>protocol paper/integrating_offloading…paradise_multicentre_randomised_controlled_trial.docx</code>
-  (versie 8 september 2026, vergeleken met die van 3 september) &mdash; abstract, methodesectie, tabellen 1 tot 4,
-  statistiek, ethiek, declaraties, trial status, discussie &middot; de zes SVG-figuren en
+  (versie 8&nbsp;september 2026, vergeleken met die van 3&nbsp;september) &middot; de zes SVG-figuren en
   <code>figuren-src/LEESMIJ.md</code> &middot; <code>Additional_file_1_SPIRIT_2025_checklist.docx</code> en
-  <code>Additional_file_2_TIDieR_checklist.docx</code> &middot; de map <code>Goedkeuringen/</code> voor wat al
-  vastligt &middot; <code>(e)CRF/Protocol_PARADISE_17_05_2026.docx</code> v1.0 &middot; <code>PARADISE_BRONNEN.md</code>
-  (nagelezen 13 augustus 2026, bijgesteld 3 september 2026) &middot; FWO-TBM T000226N, ingediende versie
-  21 april 2025, &sect;2.2 werkprogramma en de beschrijving van WP1 met taken 1.1 tot 1.8 &middot; PARADISE
-  operationeel draaiboek v2.0, fasen 01 tot 07, en de werkpakketdocumenten WP-02 tot WP-06 &middot; het werkplan
-  september&ndash;november 2026.</p>
-  <p>Waar deze pagina afwijkt van het protocolmanuscript, wint het manuscript. Wijzigt er iets aan de
-  studieopzet, pas het daar en in <code>PARADISE_BRONNEN.md</code> eerst aan.</p>
+  <code>Additional_file_2_TIDieR_checklist.docx</code> &middot; de map <code>Goedkeuringen/</code> &middot;
+  <code>(e)CRF/Protocol_PARADISE_17_05_2026.docx</code> v1.0 &middot; <code>PARADISE_BRONNEN.md</code> &middot;
+  FWO-TBM T000226N, ingediende versie 21&nbsp;april 2025, &sect;2.2 en de beschrijving van WP1 &middot; operationeel
+  draaiboek v2.0 en de werkpakketdocumenten WP-02 tot WP-06 &middot; het werkplan september&ndash;november 2026.</p>
+  <p>Waar deze pagina afwijkt van het protocolmanuscript, wint het manuscript. Wijzigt er iets aan de studieopzet,
+  pas het daar en in <code>PARADISE_BRONNEN.md</code> eerst aan.</p>
   <p>Werkinstrument voor het studieteam &mdash; niet ge&iuml;ndexeerd, niet bedoeld voor verspreiding buiten het
   consortium.</p>
 </footer>
