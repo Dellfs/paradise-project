@@ -5,6 +5,7 @@ Allow: /
 Disallow: /visite-checklist.html
 Disallow: /protocol-analyse.html
 Disallow: /werkpakket1-tijdlijn.html
+Disallow: /PARADISE_WP1_afvinklijst.xlsx
 Disallow: /PARADISE_Draagpatroon_uploader.html
 Disallow: /McRoberts_Beweegpatroon_uploader.html
 Disallow: /PARADISE_Feedback_Draagpatroon_20feb-3apr2026.html
