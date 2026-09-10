@@ -58,6 +58,14 @@ getekende toestemming en de baselinemetingen. (§5.3.2)
 > van de verhouding. En het **nummeren na het schudden** behoudt het controlespoor:
 > de volgorde ligt vast en een overgeslagen envelop valt op.
 
+> **Bevestigd door de PI op 10 september 2026.** Er is geen blokschema, in geen enkele
+> vorm. De toewijzing zit in **identieke enveloppen die door elkaar gestoken worden,
+> zodat ze niet te achterhalen is** — dat is het volledige mechanisme, en dat is wat er
+> in de methodesectie hoort te staan. Twee plaatsen kloppen daar nu niet mee: het
+> onderschrift van **figuur 1** zegt nog "variable permuted blocks", en de
+> **methodesectie beschrijft helemaal geen** manier waarop de volgorde tot stand komt,
+> terwijl SPIRIT-item 16a dat vraagt.
+
 ---
 
 ## 2. Eindpunten
@@ -113,8 +121,8 @@ levenskwaliteit · totale sterfte · kosteneffectiviteit · procesevaluatie-uitk
 - Diabetes mellitus type 1 of 2 volgens ADA/EASD (geen zwangerschapsdiabetes)
 - Risicovoet **categorie 3** met een recent genezen plantair ulcus, óf partiële
   voetamputatie (één of meer tenen, hallux inbegrepen), óf resectie van één of meer
-  metatarsaalkoppen — **niet de eerste** — in de periode van 18 maanden tot 2 weken
-  vóór inclusie
+  metatarsaalkoppen — **de eerste inbegrepen** — in de periode van 18 maanden tot
+  2 weken vóór inclusie
 - **Stabiele vaatstatus** naar klinisch oordeel van de behandelende artsen
 - Zelfstandig en zonder hulpmiddelen blootsvoets kunnen stappen
 - In bezit van beschermend schoeisel dat **ofwel** volledig op maat gemaakt is
@@ -139,10 +147,25 @@ levenskwaliteit · totale sterfte · kosteneffectiviteit · procesevaluatie-uitk
 8. Hulpmiddelen die het aanbrengen van druksensoren beperken (bv. enkel-voetorthese)
 9. Weigert het voorgeschreven beschermend schoeisel te dragen
 
+> **Beslissing van de PI (10 september 2026) — waar de grens ligt.** Het enige
+> amputatiecriterium is **anatomisch**: alles **proximaal van de metatarsaalkoppen** is
+> uitgesloten, en **al de rest kan**. Dus tenen inbegrepen de hallux, en
+> metatarsaalkopresecties inbegrepen de eerste. De beperking "niet de eerste
+> metatarsaalkop" vervalt daarmee; ze stond in de inclusietekst hierboven en staat nog
+> op **eCRF 01**.
+>
+> Het manuscript benoemt de exclusie als **procedures** — "ray amputation, partial or
+> complete, or major amputation including transmetatarsal forefoot amputation" — en dat
+> is niet hetzelfde. Een partiële straalamputatie die alleen de kop wegneemt, valt onder
+> die formulering buiten de studie maar onder deze regel erbinnen. Zet in beide
+> documenten het **anatomische niveau** als criterium, met de procedurenamen hooguit als
+> voorbeeld erbij.
+
 > **Gat tussen protocol en formulier — op te lossen.** eCRF-document 01 noemt er
 > **zeven**: criteria **3 (PEDIS graad 3)** en **5 (immunosuppressie)** ontbreken, en de
 > inclusie-eis "stabiele vaatstatus" staat er evenmin op. Het screeningsformulier moet
-> aangevuld worden vóór de EC-indiening.
+> aangevuld worden vóór de EC-indiening, en tegelijk moet "(niet de eerste
+> metatarsaalkop)" eruit.
 
 ---
 
