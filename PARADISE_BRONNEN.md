@@ -221,11 +221,23 @@ patiënt wisselt niet dagelijks.**
 
 ## 6. De drukmeting
 
+### Alles gebeurt in-shoe
+
+> **Beslissing van de PI (11 september 2026).** Er wordt **niet blootsvoets** gemeten.
+> Elke drukmeting in de studie is een **in-shoe** meting met de pedar. Het verschil zit
+> in de zool: de **baseline meet zónder de CMFO**, alle latere metingen **mét**. De
+> baselinemeting is dus het schoeisel zoals de deelnemer het binnenkomt, en dat is de
+> referentie waartegen de ≥ 25%-reductie gerekend wordt. Zo isoleert de vergelijking het
+> effect van de zool, en niet dat van schoeisel tegenover blote voet.
+>
+> **Wat hierop moet worden bijgewerkt:** eCRF 09 beschrijft nu een blootsvoetse
+> baselinemeting met sensoren op de voet; eCRF 24 vraagt drie condities, waarvan de
+> blootsvoetse vervalt. Ook SOP-2 en de opleidingsmodules moeten mee.
+
 ### Baseline (eCRF 09, visite 1)
-**Blootsvoets.** Sensoren met dubbelzijdige tape rechtstreeks op de voet, daarover
-standaardkousen. **Drie metingen per voet**, links en rechts apart, waaruit één
-gemiddeld piekdrukbeeld berekend wordt. Doel: informatie voor de pedorthist voor de
-aanmaak van de CMFO.
+**In-shoe, zónder de CMFO.** **Drie metingen per voet**, links en rechts apart, waaruit
+één gemiddeld piekdrukbeeld berekend wordt. Doel: informatie voor de pedorthist voor de
+aanmaak van de CMFO, en het referentiebeeld voor de norm.
 
 ### Regio-indeling — acht regio's via Multimask
 Hiel · mediale middenvoet · laterale middenvoet · metatarsaal 1 · metatarsaal 2-3 ·
@@ -237,13 +249,18 @@ Uit de acht worden er **drie** aangeduid die ontlast moeten worden: de regio met
 Die drie worden vastgelegd en de norm wordt **per doelregio** getoetst.
 
 ### Bij aflevering en op maand 6, 12 en 18 (eCRF 24)
-Drie condities meten:
-1. Blootsvoets (sensoren op de voet)
-2. In het schoeisel **zonder** de CMFO
-3. In het schoeisel **mét** de CMFO
+**In-shoe mét de CMFO.** De blootsvoetse conditie die nu nog op het formulier staat,
+vervalt.
 
 Twee extra ontlastingstests zijn op het formulier voorzien voor als de norm niet gehaald
 wordt.
+
+> **Nog te beslissen.** Wordt de meting zónder zool ooit herhaald? Ze is nu de referentie
+> voor de ≥ 25%-reductie, gemeten op visite 1. Krijgt een deelnemer later ander
+> schoeisel — en dat mag, het is een van de drie toegelaten situaties — dan slaat de oude
+> referentie op een schoen die hij niet meer draagt. Ofwel wordt de referentie dan opnieuw
+> gemeten, ofwel blijft de oorspronkelijke staan en wordt dat zo vastgelegd. Dit raakt
+> eCRF 24 en de formule in SOP-2.
 
 ### De norm
 Piekdruk **onder 200 kPa**, **óf** minstens **25% lager** dan de baselinemeting van
