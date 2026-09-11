@@ -252,6 +252,18 @@ Uit de acht worden er **drie** aangeduid die ontlast moeten worden: de regio met
 **voorgeschiedenis van voetzweer**, plus één of twee regio's met de **hoogste piekdruk**.
 Die drie worden vastgelegd en de norm wordt **per doelregio** getoetst.
 
+> **Werkwijze tot de segmentatie er is (beslist 11 september 2026).** Novel studio kan de
+> zool niet in regio's verdelen; er is alleen het aan- en uitzetten van losse sensorcellen.
+> Tot dat opgelost is werkt de clinicus **visueel**: het hoogste niveau van het
+> kleurenpalet wordt op **200 kPa** gezet, zodat elke regio die de topkleur haalt per
+> definitie op of boven de norm ligt. De clinicus leest daar de **drie hoogste** waarden
+> af en noteert ze, en maakt een **schermafbeelding van het piekdrukbeeld (MPP)** die in
+> de eCRF-Excel geplakt wordt. Zo ligt de beoordeling vast in beeld én in cijfers, ook
+> zonder masker.
+>
+> Het palet wordt één keer ingesteld en met **Save custom set** bewaard; elk centrum laadt
+> hetzelfde bestand, anders zijn de beelden onderling niet vergelijkbaar.
+
 ### Bij aflevering en op maand 6, 12 en 18 (eCRF 24)
 **Twee condities, telkens allebei gemeten:**
 
@@ -278,6 +290,22 @@ is.
 ### Novel pedar — door de klinieken
 Draadloze in-shoe druksensor-inlegzolen, 100 Hz, wifi-telemetrie, Novel Scientific
 Studio-software. Kalibratie met het **trublu**-toestel **minstens elke drie maanden**.
+
+**Zolen in huis:** vijf maten per kant, allemaal **wide**. UW 36/37 · VW 38/39 ·
+WW 40/41 · XW 42/43 · YW 44/45. Elke zool draagt een label als `XW.830R` dat exact
+overeenkomt met de naam van het configuratiebestand (`plidar-G026R_xw830R`); die twee
+moeten bij elke meting gekoppeld worden, want de zender weet zelf niet welke zool
+aangesloten is.
+
+> **Schoenmaat 46 en groter (beslist 11 september 2026).** Die worden gemeten met
+> **maat YW (44/45)**, de grootste die er is. De zool in de schoen vangt het
+> maatverschil in de praktijk op. Er worden dus géén ZW-zolen bijbesteld, en
+> schoenmaat is geen uitsluitingsgrond.
+
+**Technische gegevens** (pedar® Insole Catalogue, novel gmbh 2020): 99 sensoren per
+volwassen zool · sensordikte 1,9 mm · drukbereik 15-600 kPa · resolutie 2,5 kPa ·
+hysterese < 7% · frequentierespons 0-100 Hz · minimale buigstraal 20 mm · drukverandering
+door buigen < 20 kPa.
 
 ### F-Scan GO — door het studieteam, níét door de klinieken
 Validatiedeelstudie die de F-Scan GO (Tekscan, FootVIEW Pro) vergelijkt met de pedar.
