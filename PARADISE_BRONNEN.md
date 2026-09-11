@@ -307,6 +307,64 @@ volwassen zool · sensordikte 1,9 mm · drukbereik 15-600 kPa · resolutie 2,5 k
 hysterese < 7% · frequentierespons 0-100 Hz · minimale buigstraal 20 mm · drukverandering
 door buigen < 20 kPa.
 
+### De novel database — de tweede helft van het systeem
+Novel studio meet en toont; het rekent niet. Alles wat het protocol daarna vraagt zit in
+een aparte suite, **novel scientific 29.3.25**, die via de **novel database** aangesproken
+wordt. Die suite staat sinds de levering geïnstalleerd op de onderzoekslaptop
+(`C:\novel`), met een eigen MS SQL Server Express 2019-instantie (`SQLEXPRESSNOVEL`).
+
+De database zelf is **nog niet aangemaakt**: `novfile\DATABASE\Dbproi` en
+`novfile\data\pedar` zijn leeg. Wat er wel al staat zijn de demobestanden van de emed.
+
+**Structuur** (handleiding *novel database db light*, versie 28, p. 5): Persons →
+Visits → per bezoek drie tabellen met databestanden (emed, pedar, pliance) plus een
+tabel *user files* voor alles van een ander formaat — schermafbeeldingen, rapporten,
+PDF's. Een bestand kan ín de database bewaard worden of als link ernaartoe. Via
+**Records | Run Application** (p. 62-63) worden alle geïnstalleerde novel-programma's op
+de geselecteerde bestanden losgelaten.
+
+**De programma's die op pedar-bestanden werken** (bron: `novprog\system\ini\nvlsoft.ini`,
+de omschrijvingen die novel zelf in het menu toont):
+
+| Programma | Exe | Wat het doet |
+|---|---|---|
+| creation of any and percent masks | `win\MaskEditor.exe` | Maakt maskers op emed-, **pedar**- en pliance-bestanden |
+| multimask evaluation | `win\SINGLE.exe` | Druk-, kracht- en tijdparameters **per masker**, één bestand |
+| groupmask evaluation | `win\coll.exe` | Hetzelfde over **veel bestanden** tegelijk |
+| group editor | `win\makepar.exe` | Bundelt bestanden + masker + lichaamsgewicht tot één groep |
+| file master | `win\fmaster.exe` | Zet een maskerfilter, of **verwijdert frames tussen twee markers** |
+| value master | `win\FILTR.exe` | Vervangt de waarde onder een sensor in elk frame behalve MPP en MVP |
+| pedar step analysis | `pedstep.exe` | Stappen met hun tijdparameters, links en rechts |
+| pedar emedlink | `pedlink.exe` | Zet losse stappen om naar emed-structuur voor verdere analyse |
+| average | `ortho\average.exe` | Middelt bestanden voor MPP of ROP |
+
+Twee gevolgen voor de studie:
+
+1. **De segmentatie in acht regio's kan wél** — niet in novel studio, maar met
+   *creation of any and percent masks* plus *multimask* of *groupmask evaluation*. Novel
+   levert de regionamen al mee in `novprog\projects\maskname.syn`: laterale en mediale
+   hiel, laterale en mediale middenvoet, metatarsaal 1, centrale voorvoet, laterale
+   voorvoet. In `novfile\MASKS` staan twee standaard pedar-maskers (`5_mask.std`,
+   `6_mask.std`). De acht regio's van het protocol moeten er als **percent mask** in
+   getekend worden — één keer, en dan op alle deelnemers toegepast.
+2. **Data uitsluiten kan ook** — *file master* verwijdert de frames tussen twee markers.
+   Een deelnemer die halverwege blijft staan kan dus uit de opname geknipt worden vóór de
+   gemiddelden berekend worden. Voor de norm zelf blijft dit overbodig: MPP verandert niet
+   door een pauze.
+
+**Rolverdeling die hieruit volgt.** De klinieken meten met novel studio en beoordelen
+visueel op het palet van 200 kPa — dat blijft de werkwijze aan de stoel. De
+**herberekening per regio gebeurt centraal**, door het studieteam, in de novel database.
+De afgelezen waarden van de clinicus zijn de klinische beslissing van dat moment; de
+maskerwaarden zijn de analysedata.
+
+**Nog vast te leggen.** Wie de database beheert en waar ze staat; hoe de bestanden van de
+zes centra er raken; welke identificatie in het veld *Persons* komt (uitsluitend de
+deelnemerscode — de database is ontworpen voor klinische dossiers en vraagt uit zichzelf
+naam en geboortedatum); de bewaartermijn en de back-up; en de grens van SQL Server
+Express — **10 GB**, 1 GB geheugen, 1 processor (handleiding p. 5). De database is een
+**meetarchief, geen eCRF**: de eCRF blijft het brondocument.
+
 ### F-Scan GO — door het studieteam, níét door de klinieken
 Validatiedeelstudie die de F-Scan GO (Tekscan, FootVIEW Pro) vergelijkt met de pedar.
 **Uitsluitend uitgevoerd door het studieteam en géén onderdeel van de klinische
