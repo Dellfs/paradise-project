@@ -224,20 +224,24 @@ patiënt wisselt niet dagelijks.**
 ### Alles gebeurt in-shoe
 
 > **Beslissing van de PI (11 september 2026).** Er wordt **niet blootsvoets** gemeten.
-> Elke drukmeting in de studie is een **in-shoe** meting met de pedar. Het verschil zit
-> in de zool: de **baseline meet zónder de CMFO**, alle latere metingen **mét**. De
-> baselinemeting is dus het schoeisel zoals de deelnemer het binnenkomt, en dat is de
-> referentie waartegen de ≥ 25%-reductie gerekend wordt. Zo isoleert de vergelijking het
-> effect van de zool, en niet dat van schoeisel tegenover blote voet.
+> Elke drukmeting in de studie is een **in-shoe** meting met de pedar. Het verschil zit in
+> de zool: **zónder de CMFO** en **mét de CMFO**.
+>
+> **De 25%-reductie wordt tussen die twee condities gerekend**, gemeten in dezelfde
+> sessie. Het is dus geen vergelijking met een baselinewaarde van maanden eerder, maar een
+> meting van wat de zool op dat moment doet. De vergelijking isoleert daarmee het effect
+> van de zool, en niet dat van schoeisel tegenover blote voet — en ze blijft geldig als
+> een deelnemer later ander schoeisel krijgt, want beide condities worden dan opnieuw
+> gemeten.
 >
 > **Wat hierop moet worden bijgewerkt:** eCRF 09 beschrijft nu een blootsvoetse
 > baselinemeting met sensoren op de voet; eCRF 24 vraagt drie condities, waarvan de
 > blootsvoetse vervalt. Ook SOP-2 en de opleidingsmodules moeten mee.
 
 ### Baseline (eCRF 09, visite 1)
-**In-shoe, zónder de CMFO.** **Drie metingen per voet**, links en rechts apart, waaruit
-één gemiddeld piekdrukbeeld berekend wordt. Doel: informatie voor de pedorthist voor de
-aanmaak van de CMFO, en het referentiebeeld voor de norm.
+**In-shoe, zónder de CMFO** — het schoeisel zoals de deelnemer het binnenkomt. **Drie
+metingen per voet**, links en rechts apart, waaruit één gemiddeld piekdrukbeeld berekend
+wordt. Doel: informatie voor de pedorthist voor de aanmaak van de CMFO.
 
 ### Regio-indeling — acht regio's via Multimask
 Hiel · mediale middenvoet · laterale middenvoet · metatarsaal 1 · metatarsaal 2-3 ·
@@ -249,23 +253,23 @@ Uit de acht worden er **drie** aangeduid die ontlast moeten worden: de regio met
 Die drie worden vastgelegd en de norm wordt **per doelregio** getoetst.
 
 ### Bij aflevering en op maand 6, 12 en 18 (eCRF 24)
-**In-shoe mét de CMFO.** De blootsvoetse conditie die nu nog op het formulier staat,
-vervalt.
+**Twee condities, telkens allebei gemeten:**
+
+1. In het schoeisel **zonder** de CMFO
+2. In het schoeisel **mét** de CMFO
+
+De blootsvoetse conditie die nu nog op het formulier staat, vervalt. Beide overblijvende
+condities worden op elk van deze momenten opnieuw gemeten — de meting zonder zool is dus
+geen eenmalige baseline maar de referentie van dat moment.
 
 Twee extra ontlastingstests zijn op het formulier voorzien voor als de norm niet gehaald
 wordt.
 
-> **Nog te beslissen.** Wordt de meting zónder zool ooit herhaald? Ze is nu de referentie
-> voor de ≥ 25%-reductie, gemeten op visite 1. Krijgt een deelnemer later ander
-> schoeisel — en dat mag, het is een van de drie toegelaten situaties — dan slaat de oude
-> referentie op een schoen die hij niet meer draagt. Ofwel wordt de referentie dan opnieuw
-> gemeten, ofwel blijft de oorspronkelijke staan en wordt dat zo vastgelegd. Dit raakt
-> eCRF 24 en de formule in SOP-2.
-
 ### De norm
-Piekdruk **onder 200 kPa**, **óf** minstens **25% lager** dan de baselinemeting van
-dezelfde regio. Aanpassen gebeurt als de piekdruk boven 200 kPa ligt **of** als podoloog
-en pedorthist samen oordelen dat er nog winst haalbaar is.
+Piekdruk **onder 200 kPa** mét de zool, **óf** minstens **25% lager** dan dezelfde regio
+**zonder** de zool, in dezelfde sessie gemeten. Aanpassen gebeurt als de piekdruk boven
+200 kPa ligt **of** als podoloog en pedorthist samen oordelen dat er nog winst haalbaar
+is.
 
 ---
 
