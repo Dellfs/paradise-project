@@ -279,6 +279,24 @@ geen eenmalige baseline maar de referentie van dat moment.
 Twee extra ontlastingstests zijn op het formulier voorzien voor als de norm niet gehaald
 wordt.
 
+**Twee schoeiseltypes, twee volledige reeksen.** eCRF 24 bestaat uit **deel A1
+(buitenschoeisel)** en **deel A2 (binnenschoeisel)**, elk met een eigen doelregio-tabel,
+een eigen tabel zónder CMFO en een eigen tabel mét CMFO plus de twee extra
+ontlastingstests. Heeft de deelnemer allebei, dan zijn dat **vier opnames** per
+meetmoment. Nog vast te leggen: wat er gebeurt als er maar één paar is.
+
+**De drie doelregio's worden op eCRF 24 zelf aangeduid**, boven de meettabellen, per
+schoeiseltype — niet op eCRF 10, dat alleen het CMFO-voorschrift bevat. Basis: de regio
+met de voorgeschiedenis van voetzweer (eCRF 06) plus de één of twee regio's met de
+hoogste piekdruk zonder de zool. Het formulier is opgesteld voor **visite 2** en zegt
+telkens "definieer", zonder te vermelden of de regio's op maand 6, 12 en 18 worden
+overgenomen — voor het volgen van het effect over de tijd zou dat wel moeten.
+
+> **Twee redactionele fouten in eCRF 24 zelf** (vastgesteld 13 september 2026): de
+> koptekst van deel A2 zegt "Appendix **23**" terwijl deel A1 "Appendix 24" zegt; en
+> beide delen sommen nog de **blootsvoetse conditie** op, die met de beslissing van
+> 11 september vervalt.
+
 ### De norm
 Piekdruk **onder 200 kPa** mét de zool, **óf** minstens **25% lager** dan dezelfde regio
 **zonder** de zool, in dezelfde sessie gemeten. Aanpassen gebeurt als de piekdruk boven
