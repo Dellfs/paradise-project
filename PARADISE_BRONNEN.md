@@ -240,8 +240,10 @@ patiënt wisselt niet dagelijks.**
 
 ### Baseline (eCRF 09, visite 1)
 **In-shoe, zónder de CMFO** — het schoeisel zoals de deelnemer het binnenkomt. **Drie
-metingen per voet**, links en rechts apart, waaruit één gemiddeld piekdrukbeeld berekend
-wordt. Doel: informatie voor de pedorthist voor de aanmaak van de CMFO.
+metingen**, waaruit één gemiddeld piekdrukbeeld per voet berekend wordt. Links en rechts
+worden **tegelijk** opgenomen — er zit in elke schoen een zool — en per voet apart
+uitgelezen; het "links en rechts apart" van het oude formulier was een restant van de
+blootsvoetse methode. Doel: informatie voor de pedorthist voor de aanmaak van de CMFO.
 
 ### Regio-indeling — acht regio's via Multimask
 Hiel · mediale middenvoet · laterale middenvoet · metatarsaal 1 · metatarsaal 2-3 ·
