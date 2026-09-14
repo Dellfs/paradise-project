@@ -14,3 +14,12 @@ package-lock.json
 # Testdata (patiëntbestanden — niet in repo)
 *.tef
 physical_activity_*.pdf
+
+# Handleidingen van leveranciers — blijven lokaal.
+# 'KU Leuven License Cloud.pdf' bevat de registratiecode voor de Orthotimer-cloud;
+# die mag niet mee naar een repo die naar Netlify gepubliceerd wordt.
+Manuals/
+
+# Handleidingen van novel: auteursrechtelijk materiaal, blijven lokaal.
+# Origineel staat in Janou\drivers\Pedar Novel\manuals\.
+Novel Pedar/database_*.pdf

@@ -333,8 +333,11 @@ een aparte suite, **novel scientific 29.3.25**, die via de **novel database** aa
 wordt. Die suite staat sinds de levering geïnstalleerd op de onderzoekslaptop
 (`C:\novel`), met een eigen MS SQL Server Express 2019-instantie (`SQLEXPRESSNOVEL`).
 
-De database zelf is **nog niet aangemaakt**: `novfile\DATABASE\Dbproi` en
-`novfile\data\pedar` zijn leeg. Wat er wel al staat zijn de demobestanden van de emed.
+**De database bestaat** sinds 14 september 2026 en heet **`Sint_Jan_Paradise_Project`**
+(novel database light **29.3.18**, alias `local`, Windows-authenticatie, status
+"Connected"). Ze staat naast de twee meegeleverde demodatabases `demodblight_2014` en
+`demodblight_2014_1`. Er staat één testpersoon in: ID en External ID `002`, voor- en
+achternaam beide `X`, één bezoek op 7 augustus 2026.
 
 **Structuur** (handleiding *novel database db light*, versie 28, p. 5): Persons →
 Visits → per bezoek drie tabellen met databestanden (emed, pedar, pliance) plus een
@@ -378,10 +381,22 @@ visueel op het palet van 200 kPa — dat blijft de werkwijze aan de stoel. De
 De afgelezen waarden van de clinicus zijn de klinische beslissing van dat moment; de
 maskerwaarden zijn de analysedata.
 
-**Nog vast te leggen.** Wie de database beheert en waar ze staat; hoe de bestanden van de
-zes centra er raken; welke identificatie in het veld *Persons* komt (uitsluitend de
-deelnemerscode — de database is ontworpen voor klinische dossiers en vraagt uit zichzelf
-naam en geboortedatum); de bewaartermijn en de back-up; en de grens van SQL Server
+**De velden, zoals ze op het scherm staan.** *Persons*: ID, External ID, First name, Last
+name, Date of birth, Gender, plus adres, telefoon en beroep. *Visits*: datum, leeftijd,
+lengte (cm), lichaamsgewicht (kg), schoenmaat, en de vrije velden History, Comments,
+Results, Conclusion en Researcher name. *pedar Files*: File body, File short, plus
+contactoppervlak en contacttijd per voet — met een knop **Measure** die een meting start
+die meteen aan die persoon en dat bezoek hangt.
+
+**Pseudonimisering zoals ze nu gebeurt:** de deelnemerscode in ID én External ID, en een
+`X` in First name en Last name. Het lichaamsgewicht hoort wél ingevuld — het is nodig om
+drukwaarden te normaliseren en het is het derde element van de *group editor*.
+
+**Nog vast te leggen.** Of de klinieken rechtstreeks vanuit de database meten dan wel in
+novel studio; of er één centrale database komt of één per centrum, en hoe de vijf andere
+centra in `Sint_Jan_Paradise_Project` terechtkomen; of het veld *Date of birth* ingevuld
+wordt (een geboortedatum is samen met een centrum en een meetdatum herleidbaar — overweeg
+alleen het geboortejaar); de bewaartermijn en de back-up; en de grens van SQL Server
 Express — **10 GB**, 1 GB geheugen, 1 processor (handleiding p. 5). De database is een
 **meetarchief, geen eCRF**: de eCRF blijft het brondocument.
 
@@ -715,7 +730,28 @@ moet worden, en zo ja, het protocol aanvullen.
 
 ---
 
-## 14. Openstaande punten
+## 14. Handleidingen in huis (map `Manuals\`, toegevoegd 14 september 2026)
+
+Deze map staat **bewust niet in git** — zie `.gitignore`. Reden: het bestand
+*KU Leuven License Cloud.pdf* bevat de **registratiecode voor de Orthotimer-cloud**, en
+de repo wordt naar Netlify gepubliceerd.
+
+| Bestand | Waarvoor | Hoort bij |
+| --- | --- | --- |
+| `MoveMonitor Manual 2023.pdf` | McRoberts DynaPort, bediening | eCRF 19, 19b |
+| `Physical_activity demo report.pdf` | Voorbeeld van het activiteitenrapport | eCRF 28 |
+| `KU Leuven License Cloud.pdf` | Toegang tot cloud.orthotimer.com + clientsoftware | eCRF 25, 25b |
+| `InitialRequirements.docx` | Installatielijst: Orthotimer-pen, TEF-viewer, DynaPort Manager | eCRF 19b, 25b |
+| `ICH_GCP_E6_R3_Principles_1.pdf` | De elf GCP-principes op één blad | opleiding, monitoring |
+| `F-Scan GO - User Manual.lnk` | Snelkoppeling, geen inhoud — het doelbestand ontbreekt | eCRF 24b |
+
+Geen van deze zes gaat over de pedar. De pedar-handleidingen staan in
+`Janou\drivers\Pedar Novel\manuals\` (`database_light_v28.pdf`, 206 pp., en de
+installatiegids), met een kopie in `Site\Novel Pedar\`.
+
+---
+
+## 15. Openstaande punten
 
 1. **Het analysepunt voor therapietrouw: protocol bijwerken, niet het manuscript.**
    Het manuscript kiest 12 maanden als primair analysepunt met het 18-maandenprofiel
