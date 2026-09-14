@@ -388,15 +388,22 @@ Results, Conclusion en Researcher name. *pedar Files*: File body, File short, pl
 contactoppervlak en contacttijd per voet — met een knop **Measure** die een meting start
 die meteen aan die persoon en dat bezoek hangt.
 
-**Pseudonimisering zoals ze nu gebeurt:** de deelnemerscode in ID én External ID, en een
-`X` in First name en Last name. Het lichaamsgewicht hoort wél ingevuld — het is nodig om
-drukwaarden te normaliseren en het is het derde element van de *group editor*.
+> **Pseudonimisering — beslist door de PI op 14 september 2026.** De deelnemerscode in
+> **ID** én **External ID**, een `X` in **First name** en **Last name**, en
+> **01/01/1900** in **Date of birth** — dezelfde dummydatum voor elke deelnemer. Novel
+> maakt die velden verplicht omdat de software voor klinische dossiers gebouwd is; in de
+> studie hoort er niets herleidbaars in. Adres, telefoon en beroep blijven leeg.
+>
+> Gevolg: het veld **Age** in *Visits* wordt uit de geboortedatum berekend en komt dus op
+> **126** uit. Dat is geen fout maar het zichtbare teken dat het veld een plaatshouder is.
+> De werkelijke leeftijd staat in de eCRF.
+
+Het **lichaamsgewicht** hoort wél ingevuld — het is nodig om drukwaarden te normaliseren
+en het is het derde element van de *group editor*.
 
 **Nog vast te leggen.** Of de klinieken rechtstreeks vanuit de database meten dan wel in
 novel studio; of er één centrale database komt of één per centrum, en hoe de vijf andere
-centra in `Sint_Jan_Paradise_Project` terechtkomen; of het veld *Date of birth* ingevuld
-wordt (een geboortedatum is samen met een centrum en een meetdatum herleidbaar — overweeg
-alleen het geboortejaar); de bewaartermijn en de back-up; en de grens van SQL Server
+centra in `Sint_Jan_Paradise_Project` terechtkomen; de bewaartermijn en de back-up; en de grens van SQL Server
 Express — **10 GB**, 1 GB geheugen, 1 processor (handleiding p. 5). De database is een
 **meetarchief, geen eCRF**: de eCRF blijft het brondocument.
 
