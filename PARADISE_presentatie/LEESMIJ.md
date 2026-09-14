@@ -3,9 +3,9 @@
 De presentatie wordt gegenereerd, niet met de hand gemaakt. Alles blijft echte
 PowerPoint-vormen en echte tekstvakken, dus u kunt achteraf nog alles aanpassen.
 
-## Zeven decks uit één bron
+## Acht decks uit één bron
 
-Dezelfde inhoud levert zeven presentaties. Elke dia draagt een label `voor` met de
+Dezelfde inhoud levert acht presentaties. Elke dia draagt een label `voor` met de
 letters van de decks waarin hij hoort; de bouwer filtert daarop.
 
 | Deck | Bestand | Duur | Voor wie |
@@ -23,7 +23,7 @@ letters van de decks waarin hij hoort; de bouwer filtert daarop.
 
 ```powershell
 python maak_beelden.py    # eenmalig: snijdt de toestelfoto's en logo's bij
-python maak_alles.py      # bouwt alle zeven de decks
+python maak_alles.py      # bouwt alle decks uit DECKS
 python maak_pptx.py board # of één deck apart
 ```
 
@@ -36,9 +36,11 @@ dict(t='statement', voor='ock', ...)   # opleiding, congres, kort
 ```
 
 De letters: **o** opleiding · **b** board · **c** congres · **u** outreach ·
-**k** kort · **e** extern · **p** planning · **g** kerngezond. De titeldia hoort in alle zeven en krijgt per deck een
-eigen ondertitel; die staat in `DECKS` bovenaan `inhoud.py`, samen met de
-bestandsnaam en de richttijd.
+**k** kort · **e** extern · **p** planning · **g** kerngezond. De titeldia hoort in
+alle decks behalve kerngezond en krijgt per deck een eigen ondertitel; die staat
+in `DECKS` bovenaan `inhoud.py`, samen met de bestandsnaam en de richttijd.
+Kerngezond heeft een eigen opening (`hero_titel`), met de drukmat als beeld in
+plaats van een foto.
 
 Alleen het opleidingsdeck klapt de bezoeken uit tot één dia per handeling
 (`uitklappen=True` in `DECKS`). De andere decks tonen het bezoek compact op één
@@ -95,6 +97,27 @@ zonder vervorming.
 Wilt u ergens anders ook een kader, maak van die handeling in `inhoud.py` een
 tuple: `('de handeling', 'wat er op de foto staat')`. De dia wordt dan
 tweekolommig met kader en bijschrift.
+
+## Getekende iconen in plaats van een plaatshouder
+
+Een kaart waar geen echte foto voor bestaat, zet beter een icoon dan de grijze
+plaatshouder. Vervang op een kaart in `inhoud.py` het veld `foto=` door
+`icoon=` met een van deze namen:
+
+| Naam | Wat het toont |
+| --- | --- |
+| `druk` | een voet met één hete plek onder de bal |
+| `gevoel` | dezelfde voet met een verbodsteken erover |
+| `tijd` | een klok |
+| `huis` | een huis met de schoen die binnen blijft staan |
+| `wandel` | twee voetstappen die weglopen |
+| `ziekenhuis` | een gebouw met een groen kruis |
+| `vraag` | een tekstballon met een vraagteken |
+
+Ze werken op de kaarten van `drieluik` en op de twee kaarten van `duo`, worden
+getekend uit echte PowerPoint-vormen in de huiskleuren, en blijven dus scherp
+op elk scherm. Een nieuwe tekent u erbij in `pictogram()` in `maak_pptx.py`, in
+een raster van honderd bij honderd.
 
 ## Wat waar staat
 

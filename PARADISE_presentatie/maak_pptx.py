@@ -183,6 +183,21 @@ def hoogte(tekst, breedte, gr, ra=1.3):
     return regels * gr * ra * 2
 
 
+def blokhoogte(regels, breedte, gr, ra=1.3, gat=10):
+    """Hoogte van een reeks alinea's zoals PowerPoint ze werkelijk zet.
+
+    hoogte() rekent met de korpsgrootte alleen. Een regel wordt op het scherm
+    ongeveer een vijfde hoger dan dat, en tussen twee alinea's staat nog de
+    ruimte uit `voor`. Wie daar niet mee rekent, laat de tekst onder zijn kaart
+    uit lopen — precies wat hier misging.
+
+    De breedte telt maar voor 94% mee: er wordt op woordgrenzen afgebroken, dus
+    de laatste centimeter van een regel blijft vaak leeg.
+    """
+    return (sum(hoogte(r, breedte * 0.94, gr, ra) for r in regels) * 1.2
+            + gat * 2 * max(0, len(regels) - 1))
+
+
 def bol(s, x, y, d, tekst, kl='licht', klein=False, vul='tegel2', rand=None):
     """Genummerde bol voor stappen en handelingen.
 
@@ -227,6 +242,93 @@ def foto(s, bestand, x, y, w, h, naam=None, alpha=None, vullend=False):
         blip = p._element.blipFill.find(qn('a:blip'))
         etree.SubElement(blip, qn('a:alphaModFix')).set('amt', str(int(alpha * 1000)))
     return p
+
+
+# ---------------------------------------------------------------- pictogrammen
+# Een kaart zonder echte foto krijgt liever een getekend icoon dan de grijze
+# plaatshouder. Het leest sneller, het schaalt mee met de dia, het staat in de
+# huiskleuren, en er hoeft geen stockbeeld voor gezocht te worden. Alles wordt
+# getekend in een raster van honderd bij honderd dat in het vak gecentreerd
+# wordt; één eenheid is dus een honderdste van de korte zijde.
+
+def _iv(s, soort, bx, by, u, x, y, w, h, vul=None, lijn=None, dik=2.5, alpha=None):
+    """Eén vorm binnen het icoonraster."""
+    o = s.shapes.add_shape(soort, px(bx + x * u), px(by + y * u),
+                           px(w * u), px(h * u))
+    if vul:
+        o.fill.solid(); o.fill.fore_color.rgb = rgb(vul)
+        if alpha is not None:
+            sf = o.fill.fore_color._xFill.find(qn('a:srgbClr'))
+            etree.SubElement(sf, qn('a:alpha')).set('val', str(int(alpha * 1000)))
+    else:
+        o.fill.background()
+    if lijn:
+        o.line.color.rgb = rgb(lijn); o.line.width = Pt(dik)
+    else:
+        o.line.fill.background()
+    o.shadow.inherit = False
+    return o
+
+
+def _voet(s, bx, by, u, kl):
+    """Gestileerde voet: hiel, middenvoet, voorvoet en vijf tenen."""
+    for x, y, w, h in ((30, 54, 42, 42), (32, 34, 38, 32), (20, 18, 62, 36)):
+        _iv(s, MSO_SHAPE.OVAL, bx, by, u, x, y, w, h, vul=kl)
+    for x, y, dd in ((21, 2, 18), (42, 0, 14), (56, 2, 12.5), (68, 6, 11.5),
+                     (79, 11, 10.5)):
+        _iv(s, MSO_SHAPE.OVAL, bx, by, u, x, y, dd, dd, vul=kl)
+
+
+def pictogram(s, naam, x, y, w, h):
+    """Tekent het icoon `naam`, gecentreerd in het vak x,y,w,h."""
+    u = min(w, h) / 100.0
+    bx = x + (w - 100 * u) / 2.0
+    by = y + (h - 100 * u) / 2.0
+    v = lambda *a, **k: _iv(s, a[0], bx, by, u, *a[1:], **k)
+
+    if naam == 'druk':
+        # de voet met één hete plek onder de bal: hetzelfde beeld als de drukmat
+        _voet(s, bx, by, u, 'rand')
+        for dx, dy, dd, al in ((24, 10, 42, 22), (32, 18, 26, 48), (39, 25, 12, None)):
+            v(MSO_SHAPE.OVAL, dx, dy, dd, dd, vul='oranje', alpha=al)
+    elif naam == 'gevoel':
+        # de voet met een verbodsteken erover: het seintje komt niet aan
+        _voet(s, bx, by, u, 'rand')
+        v(MSO_SHAPE.LIGHTNING_BOLT, 40, 20, 22, 40, vul='licht', alpha=45)
+        v(MSO_SHAPE.OVAL, 16, 16, 68, 68, lijn='oranje', dik=5)
+        b = v(MSO_SHAPE.RECTANGLE, 14, 46, 72, 6, vul='oranje')
+        b.rotation = 315
+    elif naam == 'tijd':
+        v(MSO_SHAPE.OVAL, 10, 10, 80, 80, vul='tegel2', lijn='licht', dik=5)
+        v(MSO_SHAPE.RECTANGLE, 48, 26, 4, 26, vul='ink')
+        v(MSO_SHAPE.RECTANGLE, 50, 48, 24, 4, vul='ink')
+        v(MSO_SHAPE.OVAL, 44, 44, 12, 12, vul='oranje')
+    elif naam == 'ziekenhuis':
+        v(MSO_SHAPE.ROUNDED_RECTANGLE, 14, 32, 72, 58, vul='glas', lijn='rand')
+        v(MSO_SHAPE.CROSS, 40, 6, 20, 20, vul='groen2')
+        for c in (24, 44, 64):
+            for r in (44, 62):
+                v(MSO_SHAPE.RECTANGLE, c, r, 12, 10, vul='licht', alpha=70)
+        v(MSO_SHAPE.RECTANGLE, 43, 76, 14, 14, vul='rand')
+    elif naam == 'huis':
+        v(MSO_SHAPE.ISOSCELES_TRIANGLE, 8, 18, 84, 34, vul='rand')
+        v(MSO_SHAPE.ROUNDED_RECTANGLE, 20, 50, 60, 40, vul='glas', lijn='rand')
+        v(MSO_SHAPE.RECTANGLE, 43, 66, 14, 24, vul='licht', alpha=70)
+        # de schoen die binnen blijft staan
+        v(MSO_SHAPE.OVAL, 24, 76, 16, 10, vul='oranje', alpha=70)
+    elif naam == 'wandel':
+        # twee voetstappen die weglopen, met de aanzet als stippen
+        _voet(s, bx + 2 * u, by + 44 * u, u * 0.46, 'rand')
+        _voet(s, bx + 44 * u, by + 12 * u, u * 0.46, 'licht')
+        for dx, dy, dd in ((6, 22, 7), (17, 14, 6), (27, 8, 5)):
+            v(MSO_SHAPE.OVAL, dx, dy, dd, dd, vul='oranje', alpha=55)
+    elif naam == 'vraag':
+        v(MSO_SHAPE.ROUNDED_RECTANGULAR_CALLOUT, 8, 14, 84, 58,
+          vul='tegel2', lijn='licht', dik=3)
+        txt(s, bx + 8 * u, by + 20 * u, 84 * u, 48 * u, '?', gr=17 * u,
+            kl='licht', vet=True, uit=PP_ALIGN.CENTER, ra=1.0)
+    else:
+        foto(s, 'plaatshouder.png', x, y, w, h)
 
 
 # De instellingslogo's zijn merkbestanden die ik niet mag namaken. Zet ze als
@@ -477,7 +579,10 @@ for i, d in enumerate(SLIDES, 1):
         foto(s, 'merk.png', 100, 96, 130, 146)
         txt(s, 100, 606, 1400, 260, d['boven'], gr=124, kl='ink', vet=True,
             ra=0.9, omslag=False, naam='hero')
-        txt(s, 106, 850, 1400, 60, d['onder'], gr=28, kl='licht', vet=True)
+        # de ondertitel moet op één regel blijven: de tweede regel zou achter
+        # de partnerbalk verdwijnen
+        txt(s, 106, 850, 1400, 60, d['onder'],
+            gr=min(28, 28 * 50.0 / max(1, len(d['onder']))), kl='licht', vet=True)
         partners(s, 952)
         txt(s, 1120, 1034, 720, 30, d['voet'], gr=11, kl='gedempt', font=FONT_M,
             uit=PP_ALIGN.RIGHT, omslag=False)
@@ -549,7 +654,10 @@ for i, d in enumerate(SLIDES, 1):
         txt(s, 100, 336, 1300, 300, d['boven'], gr=132, kl='ink', vet=True,
             ra=0.9, naam='hero', omslag=False)
         txt(s, 106, 590, 1100, 90, d['onder'], gr=40, kl='licht', vet=True)
-        txt(s, 108, 682, 1000, 70, d['staart'], gr=18, kl='gedempt', font=FONT_L)
+        # de staart moet op één regel blijven: daaronder ligt de haarlijn
+        txt(s, 108, 682, 1000, 70, d['staart'],
+            gr=min(18, 18 * 55.0 / max(1, len(d['staart']))), kl='gedempt',
+            font=FONT_L)
         liniaal(s, 100, 774, 1000)
         for j, (g, l) in enumerate(d['tegels']):
             x = 100 + j * 330
@@ -608,10 +716,15 @@ for i, d in enumerate(SLIDES, 1):
     elif t == 'hero_cijfer':
         acc = d.get('accent', 'licht')
         gloed(s, -160, 40, 820, acc, 6)
-        # het cijfer loopt bewust buiten het kader: schaal als beeldmiddel
-        txt(s, 60, 120, 1200, 520, d['cijfer'], gr=250, kl=acc, vet=True, ra=0.82,
+        # Het cijfer loopt bewust buiten het kader: schaal als beeldmiddel. Een
+        # lang getal als 10.000 past niet op 250 punt en zou omslaan, pal over
+        # de kop eronder; daarom krimpt het korps mee met het aantal tekens.
+        em = sum(0.30 if c in '.,' else 0.62 for c in d['cijfer'])
+        grc = min(250, 1180 / (2 * em))
+        txt(s, 60, 120, 1200, 520, d['cijfer'], gr=grc, kl=acc, vet=True, ra=0.82,
             naam='hero')
-        txt(s, 700, 208, 240, 160, d['suffix'], gr=76, kl=acc, vet=True, font=FONT_L)
+        txt(s, 60 + em * grc * 2 + 20, 208 + (250 - grc) * 0.55, 240, 160,
+            d['suffix'], gr=76, kl=acc, vet=True, font=FONT_L)
         txt(s, 104, 626, 860, 200, d['kop'], gr=32, kl='ink', vet=True, ra=1.2)
         if d.get('meter'):
             # meter met streefwaarde: laat zien hoe ver het van de norm ligt
@@ -685,12 +798,27 @@ for i, d in enumerate(SLIDES, 1):
         breed = kol(0, 6)[1] - 80
         lijst = max(sum(hoogte(r, breed, 14.5, 1.32) * 1.22 + 12
                         for r in c['regels']) for c in (d['een'], d['twee']))
-        kaarthoogte = int(336 + lijst + 16)
+        # Beeld staat naast de kop, niet erboven: zo groeit de kaart er niet van
+        # en loopt hij niet van de dia af.
+        heeftbeeld = any(c.get('foto') or c.get('icoon')
+                         for c in (d['een'], d['twee']))
+        tx = 196 if heeftbeeld else 40
+        # onderaan blijft er marge staan: anders kleeft de laatste regel tegen
+        # de rand van de kaart
+        kaarthoogte = int(336 + lijst + 44)
         for j, c in enumerate((d['een'], d['twee'])):
             x, w = kol(j * 6, 6)
             tegel(s, x, 320, w, kaarthoogte, 'tegel', 'rand')
-            txt(s, x + 40, 354, 200, 60, c['nr'], gr=26, kl='licht', vet=True, font=FONT_M)
-            txt(s, x + 40, 418, w - 80, 110, c['naam'], gr=24, kl='ink', vet=True, ra=1.15)
+            if heeftbeeld:
+                tegel(s, x + 40, 352, 132, 132, 'tegel2', None)
+                if c.get('icoon'):
+                    pictogram(s, c['icoon'], x + 44, 356, 124, 124)
+                elif c.get('foto'):
+                    foto(s, c['foto'], x + 52, 364, 108, 108)
+            txt(s, x + tx, 354, 200, 60, c['nr'], gr=26, kl='licht', vet=True,
+                font=FONT_M)
+            txt(s, x + tx, 418, w - tx - 40, 110, c['naam'], gr=24, kl='ink',
+                vet=True, ra=1.15)
             tegel(s, x + 40, 548, w - 80, 84, 'glas', None)
             txt(s, x + 40, 572, w - 80, 48, c['kern'], gr=18, kl='licht', vet=True,
                 uit=PP_ALIGN.CENTER, font=FONT_M)
@@ -1133,7 +1261,10 @@ for i, d in enumerate(SLIDES, 1):
         g, rest = d['kaarten'][0], d['kaarten'][1:]
         gx, gw = kol(0, 6)
         tegel(s, gx, 310, gw, 630, 'tegel', 'rand')
-        foto(s, g['foto'], gx + 40, 344, gw - 80, 262)
+        if g.get('icoon'):
+            pictogram(s, g['icoon'], gx + 40, 344, gw - 80, 262)
+        else:
+            foto(s, g['foto'], gx + 40, 344, gw - 80, 262)
         txt(s, gx + 44, 626, 380, 70, g['naam'], gr=32, kl='ink', vet=True)
         txt(s, gx + 46, 700, 380, 36, g['sub'], gr=12.5, kl='licht', vet=True,
             font=FONT_M, caps=True, sp=1.6)
@@ -1141,33 +1272,57 @@ for i, d in enumerate(SLIDES, 1):
             kl='licht', vet=True, ra=1.0)
         txt(s, gx + 44, 800, 380, 40, g['wie'], gr=13, kl='oranje', vet=True,
             font=FONT_M, caps=True, sp=1.3)
-        txt(s, gx + 448, 626, gw - 492, 280,
-            [(r, {'voor': 10}) for r in g['regels']], gr=14.5, kl='gedempt', ra=1.3)
+        # ook hier krimpt de tekst liever dan dat hij onder de kaart uit loopt
+        grg, gb = 14.5, gw - 492
+        while grg > 11 and blokhoogte(g['regels'], gb, grg, 1.3, 10) > 296:
+            grg -= 0.5
+        txt(s, gx + 448, 626, gb, 296,
+            [(r, {'voor': 10}) for r in g['regels']], gr=grg, kl='gedempt', ra=1.3)
+        # één korps voor beide kleine kaarten: twee maten naast elkaar op
+        # dezelfde dia valt meteen op
+        grr, tw = 14, kol(6, 6)[1] - 366
+        while grr > 11 and max(blokhoogte(c['regels'], tw, grr, 1.28, 6)
+                               for c in rest) > 104:
+            grr -= 0.5
         for j, c in enumerate(rest):
             x, w = kol(6, 6)
             y = 310 + j * 328
             tegel(s, x, y, w, 302, 'tegel', 'rand')
-            tegel(s, x + 24, y + 24, 340, 254, c.get('vlak', 'tegel2'), None)
-            foto(s, c['foto'], x + 36, y + 36, 316, 230)
-            tx = x + 400
-            txt(s, tx, y + 30, 420, 54, c['naam'], gr=25, kl='ink', vet=True)
-            txt(s, tx + 2, y + 88, 420, 34, c['sub'], gr=12, kl='licht', vet=True,
+            # Het beeldvlak is smaller dan bij de grote kaart: de tekst ernaast
+            # heeft de breedte nodig, anders slaat een regel om en duwt hij het
+            # label onderaan de kaart uit.
+            tegel(s, x + 24, y + 24, 272, 254, c.get('vlak', 'tegel2'), None)
+            if c.get('icoon'):
+                pictogram(s, c['icoon'], x + 32, y + 32, 256, 238)
+            else:
+                foto(s, c['foto'], x + 34, y + 36, 252, 230)
+            tx = x + 326
+            txt(s, tx, y + 26, tw, 54, c['naam'], gr=25, kl='ink', vet=True)
+            txt(s, tx + 2, y + 84, tw, 34, c['sub'], gr=12, kl='licht', vet=True,
                 font=FONT_M, caps=True, sp=1.5)
-            txt(s, tx, y + 120, 420, 56, c['groot'] + '  ' + c['onder'], gr=22,
+            txt(s, tx, y + 116, tw, 56, c['groot'] + '  ' + c['onder'], gr=22,
                 kl='licht', vet=True, ra=1.0)
-            txt(s, tx, y + 174, w - 440, 90,
-                [(r, {'voor': 6}) for r in c['regels']], gr=14, kl='gedempt', ra=1.28)
-            txt(s, tx, y + 264, 420, 36, c['wie'], gr=12.5, kl='oranje', vet=True,
+            txt(s, tx, y + 170, tw, 88,
+                [(r, {'voor': 6}) for r in c['regels']], gr=grr, kl='gedempt',
+                ra=1.28)
+            txt(s, tx, y + 262, tw, 36, c['wie'], gr=12.5, kl='oranje', vet=True,
                 font=FONT_M, caps=True, sp=1.3)
         paginering(s, i)
 
     elif t == 'vierluik':
         # rijen in plaats van kolommen: leest sneller en breekt het kaartenritme
         kicker(s, d['kicker']); kop(s, d['kop'], naam='sectietitel')
+        # De rijlabels staan op één regel; een tweede regel zou dwars door de
+        # scheidingslijn eronder lopen. Eén korps voor alle vier, bepaald door
+        # het langste label, anders dansen de rijen.
+        langste = max((rol for rol, _ in d['kolommen']), key=len)
+        grr = 27.0
+        while grr > 15 and hoogte(langste, 350, grr) > grr * 2.8:
+            grr -= 0.5
         for j, (rol, punten) in enumerate(d['kolommen']):
             y = 304 + j * 164
             liniaal(s, 100, y, 1720)
-            txt(s, 100, y + 34, 420, 60, rol, gr=27, kl='ink', vet=True)
+            txt(s, 100, y + 34, 420, 60, rol, gr=grr, kl='ink', vet=True)
             for k, p in enumerate(punten):
                 px_ = 560 + k * 428
                 punt(s, px_, y + 48, 11, 'licht')
@@ -1181,8 +1336,8 @@ for i, d in enumerate(SLIDES, 1):
         tegel(s, 100, 646, 1080, 244, 'tegel', 'rand')
         txt(s, 144, 690, 1000, 190, d['body'], gr=17.5, kl='gedempt', ra=1.45)
         tegel(s, 1240, 320, 580, 554, 'tegel2', 'oranje')
-        txt(s, 1288, 366, 490, 38, T('Uitzondering'), gr=12.5, kl='oranje', vet=True,
-            font=FONT_M, caps=True, sp=1.6)
+        txt(s, 1288, 366, 490, 38, d.get('uitz_kop') or T('Uitzondering'),
+            gr=12.5, kl='oranje', vet=True, font=FONT_M, caps=True, sp=1.6)
         txt(s, 1288, 430, 490, 400, d['uitzondering'], gr=18, kl='ink', ra=1.45)
         paginering(s, i)
 
@@ -1253,16 +1408,18 @@ for i, d in enumerate(SLIDES, 1):
         kicker(s, d['kicker'])
         kop(s, d['kop'], naam='!!sectietitel')
         toon_qr = d.get('qr') and DECK['letter'] in d.get('qr_voor', '')
-        ph = 430 if toon_qr else 620
+        ph = 372 if toon_qr else 620
         tegel(s, 100, 300, 500, ph, 'tegel2', 'rand')
         foto(s, 'janou.png', 116, 316, 468, ph - 32, naam='portret')
         if toon_qr:
             # witte tegel, want een QR scant niet op een donkere ondergrond
-            tegel(s, 100, 758, 500, 162, 'wit', 'rand')
-            foto(s, d['qr'], 118, 776, 126, 126, naam='qr')
-            txt(s, 262, 784, 320, 40, d.get('qr_kop', 'Meer weten?'),
-                gr=17, kl='navy', vet=True)
-            txt(s, 262, 826, 320, 80, d.get('qr_regel', ''), gr=12.5,
+            tegel(s, 100, 700, 500, 220, 'wit', 'rand')
+            foto(s, d['qr'], 122, 722, 176, 176, naam='qr')
+            qk = d.get('qr_kop', 'Meer weten?')
+            # de kop mag omslaan zonder op de zin eronder te vallen
+            txt(s, 320, 736, 262, 80, qk,
+                gr=18 if len(qk) <= 14 else 15, kl='navy', vet=True, ra=1.15)
+            txt(s, 320, 818, 262, 80, d.get('qr_regel', ''), gr=13,
                 kl='navy', ra=1.3, font=FONT_M)
         x = 680
         for j, p in enumerate(d['personen']):

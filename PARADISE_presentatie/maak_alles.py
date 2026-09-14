@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 """Bouwt alle decks in één keer.
 
-Dezelfde inhoud, zes doelgroepen. Elke dia in inhoud.py draagt een label `voor`
-met de letters van de decks waarin hij hoort; maak_pptx.py filtert daarop.
+Dezelfde inhoud, elk zijn eigen publiek. Elke dia in inhoud.py draagt een label
+`voor` met de letters van de decks waarin hij hoort; maak_pptx.py filtert daarop.
+
+De lijst komt uit DECKS zelf en staat hier niet meer getypt: een nieuw deck
+werd anders wel aangemaakt maar nooit meegebouwd.
 """
 import os, subprocess, sys
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
@@ -14,8 +17,7 @@ HIER = os.path.dirname(os.path.abspath(__file__))
 
 print('%-11s %-46s %s' % ('DECK', 'BESTAND', 'DUUR'))
 print('-' * 84)
-for naam in ('opleiding', 'kort', 'board', 'congres', 'extern', 'outreach',
-             'planning'):
+for naam in DECKS:
     r = subprocess.run([sys.executable, os.path.join(HIER, 'maak_pptx.py'), naam],
                        capture_output=True, text=True, encoding='utf-8',
                        errors='replace')
@@ -29,5 +31,6 @@ for naam in ('opleiding', 'kort', 'board', 'congres', 'extern', 'outreach',
           % (naam, DECKS[naam]['bestand'], DECKS[naam]['duur'], aantal))
 
 print()
-print('Elk deck opent met dezelfde titeldia; alleen de ondertitel verschilt.')
+print('De decks openen op dezelfde titeldia met een eigen ondertitel; alleen')
+print('Kortrijk Kerngezond heeft een eigen opening, met de drukmat als beeld.')
 print('Aanpassen wie welke dia krijgt: het veld voor= bij de dia in inhoud.py.')

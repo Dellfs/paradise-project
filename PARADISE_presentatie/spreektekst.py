@@ -39,66 +39,79 @@ def stap_tekst(nr, totaal, laatste):
 ZEG = {
 
     # ------------------------------------------------------- Kortrijk Kerngezond
-    'Kom gerust langs\nmet uw vraag':
-        'Dank u wel. Als u één ding meeneemt: een wonde aan de voet is bij diabetes zelden toeval, en meestal te zien voor ze er is. Wij staan de hele dag op de stand — kom uw eigen drukkaart bekijken, of stel gewoon uw vraag. De QR-code brengt u naar de projectsite.',
+    'hero_titel':
+        'Goeiemiddag. Wat u rechts ziet, is een echte voet — gemeten terwijl '
+        'iemand wandelt. Rood is waar de voet het hardst duwt. Ik doe onderzoek '
+        'naar precies dat: hoe hard een voet duwt, en hoe je ervoor zorgt dat '
+        'hij dat minder doet.',
+
+    'stappen zet je\nelke dag':
+        'Tienduizend stappen. Dat zet u vandaag, zonder er één keer bij na te '
+        'denken. Zesentwintig botjes per voet, twee voeten, en geen reserve. '
+        'Voor de meeste mensen gaat dat vanzelf — tot het dat niet meer doet.',
 
     'Drie dingen tegelijk':
-        'Diabetes doet drie dingen met een voet, en ze versterken elkaar. De '
-        'druk op één plek loopt op, het gevoel verdwijnt, en daardoor wordt een '
-        'wonde pas laat opgemerkt. Veertig procent krijgt binnen een jaar een '
-        'nieuwe. Het goede nieuws is dat elk van die drie meetbaar is.',
+        'Bij diabetes gaan er drie dingen tegelijk mis, en samen zijn ze '
+        'gevaarlijker dan apart. Op één plek duwt de voet te hard, als een '
+        'steentje dat er altijd zit. Het gevoel verdwijnt, dus je merkt het '
+        'niet. En daardoor wordt een wonde vaak pas laat gezien. Veertig '
+        'procent krijgt er binnen een jaar opnieuw een.',
 
-    'PARADISE meet\nwat tot nu toe\ngeschat werd':
-        'Wij meten voortaan wat tot nu toe geschat werd. Zes Belgische '
-        'voetklinieken doen dit samen, en AZ Groeninge hier in Kortrijk is er '
-        'een van. Per deelnemer loopt het achttien maanden. Ik zeg er meteen '
-        'bij: de studie start nog, er zijn nog geen resultaten.',
+    'Wij meten wat\neerst alleen\ngeschat werd':
+        'Wij meten voortaan wat vroeger geschat werd. Zes ziekenhuizen doen dit '
+        'samen, en AZ Groeninge hier in Kortrijk is er één van. Ik zeg er '
+        'meteen bij: het onderzoek start nog, er zijn nog geen resultaten. Wat '
+        'u vandaag ziet, is hoe we meten.',
 
-    'Een zool die meet terwijl u stapt':
-        'Dit is een gewone inlegzool met negenennegentig druksensoren erin. Ze '
-        'gaat in uw eigen schoen, en een zendertje aan het onderbeen stuurt de '
-        'metingen draadloos naar de laptop. Honderd metingen per seconde, '
-        'terwijl u wandelt. Na één minuut weten we waar de druk te hoog '
-        'oploopt.',
+    'Een zool die voelt':
+        'Dit is een zool met negenennegentig kleine voelertjes erin. Ze gaat '
+        'gewoon in je eigen schoen, en een kastje aan je been stuurt alles door '
+        'naar de laptop. Honderd metingen per seconde, terwijl je wandelt. Na '
+        'één minuutje weten we waar het knelt.',
 
-    'Van meting naar maatwerk':
-        'Die metingen worden een kaart van uw voet, en rood is waar het '
-        'misgaat. De norm is tweehonderd kilopascal, of een kwart lager dan '
-        'zonder de zool. Haalt de zool dat niet, dan wordt hij bijgewerkt en '
-        'opnieuw gemeten. Geen schatting dus, maar een cijfer waar u op kunt '
-        'terugkomen.',
+    'Rood is waar het duwt':
+        'Kijk even. Elk vierkantje is één voelertje, en hoe roder het is, hoe '
+        'harder de voet daar duwt. Hier staat driehonderdtwaalf op de bal van '
+        'de voet — alles boven tweehonderd is te veel. Precies daar ontstaat '
+        'een wonde.',
 
-    'Een goede zool helpt alleen als hij aan staat':
-        'De beste zool ter wereld doet niets in de kast. Net binnenshuis worden '
-        'de meeste stappen gezet, en daar gaat de schoen het vaakst uit. Een '
-        'sensor van negen bij dertien millimeter meet elk kwartier of de schoen '
-        'gedragen wordt. Geen GPS, geen microfoon, geen camera — alleen '
-        'temperatuur.',
+    'De rode plek koelt af':
+        'Zelfde voet, zelfde stap, andere zool. Ziet u de rode plek afkoelen? '
+        'Honderdzesentachtig nu, en dat is onder de grens. De druk zit niet '
+        'meer op één plekje maar verdeeld over de hele voet. Dat is precies wat '
+        'een zool op maat moet doen.',
 
-    'Hoe dat er in de praktijk uitziet':
-        'Zo ziet dat eruit bij iemand zoals u of ik. Let op: dit is een '
-        'verzonnen voorbeeld, geen echte patiënt. De druk bleek te hoog onder '
-        'de bal van de voet, de zool werd bijgewerkt tot ze onder de norm zat, '
-        'en daarna toonde de sensor dat hij thuis nog weinig gedragen werd. '
-        'Daar ging het gesprek dan over.',
+    'Een goede zool in de kast helpt niemand':
+        'De beste zool ter wereld doet niets in de kast. En net binnenshuis '
+        'zetten mensen de meeste stappen, terwijl ze daar hun schoenen het '
+        'minst dragen. Daarom zit er een sensortje in, zo groot als een halve '
+        'suikerklont, dat elk kwartier voelt of de schoen warm is. Geen camera, '
+        'geen microfoon, geen GPS.',
 
     'Zorg die meedenkt':
-        'Dit is de richting waar het naartoe gaat, en ik zeg er eerlijk bij: '
-        'nog niet waar we vandaag staan. Sensoren worden kleiner, analyse '
-        'slimmer, en metingen gaan van af en toe naar continu. Het doel is het '
+        'Dit is waar het naartoe gaat, en ik zeg er eerlijk bij: nog niet waar '
+        'we vandaag staan. Sensoren worden kleiner, computers slimmer, en '
+        'metingen gaan van één keer per half jaar naar continu. Het doel is het '
         'risico zien vóór de wonde er is.',
 
-    'Onderzoek en kliniek, aan dezelfde tafel':
-        'Dit werkt alleen omdat onderzoek en kliniek aan dezelfde tafel zitten. '
-        'KU Leuven Campus Brugge ontwerpt en analyseert, AZ Groeninge doet de '
-        'zorg en de metingen. Zes voetklinieken in totaal. Wat in de studie '
-        'werkt, kan daarna overal.',
+    'Onderzoek en ziekenhuis':
+        'Dit werkt alleen omdat onderzoek en ziekenhuis samenwerken. KU Leuven '
+        'Campus Brugge bedenkt het onderzoek en rekent uit, AZ Groeninge doet '
+        'de zorg en de metingen. Zes ziekenhuizen in totaal. Wat hier werkt, '
+        'kan daarna overal.',
 
     'Kom het zelf proberen':
-        'U kunt dit vandaag zelf voelen. Op de stand ligt een echte sensorzool '
-        'van nog geen twee millimeter dik, en wie wil, wandelt tien meter met '
-        'de zolen in de eigen schoenen en ziet meteen zijn eigen drukkaart. '
-        'Kom langs, ook met de vraag of dit iets voor u is.',
+        'U kunt dit vandaag zelf voelen. Op de stand ligt een echte zool van '
+        'nog geen twee millimeter dik, en wie wil, wandelt tien meter en ziet '
+        'meteen zijn eigen kleurenkaart. Kom gerust langs — ook met de gekke '
+        'vragen.',
+
+    'Bedankt — kom langs':
+        'Dank u wel. Als u één ding meeneemt: een wonde aan de voet komt bij '
+        'diabetes zelden uit het niets, en je kunt ze meestal zien aankomen. '
+        'Wij staan de hele dag op de stand. Scan de code voor meer over het '
+        'project.',
+
 
     # ------------------------------------------------------------ opening
     'titel_foto':
