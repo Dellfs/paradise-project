@@ -266,6 +266,32 @@ Die drie worden vastgelegd en de norm wordt **per doelregio** getoetst.
 > Het palet wordt één keer ingesteld en met **Save custom set** bewaard; elk centrum laadt
 > hetzelfde bestand, anders zijn de beelden onderling niet vergelijkbaar.
 
+### Set Range knipt geen data weg (vastgesteld door de PI, 14 september 2026)
+**Set Range past alleen de grafiek aan** — begin, eind, en je kunt het venster
+verschuiven. Er wordt **niets herberekend**: de getallen onderaan blijven over de hele
+opname gerekend. Novel studio kent geen manier om frames weg te laten.
+
+Gevolg voor een deelnemer die halverwege blijft staan: aan de stoel is er niets aan te
+doen. Voor de norm hoeft dat ook niet — die gaat op **MPP**, en lage of ontbrekende
+frames verhogen een maximum niet. Wil het studieteam de **gemiddelden** gebruiken, dan
+knipt **file master** in de novel database die frames er achteraf uit. De clinicus noteert
+alleen dat het gebeurd is en meet door.
+
+### De route van de meetgegevens (beslist 14 september 2026)
+De clinicus plakt de schermafbeelding van het MPP-beeld in de **Pressure Monitoring
+Tool** (`(e)CRF\Pressure monitoring tool_patient.xlsx`), bewaart het bestand, en mailt
+het naar **janou.debusyer@kuleuven.be**. Het bestand blijft daarna **op de laptop staan**:
+lukt het mailen niet, dan is het er nog en wordt het bij een volgend studiebezoek
+opgehaald. Niets wordt lokaal verwijderd.
+
+> **Twee dingen aan die tool kloppen nog niet.** Ze rekent in de kolommen tegen een
+> **blootsvoetse** baseline ("Barefoot", "% Change vs Barefoot"), terwijl de PI op
+> 11 september besliste dat alles in-shoe gebeurt en de 25% tussen *zonder* en *mét* zool
+> in dezelfde sessie gaat. En ze kent **zes regio's per voet** — hallux, MT1, MT2-3,
+> MT4-5, middenvoet, hiel — terwijl het protocol er **acht** vraagt: de middenvoet
+> gesplitst in mediaal en lateraal, plus tenen 2-5. Er is ook alleen een blad **Outdoor**,
+> terwijl eCRF 24 een deel A1 én A2 heeft.
+
 ### Bij aflevering en op maand 6, 12 en 18 (eCRF 24)
 **Twee condities, telkens allebei gemeten:**
 
@@ -288,9 +314,12 @@ meetmoment. Nog vast te leggen: wat er gebeurt als er maar één paar is.
 **De drie doelregio's worden op eCRF 24 zelf aangeduid**, boven de meettabellen, per
 schoeiseltype — niet op eCRF 10, dat alleen het CMFO-voorschrift bevat. Basis: de regio
 met de voorgeschiedenis van voetzweer (eCRF 06) plus de één of twee regio's met de
-hoogste piekdruk zonder de zool. Het formulier is opgesteld voor **visite 2** en zegt
-telkens "definieer", zonder te vermelden of de regio's op maand 6, 12 en 18 worden
-overgenomen — voor het volgen van het effect over de tijd zou dat wel moeten.
+hoogste piekdruk zonder de zool.
+
+> **Beslist op 14 september 2026.** Op maand 6, 12 en 18 worden de regio's **niet
+> opnieuw gekozen**: de clinicus neemt dezelfde drie over **van het vorige formulier**.
+> Alleen zo is te zien of de ontlasting op die plekken standhoudt. Het formulier zegt
+> telkens "definieer" — dat is de instructie voor visite 2, niet voor de opvolging.
 
 > **Twee redactionele fouten in eCRF 24 zelf** (vastgesteld 13 september 2026): de
 > koptekst van deel A2 zegt "Appendix **23**" terwijl deel A1 "Appendix 24" zegt; en
@@ -321,6 +350,10 @@ aangesloten is.
 > **maat YW (44/45)**, de grootste die er is. De zool in de schoen vangt het
 > maatverschil in de praktijk op. Er worden dus géén ZW-zolen bijbesteld, en
 > schoenmaat is geen uitsluitingsgrond.
+
+**Batterij: minstens 30%** om aan een meting te beginnen (beslist 14 september 2026).
+Daaronder eerst opladen — het percentage staat per toestel in *Manage Devices* en in de
+balk onderaan het scherm.
 
 **Technische gegevens** (pedar® Insole Catalogue, novel gmbh 2020): 99 sensoren per
 volwassen zool · sensordikte 1,9 mm · drukbereik 15-600 kPa · resolutie 2,5 kPa ·
