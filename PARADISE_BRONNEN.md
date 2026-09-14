@@ -279,7 +279,9 @@ alleen dat het gebeurd is en meet door.
 
 ### De route van de meetgegevens (beslist 14 september 2026)
 De clinicus plakt de schermafbeelding van het MPP-beeld in de **Pressure Monitoring
-Tool** (`(e)CRF\Pressure monitoring tool_patient.xlsx`), bewaart het bestand, en mailt
+Tool** (`(e)CRF\Pressure monitoring tool_patient.xlsx` — blad **Visit**, op 14 september
+hernoemd van het misleidende *Outdoor*; `TEMPLATE (blank)` blijft het blanco origineel om
+te kopiëren), bewaart het bestand, en mailt
 het naar **janou.debuyser@kuleuven.be**. Het bestand blijft daarna **op de laptop staan**:
 lukt het mailen niet, dan is het er nog en wordt het bij een volgend studiebezoek
 opgehaald. Niets wordt lokaal verwijderd.
@@ -315,11 +317,15 @@ geen eenmalige baseline maar de referentie van dat moment.
 Twee extra ontlastingstests zijn op het formulier voorzien voor als de norm niet gehaald
 wordt.
 
-**Twee schoeiseltypes, twee volledige reeksen.** eCRF 24 bestaat uit **deel A1
-(buitenschoeisel)** en **deel A2 (binnenschoeisel)**, elk met een eigen doelregio-tabel,
-een eigen tabel zónder CMFO en een eigen tabel mét CMFO plus de twee extra
-ontlastingstests. Heeft de deelnemer allebei, dan zijn dat **vier opnames** per
-meetmoment. Nog vast te leggen: wat er gebeurt als er maar één paar is.
+> **Alleen het binnenschoeisel — beslist door de PI op 14 september 2026.** eCRF 24
+> bestond uit **deel A1 (buitenschoeisel)** en **deel A2 (binnenschoeisel)**, elk met een
+> eigen doelregio-tabel en een eigen meetreeks. Er wordt enkel in het **binnenschoeisel**
+> gemeten, dus **deel A1 is uit het formulier verwijderd**; wat overblijft heet nu
+> *A. BINNENSCHOEISEL*, met *Tabel 3* in plaats van *Tabel 3A*. Twee opnames per
+> meetmoment, niet vier.
+>
+> Daarmee verdwijnt ook de dubbele titelregel die op de tweede pagina "Appendix 23" zei,
+> en de blootsvoetse conditie die nog in beide delen stond.
 
 **De drie doelregio's worden op eCRF 24 zelf aangeduid**, boven de meettabellen, per
 schoeiseltype — niet op eCRF 10, dat alleen het CMFO-voorschrift bevat. Basis: de regio
@@ -331,10 +337,8 @@ hoogste piekdruk zonder de zool.
 > Alleen zo is te zien of de ontlasting op die plekken standhoudt. Het formulier zegt
 > telkens "definieer" — dat is de instructie voor visite 2, niet voor de opvolging.
 
-> **Twee redactionele fouten in eCRF 24 zelf** (vastgesteld 13 september 2026): de
-> koptekst van deel A2 zegt "Appendix **23**" terwijl deel A1 "Appendix 24" zegt; en
-> beide delen sommen nog de **blootsvoetse conditie** op, die met de beslissing van
-> 11 september vervalt.
+Beide fouten die op 13 september in eCRF 24 stonden — de koptekst "Appendix 23" op de
+tweede pagina en de blootsvoetse conditie — zijn hiermee **weg**.
 
 ### De norm
 Piekdruk **onder 200 kPa** mét de zool, **óf** minstens **25% lager** dan dezelfde regio
