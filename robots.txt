@@ -10,4 +10,11 @@ Disallow: /PARADISE_Draagpatroon_uploader.html
 Disallow: /McRoberts_Beweegpatroon_uploader.html
 Disallow: /PARADISE_Feedback_Draagpatroon_20feb-3apr2026.html
 
+# De eCRF-set en de werkinstructies: studiedocumenten, niet indexeren.
+# Beide schrijfwijzen, want de haakjes in de mapnaam worden soms gecodeerd.
+Disallow: /(e)CRF/
+Disallow: /%28e%29CRF/
+Disallow: /Novel%20Pedar/
+Disallow: /Novel Pedar/
+
 Sitemap: https://belgianfootpressure.be/sitemap.xml

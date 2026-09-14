@@ -49,13 +49,15 @@
 > tegenstrijdigheden. Wijkt iets hieronder daarvan af, dan wint `PARADISE_BRONNEN.md`.
 
 Bron: FWO-TBM T000226N (+ doctoraatsplan). Bij twijfel: vragen, niet gokken.
-- **Offloadingdoel:** piekdruk **< 200 kPa ÓF ≥ 25% reductie** t.o.v. baseline (NIET 20%; "óf", niet "én").
-- **Twee co-primaire eindpunten:** (1) voetulcus-recidief over 18 maanden; (2) schoeisel-adherentie
-  = **≥ 80%** van het gemiddelde activiteitenprofiel, **7 dagen/week**, elke 3 maanden uitgelezen.
-  **Beide worden op 18 maanden geëvalueerd.** Let op: protocolparagraaf 3.2.2.2 zegt nog
-  "primary analysis timepoint at 12 months"; dat is een restant. De synopsis, de
-  steekproefberekening (71% vs 85% op 18 maanden) en de statistische analyse zeggen alle drie
-  18 maanden. Het protocol moet daar rechtgezet worden.
+- **Offloadingdoel:** piekdruk **< 200 kPa ÓF ≥ 25% lager** (NIET 20%; "óf", niet "én").
+  Die 25% wordt gerekend **tussen de meting zónder en die mét de CMFO, in dezelfde sessie** —
+  níét tegen een baseline van maanden eerder (beslissing PI 11 september 2026). Alle metingen
+  zijn **in-shoe**; er wordt niet blootsvoets gemeten.
+- **Eén primair eindpunt:** **voetulcusrecidief over 18 maanden** (beslissing PI 3 september 2026).
+  Schoeiseltherapietrouw — **≥ 80%** van de waaktijd, **7 dagen/week**, elke 3 maanden uitgelezen —
+  is sindsdien de **vooraf vastgelegde mediator**, geen eindpunt: ze wordt volledig gemeten en
+  gerapporteerd maar draagt geen eigen succescriterium. Analysepunt **12 maanden**, met het
+  volledige 18-maandenprofiel als secundaire samenvatting.
 - **Drukmeting herhaald op maand 6, 12 én 18** (protocol 5.4.2.2), niet alleen 6 en 12.
 - **CMFO-opbouw hangt af van het schoentype** (protocol 5.4.2, eCRF 23 deel A1):
   in een **volledig op maat gemaakte schoen** 5 mm microkurk (shore 55) + 5 mm EVA (shore 35-40);
@@ -78,6 +80,10 @@ Bron: FWO-TBM T000226N (+ doctoraatsplan). Bij twijfel: vragen, niet gokken.
   anders herkalibreren; controle minstens elke 3 maanden). **Afgenomen door de KLINIEKEN (DFC).**
   Status: later toegevoegd, **vervangt op termijn de F-Scan**, loopt nu **parallel ter vergelijking**.
   (Voorheen liep hier de Novel emed, een blootsvoets platformsysteem — dat is vervangen door de pedar.)
+  **Novel studio meet en toont maar rekent niet per regio**; de segmentatie in acht regio's gebeurt
+  centraal in de **novel database** (`creation of any and percent masks` + `multimask`/`groupmask`).
+  De volledige werkwijze staat in **eCRF 09b — Werkinstructie drukmeting (SOP Novel pedar)**;
+  raadpleeg die vóór je iets over de pedar-procedure schrijft.
 - **MoveMonitor (McRoberts):** draagtijd + stappen, **volledige week** op baseline én 6 maanden;
   levert de **80%-adherentiebenchmark**. Dragen op de onderrug, **niet waterdicht**.
 - **Orthotimer:** temperatuursensor in de **CMFO**, interval **15 min**, ~100 dagen batterij →
