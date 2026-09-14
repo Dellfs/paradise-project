@@ -286,15 +286,36 @@ het naar **janou.debuyser@kuleuven.be**. Het bestand blijft daarna **op de lapto
 lukt het mailen niet, dan is het er nog en wordt het bij een volgend studiebezoek
 opgehaald. Niets wordt lokaal verwijderd.
 
-> **Wat er aan die tool bijgewerkt moet worden** (nagekeken 14 september 2026). De kolom
-> heet **"Barefoot"** en **"% Change vs Barefoot"**, maar bedoeld is de meting **zónder
-> aangepaste zool** — een verkeerd label, geen verkeerde methode (bevestigd door de PI).
-> Wat wél fout is: de tool kent **zes regio's per voet** — hallux, MT1, MT2-3, MT4-5,
-> middenvoet, hiel — terwijl het er **acht** moeten zijn: de middenvoet gesplitst in
-> mediaal en lateraal, plus tenen 2-5. Dat raakt zowel het samenvattingsblok bovenaan als
-> de twee blokken *RAW DATA EXPORT* waar de maskerexport in geplakt wordt (rijen 43-48 en
-> 51-56 voor de baseline, 60-65 en 68-73 voor de zoolsessie), en dus ook het masker zelf:
-> dat moet zestien velden opleveren, niet twaalf.
+> **Bijgewerkt op 14 september 2026.** De opschriften "Barefoot" en "% Change vs
+> Barefoot" waren een verkeerd label, geen verkeerde methode: bedoeld is de meting
+> **zónder aangepaste zool**. Ze heten nu zo, ook in de vier grafiektitels, die als vaste
+> tekst in de grafieken zelf stonden en dus niet met een gewone zoek-en-vervang mee gingen.
+>
+> Er is een **blad `Meting`** bijgekomen, vooraan, met wat de clinicus aan de stoel
+> noteert. Het bestaande blad `Visit` is gebouwd rond een maskerexport die er nog niet is
+> en blijft ongemoeid voor de centrale analyse; `TEMPLATE (blank)` blijft het blanco
+> origineel.
+
+**Het blad `Meting`, blok voor blok:**
+
+| Blok | Wat erin komt |
+| --- | --- |
+| 1-2 | Deelnemer, visite, datum, centrum, zoolcodes, batterij, configuratiebestand |
+| 3 | Maximum force, Peak pressure, Average pressure en Loaded area per voet, voor conditie A en B |
+| 4 | De drie hoogste piekdrukken per voet met hun plaats; *% verschil* en *Norm gehaald?* rekenen zelf |
+| 5 | De drie doelregio's, met een kolom voor een stijging van ≥ 5% sinds de vorige keer |
+| 6 | De twee schermafbeeldingen, zonder en met zool |
+| 7 | De acht regio's per voet met de maskercodes **A-P** — blijft leeg tot het masker er is |
+
+De formule achter *Norm gehaald?* is
+`=IF(OR(met<200; verschil<=-25%);"JA";"NEE")`, dus beide takken van de norm. Nagerekend:
+300→224 kPa geeft −25,3% en **JA**, 300→226 geeft −24,7% en **NEE**.
+
+> **Wat nog moet:** het blad `Visit` kent **zes regio's per voet** terwijl het er acht
+> moeten zijn. Dat raakt het samenvattingsblok, de twee blokken *RAW DATA EXPORT* waar de
+> maskerexport in geplakt wordt (rijen 43-48 en 51-56 voor de baseline, 60-65 en 68-73
+> voor de zoolsessie) én de hulpkolommen V-Y waar de grafieken uit lezen. Pas te doen
+> zodra het masker de zestien velden A-P oplevert.
 
 **Twee regels die alleen in deze tool staan** en nergens anders in de projectdocumenten:
 
