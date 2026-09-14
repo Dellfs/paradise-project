@@ -30,6 +30,8 @@ K = {
     'mid':     '1D8DB0',
     'licht':   '52BDEC',
     'oranje':  'FF7A00',
+    'groen':   '2E9E6B',
+    'groen2':  '4FC08D',
     'wit':     'FFFFFF',
 }
 
@@ -103,6 +105,13 @@ DECKS = {
         duur='10 minuten',
         wie='Breed publiek, patiëntenverenigingen, pers. Geen jargon, geen '
             'formuliernummers.'),
+    'kerngezond': dict(
+        letter='g', bestand='PARADISE_kortrijk_kerngezond.pptx',
+        onder='Kortrijk Kerngezond 2026 · voetgezondheid en zorgtechnologie',
+        duur='10 minuten',
+        wie='Burgers, mensen met diabetes, zorgverleners en beleidsmakers op '
+            'Kortrijk Kerngezond. Geen jargon, geen cijfers die niet blijven '
+            'hangen.'),
     'kort': dict(
         letter='k', bestand='PARADISE_centra_kort.pptx',
         onder='Opfrissing voor de centra',
@@ -119,7 +128,7 @@ DECKS = {
 
 SLIDES = [
 
- dict(t='titel_foto', voor='obcuke', morph='fade', foto='plaatshouder.png',
+ dict(t='titel_foto', voor='obcukeg', morph='fade', foto='plaatshouder.png',
       boven='PARADISE', onder='Opleidingssessie \u00b7 zes voetklinieken',
       voet='Protocolversie 1.0 \u00b7 17 mei 2026 \u00b7 S71769',
       tip='Het beeld draagt deze dia, dus de foto moet raak zijn. Zet hem in '
@@ -243,7 +252,7 @@ SLIDES = [
  dict(t='sectie', voor='obcue', morph='morph', nr='01', titel='Waarom zo',
       regel='Vier cijfers verklaren waarom er twee normen zijn.'),
 
- dict(t='hero_cijfer', voor='obcuke', morph='morph',
+ dict(t='hero_cijfer', voor='obcukeg', morph='morph',
       cijfer='40', suffix='%',
       kop='krijgt binnen een jaar\neen nieuw ulcus',
       tegels=[('65%', 'na vijf jaar'), ('2,5×', 'hogere sterfte'),
@@ -1213,6 +1222,229 @@ SLIDES = [
       tip='Sluit hiermee af en zeg niets meer.',
       interactie='Geen.'),
 
+    # ================================================================
+    # Kortrijk Kerngezond 2026 — tien minuten voor een breed publiek
+    # ================================================================
+
+    dict(t='drieluik', voor='g', morph='morph',
+         kicker='Wat diabetes met een voet doet',
+         kop='Drie dingen tegelijk',
+         kaarten=[dict(naam='De druk stijgt', sub='Belasting', groot='200',
+                       onder='kPa is de grens', foto='plaatshouder.png',
+                       regels=['Een stijve voet verdeelt het gewicht slechter.',
+                               'Op één plek kan de druk oplopen tot ver boven '
+                               'wat de huid verdraagt.'],
+                       wie='Meetbaar'),
+                  dict(naam='Het gevoel verdwijnt', sub='Zenuwen', groot='0',
+                       onder='pijnsignaal', foto='plaatshouder.png',
+                       regels=['Zenuwschade neemt de waarschuwing weg.',
+                               'Een wonde doet geen pijn, dus je loopt erop '
+                               'door.'],
+                       wie='Onzichtbaar'),
+                  dict(naam='Het wordt laat ontdekt', sub='Tijd', groot='40',
+                       onder='% opnieuw binnen een jaar',
+                       foto='plaatshouder.png',
+                       regels=['Een genezen wonde komt vaak terug.',
+                               'Wie het vroeg ziet, kan het keren.'],
+                       wie='Te voorkomen')],
+         tip='Drie kaarten, drie zinnen. Niet meer. Het publiek moet het beeld '
+             'onthouden, niet de cijfers.',
+         interactie='Vraag wie ooit een blaar niet gevoeld heeft. Bijna iedereen '
+                    'herkent dat.'),
+
+    dict(t='statement', voor='g', morph='morph',
+         kicker='Het onderzoek',
+         kop='PARADISE meet\nwat tot nu toe\ngeschat werd',
+         body='Zes Belgische voetklinieken onderzoeken samen of een zool die '
+              'meetbaar ontlast, én die ook echt gedragen wordt, nieuwe wonden '
+              'voorkomt. AZ Groeninge in Kortrijk is een van die zes. De studie '
+              'loopt achttien maanden per deelnemer.',
+         uitzondering='De studie start binnenkort. Er zijn nog geen resultaten — '
+                      'wat u vandaag ziet, is de techniek en de aanpak.',
+         tip='Zeg uitdrukkelijk dat er nog geen resultaten zijn. Dat wekt meer '
+             'vertrouwen dan een belofte.',
+         interactie='Geen.'),
+
+    dict(t='duo', voor='g', morph='morph',
+         kicker='De techniek',
+         kop='Een zool die meet terwijl u stapt',
+         een=dict(nr='01', naam='Wat het is',
+                  kern='99 sensoren per voet',
+                  regels=['Een flinterdunne inlegzool met druksensoren.',
+                          'Ze gaat gewoon in uw eigen schoen.',
+                          'Een zendertje aan het onderbeen stuurt de gegevens '
+                          'draadloos door.']),
+         twee=dict(nr='02', naam='Hoe het werkt',
+                   kern='100 metingen per seconde',
+                   regels=['U wandelt tien meter, heen en weer.',
+                           'Elke stap wordt opgemeten.',
+                           'Na een minuut weet de zorgverlener waar de druk '
+                           'te hoog oploopt.']),
+         tip='Houd een echte zool omhoog terwijl u dit zegt. Dat doet meer dan '
+             'de dia.',
+         interactie='Laat de zool rondgaan in de zaal.'),
+
+    dict(t='vierluik', voor='g', morph='morph',
+         kicker='Waarom het ertoe doet',
+         kop='Van meting naar maatwerk',
+         kolommen=[('De kaart', ['Elke sensor geeft een cijfer',
+                                 'Samen een drukkaart van de voet',
+                                 'Rood is waar het misgaat']),
+                   ('De norm', ['Onder 200 kPa met de zool',
+                                'Of een kwart lager dan zonder',
+                                'Gemeten in dezelfde sessie']),
+                   ('De aanpassing', ['De zool wordt bijgewerkt',
+                                      'Opnieuw meten, tot het klopt',
+                                      'Geen schatting, een cijfer']),
+                   ('De opvolging', ['Opnieuw op maand 6, 12 en 18',
+                                     'Een zool slijt',
+                                     'Wat ontlastte, moet blijven ontlasten'])],
+         tip='Dit is de kern van de dia ervoor, in vier stappen. Wijs ze aan '
+             'terwijl u ze noemt.',
+         interactie='Geen.'),
+
+    dict(t='duo', voor='g', morph='morph',
+         kicker='De tweede helft van het verhaal',
+         kop='Een goede zool helpt alleen als hij aan staat',
+         een=dict(nr='01', naam='Het probleem',
+                  kern='Thuis gaat de schoen uit',
+                  regels=['Net binnenshuis worden de meeste stappen gezet.',
+                          'Precies daar wordt het schoeisel het minst '
+                          'gedragen.',
+                          'Vragen hoe vaak iemand hem draagt, levert geen '
+                          'betrouwbaar antwoord.']),
+         twee=dict(nr='02', naam='De oplossing',
+                   kern='Een sensor in de zool',
+                   regels=['Een temperatuursensor van 9 bij 13 millimeter.',
+                           'Hij meet elk kwartier of de schoen gedragen wordt.',
+                           'Geen GPS, geen microfoon, geen camera.']),
+         tip='Noem meteen wat de sensor níét doet. Dat is de eerste vraag die '
+             'iemand stelt.',
+         interactie='Vraag of iemand zich zou storen aan zo een sensor. Het '
+                    'antwoord verrast meestal.'),
+
+    dict(t='steun', voor='g', morph='morph',
+         kicker='Een voorbeeld',
+         kop='Hoe dat er in de praktijk uitziet',
+         rijen=[('De situatie',
+                 'Een man van 62, diabetes, vorig jaar een wonde onder de bal '
+                 'van de voet die genezen is'),
+                ('De meting',
+                 'In de schoen zonder zool loopt de druk daar op tot boven de '
+                 'norm'),
+                ('De aanpassing',
+                 'De pedorthist werkt de zool bij en er wordt opnieuw gemeten, '
+                 'tot de druk onder de grens zit'),
+                ('De opvolging',
+                 'De sensor toont dat hij de schoen binnenshuis nog weinig '
+                 'draagt — daar gaat het gesprek dan over')],
+         cijfer='0', cijfer_label='wonden',
+         cijfer_regel='Dit is een verzonnen voorbeeld, geen echte patiënt. Het '
+                      'toont de werkwijze, niet een resultaat.',
+         tip='Zeg met zoveel woorden dat dit fictief is. Een publiek onthoudt '
+             'een casus als waarheid als u dat niet doet.',
+         interactie='Geen.'),
+
+    dict(t='vierluik', voor='g', morph='morph',
+         kicker='Waar het naartoe gaat',
+         kop='Zorg die meedenkt',
+         kolommen=[('Draagbare sensoren', ['Kleiner en goedkoper',
+                                           'Meten zonder op te vallen',
+                                           'Meer dan alleen in het ziekenhuis']),
+                   ('Slimme analyse', ['Patronen in duizenden stappen',
+                                       'Herkent wat een mens niet ziet',
+                                       'Ondersteunt de zorgverlener, vervangt '
+                                       'hem niet']),
+                   ('Continu in plaats van af en toe', [
+                       'Nu: een meting per half jaar',
+                       'Straks: een beeld dat meeloopt',
+                       'Sneller bijsturen']),
+                   ('Voorspellen in plaats van herstellen', [
+                       'Risico zien voor de wonde er is',
+                       'Ingrijpen terwijl het nog klein is',
+                       'Dat is het hele punt'])],
+         tip='Blijf voorzichtig: dit is de richting, niet wat vandaag al kan.',
+         interactie='Geen.'),
+
+    dict(t='drieluik', voor='g', morph='morph',
+         kicker='Wie dit samen doet',
+         kop='Onderzoek en kliniek, aan dezelfde tafel',
+         kaarten=[dict(naam='KU Leuven', sub='Campus Brugge', groot='1',
+                       onder='onderzoeksgroep', foto='kuleuven.png',
+                       regels=['Revalidatiewetenschappen.',
+                               'Ontwerpt de studie, meet en analyseert.'],
+                       wie='Het onderzoek'),
+                  dict(naam='AZ Groeninge', sub='Kortrijk', groot='1',
+                       onder='van de zes centra', foto='plaatshouder.png',
+                       regels=['Een erkende voetkliniek met een '
+                               'multidisciplinair team.',
+                               'Hier gebeurt de zorg, en hier wordt gemeten.'],
+                       wie='De praktijk'),
+                  dict(naam='PARADISE', sub='De studie', groot='6',
+                       onder='voetklinieken', vlak='glas',
+                       foto='merk.png',
+                       regels=['Gefinancierd door het FWO.',
+                               'Wat werkt in de studie, kan daarna overal.'],
+                       wie='De brug')],
+         tip='Noem de mensen bij naam als er iemand van AZ Groeninge in de zaal '
+             'zit. Dat maakt het concreet.',
+         interactie='Geen.'),
+
+    dict(t='drieluik', voor='g', morph='morph',
+         kicker='Vandaag op de stand',
+         kop='Kom het zelf proberen',
+         kaarten=[dict(naam='Voel de zool', sub='Aanraken', groot='1,9',
+                       onder='millimeter dik', foto='pedar.png',
+                       regels=['Een echte sensorzool in de hand.',
+                               'Dunner dan u verwacht.'],
+                       wie='Bij de stand'),
+                  dict(naam='Meet uw stap', sub='Wandelen', groot='10',
+                       onder='meter', foto='plaatshouder.png',
+                       regels=['Wandel met de zolen in uw eigen schoenen.',
+                               'Zie meteen uw eigen drukkaart.'],
+                       wie='Doe mee'),
+                  dict(naam='Stel uw vraag', sub='Gesprek', groot='∞',
+                       onder='vragen welkom', vlak='glas',
+                       foto='plaatshouder.png',
+                       regels=['Over uw voeten, over de studie, over de '
+                               'techniek.',
+                               'Ook de vraag of dit iets voor u is.'],
+                       wie='Wij staan er')],
+         tip='Dit is de dia die mensen naar de stand brengt. Wijs aan waar u '
+             'staat.',
+         interactie='Vraag wie straks wil meten. Steek zelf uw hand op.'),
+
+    dict(t='contact', voor='g', morph='morph',
+      qr='qr_project.png', qr_voor='g',
+      qr_kop='Meer over het project',
+      qr_regel='Scan voor de projectsite met uitleg over de meting, de studie '
+               'en de zes voetklinieken.',
+      kicker='Bedankt voor uw aandacht',
+      kop='Kom gerust langs\nmet uw vraag',
+      personen=[
+          dict(naam='Janou De Buyser',
+               rol='Doctoraatsonderzoeker · dagelijkse opvolging',
+               waarvoor='Uw eerste aanspreekpunt: inclusies, metingen, formulieren, '
+                        'sensoren en alles wat in de praktijk vastloopt.',
+               bereik=['janou.debuyser@kuleuven.be',
+                       'Spoorwegstraat 12 · Brugge']),
+          dict(naam='prof. dr. Kevin Deschamps',
+               rol='Promotor',
+               waarvoor='Wetenschappelijke vragen, de opzet van de studie en '
+                        'afspraken op het niveau van uw centrum.',
+               bereik=['Revalidatiewetenschappen',
+                       'KU Leuven · Campus Brugge']),
+      ],
+      consortium='PARADISE is een samenwerking van KU Leuven — '
+                 'Revalidatiewetenschappen, Campus Brugge — met zes Belgische '
+                 'voetklinieken, waaronder AZ Groeninge in Kortrijk. '
+                 'Gefinancierd door het FWO.',
+      voet='PARADISE · FWO TBM T000226N · belgianfootpressure.be',
+      tip='Laat deze dia staan terwijl mensen naar de stand komen. Wijs de '
+          'QR-code aan en zeg waar die naartoe gaat.',
+      interactie='Nodig mensen uit om te komen meten. Noem het uur waarop u er '
+                 'staat.'),
+
  dict(t='contact', voor='pobcuke', morph='morph',
       kicker='Wie u aanspreekt',
       kop='Voor als er iets misloopt',
@@ -1239,4 +1471,6 @@ SLIDES = [
           'ook mogen — een sensor die niet uitleest is geen domme vraag.',
       interactie='Loop rond terwijl de dia staat. Wie een vraag heeft, komt naar '
                  'het gezicht dat op het scherm staat.'),
+
+
 ]

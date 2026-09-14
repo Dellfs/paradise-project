@@ -38,6 +38,68 @@ def stap_tekst(nr, totaal, laatste):
 
 ZEG = {
 
+    # ------------------------------------------------------- Kortrijk Kerngezond
+    'Kom gerust langs\nmet uw vraag':
+        'Dank u wel. Als u één ding meeneemt: een wonde aan de voet is bij diabetes zelden toeval, en meestal te zien voor ze er is. Wij staan de hele dag op de stand — kom uw eigen drukkaart bekijken, of stel gewoon uw vraag. De QR-code brengt u naar de projectsite.',
+
+    'Drie dingen tegelijk':
+        'Diabetes doet drie dingen met een voet, en ze versterken elkaar. De '
+        'druk op één plek loopt op, het gevoel verdwijnt, en daardoor wordt een '
+        'wonde pas laat opgemerkt. Veertig procent krijgt binnen een jaar een '
+        'nieuwe. Het goede nieuws is dat elk van die drie meetbaar is.',
+
+    'PARADISE meet\nwat tot nu toe\ngeschat werd':
+        'Wij meten voortaan wat tot nu toe geschat werd. Zes Belgische '
+        'voetklinieken doen dit samen, en AZ Groeninge hier in Kortrijk is er '
+        'een van. Per deelnemer loopt het achttien maanden. Ik zeg er meteen '
+        'bij: de studie start nog, er zijn nog geen resultaten.',
+
+    'Een zool die meet terwijl u stapt':
+        'Dit is een gewone inlegzool met negenennegentig druksensoren erin. Ze '
+        'gaat in uw eigen schoen, en een zendertje aan het onderbeen stuurt de '
+        'metingen draadloos naar de laptop. Honderd metingen per seconde, '
+        'terwijl u wandelt. Na één minuut weten we waar de druk te hoog '
+        'oploopt.',
+
+    'Van meting naar maatwerk':
+        'Die metingen worden een kaart van uw voet, en rood is waar het '
+        'misgaat. De norm is tweehonderd kilopascal, of een kwart lager dan '
+        'zonder de zool. Haalt de zool dat niet, dan wordt hij bijgewerkt en '
+        'opnieuw gemeten. Geen schatting dus, maar een cijfer waar u op kunt '
+        'terugkomen.',
+
+    'Een goede zool helpt alleen als hij aan staat':
+        'De beste zool ter wereld doet niets in de kast. Net binnenshuis worden '
+        'de meeste stappen gezet, en daar gaat de schoen het vaakst uit. Een '
+        'sensor van negen bij dertien millimeter meet elk kwartier of de schoen '
+        'gedragen wordt. Geen GPS, geen microfoon, geen camera — alleen '
+        'temperatuur.',
+
+    'Hoe dat er in de praktijk uitziet':
+        'Zo ziet dat eruit bij iemand zoals u of ik. Let op: dit is een '
+        'verzonnen voorbeeld, geen echte patiënt. De druk bleek te hoog onder '
+        'de bal van de voet, de zool werd bijgewerkt tot ze onder de norm zat, '
+        'en daarna toonde de sensor dat hij thuis nog weinig gedragen werd. '
+        'Daar ging het gesprek dan over.',
+
+    'Zorg die meedenkt':
+        'Dit is de richting waar het naartoe gaat, en ik zeg er eerlijk bij: '
+        'nog niet waar we vandaag staan. Sensoren worden kleiner, analyse '
+        'slimmer, en metingen gaan van af en toe naar continu. Het doel is het '
+        'risico zien vóór de wonde er is.',
+
+    'Onderzoek en kliniek, aan dezelfde tafel':
+        'Dit werkt alleen omdat onderzoek en kliniek aan dezelfde tafel zitten. '
+        'KU Leuven Campus Brugge ontwerpt en analyseert, AZ Groeninge doet de '
+        'zorg en de metingen. Zes voetklinieken in totaal. Wat in de studie '
+        'werkt, kan daarna overal.',
+
+    'Kom het zelf proberen':
+        'U kunt dit vandaag zelf voelen. Op de stand ligt een echte sensorzool '
+        'van nog geen twee millimeter dik, en wie wil, wandelt tien meter met '
+        'de zolen in de eigen schoenen en ziet meteen zijn eigen drukkaart. '
+        'Kom langs, ook met de vraag of dit iets voor u is.',
+
     # ------------------------------------------------------------ opening
     'titel_foto':
         'PARADISE gaat niet over genezen maar over terugkomen. Zes Belgische '

@@ -1252,8 +1252,18 @@ for i, d in enumerate(SLIDES, 1):
         # mensen weten wie ze moeten aanspreken.
         kicker(s, d['kicker'])
         kop(s, d['kop'], naam='!!sectietitel')
-        tegel(s, 100, 300, 500, 620, 'tegel2', 'rand')
-        foto(s, 'janou.png', 116, 316, 468, 588, naam='portret')
+        toon_qr = d.get('qr') and DECK['letter'] in d.get('qr_voor', '')
+        ph = 430 if toon_qr else 620
+        tegel(s, 100, 300, 500, ph, 'tegel2', 'rand')
+        foto(s, 'janou.png', 116, 316, 468, ph - 32, naam='portret')
+        if toon_qr:
+            # witte tegel, want een QR scant niet op een donkere ondergrond
+            tegel(s, 100, 758, 500, 162, 'wit', 'rand')
+            foto(s, d['qr'], 118, 776, 126, 126, naam='qr')
+            txt(s, 262, 784, 320, 40, d.get('qr_kop', 'Meer weten?'),
+                gr=17, kl='navy', vet=True)
+            txt(s, 262, 826, 320, 80, d.get('qr_regel', ''), gr=12.5,
+                kl='navy', ra=1.3, font=FONT_M)
         x = 680
         for j, p in enumerate(d['personen']):
             y = 300 + j * 310
