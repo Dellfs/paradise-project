@@ -280,17 +280,27 @@ alleen dat het gebeurd is en meet door.
 ### De route van de meetgegevens (beslist 14 september 2026)
 De clinicus plakt de schermafbeelding van het MPP-beeld in de **Pressure Monitoring
 Tool** (`(e)CRF\Pressure monitoring tool_patient.xlsx`), bewaart het bestand, en mailt
-het naar **janou.debusyer@kuleuven.be**. Het bestand blijft daarna **op de laptop staan**:
+het naar **janou.debuyser@kuleuven.be**. Het bestand blijft daarna **op de laptop staan**:
 lukt het mailen niet, dan is het er nog en wordt het bij een volgend studiebezoek
 opgehaald. Niets wordt lokaal verwijderd.
 
-> **Twee dingen aan die tool kloppen nog niet.** Ze rekent in de kolommen tegen een
-> **blootsvoetse** baseline ("Barefoot", "% Change vs Barefoot"), terwijl de PI op
-> 11 september besliste dat alles in-shoe gebeurt en de 25% tussen *zonder* en *mét* zool
-> in dezelfde sessie gaat. En ze kent **zes regio's per voet** — hallux, MT1, MT2-3,
-> MT4-5, middenvoet, hiel — terwijl het protocol er **acht** vraagt: de middenvoet
-> gesplitst in mediaal en lateraal, plus tenen 2-5. Er is ook alleen een blad **Outdoor**,
-> terwijl eCRF 24 een deel A1 én A2 heeft.
+> **Wat er aan die tool bijgewerkt moet worden** (nagekeken 14 september 2026). De kolom
+> heet **"Barefoot"** en **"% Change vs Barefoot"**, maar bedoeld is de meting **zónder
+> aangepaste zool** — een verkeerd label, geen verkeerde methode (bevestigd door de PI).
+> Wat wél fout is: de tool kent **zes regio's per voet** — hallux, MT1, MT2-3, MT4-5,
+> middenvoet, hiel — terwijl het er **acht** moeten zijn: de middenvoet gesplitst in
+> mediaal en lateraal, plus tenen 2-5. Dat raakt zowel het samenvattingsblok bovenaan als
+> de twee blokken *RAW DATA EXPORT* waar de maskerexport in geplakt wordt (rijen 43-48 en
+> 51-56 voor de baseline, 60-65 en 68-73 voor de zoolsessie), en dus ook het masker zelf:
+> dat moet zestien velden opleveren, niet twaalf.
+
+**Twee regels die alleen in deze tool staan** en nergens anders in de projectdocumenten:
+
+1. De doelregio's zijn **per voet de twee plaatsen in de voorvoet of de middenvoet met de
+   hoogste piekdruk boven 200 kPa**, naast de plaats van de vorige voetzweer. De **hiel
+   telt niet mee** — in het samenvattingsblok heeft de hielrij dan ook geen formule.
+2. Bij opvolging wordt de zool ook aangepast wanneer de piekdruk op een doelregio
+   **met ≥ 5% gestegen** is tegenover de vorige keer, ook als ze nog onder de norm ligt.
 
 ### Bij aflevering en op maand 6, 12 en 18 (eCRF 24)
 **Twee condities, telkens allebei gemeten:**
