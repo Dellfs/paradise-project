@@ -114,6 +114,30 @@ levenskwaliteit · totale sterfte · kosteneffectiviteit · procesevaluatie-uitk
 
 ---
 
+### Wie het ulcus vaststelt — beslist door de PI op 14 september 2026
+Het **multidisciplinaire team**, zoals de diagnose in de praktijk ook gesteld wordt.
+Beoordeling tegen vooraf vastgelegde criteria, op de klinische documentatie en
+gestandaardiseerde foto's, en op dezelfde manier ongeacht de toewijzing. Is een teamlid
+op de hoogte van de toewijzing via de routinezorg, dan mag dat **geen criterium** zijn.
+
+> Er komt dus **geen onafhankelijke geblindeerde adjudicatiecommissie**. Dat moest op
+> zes plaatsen rechtgezet worden: de methodesectie beschreef het al goed, maar de
+> *Strengths* en de *Limitations* claimden "independent blinded endpoint adjudication",
+> tabel 2 (het SPIRIT-schema) ook, en de statistieksectie sprak van "first adjudicated
+> foot ulcer". In de *Limitations* staat het ontbreken van geblindeerde adjudicatie nu
+> zelf als beperking — pragmatisch verdedigbaar, maar het moet er staan.
+
+### De databank — beslist door de PI op 14 september 2026
+**Eén centrale REDCap-databank.** De centra vullen **papieren bronformulieren** in; het
+**studieteam zet die centraal over** in REDCap, onder de pseudonieme deelnemerscode.
+Sitepersoneel voert zelf niets in; het papieren werkblad is het brondocument en blijft
+op de site. Dat maakt de term "academic staff" in het manuscript overbodig.
+
+De **novel database** is hier iets anders: die blijft het meetarchief waaruit de meting
+gestart wordt, per centrum lokaal. REDCap bevat de eCRF-gegevens, novel de metingen.
+
+---
+
 ## 3. Geschiktheid (§4.1)
 
 ### Inclusie
