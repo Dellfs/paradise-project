@@ -443,11 +443,21 @@ Twee gevolgen voor de studie:
    gemiddelden berekend worden. Voor de norm zelf blijft dit overbodig: MPP verandert niet
    door een pauze.
 
-**Rolverdeling die hieruit volgt.** De klinieken meten met novel studio en beoordelen
-visueel op het palet van 200 kPa — dat blijft de werkwijze aan de stoel. De
-**herberekening per regio gebeurt centraal**, door het studieteam, in de novel database.
-De afgelezen waarden van de clinicus zijn de klinische beslissing van dat moment; de
-maskerwaarden zijn de analysedata.
+**Rolverdeling die hieruit volgt.** De klinieken beoordelen visueel op het palet van
+200 kPa — dat blijft de werkwijze aan de stoel. De **herberekening per regio gebeurt
+centraal**, door het studieteam, in de novel database. De afgelezen waarden van de
+clinicus zijn de klinische beslissing van dat moment; de maskerwaarden zijn de
+analysedata.
+
+> **De meting start in de database (beslist 14 september 2026).** Niet in novel studio.
+> De clinicus opent `Sint_Jan_Paradise_Project`, zoekt of maakt de deelnemer aan, maakt
+> het bezoek aan met **Add Visit**, gaat naar het tabblad **pedar Files** en drukt daar
+> op **Measure**. Het meetprogramma opent dan met die persoon en dat bezoek al gekoppeld.
+>
+> Reden: een meting die in novel studio begint wordt een los bestand in
+> `C:\Users\Public\Documents\Novel Studio\plidar_data\<datum>` dat achteraf teruggezocht
+> en gekoppeld moet worden. Vanuit de database is dat niet nodig. Alleen het
+> kleurenpalet wordt nog rechtstreeks in novel studio ingesteld — eenmalig per laptop.
 
 **De velden, zoals ze op het scherm staan.** *Persons*: ID, External ID, First name, Last
 name, Date of birth, Gender, plus adres, telefoon en beroep. *Visits*: datum, leeftijd,
