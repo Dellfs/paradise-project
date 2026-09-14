@@ -23,3 +23,7 @@ Manuals/
 # Handleidingen van novel: auteursrechtelijk materiaal, blijven lokaal.
 # Origineel staat in Janou\drivers\Pedar Novel\manuals\.
 Novel Pedar/database_*.pdf
+
+# Literatuuronderzoek: werkdocumenten met naamgebonden feedback van de
+# bibliotheekspecialist. Blijven lokaal tenzij Janou ze wil versioneren.
+Literatuur onderzoek/
