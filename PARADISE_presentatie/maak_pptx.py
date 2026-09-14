@@ -465,6 +465,68 @@ if KEUZE not in DECKS:
 DECK = DECKS[KEUZE]
 DOEL = os.path.join(HIER, DECK['bestand'])
 
+VORIGE = os.path.join(HIER, 'vorige')
+# Waar de bouwer bijhoudt hoe hij elk deck achterliet. Wijkt het bestand daar
+# later van af, dan is er met de hand in PowerPoint aan gewerkt.
+STEMPELS = os.path.join(VORIGE, 'gebouwd.json')
+
+
+def _stempels(nieuw=None):
+    import json
+    try:
+        with open(STEMPELS, encoding='utf8') as f:
+            alles = json.load(f)
+    except Exception:
+        alles = {}
+    if nieuw is None:
+        return alles
+    alles.update(nieuw)
+    if not os.path.isdir(VORIGE):
+        os.makedirs(VORIGE)
+    with open(STEMPELS, 'w', encoding='utf8') as f:
+        json.dump(alles, f, indent=1, sort_keys=True)
+
+
+def bewaar_vorige(doel):
+    """Zet het vorige deck opzij vóór het overschreven wordt.
+
+    Het deck wordt gegenereerd, dus alles wat u rechtstreeks in PowerPoint
+    aanpast, is bij de volgende bouw weg. Daarom twee dingen.
+
+    Eén: de bouwer onthoudt in vorige\\gebouwd.json hoe hij het bestand
+    achterliet. Is het sindsdien gewijzigd, dan stopt de bouw, tenzij u er
+    `--overschrijf` bij zet. Het gaat om de wijziging zelf, niet om de leeftijd
+    tegenover de broncode — anders zou elke geslaagde bouw de volgende
+    blokkeren.
+
+    Twee: de vorige versie gaat hoe dan ook naar vorige\\, met datum en uur in
+    de naam. Er blijven er vijf per deck staan.
+    """
+    if not os.path.exists(doel):
+        return
+    basis = os.path.basename(doel)
+    gekend = _stempels().get(basis)
+    nu = os.path.getmtime(doel)
+    # zonder eerdere registratie weten we niets, en blokkeren we dus niet
+    handwerk = gekend is not None and abs(nu - gekend) > 2
+    if handwerk and '--overschrijf' not in sys.argv:
+        raise SystemExit(
+            '%s is sinds de laatste bouw nog gewijzigd — waarschijnlijk met de\n'
+            'hand in PowerPoint. De bouw stopt, anders is dat werk weg.\n'
+            '   Zet de wijziging in inhoud.py, of bouw met: '
+            'python maak_pptx.py %s --overschrijf' % (basis, KEUZE))
+    if not os.path.isdir(VORIGE):
+        os.makedirs(VORIGE)
+    import shutil, time
+    naam, ext = os.path.splitext(basis)
+    kopie = os.path.join(VORIGE, '%s_%s%s'
+                         % (naam, time.strftime('%Y%m%d-%H%M', time.localtime(nu)), ext))
+    if not os.path.exists(kopie):
+        shutil.copy2(doel, kopie)
+    for f in sorted(f for f in os.listdir(VORIGE)
+                    if f.startswith(naam + '_') and f.endswith(ext))[:-5]:
+        os.remove(os.path.join(VORIGE, f))
+
 # alleen de dia's die voor dit deck bedoeld zijn, en de ondertitel op maat
 SLIDES = [dict(d) for d in SLIDES if DECK['letter'] in d['voor']]
 for d in SLIDES:
@@ -1468,7 +1530,23 @@ for i, d in enumerate(SLIDES, 1):
     notitie(s, d)
     morph(s, d.get('morph', 'morph'))
 
-prs.save(DOEL)
+bewaar_vorige(DOEL)
+# Eerst volledig naar een tijdelijk bestand, pas dan vervangen. Loopt het
+# schrijven mis — het deck staat open in PowerPoint — dan blijft het bestaande
+# bestand ongemoeid. Rechtstreeks op het doel schrijven laat bij een fout een
+# half weggeschreven, onleesbaar deck achter.
+TIJDELIJK = DOEL + '.nieuw'
+try:
+    prs.save(TIJDELIJK)
+    os.replace(TIJDELIJK, DOEL)
+except PermissionError:
+    if os.path.exists(TIJDELIJK):
+        os.remove(TIJDELIJK)
+    raise SystemExit(
+        '%s staat open in PowerPoint en kan niet vervangen worden.\n'
+        '   Het bestaande bestand is ongewijzigd gebleven. Sluit het daar en '
+        'bouw opnieuw.' % os.path.basename(DOEL))
+_stempels({os.path.basename(DOEL): os.path.getmtime(DOEL)})
 if ONTBREEKT:
     print('Geen spreektekst in spreektekst.py voor: %s'
           % ' · '.join(sorted(ONTBREEKT)))

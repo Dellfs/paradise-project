@@ -27,6 +27,23 @@ python maak_alles.py      # bouwt alle decks uit DECKS
 python maak_pptx.py board # of één deck apart
 ```
 
+### Uw eigen wijzigingen gaan niet verloren
+
+De decks worden **gegenereerd**. Wat u rechtstreeks in PowerPoint aanpast,
+staat niet in `inhoud.py` en zou bij de volgende bouw verdwijnen. Daarom twee
+beveiligingen:
+
+- Is een `.pptx` **jonger** dan alle bronbestanden samen — het teken dat er met
+  de hand aan gewerkt is — dan **stopt de bouw** voor dat deck. `maak_alles.py`
+  slaat het over en zegt welke. Wilt u toch overschrijven:
+  `python maak_pptx.py <deck> --overschrijf`, of `python maak_alles.py --overschrijf`.
+- Vóór elke keer overschrijven gaat de vorige versie naar **`vorige\`**, met
+  datum en uur in de naam. Daar blijven de laatste vijf per deck staan. Die map
+  gaat niet mee in Git.
+
+Een wijziging die moet blijven, hoort in `inhoud.py`. Alles wat daar staat,
+overleeft elke bouw; alles wat u in PowerPoint typt, niet.
+
 ### Een dia aan een ander deck toevoegen
 
 Pas het veld `voor=` aan bij die dia in `inhoud.py`:

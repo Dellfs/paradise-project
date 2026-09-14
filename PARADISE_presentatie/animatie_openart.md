@@ -1,248 +1,306 @@
-# Korte animatie over PARADISE — prompts voor OpenArt
+# Tekenfilm over PARADISE — prompts voor OpenArt
 
-Een filmpje van ongeveer 75 seconden, in animatiestijl, over de studie. Acht
-scènes van elk 8 tot 10 seconden. Per scène staat er een **beeldprompt** (voor
-het stilstaande beeld) en een **bewegingsprompt** (voor image-to-video). De
-voice-over is Nederlands en staat eronder; de prompts blijven Engels, omdat de
-modellen daar beter op reageren.
+Een animatiefilmpje van ongeveer 75 seconden, in tekenfilmstijl, met twee
+personages en een verhaallijn. Negen scènes van elk 8 seconden.
 
-Werkwijze in OpenArt: maak eerst de acht beelden met dezelfde stijlregel en
-hetzelfde seed, zet ze dan één voor één om naar video, en plak ze achter elkaar.
+Het verhaal: **opa Frans** wandelt graag met zijn kleindochter **Lotte**. Frans
+heeft diabetes en voelt zijn voeten niet goed meer. Lotte ontdekt waarom dat
+gevaarlijk is, en ze gaan samen kijken hoe het gemeten wordt.
+
+Per scène staat er een **beeldprompt** (voor het stilstaande beeld) en een
+**bewegingsprompt** (voor image-to-video). De voice-over is Nederlands en staat
+eronder; de prompts blijven Engels, omdat de modellen daar beter op reageren.
 
 ---
 
-## Stijlregel — plak dit achter élke beeldprompt
+## Stap 1 — Maak eerst je twee personages
+
+Dit is de belangrijkste stap. Zonder vaste personages verandert je opa in elke
+scène van gezicht. Maak van elk personage één referentiebeeld, sla het op, en
+gebruik het in OpenArt als **Character** (of als reference image) bij élke
+scène. Hou daarnaast overal hetzelfde seed aan.
+
+**Opa Frans — characterprompt**
 
 ```
-Style: warm 2D flat vector animation, rounded shapes, thick soft outlines,
-friendly and calm, light editorial illustration. Colour palette strictly:
-deep navy #00407A, mid blue #1D8DB0, light blue #52BDEC, fresh green #2E9E6B,
-warm orange #FF7A00 used only as an accent, off-white #F2F8FC background.
-Clean generous negative space, no text, no letters, no numbers, no logos.
-16:9, cinematic composition, soft even lighting.
+Character sheet of a friendly grandfather, around 70 years old, in 2D
+hand-drawn cartoon style for a children's animation series. Round kind face,
+short grey hair, neat grey moustache, small round glasses, rosy cheeks, warm
+smile. Wearing a soft blue cardigan over a white shirt, comfortable dark
+trousers and sturdy grey walking shoes. Friendly and a little clumsy.
+Full body, neutral standing pose, front view and side view on a plain white
+background. Clean thick outlines, flat cel shading, no gradients.
 ```
 
-## Negatieve prompt — overal hetzelfde
+**Lotte — characterprompt**
 
 ```
-text, letters, words, numbers, watermark, logo, signature, UI, captions,
-photorealistic, horror, gore, wounds, blood, medical injury, open sores,
-amputation, distorted anatomy, extra limbs, extra toes, creepy, dark mood,
-cluttered, busy background, neon, saturated rainbow colours
+Character sheet of a cheerful girl, about 8 years old, in the same 2D
+hand-drawn cartoon style for a children's animation series. Brown hair in two
+short braids, big curious eyes, freckles, wide grin. Wearing a bright green
+hoodie, orange sneakers and blue jeans. Energetic, always a step ahead.
+Full body, neutral standing pose, front view and side view on a plain white
+background. Clean thick outlines, flat cel shading, no gradients.
 ```
 
-> De negatieve prompt is belangrijk. Zonder de woorden over wonden maken deze
-> modellen bij "diabetic foot" al snel iets dat je niet aan een schoolpubliek
-> wil tonen.
+## Stap 2 — De stijlregel, achter élke scèneprompt
+
+```
+Style: 2D hand-drawn cartoon, children's animation series, clean thick
+outlines, flat cel shading, expressive faces, simple friendly backgrounds,
+warm and cheerful. Colour accents in blue, green and orange. Bright even
+lighting, no gradients, no photorealism. 16:9. No text, no letters, no
+numbers, no logos.
+```
+
+## De negatieve prompt — overal hetzelfde
+
+```
+text, letters, words, numbers, watermark, logo, signature, subtitles,
+photorealistic, 3D render, anime, horror, scary, gore, blood, wounds, open
+sores, ulcers, injury, amputation, hospital gore, sad mood, distorted faces,
+extra fingers, extra limbs, deformed hands, creepy smile, dark colours
+```
+
+> Die woorden over wonden zijn er niet voor niets. Vraag je een model iets
+> rond "diabetic foot", dan maakt het uit zichzelf beelden die je niet aan een
+> zaal met kinderen wil tonen.
 
 ## Instellingen
 
 | Wat | Waarde |
 | --- | --- |
 | Beeldverhouding | 16:9 |
-| Duur per clip | 8 tot 10 seconden |
-| Seed | kies er één en hou hem vast over alle acht scènes |
-| Beweging | laag tot midden — het moet rustig blijven |
-| Camera | trage push-in of zijwaartse pan, nooit snel |
+| Duur per clip | 8 seconden |
+| Seed | kies er één en hou hem vast over alle negen scènes |
+| Personages | referentiebeeld uit stap 1 bij elke scène meegeven |
+| Beweging | laag tot midden |
 
 ---
 
-## Scène 1 — Voeten in beweging
+## Scène 1 — Wandelen in het park
 
 **Beeld**
 
 ```
-Wide side view of a diverse group of people of different ages walking
-calmly across a simple off-white street scene, seen from the knees down.
-Legs and shoes in flat vector style, soft blue and green tones, a few warm
-orange shoes as accents. Long clean horizon line, lots of empty space above.
+Grandfather Frans and his granddaughter Lotte walking together along a sunny
+park path, seen from the side. Lotte skips ahead and looks back laughing,
+Frans follows with a warm smile. Green trees, a bench, a few birds, blue sky.
 + stijlregel
 ```
 
 **Beweging**
 
 ```
-The legs walk steadily from left to right in a smooth loop, gentle parallax
-on the background, very slow camera pan following the walk. Calm, steady
-rhythm. No camera shake.
+They walk from left to right along the path. Lotte skips and turns her head
+back to Frans. Leaves move gently in the wind. Slow camera pan following them.
 ```
 
-**Voice-over** — "Elke dag zet je duizenden stappen. Zesentwintig botjes per
-voet, en je denkt er geen seconde aan."
+**Voice-over** — "Dit is opa Frans. En dit is Lotte. Samen wandelen ze elke
+zondag — tienduizend stappen, zonder erbij na te denken."
 
 ---
 
-## Scène 2 — De voet van binnenuit
+## Scène 2 — Het legoblokje
 
 **Beeld**
 
 ```
-Single stylised human foot in side profile, seen as a soft cutaway
-illustration: simple rounded bones in light blue inside a translucent foot
-shape, thin flowing nerve lines in fresh green running from the ankle to the
-toes. Educational, gentle, non-clinical. Plain off-white background.
+Cosy living room. Lotte stands on one foot holding her other foot, mouth wide
+open in a comic yelp, a single bright orange toy brick on the floor beside
+her. Next to her, Frans stands calmly on an identical toy brick without
+noticing anything, still smiling. Exaggerated cartoon expressions, small
+comic motion lines above Lotte.
 + stijlregel
 ```
 
 **Beweging**
 
 ```
-Slow push-in on the foot. The green nerve lines pulse softly from ankle to
-toes, one wave at a time, then gradually fade to pale grey while the rest of
-the illustration stays. Everything else remains still.
+Lotte hops on one foot and grabs her toe with a comic bounce. Frans stays
+completely still and calm, then looks down puzzled at his own foot. Camera
+holds steady, slight zoom in on Frans looking down.
 ```
 
-**Voice-over** — "Bij diabetes verdwijnt het gevoel in de voet. De zenuwen
-geven geen seintje meer — en dan voel je niet dat er iets misgaat."
+**Voice-over** — "Lotte voelt het meteen. Opa Frans voelt niets. Door diabetes
+geven de zenuwen in zijn voeten geen seintje meer."
 
 ---
 
-## Scène 3 — De hete plek
+## Scène 3 — In de schoen
 
 **Beeld**
 
 ```
-Top-down view of the sole of a single stylised foot, rendered as a grid of
-small rounded squares like a pressure map. Most squares in cool blue, one
-concentrated area under the ball of the foot glowing warm orange with
-concentric rings around it. Plain off-white background, generous margins.
+Cutaway side view of grandfather Frans's shoe while he stands, drawn like a
+friendly illustration in a children's book. Inside the shoe, one small area
+under the ball of the foot glows warm orange with cartoon heat lines around
+it. Frans's face visible above, calm and unaware. Simple pale background.
 + stijlregel
 ```
 
 **Beweging**
 
 ```
-The orange area under the ball of the foot pulses slowly, twice, with soft
-concentric rings expanding outward and fading. The rest of the grid shimmers
-very slightly. Camera holds perfectly still.
+The orange area under the ball of the foot pulses slowly twice, with small
+cartoon heat lines rising. Frans above keeps smiling, unaware. Slow push-in
+on the glowing spot.
 ```
 
-**Voice-over** — "Op één plekje duwt de voet veel te hard. Als een steentje
-dat er altijd in zit. Precies daar ontstaat een wonde."
+**Voice-over** — "Maar er is wel iets aan de hand. Op één plekje duwt zijn voet
+veel te hard. Als een steentje dat er altijd in zit."
 
 ---
 
-## Scène 4 — De meetzool
+## Scène 4 — Naar het ziekenhuis
 
 **Beeld**
 
 ```
-A thin flexible insole floating slightly above an open sports shoe, shown in
-three-quarter view. The insole surface is a fine grid of tiny sensor dots in
-light blue. A small rounded device clipped near the ankle, connected by a
-thin cable. Clean studio setting, plain off-white background, soft shadow.
+Bright friendly clinic room with a large window. A smiling clinician in a
+light blue uniform holds up a thin flexible insole covered in tiny dots.
+Frans sits on a chair with one shoe off, curious. Lotte leans forward wide
+eyed, pointing at the insole. Clean simple room, a plant in the corner.
 + stijlregel
 ```
 
 **Beweging**
 
 ```
-The insole rotates slowly and gently lowers into the shoe until it settles.
-The sensor dots light up in a soft wave from heel to toe once it is in place.
-Slow orbit of the camera around the shoe.
+The clinician turns the insole slowly so it catches the light. Lotte leans in
+further and points. Frans nods. Gentle camera push-in on the insole.
 ```
 
-**Voice-over** — "Daarom meten we het. Een flinterdunne zool met
-negenennegentig voelertjes gaat gewoon in je eigen schoen."
+**Voice-over** — "Dus gaan ze kijken. In het ziekenhuis krijgt opa een
+flinterdunne zool met negenennegentig kleine voelertjes, gewoon in zijn eigen
+schoen."
 
 ---
 
-## Scène 5 — Meten tijdens het wandelen
+## Scène 5 — Wandelen met kleuren
 
 **Beeld**
 
 ```
-Side view of one person walking along a simple ten metre walkway in a bright
-clinic room, flat vector style. Below each footstep a small coloured pressure
-footprint stays behind on the floor, blue at the heel and warm orange under
-the ball of the foot. A friendly clinician stands to the side with a tablet.
+Frans walking along a short indoor walkway in the clinic, side view, with a
+small device clipped to his belt. Behind each of his steps a colourful cartoon
+footprint stays on the floor: blue at the heel, bright orange under the ball
+of the foot. Lotte walks alongside, clapping, counting on her fingers. The
+clinician watches with a tablet.
 + stijlregel
 ```
 
 **Beweging**
 
 ```
-The person walks steadily from left to right. With every step a coloured
-footprint appears on the floor and stays. Slow tracking shot following the
-walk. Calm and even.
+Frans walks steadily from left to right. With every step a coloured footprint
+pops onto the floor behind him and stays. Lotte skips beside him clapping.
+Tracking shot following the walk.
 ```
 
-**Voice-over** — "Je wandelt tien meter. Honderd metingen per seconde. Na één
-minuut weten we precies waar het knelt."
+**Voice-over** — "Hij wandelt tien meter. Honderd metingen per seconde, bij elke
+stap. Na één minuutje weten ze precies waar het knelt."
 
 ---
 
-## Scène 6 — De zool op maat
+## Scène 6 — De rode plek op het scherm
 
 **Beeld**
 
 ```
-A custom foot orthosis shown in exploded view: three flat layers floating
-apart above each other in light blue and green, each layer slightly shaped,
-with a soft raised bar under the forefoot area. Clean technical illustration,
-plain off-white background.
+Lotte and Frans standing in front of a large friendly screen on a stand. On
+the screen a simple cartoon pressure map of a foot sole: mostly cool blue
+squares with one bright red-orange area under the ball of the foot. Lotte
+points at the red spot with a surprised open mouth, Frans raises his eyebrows.
+The clinician stands beside them smiling.
 + stijlregel
 ```
 
 **Beweging**
 
 ```
-The three layers drift slowly together and merge into one finished insole.
-Soft glow at the moment they join. Gentle push-in. Nothing else moves.
+Lotte raises her arm and points at the red spot on the screen. The red area
+pulses gently. Frans leans in. Camera slowly pushes past their shoulders
+towards the screen.
 ```
 
-**Voice-over** — "Dan maakt de orthopedist een zool op maat, die de druk
-wegneemt van de plek die het niet meer aankan."
+**Voice-over** — "En daar is het. Rood is waar het duwt. Alles boven
+tweehonderd is te veel — en precies daar zou een wonde ontstaan."
 
 ---
 
-## Scène 7 — Rood wordt blauw
+## Scène 7 — De zool op maat
 
 **Beeld**
 
 ```
-Two identical top-down pressure maps of the same foot sole side by side on a
-plain off-white background, each a grid of small rounded squares. Left map
-has a hot orange concentrated area under the ball of the foot. Right map is
-evenly cool blue and light green across the whole sole. Symmetrical layout.
+Warm cosy workshop. A friendly shoemaker in an apron shapes a custom insole at
+a wooden workbench, with tools and layers of coloured material around. Frans
+and Lotte watch from the other side of the bench, Lotte standing on her toes
+to see over it. Wood tones, soft warm light.
 + stijlregel
 ```
 
 **Beweging**
 
 ```
-Very slowly, the hot orange area on the left map cools down and spreads out
-until it matches the calm even map on the right. Smooth colour transition
-over the full clip. Camera completely still.
+The shoemaker presses and shapes the insole with both hands, then holds it up
+proudly. Lotte rises on her toes and her eyes go wide. Slow push-in on the
+finished insole.
 ```
 
-**Voice-over** — "En dan koelt die rode plek af. De druk zit niet meer op één
-plekje, maar verdeeld over de hele voet. Dat is wat we willen zien."
+**Voice-over** — "Dan maakt de schoenmaker een zool op maat. Eentje die de druk
+weghaalt van net dat plekje dat het niet meer aankan."
 
 ---
 
-## Scène 8 — Zes ziekenhuizen
+## Scène 8 — Het rood koelt af
 
 **Beeld**
 
 ```
-Simplified map of Belgium in soft light blue on an off-white background, with
-six small rounded location markers glowing warm orange spread across the
-country, connected by thin curved light blue lines. Minimal, calm, poster
-like. Large empty margin at the bottom.
+Same screen as before, same framing. The cartoon pressure map of the foot sole
+is now evenly cool blue and green across the whole sole, with no red area at
+all. Lotte throws both arms in the air cheering, Frans laughs out loud, the
+clinician gives a thumbs up. Small cartoon sparkles around the screen.
 + stijlregel
 ```
 
 **Beweging**
 
 ```
-The six markers light up one after another with a soft pulse, then the thin
-curved lines draw themselves between them. Slow gentle zoom out at the end.
+The last traces of red fade away and spread into calm blue across the sole.
+Lotte throws her arms up and jumps. Frans laughs. Sparkles pop briefly.
+Camera holds steady.
 ```
 
-**Voice-over** — "Zes Belgische ziekenhuizen doen dit samen, ook AZ Groeninge
-in Kortrijk. Het onderzoek start binnenkort — meten wat er tot nu toe alleen
-geschat werd."
+**Voice-over** — "En kijk. De rode plek is weg. De druk zit niet meer op één
+plekje, maar verdeeld over de hele voet."
+
+---
+
+## Scène 9 — Weer samen op pad
+
+**Beeld**
+
+```
+The same sunny park path as the opening scene, seen from the side. Frans and
+Lotte walking together again, Frans with a confident spring in his step, Lotte
+holding his hand and looking up at him. Golden afternoon light, long soft
+shadows, birds in the sky. Wide open composition with space on the right.
++ stijlregel
+```
+
+**Beweging**
+
+```
+They walk from left to right, hand in hand, at an easy pace. The camera slowly
+pulls back to a wide shot of the park. Warm light, gentle breeze in the trees.
+```
+
+**Voice-over** — "Werkt dat echt? Dat zoeken zes Belgische ziekenhuizen nu
+samen uit, ook AZ Groeninge in Kortrijk. Wat we tot nu toe schatten, gaan we
+eindelijk meten."
 
 ---
 
@@ -252,27 +310,22 @@ Twee dingen zijn inhoudelijk belangrijk, en een generator verzint ze anders
 zelf:
 
 - **Geen resultaten.** De studie loopt nog niet. Het filmpje mag laten zien
-  hoe we meten, niet dat het werkt.
-- **Geen wonden of amputaties in beeld.** Vandaar de negatieve prompt. Voor
-  een breed publiek, en zeker met kinderen erbij, draagt dat niets bij.
+  hoe we meten, niet dat het werkt. Daarom eindigt scène 9 op een vraag.
+- **Geen wonden, geen amputaties.** Vandaar de negatieve prompt. Het
+  legoblokje in scène 2 legt neuropathie even goed uit, en een kind schrikt er
+  niet van.
 
-De getallen in de voice-over kloppen met het protocol: negenennegentig
-sensoren per zool, honderd metingen per seconde, zes centra. Laat ze zo staan.
+De getallen in de voice-over kloppen met het protocol: negenennegentig sensoren
+per zool, honderd metingen per seconde, tweehonderd kilopascal als grens, zes
+centra. Laat ze zo staan.
 
-## Als je liever één prompt hebt
+## Praktisch
 
-Sommige video-modellen in OpenArt nemen één lange prompt voor een korte clip.
-Neem dan scène 3, 5 en 7 — die drie dragen het verhaal alleen ook:
-
-```
-Flat 2D vector animation, 16:9. A stylised foot sole shown as a grid of small
-rounded squares, seen from above. One area under the ball of the foot glows
-hot orange and pulses. A thin sensor insole slides into a shoe, the person
-walks, coloured footprints appear on the floor. Then the hot orange area
-slowly cools and spreads until the whole sole is calm and evenly blue.
-Palette: deep navy #00407A, mid blue #1D8DB0, light blue #52BDEC, green
-#2E9E6B, orange #FF7A00 as accent, off-white background. Soft rounded shapes,
-friendly and calm, no text, no letters, no numbers, no logos.
-```
-
-Met dezelfde negatieve prompt als hierboven.
+- **Muziek**: iets lichts en vrolijks, geen dramatiek. De scène met het
+  legoblokje mag een kort komisch accent krijgen.
+- **Voice-over**: samen ongeveer 150 woorden, dat is zo'n 70 seconden op een
+  rustig tempo. Spreek hem zelf in als je kan — een echte stem werkt beter
+  dan een gegenereerde.
+- **Montage**: zet de negen clips gewoon achter elkaar, met een korte
+  overvloeier. Scène 6 en 8 zijn hetzelfde kader, dus daar werkt een harde
+  snit net beter: de zaal ziet het rood verdwijnen.
