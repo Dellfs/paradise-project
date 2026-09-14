@@ -319,13 +319,95 @@ De getallen in de voice-over kloppen met het protocol: negenennegentig sensoren
 per zool, honderd metingen per seconde, tweehonderd kilopascal als grens, zes
 centra. Laat ze zo staan.
 
-## Praktisch
+---
 
-- **Muziek**: iets lichts en vrolijks, geen dramatiek. De scène met het
-  legoblokje mag een kort komisch accent krijgen.
-- **Voice-over**: samen ongeveer 150 woorden, dat is zo'n 70 seconden op een
-  rustig tempo. Spreek hem zelf in als je kan — een echte stem werkt beter
-  dan een gegenereerde.
-- **Montage**: zet de negen clips gewoon achter elkaar, met een korte
-  overvloeier. Scène 6 en 8 zijn hetzelfde kader, dus daar werkt een harde
-  snit net beter: de zaal ziet het rood verdwijnen.
+# Van prompts naar een echte film
+
+Dit document levert nog geen film — het levert negen losse clips en een tekst.
+Die moeten nog aan elkaar. Hieronder staat hoe, met wat er al op uw computer
+staat. U hebt niets te installeren.
+
+## De vier stappen in het kort
+
+| Stap | Waar | Levert op | Tijd |
+| --- | --- | --- | --- |
+| 1 | OpenArt | twee personagebeelden | 15 min |
+| 2 | OpenArt | negen scènebeelden | 45 min |
+| 3 | OpenArt | negen videoclips | 30 min |
+| 4 | Clipchamp | de gemonteerde film | 45 min |
+
+## Stap 1 — De twee personages
+
+In OpenArt: **Create → Image**. Plak de characterprompt van opa Frans, genereer,
+en kies het beeld dat u het beste ligt. Sla het op. Doe hetzelfde voor Lotte.
+
+Voeg ze daarna toe als **Character** (OpenArt → Characters → Create from image).
+Dan kunt u ze in elke scène bij naam oproepen en blijven ze zichzelf. Lukt dat
+niet, gebruik het beeld dan als **reference image** bij elke scène.
+
+Noteer het **seed** van het beeld dat u koos en gebruik dat overal.
+
+## Stap 2 — De negen beelden
+
+Per scène: plak de beeldprompt, vervang `+ stijlregel` door de volledige
+stijlregel, zet de negatieve prompt erbij, en geef de personages mee.
+
+Bewaar ze genummerd: `scene01.png` tot `scene09.png`. Die volgorde is straks in
+Clipchamp uw montage.
+
+Twee scènes verdienen extra aandacht, want daar draait de film om:
+
+- **Scène 6 en 8** moeten hetzelfde kader hebben — dezelfde mensen, dezelfde
+  plek, alleen de kleur op het scherm verschilt. Maak scène 8 door het beeld
+  van scène 6 opnieuw te gebruiken als reference, met alleen de kleurwijziging
+  in de prompt. Anders ziet de zaal het verschil niet.
+
+## Stap 3 — Van beeld naar clip
+
+Per beeld: **Image to Video**, plak de bewegingsprompt, en genereer.
+
+Let op de duur die het model aanbiedt. Veel modellen maken **5 seconden**, niet
+8. Dat is geen probleem — uw film wordt dan ongeveer 50 seconden in plaats van
+75, en dat is voor een stand eerder een voordeel. Kort dan wel de voice-over in:
+per scène volstaat één zin.
+
+Download alle negen als mp4, genummerd zoals de beelden.
+
+## Stap 4 — Monteren in Clipchamp
+
+Clipchamp staat al op uw computer (Windows-toets, typ *Clipchamp*). Gratis,
+Nederlandstalig, en exporteert 1080p.
+
+1. **Nieuwe video** → sleep de negen mp4-bestanden in de mediabibliotheek.
+2. Sleep ze in volgorde op de tijdlijn.
+3. **De voice-over.** Twee mogelijkheden:
+   - *Zelf inspreken* — knop **Opnemen en maken → Audio**. Beter dan een
+     computerstem, zeker voor kinderen.
+   - *Laten voorlezen* — **Opnemen en maken → Tekst naar spraak**, taal
+     Nederlands, stem *Fenna* of *Maarten*. Plak per scène één zin, zodat u ze
+     los kunt verschuiven.
+   De zinnen staan kant-en-klaar in `animatie_voiceover.txt`.
+4. **Clips op de stem leggen.** Sleep de rand van een clip om hem korter of
+   langer te maken tot hij op de zin past. De stem is de baas, niet het beeld.
+5. **Overgangen.** Korte overvloeier van 0,3 seconde tussen de scènes — behalve
+   tussen 6 en 8: daar een **harde snit**, zodat het rood zichtbaar wegvalt.
+6. **Muziek.** Tabblad **Muziek**, zoek op *happy* of *children*. Zet het volume
+   op ongeveer 15%, anders overstemt het de voice-over.
+7. **Exporteren** → 1080p → mp4.
+
+## Waar u op moet letten
+
+- **Genereer scène 1 het laatst.** Tegen dan weet u welke instellingen werken,
+  en de openingsscène is de enige die iedereen echt ziet.
+- **Reken op een tweede poging per scène.** Twee tot drie generaties per beeld
+  is normaal. Hou daar rekening mee bij uw OpenArt-tegoed.
+- **Kijk elke clip helemaal uit vóór u hem downloadt.** Deze modellen laten
+  handen en voeten graag in iets anders veranderen halverwege de beweging.
+- **Muziek**: iets lichts en vrolijks, geen dramatiek. Het legoblokje in scène 2
+  mag een kort komisch accent krijgen.
+
+## Als het te veel werk wordt
+
+Maak dan alleen **scène 2, 5, 6 en 8**. Het legoblokje, de meting, de rode plek
+en het afkoelen. Dat zijn vier clips, samen een halve minuut, en het verhaal
+staat er volledig in. De rest is versiering.
