@@ -448,7 +448,20 @@ const scenes = [];
 function scene(duur, bouw){
   const g = groep({opacity:0});
   const api = bouw(g);
-  scenes.push({g, duur, teken:api.teken, tekst:api.tekst});
+  scenes.push({g, duur, teken:api.teken, tekst:api.tekst, shots:api.shots});
+}
+
+/* Een shot is een kader: middelpunt en vergroting. `naar` laat de camera
+   binnen het shot bewegen; de sprong van het ene shot naar het volgende is
+   een harde snit, zoals in montage. */
+function camera(u, shots){
+  if (!shots || !shots.length) return [B / 2, H / 2, 1 + u * .045];
+  let i = 0;
+  while (i < shots.length - 1 && u >= shots[i + 1].t) i++;
+  const sh = shots[i], eind = i < shots.length - 1 ? shots[i + 1].t : 1;
+  const p = soepel(klem((u - sh.t) / (eind - sh.t), 0, 1));
+  const a = sh.cam, b = sh.naar || sh.cam;
+  return [meng(a[0], b[0], p), meng(a[1], b[1], p), meng(a[2], b[2], p)];
 }
 
 /* grote koptekst met een staggered opkomst per regel */
@@ -470,7 +483,7 @@ function kop(ouder, regels, x, y, gr, kl = 'var(--ink)'){
 }
 
 /* --------------------------------------------------- 1. de zondagse wandeling */
-scene(8, g => {
+scene(7, g => {
   lucht(g, 'avond');
   const ver = groep({}, g); boom(ver, 250, .7, 'avond'); boom(ver, 1450, .6, 'avond');
   const dicht = groep({}, g); boom(dicht, 1720, 1.15, 'avond'); boom(dicht, 640, .95, 'avond');
@@ -480,6 +493,7 @@ scene(8, g => {
   return {
     tekst:[[0, 'Opa Frans en Lotte wandelen elke zondag samen.'],
            [.55, 'Tienduizend stappen, zonder erbij na te denken.']],
+    shots:[{t:0, cam:[960,540,1], naar:[900,560,1.12]}],
     teken(u){
       /* de wereld schuift en zij lopen bijna ter plaatse: de pas volgt dus
          uit hoever de grond verschuift, niet uit hun eigen verplaatsing */
@@ -496,7 +510,7 @@ scene(8, g => {
 });
 
 /* --------------------------------------------------------- 2. het legoblokje */
-scene(11, g => {
+scene(12, g => {
   lucht(g, 'avond'); grasveld(g, 'avond');
   const blokL = blokje(g, 600), blokF = blokje(g, 1330);
   const f = maakFiguur(FRANS, g), l = maakFiguur(LOTTE, g);
@@ -526,6 +540,10 @@ scene(11, g => {
     tekst:[[0, 'Er ligt een legoblokje op de grond.'],
            [.34, 'Lotte stapt erop — en voelt het meteen.'],
            [.66, 'Opa Frans staat op net zo’n blokje. Hij merkt niets.']],
+    shots:[{t:0, cam:[900,560,1], naar:[760,620,1.3]},
+           {t:0.3, cam:[620,660,1.65], naar:[610,640,1.8]},
+           {t:0.5, cam:[700,600,1.25]},
+           {t:0.64, cam:[1430,640,1.75], naar:[1400,660,1.9]}],
     teken(u){
       /* Lotte loopt ernaartoe, springt op en komt neer */
       const aan = stuk(u, .02, .30, soepel);
@@ -551,7 +569,7 @@ scene(11, g => {
 });
 
 /* -------------------------------------------------------------- 3. de inzet */
-scene(7.5, g => {
+scene(6.5, g => {
   lucht(g, 'avond'); grasveld(g, 'avond');
   const f = maakFiguur(FRANS, g), l = maakFiguur(LOTTE, g);
   const k = kop(g, ['Als opa een wonde', 'aan zijn voet krijgt,', 'mag hij weken', 'niet wandelen.'],
@@ -560,6 +578,8 @@ scene(7.5, g => {
   return {
     tekst:[[0, 'En dat is nu net het gevaar.'],
            [.5, 'Wie niets voelt, merkt te laat dat er iets misgaat.']],
+    shots:[{t:0, cam:[960,540,1]},
+           {t:0.48, cam:[1580,620,1.85], naar:[1560,610,2]}],
     teken(u){
       poseer(f, 1300, GROND - 126 * 3.3, 3.3, {pas:0, zwaai:0, kijk:6});
       poseer(l, 1560, GROND - 126 * 2.65, 2.65,
@@ -589,6 +609,8 @@ scene(8, g => {
     tekst:[[0, 'Op één plekje duwt zijn voet veel te hard.'],
            [.42, 'Als een steentje dat er altijd in zit.'],
            [.74, 'En net daar ontstaat een wonde.']],
+    shots:[{t:0, cam:[960,540,1]},
+           {t:0.38, cam:[1247,395,2.2], naar:[1247,395,2.45]}],
     teken(u){
       k.toon(u);
       const klop = .5 + .5 * Math.sin(u * Math.PI * 7);
@@ -628,6 +650,8 @@ scene(8, g => {
     tekst:[[0, 'Daarom meten we het, vóór er iets gebeurt.'],
            [.42, 'Een flinterdunne zool met 99 sensoren, in zijn eigen schoen.'],
            [.78, 'Sensoren die voelen hoe hard de voet duwt.']],
+    shots:[{t:0, cam:[960,540,1], naar:[900,520,1.1]},
+           {t:0.62, cam:[600,480,1.7], naar:[590,500,1.8]}],
     teken(u){
       k.toon(u);
       const zak = stuk(u, .12, .46, uitloop);
@@ -668,6 +692,9 @@ scene(8.5, g => {
   return {
     tekst:[[0, 'Hij wandelt tien meter, heen en weer.'],
            [.45, 'Honderd metingen per seconde, bij elke stap.']],
+    shots:[{t:0, cam:[960,600,1]},
+           {t:0.34, cam:[760,640,1.5], naar:[1180,640,1.5]},
+           {t:0.74, cam:[960,640,1.05], naar:[960,620,1.15]}],
     teken(u){
       k.toon(u);
       const p = soepel(klem(u / .9, 0, 1));
@@ -684,7 +711,7 @@ scene(8.5, g => {
 });
 
 /* ------------------------------------------- 7 en 9. de drukmat */
-function matScene(duur, van, naar, kopregels, onder, waardeVan, waardeNaar){
+function matScene(duur, van, naar, kopregels, onder, waardeVan, waardeNaar, shots){
   scene(duur, g => {
     lucht(g);
     const mx = 210, my = 130, mw = 420, mh = 800, kol = 18, rij = 38;
@@ -707,7 +734,7 @@ function matScene(duur, van, naar, kopregels, onder, waardeVan, waardeNaar){
     eh.textContent = 'kPa';
     const k = kop(g, kopregels, 762, 600, 62);
     return {
-      tekst:onder,
+      tekst:onder, shots,
       teken(u){
         k.toon(u);
         const t = soepel(klem((u - .12) / .74, 0, 1));
@@ -728,10 +755,12 @@ function matScene(duur, van, naar, kopregels, onder, waardeVan, waardeNaar){
       }};
   });
 }
-matScene(7, VOOR, VOOR, ['Rood is waar', 'het duwt'],
+matScene(8, VOOR, VOOR, ['Rood is waar', 'het duwt'],
          [[0, 'Rood is waar de voet het hardst duwt.'],
           [.42, 'Driehonderdtwaalf — alles boven 200 is te veel.'],
-          [.75, 'Precies het plekje dat opa niet voelt.']], 312, 312);
+          [.75, 'Precies het plekje dat opa niet voelt.']], 312, 312,
+         [{t:0, cam:[960,540,1]},
+          {t:0.46, cam:[420,410,2.05], naar:[400,400,2.2]}]);
 
 /* ----------------------------------------------------- 8. de zool op maat */
 scene(8, g => {
@@ -755,6 +784,8 @@ scene(8, g => {
   return {
     tekst:[[0, 'De schoenmaker bouwt een zool op maat, laag voor laag.'],
            [.55, 'Het kussentje haalt de druk weg van dat ene plekje.']],
+    shots:[{t:0, cam:[960,540,1], naar:[860,520,1.12]},
+           {t:0.6, cam:[470,560,1.75], naar:[460,570,1.85]}],
     teken(u){
       k.toon(u);
       const t = stuk(u, .1, .62, soepel);
@@ -771,13 +802,16 @@ scene(8, g => {
     }};
 });
 
-matScene(9.5, VOOR, NA, ['En kijk:', 'het rood koelt af'],
+matScene(10.5, VOOR, NA, ['En kijk:', 'het rood koelt af'],
          [[0, 'Zelfde voet, zelfde stap — maar nu met de nieuwe zool.'],
           [.45, 'De rode plek koelt af.'],
-          [.78, 'De druk zit verdeeld over de hele voet.']], 312, 186);
+          [.78, 'De druk zit verdeeld over de hele voet.']], 312, 186,
+         [{t:0, cam:[960,540,1]},
+          {t:0.22, cam:[420,410,2.05], naar:[410,405,2.15]},
+          {t:0.74, cam:[960,540,1], naar:[960,530,1.06]}]);
 
 /* ------------------------------------------------------ 10. weer op stap */
-scene(7, g => {
+scene(6, g => {
   lucht(g, 'avond');
   const ver = groep({}, g); boom(ver, 300, .7, 'avond'); boom(ver, 1500, .62, 'avond');
   const dicht = groep({}, g); boom(dicht, 1700, 1.2, 'avond'); boom(dicht, 760, .9, 'avond');
@@ -787,6 +821,7 @@ scene(7, g => {
   return {
     tekst:[[0, 'De druk is weg van die ene plek.'],
            [.5, 'En de zondagse wandeling gaat gewoon door.']],
+    shots:[{t:0, cam:[900,580,1.15], naar:[960,540,1]}],
     teken(u){
       const weg = u * 700;
       ver.setAttribute('transform', `translate(${-u * 220} 0)`);
@@ -837,6 +872,7 @@ scene(11, g => {
     tekst:[[0, 'Dat weten we nog niet.'],
            [.4, 'Zes ziekenhuizen zoeken het nu samen uit.'],
            [.74, 'Kom gerust langs op de stand.']],
+    shots:[{t:0, cam:[960,540,1], naar:[950,530,1.05]}],
     teken(u){
       k.toon(u);
       poseer(f, 1240, GROND - 126 * 3.3, 3.3, {pas:0, zwaai:0});
@@ -920,11 +956,10 @@ function beeld(nu){
   }
   /* zachte in- en uitvloeier aan de randen van elke scène */
   sc.g.setAttribute('opacity', Math.min(stuk(u, 0, .05), 1 - stuk(u, .95, 1)));
-  /* trage camerabeweging: elke scène zoomt heel licht in. Een volstrekt
-     stilstaand kader is het tweede wat een animatie goedkoop doet ogen. */
-  const z = 1 + u * .045;
+  /* de camera: kader en vergroting per shot */
+  const [cx, cy, z] = camera(u, sc.shots);
   sc.g.setAttribute('transform',
-    `translate(${B * (1 - z) / 2} ${H * (1 - z) / 2 - u * 8}) scale(${z})`);
+    `translate(${B / 2 - cx * z} ${H / 2 - cy * z}) scale(${z})`);
   sc.teken(u);
 
   let regel = sc.tekst[0][1];
