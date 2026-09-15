@@ -462,12 +462,17 @@ let gradTeller = 0;
 function lucht(ouder, soort = 'lab'){
   const g = groep({}, ouder);
   const id = 'sky' + (gradTeller++);
-  const lg = el('linearGradient', {id, x1:0, y1:0, x2:0, y2:1}, g);
+  /* userSpaceOnUse: het verloop hangt aan de hoogte van het doek, niet aan
+     de rechthoek. Daardoor mag de rechthoek ruim buiten beeld doorlopen
+     zonder dat de horizon verschuift. */
+  const lg = el('linearGradient', {id, gradientUnits:'userSpaceOnUse',
+                                   x1:0, y1:0, x2:0, y2:H}, g);
   const stops = soort === 'avond'
     ? [[0,'#0A1E3C'],[.42,'#1D4E7A'],[.74,'#C96A4E'],[1,'#F0A45C']]
     : [[0,'#020C17'],[.62,'#08223A'],[1,'#0E3050']];
   stops.forEach(([o, c]) => el('stop', {offset:o, 'stop-color':c}, lg));
-  el('rect', {x:0, y:0, width:B, height:H, fill:`url(#${id})`}, g);
+  el('rect', {x:-1400, y:-700, width:B + 2800, height:H + 1400,
+              fill:`url(#${id})`}, g);
   if (soort === 'avond'){
     el('circle', {cx:1500, cy:GROND - 70, r:78, fill:'#FFD9A0', opacity:.9}, g);
     el('circle', {cx:1500, cy:GROND - 70, r:150, fill:'#FFC27A', opacity:.16}, g);
@@ -480,9 +485,9 @@ function lucht(ouder, soort = 'lab'){
 function heuvels(ouder, soort = 'avond'){
   const g = groep({}, ouder);
   const kl = soort === 'avond' ? '#3A3E6B' : '#0A2C49';
-  el('path', {d:`M-300 ${GROND + 8} L-300 ${GROND - 96} Q80 ${GROND - 208} 430 ${GROND - 118}` +
+  el('path', {d:`M-1500 ${GROND + 8} L-1500 ${GROND - 96} Q80 ${GROND - 208} 430 ${GROND - 118}` +
                 ` Q700 ${GROND - 44} 1000 ${GROND - 142} Q1320 ${GROND - 246} 1620 ${GROND - 126}` +
-                ` Q1840 ${GROND - 62} 2220 ${GROND - 152} L2220 ${GROND + 8} Z`,
+                ` Q1840 ${GROND - 62} 3400 ${GROND - 152} L3400 ${GROND + 8} Z`,
               fill:kl, opacity:.7}, g);
   return g;
 }
@@ -495,7 +500,7 @@ function nevel(ouder, soort = 'avond'){
   const c = soort === 'avond' ? '#F0A45C' : '#1D8DB0';
   el('stop', {offset:0, 'stop-color':c, 'stop-opacity':0}, lg);
   el('stop', {offset:1, 'stop-color':c, 'stop-opacity':soort === 'avond' ? .3 : .12}, lg);
-  return el('rect', {x:-300, y:GROND - 230, width:B + 600, height:230,
+  return el('rect', {x:-1400, y:GROND - 230, width:B + 2800, height:230,
                      fill:`url(#${id})`}, ouder);
 }
 
@@ -517,8 +522,8 @@ function grasveld(ouder, soort = 'lab'){
   const g = groep({}, ouder);
   const [vlak, rand_, pluk] = soort === 'avond'
     ? ['#11382C', '#F0A45C', '#1A5340'] : ['#0A2A44', '#2A6C9A', '#17567F'];
-  el('rect', {x:-1200, y:GROND, width:B + 2400, height:H - GROND, fill:vlak}, g);
-  el('rect', {x:-1200, y:GROND, width:B + 2400, height:5, fill:rand_, opacity:.8}, g);
+  el('rect', {x:-1500, y:GROND, width:B + 3000, height:H - GROND + 700, fill:vlak}, g);
+  el('rect', {x:-1500, y:GROND, width:B + 3000, height:5, fill:rand_, opacity:.8}, g);
   /* echte grassprietjes in plaats van vinkjes: drie halmen per pol */
   for (let i = 0; i < 66; i++){
     const x = -1180 + i * 66 + (i * 53 % 41), h = 18 + (i * 37 % 16);
@@ -651,21 +656,37 @@ const scenes = [];
 function scene(duur, bouw){
   const g = groep({opacity:0});
   const api = bouw(g);
-  scenes.push({g, duur, teken:api.teken, tekst:api.tekst, shots:api.shots});
+  scenes.push({g, duur, teken:api.teken, shots:api.shots});
 }
 
-/* Een shot is een kader: middelpunt en vergroting. `naar` laat de camera
-   binnen het shot bewegen; de sprong van het ene shot naar het volgende is
-   een harde snit, zoals in montage. */
+/* Een shot is een KADER: de rechthoek [x, y, breedte, hoogte] die in beeld
+   moet passen. De vergroting volgt daaruit in plaats van met de hand gezet
+   te worden. Dat is het hele punt: met een los ingesteld vergrotingsgetal
+   kan een kop of een getal half buiten beeld vallen zonder dat je het aan
+   het getal ziet; met een kader kan dat per definitie niet.
+
+   De vergroting is de kleinste van breedte en hoogte, zodat het kader er
+   helemaal in past en de rest opgevuld wordt met wat eromheen ligt. Nooit
+   kleiner dan 1: verder uitzoomen dan het doek heeft geen zin.
+
+   `naar` laat de camera binnen het shot van het ene kader naar het andere
+   glijden; de sprong van het ene shot naar het volgende is een harde snit. */
+function kaderCam(k){
+  const [x, y, w, h] = k;
+  const z = Math.max(1, Math.min(B / w, H / h));
+  return [x + w / 2, y + h / 2, z];
+}
 function camera(u, shots){
-  if (!shots || !shots.length) return [B / 2, H / 2, 1 + u * .045];
+  if (!shots || !shots.length) return [B / 2, H / 2, 1];
   let i = 0;
   while (i < shots.length - 1 && u >= shots[i + 1].t) i++;
   const sh = shots[i], eind = i < shots.length - 1 ? shots[i + 1].t : 1;
   const p = soepel(klem((u - sh.t) / (eind - sh.t), 0, 1));
-  const a = sh.cam, b = sh.naar || sh.cam;
+  const a = kaderCam(sh.kader), b = sh.naar ? kaderCam(sh.naar) : a;
   return [meng(a[0], b[0], p), meng(a[1], b[1], p), meng(a[2], b[2], p)];
 }
+/* het hele doek, het kader waar de meeste scenes op staan */
+const DOEK = [0, 0, B, H];
 
 /* grote koptekst met een staggered opkomst per regel */
 function kop(ouder, regels, x, y, gr, kl = 'var(--ink)'){
@@ -717,8 +738,7 @@ scene(4.5, g => {
   const sub = regelTekst(g, ['Over druk onder de voet, schoenen op maat', 'en een vraag die nog openstaat.'],
                          150, 700, 32);
   return {
-    tekst:[[0, '']],
-    shots:[{t:0, cam:[960,540,1.06], naar:[930,548,1.0]}],
+    shots:[{t:0, kader:DOEK, naar:[40,28,1840,1035]}],
     teken(u){
       lucht_.update(NU);
       const weg = u * 190;
@@ -746,9 +766,8 @@ scene(6.5, g => {
   const f = maakFiguur(FRANS, g), l = maakFiguur(LOTTE, g);
   const k = kop(g, ['Elke zondag', 'gaan ze samen'], 130, 230, 104);
   return {
-    tekst:[[0, 'Opa Frans en Lotte wandelen elke zondag samen.'],
-           [.55, 'Tienduizend stappen, zonder erbij na te denken.']],
-    shots:[{t:0, cam:[960,540,1]}, {t:.62, cam:[900,560,1.12], naar:[880,570,1.2]}],
+    shots:[{t:0, kader:DOEK},
+           {t:.62, kader:[60,40,1800,1012], naar:[110,70,1700,956]}],
     teken(u){
       lucht_.update(NU);
       /* de wereld schuift en zij lopen bijna ter plaatse: de pas volgt dus
@@ -775,6 +794,9 @@ scene(11, g => {
   const au = el('text', {x:430, y:330, fill:'#FF7A00', 'font-size':140,
                          class:'kop', 'text-anchor':'middle', opacity:0}, g);
   au.textContent = 'AU!';
+  /* De pointe van de scene stond alleen in de ondertitel. Nu staat ze in
+     het beeld, naast opa, in het laatste shot. */
+  const k = kop(g, ['Opa voelt', 'het niet.'], 820, 478, 60);
   function blokje(ouder, x){
     const gg = groep({transform:`translate(${x} ${GROND - 62})`}, ouder);
     el('ellipse', {cx:55, cy:66, rx:62, ry:12, fill:'url(#schaduw)'}, gg);
@@ -794,13 +816,10 @@ scene(11, g => {
     return d + 'Z';
   }
   return {
-    tekst:[[0, 'Er ligt een legoblokje op de grond.'],
-           [.34, 'Lotte stapt erop — en voelt het meteen.'],
-           [.66, 'Opa Frans staat op net zo’n blokje. Hij merkt niets.']],
-    shots:[{t:0, cam:[900,560,1], naar:[760,620,1.3]},
-           {t:0.30, cam:[620,660,1.65], naar:[610,640,1.8]},
-           {t:0.50, cam:[700,600,1.25]},
-           {t:0.64, cam:[1430,640,1.75], naar:[1400,660,1.9]}],
+    shots:[{t:0, kader:[60,220,1500,844], naar:[120,230,1380,776]},
+           {t:0.30, kader:[180,190,700,720], naar:[200,200,660,679]},
+           {t:0.50, kader:[100,195,1300,731]},
+           {t:0.64, kader:[820,380,900,560], naar:[840,392,860,535]}],
     teken(u){
       /* Lotte loopt ernaartoe, springt op en komt neer */
       const aan = stuk(u, .02, .30, soepel);
@@ -825,6 +844,7 @@ scene(11, g => {
       const stap = stuk(u, .62, .82, soepel);
       poseer(f, meng(1180, 1258, stap), GROND - 126 * 2.9 - stap * 62, 2.9,
              {pas: stap < 1 ? u * 12 : 0, zwaai: stap < 1 && stap > 0 ? 9 : 0});
+      k.toon(klem((u - .66) / .30, 0, 1));
     }};
 });
 
@@ -836,20 +856,18 @@ scene(6.5, g => {
                 130, 224, 68);
   const hart = el('path', {d:'', fill:'#E8735E', opacity:0}, g);
   return {
-    tekst:[[0, 'En dat is nu net het gevaar.'],
-           [.5, 'Wie niets voelt, merkt te laat dat er iets misgaat.']],
-    shots:[{t:0, cam:[960,540,1]},
-           {t:0.48, cam:[1580,620,1.85], naar:[1560,610,2]}],
+    shots:[{t:0, kader:DOEK, naar:[50,28,1820,1024]},
+           {t:0.48, kader:[1000,300,700,624], naar:[1020,315,660,588]}],
     teken(u){
-      poseer(f, 1300, GROND - 126 * 3.3, 3.3, {pas:0, zwaai:0, kijk:6});
-      poseer(l, 1560, GROND - 126 * 2.65, 2.65,
+      poseer(f, 1060, GROND - 126 * 3.3, 3.3, {pas:0, zwaai:0, kijk:6});
+      poseer(l, 1330, GROND - 126 * 2.65, 2.65,
              {pas:0, zwaai:0, mond:'open', kijk:-10 - Math.sin(u * 5) * 2});
-      k.toon(u);
+      k.toon(u, 1 - stuk(u, .38, .47));
       const p = stuk(u, .25, .5, veer) * (1 - stuk(u, .82, 1, soepel));
       hart.setAttribute('opacity', p * .9);
       hart.setAttribute('d', 'M0 0 c0 -14 -22 -14 -22 2 c0 14 22 26 22 26 c0 0 22 -12 22 -26 c0 -16 -22 -16 -22 -2 Z');
       hart.setAttribute('transform',
-        `translate(1640 ${360 - p * 40}) scale(${p * 1.4})`);
+        `translate(1410 ${360 - p * 40}) scale(${p * 1.4})`);
     }};
 });
 
@@ -869,14 +887,11 @@ scene(7.5, g => {
                              stroke:'#FF7A00', 'stroke-width':5}, g);
   const k = kop(g, ['Toch duwt', 'zijn voet', 'te hard'], 140, 320, 96);
   return {
-    tekst:[[0, 'Op één plekje duwt zijn voet veel te hard.'],
-           [.42, 'Als een steentje dat er altijd in zit.'],
-           [.74, 'En net daar ontstaat een wonde.']],
-    shots:[{t:0, cam:[960,540,1]},
-           {t:0.38, cam:[1247,395,2.2], naar:[1247,395,2.45]}],
+    shots:[{t:0, kader:DOEK},
+           {t:0.38, kader:[1040,140,500,560], naar:[1060,155,460,515]}],
     teken(u){
       stof.update(NU);
-      k.toon(u, 1 - stuk(u, .36, .46));
+      k.toon(u, 1 - stuk(u, .28, .37));
       const klop = .5 + .5 * Math.sin(u * Math.PI * 7);
       ringen.forEach((c, i) => {
         const basis = [62, 40, 19][i];
@@ -913,19 +928,16 @@ scene(8, g => {
     }
   }
   const k = kop(g, ['Een meetzool', 'met 99', 'sensoren'], 1060, 350, 76);
-  const bij = regelTekst(g, ['Honderd keer per seconde, in zijn eigen schoen.'],
-                         1064, 640, 32, '#8FB6D0');
+  const bij = regelTekst(g, ['Honderd keer per seconde,', 'in zijn eigen schoen.'],
+                         1064, 616, 32, '#8FB6D0', 44);
   return {
-    tekst:[[0, 'Daarom meten we het, vóór er iets gebeurt.'],
-           [.42, 'Een flinterdunne zool met 99 sensoren, in zijn eigen schoen.'],
-           [.78, 'Sensoren die voelen hoe hard de voet duwt.']],
-    shots:[{t:0, cam:[960,540,1], naar:[900,520,1.1]},
-           {t:0.62, cam:[600,480,1.7], naar:[590,500,1.8]}],
+    shots:[{t:0, kader:DOEK, naar:[40,22,1840,1035]},
+           {t:0.62, kader:[320,150,720,740], naar:[335,165,690,710]}],
     teken(u){
       stof.update(NU);
-      const uit = 1 - stuk(u, .60, .70);
+      const uit = 1 - stuk(u, .52, .61);
       k.toon(u, uit);
-      bij.setAttribute('opacity', stuk(u, .30, .48, uitloop) * uit);
+      bij.setAttribute('opacity', stuk(u, .30, .46, uitloop) * uit);
       const zak = stuk(u, .12, .46, uitloop);
       zool.setAttribute('transform', `translate(0 ${(1 - zak) * -240})`);
       zool.setAttribute('opacity', stuk(u, .06, .2));
@@ -951,6 +963,9 @@ scene(8.5, g => {
     const gg = groep({opacity:0}, g), x = 200 + i * 98, y = 900 + (i % 2 ? 26 : 0);
     el('path', {d:voetPad(x, y, 36, 54, 24), fill:'#52BDEC'}, gg);
     el('circle', {cx:x + .44 * 36, cy:y + 54 - .66 * 54, r:6.5, fill:'#FF7A00'}, gg);
+    const nr = el('text', {x:x + 18, y:y + 92, fill:'#8FB6D0', 'font-size':26,
+                           'text-anchor':'middle', class:'getal'}, gg);
+    nr.textContent = i + 1;
     sporen.push({g:gg, x});
   }
   const f = maakFiguur(FRANS, g);
@@ -974,17 +989,12 @@ scene(8.5, g => {
                          'text-anchor':'end', class:'label'}, paneel);
   hz.textContent = '100 PER SECONDE';
 
-  const teller = el('text', {x:150, y:280, fill:'#F2F8FC', 'font-size':150,
-                             class:'getal'}, g);
-  const tl = el('text', {x:150, y:340, fill:'#8FB6D0', 'font-size':26, class:'label'}, g);
-  tl.textContent = 'STAPPEN PER VOET';
+  const k = kop(g, ['Twaalf stappen', 'per voet'], 150, 236, 84);
+  const bij = regelTekst(g, ['op zijn eigen tempo'], 154, 392, 32, '#8FB6D0');
   return {
-    tekst:[[0, 'Hij wandelt op zijn eigen tempo, heen en weer.'],
-           [.42, 'Minstens twaalf stappen per voet.'],
-           [.76, 'Honderd metingen per seconde, bij elke stap.']],
-    shots:[{t:0, cam:[960,600,1]},
-           {t:0.32, cam:[820,650,1.45], naar:[1180,650,1.45]},
-           {t:0.72, cam:[960,620,1.05], naar:[960,600,1.12]}],
+    shots:[{t:0, kader:DOEK},
+           {t:0.30, kader:[100,70,1720,968]},
+           {t:0.78, kader:[30,18,1860,1046]}],
     teken(u){
       stof.update(NU);
       const p = soepel(klem(u / .9, 0, 1));
@@ -994,16 +1004,13 @@ scene(8.5, g => {
       kastje.setAttribute('transform', `translate(${fx + 205} ${GROND - 190})`);
       led.setAttribute('opacity', .5 + .5 * Math.sin(NU * 9));
 
-      let n = 0;
+      k.toon(u);
+      bij.setAttribute('opacity', stuk(u, .20, .38, uitloop));
       sporen.forEach(s => {
         const v = klem((fx + 60 - s.x) / 90, 0, 1);
         s.g.setAttribute('opacity', v);
         s.g.setAttribute('transform', `translate(0 ${(1 - v) * 10})`);
-        if (v > .9) n++;
       });
-      teller.textContent = n;
-      teller.setAttribute('opacity', stuk(u, .06, .2));
-      tl.setAttribute('opacity', stuk(u, .06, .2));
 
       /* de curve schuift door; de bulten volgen de pas */
       const ph = ((fase / (2 * Math.PI)) % 1 + 1) % 1;
@@ -1022,26 +1029,23 @@ scene(8.5, g => {
 scene(8, g => {
   lucht(g);
   const stof = stofjes(g, 20);
-  const mx = 300, my = 150, mw = 350, mh = 760;
+  const mx = 300, my = 210, mw = 350, mh = 640;
   spot(g, mx + mw / 2, my + mh / 2, 560, '#1D8DB0', .34);
   const mat = drukmat(g, mx, my, mw, mh);
   mat.vul(VOOR, 312);                       /* verandert niet: een keer volstaat */
-  const schaal = kleurschaal(g, 720, 200, 34, 640);
-  const pl = el('text', {x:880, y:330, fill:'#8FB6D0', 'font-size':25, class:'label'}, g);
+  const schaal = kleurschaal(g, 720, 250, 34, 520);
+  const pl = el('text', {x:880, y:350, fill:'#8FB6D0', 'font-size':25, class:'label'}, g);
   pl.textContent = 'HOOGSTE DRUK IN kPa';
-  const getal = el('text', {x:880, y:474, 'font-size':170, class:'getal',
+  const getal = el('text', {x:880, y:510, 'font-size':170, class:'getal',
                             fill:'#FF7A00'}, g);
   getal.textContent = '312';
-  const k = kop(g, ['Rood is waar', 'het duwt'], 880, 604, 70);
+  const k = kop(g, ['Rood is waar', 'het duwt'], 880, 644, 70);
   return {
-    tekst:[[0, 'Rood is waar de voet het hardst duwt.'],
-           [.42, 'Driehonderdtwaalf — alles boven 200 is te veel.'],
-           [.75, 'Precies het plekje dat opa niet voelt.']],
-    shots:[{t:0, cam:[960,540,1]},
-           {t:0.46, cam:[700,470,1.62], naar:[694,466,1.70]}],
+    shots:[{t:0, kader:DOEK, naar:[40,22,1840,1035]},
+           {t:0.46, kader:[280,190,930,690], naar:[290,200,910,676]}],
     teken(u){
       stof.update(NU);
-      k.toon(u, 1 - stuk(u, .44, .54));
+      k.toon(u, 1 - stuk(u, .36, .45));
       const op = stuk(u, .04, .18);
       getal.setAttribute('opacity', op);
       pl.setAttribute('opacity', op);
@@ -1075,13 +1079,11 @@ scene(8.5, g => {
   const bij = regelTekst(g, ['Laag voor laag opgebouwd,', 'naar de vorm van zijn voet.'],
                          1134, 470, 32, '#8FB6D0', 44);
   return {
-    tekst:[[0, 'De schoenmaker bouwt een zool op maat, laag voor laag.'],
-           [.55, 'Het kussentje haalt de druk weg van dat ene plekje.']],
-    shots:[{t:0, cam:[960,540,1], naar:[860,520,1.12]},
-           {t:0.6, cam:[470,560,1.75], naar:[460,570,1.85]}],
+    shots:[{t:0, kader:DOEK, naar:[50,28,1820,1024]},
+           {t:0.6, kader:[190,180,790,640], naar:[205,190,760,616]}],
     teken(u){
       stof.update(NU);
-      const uit = 1 - stuk(u, .58, .68);
+      const uit = 1 - stuk(u, .48, .58);
       k.toon(u, uit);
       bij.setAttribute('opacity', stuk(u, .26, .44, uitloop) * uit);
       const t = stuk(u, .1, .62, soepel);
@@ -1090,7 +1092,7 @@ scene(8.5, g => {
         gg.setAttribute('transform', `translate(${dx} ${dy})`);
         st.setAttribute('transform',
           `translate(${meng(lx + lw + 40 + dx, lx + lw + 150, t)} ${meng(ly + 20 + dy, ly + 30 + i * 84, t)})`);
-        st.setAttribute('opacity', uit);
+        st.setAttribute('opacity', 1);
       });
       const gr = stuk(u, .55, .84, veer);
       const cx = lx + .30 * lw + meng(78, 16, t), cy = ly + lh - .66 * lh + meng(138, 34, t);
@@ -1110,7 +1112,7 @@ scene(8.5, g => {
 scene(12, g => {
   lucht(g);
   const stof = stofjes(g, 20);
-  const mw = 330, mh = 720, my = 180;
+  const mw = 330, mh = 640, my = 210;
   spot(g, 810, 540, 620, '#1D8DB0', .32);
 
   /* links de bevroren meting zonder zool, rechts de meting die meeverandert */
@@ -1138,27 +1140,23 @@ scene(12, g => {
   /* Het grote getal tijdens de close-up. De eenheid staat erboven in plaats
      van ernaast: naast het getal moest de breedte elk beeld opnieuw opgemeten
      worden, en bij het inzoomen viel ze buiten het kader. */
-  const grootL = el('text', {x:980, y:358, fill:'#8FB6D0', 'font-size':24, class:'label'}, g);
+  const grootL = el('text', {x:980, y:360, fill:'#8FB6D0', 'font-size':24, class:'label'}, g);
   grootL.textContent = 'HOOGSTE DRUK IN kPa';
-  const groot = el('text', {x:980, y:498, 'font-size':150, class:'getal', fill:'#FF7A00'}, g);
+  const groot = el('text', {x:980, y:500, 'font-size':150, class:'getal', fill:'#FF7A00'}, g);
 
   /* het paneel rechts, dat na het uitzoomen het verschil samenvat */
   const paneel = groep({opacity:0}, g);
   let vorigeW = -1;
   const k = kop(paneel, ['En kijk:', 'het rood', 'koelt af'], 1090, 300, 86);
-  const schaal = kleurschaal(paneel, 1700, 220, 34, 600);
+  const schaal = kleurschaal(paneel, 1700, 250, 34, 520);
   const som = el('text', {x:1094, y:620, fill:'#F2F8FC', 'font-size':62, class:'getal'}, paneel);
   som.textContent = '312 → 186 kPa';
   const onder = regelTekst(paneel, ['Onder de grens van 200 kPa,', 'in dezelfde meting.'],
                            1094, 692, 33, '#4FC08D', 44);
   return {
-    tekst:[[0, 'Zelfde voet, zelfde stap — maar nu met de nieuwe zool.'],
-           [.30, 'De rode plek koelt af.'],
-           [.60, 'Van 312 naar 186 kPa, in dezelfde meting.'],
-           [.80, 'De druk zit verdeeld over de hele voet.']],
-    shots:[{t:0, cam:[810,530,1.26], naar:[810,530,1.32]},
-           {t:0.20, cam:[800,515,1.95], naar:[795,512,2.0]},
-           {t:0.66, cam:[960,540,1], naar:[960,540,1.02]}],
+    shots:[{t:0, kader:[430,150,760,790], naar:[460,165,710,742]},
+           {t:0.20, kader:[600,190,700,680], naar:[615,200,672,653]},
+           {t:0.66, kader:DOEK, naar:[24,14,1872,1053]}],
     teken(u){
       stof.update(NU);
       const t = soepel(klem((u - .18) / .42, 0, 1));
@@ -1179,7 +1177,7 @@ scene(12, g => {
       /* daarna het overzicht: de oude meting schuift ernaast */
       const breed = stuk(u, .70, .86, uitloop);
       ghost.setAttribute('opacity', breed);
-      ghost.setAttribute('transform', `translate(${((1 - breed) * -420).toFixed(1)} 0)`);
+      ghost.setAttribute('transform', `translate(${((1 - breed) * -210).toFixed(1)} 0)`);
       pijl.setAttribute('opacity', stuk(u, .78, .90, uitloop));
       bN.textContent = w + ' kPa';
       bL.setAttribute('opacity', breed); bN.setAttribute('opacity', breed);
@@ -1217,32 +1215,30 @@ scene(8, g => {
 
   /* de week: zeven staven die oplopen naar de grens van 80% */
   const bx0 = 1120, by0 = 700, bw = 76, bh = 380;
+  const week = groep({opacity:0}, g);
   const dagen = ['ma','di','wo','do','vr','za','zo'];
   const hoogtes = [.88, .92, .79, .95, .86, .71, .9];
   const staven = dagen.map((dag, i) => {
     const x = bx0 + i * (bw + 22);
-    el('rect', {x, y:by0 - bh, width:bw, height:bh, rx:8, fill:'#0A2A44'}, g);
+    el('rect', {x, y:by0 - bh, width:bw, height:bh, rx:8, fill:'#0A2A44'}, week);
     const s = el('rect', {x, y:by0, width:bw, height:0, rx:8,
-                          fill:verlicht('#4FC08D', .25)}, g);
+                          fill:verlicht('#4FC08D', .25)}, week);
     const t = el('text', {x:x + bw / 2, y:by0 + 42, fill:'#8FB6D0', 'font-size':25,
-                          'text-anchor':'middle', class:'label'}, g);
+                          'text-anchor':'middle', class:'label'}, week);
     t.textContent = dag.toUpperCase();
     return {s, h:hoogtes[i]};
   });
   const doel = el('line', {x1:bx0 - 24, y1:by0 - bh * .8, x2:bx0 + 7 * (bw + 22),
                            y2:by0 - bh * .8, stroke:'#F2F8FC', 'stroke-width':3,
-                           'stroke-dasharray':'9 7', opacity:0}, g);
+                           'stroke-dasharray':'9 7', opacity:0}, week);
   const doelT = el('text', {x:bx0 - 34, y:by0 - bh * .8 + 9, fill:'#F2F8FC',
                             'font-size':24, 'text-anchor':'end', class:'label',
-                            opacity:0}, g);
+                            opacity:0}, week);
   doelT.textContent = 'DOEL 80%';
   const k = kop(g, ['Wordt de zool', 'ook gedragen?'], 1094, 250, 74);
   return {
-    tekst:[[0, 'In de zool zit een kleine sensor.'],
-           [.34, 'Hij meet alleen temperatuur — zo weten we wanneer de schoen aan is.'],
-           [.70, 'Het doel: tachtig procent van de wakkere uren, elke dag.']],
-    shots:[{t:0, cam:[620,520,1.55], naar:[610,515,1.65]},
-           {t:0.36, cam:[960,540,1], naar:[970,545,1.05]}],
+    shots:[{t:0, kader:[330,220,740,570], naar:[345,232,710,547]},
+           {t:0.36, kader:DOEK, naar:[24,14,1872,1053]}],
     teken(u){
       stof.update(NU);
       const p = (NU * .6) % 1;
@@ -1252,6 +1248,7 @@ scene(8, g => {
       wijs.setAttribute('stroke-dashoffset', 520 * (1 - stuk(u, .10, .30, uitloop)));
       wl.setAttribute('opacity', stuk(u, .20, .34, uitloop) * (1 - stuk(u, .40, .50)));
       k.toon(klem((u - .36) / .45, 0, 1));
+      week.setAttribute('opacity', stuk(u, .36, .46, uitloop));
       staven.forEach((b, i) => {
         const v = stuk(u, .44 + i * .045, .60 + i * .045, uitloop) * b.h;
         b.s.setAttribute('height', (bh * v).toFixed(1));
@@ -1274,9 +1271,7 @@ scene(6, g => {
   const f = maakFiguur(FRANS, g), l = maakFiguur(LOTTE, g);
   const k = kop(g, ['En zondag', 'gaan ze weer'], 130, 230, 100);
   return {
-    tekst:[[0, 'De druk is weg van die ene plek.'],
-           [.5, 'En de zondagse wandeling gaat gewoon door.']],
-    shots:[{t:0, cam:[900,580,1.15], naar:[960,540,1]}],
+    shots:[{t:0, kader:[90,50,1740,979], naar:DOEK}],
     teken(u){
       lucht_.update(NU);
       const weg = u * 700;
@@ -1337,10 +1332,7 @@ scene(10, g => {
     t.textContent = m + ' MND';
   });
   return {
-    tekst:[[0, 'Honderdvierenveertig mensen, in zes Belgische voetklinieken.'],
-           [.38, 'De helft krijgt de nieuwe aanpak, de helft de gebruikelijke zorg.'],
-           [.72, 'Achttien maanden lang volgen we wie er een wonde krijgt.']],
-    shots:[{t:0, cam:[960,560,1], naar:[960,555,1.04]}],
+    shots:[{t:0, kader:DOEK, naar:[36,20,1848,1040]}],
     teken(u){
       stof.update(NU);
       k.toon(u);
@@ -1383,8 +1375,7 @@ scene(8, g => {
                            'stroke-width':7, 'stroke-linejoin':'round'}, g);
   uitn.textContent = 'Kom gerust langs op de stand.';
   return {
-    tekst:[[0, '']],
-    shots:[{t:0, cam:[960,540,1], naar:[950,530,1.05]}],
+    shots:[{t:0, kader:DOEK, naar:[40,26,1840,1035]}],
     teken(u){
       k.toon(u);
       poseer(f, 1240, GROND - 126 * 3.3, 3.3, {pas:0, zwaai:0});
@@ -1419,15 +1410,6 @@ el('stop', {offset:.58, 'stop-color':'#000', 'stop-opacity':0}, vgr);
 el('stop', {offset:1, 'stop-color':'#000', 'stop-opacity':.40}, vgr);
 el('rect', {x:0, y:0, width:B, height:H, fill:'url(#vignet)'}, overlay);
 
-/* de regel staat in het beeld, linksonder, in plaats van in een balk
-   eronder: een balk over de film heen trekt de aandacht weg van wat er
-   gebeurt */
-const regelTxt = el('text', {id:'regel', x:120, y:1004, fill:'#C6DCEA',
-                             'font-size':36, class:'tekst',
-                             'paint-order':'stroke', stroke:'rgba(3,12,22,.85)',
-                             'stroke-width':7, 'stroke-linejoin':'round',
-                             opacity:0}, overlay);
-
 /* Het merk blijft de hele film rechtsonder staan. Op een stand wordt er
    gefotografeerd; elke foto hoort de naam mee te dragen. */
 const merkG = groep({opacity:.62}, overlay);
@@ -1450,19 +1432,7 @@ const korrel = el('rect', {x:0, y:0, width:B, height:H, filter:'url(#korrel)',
 const TOT = scenes.reduce((s, x) => s + x.duur, 0);
 const STARTEN = scenes.reduce((a, s) => (a.push(a[a.length - 1] + s.duur), a), [0]);
 const balkEl = document.getElementById('balk');
-let klok = 0, vorigeScene = -1, vorigeTekst = null, loopt = true, laatste = 0;
-let tekstTimer = null;
-
-function toonTekst(t){
-  if (t === vorigeTekst) return;
-  vorigeTekst = t;
-  regelTxt.setAttribute('opacity', 0);
-  clearTimeout(tekstTimer);
-  tekstTimer = setTimeout(() => {
-    regelTxt.textContent = t;
-    regelTxt.setAttribute('opacity', t ? 1 : 0);
-  }, 230);
-}
+let klok = 0, vorigeScene = -1, loopt = true, laatste = 0;
 
 /* Een stand draait uren door op onbekende hardware. Als het beeld hapert is
    de korrel en de onscherpe voorgrond het eerste wat mag sneuvelen: dat kost
@@ -1501,20 +1471,15 @@ function beeld(nu){
     scenes.forEach((s, j) => { s.g.style.display = j === i ? '' : 'none'; });
     vorigeScene = i;
   }
-  /* zachte in- en uitvloeier plus een lichte duw: een snit die alleen
-     doorvloeit oogt slap, een snit met een klein zetje leest als montage */
+  /* zachte in- en uitvloeier. Geen extra duw op de vergroting: die at aan
+     het kader, en dan klopt de garantie van kaderCam niet meer. */
   const in_ = stuk(u, 0, .05), uit = 1 - stuk(u, .95, 1);
   sc.g.setAttribute('opacity', Math.min(in_, uit).toFixed(3));
-  /* de camera: kader en vergroting per shot */
-  const [cx, cy, z0] = camera(u, sc.shots);
-  const z = z0 * meng(1.035, 1, in_) * meng(1, 1.02, 1 - uit);
+  /* de camera: kader per shot */
+  const [cx, cy, z] = camera(u, sc.shots);
   sc.g.setAttribute('transform',
     `translate(${(B / 2 - cx * z).toFixed(2)} ${(H / 2 - cy * z).toFixed(2)}) scale(${z.toFixed(4)})`);
   sc.teken(u);
-
-  let regel = sc.tekst[0][1];
-  for (const [v, s] of sc.tekst) if (u >= v) regel = s;
-  toonTekst(regel);
   balkEl.style.width = (klok / TOT * 100) + '%';
 }
 
@@ -1533,7 +1498,6 @@ function zetPauze(v){
 function naarScene(i){
   i = (i % scenes.length + scenes.length) % scenes.length;
   klok = STARTEN[i] + .001;
-  vorigeTekst = null;
 }
 function huidigeScene(){
   let t = klok, i = 0;
@@ -1573,7 +1537,7 @@ addEventListener('keydown', e => {
     case ' ': case 'p': case 'P':
       e.preventDefault(); zetPauze(loopt); break;
     case 'r': case 'R': case 'Home':
-      klok = 0; vorigeTekst = null; zetPauze(false); break;
+      klok = 0; zetPauze(false); break;
     case 'f': case 'F':
       if (document.fullscreenElement) document.exitFullscreen();
       else document.documentElement.requestFullscreen();
@@ -1593,7 +1557,7 @@ document.getElementById('startknop').addEventListener('click', async () => {
   startPaneel.classList.add('weg');
   try { await document.documentElement.requestFullscreen(); } catch (e) {}
   houdWakker();
-  klok = 0; vorigeTekst = null; zetPauze(false);
+  klok = 0; zetPauze(false);
   document.body.classList.add('geenmuis');
 });
 /* wie de knop links laat liggen, krijgt de film alsnog: na tien seconden
