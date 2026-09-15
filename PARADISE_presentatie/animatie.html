@@ -1,0 +1,771 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PARADISE — de zondag van opa Frans</title>
+<style>
+  :root{
+    --bg:#04182A; --grond:#072138; --tegel:#0A2A44; --tegel2:#113A57;
+    --rand:#215B84; --ink:#F2F8FC; --gedempt:#8FB6D0;
+    --navy:#00407A; --mid:#1D8DB0; --licht:#52BDEC; --oranje:#FF7A00;
+    --groen:#2E9E6B; --groen2:#4FC08D;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;background:#000;overflow:hidden}
+  body{font-family:"Segoe UI","Helvetica Neue",Arial,sans-serif;color:var(--ink)}
+  #doek{position:fixed;inset:0;display:grid;place-items:center;background:#000}
+  svg{width:100%;height:100%;display:block}
+
+  /* de balk onderaan, zodat de tekst op elke projector leesbaar blijft */
+  #onderschrift{
+    position:fixed;left:0;right:0;bottom:0;padding:28px 6vw 34px;
+    background:linear-gradient(to top,rgba(2,10,18,.94),rgba(2,10,18,.78) 62%,rgba(2,10,18,0));
+    text-align:center;pointer-events:none;
+  }
+  #onderschrift span{
+    display:inline-block;font-size:clamp(17px,2.05vw,34px);font-weight:700;
+    letter-spacing:.005em;line-height:1.3;
+    transition:opacity .45s ease,transform .45s cubic-bezier(.2,.8,.25,1);
+  }
+  #onderschrift.uit span{opacity:0;transform:translateY(12px)}
+
+  #balk{position:fixed;left:0;top:0;height:3px;background:var(--licht);
+        width:0;box-shadow:0 0 12px rgba(82,189,236,.7)}
+  /* de bediening dooft vanzelf uit: op een stand moet er niets in beeld staan
+     wat het publiek niet aangaat */
+  #hint{position:fixed;right:22px;bottom:22px;font-size:13px;color:var(--gedempt);
+        opacity:.55;letter-spacing:.06em;font-family:Consolas,monospace;
+        transition:opacity 1.2s ease 5s}
+  body.gestart #hint{opacity:0}
+  body:hover #hint{opacity:.55;transition-delay:0s}
+  #pauze{position:fixed;inset:0;display:none;place-items:center;
+         background:rgba(2,10,18,.55);font-size:28px;letter-spacing:.2em;
+         font-weight:700}
+  body.gepauzeerd #pauze{display:grid}
+</style>
+</head>
+<body>
+<div id="doek"><svg id="svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid meet"></svg></div>
+<div id="onderschrift"><span id="tekst"></span></div>
+<div id="balk"></div>
+<div id="hint">SPATIE pauzeer · R opnieuw · F volledig scherm</div>
+<div id="pauze">GEPAUZEERD</div>
+
+<script>
+/* =====================================================================
+   PARADISE — de zondag van opa Frans
+   Een animatie over de studie, voor een breed publiek en voor kinderen.
+
+   Waarom in de browser en niet in PowerPoint: hier kan een ledemaat om zijn
+   eigen scharnier draaien, kan een kleur per beeld herberekend worden, en
+   loopt alles op de beeldsnelheid van het scherm in plaats van in de
+   sprongen van een diaovergang. Dat is het verschil tussen een
+   diavoorstelling met overgangen en een film.
+   ===================================================================== */
+
+const NS = 'http://www.w3.org/2000/svg';
+const svg = document.getElementById('svg');
+const B = 1920, H = 1080, GROND = 872;
+
+/* ------------------------------------------------------------ gereedschap */
+const el = (naam, attr = {}, ouder = svg) => {
+  const n = document.createElementNS(NS, naam);
+  for (const k in attr) n.setAttribute(k, attr[k]);
+  ouder.appendChild(n);
+  return n;
+};
+const groep = (attr = {}, ouder = svg) => el('g', attr, ouder);
+const klem = (v, a, b) => Math.max(a, Math.min(b, v));
+const meng = (a, b, t) => a + (b - a) * t;
+
+/* Versnellingscurves. Lineair bewegen oogt mechanisch; alles wat leeft komt
+   op gang en loopt uit. */
+const soepel   = t => t * t * (3 - 2 * t);
+const uitloop  = t => 1 - Math.pow(1 - t, 3);
+const inloop   = t => t * t * t;
+const veer     = t => t >= 1 ? 1 :
+  1 - Math.pow(2, -10 * t) * Math.cos((t * 10 - .75) * (2 * Math.PI) / 3);
+/* deel van een scène, met eigen begin, duur en curve */
+const stuk = (u, van, tot, curve = soepel) =>
+  curve(klem((u - van) / (tot - van), 0, 1));
+
+const kleur = (a, b, t) => {
+  const h = s => [1, 3, 5].map(i => parseInt(s.substr(i, 2), 16));
+  const [r1, g1, b1] = h(a), [r2, g2, b2] = h(b);
+  return `rgb(${Math.round(meng(r1, r2, t))},${Math.round(meng(g1, g2, t))},${Math.round(meng(b1, b2, t))})`;
+};
+
+/* ------------------------------------------------------- het voetprofiel */
+/* Mediale en laterale rand van een rechtervoet, van hiel (0) naar teen (1).
+   Dezelfde tabel als in de dia's, zodat drukmat, meetzool en voetafdruk
+   allemaal dezelfde vorm hebben. */
+const PROFIEL = [
+  [0,.40,.60],[.03,.33,.67],[.08,.29,.71],[.15,.28,.72],[.24,.29,.73],
+  [.32,.33,.74],[.40,.37,.75],[.48,.36,.77],[.55,.31,.79],[.62,.24,.81],
+  [.69,.19,.82],[.75,.17,.81],[.81,.17,.78],[.86,.18,.74],[.90,.19,.70],
+  [.94,.20,.64],[.97,.21,.58],[1,.23,.50]];
+function rand(t){
+  if (t <= 0) return [PROFIEL[0][1], PROFIEL[0][2]];
+  if (t >= 1) return [PROFIEL[17][1], PROFIEL[17][2]];
+  for (let i = 0; i < PROFIEL.length - 1; i++){
+    const [t0,l0,r0] = PROFIEL[i], [t1,l1,r1] = PROFIEL[i+1];
+    if (t >= t0 && t <= t1){
+      const f = (t - t0) / (t1 - t0);
+      return [meng(l0,l1,f), meng(r0,r1,f)];
+    }
+  }
+  return [PROFIEL[17][1], PROFIEL[17][2]];
+}
+/* De voet als één gesloten pad in plaats van een stapel vormen: dit is wat
+   in PowerPoint niet kon en waardoor de voet daar nooit een voet werd. */
+function voetPad(x, y, w, h, n = 60){
+  const li = [], la = [];
+  for (let i = 0; i <= n; i++){
+    const t = i / n, [a, b] = rand(t);
+    li.push([x + a * w, y + h - t * h]);
+    la.push([x + b * w, y + h - t * h]);
+  }
+  const punten = la.concat(li.reverse());
+  let d = `M ${punten[0][0].toFixed(1)} ${punten[0][1].toFixed(1)}`;
+  for (let i = 1; i < punten.length; i++){
+    const p = punten[i], q = punten[i - 1];
+    d += ` Q ${q[0].toFixed(1)} ${q[1].toFixed(1)} ${((p[0]+q[0])/2).toFixed(1)} ${((p[1]+q[1])/2).toFixed(1)}`;
+  }
+  return d + ' Z';
+}
+
+/* ---------------------------------------------------------- de drukhaarden */
+const BASIS = [.5,.5,.16,.42];
+const VOOR = [BASIS,[.50,.10,.60,.105],[.44,.66,1.00,.062],[.30,.68,.55,.058],
+              [.70,.63,.42,.062],[.28,.91,.46,.055],[.60,.40,.12,.110]];
+const NA   = [BASIS,[.50,.12,.54,.115],[.44,.66,.50,.080],[.30,.68,.44,.070],
+              [.70,.63,.40,.075],[.28,.91,.40,.062],[.58,.42,.42,.130]];
+const BAND = [[0,'#051D33'],[.16,'#0D3A63'],[.32,'#1D8DB0'],[.48,'#52BDEC'],
+              [.62,'#FFD24A'],[.80,'#FF7A00'],[1,'#E8331E']];
+function bandkleur(v){
+  v = klem(v, 0, 1);
+  for (let i = 0; i < BAND.length - 1; i++){
+    const [a, ca] = BAND[i], [b, cb] = BAND[i+1];
+    if (v >= a && v <= b) return kleur(ca, cb, b === a ? 0 : (v - a) / (b - a));
+  }
+  return BAND[BAND.length - 1][1];
+}
+const veld = (h, x, y) => h.reduce((s, [hx, hy, amp, sig]) =>
+  s + amp * Math.exp(-(((x-hx)**2 + (y-hy)**2)) / (2 * sig * sig)), 0);
+
+/* ======================================================= de personages
+   Elk ledemaat is een eigen groep die om zijn eigen scharnier draait. Daardoor
+   is een echte loopcyclus mogelijk: heup en schouder slingeren tegen elkaar
+   in, en het lichaam veert mee op de pas. */
+/* Het haar was een dunne boog over het voorhoofd, waardoor allebei de figuren
+   een hoofdband leken te dragen. Het is nu een kap die de schedel echt bedekt,
+   met een eigen haargrens per personage. */
+/* De kap moet de hele bovenkant van de schedel vullen, niet alleen een boog
+   over het voorhoofd: bij een smalle boog lijkt het een hoofdband. De boog
+   loopt over de bovenrand van het hoofd, het pad sluit met een golvende
+   haargrens net boven de ogen. */
+/* `kap` is de haarmassa áchter het hoofd. Die moet duidelijk groter zijn dan
+   het hoofd of duidelijk kleiner — daartussenin zie je alleen zijn donkere
+   omlijning als een rand rond de schedel, en dat leest als een muts. Frans
+   krijgt er dus geen (kort haar), Lotte een royale (een bos haar).
+   `pony` is de haarkap zelf: massief, niet een dunne boog. */
+const FRANS = {haar:'#C9D6E0', huid:'#F0C9A6', romp:'#1D8DB0', romp2:'#15718F',
+               broek:'#123C63', schoen:'#8FB6D0', bril:1, snor:1, vlecht:0,
+               kap:21, ry:19,
+               /* de boog moet buiten de schedel uitkomen: sluit hij er precies
+                  op aan, dan ligt het haar als een bandje op zijn voorhoofd */
+               pony:'M24 34 A26 30 0 0 1 76 34 Q73 22 62 18 Q50 13 38 18 Q27 22 24 34 Z'};
+const LOTTE = {haar:'#8A5A3B', huid:'#F7D6B4', romp:'#2E9E6B', romp2:'#22794F',
+               broek:'#1B4A76', schoen:'#FF7A00', bril:0, snor:0, vlecht:1,
+               kap:28, ry:27,
+               pony:'M25 32 A25 26 0 0 1 75 32 Q73 25 64 22 Q57 28 50 22 Q43 28 36 22 Q27 25 25 32 Z'};
+
+function maakFiguur(w, ouder){
+  const g = groep({}, ouder);
+  const buiten = '#0B2033';
+  const lijn = {stroke:buiten, 'stroke-width':2.6, 'stroke-linejoin':'round'};
+  const d = {};
+
+  if (w.vlecht){
+    d.vlechtL = el('ellipse', {cx:20, cy:30, rx:9, ry:19, fill:w.haar, ...lijn}, g);
+    d.vlechtR = el('ellipse', {cx:80, cy:30, rx:9, ry:19, fill:w.haar, ...lijn}, g);
+    el('circle', {cx:20, cy:47, r:5.5, fill:'#FF7A00', ...lijn}, g);
+    el('circle', {cx:80, cy:47, r:5.5, fill:'#FF7A00', ...lijn}, g);
+  }
+  d.haarAchter = el('ellipse', {cx:50, cy:26, rx:w.kap, ry:w.ry, fill:w.haar, ...lijn}, g);
+
+  /* armen en benen: elk in een eigen groep met het scharnier als draaipunt */
+  const lid = (x, y, bx, by, bw, bh, vul, naam) => {
+    const gg = groep({}, g);
+    el('rect', {x:bx, y:by, width:bw, height:bh, rx:bw/2, fill:vul, ...lijn}, gg);
+    d[naam] = {g:gg, x, y};
+    return gg;
+  };
+  const aL = lid(27, 50, 22.5, 50, 9, 34, w.romp, 'armL');
+  d.handL = el('circle', {cx:27, cy:83, r:5.8, fill:w.huid, ...lijn}, aL);
+  const aR = lid(73, 50, 68.5, 50, 9, 34, w.romp, 'armR');
+  d.handR = el('circle', {cx:73, cy:83, r:5.8, fill:w.huid, ...lijn}, aR);
+
+  const bL = lid(41, 86, 35, 86, 12, 32, w.broek, 'beenL');
+  el('rect', {x:31, y:114, width:20, height:12, rx:5, fill:w.schoen, ...lijn}, bL);
+  el('rect', {x:31, y:121, width:20, height:5, rx:2.5, fill:'#0B2033', opacity:.55}, bL);
+  const bR = lid(59, 86, 53, 86, 12, 32, w.broek, 'beenR');
+  el('rect', {x:49, y:114, width:20, height:12, rx:5, fill:w.schoen, ...lijn}, bR);
+  el('rect', {x:49, y:121, width:20, height:5, rx:2.5, fill:'#0B2033', opacity:.55}, bR);
+
+  /* romp met een echte schoudervorm in plaats van een rechthoek */
+  el('path', {d:'M35 52 Q50 44 65 52 L69 86 Q50 92 31 86 Z', fill:w.romp, ...lijn}, g);
+  if (w.vlecht){
+    el('rect', {x:38, y:68, width:24, height:13, rx:5, fill:w.romp2}, g);
+    el('path', {d:'M44 50 q6 9 12 0', fill:'none', stroke:w.romp2, 'stroke-width':3}, g);
+  } else {
+    el('path', {d:'M43 50 l7 7 l7 -7', fill:'none', stroke:'#EAF3F9',
+                'stroke-width':3, 'stroke-linejoin':'round'}, g);
+    el('line', {x1:50, y1:57, x2:50, y2:86, stroke:w.romp2, 'stroke-width':2.4}, g);
+  }
+  el('rect', {x:44, y:42, width:12, height:10, fill:w.huid}, g);
+
+  /* hoofd */
+  const kop = groep({}, g);
+  d.kop = kop;
+  el('ellipse', {cx:29, cy:29, rx:4.5, ry:6, fill:w.huid, ...lijn}, kop);
+  el('ellipse', {cx:71, cy:29, rx:4.5, ry:6, fill:w.huid, ...lijn}, kop);
+  el('ellipse', {cx:50, cy:28, rx:23, ry:22, fill:w.huid, ...lijn}, kop);
+  el('path', {d:w.pony, fill:w.haar, ...lijn}, kop);
+  el('ellipse', {cx:33, cy:36, rx:5, ry:3.4, fill:'#E8735E', opacity:.45}, kop);
+  el('ellipse', {cx:67, cy:36, rx:5, ry:3.4, fill:'#E8735E', opacity:.45}, kop);
+  for (const [cx, sp] of [[41,-1],[59,1]]){
+    el('ellipse', {cx, cy:27, rx:4.6, ry:5.2, fill:'#fff', stroke:buiten,
+                   'stroke-width':1.8}, kop);
+    const p = el('circle', {cx:cx + sp * .8, cy:28.4, r:2.4, fill:'#16212C'}, kop);
+    el('circle', {cx:cx + sp * .8 + .9, cy:27.6, r:.9, fill:'#fff'}, kop);
+    d['pupil' + (cx < 50 ? 'L' : 'R')] = p;
+    el('rect', {x:cx - 5.5, y:20.5, width:11, height:2.6, rx:1.3,
+                fill:w.haar, opacity:.85}, kop);
+  }
+  el('ellipse', {cx:50, cy:33.5, rx:3.2, ry:2.6, fill:w.huid,
+                 stroke:buiten, 'stroke-width':1.6}, kop);
+  if (w.bril){
+    el('circle', {cx:41, cy:27, r:8, fill:'none', stroke:'#3B4E60', 'stroke-width':2.4}, kop);
+    el('circle', {cx:59, cy:27, r:8, fill:'none', stroke:'#3B4E60', 'stroke-width':2.4}, kop);
+    el('line', {x1:49, y1:27, x2:51, y2:27, stroke:'#3B4E60', 'stroke-width':2.4}, kop);
+  }
+  if (w.snor) el('path', {d:'M41 39 q9 -4 18 0 q-9 4 -18 0 Z', fill:w.haar, ...lijn}, kop);
+  d.mond = el('path', {d:'', fill:'#7A2E2E', stroke:buiten, 'stroke-width':1.6}, kop);
+
+  return {g, d, w};
+}
+
+/* zet de figuur neer: plaats, schaal, pas, en de stand van de mond */
+function poseer(f, x, y, sc, opties = {}){
+  const {pas = 0, zwaai = 14, hop = 0, mond = 'lach', kijk = 0} = opties;
+  const bob = Math.abs(Math.sin(pas * 2)) * 2.2 * (zwaai > 1 ? 1 : 0);
+  f.g.setAttribute('transform',
+    `translate(${x} ${y - hop + bob}) scale(${sc})`);
+  const zet = (lid, hoek) => {
+    const {g, x:px, y:py} = f.d[lid];
+    g.setAttribute('transform', `rotate(${hoek} ${px} ${py})`);
+  };
+  const a = Math.sin(pas) * zwaai;
+  zet('beenL', opties.beenL !== undefined ? opties.beenL : -a);
+  zet('beenR', opties.beenR !== undefined ? opties.beenR :  a);
+  zet('armL', opties.armL !== undefined ? opties.armL :  a * .62);
+  zet('armR', opties.armR !== undefined ? opties.armR : -a * .62);
+  f.d.kop.setAttribute('transform', `rotate(${kijk} 50 34)`);
+  f.d.mond.setAttribute('d', mond === 'open'
+    ? 'M44 40 a6 6 0 0 0 12 0 a6 6 0 0 0 -12 0 Z'
+    : 'M43.5 39.5 q6.5 7 13 0 Z');
+}
+
+/* ================================================================ decor */
+/* Twee werelden. Buiten is het zondagnamiddag: diep blauw dat naar de horizon
+   toe warm wordt. Binnen, waar gemeten wordt, blijft alles koel en donker.
+   Dat verschil draagt het verhaal én maakt het kijken de moeite waard; één
+   egale donkerblauwe grond over de hele film was het saaiste eraan. */
+let gradTeller = 0;
+function lucht(ouder, soort = 'lab'){
+  const g = groep({}, ouder);
+  const id = 'sky' + (gradTeller++);
+  const lg = el('linearGradient', {id, x1:0, y1:0, x2:0, y2:1}, g);
+  const stops = soort === 'avond'
+    ? [[0,'#0A1E3C'],[.42,'#1D4E7A'],[.74,'#C96A4E'],[1,'#F0A45C']]
+    : [[0,'#020C17'],[.62,'#08223A'],[1,'#0E3050']];
+  stops.forEach(([o, c]) => el('stop', {offset:o, 'stop-color':c}, lg));
+  el('rect', {x:0, y:0, width:B, height:H, fill:`url(#${id})`}, g);
+  if (soort === 'avond'){
+    el('circle', {cx:1500, cy:GROND - 70, r:78, fill:'#FFD9A0', opacity:.9}, g);
+    el('circle', {cx:1500, cy:GROND - 70, r:150, fill:'#FFC27A', opacity:.16}, g);
+  }
+  return g;
+}
+
+function boom(ouder, x, s, soort = 'lab'){
+  const g = groep({transform:`translate(${x} ${GROND}) scale(${s})`}, ouder);
+  const [stam, k1, k2, k3] = soort === 'avond'
+    ? ['#2A2036', '#123A2E', '#18513C', '#0E2F26']
+    : ['#1B4A72', '#10395C', '#164A74', '#12406A'];
+  el('path', {d:'M-11 0 L-6 -150 L6 -150 L11 0 Z', fill:stam}, g);
+  el('path', {d:'M-6 -104 q-26 -12 -34 -34', fill:'none', stroke:stam,
+              'stroke-width':8, 'stroke-linecap':'round'}, g);
+  el('circle', {cx:-38, cy:-176, r:52, fill:k1}, g);
+  el('circle', {cx:22, cy:-196, r:60, fill:k2}, g);
+  el('circle', {cx:-6, cy:-146, r:50, fill:k3}, g);
+  return g;
+}
+
+function grasveld(ouder, soort = 'lab'){
+  const g = groep({}, ouder);
+  const [vlak, rand_, pluk] = soort === 'avond'
+    ? ['#11382C', '#F0A45C', '#1A5340'] : ['#0A2A44', '#2A6C9A', '#17567F'];
+  el('rect', {x:0, y:GROND, width:B, height:H - GROND, fill:vlak}, g);
+  el('rect', {x:0, y:GROND, width:B, height:5, fill:rand_, opacity:.8}, g);
+  /* echte grassprietjes in plaats van vinkjes: drie halmen per pol */
+  for (let i = 0; i < 30; i++){
+    const x = 20 + i * 66 + (i * 53 % 41), h = 18 + (i * 37 % 16);
+    let d = '';
+    for (const [dx, f] of [[-7,.72],[0,1],[7,.8]])
+      d += `M${x+dx} ${GROND+30} q${dx*.6} ${-h*f*.6} ${dx*1.5} ${-h*f} `;
+    el('path', {d, fill:'none', stroke:pluk, 'stroke-width':4,
+                'stroke-linecap':'round', opacity:.85}, g);
+  }
+  return g;
+}
+
+/* ============================================================== de scènes */
+const scenes = [];
+function scene(duur, bouw){
+  const g = groep({opacity:0});
+  const api = bouw(g);
+  scenes.push({g, duur, teken:api.teken, tekst:api.tekst});
+}
+
+/* grote koptekst met een staggered opkomst per regel */
+function kop(ouder, regels, x, y, gr, kl = 'var(--ink)'){
+  const t = el('text', {x, y, fill:kl, 'font-size':gr, 'font-weight':800,
+                        'letter-spacing':'-.01em'}, ouder);
+  const spans = regels.map((r, i) => {
+    const s = el('tspan', {x, dy: i ? gr * 1.08 : 0}, t);
+    s.textContent = r;
+    return s;
+  });
+  return {t, spans, toon(u){
+    spans.forEach((s, i) => {
+      const p = stuk(u, .02 + i * .06, .34 + i * .06, uitloop);
+      s.setAttribute('opacity', p);
+      s.setAttribute('dx', (1 - p) * -26);
+    });
+  }};
+}
+
+/* --------------------------------------------------- 1. de zondagse wandeling */
+scene(8, g => {
+  lucht(g, 'avond');
+  const ver = groep({}, g); boom(ver, 250, .7, 'avond'); boom(ver, 1450, .6, 'avond');
+  const dicht = groep({}, g); boom(dicht, 1720, 1.15, 'avond'); boom(dicht, 640, .95, 'avond');
+  grasveld(g, 'avond');
+  const f = maakFiguur(FRANS, g), l = maakFiguur(LOTTE, g);
+  const k = kop(g, ['Elke zondag', 'gaan ze samen'], 120, 220, 96);
+  return {
+    tekst:[[0, 'Opa Frans en Lotte wandelen elke zondag samen.'],
+           [.55, 'Tienduizend stappen, zonder erbij na te denken.']],
+    teken(u){
+      const p = u * 7.4;
+      ver.setAttribute('transform', `translate(${-u * 60} 0)`);
+      dicht.setAttribute('transform', `translate(${-u * 190} 0)`);
+      poseer(f, 470 + u * 120, GROND - 126 * 3.3, 3.3, {pas:p, zwaai:15});
+      poseer(l, 900 + u * 150, GROND - 126 * 2.65, 2.65,
+             {pas:p + Math.PI, zwaai:19, kijk:Math.sin(p) * 4});
+      k.toon(u);
+    }};
+});
+
+/* --------------------------------------------------------- 2. het legoblokje */
+scene(11, g => {
+  lucht(g, 'avond'); grasveld(g, 'avond');
+  const blokL = blokje(g, 600), blokF = blokje(g, 1330);
+  const f = maakFiguur(FRANS, g), l = maakFiguur(LOTTE, g);
+  const ster = el('path', {d:sterPad(11), fill:'#FFB020', opacity:0,
+                           stroke:'#FF7A00', 'stroke-width':6}, g);
+  const au = el('text', {x:430, y:330, fill:'#FF7A00', 'font-size':130,
+                         'font-weight':900, 'text-anchor':'middle', opacity:0}, g);
+  au.textContent = 'AU!';
+  function blokje(ouder, x){
+    const gg = groep({transform:`translate(${x} ${GROND - 62})`}, ouder);
+    el('rect', {x:0, y:20, width:110, height:42, rx:7, fill:'#FF7A00',
+                stroke:'#A64E00', 'stroke-width':3}, gg);
+    for (let i = 0; i < 4; i++)
+      el('rect', {x:8 + i * 25, y:2, width:18, height:24, rx:7, fill:'#FF9433',
+                  stroke:'#A64E00', 'stroke-width':3}, gg);
+    return gg;
+  }
+  function sterPad(n){
+    let d = '';
+    for (let i = 0; i < n * 2; i++){
+      const a = i * Math.PI / n - Math.PI / 2, r = i % 2 ? 26 : 62;
+      d += (i ? 'L' : 'M') + (Math.cos(a) * r).toFixed(1) + ' ' + (Math.sin(a) * r).toFixed(1) + ' ';
+    }
+    return d + 'Z';
+  }
+  return {
+    tekst:[[0, 'Er ligt een legoblokje op de grond.'],
+           [.34, 'Lotte stapt erop — en voelt het meteen.'],
+           [.66, 'Opa Frans staat op net zo’n blokje. Hij merkt niets.']],
+    teken(u){
+      /* Lotte loopt ernaartoe, springt op en komt neer */
+      const aan = stuk(u, .02, .30, soepel);
+      const spring = stuk(u, .32, .46, uitloop) - stuk(u, .50, .62, inloop);
+      const lx = meng(220, 500, aan) - spring * 40;
+      poseer(l, lx, GROND - 126 * 2.65, 2.65, {
+        pas: aan < 1 ? u * 22 : 0, zwaai: aan < 1 ? 19 : 0,
+        hop: spring * 96, beenR: -spring * 46, armL:-spring * 30, armR:spring * 30,
+        mond: spring > .15 ? 'open' : 'lach', kijk: spring * -6});
+      const bloem = stuk(u, .33, .40, uitloop) * (1 - stuk(u, .52, .66, soepel));
+      ster.setAttribute('transform',
+        `translate(560 ${GROND - 64}) scale(${.5 + bloem * .9}) rotate(${bloem * 40})`);
+      ster.setAttribute('opacity', bloem);
+      au.setAttribute('opacity', bloem);
+      au.setAttribute('transform', `translate(0 ${(1 - bloem) * 26})`);
+      /* opa stapt in alle rust op het zijne */
+      const stap = stuk(u, .62, .82, soepel);
+      poseer(f, meng(1180, 1258, stap), GROND - 126 * 2.9 - stap * 62, 2.9,
+             {pas: stap < 1 ? u * 12 : 0, zwaai: stap < 1 && stap > 0 ? 9 : 0});
+      blokF.setAttribute('opacity', 1);
+      blokL.setAttribute('opacity', 1);
+    }};
+});
+
+/* -------------------------------------------------------------- 3. de inzet */
+scene(7.5, g => {
+  lucht(g, 'avond'); grasveld(g, 'avond');
+  const f = maakFiguur(FRANS, g), l = maakFiguur(LOTTE, g);
+  const k = kop(g, ['Als opa een wonde', 'aan zijn voet krijgt,', 'mag hij weken', 'niet wandelen.'],
+                120, 210, 62, 'var(--ink)');
+  const hart = el('path', {d:'', fill:'#E8735E', opacity:0}, g);
+  return {
+    tekst:[[0, 'En dat is nu net het gevaar.'],
+           [.5, 'Wie niets voelt, merkt te laat dat er iets misgaat.']],
+    teken(u){
+      poseer(f, 1300, GROND - 126 * 3.3, 3.3, {pas:0, zwaai:0, kijk:6});
+      poseer(l, 1560, GROND - 126 * 2.65, 2.65,
+             {pas:0, zwaai:0, mond:'open', kijk:-10 - Math.sin(u * 5) * 2});
+      k.toon(u);
+      const p = stuk(u, .25, .5, veer) * (1 - stuk(u, .82, 1, soepel));
+      hart.setAttribute('opacity', p * .9);
+      hart.setAttribute('d', 'M0 0 c0 -14 -22 -14 -22 2 c0 14 22 26 22 26 c0 0 22 -12 22 -26 c0 -16 -22 -16 -22 -2 Z');
+      hart.setAttribute('transform',
+        `translate(1640 ${360 - p * 40}) scale(${p * 1.4})`);
+    }};
+});
+
+/* ------------------------------------------------------- 4. de hete plek */
+scene(8, g => {
+  lucht(g);
+  const vx = 1080, vy = 150, vw = 380, vh = 720;
+  el('path', {d:voetPad(vx, vy, vw, vh), fill:'#1E5680', stroke:'#0E3352',
+              'stroke-width':4}, g);
+  const hx = vx + .44 * vw, hy = vy + vh - .66 * vh;
+  const ringen = [[62, '#FFD24A'], [40, '#FF7A00'], [19, '#E8331E']]
+    .map(([r, c]) => el('circle', {cx:hx, cy:hy, r, fill:c}, g));
+  const golf = el('circle', {cx:hx, cy:hy, r:62, fill:'none',
+                             stroke:'#FF7A00', 'stroke-width':5}, g);
+  const k = kop(g, ['Toch duwt', 'zijn voet', 'te hard'], 130, 300, 88);
+  return {
+    tekst:[[0, 'Op één plekje duwt zijn voet veel te hard.'],
+           [.42, 'Als een steentje dat er altijd in zit.'],
+           [.74, 'En net daar ontstaat een wonde.']],
+    teken(u){
+      k.toon(u);
+      const klop = .5 + .5 * Math.sin(u * Math.PI * 7);
+      ringen.forEach((c, i) => {
+        const basis = [62, 40, 19][i];
+        c.setAttribute('r', basis * (.84 + .22 * klop));
+      });
+      /* een uitdijende golf die uitdooft: dat leest als kloppende druk */
+      const w = (u * 3.2) % 1;
+      golf.setAttribute('r', 50 + w * 150);
+      golf.setAttribute('opacity', (1 - w) * .5);
+    }};
+});
+
+/* --------------------------------------------------------- 5. de meetzool */
+scene(8, g => {
+  lucht(g);
+  const zx = 420, zy = 216, zw = 330, zh = 620;
+  el('path', {d:voetPad(zx - 44, zy - 40, zw + 88, zh + 80), fill:'#133D5B',
+              stroke:'#0C2B42', 'stroke-width':4}, g);
+  el('path', {d:voetPad(zx - 20, zy - 18, zw + 40, zh + 36), fill:'#071B2C'}, g);
+  const zool = groep({}, g);
+  el('path', {d:voetPad(zx, zy, zw, zh), fill:'#1E5680', stroke:'#0E3352',
+              'stroke-width':3}, zool);
+  const cellen = [];
+  for (let r = 0; r < 17; r++){
+    const t = (r + .5) / 17, [li, la] = rand(t);
+    for (let c = 0; c < 9; c++){
+      const fx = (c + .5) / 9;
+      if (fx >= li && fx <= la && cellen.length < 99)
+        cellen.push(el('circle', {cx:zx + fx * zw, cy:zy + zh - t * zh, r:9,
+                                  fill:'#2A6C9A'}, zool));
+    }
+  }
+  const k = kop(g, ['Een meetzool', 'met 99', 'sensoren'], 1050, 340, 68);
+  return {
+    tekst:[[0, 'Daarom meten we het, vóór er iets gebeurt.'],
+           [.42, 'Een flinterdunne zool met 99 sensoren, in zijn eigen schoen.'],
+           [.78, 'Sensoren die voelen hoe hard de voet duwt.']],
+    teken(u){
+      k.toon(u);
+      const zak = stuk(u, .12, .46, uitloop);
+      zool.setAttribute('transform', `translate(0 ${(1 - zak) * -240})`);
+      zool.setAttribute('opacity', stuk(u, .06, .2));
+      cellen.forEach((c, i) => {
+        const aan = stuk(u, .48 + (i / cellen.length) * .3, .62 + (i / cellen.length) * .3);
+        c.setAttribute('fill', kleur('#2A6C9A', '#52BDEC', aan));
+        c.setAttribute('r', 9 + aan * 2.4);
+      });
+    }};
+});
+
+/* ------------------------------------------------------- 6. tien meter */
+scene(8.5, g => {
+  lucht(g);
+  el('rect', {x:120, y:GROND, width:1680, height:12, fill:'#215B84'}, g);
+  [[120, '0 m'], [1800, '10 m']].forEach(([x, lbl]) => {
+    el('rect', {x:x - 4, y:GROND - 34, width:8, height:46, fill:'#52BDEC'}, g);
+    const t = el('text', {x, y:GROND - 52, fill:'#52BDEC', 'font-size':26,
+                          'font-family':'Consolas,monospace', 'font-weight':700,
+                          'text-anchor':'middle'}, g);
+    t.textContent = lbl;
+  });
+  const sporen = [];
+  for (let i = 0; i < 7; i++){
+    const gg = groep({opacity:0}, g), x = 250 + i * 225;
+    el('path', {d:voetPad(x, 900, 38, 56, 24), fill:'#52BDEC'}, gg);
+    el('circle', {cx:x + .44 * 38, cy:900 + 56 - .66 * 56, r:7, fill:'#FF7A00'}, gg);
+    sporen.push({g:gg, x});
+  }
+  const f = maakFiguur(FRANS, g);
+  const kastje = groep({}, g);
+  el('rect', {x:-30, y:-24, width:60, height:46, rx:9, fill:'#153F5E',
+              stroke:'#0C2B42', 'stroke-width':3}, kastje);
+  el('circle', {cx:0, cy:-1, r:9, fill:'#4FC08D'}, kastje);
+  const k = kop(g, ['10 meter', 'wandelen'], 130, 210, 78);
+  return {
+    tekst:[[0, 'Hij wandelt tien meter, heen en weer.'],
+           [.45, 'Honderd metingen per seconde, bij elke stap.']],
+    teken(u){
+      k.toon(u);
+      const p = soepel(klem(u / .9, 0, 1));
+      const fx = meng(200, 1330, p);
+      poseer(f, fx, GROND - 126 * 3.3, 3.3, {pas:u * 15, zwaai:17});
+      kastje.setAttribute('transform', `translate(${fx + 205} ${GROND - 190})`);
+      sporen.forEach(s => {
+        const v = klem((fx + 60 - s.x) / 90, 0, 1);
+        s.g.setAttribute('opacity', v);
+        s.g.setAttribute('transform', `translate(0 ${(1 - v) * 10})`);
+      });
+    }};
+});
+
+/* ------------------------------------------- 7 en 9. de drukmat */
+function matScene(duur, van, naar, kopregels, onder, waardeVan, waardeNaar){
+  scene(duur, g => {
+    lucht(g);
+    const mx = 210, my = 130, mw = 420, mh = 800, kol = 18, rij = 38;
+    const cw = mw / kol, ch = mh / rij, d = Math.min(cw, ch) * .86;
+    const cellen = [];
+    for (let r = 0; r < rij; r++){
+      const t = (r + .5) / rij, [li, la] = rand(t);
+      for (let c = 0; c < kol; c++){
+        const fx = (c + .5) / kol;
+        if (fx >= li && fx <= la)
+          cellen.push({e:el('rect', {x:mx + c * cw + (cw - d) / 2,
+                                     y:my + mh - (r + 1) * ch + (ch - d) / 2,
+                                     width:d, height:d, rx:d * .3, fill:'#051D33'}, g),
+                       fx, t});
+      }
+    }
+    const getal = el('text', {x:760, y:400, 'font-size':210, 'font-weight':800,
+                              fill:'#FF7A00'}, g);
+    const eh = el('text', {x:760, y:400, 'font-size':64, fill:'#8FB6D0'}, g);
+    eh.textContent = 'kPa';
+    const k = kop(g, kopregels, 762, 600, 62);
+    return {
+      tekst:onder,
+      teken(u){
+        k.toon(u);
+        const t = soepel(klem((u - .12) / .74, 0, 1));
+        const h = van.map((a, i) => a.map((v, j) => meng(v, naar[i][j], t)));
+        let top = 0;
+        const ruw = cellen.map(c => {
+          const v = veld(h, c.fx, c.t); if (v > top) top = v; return v;
+        });
+        const w = Math.round(meng(waardeVan, waardeNaar, t));
+        const f = (w / 400) / (top || 1);
+        cellen.forEach((c, i) => c.e.setAttribute('fill', bandkleur(ruw[i] * f)));
+        getal.textContent = w;
+        getal.setAttribute('fill', w > 240 ? '#FF7A00' : '#52BDEC');
+        eh.setAttribute('x', 762 + getal.getComputedTextLength() + 18);
+        eh.setAttribute('fill', '#8FB6D0');
+        const op = stuk(u, 0, .16);
+        getal.setAttribute('opacity', op); eh.setAttribute('opacity', op);
+      }};
+  });
+}
+matScene(7, VOOR, VOOR, ['Rood is waar', 'het duwt'],
+         [[0, 'Rood is waar de voet het hardst duwt.'],
+          [.42, 'Driehonderdtwaalf — alles boven 200 is te veel.'],
+          [.75, 'Precies het plekje dat opa niet voelt.']], 312, 312);
+
+/* ----------------------------------------------------- 8. de zool op maat */
+scene(8, g => {
+  lucht(g);
+  const lx = 260, ly = 250, lw = 330, lh = 490;
+  const lagen = [['#1D8DB0', 'kurk'], ['#52BDEC', 'schuim'], ['#8FB6D0', 'deklaag']]
+    .map(([kl, naam], i) => {
+      const gg = groep({}, g);
+      el('path', {d:voetPad(lx, ly, lw, lh), fill:kl, stroke:'#0C2B42',
+                  'stroke-width':3}, gg);
+      const st = groep({}, g);
+      el('rect', {x:0, y:0, width:34, height:34, rx:9, fill:kl,
+                  stroke:'#0C2B42', 'stroke-width':2}, st);
+      const t = el('text', {x:50, y:27, fill:'#8FB6D0', 'font-size':28}, st);
+      t.textContent = naam;
+      return {gg, st, i};
+    });
+  const pad = el('ellipse', {cx:0, cy:0, rx:0, ry:0, fill:'#FF7A00',
+                             stroke:'#A64E00', 'stroke-width':3}, g);
+  const k = kop(g, ['Een zool', 'op maat'], 1130, 330, 84);
+  return {
+    tekst:[[0, 'De schoenmaker bouwt een zool op maat, laag voor laag.'],
+           [.55, 'Het kussentje haalt de druk weg van dat ene plekje.']],
+    teken(u){
+      k.toon(u);
+      const t = stuk(u, .1, .62, soepel);
+      lagen.forEach(({gg, st, i}) => {
+        const dx = (i - 1) * meng(78, 16, t), dy = (i - 1) * meng(138, 34, t);
+        gg.setAttribute('transform', `translate(${dx} ${dy})`);
+        st.setAttribute('transform',
+          `translate(${meng(lx + lw + 40 + dx, lx + lw + 150, t)} ${meng(ly + 20 + dy, ly + 30 + i * 84, t)})`);
+      });
+      const gr = stuk(u, .55, .84, veer);
+      pad.setAttribute('cx', lx + .30 * lw + meng(78, 16, t));
+      pad.setAttribute('cy', ly + lh - .66 * lh + meng(138, 34, t));
+      pad.setAttribute('rx', gr * 56); pad.setAttribute('ry', gr * 38);
+    }};
+});
+
+matScene(9.5, VOOR, NA, ['En kijk:', 'het rood koelt af'],
+         [[0, 'Zelfde voet, zelfde stap — maar nu met de nieuwe zool.'],
+          [.45, 'De rode plek koelt af.'],
+          [.78, 'De druk zit verdeeld over de hele voet.']], 312, 186);
+
+/* ------------------------------------------------------ 10. weer op stap */
+scene(7, g => {
+  lucht(g, 'avond');
+  const ver = groep({}, g); boom(ver, 300, .7, 'avond'); boom(ver, 1500, .62, 'avond');
+  const dicht = groep({}, g); boom(dicht, 1700, 1.2, 'avond'); boom(dicht, 760, .9, 'avond');
+  grasveld(g, 'avond');
+  const f = maakFiguur(FRANS, g), l = maakFiguur(LOTTE, g);
+  const k = kop(g, ['En zondag', 'gaan ze weer'], 120, 220, 92);
+  return {
+    tekst:[[0, 'De druk is weg van die ene plek.'],
+           [.5, 'En de zondagse wandeling gaat gewoon door.']],
+    teken(u){
+      const p = u * 7;
+      ver.setAttribute('transform', `translate(${-u * 70} 0)`);
+      dicht.setAttribute('transform', `translate(${-u * 210} 0)`);
+      poseer(f, 500 + u * 140, GROND - 126 * 3.3, 3.3, {pas:p, zwaai:16});
+      poseer(l, 930 + u * 165, GROND - 126 * 2.65, 2.65,
+             {pas:p + Math.PI, zwaai:20, kijk:Math.sin(p) * 5});
+      k.toon(u);
+    }};
+});
+
+/* ------------------------------------------------------------ 11. de vraag */
+scene(9, g => {
+  lucht(g, 'avond'); grasveld(g, 'avond');
+  const f = maakFiguur(FRANS, g), l = maakFiguur(LOTTE, g);
+  const k = kop(g, ['Maar voorkomt dat', 'ook echt een wonde?'], 120, 250, 72);
+  const r = el('text', {x:124, y:520, fill:'#8FB6D0', 'font-size':30}, g);
+  ['Zes Belgische ziekenhuizen zoeken het nu samen uit,',
+   'ook AZ Groeninge in Kortrijk.'].forEach((s, i) => {
+    const sp = el('tspan', {x:124, dy: i ? 46 : 0}, r); sp.textContent = s;
+  });
+  const stippen = [];
+  for (let i = 0; i < 6; i++)
+    stippen.push(el('circle', {cx:145 + i * 64, cy:640, r:0, fill:'#4FC08D'}, g));
+  const merk = el('text', {x:124, y:730, fill:'#52BDEC', 'font-size':22,
+                           'font-family':'Consolas,monospace',
+                           'letter-spacing':'.14em'}, g);
+  merk.textContent = 'PARADISE  ·  KU LEUVEN CAMPUS BRUGGE';
+  return {
+    tekst:[[0, 'Dat weten we nog niet.'],
+           [.4, 'Zes ziekenhuizen zoeken het nu samen uit.'],
+           [.74, 'Kom gerust langs op de stand.']],
+    teken(u){
+      k.toon(u);
+      poseer(f, 1240, GROND - 126 * 3.3, 3.3, {pas:0, zwaai:0});
+      poseer(l, 1560, GROND - 126 * 2.65, 2.65, {pas:0, zwaai:0, kijk:-6});
+      r.setAttribute('opacity', stuk(u, .22, .45, uitloop));
+      stippen.forEach((s, i) =>
+        s.setAttribute('r', 21 * stuk(u, .42 + i * .045, .56 + i * .045, veer)));
+      merk.setAttribute('opacity', stuk(u, .62, .8));
+    }};
+});
+
+/* ============================================================== de motor */
+const TOT = scenes.reduce((s, x) => s + x.duur, 0);
+const tekstEl = document.getElementById('tekst');
+const onderEl = document.getElementById('onderschrift');
+const balkEl = document.getElementById('balk');
+let klok = 0, vorigeScene = -1, vorigeTekst = '', loopt = true, laatste = 0;
+
+function toonTekst(t){
+  if (t === vorigeTekst) return;
+  vorigeTekst = t;
+  onderEl.classList.add('uit');
+  setTimeout(() => { tekstEl.textContent = t; onderEl.classList.remove('uit'); }, 240);
+}
+
+function beeld(nu){
+  requestAnimationFrame(beeld);
+  const dt = Math.min((nu - laatste) / 1000, .1);
+  laatste = nu;
+  if (!loopt) return;
+  klok = (klok + dt) % TOT;
+
+  let t = klok, i = 0;
+  while (i < scenes.length - 1 && t > scenes[i].duur){ t -= scenes[i].duur; i++; }
+  const sc = scenes[i], u = klem(t / sc.duur, 0, 1);
+
+  if (i !== vorigeScene){
+    scenes.forEach((s, j) => s.g.setAttribute('opacity', j === i ? 1 : 0));
+    vorigeScene = i;
+  }
+  /* zachte in- en uitvloeier aan de randen van elke scène */
+  sc.g.setAttribute('opacity', Math.min(stuk(u, 0, .05), 1 - stuk(u, .95, 1)));
+  sc.teken(u);
+
+  let regel = sc.tekst[0][1];
+  for (const [v, s] of sc.tekst) if (u >= v) regel = s;
+  toonTekst(regel);
+  balkEl.style.width = (klok / TOT * 100) + '%';
+}
+requestAnimationFrame(nu => { laatste = nu; requestAnimationFrame(beeld); });
+document.body.classList.add('gestart');
+
+addEventListener('keydown', e => {
+  if (e.code === 'Space'){ e.preventDefault(); loopt = !loopt;
+    document.body.classList.toggle('gepauzeerd', !loopt); }
+  if (e.key === 'r' || e.key === 'R'){ klok = 0; }
+  if (e.key === 'f' || e.key === 'F'){
+    if (document.fullscreenElement) document.exitFullscreen();
+    else document.documentElement.requestFullscreen();
+  }
+});
+addEventListener('click', () => { loopt = !loopt;
+  document.body.classList.toggle('gepauzeerd', !loopt); });
+</script>
+</body>
+</html>
