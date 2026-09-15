@@ -30,3 +30,6 @@ Literatuur onderzoek/
 
 # reservekopieen van de decks, gemaakt voor elke bouw
 PARADISE_presentatie/vorige/
+
+# de gerenderde film: 14 MB, wordt opnieuw gemaakt met maak_film.py --video
+PARADISE_presentatie/PARADISE_animatie.mp4
