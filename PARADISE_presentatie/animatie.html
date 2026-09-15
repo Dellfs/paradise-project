@@ -179,165 +179,201 @@ const veld = (h, x, y) => h.reduce((s, [hx, hy, amp, sig]) =>
   s + amp * Math.exp(-(((x-hx)**2 + (y-hy)**2)) / (2 * sig * sig)), 0);
 
 /* ======================================================= de personages
-   Elk ledemaat is een eigen groep die om zijn eigen scharnier draait. Daardoor
-   is een echte loopcyclus mogelijk: heup en schouder slingeren tegen elkaar
-   in, en het lichaam veert mee op de pas. */
-/* Het haar was een dunne boog over het voorhoofd, waardoor allebei de figuren
-   een hoofdband leken te dragen. Het is nu een kap die de schedel echt bedekt,
-   met een eigen haargrens per personage. */
-/* De kap moet de hele bovenkant van de schedel vullen, niet alleen een boog
-   over het voorhoofd: bij een smalle boog lijkt het een hoofdband. De boog
-   loopt over de bovenrand van het hoofd, het pad sluit met een golvende
-   haargrens net boven de ogen. */
-/* `kap` is de haarmassa áchter het hoofd. Die moet duidelijk groter zijn dan
-   het hoofd of duidelijk kleiner — daartussenin zie je alleen zijn donkere
-   omlijning als een rand rond de schedel, en dat leest als een muts. Frans
-   krijgt er dus geen (kort haar), Lotte een royale (een bos haar).
-   `pony` is de haarkap zelf: massief, niet een dunne boog. */
+   Een been dat als één stuk om de heup zwaait blijft een stok, hoe vloeiend
+   de hoek ook verloopt. Daarom heeft elk been nu een knie en elke arm een
+   elleboog: dijbeen, scheen en voet zitten in elkaar genest en draaien elk om
+   hun eigen scharnier. Dat is het verschil tussen zwaaien en lopen.
+
+   Frans is breder, iets voorovergebogen en kaal met grijs aan de slapen — een
+   grijze koepel bovenop een hoofd blijft een badmuts, hoe je hem ook tekent.
+   Lotte is kleiner, ronder en heeft juist veel haar. Twee silhouetten die je
+   uit elkaar houdt, ook van ver. */
 const FRANS = {haar:'#A9BAC8', huid:'#F0C9A6', romp:'#1D8DB0', romp2:'#15718F',
                broek:'#123C63', schoen:'#8FB6D0', bril:1, snor:1, vlecht:0,
-               kap:21, ry:19,
-               /* de boog moet buiten de schedel uitkomen: sluit hij er precies
-                  op aan, dan ligt het haar als een bandje op zijn voorhoofd */
-               pony:'M24 34 A26 30 0 0 1 76 34 Q73 22 62 18 Q50 13 38 18 Q27 22 24 34 Z'};
+               kaal:1, breed:1.1, kopR:23, buik:1,
+               /* twee plukken bij de slapen die buiten de schedel uitsteken */
+               haren:['M33 14 q-12 7 -12 19 q0 10 6 15 q-3 -11 0 -18 q2 -9 6 -16 Z',
+                      'M67 14 q12 7 12 19 q0 10 -6 15 q3 -11 0 -18 q-2 -9 -6 -16 Z']};
 const LOTTE = {haar:'#8A5A3B', huid:'#F7D6B4', romp:'#2E9E6B', romp2:'#22794F',
                broek:'#1B4A76', schoen:'#FF7A00', bril:0, snor:0, vlecht:1,
+               kaal:0, breed:.92, kopR:22, buik:0,
                kap:28, ry:27,
                pony:'M25 32 A25 26 0 0 1 75 32 Q73 25 64 22 Q57 28 50 22 Q43 28 36 22 Q27 25 25 32 Z'};
 
 function maakFiguur(w, ouder){
   const g = groep({}, ouder);
   const buiten = '#0B2033';
-  const lijn = {stroke:buiten, 'stroke-width':2.6, 'stroke-linejoin':'round'};
+  /* dikkere buitencontour dan binnenlijnen: gelijke lijndikte overal is het
+     derde wat vlakke vectorfiguren er goedkoop doet uitzien */
+  const dik = {stroke:buiten, 'stroke-width':3, 'stroke-linejoin':'round'};
+  const dun = {stroke:buiten, 'stroke-width':1.9, 'stroke-linejoin':'round'};
   const d = {};
+  const bx = x => 50 + (x - 50) * w.breed;     /* breedte per personage */
 
-  if (w.vlecht){
-    /* de vlechten hangen in een eigen groep, zodat ze kunnen naslingeren */
-    for (const [naam, cx] of [['vlechtL', 20], ['vlechtR', 80]]){
-      const gg = groep({}, g);
-      el('ellipse', {cx, cy:30, rx:9, ry:19, fill:verlicht(w.haar), ...lijn}, gg);
-      el('circle', {cx, cy:47, r:5.5, fill:verlicht('#FF7A00'), ...lijn}, gg);
-      d[naam] = {g:gg, x:cx, y:14};
-    }
-  }
-  d.haarAchter = el('ellipse', {cx:50, cy:26, rx:w.kap, ry:w.ry,
-                                fill:verlicht(w.haar), ...lijn}, g);
-
-  /* Een ledemaat is geen rechthoek met ronde hoeken maar een vorm die naar
-     onder toe versmalt, zoals een arm of een been dat ook doet. */
+  /* een taps toelopende koker, met een ronde kop en een ronde voet */
   const koker = (x, y, len, w1, w2) =>
     `M${x - w1 / 2} ${y} A${w1 / 2} ${w1 / 2} 0 0 1 ${x + w1 / 2} ${y}` +
     ` Q${x + w1 / 2 + 1} ${y + len * .55} ${x + w2 / 2} ${y + len}` +
     ` A${w2 / 2} ${w2 / 2} 0 0 1 ${x - w2 / 2} ${y + len}` +
     ` Q${x - w1 / 2 - 1} ${y + len * .55} ${x - w1 / 2} ${y} Z`;
 
-  /* armen en benen: elk in een eigen groep met het scharnier als draaipunt */
-  const lid = (x, y, len, w1, w2, vul, naam) => {
-    const gg = groep({}, g);
-    el('path', {d:koker(x, y, len, w1, w2), fill:verlicht(vul), ...lijn}, gg);
-    d[naam] = {g:gg, x, y};
-    return gg;
-  };
-  const aL = lid(27, 50, 33, 10.5, 8, w.romp, 'armL');
-  el('circle', {cx:27, cy:84, r:6.2, fill:verlicht(w.huid), ...lijn}, aL);
-  const aR = lid(73, 50, 33, 10.5, 8, w.romp, 'armR');
-  el('circle', {cx:73, cy:84, r:6.2, fill:verlicht(w.huid), ...lijn}, aR);
-
-  for (const [naam, x] of [['beenL', 41], ['beenR', 59]]){
-    const bb = lid(x, 86, 32, 14, 10, w.broek, naam);
-    /* de schoen als één vorm met neus en zool, niet als twee balkjes */
-    el('path', {d:`M${x - 6} 112 q-1 7 -2 9 q-1 4 4 4 h16 q4 0 4 -3 q0 -5 -6 -8 Z`,
-                fill:verlicht(w.schoen), ...lijn}, bb);
-    el('path', {d:`M${x - 8} 121 q-1 4 4 4 h16 q4 0 4 -3 Z`, fill:'#0B2033',
-                opacity:.45}, bb);
+  /* een geleed ledemaat: twee segmenten met een scharnier ertussen */
+  function geleed(ouderG, x, y, l1, l2, b1, b2, b3, vul, naam){
+    const boven = groep({}, ouderG);
+    el('path', {d:koker(x, y, l1 + 3, b1, b2), fill:verlicht(vul), ...dik}, boven);
+    const onder = groep({}, boven);
+    el('path', {d:koker(x, y + l1, l2, b2, b3), fill:verlicht(vul), ...dik}, onder);
+    const eind = groep({}, onder);
+    d[naam] = {g:boven, x, y, onder:{g:onder, x, y:y + l1},
+               eind:{g:eind, x, y:y + l1 + l2}};
+    return eind;
   }
 
-  /* romp met schouders en een taille in plaats van een rechthoek */
-  el('path', {d:'M34 53 Q50 43 66 53 Q70 68 68 86 Q50 93 32 86 Q30 68 34 53 Z',
-              fill:verlicht(w.romp, .22), ...lijn}, g);
   if (w.vlecht){
-    el('path', {d:'M38 68 q12 5 24 0 q1 9 -1 13 q-11 4 -22 0 q-2 -5 -1 -13 Z',
+    for (const [naam, cx] of [['vlechtL', 18], ['vlechtR', 82]]){
+      const gg = groep({}, g);
+      el('ellipse', {cx:bx(cx), cy:32, rx:9.5, ry:20, fill:verlicht(w.haar), ...dik}, gg);
+      el('circle', {cx:bx(cx), cy:49, r:5.5, fill:verlicht('#FF7A00'), ...dik}, gg);
+      d[naam] = {g:gg, x:bx(cx), y:16};
+    }
+    d.haarAchter = el('ellipse', {cx:50, cy:26, rx:w.kap, ry:w.ry,
+                                  fill:verlicht(w.haar), ...dik}, g);
+  }
+
+  /* armen: schouder, elleboog, hand */
+  for (const [naam, sx] of [['armL', 28], ['armR', 72]]){
+    const pols = geleed(g, bx(sx), 55, 16, 15, 10.5, 8.5, 7, w.romp, naam);
+    /* een want met duim in plaats van een bol */
+    el('path', {d:`M${bx(sx) - 5} 85 q-3 4 0 7 q4 4 9 1 q4 -3 2 -7 q-1 -3 -5 -3 q-3 0 -6 2 Z`,
+                fill:verlicht(w.huid), ...dik}, pols);
+  }
+
+  /* benen: heup, knie, voet. De voet is een eigen segment, zodat hij vlak
+     op de grond kan blijven terwijl de knie buigt. */
+  for (const [naam, hx] of [['beenL', 42], ['beenR', 58]]){
+    const enkel = geleed(g, bx(hx), 84, 16, 16, 14.5, 11, 9.5, w.broek, naam);
+    el('path', {d:`M${bx(hx) - 6} 114 q-2 6 -3 8 q-1 4 4 4 h17 q4 0 4 -3 q0 -6 -7 -9 Z`,
+                fill:verlicht(w.schoen), ...dik}, enkel);
+    el('path', {d:`M${bx(hx) - 9} 122 q-1 4 4 4 h17 q4 0 4 -3 Z`,
+                fill:'#0B2033', opacity:.45}, enkel);
+  }
+
+  /* romp: schouders, taille, en bij Frans een buikje */
+  el('path', {d:w.buik
+      ? `M${bx(33)} 54 Q50 43 ${bx(67)} 54 Q${bx(73)} 70 ${bx(70)} 90 Q50 97 ${bx(30)} 90 Q${bx(27)} 70 ${bx(33)} 54 Z`
+      : `M${bx(34)} 54 Q50 44 ${bx(66)} 54 Q${bx(69)} 70 ${bx(67)} 89 Q50 95 ${bx(33)} 89 Q${bx(31)} 70 ${bx(34)} 54 Z`,
+      fill:verlicht(w.romp, .22), ...dik}, g);
+  if (w.vlecht){
+    el('path', {d:'M38 69 q12 5 24 0 q1 9 -1 13 q-11 4 -22 0 q-2 -5 -1 -13 Z',
                 fill:w.romp2, opacity:.85}, g);
-    el('path', {d:'M43 49 q7 10 14 0', fill:'none', stroke:w.romp2,
+    el('path', {d:'M43 50 q7 10 14 0', fill:'none', stroke:w.romp2,
                 'stroke-width':3, 'stroke-linecap':'round'}, g);
   } else {
-    el('path', {d:'M42 49 l8 9 l8 -9', fill:'none', stroke:'#EAF3F9',
+    el('path', {d:'M42 50 l8 9 l8 -9', fill:'none', stroke:'#EAF3F9',
                 'stroke-width':3.4, 'stroke-linejoin':'round'}, g);
-    el('line', {x1:50, y1:58, x2:50, y2:87, stroke:w.romp2, 'stroke-width':2.4}, g);
+    el('line', {x1:50, y1:59, x2:50, y2:89, stroke:w.romp2, 'stroke-width':2.2}, g);
     el('circle', {cx:50, cy:70, r:1.9, fill:w.romp2}, g);
     el('circle', {cx:50, cy:80, r:1.9, fill:w.romp2}, g);
   }
-  el('rect', {x:44, y:41, width:12, height:11, fill:tint(w.huid, -.18)}, g);
+  /* een echte nek in plaats van een hoofd dat op de schouders ligt */
+  el('path', {d:'M44 40 q6 5 12 0 l1 13 q-7 4 -14 0 Z', fill:tint(w.huid, -.2),
+              ...dun}, g);
 
   /* hoofd */
   const kop = groep({}, g);
   d.kop = kop;
-  el('ellipse', {cx:29, cy:29, rx:4.5, ry:6, fill:verlicht(w.huid), ...lijn}, kop);
-  el('ellipse', {cx:71, cy:29, rx:4.5, ry:6, fill:verlicht(w.huid), ...lijn}, kop);
-  el('ellipse', {cx:50, cy:28, rx:23, ry:22, fill:verlicht(w.huid, .22), ...lijn}, kop);
-  el('path', {d:w.pony, fill:verlicht(w.haar, .12), ...lijn}, kop);
-  /* een paar lokken: zonder textuur blijft een gladde koepel een badmuts */
-  el('path', {d:'M33 27 q6 -9 15 -11 M45 16 q9 -3 15 1 M57 26 q6 -7 11 -6',
-              fill:'none', stroke:tint(w.haar, -.3), 'stroke-width':1.7,
-              'stroke-linecap':'round', opacity:.85}, kop);
+  const R = w.kopR;
+  el('ellipse', {cx:28, cy:29, rx:4.5, ry:6, fill:verlicht(w.huid), ...dun}, kop);
+  el('ellipse', {cx:72, cy:29, rx:4.5, ry:6, fill:verlicht(w.huid), ...dun}, kop);
+  el('ellipse', {cx:50, cy:28, rx:R, ry:R - 1, fill:verlicht(w.huid, .22), ...dik}, kop);
+  if (w.kaal){
+    /* kaal bovenop, grijs aan de slapen: dát leest als opa. Een gesloten kap
+       leest als een muts, hoe je hem ook vormgeeft. */
+    for (const p of w.haren)
+      el('path', {d:p, fill:verlicht(w.haar, .1), ...dun}, kop);
+    el('ellipse', {cx:44, cy:18, rx:9, ry:5, fill:'#fff', opacity:.13}, kop);
+  } else {
+    el('path', {d:w.pony, fill:verlicht(w.haar, .12), ...dik}, kop);
+    el('path', {d:'M33 27 q6 -9 15 -11 M45 16 q9 -3 15 1 M57 26 q6 -7 11 -6',
+                fill:'none', stroke:tint(w.haar, -.3), 'stroke-width':1.7,
+                'stroke-linecap':'round', opacity:.85}, kop);
+  }
   el('ellipse', {cx:33, cy:36, rx:5, ry:3.4, fill:'#E8735E', opacity:.45}, kop);
   el('ellipse', {cx:67, cy:36, rx:5, ry:3.4, fill:'#E8735E', opacity:.45}, kop);
   d.ogen = [];
   for (const [cx, sp] of [[41,-1],[59,1]]){
-    /* het oog in een eigen groep, zodat knipperen een schaal op de hoogte is */
     const og = groep({}, kop);
-    el('ellipse', {cx, cy:27, rx:4.6, ry:5.2, fill:'#fff', stroke:buiten,
-                   'stroke-width':1.8}, og);
+    el('ellipse', {cx, cy:27, rx:4.6, ry:5.2, fill:'#fff', ...dun}, og);
     el('circle', {cx:cx + sp * .8, cy:28.4, r:2.4, fill:'#16212C'}, og);
     el('circle', {cx:cx + sp * .8 + 1, cy:27.4, r:1.1, fill:'#fff'}, og);
     d.ogen.push({g:og, cx});
-    el('path', {d:`M${cx - 5.6} 21.4 q5.6 -3 11.2 0`, fill:'none',
+    el('path', {d:`M${cx - 5.6} ${w.kaal ? 20.6 : 21.4} q5.6 -3 11.2 0`, fill:'none',
                 stroke:tint(w.haar, -.25), 'stroke-width':2.6,
                 'stroke-linecap':'round'}, kop);
   }
-  el('path', {d:'M47 31 q3 5 6 0 q-1 4 -3 4 q-2 0 -3 -4 Z',
-              fill:tint(w.huid, -.2)}, kop);
+  el('path', {d:'M47 31 q3 5 6 0 q-1 4 -3 4 q-2 0 -3 -4 Z', fill:tint(w.huid, -.2)}, kop);
   if (w.bril){
     el('circle', {cx:41, cy:27, r:8, fill:'none', stroke:'#3B4E60', 'stroke-width':2.4}, kop);
     el('circle', {cx:59, cy:27, r:8, fill:'none', stroke:'#3B4E60', 'stroke-width':2.4}, kop);
     el('line', {x1:49, y1:27, x2:51, y2:27, stroke:'#3B4E60', 'stroke-width':2.4}, kop);
   }
-  if (w.snor) el('path', {d:'M41 39 q9 -4 18 0 q-9 4 -18 0 Z', fill:w.haar, ...lijn}, kop);
-  d.mond = el('path', {d:'', fill:'#7A2E2E', stroke:buiten, 'stroke-width':1.6}, kop);
+  if (w.snor) el('path', {d:'M40 39 q10 -5 20 0 q-10 5 -20 0 Z', fill:verlicht(w.haar), ...dun}, kop);
+  d.mond = el('path', {d:'', fill:'#7A2E2E', ...dun}, kop);
 
   return {g, d, w, knip:Math.random()};
 }
 
-/* zet de figuur neer: plaats, schaal, pas, en de stand van de mond */
-/* Secundaire beweging is wat een figuur levend maakt: het hoofd loopt achter
-   op het lichaam, de vlechten slingeren na, de borstkas ademt, en er wordt
-   geknipperd. Zonder dat blijft het een pop die van links naar rechts schuift. */
+/* Hoeveel radialen loopcyclus hoort bij een afgelegde afstand. Zonder deze
+   koppeling loopt de pas los van de verplaatsing en schaatsen de voeten over
+   de grond — dat is wat "niet smooth" er vooral uit deed zien. */
+const STAP = 34;                                   /* paslengte in figuureenheden */
+const loopFase = (afstand, sc) => afstand * 2 * Math.PI / (STAP * sc);
+
 function poseer(f, x, y, sc, opties = {}){
   const {pas = 0, zwaai = 14, hop = 0, mond = 'lach', kijk = 0} = opties;
-  const tijd = NU;   /* de wereldklok, zodat ademen en knipperen doorlopen */
   const loopt = zwaai > 1;
-  const bob = loopt ? Math.abs(Math.sin(pas * 2)) * 2.4 : Math.sin(tijd * 1.6) * .7;
-  /* lichte squash op het dieptepunt van de pas */
-  const sq = loopt ? 1 + Math.sin(pas * 2) * .012 : 1;
+  const tijd = NU;
+  /* het lichaam staat hoog midden in de pas en zakt bij elke voetplaatsing */
+  const bob = loopt ? (.5 - .5 * Math.cos(pas * 2)) * 3.2 : Math.sin(tijd * 1.6) * .7;
+  const sq = loopt ? 1 + Math.cos(pas * 2) * .012 : 1;
   f.g.setAttribute('transform',
-    `translate(${x} ${y - hop + bob}) scale(${sc * (2 - sq)} ${sc * sq})`);
-  const zet = (lid, hoek) => {
-    const {g, x:px, y:py} = f.d[lid];
-    g.setAttribute('transform', `rotate(${hoek} ${px} ${py})`);
-  };
-  const a = Math.sin(pas) * zwaai;
-  zet('beenL', opties.beenL !== undefined ? opties.beenL : -a);
-  zet('beenR', opties.beenR !== undefined ? opties.beenR :  a);
-  zet('armL', opties.armL !== undefined ? opties.armL :  a * .62);
-  zet('armR', opties.armR !== undefined ? opties.armR : -a * .62);
-  /* het hoofd volgt de pas met vertraging */
-  const na = Math.sin(pas - .9) * (loopt ? 2.6 : 0);
+    `translate(${x} ${y - hop - bob}) scale(${sc * (2 - sq)} ${sc * sq})`);
+
+  const zet = (k, hoek) => k.g.setAttribute('transform', `rotate(${hoek} ${k.x} ${k.y})`);
+
+  if (opties.been){
+    /* handmatige stand, voor springen en stilstaan */
+    const [bl, br] = opties.been;
+    zet(f.d.beenL, bl); zet(f.d.beenL.onder, 0);
+    zet(f.d.beenR, br); zet(f.d.beenR.onder, 0);
+  } else {
+    /* De loopcyclus. De heup zwaait, de knie buigt alleen naar achter en het
+       meest tijdens het doorzwaaien, en de voet draait terug zodat hij vlak
+       op de grond komt in plaats van met de punt vooruit. */
+    for (const [naam, fase] of [['beenL', pas], ['beenR', pas + Math.PI]]){
+      const heup = Math.sin(fase) * zwaai * 1.5;
+      const knie = (.5 - .5 * Math.cos(fase + 1.1)) * zwaai * 2.4;
+      const enkel = -heup * .45 - knie * .5;
+      const k = f.d[naam];
+      zet(k, heup); zet(k.onder, knie); zet(k.eind, enkel);
+    }
+  }
+  for (const [naam, tegen, eigen] of [['armL', 'armR', opties.armL],
+                                      ['armR', 'armL', opties.armR]]){
+    const k = f.d[naam];
+    if (eigen !== undefined){ zet(k, eigen); zet(k.onder, 14); continue; }
+    /* de armen zwaaien tegen de benen in, met een altijd licht gebogen elleboog */
+    const teken = naam === 'armL' ? 1 : -1;
+    zet(k, Math.sin(pas) * zwaai * -.85 * teken);
+    zet(k.onder, 10 + (.5 - .5 * Math.cos(pas + .6)) * zwaai * .7);
+  }
+
+  const na = Math.sin(pas - .9) * (loopt ? 2.4 : 0);
   f.d.kop.setAttribute('transform', `rotate(${kijk + na} 50 34)`);
   if (f.d.vlechtL){
-    const sl = Math.sin(pas - 1.2) * (loopt ? 11 : 0) + Math.sin(tijd * 1.1) * 2;
-    zet('vlechtL', sl); zet('vlechtR', sl);
+    const sl = Math.sin(pas - 1.2) * (loopt ? 10 : 0) + Math.sin(tijd * 1.1) * 2;
+    zet(f.d.vlechtL, sl); zet(f.d.vlechtR, sl);
   }
-  /* knipperen: kort en onregelmatig, met een eigen ritme per figuur */
   const fase = (tijd * .62 + f.knip) % 1;
   const dicht = fase > .965 ? 1 - Math.abs(fase - .9825) / .0175 : 0;
   f.d.ogen.forEach(o => o.g.setAttribute('transform',
@@ -387,11 +423,11 @@ function grasveld(ouder, soort = 'lab'){
   const g = groep({}, ouder);
   const [vlak, rand_, pluk] = soort === 'avond'
     ? ['#11382C', '#F0A45C', '#1A5340'] : ['#0A2A44', '#2A6C9A', '#17567F'];
-  el('rect', {x:0, y:GROND, width:B, height:H - GROND, fill:vlak}, g);
-  el('rect', {x:0, y:GROND, width:B, height:5, fill:rand_, opacity:.8}, g);
+  el('rect', {x:-1200, y:GROND, width:B + 2400, height:H - GROND, fill:vlak}, g);
+  el('rect', {x:-1200, y:GROND, width:B + 2400, height:5, fill:rand_, opacity:.8}, g);
   /* echte grassprietjes in plaats van vinkjes: drie halmen per pol */
-  for (let i = 0; i < 30; i++){
-    const x = 20 + i * 66 + (i * 53 % 41), h = 18 + (i * 37 % 16);
+  for (let i = 0; i < 66; i++){
+    const x = -1180 + i * 66 + (i * 53 % 41), h = 18 + (i * 37 % 16);
     let d = '';
     for (const [dx, f] of [[-7,.72],[0,1],[7,.8]])
       d += `M${x+dx} ${GROND+30} q${dx*.6} ${-h*f*.6} ${dx*1.5} ${-h*f} `;
@@ -432,19 +468,23 @@ scene(8, g => {
   lucht(g, 'avond');
   const ver = groep({}, g); boom(ver, 250, .7, 'avond'); boom(ver, 1450, .6, 'avond');
   const dicht = groep({}, g); boom(dicht, 1720, 1.15, 'avond'); boom(dicht, 640, .95, 'avond');
-  grasveld(g, 'avond');
+  grasveld(dicht, 'avond');
   const f = maakFiguur(FRANS, g), l = maakFiguur(LOTTE, g);
   const k = kop(g, ['Elke zondag', 'gaan ze samen'], 120, 220, 96);
   return {
     tekst:[[0, 'Opa Frans en Lotte wandelen elke zondag samen.'],
            [.55, 'Tienduizend stappen, zonder erbij na te denken.']],
     teken(u){
-      const p = u * 7.4;
-      ver.setAttribute('transform', `translate(${-u * 60} 0)`);
-      dicht.setAttribute('transform', `translate(${-u * 190} 0)`);
-      poseer(f, 470 + u * 120, GROND - 126 * 3.3, 3.3, {pas:p, zwaai:15});
-      poseer(l, 900 + u * 150, GROND - 126 * 2.65, 2.65,
-             {pas:p + Math.PI, zwaai:19, kijk:Math.sin(p) * 4});
+      /* de wereld schuift en zij lopen bijna ter plaatse: de pas volgt dus
+         uit hoever de grond verschuift, niet uit hun eigen verplaatsing */
+      const weg = u * 760;
+      ver.setAttribute('transform', `translate(${-u * 240} 0)`);
+      dicht.setAttribute('transform', `translate(${-weg} 0)`);
+      poseer(f, 470 + u * 90, GROND - 126 * 3.3, 3.3,
+             {pas:loopFase(weg, 3.3), zwaai:12});
+      poseer(l, 900 + u * 110, GROND - 126 * 2.65, 2.65,
+             {pas:loopFase(weg, 2.65) + Math.PI, zwaai:13,
+              kijk:Math.sin(loopFase(weg, 2.65)) * 3});
       k.toon(u);
     }};
 });
@@ -486,7 +526,7 @@ scene(11, g => {
       const spring = stuk(u, .32, .46, uitloop) - stuk(u, .50, .62, inloop);
       const lx = meng(220, 500, aan) - spring * 40;
       poseer(l, lx, GROND - 126 * 2.65, 2.65, {
-        pas: aan < 1 ? u * 22 : 0, zwaai: aan < 1 ? 19 : 0,
+        pas: loopFase(lx - 220, 2.65), zwaai: aan < 1 && spring < .02 ? 13 : 0,
         hop: spring * 96, beenR: -spring * 46, armL:-spring * 30, armR:spring * 30,
         mond: spring > .15 ? 'open' : 'lach', kijk: spring * -6});
       const bloem = stuk(u, .33, .40, uitloop) * (1 - stuk(u, .52, .66, soepel));
@@ -626,7 +666,8 @@ scene(8.5, g => {
       k.toon(u);
       const p = soepel(klem(u / .9, 0, 1));
       const fx = meng(200, 1330, p);
-      poseer(f, fx, GROND - 126 * 3.3, 3.3, {pas:u * 15, zwaai:17});
+      poseer(f, fx, GROND - 126 * 3.3, 3.3,
+             {pas:loopFase(fx - 200, 3.3), zwaai:13});
       kastje.setAttribute('transform', `translate(${fx + 205} ${GROND - 190})`);
       sporen.forEach(s => {
         const v = klem((fx + 60 - s.x) / 90, 0, 1);
@@ -734,19 +775,21 @@ scene(7, g => {
   lucht(g, 'avond');
   const ver = groep({}, g); boom(ver, 300, .7, 'avond'); boom(ver, 1500, .62, 'avond');
   const dicht = groep({}, g); boom(dicht, 1700, 1.2, 'avond'); boom(dicht, 760, .9, 'avond');
-  grasveld(g, 'avond');
+  grasveld(dicht, 'avond');
   const f = maakFiguur(FRANS, g), l = maakFiguur(LOTTE, g);
   const k = kop(g, ['En zondag', 'gaan ze weer'], 120, 220, 92);
   return {
     tekst:[[0, 'De druk is weg van die ene plek.'],
            [.5, 'En de zondagse wandeling gaat gewoon door.']],
     teken(u){
-      const p = u * 7;
-      ver.setAttribute('transform', `translate(${-u * 70} 0)`);
-      dicht.setAttribute('transform', `translate(${-u * 210} 0)`);
-      poseer(f, 500 + u * 140, GROND - 126 * 3.3, 3.3, {pas:p, zwaai:16});
-      poseer(l, 930 + u * 165, GROND - 126 * 2.65, 2.65,
-             {pas:p + Math.PI, zwaai:20, kijk:Math.sin(p) * 5});
+      const weg = u * 700;
+      ver.setAttribute('transform', `translate(${-u * 220} 0)`);
+      dicht.setAttribute('transform', `translate(${-weg} 0)`);
+      poseer(f, 500 + u * 110, GROND - 126 * 3.3, 3.3,
+             {pas:loopFase(weg, 3.3), zwaai:12});
+      poseer(l, 930 + u * 130, GROND - 126 * 2.65, 2.65,
+             {pas:loopFase(weg, 2.65) + Math.PI, zwaai:13,
+              kijk:Math.sin(loopFase(weg, 2.65)) * 4});
       k.toon(u);
     }};
 });
