@@ -64,13 +64,13 @@ ZEG = {
         'u vandaag ziet, is hoe we meten.',
 
     'Een zool die voelt':
-        'Dit is een zool met negenennegentig kleine voelertjes erin. Ze gaat '
+        'Dit is een zool met negenennegentig kleine sensoren erin. Ze gaat '
         'gewoon in je eigen schoen, en een kastje aan je been stuurt alles door '
         'naar de laptop. Honderd metingen per seconde, terwijl je wandelt. Na '
         'één minuutje weten we waar het knelt.',
 
     'Rood is waar het duwt':
-        'Kijk even. Elk vierkantje is één voelertje, en hoe roder het is, hoe '
+        'Kijk even. Elk vierkantje is één sensor, en hoe roder het is, hoe '
         'harder de voet daar duwt. Hier staat driehonderdtwaalf op de bal van '
         'de voet — alles boven tweehonderd is te veel. Precies daar ontstaat '
         'een wonde.',

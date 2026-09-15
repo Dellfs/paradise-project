@@ -1230,7 +1230,7 @@ SLIDES = [
          boven='PARADISE',
          onder='Kortrijk Kerngezond 2026',
          staart='Hoe meet je de druk onder een voet?',
-         tegels=[('99', 'voelertjes'), ('100', 'per seconde'),
+         tegels=[('99', 'sensoren'), ('100', 'per seconde'),
                  ('6', 'ziekenhuizen')],
          voet='KU Leuven · Campus Brugge  ·  AZ Groeninge Kortrijk',
          tip='Laat deze dia staan terwijl de zaal binnenkomt. De voet rechts '
@@ -1285,7 +1285,7 @@ SLIDES = [
          kicker='De techniek',
          kop='Een zool die voelt',
          een=dict(nr='01', naam='Wat het is', foto='pedar.png',
-                  kern='99 voelertjes',
+                  kern='99 sensoren',
                   regels=['Een flinterdunne zool vol kleine sensoren.',
                           'Ze past in je eigen schoen.',
                           'Een kastje aan je been stuurt alles door.']),
@@ -1302,7 +1302,7 @@ SLIDES = [
          kop='Rood is waar het duwt',
          waarde='312', plek='op de bal van de voet',
          norm='Alles boven 200 is te veel',
-         regels=['Elk vierkantje is één voelertje. Hoe roder, hoe harder de '
+         regels=['Elk vierkantje is één sensor. Hoe roder, hoe harder de '
                  'voet daar duwt.',
                  'Hier duwt het veel te hard op één plek — precies waar een '
                  'wonde ontstaat.'],

@@ -289,6 +289,34 @@ def zoolvorm(s, x, y, w, h, kl, sleutel, banden=110, marge=12):
              h / banden + 2, vul=kl, naam='!!%s%03d' % (sleutel, r), rond=0.5)
 
 
+def blokje(s, x, y, w, sleutel):
+    """Legoblokje met noppen. Een oranje rechthoekje van vijftig eenheden zag
+    niemand liggen; dit is groot, herkenbaar en het ligt in de weg."""
+    h = w * 0.62
+    vorm(s, MSO_SHAPE.BEVEL, x, y + h * 0.34, w, h * 0.66, vul='oranje',
+         naam='!!%s_body' % sleutel, omlijn=2.2)
+    for i in range(4):
+        vorm(s, MSO_SHAPE.CAN, x + w * (0.05 + i * 0.235), y,
+             w * 0.185, h * 0.46, vul=lichter('oranje', .12),
+             naam='!!%s_nop%d' % (sleutel, i), omlijn=2)
+
+
+def flits(s, cx, cy, r, sleutel):
+    """Pijnster. Zonder dit gebeurt er zichtbaar niets op het moment zelf."""
+    vorm(s, MSO_SHAPE.EXPLOSION1, cx - r, cy - r, 2 * r, 2 * r, vul='oranje',
+         naam='!!%s_a' % sleutel)
+    vorm(s, MSO_SHAPE.EXPLOSION1, cx - r * .62, cy - r * .62, r * 1.24,
+         r * 1.24, vul='FFD24A', naam='!!%s_b' % sleutel)
+
+
+def voetafdruk(s, x, y, w, h, sleutel, heet=True):
+    """Een achtergelaten stap, in de vorm van een voet met zijn drukpunt."""
+    zoolvorm(s, x, y, w, h, 'licht', sleutel, banden=26, marge=3)
+    if heet:
+        vorm(s, MSO_SHAPE.OVAL, x + 0.44 * w - w * .17, y + h - 0.66 * h - w * .17,
+             w * .34, w * .34, vul='oranje', naam='!!%s_haard' % sleutel)
+
+
 def grote_voet(s, x, y, w, h, kl='rand'):
     """Voetzool in het groot. Meer banden dan de zool: op deze schaal wordt
     de rand anders schilferig. Zonder lichtere voetboog — die werd een streep
@@ -379,22 +407,41 @@ for j, (fx, lx, been) in enumerate(
     onderschrift(s, 'Tienduizend stappen, zonder erbij na te denken.')
 
 # ======================================================= 2 — het legoblokje
-for j in range(2):
-    s = dia(3.6)
+# Drie momenten in plaats van twee. In de vorige versie stond het onderschrift
+# 'Lotte voelt het meteen' terwijl er nog niets gebeurd was, en het blokje was
+# een oranje veegje onder haar voeten. Nu zie je eerst dat er iets ligt, dan
+# dat zij erop stapt, en pas daarna dat opa er niets van merkt.
+BLOK_B = 104                      # breedte van een blokje
+BLOK_H = BLOK_B * 0.62            # en dus zijn hoogte
+BLOK_L, BLOK_F = 560, 1352      # zijn blokje ligt náást zijn voeten, niet
+FRANS_X = (1180, 1180, 1236)    # erachter, en hij stapt er pas op het eind op
+for j in range(3):
+    s = dia(3.2)
     grondlijn(s)
-    figuur(s, FRANS, 'f', 1180, Y_F, SC_F, been=(0, 0), arm=(0, 0))
-    figuur(s, LOTTE, 'l', 460, Y_L - j * 90, SC_L,
-           been=(0, -38 * j), arm=(-22 * j, 22 * j),
-           mond='open' if j else 'lach')
-    # twee identieke blokjes op de grond, elk onder een voet
-    for i, bx in enumerate((556, 1310)):
-        vorm(s, MSO_SHAPE.ROUNDED_RECTANGLE, bx, 866, 52, 30, vul='oranje',
-             naam='!!blok%d' % i, rond=0.2)
-    if j:
-        txt(s, 360, 226, 320, 130, 'AU!', gr=84, kl='oranje', vet=True,
+    # de blokjes liggen óp de grond, niet erin, zodat iemand er bovenop kan
+    for i, bx in ((0, BLOK_L), (1, BLOK_F)):
+        blokje(s, bx, GROND - BLOK_H, BLOK_B, 'blok%d' % i)
+    # Lotte loopt ernaartoe, stapt erop en springt weg
+    figuur(s, LOTTE, 'l', (320, 448, 300)[j],
+           Y_L - (78 if j == 1 else 0), SC_L,
+           been=(0, -40) if j == 1 else (0, 0),
+           arm=(-26, 26) if j == 1 else (0, 0),
+           mond='open' if j == 1 else 'lach')
+    # opa Frans stapt op het zijne en blijft glimlachen. Op de laatste dia
+    # staat hij er echt bovenop: een blokhoogte hoger.
+    figuur(s, FRANS, 'f', FRANS_X[j], Y_F - (BLOK_H if j == 2 else 0), SC_F,
+           been=(0, 0), arm=(0, 0))
+    if j == 1:
+        # naast haar voet, niet erover: anders verdwijnt het blokje eronder
+        flits(s, BLOK_L - 46, GROND - 96, 64, 'pijn')
+        txt(s, 300, 214, 340, 140, 'AU!', gr=92, kl='oranje', vet=True,
             uit=PP_ALIGN.CENTER, naam='!!au')
-    onderschrift(s, 'Lotte voelt het meteen.' if j == 0
-                 else 'Opa Frans voelt niets.')
+    if j == 2:
+        vorm(s, MSO_SHAPE.OVAL, BLOK_F - 40, GROND - BLOK_H - 62, 184, 184,
+             lijn='groen2', dik=4, naam='!!kring')
+    onderschrift(s, ('Er ligt een legoblokje op de grond.',
+                     'Lotte stapt erop — en voelt het meteen.',
+                     'Opa Frans staat op net zo’n blokje. Hij merkt niets.')[j])
 
 # ===================================================== 3 — de hete plek
 # Hier zat het gat in het verhaal: de film liet zien dat opa niets voelt, maar
@@ -422,8 +469,8 @@ for j, (groei, regel) in enumerate((
 # ======================================================= 4 — de meetzool
 # De zool krijgt de vorm van een voet, opgebouwd uit dunne banden volgens
 # hetzelfde profiel als de drukmat. Een afgeronde rechthoek leest niet als een
-# zool; dit wel, en de negenennegentig voelertjes staan erin waar ze horen.
-ZX, ZY, ZW, ZH = 250, 140, 440, 800
+# zool; dit wel, en de negenennegentig sensoren staan erin waar ze horen.
+ZX, ZY, ZW, ZH = 400, 216, 330, 620
 CELLEN = []
 for r in range(17):
     t = (r + 0.5) / 17
@@ -438,26 +485,51 @@ for j in range(2):
     s = dia(3.4)
     # 'meetzool', niet zomaar 'zool': verderop komt de zool op maat, en dat
     # zijn twee verschillende dingen. De ene meet, de andere haalt druk weg.
-    txt(s, 1060, 236, 760, 400, 'Een meetzool\nmet 99\nvoelertjes', gr=62,
-        kl='ink', vet=True, ra=1.12, naam='!!kop')
-    zoolvorm(s, ZX, ZY, ZW, ZH, 'tegel2', 'band', banden=120, marge=14)
+    txt(s, 1060, 250, 780, 420, 'Een meetzool\nmet 99\nsensoren', gr=54,
+        kl='ink', vet=True, ra=1.14, naam='!!kop')
+    # De schoen van bovenaf, in dezelfde voetvorm, met een donkere holte erin.
+    # Zonder schoen bleef het een zwevend plaatje en klopte 'ze gaat in zijn
+    # eigen schoen' nergens mee.
+    zoolvorm(s, ZX - 44, ZY - 40, ZW + 88, ZH + 80, 'tegel2', 'schoen',
+             banden=130, marge=16)
+    zoolvorm(s, ZX - 20, ZY - 18, ZW + 40, ZH + 36, 'bg', 'holte',
+             banden=130, marge=12)
+    # De meetzool zweeft er eerst boven en zakt er dan in. Naast de schoen
+    # schuiven werkte niet: dan liep ze dwars over de titel.
+    dy = -196 if j == 0 else 0
+    zoolvorm(s, ZX, ZY + dy, ZW, ZH, 'rand', 'band', banden=130, marge=12)
     for i, (cx, cy) in enumerate(CELLEN):
-        vorm(s, MSO_SHAPE.OVAL, cx - 13, cy - 13, 26, 26,
-             vul='licht' if j else 'rand', naam='!!cel%02d' % i)
-    onderschrift(s, 'Ze gaat gewoon in zijn eigen schoen.' if j == 0
-                 else 'Zo meten we hoe hard de voet duwt.')
+        vorm(s, MSO_SHAPE.OVAL, cx - 10, cy + dy - 10, 20, 20,
+             vul='gedempt' if j == 0 else 'licht', naam='!!cel%02d' % i)
+    onderschrift(s, 'Flinterdun, en ze gaat in zijn eigen schoen.' if j == 0
+                 else 'Zo meten we hoe hard zijn voet duwt.')
 
 # ==================================================== 5 — tien meter wandelen
 for j in range(3):
     s = dia(2.6)
-    vorm(s, MSO_SHAPE.RECTANGLE, 0, GROND, B, 14, vul='rand', naam='!!pad')
-    figuur(s, FRANS, 'f', 200 + j * 560, Y_F, SC_F,
+    # een gemarkeerd looppad met begin en eind: anders is '10 meter' een getal
+    # zonder beeld, en waren de stappen naamloze ovaaltjes
+    vorm(s, MSO_SHAPE.RECTANGLE, 120, GROND, 1680, 14, vul='rand', naam='!!pad')
+    for i, (mx, lbl) in enumerate(((120, '0 m'), (1800, '10 m'))):
+        vorm(s, MSO_SHAPE.RECTANGLE, mx - 4, GROND - 34, 8, 48, vul='licht',
+             naam='!!merk%d' % i)
+        txt(s, mx - 70, GROND - 98, 140, 44, lbl, gr=24, kl='licht', vet=True,
+            font=FONT_M, uit=PP_ALIGN.CENTER, naam='!!merklabel%d' % i)
+    fx = 200 + j * 560
+    figuur(s, FRANS, 'f', fx, Y_F, SC_F,
            been=(-16, 16) if j % 2 == 0 else (15, -15),
            arm=(12, -12) if j % 2 == 0 else (-12, 12))
-    # de stappen die al gezet zijn blijven staan
+    # het kastje aan zijn riem, met de kabel naar de zool in zijn schoen
+    vorm(s, MSO_SHAPE.RECTANGLE, fx + 72 * SC_F, Y_F + 92 * SC_F, 3,
+         30 * SC_F, vul='gedempt', naam='!!kabel')
+    vorm(s, MSO_SHAPE.ROUNDED_RECTANGLE, fx + 62 * SC_F, Y_F + 74 * SC_F,
+         26 * SC_F, 20 * SC_F, vul='tegel2', naam='!!kastje', omlijn=2,
+         rond=0.3)
+    vorm(s, MSO_SHAPE.OVAL, fx + 71 * SC_F, Y_F + 80 * SC_F, 8 * SC_F,
+         8 * SC_F, vul='groen2', naam='!!lampje')
+    # de stappen die al gezet zijn blijven staan, elk met zijn eigen drukpunt
     for i in range(j * 2 + 1):
-        vorm(s, MSO_SHAPE.OVAL, 262 + i * 280, 906, 70, 42,
-             vul='oranje' if i % 2 else 'licht', naam='!!stap%d' % i)
+        voetafdruk(s, 250 + i * 280, 898, 40, 58, 'stap%d' % i)
     # hoger en kleiner dan de andere koppen: Frans loopt er anders doorheen
     txt(s, 120, 84, 900, 380, '10 meter\nwandelen', gr=66, kl='ink', vet=True,
         ra=1.1, naam='!!kop')
@@ -484,26 +556,33 @@ matdia(0.0, 312, 'Rood is waar\nhet duwt',
 # De ontbrekende schakel. Zonder deze scène daalt de druk in de film zomaar,
 # van driehonderdtwaalf naar honderdzesentachtig, zonder dat iemand iets doet.
 LAGEN = (('mid', 'kurk'), ('licht', 'schuim'), ('gedempt', 'deklaag'))
-LX, LY, LW, LH = 270, 290, 300, 430
+LX, LY, LW, LH = 250, 250, 340, 500
 for j in range(2):
     s = dia(3.2)
-    txt(s, 1080, 250, 760, 400, 'Een zool\nop maat', gr=76, kl='ink',
+    txt(s, 1120, 250, 720, 400, 'Een zool\nop maat', gr=76, kl='ink',
         vet=True, ra=1.1, naam='!!kop')
     for i, (kl, naam_) in enumerate(LAGEN):
-        # schuin uit elkaar op de eerste dia, op elkaar gestapeld op de tweede
-        lx = LX + ((i - 1) * 64 if j == 0 else 0)
-        ly = LY + ((i - 1) * 126 if j == 0 else i * 15)
+        # Uit elkaar op de eerste dia; op de tweede gestapeld maar met een
+        # zichtbare verspringing. Precies op elkaar zag je alleen de bovenste
+        # laag en was van 'opgebouwd uit lagen' niets meer te merken.
+        lx = LX + ((i - 1) * 72 if j == 0 else i * 16)
+        ly = LY + ((i - 1) * 132 if j == 0 else i * 34)
         zoolvorm(s, lx, ly, LW, LH, kl, 'laag%d_' % i, banden=80, marge=9)
-        # aan de bovenrand van zijn eigen laag: in het midden wijst het label
-        # naar de laag eronder, want ze overlappen elkaar grotendeels
-        txt(s, lx + LW + 34 if j == 0 else 660, ly + 24 if j == 0
-            else 400 + i * 74, 280, 60, naam_, gr=26, kl='gedempt',
+        # Op de gestapelde dia liggen de lagen dicht op elkaar en vielen de
+        # labels over elkaar. Ze krijgen daar een eigen kolom, en een
+        # kleurstaal zodat je toch ziet welk label bij welke laag hoort.
+        ex, ey = ((lx + LW + 30, ly + 22) if j == 0
+                  else (LX + LW + 150, LY + 40 + i * 88))
+        vorm(s, MSO_SHAPE.ROUNDED_RECTANGLE, ex, ey + 8, 34, 34, vul=kl,
+             naam='!!laagstaal%d' % i, rond=0.3, omlijn=2)
+        txt(s, ex + 50, ey + 8, 300, 60, naam_, gr=26, kl='gedempt',
             naam='!!laagnaam%d' % i)
     # het kussentje dat de druk van de bal van de voet weghaalt
-    px_ = (LX if j else LX + 64) + 0.30 * LW
-    py = (LY + 30 if j else LY + 126) + LH - 0.62 * LH
-    vorm(s, MSO_SHAPE.OVAL, px_, py, 96 if j else 70, 62 if j else 46,
-         vul='oranje', naam='!!pad', omlijn=2)
+    tl = 2  # het ligt op de bovenste laag
+    px_ = LX + ((tl - 1) * 72 if j == 0 else tl * 16) + 0.28 * LW
+    py = LY + ((tl - 1) * 132 if j == 0 else tl * 34) + LH - 0.68 * LH
+    vorm(s, MSO_SHAPE.OVAL, px_, py, 110 if j else 78, 74 if j else 52,
+         vul='oranje', naam='!!pad', omlijn=2.4)
     onderschrift(s, 'De schoenmaker bouwt hem op uit lagen.' if j == 0
                  else 'Het kussentje haalt de druk weg van dat ene plekje.')
 
@@ -526,17 +605,19 @@ figuur(s, LOTTE, 'l', 1560, Y_L, SC_L, been=(10, -10), arm=(-8, 8))
 # 'Werkt dat echt?' klonk alsof we net niet hadden laten zien dat het werkt.
 # Wat we tonen is dat de druk daalt; of dat ook wonden voorkomt, is de vraag
 # die de studie moet beantwoorden. Dat verschil staat er nu.
-txt(s, 120, 110, 1040, 400, 'Maar voorkomt\ndat ook echt\neen wonde?', gr=62,
-    kl='ink', vet=True, ra=1.08, naam='!!kop')
-txt(s, 124, 524, 980, 270,
+# twee regels van vijftig punt in plaats van drie van tweeënzestig: die derde
+# regel viel over de tekst eronder
+txt(s, 120, 130, 1060, 320, 'Maar voorkomt dat\nook echt een wonde?', gr=50,
+    kl='ink', vet=True, ra=1.1, naam='!!kop')
+txt(s, 124, 470, 980, 270,
     'Zes Belgische ziekenhuizen\nzoeken het nu samen uit,\nook AZ Groeninge in Kortrijk.',
     gr=26, kl='gedempt', ra=1.35)
 for i in range(6):
-    vorm(s, MSO_SHAPE.OVAL, 128 + i * 62, 806, 42, 42, vul='groen2',
+    vorm(s, MSO_SHAPE.OVAL, 128 + i * 62, 762, 42, 42, vul='groen2',
          naam='!!ziek%d' % i)
-txt(s, 124, 872, 900, 50, 'PARADISE  ·  KU Leuven Campus Brugge', gr=19,
+txt(s, 124, 832, 900, 50, 'PARADISE  ·  KU Leuven Campus Brugge', gr=19,
     kl='licht', font=FONT_M, sp=1.4)
-onderschrift(s, 'Wat we tot nu toe schatten, gaan we eindelijk meten.')
+onderschrift(s, 'Dat is wat PARADISE de komende jaren uitzoekt.')
 
 prs.save(DOEL)
 print('%d dia\'s · %.0f seconden · %s'

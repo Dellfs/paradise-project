@@ -172,7 +172,7 @@ further and points. Frans nods. Gentle camera push-in on the insole.
 ```
 
 **Voice-over** — "Dus gaan ze kijken. In het ziekenhuis krijgt opa een
-flinterdunne zool met negenennegentig kleine voelertjes, gewoon in zijn eigen
+flinterdunne zool met negenennegentig kleine sensoren, gewoon in zijn eigen
 schoen."
 
 ---
