@@ -46,6 +46,26 @@ def rgb(n):
     return RGBColor.from_string(K[n] if n in K else n)
 
 
+def hex_(n):
+    return K[n] if n in K else n
+
+
+def meng_kl(n, f, naar=(0, 0, 0)):
+    """Kleur richting zwart (f < 1) of richting een andere kleur toe schuiven.
+
+    Elke vorm krijgt hiermee een omlijning en een schaduwzijde in zijn eigen
+    kleur. Dat is het verschil tussen een plat blokje en iets dat getekend lijkt.
+    """
+    h = hex_(n)
+    d = [int(h[i:i + 2], 16) for i in (0, 2, 4)]
+    return '%02X%02X%02X' % tuple(
+        max(0, min(255, int(c * f + n2 * (1 - f)))) for c, n2 in zip(d, naar))
+
+
+def lichter(n, f=0.35):
+    return meng_kl(n, 1 - f, (255, 255, 255))
+
+
 prs = Presentation()
 prs.slide_width, prs.slide_height = px(B), px(H)
 LEEG = prs.slide_layouts[6]
@@ -79,7 +99,9 @@ def dia(seconden, eerste=False):
 
 
 def vorm(s, soort, x, y, w, h, vul=None, lijn=None, dik=2.5, rot=0,
-         naam=None, alpha=None, rond=None):
+         naam=None, alpha=None, rond=None, omlijn=0):
+    if omlijn and vul and not lijn:
+        lijn, dik = meng_kl(vul, 0.52), omlijn
     o = s.shapes.add_shape(soort, px(x), px(y), px(w), px(h))
     if vul:
         o.fill.solid(); o.fill.fore_color.rgb = rgb(vul)
@@ -135,46 +157,124 @@ def txt(s, x, y, w, h, tekst, gr=30, kl='ink', vet=False, font=FONT,
 # laat lopen in plaats van hem te verversen.
 
 FRANS = dict(haar='C9D6E0', huid='F0C9A6', romp='mid', broek='navy',
-             schoen='gedempt', bril=True, snor=True, vlecht=False)
+             schoen='gedempt', bril=True, snor=True, vlecht=False,
+             kraag=True, zak=False)
 LOTTE = dict(haar='8A5A3B', huid='F7D6B4', romp='groen', broek='navy',
-             schoen='oranje', bril=False, snor=False, vlecht=True)
+             schoen='oranje', bril=False, snor=False, vlecht=True,
+             kraag=False, zak=True)
 
 
-def figuur(s, wie, sl, x, y, sc=1.0, been=(0, 0), arm=(0, 0), spiegel=False):
-    """Tekent een personage; `been` en `arm` zijn hoeken in graden."""
+def _eind(cx, cy, dy, hoek):
+    """Waar het uiteinde van een gedraaide ledemaat terechtkomt.
+
+    Zonder deze berekening blijft de hand of de schoen staan waar hij stond en
+    valt hij los van de arm of het been zodra die draait — precies wat de
+    eerste versie zo houterig maakte.
+    """
+    a = math.radians(hoek)
+    return cx - dy * math.sin(a), cy + dy * math.cos(a)
+
+
+def figuur(s, wie, sl, x, y, sc=1.0, been=(0, 0), arm=(0, 0), mond='lach'):
+    """Tekent een personage; `been` en `arm` zijn hoeken in graden.
+
+    Opgebouwd van achter naar voor, zoals je het zou tekenen: eerst het haar
+    achter het hoofd, dan de ledematen, dan de romp, dan pas het gezicht.
+    """
+    lw = max(1.25, 0.62 * sc)          # omlijning schaalt mee met de figuur
+
     def v(soort, ax, ay, aw, ah, deel, **kw):
-        bx = (100 - ax - aw) if spiegel else ax
-        return vorm(s, soort, x + bx * sc, y + ay * sc, aw * sc, ah * sc,
+        return vorm(s, soort, x + ax * sc, y + ay * sc, aw * sc, ah * sc,
                     naam='!!%s_%s' % (sl, deel), **kw)
 
+    huid_d = meng_kl(wie['huid'], 0.72)
+    romp_d = meng_kl(wie['romp'], 0.74)
+
+    # ---- schaduw op de grond, zodat de figuur niet zweeft
+    v(MSO_SHAPE.OVAL, 22, 122, 56, 13, 'schaduw', vul=meng_kl('grond2', 0.7),
+      alpha=55)
+
+    # ---- haar achter het hoofd
     if wie['vlecht']:
-        v(MSO_SHAPE.OVAL, 16, 14, 15, 36, 'vlechtL', vul=wie['haar'])
-        v(MSO_SHAPE.OVAL, 69, 14, 15, 36, 'vlechtR', vul=wie['haar'])
-    v(MSO_SHAPE.ROUNDED_RECTANGLE, 20, 46, 9, 34, 'armL', vul=wie['romp'],
-      rot=arm[0], rond=0.5)
-    v(MSO_SHAPE.ROUNDED_RECTANGLE, 71, 46, 9, 34, 'armR', vul=wie['romp'],
-      rot=arm[1], rond=0.5)
-    v(MSO_SHAPE.ROUNDED_RECTANGLE, 34, 84, 12, 32, 'beenL', vul=wie['broek'],
-      rot=been[0], rond=0.45)
-    v(MSO_SHAPE.ROUNDED_RECTANGLE, 54, 84, 12, 32, 'beenR', vul=wie['broek'],
-      rot=been[1], rond=0.45)
-    v(MSO_SHAPE.OVAL, 28, 112, 22, 12, 'schoenL', vul=wie['schoen'])
-    v(MSO_SHAPE.OVAL, 50, 112, 22, 12, 'schoenR', vul=wie['schoen'])
-    v(MSO_SHAPE.ROUNDED_RECTANGLE, 28, 44, 44, 42, 'romp', vul=wie['romp'],
-      rond=0.25)
-    v(MSO_SHAPE.OVAL, 30, 4, 40, 40, 'hoofd', vul=wie['huid'])
-    v(MSO_SHAPE.OVAL, 27, 0, 46, 22, 'haar', vul=wie['haar'])
-    if wie['bril']:
-        v(MSO_SHAPE.OVAL, 33, 16, 13, 13, 'brilL', lijn='bg', dik=2)
-        v(MSO_SHAPE.OVAL, 54, 16, 13, 13, 'brilR', lijn='bg', dik=2)
+        v(MSO_SHAPE.OVAL, 22, 2, 56, 48, 'haarmassa', vul=wie['haar'], omlijn=lw)
+        for kant, ax in (('L', 15), ('R', 70)):
+            v(MSO_SHAPE.OVAL, ax, 14, 16, 32, 'vlecht' + kant, vul=wie['haar'],
+              omlijn=lw)
+            v(MSO_SHAPE.OVAL, ax + 2, 42, 12, 7, 'strik' + kant, vul='oranje',
+              omlijn=lw)
     else:
-        v(MSO_SHAPE.OVAL, 37, 18, 8, 8, 'oogL', vul='bg')
-        v(MSO_SHAPE.OVAL, 55, 18, 8, 8, 'oogR', vul='bg')
-    if wie['snor']:
-        v(MSO_SHAPE.ROUNDED_RECTANGLE, 41, 31, 18, 5, 'snor', vul=wie['haar'],
+        v(MSO_SHAPE.OVAL, 26, 2, 48, 42, 'haarmassa', vul=wie['haar'], omlijn=lw)
+
+    # ---- armen, met een hand aan het uiteinde dat meedraait
+    for kant, ax, hoek in (('L', 19, arm[0]), ('R', 72, arm[1])):
+        v(MSO_SHAPE.ROUNDED_RECTANGLE, ax, 48, 9, 33, 'arm' + kant,
+          vul=wie['romp'], rot=hoek, rond=0.5, omlijn=lw)
+        hx, hy = _eind(ax + 4.5, 64.5, 16.5, hoek)
+        v(MSO_SHAPE.OVAL, hx - 5.5, hy - 5.5, 11, 11, 'hand' + kant,
+          vul=wie['huid'], omlijn=lw)
+
+    # ---- benen, met de schoen aan het uiteinde
+    for kant, ax, hoek in (('L', 34, been[0]), ('R', 54, been[1])):
+        v(MSO_SHAPE.ROUNDED_RECTANGLE, ax, 82, 12, 34, 'been' + kant,
+          vul=wie['broek'], rot=hoek, rond=0.4, omlijn=lw)
+        sx, sy = _eind(ax + 6, 99, 17, hoek)
+        # smaller dan de eerste versie: op 24 breed liepen de twee schoenen
+        # in elkaar over tot één blok
+        v(MSO_SHAPE.ROUNDED_RECTANGLE, sx - 9.5, sy - 4, 19, 13,
+          'schoen' + kant, vul=wie['schoen'], rot=hoek, rond=0.45, omlijn=lw)
+        v(MSO_SHAPE.ROUNDED_RECTANGLE, sx - 9.5, sy + 4, 19, 6,
+          'zool' + kant, vul=meng_kl(wie['schoen'], 0.66), rot=hoek, rond=0.5)
+
+    # ---- romp, met kraag of zak
+    v(MSO_SHAPE.ROUNDED_RECTANGLE, 27, 44, 46, 44, 'romp', vul=wie['romp'],
+      rond=0.28, omlijn=lw)
+    if wie['kraag']:
+        v(MSO_SHAPE.TRAPEZOID, 41, 43, 18, 9, 'kraag', vul=lichter(wie['romp'], .5))
+        v(MSO_SHAPE.RECTANGLE, 49, 50, 2, 34, 'rand', vul=romp_d)
+    if wie['zak']:
+        v(MSO_SHAPE.ROUNDED_RECTANGLE, 36, 66, 28, 15, 'zak', vul=romp_d,
+          rond=0.4)
+        v(MSO_SHAPE.ROUNDED_RECTANGLE, 44, 44, 12, 10, 'koord', vul=romp_d,
           rond=0.5)
-    else:
-        v(MSO_SHAPE.OVAL, 43, 31, 14, 9, 'mond', vul='bg')
+    v(MSO_SHAPE.RECTANGLE, 43, 38, 14, 10, 'nek', vul=huid_d)
+
+    # ---- hoofd en gezicht
+    v(MSO_SHAPE.OVAL, 27, 4, 46, 44, 'hoofd', vul=wie['huid'], omlijn=lw)
+    for kant, ax in (('L', 23), ('R', 71)):
+        v(MSO_SHAPE.OVAL, ax, 22, 8, 11, 'oor' + kant, vul=wie['huid'],
+          omlijn=lw)
+    # het haar valt over het voorhoofd
+    v(MSO_SHAPE.ARC if False else MSO_SHAPE.ROUND_2_SAME_RECTANGLE,
+      28, 2, 44, 17, 'pony', vul=wie['haar'], omlijn=lw, rond=0.45)
+    # kleinere ogen dan de eerste versie: op elf bij twaalf puilden ze uit
+    for kant, ax in (('L', 36), ('R', 55)):
+        v(MSO_SHAPE.OVAL, ax, 23, 9, 10, 'oogwit' + kant, vul='FFFFFF',
+          omlijn=lw * 0.7)
+        v(MSO_SHAPE.OVAL, ax + 2.4, 25.6, 4.6, 4.8, 'pupil' + kant, vul='1A2430')
+        v(MSO_SHAPE.OVAL, ax + 3.6, 26.3, 1.6, 1.6, 'glans' + kant, vul='FFFFFF')
+        v(MSO_SHAPE.ROUNDED_RECTANGLE, ax - 0.5, 18.5, 11, 3, 'wenk' + kant,
+          vul=meng_kl(wie['haar'], 0.78), rond=0.5)
+    v(MSO_SHAPE.OVAL, 46.5, 30, 7, 6.5, 'neus', vul=huid_d)
+    for kant, ax in (('L', 29), ('R', 63)):
+        v(MSO_SHAPE.OVAL, ax, 31, 9, 6, 'blos' + kant, vul='E8735E', alpha=45)
+    if wie['bril']:
+        for kant, ax in (('L', 33), ('R', 52)):
+            v(MSO_SHAPE.OVAL, ax, 21, 15, 14, 'bril' + kant, lijn='394A5A',
+              dik=lw * 1.3)
+        v(MSO_SHAPE.RECTANGLE, 48, 27, 4, 2.2, 'brug', vul='394A5A')
+    # mond hoger: op negenendertig zat hij op de kin in plaats van in het gezicht
+    my = 35 if wie['snor'] else 36
+    if wie['snor']:
+        v(MSO_SHAPE.ROUNDED_RECTANGLE, 41, my, 18, 5, 'snor', vul=wie['haar'],
+          rond=0.5, omlijn=lw * 0.6)
+        my += 6
+    # Eén vaste mond maakt van elke scène dezelfde blik. Een lach is dezelfde
+    # ovaal met de bovenhelft weggedekt in huidskleur; dat leest als een
+    # glimlach en houdt de vormen aan elkaar gelijk voor de morph.
+    v(MSO_SHAPE.OVAL, 44.5, my, 11, 8.5, 'mond', vul='7A2E2E', omlijn=lw * 0.6)
+    v(MSO_SHAPE.OVAL, 46.5, my + 0.8, 7, 3, 'tand', vul='FFFFFF')
+    v(MSO_SHAPE.RECTANGLE, 43.5, my - 1, 13,
+      5.2 if mond == 'lach' else 0.1, 'monddek', vul=wie['huid'])
 
 
 # De voet in het groot, met dezelfde vormen als het icoon in het deck: hiel,
@@ -185,30 +285,68 @@ TENEN = ((21, 2, 18), (42, 0, 14), (56, 2, 12.5), (68, 6, 11.5), (79, 11, 10.5))
 
 
 def grote_voet(s, x, y, sc, kl='rand'):
+    """Voet met enkel, teennagels en een lichtere voetboog."""
+    vorm(s, MSO_SHAPE.ROUNDED_RECTANGLE, x + 36 * sc, y + 62 * sc, 30 * sc,
+         40 * sc, vul=meng_kl(kl, 0.86), naam='!!enkel', rond=0.35)
     for i, (ax, ay, aw, ah) in enumerate(VOETDELEN):
         vorm(s, MSO_SHAPE.OVAL, x + ax * sc, y + ay * sc, aw * sc, ah * sc,
              vul=kl, naam='!!voetdeel%d' % i)
     for i, (ax, ay, ad) in enumerate(TENEN):
         vorm(s, MSO_SHAPE.OVAL, x + ax * sc, y + ay * sc, ad * sc, ad * sc,
-             vul=kl, naam='!!teen%d' % i)
+             vul=kl, naam='!!teen%d' % i, omlijn=1.6)
+        vorm(s, MSO_SHAPE.OVAL, x + (ax + ad * 0.24) * sc,
+             y + (ay + ad * 0.16) * sc, ad * 0.5 * sc, ad * 0.42 * sc,
+             vul=lichter(kl, .28), naam='!!nagel%d' % i)
+    # de voetboog licht iets op, zodat de voet niet één plat silhouet blijft
+    vorm(s, MSO_SHAPE.OVAL, x + 30 * sc, y + 36 * sc, 40 * sc, 30 * sc,
+         vul=lichter(kl, .1), naam='!!boog')
 
 
 def grondlijn(s, hoogte=880):
+    """Grasveld met een lichtere rand aan de horizon en wat plukjes."""
     vorm(s, MSO_SHAPE.RECTANGLE, 0, hoogte, B, H - hoogte, vul='grond2',
          naam='!!gras')
+    vorm(s, MSO_SHAPE.RECTANGLE, 0, hoogte, B, 5, vul=lichter('grond2', .3),
+         naam='!!horizon')
+    # onregelmatig verdeeld: een strakke rij plukjes leest als een patroon,
+    # niet als gras. De verschuiving is vast, dus de morph laat ze staan.
+    for i in range(13):
+        px_ = 60 + i * 150 + (i * 53 % 61)
+        hh = 24 + (i * 37 % 13)
+        vorm(s, MSO_SHAPE.ISOSCELES_TRIANGLE, px_, hoogte + 42 - hh, 18, hh,
+             vul=lichter('grond2', .3), naam='!!pluk%d' % i)
+        vorm(s, MSO_SHAPE.ISOSCELES_TRIANGLE, px_ + 14, hoogte + 44 - hh * .74,
+             14, hh * .74, vul=lichter('grond2', .2), naam='!!pluk%db' % i)
 
 
 BOMEN = ((180, 1.0), (1620, 1.25), (1180, 0.75))
 
 
-def park(s, hoogte=880, bomen=BOMEN):
-    """Rustige achtergrond: een horizon en een paar bomen."""
+def boom(s, i, bx, bs, hoogte):
+    """Stam met drie overlappende kruinen: een bol op een stok is geen boom."""
+    vorm(s, MSO_SHAPE.TRAPEZOID, bx - 12 * bs, hoogte - 175 * bs, 50 * bs,
+         175 * bs, vul='rand', naam='!!stam%d' % i, omlijn=1.5)
+    for k, (dx, dy, dd, kl) in enumerate((
+            (-86, -286, 150, meng_kl('tegel2', 0.82)),
+            (-16, -320, 132, 'tegel2'),
+            (-52, -240, 128, lichter('tegel2', .12)))):
+        vorm(s, MSO_SHAPE.OVAL, bx + dx * bs, hoogte + dy * bs, dd * bs,
+             dd * bs, vul=kl, naam='!!kruin%d_%d' % (i, k), omlijn=1.5)
+
+
+def wolk(s, i, x, y, sc):
+    for k, (dx, dy, dd) in enumerate(((0, 10, 46), (30, 0, 62), (74, 14, 42))):
+        vorm(s, MSO_SHAPE.OVAL, x + dx * sc, y + dy * sc, dd * sc, dd * sc,
+             vul=lichter('bg', .16), naam='!!wolk%d_%d' % (i, k))
+
+
+def park(s, hoogte=880, bomen=BOMEN, wolken=((240, 150, 1.5), (1420, 210, 1.1))):
+    """Rustige achtergrond: lucht met wolken, een horizon en een paar bomen."""
+    for i, (wx, wy, ws) in enumerate(wolken):
+        wolk(s, i, wx, wy, ws)
     grondlijn(s, hoogte)
     for i, (bx, bs) in enumerate(bomen):
-        vorm(s, MSO_SHAPE.RECTANGLE, bx, hoogte - 150 * bs, 22 * bs, 150 * bs,
-             vul='rand', naam='!!stam%d' % i)
-        vorm(s, MSO_SHAPE.OVAL, bx - 74 * bs, hoogte - 300 * bs, 170 * bs,
-             170 * bs, vul='tegel2', naam='!!kruin%d' % i)
+        boom(s, i, bx, bs, hoogte)
 
 
 def onderschrift(s, tekst, kl='ink'):
@@ -239,9 +377,11 @@ for j, (fx, lx, been) in enumerate(
            arm=(been[1] // 2, been[0] // 2))
     figuur(s, LOTTE, 'l', lx, Y_L, SC_L, been=(been[1], been[0]),
            arm=(-been[0], -been[1]))
-    txt(s, 120, 96, 1100, 230,
-        'Opa Frans\nen Lotte' if j == 0 else 'Elke zondag\nsamen op stap',
-        gr=82, kl='ink', vet=True, ra=1.05, naam='!!kop')
+    # 72 punt, niet 82: op 82 sloeg de tweede regel om en kwam de derde
+    # regel op het hoofd van Frans terecht
+    txt(s, 120, 96, 1100, 400,
+        'Opa Frans\nen Lotte' if j == 0 else 'Elke zondag\nop stap',
+        gr=72, kl='ink', vet=True, ra=1.05, naam='!!kop')
     onderschrift(s, 'Tienduizend stappen, zonder erbij na te denken.')
 
 # ======================================================= 2 — het legoblokje
@@ -250,7 +390,8 @@ for j in range(2):
     grondlijn(s)
     figuur(s, FRANS, 'f', 1180, Y_F, SC_F, been=(0, 0), arm=(0, 0))
     figuur(s, LOTTE, 'l', 460, Y_L - j * 90, SC_L,
-           been=(0, -38 * j), arm=(-22 * j, 22 * j))
+           been=(0, -38 * j), arm=(-22 * j, 22 * j),
+           mond='open' if j else 'lach')
     # twee identieke blokjes op de grond, elk onder een voet
     for i, bx in enumerate((556, 1310)):
         vorm(s, MSO_SHAPE.ROUNDED_RECTANGLE, bx, 866, 52, 30, vul='oranje',
