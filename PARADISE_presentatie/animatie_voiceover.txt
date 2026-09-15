@@ -1,70 +1,73 @@
-VOICE-OVER BIJ DE TEKENFILM OVER PARADISE
-Negen zinnen, één per scène. Plak ze per stuk in Clipchamp (Opnemen en maken →
-Tekst naar spraak, Nederlands), of lees ze zelf in.
+VOICE-OVER BIJ DE ANIMATIEFILM OVER PARADISE
+Negen scènes, in de volgorde van PARADISE_animatie.mp4. Plak ze per stuk in
+Clipchamp (Opnemen en maken → Tekst naar spraak, Nederlands), of lees ze zelf
+in. De film duurt 82 seconden; de tekst hieronder past daarin op een rustig
+tempo.
 
-Onder elke lange versie staat een KORT alternatief. Gebruik dat als uw clips
-maar 5 seconden lang zijn.
-
-
-SCENE 1 — Wandelen in het park
-Dit is opa Frans. En dit is Lotte. Samen wandelen ze elke zondag —
-tienduizend stappen, zonder erbij na te denken.
-KORT: Dit is opa Frans. En dit is Lotte. Elke zondag wandelen ze samen.
+De film draagt al onderschriften. De voice-over vervangt die niet, hij vertelt
+hetzelfde in hele zinnen.
 
 
-SCENE 2 — Het legoblokje
-Lotte voelt het meteen. Opa Frans voelt niets. Door diabetes geven de zenuwen
-in zijn voeten geen seintje meer.
-KORT: Lotte voelt het meteen. Opa Frans voelt niets.
+SCENE 1 — Opa Frans en Lotte in het park  (0:00 - 0:08)
+Dit is opa Frans. En dit is Lotte. Elke zondag wandelen ze samen — tienduizend
+stappen, zonder er één keer bij na te denken.
 
 
-SCENE 3 — In de schoen
-Maar er is wel iets aan de hand. Op één plekje duwt zijn voet veel te hard.
-Als een steentje dat er altijd in zit.
-KORT: Toch duwt zijn voet op één plekje veel te hard.
+SCENE 2 — Het legoblokje  (0:08 - 0:15)
+Maar kijk wat er gebeurt. Lotte voelt het meteen. Opa Frans staat op net zo'n
+blokje en merkt er niets van: door diabetes geven de zenuwen in zijn voeten
+geen seintje meer.
 
 
-SCENE 4 — Naar het ziekenhuis
-Dus gaan ze kijken. In het ziekenhuis krijgt opa een flinterdunne zool met
-negenennegentig kleine voelertjes, gewoon in zijn eigen schoen.
-KORT: In het ziekenhuis krijgt hij een zool met negenennegentig voelertjes.
+SCENE 3 — De hete plek  (0:15 - 0:23)
+En toch is er iets aan de hand. Op één plekje duwt zijn voet veel te hard, als
+een steentje dat er altijd in zit. Hij voelt het niet — en net daar kan een
+wonde ontstaan.
 
 
-SCENE 5 — Wandelen met kleuren
-Hij wandelt tien meter. Honderd metingen per seconde, bij elke stap. Na één
-minuutje weten ze precies waar het knelt.
-KORT: Hij wandelt tien meter. Honderd metingen per seconde.
+SCENE 4 — De meetzool  (0:23 - 0:30)
+Daarom meten we het. Een flinterdunne meetzool met negenennegentig kleine
+voelertjes gaat gewoon in zijn eigen schoen.
 
 
-SCENE 6 — De rode plek op het scherm
-En daar is het. Rood is waar het duwt. Alles boven tweehonderd is te veel — en
-precies daar zou een wonde ontstaan.
-KORT: En daar is het. Rood is waar het duwt. Dat is te veel.
+SCENE 5 — Tien meter wandelen  (0:30 - 0:38)
+Hij wandelt tien meter, heen en weer. Honderd metingen per seconde, bij elke
+stap. Na één minuutje weten we precies waar het knelt.
 
 
-SCENE 7 — De zool op maat
-Dan maakt de schoenmaker een zool op maat. Eentje die de druk weghaalt van net
-dat plekje dat het niet meer aankan.
-KORT: Dan maakt de schoenmaker een zool op maat.
+SCENE 6 — De eerste meting  (0:38 - 0:44)
+En daar is het. Rood is waar de voet het hardst duwt. Driehonderdtwaalf, op
+precies het plekje dat opa niet voelt. Alles boven tweehonderd is te veel.
 
 
-SCENE 8 — Het rood koelt af
-En kijk. De rode plek is weg. De druk zit niet meer op één plekje, maar
-verdeeld over de hele voet.
-KORT: En kijk. De rode plek is weg.
+SCENE 7 — De zool op maat  (0:44 - 0:51)
+Dus maakt de schoenmaker een zool op maat. Laag voor laag, met een kussentje
+dat de druk weghaalt van net dat ene plekje.
 
 
-SCENE 9 — Weer samen op pad
-Werkt dat echt? Dat zoeken zes Belgische ziekenhuizen nu samen uit, ook
-AZ Groeninge in Kortrijk. Wat we tot nu toe schatten, gaan we eindelijk meten.
-KORT: Werkt dat echt? Dat zoeken zes ziekenhuizen nu samen uit.
+SCENE 8 — Opnieuw meten  (0:51 - 1:01)
+Zelfde voet, zelfde stap, nieuwe zool. Ziet u de rode plek afkoelen?
+Honderdzesentachtig nu. De druk zit niet meer op één plekje, maar verdeeld
+over de hele voet.
+
+
+SCENE 9 — Het slot  (1:01 - 1:07)
+Maar voorkomt dat ook echt een wonde? Dat weten we nog niet. Zes Belgische
+ziekenhuizen zoeken het nu samen uit, ook AZ Groeninge in Kortrijk.
 
 
 ---
-Lange versie samen: ongeveer 150 woorden, zo'n 70 seconden.
-Korte versie samen: ongeveer 80 woorden, zo'n 40 seconden.
+Samen ongeveer 190 woorden, zo'n 80 seconden op een rustig tempo.
 
-De getallen kloppen met het protocol — negenennegentig sensoren, honderd
-metingen per seconde, tweehonderd kilopascal, zes centra. Laat ze staan.
-Zeg nergens dat het wérkt: de studie loopt nog niet. Daarom eindigt de film
-op een vraag.
+De getallen kloppen met het protocol: negenennegentig sensoren per zool,
+honderd metingen per seconde, tweehonderd kilopascal als grens, zes centra.
+Laat ze zo staan.
+
+Twee dingen die je nergens mag laten wegvallen. Het eerste is de schakel in
+scène 3: zonder gevoel én te veel druk op één plek ontstaat er een wonde — dat
+is waarom we dit meten. Het tweede is het onderscheid tussen de twee zolen: de
+meetzool in scène 4 meet alleen, de zool op maat in scène 7 neemt de druk weg.
+Wie die twee door elkaar haalt, denkt dat meten zelf geneest.
+
+En zeg nergens dat het wérkt: de studie loopt nog. Daarom eindigt de film op
+een vraag.

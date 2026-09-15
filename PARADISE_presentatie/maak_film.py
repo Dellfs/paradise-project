@@ -277,29 +277,23 @@ def figuur(s, wie, sl, x, y, sc=1.0, been=(0, 0), arm=(0, 0), mond='lach'):
       5.2 if mond == 'lach' else 0.1, 'monddek', vul=wie['huid'])
 
 
-# De voet in het groot, met dezelfde vormen als het icoon in het deck: hiel,
-# middenvoet, voorvoet en vijf tenen in één kleur, zodat ze samensmelten tot
-# één silhouet. Drie losse ovalen doen dat niet en zien er niet uit als een voet.
-VOETDELEN = ((30, 54, 42, 42), (32, 34, 38, 32), (20, 18, 62, 36))
-TENEN = ((21, 2, 18), (42, 0, 14), (56, 2, 12.5), (68, 6, 11.5), (79, 11, 10.5))
+# De voet komt uit hetzelfde profiel als de drukmat: honderdtwintig smalle
+# banden tussen de mediale en de laterale rand. Een stapel losse ovalen — hiel,
+# middenvoet, voorvoet, tenen — blijft een stapel ovalen; dit is een voet.
+def zoolvorm(s, x, y, w, h, kl, sleutel, banden=110, marge=12):
+    for r in range(banden):
+        t = (r + 0.5) / banden
+        li, la = beeld._rand(t)
+        vorm(s, MSO_SHAPE.ROUNDED_RECTANGLE, x + li * w - marge,
+             y + h - (r + 1) * h / banden, (la - li) * w + 2 * marge,
+             h / banden + 2, vul=kl, naam='!!%s%03d' % (sleutel, r), rond=0.5)
 
 
-def grote_voet(s, x, y, sc, kl='rand'):
-    """Voet met enkel, teennagels en een lichtere voetboog."""
-    vorm(s, MSO_SHAPE.ROUNDED_RECTANGLE, x + 36 * sc, y + 62 * sc, 30 * sc,
-         40 * sc, vul=meng_kl(kl, 0.86), naam='!!enkel', rond=0.35)
-    for i, (ax, ay, aw, ah) in enumerate(VOETDELEN):
-        vorm(s, MSO_SHAPE.OVAL, x + ax * sc, y + ay * sc, aw * sc, ah * sc,
-             vul=kl, naam='!!voetdeel%d' % i)
-    for i, (ax, ay, ad) in enumerate(TENEN):
-        vorm(s, MSO_SHAPE.OVAL, x + ax * sc, y + ay * sc, ad * sc, ad * sc,
-             vul=kl, naam='!!teen%d' % i, omlijn=1.6)
-        vorm(s, MSO_SHAPE.OVAL, x + (ax + ad * 0.24) * sc,
-             y + (ay + ad * 0.16) * sc, ad * 0.5 * sc, ad * 0.42 * sc,
-             vul=lichter(kl, .28), naam='!!nagel%d' % i)
-    # de voetboog licht iets op, zodat de voet niet één plat silhouet blijft
-    vorm(s, MSO_SHAPE.OVAL, x + 30 * sc, y + 36 * sc, 40 * sc, 30 * sc,
-         vul=lichter(kl, .1), naam='!!boog')
+def grote_voet(s, x, y, w, h, kl='rand'):
+    """Voetzool in het groot. Meer banden dan de zool: op deze schaal wordt
+    de rand anders schilferig. Zonder lichtere voetboog — die werd een streep
+    dwars over de voet in plaats van een welving."""
+    zoolvorm(s, x, y, w, h, kl, 'voet', banden=200, marge=10)
 
 
 def grondlijn(s, hoogte=880):
@@ -403,20 +397,27 @@ for j in range(2):
                  else 'Opa Frans voelt niets.')
 
 # ===================================================== 3 — de hete plek
-# De haard is opgebouwd uit dezelfde kleurenband als de drukmat: geel, oranje,
-# rood. Doorschijnend oranje over het blauw van de voet gaf een modderig bruin.
-for j, groei in enumerate((0.55, 1.0, 0.75)):
-    s = dia(2.4)
-    txt(s, 120, 200, 760, 300, 'Toch duwt\nzijn voet\nte hard', gr=72,
+# Hier zat het gat in het verhaal: de film liet zien dat opa niets voelt, maar
+# nergens waaróm dat gevaarlijk is. Dat staat er nu bij.
+# De haard gebruikt de kleurenband van de drukmat: geel, oranje, rood.
+# Doorschijnend oranje over het blauw van de voet gaf een modderig bruin.
+VX, VY, VW, VH = 1080, 150, 380, 720
+for j, (groei, regel) in enumerate((
+        (0.55, 'Op één plekje. Als een steentje dat er altijd zit.'),
+        (1.00, 'Dat voelt hij niet.'),
+        (0.75, 'En net daar kan een wonde ontstaan.'))):
+    s = dia(2.6)
+    txt(s, 120, 200, 800, 320, 'Toch duwt\nzijn voet\nte hard', gr=72,
         kl='ink', vet=True, ra=1.12, naam='!!kop')
-    grote_voet(s, 1020, 150, 6.2)
-    hx, hy = 1020 + 45 * 6.2, 150 + 30 * 6.2
+    grote_voet(s, VX, VY, VW, VH)
+    # precies waar de drukmat zijn piek heeft: onder de bal van de voet
+    hx, hy = VX + 0.44 * VW, VY + VH - 0.66 * VH
     for i, (kl, deel) in enumerate((('FFD24A', 1.0), ('FF7A00', 0.62),
                                     ('E8331E', 0.30))):
-        r = (52 + 26 * groei) * deel
+        r = (56 + 26 * groei) * deel
         vorm(s, MSO_SHAPE.OVAL, hx - r, hy - r, 2 * r, 2 * r, vul=kl,
              naam='!!haard%d' % i)
-    onderschrift(s, 'Op één plekje. Als een steentje dat er altijd zit.')
+    onderschrift(s, regel)
 
 # ======================================================= 4 — de meetzool
 # De zool krijgt de vorm van een voet, opgebouwd uit dunne banden volgens
@@ -435,18 +436,16 @@ CELLEN = CELLEN[:99]
 
 for j in range(2):
     s = dia(3.4)
-    txt(s, 1060, 236, 760, 400, 'Een zool\nmet 99\nvoelertjes', gr=68,
+    # 'meetzool', niet zomaar 'zool': verderop komt de zool op maat, en dat
+    # zijn twee verschillende dingen. De ene meet, de andere haalt druk weg.
+    txt(s, 1060, 236, 760, 400, 'Een meetzool\nmet 99\nvoelertjes', gr=62,
         kl='ink', vet=True, ra=1.12, naam='!!kop')
-    for r in range(120):
-        t = (r + 0.5) / 120
-        li, la = beeld._rand(t)
-        vorm(s, MSO_SHAPE.ROUNDED_RECTANGLE, ZX + li * ZW - 14,
-             ZY + ZH - (r + 1) * ZH / 120, (la - li) * ZW + 28, ZH / 120 + 2,
-             vul='tegel2', naam='!!band%03d' % r, rond=0.5)
+    zoolvorm(s, ZX, ZY, ZW, ZH, 'tegel2', 'band', banden=120, marge=14)
     for i, (cx, cy) in enumerate(CELLEN):
         vorm(s, MSO_SHAPE.OVAL, cx - 13, cy - 13, 26, 26,
              vul='licht' if j else 'rand', naam='!!cel%02d' % i)
-    onderschrift(s, 'Ze past gewoon in je eigen schoen.')
+    onderschrift(s, 'Ze gaat gewoon in zijn eigen schoen.' if j == 0
+                 else 'Zo meten we hoe hard de voet duwt.')
 
 # ==================================================== 5 — tien meter wandelen
 for j in range(3):
@@ -464,20 +463,56 @@ for j in range(3):
         ra=1.1, naam='!!kop')
     onderschrift(s, 'Honderd metingen per seconde, bij elke stap.')
 
-# ================================================= 6 — de drukmat koelt af
-STAPPEN = [(0.0, 312), (0.0, 312), (0.45, 256), (0.8, 212), (1.0, 186), (1.0, 186)]
-for j, (f, waarde) in enumerate(STAPPEN):
-    s = dia(3.2 if j in (1, len(STAPPEN) - 1) else 2.0)
+# ================================================= 6 — de eerste meting
+def matdia(f, waarde, kop, regel, seconden):
+    s = dia(seconden)
     beeld.drukmat(s, 210, 130, 420, 800, meng(beeld.VOOR, beeld.NA, f),
                   sleutel='m', piek=float(waarde))
-    txt(s, 760, 168, 700, 420, str(waarde), gr=190, kl='oranje' if f < 0.6
-        else 'licht', vet=True, ra=0.9, naam='!!getal')
+    txt(s, 760, 168, 700, 420, str(waarde), gr=190,
+        kl='oranje' if f < 0.6 else 'licht', vet=True, ra=0.9, naam='!!getal')
     txt(s, 1420, 250, 300, 120, 'kPa', gr=60, kl='gedempt', naam='!!eenheid')
-    txt(s, 760, 606, 960, 240,
-        'Rood is waar\nhet duwt' if f < 0.6 else 'En kijk:\nhet rood is weg',
-        gr=64, kl='ink', vet=True, ra=1.1, naam='!!kop')
-    onderschrift(s, 'Alles boven 200 is te veel.' if f < 0.6
-                 else 'De druk zit nu verdeeld over de hele voet.')
+    txt(s, 760, 606, 960, 240, kop, gr=64, kl='ink', vet=True, ra=1.1,
+        naam='!!kop')
+    onderschrift(s, regel)
+
+
+matdia(0.0, 312, 'Rood is waar\nhet duwt', 'Alles boven 200 is te veel.', 3.4)
+matdia(0.0, 312, 'Rood is waar\nhet duwt',
+       'Precies het plekje dat opa niet voelt.', 2.6)
+
+# ============================================== 7 — de zool op maat
+# De ontbrekende schakel. Zonder deze scène daalt de druk in de film zomaar,
+# van driehonderdtwaalf naar honderdzesentachtig, zonder dat iemand iets doet.
+LAGEN = (('mid', 'kurk'), ('licht', 'schuim'), ('gedempt', 'deklaag'))
+LX, LY, LW, LH = 270, 290, 300, 430
+for j in range(2):
+    s = dia(3.2)
+    txt(s, 1080, 250, 760, 400, 'Een zool\nop maat', gr=76, kl='ink',
+        vet=True, ra=1.1, naam='!!kop')
+    for i, (kl, naam_) in enumerate(LAGEN):
+        # schuin uit elkaar op de eerste dia, op elkaar gestapeld op de tweede
+        lx = LX + ((i - 1) * 64 if j == 0 else 0)
+        ly = LY + ((i - 1) * 126 if j == 0 else i * 15)
+        zoolvorm(s, lx, ly, LW, LH, kl, 'laag%d_' % i, banden=80, marge=9)
+        # aan de bovenrand van zijn eigen laag: in het midden wijst het label
+        # naar de laag eronder, want ze overlappen elkaar grotendeels
+        txt(s, lx + LW + 34 if j == 0 else 660, ly + 24 if j == 0
+            else 400 + i * 74, 280, 60, naam_, gr=26, kl='gedempt',
+            naam='!!laagnaam%d' % i)
+    # het kussentje dat de druk van de bal van de voet weghaalt
+    px_ = (LX if j else LX + 64) + 0.30 * LW
+    py = (LY + 30 if j else LY + 126) + LH - 0.62 * LH
+    vorm(s, MSO_SHAPE.OVAL, px_, py, 96 if j else 70, 62 if j else 46,
+         vul='oranje', naam='!!pad', omlijn=2)
+    onderschrift(s, 'De schoenmaker bouwt hem op uit lagen.' if j == 0
+                 else 'Het kussentje haalt de druk weg van dat ene plekje.')
+
+# ============================================ 8 — meten met de nieuwe zool
+matdia(0.0, 312, 'Zelfde voet,\nnieuwe zool', 'We meten opnieuw.', 2.4)
+matdia(0.45, 256, 'Zelfde voet,\nnieuwe zool', 'En de rode plek koelt af.', 2.0)
+matdia(0.80, 212, 'Zelfde voet,\nnieuwe zool', 'En de rode plek koelt af.', 2.0)
+matdia(1.00, 186, 'En kijk:\nhet rood is weg',
+       'De druk zit nu verdeeld over de hele voet.', 3.6)
 
 # ============================================================== 7 — het slot
 s = dia(5.5)
@@ -488,8 +523,11 @@ figuur(s, LOTTE, 'l', 1560, Y_L, SC_L, been=(10, -10), arm=(-8, 8))
 # Gemeten aan de afdruk: op dertig punt passen er maar drie-en-dertig tekens
 # in negenhonderd eenheden. Vandaar korte regels en een kleiner korps — anders
 # slaat elke regel om en schuift alles over elkaar.
-txt(s, 120, 110, 1000, 400, 'Werkt dat\necht?', gr=76, kl='ink', vet=True,
-    ra=1.05, naam='!!kop')
+# 'Werkt dat echt?' klonk alsof we net niet hadden laten zien dat het werkt.
+# Wat we tonen is dat de druk daalt; of dat ook wonden voorkomt, is de vraag
+# die de studie moet beantwoorden. Dat verschil staat er nu.
+txt(s, 120, 110, 1040, 400, 'Maar voorkomt\ndat ook echt\neen wonde?', gr=62,
+    kl='ink', vet=True, ra=1.08, naam='!!kop')
 txt(s, 124, 524, 980, 270,
     'Zes Belgische ziekenhuizen\nzoeken het nu samen uit,\nook AZ Groeninge in Kortrijk.',
     gr=26, kl='gedempt', ra=1.35)
