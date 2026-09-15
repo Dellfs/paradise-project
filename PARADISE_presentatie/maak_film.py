@@ -27,6 +27,7 @@ from pptx.util import Inches, Pt
 from pptx.dml.color import RGBColor
 from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
 from pptx.enum.shapes import MSO_SHAPE
+from pptx.oxml.ns import qn
 from lxml import etree
 
 from inhoud import K, FONT, FONT_M
@@ -72,15 +73,41 @@ LEEG = prs.slide_layouts[6]
 TIJDEN = []
 
 
-def dia(seconden, eerste=False):
-    """Nieuwe dia met grond, morph-overgang en een eigen standtijd."""
+def verloop(vorm_, van, naar, hoek=5400000):
+    """Kleurverloop in plaats van een vlakke kleur. Op een groot scherm is een
+    egaal vlak het eerste wat goedkoop oogt."""
+    vorm_.fill.solid()
+    oud = vorm_.fill._xPr.find(qn('a:solidFill'))
+    # ter plaatse vervangen, niet vooraan invoegen: in spPr moet de vulling ná
+    # a:xfrm en a:prstGeom komen, anders negeert PowerPoint hem en wordt de
+    # vorm wit
+    oud.getparent().replace(oud, etree.fromstring(
+        '<a:gradFill xmlns:a="http://schemas.openxmlformats.org/drawingml/'
+        '2006/main" rotWithShape="1"><a:gsLst>'
+        '<a:gs pos="0"><a:srgbClr val="%s"/></a:gs>'
+        '<a:gs pos="100000"><a:srgbClr val="%s"/></a:gs>'
+        '</a:gsLst><a:lin ang="%d" scaled="0"/></a:gradFill>'
+        % (hex_(van), hex_(naar), hoek)))
+
+
+def dia(stand, morph_ms=900, eerste=False):
+    """Nieuwe dia met grond, morph-overgang en een eigen standtijd.
+
+    `stand` is hoe lang het beeld blijft staan nádat de overgang klaar is.
+    Zet hem op nul en geef de overgang de hele beat: dan loopt de beweging
+    door in plaats van te verspringen. Dat is het verschil tussen een
+    diavoorstelling en een film.
+    """
     s = prs.slides.add_slide(LEEG)
     g = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, px(B), px(H))
-    g.fill.solid(); g.fill.fore_color.rgb = rgb('bg')
     g.line.fill.background(); g.shadow.inherit = False
     g.name = '!!grond'
-    ms = int(seconden * 1000)
-    duur = 250 if eerste else 900
+    # donker bovenaan, iets lichter naar de horizon toe: andersom oogt het als
+    # een vignet in plaats van als lucht
+    # klein bereik: een breed verloop toont zichtbare banden op een groot scherm
+    verloop(g, meng_kl('bg', 0.80), lichter('bg', .05), 5400000)
+    ms = max(10, int(stand * 1000))
+    duur = 250 if eerste else morph_ms
     s._element.append(etree.fromstring(
         '<mc:AlternateContent xmlns:mc="http://schemas.openxmlformats.org/'
         'markup-compatibility/2006" xmlns:p="http://schemas.openxmlformats.org/'
@@ -94,7 +121,7 @@ def dia(seconden, eerste=False):
         'office/powerpoint/2010/main" spd="slow" p14:dur="%d" advClick="0" '
         'advTm="%d"><p:fade/></p:transition></mc:Fallback>'
         '</mc:AlternateContent>' % (duur, ms, duur, ms)))
-    TIJDEN.append(seconden)
+    TIJDEN.append(stand + duur / 1000.0)
     return s
 
 
@@ -372,10 +399,26 @@ def park(s, hoogte=880, bomen=BOMEN, wolken=((240, 150, 1.5), (1420, 210, 1.1)))
 
 
 def onderschrift(s, tekst, kl='ink'):
+    # Een balk onder de tekst: op een projector of een scherm in een hal valt
+    # witte tekst anders weg tegen een licht stuk beeld.
+    b = vorm(s, MSO_SHAPE.RECTANGLE, 0, 930, B, 150, vul=meng_kl('bg', 0.55),
+             naam='!!balk')
+    verloop(b, meng_kl('bg', 0.55), meng_kl('bg', 0.35), 5400000)
     # 30 punt vet past op één regel over de volle breedte; op 40 sloeg het om
     # en viel de tweede regel van de dia
     txt(s, 120, 962, 1680, 84, tekst, gr=30, kl=kl, vet=True,
         uit=PP_ALIGN.CENTER, naam='!!onderschrift')
+
+
+def soepel(t):
+    """Versnellen en weer afremmen. Lineair bewegen ziet er mechanisch uit;
+    alles wat leeft komt op gang en loopt uit."""
+    return t * t * (3 - 2 * t)
+
+
+def reeks(n):
+    """n tussenstanden van 0 tot 1, met een zachte in- en uitloop."""
+    return [soepel(i / float(n - 1)) for i in range(n)] if n > 1 else [1.0]
 
 
 def meng(a, b, f):
@@ -391,20 +434,24 @@ SC_F, SC_L = 3.3, 2.6
 Y_F, Y_L = GROND - 124 * SC_F, GROND - 124 * SC_L
 
 # ============================================================ 1 — in het park
-for j, (fx, lx, been) in enumerate(
-        ((240, 640, (-14, 14)), (400, 840, (13, -13)))):
-    s = dia(3.4, eerste=(j == 0))
+# Acht beelden in plaats van twee, elk met een korte overgang en geen
+# stilstand: dan lopen ze echt in plaats van twee keer te verspringen.
+PARK_N = 8
+for j, t in enumerate(reeks(PARK_N)):
+    laatste = (j == PARK_N - 1)
+    s = dia(1.8 if laatste else 0, 420 if j else 250, eerste=(j == 0))
     park(s)
-    figuur(s, FRANS, 'f', fx, Y_F, SC_F, been=been,
-           arm=(been[1] // 2, been[0] // 2))
-    figuur(s, LOTTE, 'l', lx, Y_L, SC_L, been=(been[1], been[0]),
-           arm=(-been[0], -been[1]))
+    # de passen wisselen af, de figuren schuiven naar rechts
+    hoek = 15 * math.sin(j * math.pi / 2.0)
+    figuur(s, FRANS, 'f', 240 + t * 210, Y_F, SC_F, been=(-hoek, hoek),
+           arm=(hoek * .6, -hoek * .6))
+    figuur(s, LOTTE, 'l', 640 + t * 230, Y_L, SC_L, been=(hoek, -hoek),
+           arm=(-hoek * .6, hoek * .6))
     # 72 punt, niet 82: op 82 sloeg de tweede regel om en kwam de derde
     # regel op het hoofd van Frans terecht
-    txt(s, 120, 96, 1100, 400,
-        'Opa Frans\nen Lotte' if j == 0 else 'Elke zondag\nop stap',
-        gr=72, kl='ink', vet=True, ra=1.05, naam='!!kop')
-    onderschrift(s, 'Tienduizend stappen, zonder erbij na te denken.')
+    txt(s, 120, 96, 1100, 400, 'Opa Frans\nen Lotte', gr=72, kl='ink',
+        vet=True, ra=1.05, naam='!!kop')
+    onderschrift(s, 'Elke zondag samen op stap. Tienduizend stappen.')
 
 # ======================================================= 2 — het legoblokje
 # Drie momenten in plaats van twee. In de vorige versie stond het onderschrift
@@ -415,33 +462,41 @@ BLOK_B = 104                      # breedte van een blokje
 BLOK_H = BLOK_B * 0.62            # en dus zijn hoogte
 BLOK_L, BLOK_F = 560, 1352      # zijn blokje ligt náást zijn voeten, niet
 FRANS_X = (1180, 1180, 1236)    # erachter, en hij stapt er pas op het eind op
-for j in range(3):
-    s = dia(3.2)
+# Elk moment krijgt een aanloop: Lotte loopt naar het blokje toe, springt op,
+# komt neer. Drie harde standen lieten de kijker de beweging zelf invullen.
+LEGO = []
+for t in reeks(4):                                   # naar het blokje toe
+    LEGO.append((0, 320 + t * 128, 0, 0, FRANS_X[0], 0))
+for t in reeks(4):                                   # opspringen
+    LEGO.append((1, 448, t * 78, t * 40, FRANS_X[0], 0))
+LEGO.append((1, 448, 78, 40, FRANS_X[0], 0))         # even in de lucht blijven
+for t in reeks(4):                                   # opa stapt op het zijne
+    LEGO.append((2, 448 - t * 148, (1 - t) * 40, 0,
+                 FRANS_X[0] + t * (FRANS_X[2] - FRANS_X[0]), t * BLOK_H))
+
+for j, (fase, lx, hop, beenhoek, fx, frans_op) in enumerate(LEGO):
+    # alleen op de laatste van elk blok even stil, zodat het onderschrift leest
+    vast = j in (3, 8, len(LEGO) - 1)
+    s = dia(1.9 if vast else 0, 340)
     grondlijn(s)
     # de blokjes liggen óp de grond, niet erin, zodat iemand er bovenop kan
     for i, bx in ((0, BLOK_L), (1, BLOK_F)):
         blokje(s, bx, GROND - BLOK_H, BLOK_B, 'blok%d' % i)
-    # Lotte loopt ernaartoe, stapt erop en springt weg
-    figuur(s, LOTTE, 'l', (320, 448, 300)[j],
-           Y_L - (78 if j == 1 else 0), SC_L,
-           been=(0, -40) if j == 1 else (0, 0),
-           arm=(-26, 26) if j == 1 else (0, 0),
-           mond='open' if j == 1 else 'lach')
-    # opa Frans stapt op het zijne en blijft glimlachen. Op de laatste dia
-    # staat hij er echt bovenop: een blokhoogte hoger.
-    figuur(s, FRANS, 'f', FRANS_X[j], Y_F - (BLOK_H if j == 2 else 0), SC_F,
-           been=(0, 0), arm=(0, 0))
-    if j == 1:
+    figuur(s, LOTTE, 'l', lx, Y_L - hop, SC_L, been=(0, -beenhoek),
+           arm=(-beenhoek * .65, beenhoek * .65),
+           mond='open' if beenhoek > 8 else 'lach')
+    figuur(s, FRANS, 'f', fx, Y_F - frans_op, SC_F, been=(0, 0), arm=(0, 0))
+    if fase == 1 and beenhoek > 8:
         # naast haar voet, niet erover: anders verdwijnt het blokje eronder
-        flits(s, BLOK_L - 46, GROND - 96, 64, 'pijn')
-        txt(s, 300, 214, 340, 140, 'AU!', gr=92, kl='oranje', vet=True,
-            uit=PP_ALIGN.CENTER, naam='!!au')
-    if j == 2:
+        flits(s, BLOK_L - 46, GROND - 96, 26 + beenhoek * 1.7, 'pijn')
+        txt(s, 300, 214, 340, 140, 'AU!', gr=60 + beenhoek * 0.8, kl='oranje',
+            vet=True, uit=PP_ALIGN.CENTER, naam='!!au')
+    if fase == 2 and frans_op > BLOK_H * 0.5:
         vorm(s, MSO_SHAPE.OVAL, BLOK_F - 40, GROND - BLOK_H - 62, 184, 184,
              lijn='groen2', dik=4, naam='!!kring')
     onderschrift(s, ('Er ligt een legoblokje op de grond.',
                      'Lotte stapt erop — en voelt het meteen.',
-                     'Opa Frans staat op net zo’n blokje. Hij merkt niets.')[j])
+                     'Opa Frans staat op net zo’n blokje. Hij merkt niets.')[fase])
 
 # ===================================================== 3 — de hete plek
 # Hier zat het gat in het verhaal: de film liet zien dat opa niets voelt, maar
@@ -449,11 +504,18 @@ for j in range(3):
 # De haard gebruikt de kleurenband van de drukmat: geel, oranje, rood.
 # Doorschijnend oranje over het blauw van de voet gaf een modderig bruin.
 VX, VY, VW, VH = 1080, 150, 380, 720
-for j, (groei, regel) in enumerate((
-        (0.55, 'Op één plekje. Als een steentje dat er altijd zit.'),
-        (1.00, 'Dat voelt hij niet.'),
-        (0.75, 'En net daar kan een wonde ontstaan.'))):
-    s = dia(2.6)
+# de haard klopt: drie keer aanzwellen en teruglopen, doorlopend
+HAARD = []
+for k, regel in enumerate((
+        'Op één plekje. Als een steentje dat er altijd zit.',
+        'Dat voelt hij niet.',
+        'En net daar kan een wonde ontstaan.')):
+    for t in reeks(5):
+        HAARD.append((0.45 + 0.55 * math.sin(t * math.pi), regel, False))
+    HAARD.append((0.45, regel, True))
+
+for j, (groei, regel, vast) in enumerate(HAARD):
+    s = dia(1.5 if vast else 0, 300)
     txt(s, 120, 200, 800, 320, 'Toch duwt\nzijn voet\nte hard', gr=72,
         kl='ink', vet=True, ra=1.12, naam='!!kop')
     grote_voet(s, VX, VY, VW, VH)
@@ -481,8 +543,10 @@ for r in range(17):
             CELLEN.append((ZX + fx * ZW, ZY + ZH - t * ZH))
 CELLEN = CELLEN[:99]
 
-for j in range(2):
-    s = dia(3.4)
+ZOOL_N = 7
+for j, t in enumerate(reeks(ZOOL_N)):
+    vast = j in (0, ZOOL_N - 1)
+    s = dia(2.2 if vast else 0, 340)
     # 'meetzool', niet zomaar 'zool': verderop komt de zool op maat, en dat
     # zijn twee verschillende dingen. De ene meet, de andere haalt druk weg.
     txt(s, 1060, 250, 780, 420, 'Een meetzool\nmet 99\nsensoren', gr=54,
@@ -496,17 +560,19 @@ for j in range(2):
              banden=130, marge=12)
     # De meetzool zweeft er eerst boven en zakt er dan in. Naast de schoen
     # schuiven werkte niet: dan liep ze dwars over de titel.
-    dy = -196 if j == 0 else 0
+    dy = -196 * (1 - t)
     zoolvorm(s, ZX, ZY + dy, ZW, ZH, 'rand', 'band', banden=130, marge=12)
     for i, (cx, cy) in enumerate(CELLEN):
         vorm(s, MSO_SHAPE.OVAL, cx - 10, cy + dy - 10, 20, 20,
-             vul='gedempt' if j == 0 else 'licht', naam='!!cel%02d' % i)
-    onderschrift(s, 'Flinterdun, en ze gaat in zijn eigen schoen.' if j == 0
+             vul=meng_kl('licht', 0.55 + 0.45 * t), naam='!!cel%02d' % i)
+    onderschrift(s, 'Flinterdun, en ze gaat in zijn eigen schoen.' if t < 0.9
                  else 'Zo meten we hoe hard zijn voet duwt.')
 
 # ==================================================== 5 — tien meter wandelen
-for j in range(3):
-    s = dia(2.6)
+WANDEL_N = 11
+for j, t in enumerate(reeks(WANDEL_N)):
+    vast = j == WANDEL_N - 1
+    s = dia(1.8 if vast else 0, 320)
     # een gemarkeerd looppad met begin en eind: anders is '10 meter' een getal
     # zonder beeld, en waren de stappen naamloze ovaaltjes
     vorm(s, MSO_SHAPE.RECTANGLE, 120, GROND, 1680, 14, vul='rand', naam='!!pad')
@@ -515,10 +581,10 @@ for j in range(3):
              naam='!!merk%d' % i)
         txt(s, mx - 70, GROND - 98, 140, 44, lbl, gr=24, kl='licht', vet=True,
             font=FONT_M, uit=PP_ALIGN.CENTER, naam='!!merklabel%d' % i)
-    fx = 200 + j * 560
-    figuur(s, FRANS, 'f', fx, Y_F, SC_F,
-           been=(-16, 16) if j % 2 == 0 else (15, -15),
-           arm=(12, -12) if j % 2 == 0 else (-12, 12))
+    fx = 200 + t * 1120
+    hoek = 16 * math.sin(j * math.pi / 2.0)
+    figuur(s, FRANS, 'f', fx, Y_F, SC_F, been=(-hoek, hoek),
+           arm=(hoek * .75, -hoek * .75))
     # het kastje aan zijn riem, met de kabel naar de zool in zijn schoen
     vorm(s, MSO_SHAPE.RECTANGLE, fx + 72 * SC_F, Y_F + 92 * SC_F, 3,
          30 * SC_F, vul='gedempt', naam='!!kabel')
@@ -528,73 +594,82 @@ for j in range(3):
     vorm(s, MSO_SHAPE.OVAL, fx + 71 * SC_F, Y_F + 80 * SC_F, 8 * SC_F,
          8 * SC_F, vul='groen2', naam='!!lampje')
     # de stappen die al gezet zijn blijven staan, elk met zijn eigen drukpunt
-    for i in range(j * 2 + 1):
-        voetafdruk(s, 250 + i * 280, 898, 40, 58, 'stap%d' % i)
+    for i in range(6):
+        if 250 + i * 240 < fx + 40:
+            voetafdruk(s, 250 + i * 240, 898, 40, 58, 'stap%d' % i)
     # hoger en kleiner dan de andere koppen: Frans loopt er anders doorheen
     txt(s, 120, 84, 900, 380, '10 meter\nwandelen', gr=66, kl='ink', vet=True,
         ra=1.1, naam='!!kop')
     onderschrift(s, 'Honderd metingen per seconde, bij elke stap.')
 
 # ================================================= 6 — de eerste meting
-def matdia(f, waarde, kop, regel, seconden):
-    s = dia(seconden)
+def matdia(f, waarde, kop, regel, stand, morph=900):
+    s = dia(stand, morph)
     beeld.drukmat(s, 210, 130, 420, 800, meng(beeld.VOOR, beeld.NA, f),
                   sleutel='m', piek=float(waarde))
     txt(s, 760, 168, 700, 420, str(waarde), gr=190,
         kl='oranje' if f < 0.6 else 'licht', vet=True, ra=0.9, naam='!!getal')
     txt(s, 1420, 250, 300, 120, 'kPa', gr=60, kl='gedempt', naam='!!eenheid')
-    txt(s, 760, 606, 960, 240, kop, gr=64, kl='ink', vet=True, ra=1.1,
+    # 56 punt op 560: op 64 liep de tweede regel achter de onderschriftbalk
+    txt(s, 760, 560, 960, 300, kop, gr=56, kl='ink', vet=True, ra=1.1,
         naam='!!kop')
     onderschrift(s, regel)
 
 
-matdia(0.0, 312, 'Rood is waar\nhet duwt', 'Alles boven 200 is te veel.', 3.4)
+matdia(0.0, 312, 'Rood is waar\nhet duwt', 'Alles boven 200 is te veel.', 2.8)
 matdia(0.0, 312, 'Rood is waar\nhet duwt',
-       'Precies het plekje dat opa niet voelt.', 2.6)
+       'Precies het plekje dat opa niet voelt.', 2.4)
 
 # ============================================== 7 — de zool op maat
 # De ontbrekende schakel. Zonder deze scène daalt de druk in de film zomaar,
 # van driehonderdtwaalf naar honderdzesentachtig, zonder dat iemand iets doet.
 LAGEN = (('mid', 'kurk'), ('licht', 'schuim'), ('gedempt', 'deklaag'))
 LX, LY, LW, LH = 250, 250, 340, 500
-for j in range(2):
-    s = dia(3.2)
+LAAG_N = 7
+for j, t in enumerate(reeks(LAAG_N)):
+    vast = j in (0, LAAG_N - 1)
+    s = dia(2.4 if vast else 0, 360)
     txt(s, 1120, 250, 720, 400, 'Een zool\nop maat', gr=76, kl='ink',
         vet=True, ra=1.1, naam='!!kop')
     for i, (kl, naam_) in enumerate(LAGEN):
-        # Uit elkaar op de eerste dia; op de tweede gestapeld maar met een
-        # zichtbare verspringing. Precies op elkaar zag je alleen de bovenste
-        # laag en was van 'opgebouwd uit lagen' niets meer te merken.
-        lx = LX + ((i - 1) * 72 if j == 0 else i * 16)
-        ly = LY + ((i - 1) * 132 if j == 0 else i * 34)
+        # De lagen schuiven van uit elkaar naar op elkaar, maar nooit precies:
+        # precies op elkaar zag je alleen de bovenste laag en was van
+        # 'opgebouwd uit lagen' niets meer te merken.
+        lx = LX + (i - 1) * (72 - t * 56) + t * i * 16
+        ly = LY + (i - 1) * (132 - t * 98) + t * i * 34
         zoolvorm(s, lx, ly, LW, LH, kl, 'laag%d_' % i, banden=80, marge=9)
-        # Op de gestapelde dia liggen de lagen dicht op elkaar en vielen de
-        # labels over elkaar. Ze krijgen daar een eigen kolom, en een
-        # kleurstaal zodat je toch ziet welk label bij welke laag hoort.
-        ex, ey = ((lx + LW + 30, ly + 22) if j == 0
-                  else (LX + LW + 150, LY + 40 + i * 88))
+        # Gestapeld vielen de labels over elkaar. Ze schuiven mee naar een
+        # eigen kolom, met een kleurstaal zodat je ziet wat bij wat hoort.
+        ex = (lx + LW + 30) * (1 - t) + (LX + LW + 150) * t
+        ey = (ly + 22) * (1 - t) + (LY + 40 + i * 88) * t
         vorm(s, MSO_SHAPE.ROUNDED_RECTANGLE, ex, ey + 8, 34, 34, vul=kl,
              naam='!!laagstaal%d' % i, rond=0.3, omlijn=2)
         txt(s, ex + 50, ey + 8, 300, 60, naam_, gr=26, kl='gedempt',
             naam='!!laagnaam%d' % i)
     # het kussentje dat de druk van de bal van de voet weghaalt
     tl = 2  # het ligt op de bovenste laag
-    px_ = LX + ((tl - 1) * 72 if j == 0 else tl * 16) + 0.28 * LW
-    py = LY + ((tl - 1) * 132 if j == 0 else tl * 34) + LH - 0.68 * LH
-    vorm(s, MSO_SHAPE.OVAL, px_, py, 110 if j else 78, 74 if j else 52,
+    px_ = LX + (tl - 1) * (72 - t * 56) + t * tl * 16 + 0.28 * LW
+    py = LY + (tl - 1) * (132 - t * 98) + t * tl * 34 + LH - 0.68 * LH
+    vorm(s, MSO_SHAPE.OVAL, px_, py, 78 + t * 32, 52 + t * 22,
          vul='oranje', naam='!!pad', omlijn=2.4)
-    onderschrift(s, 'De schoenmaker bouwt hem op uit lagen.' if j == 0
+    onderschrift(s, 'De schoenmaker bouwt hem op uit lagen.' if t < 0.9
                  else 'Het kussentje haalt de druk weg van dat ene plekje.')
 
 # ============================================ 8 — meten met de nieuwe zool
-matdia(0.0, 312, 'Zelfde voet,\nnieuwe zool', 'We meten opnieuw.', 2.4)
-matdia(0.45, 256, 'Zelfde voet,\nnieuwe zool', 'En de rode plek koelt af.', 2.0)
-matdia(0.80, 212, 'Zelfde voet,\nnieuwe zool', 'En de rode plek koelt af.', 2.0)
-matdia(1.00, 186, 'En kijk:\nhet rood is weg',
-       'De druk zit nu verdeeld over de hele voet.', 3.6)
+# Twaalf tussenstanden in plaats van vier: de plek koelt nu echt af en het
+# cijfer telt zichtbaar terug, in plaats van in sprongen te verspringen.
+matdia(0.0, 312, 'Zelfde voet,\nnieuwe zool', 'We meten opnieuw.', 1.8)
+KOEL_N = 12
+for j, t in enumerate(reeks(KOEL_N)):
+    laatste = j == KOEL_N - 1
+    matdia(t, int(round(312 - t * 126)),
+           'En kijk:\nhet rood koelt af' if not laatste
+           else 'En kijk:\nhet rood is weg',
+           'De druk verdeelt zich over de hele voet.', 3.6 if laatste else 0,
+           300)
 
 # ============================================================== 7 — het slot
-s = dia(5.5)
+s = dia(5.5, 700)
 # de boom links weggelaten: daar staat nu de tekst
 park(s, bomen=((1620, 1.25), (1120, 0.75)))
 figuur(s, FRANS, 'f', 1180, Y_F, SC_F, been=(-10, 10), arm=(8, -8))
@@ -620,9 +695,10 @@ txt(s, 124, 832, 900, 50, 'PARADISE  ·  KU Leuven Campus Brugge', gr=19,
 onderschrift(s, 'Dat is wat PARADISE de komende jaren uitzoekt.')
 
 prs.save(DOEL)
-print('%d dia\'s · %.0f seconden · %s'
-      % (len(TIJDEN), sum(TIJDEN) + 0.9 * (len(TIJDEN) - 1),
-         os.path.basename(DOEL)))
+# TIJDEN telt per dia de overgang én de standtijd, dus de som is de speelduur
+print('%d dia\'s · %d:%02d · %.0f KB · %s'
+      % (len(TIJDEN), int(sum(TIJDEN)) // 60, int(sum(TIJDEN)) % 60,
+         os.path.getsize(DOEL) / 1024, os.path.basename(DOEL)))
 
 # ------------------------------------------------------------------- renderen
 # Via PowerShell in plaats van pywin32: dat laatste staat hier niet, en
@@ -636,8 +712,8 @@ if '--video' in sys.argv:
     ps = (
         "$pp = New-Object -ComObject PowerPoint.Application; "
         "$pr = $pp.Presentations.Open('%s', $true, $false, $false); "
-        # bestand, tijden gebruiken, standaardduur, 1080 lijnen, 30 b/s, kwaliteit
-        "$pr.CreateVideo('%s', $true, 3, 1080, 30, 100); "
+        # bestand, tijden gebruiken, standaardduur, 1080 lijnen, 60 b/s, kwaliteit
+        "$pr.CreateVideo('%s', $true, 3, 1080, 60, 100); "
         # 1 = bezig, 2 = in de wachtrij, 3 = klaar, 4 = mislukt. Alleen op 1
         # wachten stopt te vroeg: de taak staat eerst even in de wachtrij.
         "$n = 0; "
