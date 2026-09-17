@@ -120,10 +120,10 @@ ZEG = {
         'patiënt. Ik neem u mee langs het waarom, de meting en het traject. '
         'Onderbreek me gerust.',
 
-    'Na vandaag kunt u dit zelf':
-        'Dit is de lat voor vandaag. Zes handelingen, en na deze sessie doet u '
-        'ze zelf. Herkent u er één waarvan u nu al denkt: dat durf ik niet — '
-        'zeg het dan meteen. Daar is deze sessie voor.',
+    'Na vandaag doet uw team dit zelf':
+        'Dit is de lat voor vandaag. Zes handelingen, en na deze sessie doet uw '
+        'team ze zelf. Twijfelt u bij een van de zes, zeg dat dan gerust: '
+        'begeleiding en vragen blijven mogelijk tijdens het hele project.',
 
     'Vier blokken':
         'Vier blokken. Eerst waarom de studie zo is opgezet, dan de meting, dan '
@@ -162,7 +162,7 @@ ZEG = {
     # ------------------------------------------------------ blok 1, waarom
     # De boog van blok 1: inzet, spanning, mislukking, verklaring, omslag.
     # Elke dia geeft de volgende door; lees ze één keer na elkaar en u hoort het.
-    'Waarom zo':
+    'Waarom':
         'Blok één. Ik geef u vier cijfers. Na het vierde weet u waarom deze '
         'studie twee normen heeft in plaats van één, en waarom niemand die tot '
         'nu toe samen gehaald heeft.',
@@ -170,8 +170,14 @@ ZEG = {
     'krijgt binnen een jaar\neen nieuw ulcus':
         'Veertig procent krijgt binnen één jaar een nieuw ulcus. Na vijf jaar is '
         'dat vijfenzestig. En de sterfte ligt tweeënhalf keer hoger dan bij '
-        'diabetes zonder ulcus — na een amputatie zelfs boven de zeventig '
+        'diabetes zonder ulcus — na een majeure amputatie zelfs boven de '
+        'zeventig '
         'procent. Dit is geen wondprobleem. Dit is een overlevingsprobleem.',
+
+    'Twee derde recidiveert binnen vijf jaar':
+        'Waar die cijfers vandaan komen, ziet u hier. Elk punt is een cohort; '
+        'de lijn erdoorheen is de trend. Na één jaar veertig procent, na vijf '
+        'jaar vijfenzestig. Het risico verdwijnt niet, het stapelt op.',
 
     'Driekwart is te voorkomen.\nVeertig procent komt terug.':
         'En dan het cijfer dat het onverdraaglijk maakt. Driekwart van deze '
@@ -197,7 +203,7 @@ ZEG = {
         'worden de meeste stappen gezet. De schoen stond in de gang terwijl de '
         'patiënt door het huis liep.',
 
-    'Belasting is een product,\ngeen optelsom':
+    'Belasting is een product, geen optelsom':
         'Belasting is een product, geen optelsom. Piekdruk maal activiteit maal '
         'draagtijd. Eén factor op nul maakt het hele product nul. Een perfecte '
         'zool in de kast beschermt niets.',
@@ -220,10 +226,10 @@ ZEG = {
         'genoeg is.',
 
     'Elke sensor een cijfer':
-        'Elke sensor geeft een cijfer. Dit is de baseline, blootsvoets: '
-        'driehonderdtwaalf kilopascal onder metatarsaal twee-drie. Drie metingen '
-        'per voet, waar de software één beeld van maakt. Hiertegen wordt alles '
-        'afgezet.',
+        'Elke sensor geeft een cijfer. Dit is de baseline, in de schoen: '
+        'driehonderdtwaalf kilopascal onder metatarsaal twee-drie. Drie '
+        'loopproeven per voet, waarvan de middelste twaalf passen tellen. '
+        'Hiertegen wordt alles afgezet.',
 
     "Acht regio's, drie doelregio's":
         "De software verdeelt de voet in acht regio's. Daarvan kiest u er drie "
@@ -239,11 +245,11 @@ ZEG = {
         'Even stilstaan. Het doel is niet minder belasting. Het doel is '
         'belasting op een plek die het aankan. Dat is de hele interventie.',
 
-    'Drie condities bij de aflevering':
-        'Drie condities, altijd in deze volgorde. Blootsvoets is uw referentie. '
-        'In de schoen zonder zool toont wat het schoeisel alleen doet. In de '
-        'schoen mét zool is de meting waarop de norm getoetst wordt — slaat u er '
-        'één over, dan is de vergelijking onbruikbaar.',
+    'Bij de aflevering':
+        'Bij de aflevering meet u in de schoen, mét de zool. Dat is de meting '
+        'waarop de norm getoetst wordt, per doelregio. Er wordt niet '
+        'blootsvoets gemeten; het vergelijkingspunt is de baselinemeting van '
+        'dezelfde regio, in dezelfde sessie.',
 
     # ----------------------------------------------------- blok 3, traject
     'Het traject':
@@ -286,8 +292,8 @@ ZEG = {
         'over de hele periode.',
 
     'Wat er drie keer extra bij komt':
-        'Op maand zes, twaalf en achttien komt er een drukmeting bij. Drie keer, '
-        'niet twee. Dezelfde drie condities, dezelfde toetsing per doelregio. '
+        'Op maand zes, twaalf en achttien komt er een drukmeting bij. Drie keer. '
+        'Dezelfde meting in de schoen, dezelfde toetsing per doelregio. '
         'Ligt de piekdruk er weer boven, dan past u opnieuw aan.',
 
     'Terug naar het geheel':
@@ -341,29 +347,29 @@ ZEG = {
 
     # ------------------------------------------- blok 4 congres, statistiek
     'Eindpunten en analyse':
-        'Blok vier: de eindpunten en de analyse. Twee eindpunten, één op één op '
-        'het causale model.',
+        'Blok vier: het eindpunt en de analyse. Eén eindpunt, en de mediator '
+        'die het verklaart.',
 
-    'Twee eindpunten, twee berekeningen':
-        'Twee eindpunten betekent twee berekeningen. Links recidief: vijftig '
-        'tegenover vijfentwintig procent, wat eenenveertig events vraagt en '
-        'honderddertig deelnemers. Rechts therapietrouw: vijftig per groep. '
-        'Honderdvierenveertig komt uit de capaciteit per centrum en overtreft '
-        'beide minima.',
+    'Gedimensioneerd op het recidief':
+        'De omvang volgt uit één eindpunt. Links recidief: vijftig tegenover '
+        'vijfentwintig procent, wat eenenveertig events vraagt en honderddertig '
+        'deelnemers. Rechts de therapietrouw: volledig gemeten, maar zonder '
+        'eigen succescriterium. Honderdvierenveertig komt uit de capaciteit per '
+        'centrum en overtreft het minimum.',
 
-    'De power die telt, is de gezamenlijke':
-        'En dan de vraag die u anders uit de zaal krijgt. Apart hebben we '
-        'vierentachtig en zevenentachtig procent power. Maar de studie is pas '
-        'positief als béíde eindpunten halen, en dan zakt het naar vierenzeventig '
-        'tot vierentachtig. Wij rapporteren dat zelf, want de losse cijfers '
-        'overschatten de kans.',
+    'De mediator draagt de verklaring, niet het oordeel':
+        'En dan de vraag die u anders uit de zaal krijgt. Op het recidief '
+        'hebben we vierentachtig procent power. Met twee co-primaire eindpunten '
+        'zou dat naar vierenzeventig zakken, want dan ligt de lat op de '
+        'intersectie. Eén eindpunt plus een vooraf vastgelegde mediator toetst '
+        'hetzelfde causale model zonder die prijs.',
 
     'Hoe we het toetsen':
         'Het analyseplan in vier regels. Recidief met Cox, gestratificeerd naar '
         'centrum, met sterfte als competing risk. Therapietrouw met '
-        'beta-regressie, want het is een proportie met een plafond. En de twee '
-        'eindpunten zijn elkaars intercurrente event: wie ulcereert, draagt '
-        'terecht geen zool meer.',
+        'beta-regressie, want het is een proportie met een plafond, en daarna '
+        'als mediator. Een recidief is haar intercurrente event: wie ulcereert, '
+        'draagt terecht geen zool meer.',
 
     'Twee evaluaties, parallel':
         'Naast de trial lopen twee evaluaties. De economische rekent kosten per '

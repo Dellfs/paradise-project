@@ -128,19 +128,19 @@ DECKS = {
 
 SLIDES = [
 
- dict(t='titel_foto', voor='obcuke', morph='fade', foto='plaatshouder.png',
+ dict(t='titel_foto', voor='obcuke', morph='fade',
+      foto='titel_voetonderzoek.jpg', merkbeeld='paradise_merk.png',
       boven='PARADISE', onder='Opleidingssessie \u00b7 zes voetklinieken',
       voet='Protocolversie 1.0 \u00b7 17 mei 2026 \u00b7 S71769',
-      tip='Het beeld draagt deze dia, dus de foto moet raak zijn. Zet hem in '
-          'beeld\\stock\\, draai verwerk_stock.py, en vervang het kader met '
-          'rechtsklik en Afbeelding wijzigen. Liggend, koele tonen, en rustig '
-          'onderaan \u2014 daar staat de titel.',
+      tip='Het beeld draagt deze dia. Wilt u een ander beeld: zet het in '
+          'beeld\\stock\\, draai verwerk_stock.py en zet de bestandsnaam hier. '
+          'Liggend, koele tonen, en rustig onderaan \u2014 daar staat de titel.',
       interactie='Laat de dia staan terwijl de zaal binnenkomt. Zeg pas iets als '
                  'iedereen zit.'),
 
  dict(t='doel', voor='ok', morph='morph',
       kicker='Waarom u hier zit',
-      kop='Na vandaag kunt u dit zelf',
+      kop='Na vandaag doet uw team dit zelf',
       doelen=[('Screenen', 'beoordelen of een patiënt in aanmerking komt, en de '
                            'screening vastleggen vóór de toestemming'),
               ('Meten', 'een drukmeting uitvoeren die aan het protocol voldoet, '
@@ -152,8 +152,7 @@ SLIDES = [
               ('Begeleiden', 'een SEBIA-gesprek voeren, inclusief teach-back'),
               ('Vastleggen', 'de formulieren volledig invullen, en weten wat u '
                              'meldt als er iets afwijkt')],
-      slot='Wie een van deze zes niet aandurft na vandaag, moet dat zeggen. '
-           'Daar is deze sessie voor.',
+      slot='Begeleiding en vragen tijdens het project blijven mogelijk.',
       tip='Loop de zes titels traag door. Dit is de belofte van de dag en het '
           'is ook precies de bekwaamheidscheck op het eind.',
       interactie='Laat iedereen op een blad de zes overschrijven en aanduiden '
@@ -162,9 +161,9 @@ SLIDES = [
  dict(t='keuze', voor='o', morph='morph',
       kicker='Programma van vandaag',
       kop='Vier blokken',
-      tegels=[('01', 'Waarom zo', 'De vier cijfers achter de twee normen'),
+      tegels=[('01', 'Waarom', 'De vier cijfers achter de twee normen'),
               ('02', 'De meting', 'Drukmeting, doelregio\'s en de norm'),
-              ('03', 'Het traject', 'Bezoek per bezoek, met de formulieren'),
+              ('03', 'Het traject', 'Visite per visite'),
               ('04', 'Toestellen en regels', 'SOP\'s, SEBIA, blindering, melden')],
       tip='Blok 3 is het langste en het belangrijkste. Plan uw tijd zo dat u '
           'daar niet doorheen moet jagen.',
@@ -176,8 +175,8 @@ SLIDES = [
       kop='144 patiënten, 24 per centrum',
       klein=[('Per centrum', '24 deelnemers — 12 PARADISE en 12 gebruikelijke zorg'),
              ('Controlegroep', 'Gebruikelijke zorg, onveranderd'),
-             ('Co-primair', 'Recidief op 18 maanden, draagtijd op 12'),
-             ('Positief', 'Alleen als béíde eindpunten halen')],
+             ('Primair', 'Recidief op 18 maanden'),
+             ('Positief', 'Alleen als het eindpunt behaald is')],
       centra=CENTRA,
       centra_label='De zes deelnemende voetklinieken',
       tip='Wijs hun eigen centrum aan: 24 van die 144 stippen zijn van hen. Zes '
@@ -236,9 +235,9 @@ SLIDES = [
                                               'controlegroep.', 'middel'),
              ('Uitval', 'Vijftien procent is ingecalculeerd in de '
                         'steekproefberekening.', 'middel'),
-             ('Beide eindpunten moeten halen', 'De lat ligt hoog en dat is een '
-                                               'bewuste keuze: druk zonder '
-                                               'draagtijd zegt niets.', 'laag')],
+             ('Eén hard eindpunt', 'Recidief over achttien maanden is streng, en '
+                                   'dat is een bewuste keuze: druk zonder '
+                                   'draagtijd zegt niets.', 'laag')],
       slot='Het grootste risico is niet wetenschappelijk maar organisatorisch: '
            'of de centra hun 24 halen.',
       tip='Benoem het inclusierisico eerst en zelf. Als het board het moet '
@@ -249,22 +248,33 @@ SLIDES = [
       kop='PARADISE toetst geen werkzaamheid.\nPARADISE toetst overdracht.',
       onder='Elk onderdeel bestaat al. Geen enkel onderdeel werkte alleen.'),
 
- dict(t='sectie', voor='obcue', morph='morph', nr='01', titel='Waarom zo',
+ dict(t='sectie', voor='obcue', morph='morph', nr='01', titel='Waarom',
       regel='Vier cijfers verklaren waarom er twee normen zijn.'),
 
  dict(t='hero_cijfer', voor='obcuke', morph='morph',
       cijfer='40', suffix='%',
       kop='krijgt binnen een jaar\neen nieuw ulcus',
       tegels=[('65%', 'na vijf jaar'), ('2,5×', 'hogere sterfte'),
-              ('> 70%', 'sterfte na amputatie')],
+              ('> 70%', 'sterfte na majeure amputatie')],
       voet='Armstrong, Boulton & Bus · N Engl J Med 2017',
       accent='oranje',
       tip='Dit is het probleem waar de hele studie op staat. Eén dia, dan door.',
       interactie='Geen. Dit is context, geen discussie.'),
 
- dict(t='knal', voor='obcuke', morph='morph',
+ dict(t='beeldcijfer', voor='obcuke', morph='morph',
+      kicker='Het risico na genezing',
+      kop='Twee derde recidiveert binnen vijf jaar',
+      cijfers=[('Na 1 jaar', '40%', 'licht'), ('Na 5 jaar', '65%', 'oranje')],
+      foto='recidief_curve.png',
+      bijschrift='Incidentie van recidief tegenover follow-upduur',
+      voet='Gepoolde data uit negen prospectieve studies, één retrospectieve '
+           'studie en de controlegroepen van negen RCT’s',
+      tip='De vorige dia noemt de cijfers; deze laat zien waar ze vandaan '
+          'komen. Wijs de trendlijn aan, niet de losse punten.',
+      interactie='Geen. Laat de spreiding het werk doen.'),
+
+ dict(t='knal', voor='obcuke', morph='morph', foto='knal_voorkomen.jpg',
       kop='Driekwart is te voorkomen.\nVeertig procent komt terug.',
-      onder='Dat gat is waar deze studie over gaat.',
       tip='Zeg dit traag en zwijg dan twee tellen. Dit is de enige dia in blok '
           '1 waar de zaal niet leest maar luistert.',
       interactie='Geen. De stilte doet het werk.'),
@@ -301,7 +311,6 @@ SLIDES = [
       rechts=dict(titel='Wie hem droeg', sub='≥ 80% van de stappen', groot='25,7',
                   ref=47.8, ref_lbl='Gewone maatzool', int_lbl='Drukgeoptimaliseerd',
                   slot='Bijna gehalveerd — p = 0,045', kleur='licht'),
-      punchline='Daarom meten we niet alleen druk, maar ook draagtijd.',
       voet='Bus et al. · Diabetes Care 2013 · DIAFOS, 171 deelnemers',
       tip='Hier komt de tweede norm vandaan. Zonder deze dia is 80% draagtijd '
           'een willekeurig getal.',
@@ -322,7 +331,7 @@ SLIDES = [
 
  dict(t='formule', voor='obcuke', morph='morph',
       kicker='Het mechanisme',
-      kop='Belasting is een product,\ngeen optelsom',
+      kop='Belasting is een product, geen optelsom',
       delen=[('Piekdruk', 'per stap', 'licht', 'Bijgestuurd'),
              ('Activiteit', 'stappen per dag', 'gedempt', 'Gemeten'),
              ('Draagtijd', 'wérd hij gedragen', 'licht', 'Bijgestuurd')],
@@ -347,8 +356,8 @@ SLIDES = [
               'Belgi\u00eb erkent multidisciplinaire voetklinieken met '
               'opleidingseisen en minimumvolumes. Dat is de plek waar preventie '
               'uiteindelijk moet landen.', 'RIZIV-INAMI')],
-      slot='Daarom is therapietrouw hier een co-primair eindpunt, en geen '
-           'mediator die je achteraf afleidt.',
+      slot='Daarom is therapietrouw hier een vooraf vastgelegde mediator, '
+           'volledig gemeten, en geen aanname die je achteraf goedpraat.',
       tip='Drie redenen, drie zinnen. Dit is het scharnier naar de opzet.',
       interactie='Geen.'),
 
@@ -357,16 +366,15 @@ SLIDES = [
       kop='E\u00e9n dienst, geen drie losse maatregelen',
       een=dict(nr='01', naam='De zool h\u00e1\u00e1lt de norm',
                kern='< 200 kPa \u00f3f 25% lager',
-               regels=['Gemeten bij de aflevering, in drie condities.',
+               regels=['Gemeten bij de aflevering.',
                        "Aangepast tot de norm gehaald is in elk van de drie "
                        "doelregio's.",
                        'Herhaald op maand 6, 12 en 18.']),
       twee=dict(nr='02', naam='En hij w\u00f3rdt gedragen',
-                kern='80% van zijn eigen activiteitenprofiel',
+                kern='80% van het eigen activiteitenprofiel',
                 regels=['Een sensor in de zool meet de draagtijd, continu.',
                         'Elke drie maanden uitgelezen en samen bekeken.',
-                        'Vijf gesprekken die op die data staan, niet op goede '
-                        'raad.']),
+                        'Vijf gesprekken die op die data steunen.']),
       tip='Dit is de kanteldia. Alles ervoor is het probleem, alles erna is de '
           'uitvoering. Zeg met zoveel woorden dat dit nog nooit samen getoetst '
           'is.',
@@ -377,18 +385,18 @@ SLIDES = [
       regel='Wat u meet, hoe u het meet, en wanneer het goed genoeg is.'),
 
  dict(t='drukmeting', voor='obcuke', morph='morph', fase='voor',
-      kicker='Baseline · blootsvoets',
+      kicker='Baseline · in de schoen',
       kop='Elke sensor een cijfer',
       waarde='312', plek='piekdruk op metatarsaal 2-3',
       norm='Norm:  < 200 kPa   óf   ≥ 25% lager',
-      regels=['Baseline meet u blootsvoets: de sensoren gaan met dubbelzijdige '
-              'tape rechtstreeks op de voet, daarover een standaardkous.',
-              'Drie metingen per voet, links en rechts apart. Daaruit berekent '
-              'de software één gemiddeld piekdrukbeeld.'],
+      regels=['pedar®-sensorinsole in de schoen geplaatst, drie loopproeven '
+              'uitgevoerd.',
+              'De middelste twaalf passen per voet geanalyseerd; daaruit '
+              'berekent de software de gemiddelde piekdruk per voet.'],
       voet='eCRF-document 09 · Meting plantaire druk, baseline',
-      tip='De meest gemaakte fout is één meting per voet. Het protocol vraagt er '
-          'drie, en het gemiddelde telt.',
-      interactie='Vraag wie al blootsvoets gemeten heeft met sensoren op de voet.'),
+      tip='De meest gemaakte fout is één loopproef per voet. Het protocol '
+          'vraagt er drie, en het gemiddelde telt.',
+      interactie='Vraag wie er vandaag al in de schoen meet.'),
 
  dict(t='drukzoom', voor='oc', morph='morph', fase='voor',
       kicker='Inzoomen op de voorvoet',
@@ -397,9 +405,9 @@ SLIDES = [
       regios=[('Metatarsaal 1', 'onder de grote teen — tweede meest getroffen plek', 0.30, 0.68),
               ('Metatarsaal 2-3', 'de hete plek op deze meting, en de klassieke ulcusplek', 0.44, 0.66),
               ('Metatarsaal 4-5', 'laterale voorvoet, meestal lagere druk', 0.70, 0.63),
-              ('Hallux', 'apart bekeken, niet meer samengeteld met de tenen', 0.28, 0.91),
-              ('Tenen 2-5', 'eigen regio sinds de laatste maskerversie', 0.55, 0.90)],
-      voet='Acht regio\'s via Multimask · hiel en mediale en laterale middenvoet vallen buiten beeld',
+              ('Hallux', '', 0.28, 0.91),
+              ('Tenen 2-5', '', 0.55, 0.90)],
+      voet='',
       tip='Uit deze acht kiest u er drie om te ontlasten: de regio met de '
           'ulcusvoorgeschiedenis, plus één of twee met de hoogste piekdruk. '
           'Die drie legt u vast — daarop wordt de norm getoetst.',
@@ -409,7 +417,7 @@ SLIDES = [
       kicker='Na optimalisatie',
       kop='Wanneer is het goed genoeg',
       waarde='186', plek='piekdruk in de doelregio na aanpassing',
-      norm='40% lager  ·  onder 200 kPa  ·  beide criteria gehaald',
+      norm='40% lager  ·  onder 200 kPa  ·  beide criteria',
       regels=['De norm geldt per doelregio: piekdruk onder 200 kPa óf minstens '
               '25% lager dan de baselinemeting van diezelfde regio.',
               'Haalt u de norm niet, dan past u aan en meet u opnieuw. Het '
@@ -419,9 +427,8 @@ SLIDES = [
           'En de vergelijking gebeurt per regio, niet over de hele voet.',
       interactie='Vraag de pedorthisten hoeveel aanpassingsrondes realistisch zijn.'),
 
- dict(t='knal', voor='obcuke', morph='morph', kleur='oranje', kleur2='oranje',
+ dict(t='knal', voor='obcuke', morph='morph', foto='knal_belasting.jpg',
       kop='Niet minder belasting.\nBelasting op een plek die het aankan.',
-      onder='Dat is de hele interventie.',
       tip='Zeg deze twee zinnen en zwijg dan. Laat de dia staan tot iemand '
           'ongemakkelijk wordt. Dit is het enige moment in blok 2 waarop de '
           'zaal niets te lezen heeft.',
@@ -429,22 +436,14 @@ SLIDES = [
 
  dict(t='meetreeks', voor='oc', morph='morph',
       kicker='Het meetprotocol',
-      kop='Drie condities bij de aflevering',
-      condities=[('01', 'Blootsvoets',
-                  'Sensoren met dubbelzijdige tape op de voet, standaardkous '
-                  'erover. Dit is het referentiebeeld.'),
-                 ('02', 'In de schoen, zónder de zool',
-                  'Toont wat het schoeisel alleen doet. Dit is de vergelijking '
-                  'die laat zien of de zool iets toevoegt.'),
-                 ('03', 'In de schoen, mét de zool',
+      kop='Bij de aflevering',
+      foto='pedar_schoen.png',
+      condities=[('', 'In de schoen, mét de zool',
                   'De meting waarop de norm getoetst wordt, per doelregio.')],
-      slot='Alle drie de condities staan op hetzelfde formulier. Slaat u er één '
-           'over, dan is de vergelijking onbruikbaar.',
       voet='eCRF-document 24 · de norm wordt per doelregio getoetst, niet over de hele voet',
-      tip='Dit is de dia waar in de praktijk de meeste fouten gemaakt worden. '
-          'Loop de drie condities traag door en benoem dat conditie 2 vaak '
-          'vergeten wordt. Dezelfde drie condities komen terug op maand 6, 12 en 18.',
-      interactie='Vraag: "wie meet er vandaag al in de schoen zonder zool?"'),
+      tip='Alle metingen gebeuren in de schoen; er wordt niet blootsvoets '
+          'gemeten. Dezelfde meting komt terug op maand 6, 12 en 18.',
+      interactie='Vraag: "wie meet er vandaag al in de schoen?"'),
 
  dict(t='sectie', voor='obcke', morph='morph', nr='03', titel='Het traject',
       regel='Negen contactmomenten. Per moment: wat u doet en wat u invult.'),
@@ -474,6 +473,7 @@ SLIDES = [
                    'Niet geschikt? Noteer de reden. Ook dat is studiedata.'],
       documenten=[('00', 'Identificatielijst'), ('01', 'Screening'),
                   ('02', 'Toestemming'), ('06', 'Geschiktheid')],
+      stapdocumenten=True,
       letop='De volgorde ligt vast: screenen, tekenen, geschiktheid bevestigen, dan '
             'pas loten. Vul geen enkel ander formulier in voordat de pati\u00ebnt '
             'getekend heeft.',
@@ -516,19 +516,20 @@ SLIDES = [
       wanneer='Het langste bezoek van de studie',
       handelingen=['Demografie en voorgeschiedenis, inclusief nierfunctie, eGFR, '
                    'hartaandoening en diabetesmedicatie.',
-                   'Voet- en schoeiselscreening, en klasseer een eventueel ulcus.',
-                   ('Drukmeting blootsvoets: drie metingen per voet.',
-                    'Sensoren met dubbelzijdige tape op de blote voet, kous erover'),
+                   'Voet- en schoeiselscreening, en klasseer een voorgaand ulcus.',
+                   ('Drukmeting: drie metingen per voet.',
+                    'Sensoren in de schoen', 'pedar_schoen.png'),
                    ('Bepaal de drie doelregio\'s en schrijf de zool voor, m\u00e9t die '
                     'regio\'s op het voorschrift.',
-                    'Schermafdruk van de multimask met de drie regio\'s aangeduid'),
+                    'De drie regio\'s aangeduid', 'novel_doelregios.png'),
                    'Vragenlijsten v\u00f3\u00f3r het educatiegesprek: NAFF en HLS-EU-6. '
                    'Daarna tevredenheid, schoeiselgebruik en EQ-5D-5L.',
                    'SEBIA stap 1: educatie op maat, voordoen, en de pati\u00ebnt het '
                    'zelf laten uitvoeren. Leg dat vast in het logboek.',
                    ('Geef de MoveMonitor mee voor zeven dagen en registreer het '
                     'toestelnummer.',
-                    'Toestel om het middel, ter hoogte van L5')],
+                    'Toestel om het middel, ter hoogte van L5',
+                    'movemonitor_dracht.jpg')],
       documenten=[('07', 'Demografie'), ('08', 'Voet en schoeisel'),
                   ('09', 'Drukmeting'), ('10', 'Voorschrift CMFO'),
                   ('12', 'Tevredenheid'), ('13', 'Schoeiselgebruik'),
@@ -549,14 +550,15 @@ SLIDES = [
       kop='Aflevering, optimalisatie en sensor',
       wanneer='Het technisch zwaarste bezoek',
       handelingen=[('Lever de zool af. Controleer de pasvorm in het b\u00ednnenschoeisel '
-                    '\u00e9n het b\u00faitenschoeisel, en neem de foto\'s.',
-                    'De zool in de schoen, boven- en onderaanzicht'),
+                    '\u00e9n het b\u00faitenschoeisel, en neem foto\'s.',
+                    'De zool van boven en van onder', 'cmfo_paar.png'),
                    'Meet de drukherverdeling en toets de norm per doelregio.',
                    'Niet gehaald? Pas aan en meet opnieuw. Is ze gehaald, laat dan een '
                    'tweede, identiek paar maken.',
                    ('Plaats en activeer de Orthotimer in de zool en registreer het '
                     'toestelnummer.',
-                    'De uitsparing in de zool met de sensor erin'),
+                    'De uitsparing in de zool met de sensor erin',
+                    'orthotimer_zool.jpg'),
                    'Neem de MoveMonitor terug en registreer de teruggave.',
                    'SEBIA stap 2: bespreek het activiteitenprofiel, doe de teach-back '
                    'en geef de sensorfolder mee.',
@@ -579,12 +581,12 @@ SLIDES = [
       kop='Driemaandelijkse opvolging',
       wanneer='In het gewone consult',
       handelingen=['Voet- en schoeiselscreening, zoals bij de baseline.',
-                   ('Bevraag de therapietrouw, lees de Orthotimer uit en bespreek de '
-                    'uitdraai niet-veroordelend.',
-                    'De pen op de sensor, of de uitdraai op het scherm'),
+                   ('Bevraag de therapietrouw, lees de Orthotimer uit en bespreek '
+                    'het resultaat.',
+                    'De pen op de sensor', 'orthotimer_uitlezen.jpg'),
                    ('Beoordeel beide paren zolen. Het paar dat onderhoud nodig heeft '
                     'gaat naar de pedorthist, deklaag inbegrepen.',
-                    'Twee paren naast elkaar, versleten en nieuw'),
+                    'Zonder onderhoud', 'zolen_onderhoud.jpg'),
                    'Vervang zool of sensor als dat nodig is en leg dat vast.',
                    'Neem de vragenlijsten af: levenskwaliteit, medische consumptie en '
                    'productiviteit.',
@@ -594,8 +596,7 @@ SLIDES = [
                   ('33', 'Vervanging'), ('21', 'EQ-5D-5L'),
                   ('34', 'iMCQ'), ('35', 'iPCQ'), ('45b', 'Kostendagboek')],
       letop='Uitlezen kan alleen ter plaatse. Koppel het aan een bezoek dat toch al '
-            'gepland is \u2014 een gemiste uitlezing verzwakt de draagtijd van die '
-            'pati\u00ebnt over de hele periode.',
+            'gepland is.',
       wie='Podoloog leest uit en begeleidt \u00b7 arts beoordeelt laesies',
       tip='Dit zijn zes identieke bezoeken. Zeg dat expliciet: het ritme is elke drie '
           'maanden en de handelingen zijn elke keer dezelfde.',
@@ -605,17 +606,16 @@ SLIDES = [
       kicker='Visites 4, 6 en 8 \u00b7 maand 6, 12 en 18',
       kop='Wat er drie keer extra bij komt',
       wanneer='Bovenop de driemaandelijkse opvolging',
-      handelingen=[('Herhaal de drukmeting in de drie condities en toets opnieuw per '
-                    'doelregio.',
-                    'De drie condities naast elkaar op het scherm'),
+      handelingen=[('Herhaal de drukmeting en toets opnieuw per doelregio.',
+                    'Drukmeting met de Novel pedar', 'novel_analyse.png'),
                    'Ligt de piekdruk boven 200 kPa, of is er nog winst haalbaar, pas '
                    'dan opnieuw aan volgens dezelfde procedure.',
                    'Op maand 18 ook de tevredenheidsschaal opnieuw afnemen, zodat de '
                    'verandering tegenover baseline gemeten kan worden.'],
       documenten=[('24', 'Drukherverdeling'), ('24b', 'Opvolgtool'),
                   ('12', 'Tevredenheid \u2014 maand 18')],
-      letop='Drie extra meetmomenten, niet twee. Maand 18 telt mee: het recidief '
-            'wordt over de volle achttien maanden geteld.',
+      letop='Drie extra meetmomenten. Maand 18 telt mee: het recidief wordt over '
+            'de volle achttien maanden geteld.',
       wie='Podoloog meet \u00b7 pedorthist past aan',
       tip='Dit is de dia die het vaakst vergeten wordt bij het inplannen. Zet de drie '
           'data nu al in de agenda van de pati\u00ebnt.',
@@ -638,20 +638,20 @@ SLIDES = [
       kop='Drie toestellen',
       kaarten=[dict(naam='Novel pedar', sub='Druk', groot='8', onder='voetregio\'s',
                     foto='pedar.png',
-                    regels=['Blootsvoets met tape, en in de schoen met en zonder zool',
-                            'Trublu-kalibratie minstens elke drie maanden',
+                    regels=['In de schoen, met de zool',
+                            'Zeroing voor elke meting',
                             'De F-Scan GO is een aparte meting van het studieteam'],
                     wie='Uw team meet'),
                dict(naam='Orthotimer', sub='Draagtijd', groot='15', onder='minuten',
                     foto='orthotimer.png',
                     regels=['In de zool, 9 × 13 × 4,5 mm',
                             'Batterij 100 dagen'],
-                    wie='Heet: uw sensor'),
+                    wie='Uw team meet'),
                dict(naam='MoveMonitor', sub='Activiteit', groot='7', onder='dagen',
                     foto='movemonitor.png', vlak='glas',
                     regels=['Om het middel, op de onderrug',
                             'Baseline en 6 maanden'],
-                    wie='Zet de norm per patiënt')],
+                    wie='Uw team meet')],
       tip='Benoem dat de Orthotimer géén GPS, microfoon of camera heeft. Die '
           'vraag komt gegarandeerd.',
       interactie='Laat de toestellen rondgaan. Fysiek werkt beter dan een dia.'),
@@ -700,7 +700,7 @@ SLIDES = [
                     ('Min. aaneengesloten uren', '0'),
                     ('Uren per dag', 'per patiënt · 80% van het actieve profiel')],
       stappen=['Maak de patiënt aan: naam = het deelnemersnummer, geboortedatum '
-               '1/1/1999, geslacht vrouwelijk. Noteer in de opmerking dat die '
+               '1/1/1900, geslacht vrouwelijk. Noteer in de opmerking dat die '
                'twee geclassificeerd zijn.',
                'Wijs de groep toe: Usual care of Optimal care.',
                'Houd de pen op de O van het Orthotimer-logo tot de balk groen wordt.',
@@ -755,10 +755,10 @@ SLIDES = [
  dict(t='statement', voor='ock', morph='morph',
       kicker='De enige regel die u écht moet onthouden',
       kop='Meetwaarden gaan\nniet naar de\ncontrolegroep',
-      body='Ook zij krijgen een drukmeting en dragen een sensor — anders kunnen we de '
-           'groepen niet vergelijken. Maar die getallen blijven dicht. Bespreekt u ze, '
-           'dan lévert u de interventie en is die patiënt niet meer bruikbaar als '
-           'controle.',
+      body='Ook zij krijgen een drukmeting en dragen een sensor, anders kunnen we de '
+           'groepen niet vergelijken. Maar die getallen blijven beperkt tot uzelf. '
+           'Bespreekt u ze, dan lévert u de interventie en is die patiënt niet meer '
+           'bruikbaar als controle.',
       uitzondering='Klinische bevindingen zijn géén meetwaarden. Elke laesie of '
                    'huiddefect meldt en behandelt u meteen. In beide groepen.',
       tip='Dit is de dia waar u stilvalt. Geen haast. Vraag of het helder is '
@@ -767,46 +767,52 @@ SLIDES = [
 
  dict(t='sectie', voor='c', morph='morph', nr='04',
       titel='Eindpunten en analyse',
-      regel='Twee eindpunten, \u00e9\u00e9n op \u00e9\u00e9n op het causale model.'),
+      regel='\u00c9\u00e9n eindpunt, en de mediator die het verklaart.'),
 
  dict(t='power', voor='c', morph='morph',
       kicker='Steekproefberekening',
-      kop='Twee eindpunten, twee berekeningen',
-      kanten=[dict(tag='Co-primair 1', naam='Ulcusrecidief op 18 maanden',
+      kop='Gedimensioneerd op het recidief',
+      kanten=[dict(tag='Primair eindpunt', naam='Ulcusrecidief op 18 maanden',
                    rijen=[('Aanname controle', '50% recidief'),
                           ('Aanname interventie', '25%, hazard ratio 0,42'),
                           ('Toets', 'log-rank, tweezijdig, \u03b1 = 0,05'),
                           ('Power', '80% \u2192 41 events nodig'),
                           ('Uitval', '15%')],
                    nodig='108 \u2192 127 met uitval \u2192 130 gestratificeerd'),
-              dict(tag='Co-primair 2', naam='Therapietrouw op 12 maanden',
+              dict(tag='Mediator', naam='Therapietrouw op 12 maanden',
                    rijen=[('Aanname controle', '71%, SD 25%'),
                           ('Aanname interventie', '85%, effectgrootte 0,56'),
-                          ('Toets', 't-toets, tweezijdig, \u03b1 = 0,05'),
-                          ('Power', '80% \u2192 50 per groep'),
-                          ('Uitval', '15%')],
-                   nodig='100 \u2192 118 met uitval')],
+                          ('Rol', 'vooraf vastgelegde mediator'),
+                          ('Eigen criterium', 'geen'),
+                          ('Volledig gemeten', '7 dagen per week, elke 3 maanden')],
+                   nodig='ruim gedekt bij 144')],
       slot='Zes centra maal 24 is 144. Dat cijfer komt niet uit de berekening '
            'maar uit de rekruteringscapaciteit per centrum, en het overtreft '
-           'beide minima.',
+           'het minimum van 130.',
       slotlabel='Waarom dan 144',
-      tip='Dit is de dia waar de vraag komt. Benoem de gezamenlijke power zelf, '
-          'v\u00f3\u00f3r iemand in de zaal het doet \u2014 de volgende dia doet dat.',
+      tip='E\u00e9n eindpunt bepaalt de omvang. Zeg erbij dat de therapietrouw '
+          'volledig gemeten wordt maar geen eigen succescriterium draagt \u2014 '
+          'de volgende dia legt uit waarom.',
       interactie='Geen. Laat de vraag komen.'),
 
  dict(t='eerlijk', voor='c', morph='morph',
-      kicker='Wat het co-primaire criterium kost',
-      kop='De power die telt, is de gezamenlijke',
-      intro='De studie is pas positief als b\u00e9\u00edde eindpunten significant zijn.',
-      rijen=[('Recidief apart', '84% \u2014 en 90% bij volledige opvolging'),
-             ('Therapietrouw apart', '87% \u2014 en 92% bij volledige opvolging'),
-             ('Beide samen', '74% tot 84%, naargelang de correlatie'),
+      kicker='Waarom therapietrouw geen tweede eindpunt is',
+      kop='De mediator draagt de verklaring, niet het oordeel',
+      intro='De studie is positief als het recidief significant daalt. '
+            'Therapietrouw zegt w\u00e1\u00e1rom.',
+      rijen=[('Power op het recidief', '84% \u2014 en 90% bij volledige opvolging'),
+             ('Waar de mediator voor dient', 'het effect ontleden in druk en '
+                                             'draagtijd, vooraf vastgelegd'),
+             ('Analysepunt', '12 maanden, met het volledige 18-maandenprofiel '
+                             'als secundaire samenvatting'),
              ('Bij een half zo groot effect', '64% bij 30% \u00b7 40% bij 35%')],
-      slot='Protocollen met co-primaire eindpunten rapporteren doorgaans alleen '
-           'het cijfer per eindpunt. Dat overschat de kans op het criterium '
-           'waarop de studie werkelijk beoordeeld wordt.',
+      slot='Twee co-primaire eindpunten zouden de lat op de intersectie leggen '
+           'en de gezamenlijke power naar 74% duwen. \u00c9\u00e9n eindpunt plus een '
+           'vooraf vastgelegde mediator toetst hetzelfde causale model zonder '
+           'die prijs.',
       tip='Dit is de dia die u onderscheidt van de rest van het programma. '
-          'Niemand rapporteert dit uit zichzelf.',
+          'Benoem dat de mediator geen achterdeur is: hij ligt vooraf vast en '
+          'wordt volledig gemeten.',
       interactie='Geen.'),
 
  dict(t='melden', voor='c', morph='morph',
@@ -815,20 +821,21 @@ SLIDES = [
       rijen=[('Recidief', 'Cox-regressie gestratificeerd naar centrum, met de '
                           'toewijzing als enige covariaat. Sterfte is een '
                           'competing risk, geen censuur: Fine-Gray en cumulatieve '
-                          'incidentie ernaast.', 'co-primair'),
+                          'incidentie ernaast.', 'primair'),
              ('Therapietrouw', 'Beta-regressie met logit-link, want het is een '
-                               'proportie met een plafond. Lineaire regressie als '
-                               'gevoeligheidsanalyse.', 'co-primair'),
-             ('Intercurrente events', 'De twee eindpunten zijn elkaars '
-                                      'intercurrente event: wie ulcereert draagt '
+                               'proportie met een plafond. Daarna causale '
+                               'mediatieanalyse op het recidief.', 'mediator'),
+             ('Intercurrente events', 'Een recidief is het intercurrente event '
+                                      'voor de mediator: wie ulcereert draagt '
                                       'terecht geen zool meer. Hypothetische '
                                       'strategie voor therapietrouw.', 'estimand'),
              ('Ontbrekende data', 'Multipele imputatie, 50 datasets. Een '
                                   'tipping-pointanalyse toont hoe extreem het '
                                   'moet worden om de conclusie te kantelen.',
                                   'MAR')],
-      slot='Positief alleen als beide eindpunten significant zijn. Daarom blijft '
-           'de familiegewijze fout onder 0,05 en is geen correctie nodig.',
+      slot='Eén primair eindpunt, dus geen intersectie-unie en geen '
+           'multipliciteitscorrectie. De mediatoranalyse is toelichtend en '
+           'draagt geen eigen succescriterium.',
       tip='Kort houden. Wie meer wil weten vraagt het, en dan hebt u het SAP.',
       interactie='Geen.'),
 
@@ -899,8 +906,7 @@ SLIDES = [
       kop='Wie doet wat',
       kolommen=[('Podoloog', ['Voert de drukmetingen uit', 'Levert SEBIA',
                               'Leest de sensoren uit']),
-                ('Pedorthist', ['Maakt de zool', 'Past aan tot de norm',
-                                'Plaatst de sensor']),
+                ('Pedorthist', ['Maakt de zool', 'Past aan tot de norm']),
                 ('Arts', ['Bevestigt geschiktheid', 'Beoordeelt laesies',
                           'Meldt voorvallen']),
                 ('Management', ['Maakt tijd vrij', 'Bewaakt 24 inclusies',
@@ -931,17 +937,17 @@ SLIDES = [
  dict(t='vraagraster', voor='ok', morph='morph',
       kicker='Wat u gaat vragen',
       kop='Vooruitlopend',
-      paren=[('Patiënt wil de sensor niet', 'Dan niet geschikt. Draagtijd ís een hoofduitkomst.'),
+      paren=[('Patiënt wil de sensor niet', 'Dan niet geschikt. De draagtijd móét gemeten worden.'),
              ('Zool haalt de norm niet', 'Twee extra tests, dan noteert u wat wél bereikt is.'),
              ('Mag ik nog adviseren?', 'Alles wat u vandaag doet, blijft u doen.'),
-             ('En de ingevulde formulieren?', 'Daar volgt bericht over. Invoeren '
-                                              'doet het onderzoeksteam.'),
-             ('Onze data?', 'Gepseudonimiseerd, tien jaar, binnen de toestemming.'),
+             ('En de ingevulde formulieren?', 'Invoeren doet het onderzoeksteam. '
+                                              'U bewaart of stuurt door.'),
+             ('Onze data?', 'Gepseudonimiseerd, 25 jaar, binnen de toestemming.'),
              ('Zien wij resultaten?', 'Eén publicatie, ongeacht de uitkomst.')],
       tip='Sla over wat al gevraagd is. Deze dia is een vangnet, geen programma.',
       interactie='Toon hem alleen als de vragen opdrogen.'),
 
- dict(t='knal', voor='ok', morph='morph', kleur='licht', kleur2='mid',
+ dict(t='knal', voor='ok', morph='morph', foto='knal_zelf.jpg',
       kop='Vanaf de eerste pati\u00ebnt\ndoet u dit zelf.',
       onder='Wij leiden op, wij voeren in. De handelingen zijn van u.',
       tip='Dit is de overgang naar de bekwaamheidscheck. Zeg het rustig; het '
@@ -952,7 +958,7 @@ SLIDES = [
       kicker='Bekwaamheidscheck',
       kop='Kunt u dit nu zelf?',
       items=['Beoordelen of een patiënt geschikt is, en dat vastleggen vóór de toestemming',
-             'Een drukmeting uitvoeren in de drie condities, drie metingen per voet',
+             'Een drukmeting uitvoeren, drie metingen per voet',
              'De drie doelregio\'s bepalen en op het voorschrift zetten',
              'De norm toetsen per regio en aanpassen tot ze gehaald is',
              'De Orthotimer instellen met de juiste uren per dag voor díé patiënt',
@@ -960,9 +966,8 @@ SLIDES = [
              'Een SEBIA-gesprek voeren met teach-back',
              'De formulieren volledig invullen en weten wat u meldt, aan wie en '
              'binnen welke termijn'],
-      slot='Acht handelingen. Wie er één niet aandurft, meldt dat nu — dan plannen '
-           'we een tweede sessie. Dat is geen zwakte, dat is hoe u fouten in de '
-           'data voorkomt.',
+      slot='Acht handelingen. We voorzien voor de start van de interventie nog '
+           'een oefenperiode.',
       tip='Laat dit stil invullen. Iemand die twijfelt zegt dat niet hardop in '
           'een volle zaal, wel op papier.',
       interactie='Verzamel de blaadjes. Waar drie of meer mensen dezelfde '
@@ -1431,6 +1436,10 @@ SLIDES = [
       interactie='Nodig mensen uit om te komen meten. Noem het uur waarop u er '
                  'staat.'),
 
+ # In het opleidingsdeck staat op deze dia met de hand een gsm-nummer in plaats
+ # van het adres, en zonder de consortiumregel. Dat is bewust niet hier gezet:
+ # de dia gaat ook naar pers en externe partners. Bouwt u het opleidingsdeck
+ # opnieuw met --overschrijf, dan zet u het nummer er daar weer bij.
  dict(t='contact', voor='pobcuke', morph='morph',
       kicker='Wie u aanspreekt',
       kop='Voor als er iets misloopt',

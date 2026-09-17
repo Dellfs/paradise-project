@@ -78,7 +78,7 @@ def tegel(s, x, y, w, h, vul='tegel', rand='rand', alpha=None, rond=True, naam=N
 
 def txt(s, x, y, w, h, regels, gr=16, kl='ink', vet=False, font=FONT,
         uit=PP_ALIGN.LEFT, ra=1.25, sp=0, anker=MSO_ANCHOR.TOP, caps=False, naam=None,
-        omslag=True, vloei=None):
+        omslag=True, vloei=None, alpha=None):
     tb = s.shapes.add_textbox(px(x), px(y), px(w), px(h))
     if naam:
         tb.name = naam
@@ -107,6 +107,14 @@ def txt(s, x, y, w, h, regels, gr=16, kl='ink', vet=False, font=FONT,
         s2 = ex.get('sp', sp)
         if s2:
             run.font._rPr.set('spc', str(int(s2 * 100)))
+        a = ex.get('alpha', alpha)
+        if a is not None:
+            # doorschijnende letters: een cijfer dat als vlak achter de tekst
+            # mag liggen zonder haar te overstemmen
+            vul = run.font._rPr.find(qn('a:solidFill'))
+            if vul is not None:
+                etree.SubElement(vul.find(qn('a:srgbClr')), qn('a:alpha')).set(
+                    'val', str(int(a * 1000)))
         vk = ex.get('vk', vloei)
         if vk:
             # kleurverloop dwars door de letters, in de gradiënt van het merk
@@ -447,11 +455,20 @@ def uitklappen(slides, aan=True):
             continue
         n = len(d['handelingen'])
         for j, h in enumerate(d['handelingen']):
-            # een handeling mag ook (tekst, fotobijschrift) zijn
-            h, bij = h if isinstance(h, tuple) else (h, None)
+            # een handeling mag ook (tekst, fotobijschrift) of
+            # (tekst, fotobijschrift, bestand) zijn; zonder bestand komt er een
+            # leeg kader dat in PowerPoint gevuld wordt
+            if isinstance(h, tuple):
+                h, bij, beeldje = (h + (None,))[:3]
+            else:
+                h, bij, beeldje = h, None, None
+            # De formuliernummers staan alleen nog op de screeningdia; op de
+            # lange bezoeken verdrongen ze de handeling zelf.
             uit.append(dict(t='stap', morph='morph', visite=d['kicker'],
                             nr=j + 1, totaal=n, tekst=h, bijschrift=bij,
-                            documenten=d['documenten'] if j == n - 1 else [],
+                            foto=beeldje,
+                            documenten=d['documenten']
+                            if j == n - 1 and d.get('stapdocumenten') else [],
                             letop=d['letop'] if j == n - 1 else None,
                             zeg=stap_tekst(j + 1, n, j == n - 1),
                             tip=d.get('tip', '') if j == 0 else '',
@@ -638,7 +655,12 @@ for i, d in enumerate(SLIDES, 1):
             etree.SubElement(gs4.find(qn('a:srgbClr')), qn('a:alpha')).set(
                 'val', str(a * 1000))
             gs4.set('pos', pos)
-        foto(s, 'merk.png', 100, 96, 130, 146)
+        # De titeldia draagt het merk in kleur; de inhoudsdia's houden het
+        # witte teken rechtsboven.
+        if d.get('merkbeeld'):
+            foto(s, d['merkbeeld'], 81, 76, 186, 212)
+        else:
+            foto(s, 'merk.png', 100, 96, 130, 146)
         txt(s, 100, 606, 1400, 260, d['boven'], gr=124, kl='ink', vet=True,
             ra=0.9, omslag=False, naam='hero')
         # de ondertitel moet op één regel blijven: de tweede regel zou achter
@@ -741,25 +763,48 @@ for i, d in enumerate(SLIDES, 1):
         # Kleuromkering over de volle dia: één zin, verder niets. Deze dia's
         # breken het ritme en zijn het enige moment waarop de zaal niet leest
         # maar luistert.
-        vlak = tegel(s, 0, 0, 1920, 1080, d.get('kleur', 'oranje'), None, rond=False)
-        verloop(vlak, d.get('kleur', 'oranje'), d.get('kleur2', 'oranje'), 2700000)
+        # Met een foto kantelt de dia van kleurvlak naar beeld: het beeld loopt
+        # af, een donkere sluier maakt de letters leesbaar, en de tekst staat
+        # wit in plaats van donker.
+        beeldje = d.get('foto')
+        if beeldje:
+            foto(s, beeldje, 0, 0, 1920, 1080, vullend=True, naam='!!beeld')
+            sluier = tegel(s, 0, 0, 1920, 1080, 'bg', None, rond=False)
+            verloop(sluier, 'bg', 'grond2', 5400000)
+            gsl = list(sluier.fill._xPr.find(qn('a:gradFill')).iter(qn('a:gs')))
+            for gs4, a in zip(gsl, (68, 95)):
+                etree.SubElement(gs4.find(qn('a:srgbClr')), qn('a:alpha')).set(
+                    'val', str(a * 1000))
+        else:
+            vlak = tegel(s, 0, 0, 1920, 1080, d.get('kleur', 'oranje'), None,
+                         rond=False)
+            verloop(vlak, d.get('kleur', 'oranje'), d.get('kleur2', 'oranje'),
+                    2700000)
+        kl = 'wit' if beeldje else 'bg'
         # elke harde regelovergang is een eigen alinea; die tellen apart mee
         for gk in (96, 84, 72, 62, 54):
             regels = sum(max(1, -(-len(r) // max(1, int((1620 / 2.0) / (gk * 0.5)))))
                          for r in d['kop'].split('\n'))
             if regels * gk * 1.06 * 2.4 <= 620:
                 break
-        txt(s, 150, 240, 1620, 660, d['kop'], gr=gk, kl='bg', vet=True, ra=1.06,
+        if beeldje:
+            tegel(s, 150, 194, 128, 8, 'oranje', None, rond=False)
+        txt(s, 150, 240, 1620, 660, d['kop'], gr=gk, kl=kl, vet=True, ra=1.06,
             naam='!!knal')
         if d.get('onder'):
-            txt(s, 154, 946, 1500, 44, d['onder'], gr=17, kl='bg', font=FONT_M)
+            txt(s, 154, 946, 1500, 44, d['onder'], gr=17,
+                kl='ink' if beeldje else 'bg', font=FONT_M)
 
     elif t == 'sectie':
-        # het merk loopt reusachtig van de dia af, en het nummer loopt van de
-        # bovenrand: schaal als beeldmiddel in plaats van een nette kop
+        # het merk loopt reusachtig van de dia af; het nummer staat er als
+        # doorschijnend vlak onder, zodat de kicker er bovenaan bij past
         foto(s, 'merk.png', 1040, -220, 1240, 1520, alpha=14, naam='merkgroot')
-        txt(s, 90, -70, 900, 460, d['nr'], gr=260, vet=True, ra=0.82, naam='hero',
-            vloei=('licht', 'oranje'), omslag=False)
+        txt(s, 68, 114, 900, 460, d['nr'], gr=260, vet=True, ra=0.82, naam='hero',
+            kl='licht', alpha=15, omslag=False)
+        # bovenaan waar de zaal de kicker verwacht, zodat een sectiedia even
+        # duidelijk zegt waar u bent als een inhoudsdia
+        kicker(s, d.get('blok') or T('Blok') + ' ' + d['nr'])
+        tegel(s, 100, 506, 128, 8, 'oranje', None, rond=False)
         txt(s, 100, 560, 1400, 160, d['titel'], gr=76, kl='ink', vet=True,
             naam='sectietitel')
         txt(s, 104, 760, 1300, 80, d['regel'], gr=23, kl='gedempt', font=FONT_L)
@@ -831,8 +876,9 @@ for i, d in enumerate(SLIDES, 1):
                     ('%.1f' % waarde).replace('.', ',') + '%', gr=27, kl=kl, vet=True)
             txt(s, 100, y + 274, 900, 44, kant['slot'], gr=18, kl=kant['kleur'], vet=True)
             y += 356
-        txt(s, 900, 934, 920, 60, d['punchline'], gr=24, kl='ink', vet=True,
-            uit=PP_ALIGN.RIGHT)
+        if d.get('punchline'):
+            txt(s, 900, 934, 920, 60, d['punchline'], gr=24, kl='ink', vet=True,
+                uit=PP_ALIGN.RIGHT)
         txt(s, 100, 1006, 1400, 30, d['voet'], gr=11.5, kl='gedempt', font=FONT_M)
         paginering(s, i)
 
@@ -898,9 +944,6 @@ for i, d in enumerate(SLIDES, 1):
             font=FONT_M, sp=1.4)
         txt(s, 380, 520, 400, 40, '72 GEBRUIKELIJKE ZORG', gr=13, kl='oranje',
             vet=True, font=FONT_M, sp=1.4)
-        txt(s, 1080, 286, 740, 250,
-            T('Elke stip is een patiënt die u zelf includeert.\n24 per kliniek.'),
-            gr=30, kl='ink', vet=True, ra=1.3)
         for j, (k2, v) in enumerate(d['klein']):
             x, w = kol((j % 2) * 6, 6)
             y = 588 + (j // 2) * 126
@@ -942,11 +985,19 @@ for i, d in enumerate(SLIDES, 1):
         for j, kant in enumerate((d['links'], d['rechts'])):
             x, w = kol(j * 6, 6)
             tegel(s, x, 314, w, 606, 'tegel', 'rand')
-            tegel(s, x + 40, 348, 120, 46, kant['kleur'], None)
-            txt(s, x + 40, 360, 120, 34, kant['titel'], gr=13.5, kl='bg', vet=True,
-                uit=PP_ALIGN.CENTER, font=FONT_M, caps=True, sp=1.3)
+            # het label groeit met zijn tekst mee: 'WÉL' en 'ELIGIBLE' passen
+            # niet in hetzelfde vaste vakje
+            lb = max(120, 48 + len(kant['titel']) * 13)
+            tegel(s, x + 40, 348, lb, 46, kant['kleur'], None)
+            txt(s, x + 40, 360, lb, 34, kant['titel'], gr=13.5, kl='bg', vet=True,
+                uit=PP_ALIGN.CENTER, font=FONT_M, caps=True, sp=1.3, omslag=False)
+            # De Engelse versie loopt langer dan de Nederlandse; zonder deze
+            # krimpstap zakt de laatste uitsluitingsgrond onder de tegel uit.
+            for gd in (14, 13, 12, 11, 10):
+                if blokhoogte(kant['items'], w - 80, gd, 1.3, 12) <= 470:
+                    break
             txt(s, x + 40, 432, w - 80, 470,
-                [(it, {'voor': 12}) for it in kant['items']], gr=14, kl='gedempt',
+                [(it, {'voor': 12}) for it in kant['items']], gr=gd, kl='gedempt',
                 ra=1.3)
         paginering(s, i)
 
@@ -991,15 +1042,45 @@ for i, d in enumerate(SLIDES, 1):
         paginering(s, i)
 
     elif t == 'meetreeks':
+        # Sinds er in de schoen gemeten wordt is er nog één conditie; de reeks
+        # staat daarom gecentreerd in plaats van bovenaan, met ruimte voor een
+        # beeld ernaast.
         kicker(s, d['kicker']); kop(s, d['kop'], naam='!!sectietitel')
+        beeldje = d.get('foto')
+        bw = 1060 if beeldje else 1720
+        if beeldje:
+            foto(s, beeldje, 1232, 404, 512, 400)
+        n = len(d['condities'])
+        y0 = 292 if n > 2 else 292 + (3 - n) * 176 / 2.0
         for j, (nr, naam2, uitleg) in enumerate(d['condities']):
-            y = 292 + j * 176
-            tegel(s, 100, y, 1720, 152, 'tegel', 'rand')
-            txt(s, 148, y + 34, 120, 70, nr, gr=34, kl='licht', vet=True, font=FONT_M)
-            txt(s, 300, y + 30, 620, 54, naam2, gr=24, kl='ink', vet=True)
-            txt(s, 960, y + 30, 812, 100, uitleg, gr=15.5, kl='gedempt', ra=1.32)
-        txt(s, 100, 848, 1720, 90, d['slot'], gr=19, kl='oranje', vet=True, ra=1.4)
+            y = y0 + j * 176
+            tegel(s, 100, y, bw, 152, 'tegel', 'rand')
+            if nr:
+                txt(s, 148, y + 34, 120, 70, nr, gr=34, kl='licht', vet=True,
+                    font=FONT_M)
+            tx = 300 if nr else 148
+            txt(s, tx, y + 30, 620, 54, naam2, gr=24, kl='ink', vet=True)
+            txt(s, tx, y + 88, bw - (tx - 100) - 48, 60, uitleg, gr=15.5,
+                kl='gedempt', ra=1.32)
+        if d.get('slot'):
+            txt(s, 100, 848, 1720, 90, d['slot'], gr=19, kl='oranje', vet=True,
+                ra=1.4)
         txt(s, 100, 1006, 1500, 30, d['voet'], gr=11.5, kl='gedempt', font=FONT_M)
+        paginering(s, i)
+
+    elif t == 'beeldcijfer':
+        # Twee cijfers links, de grafiek waar ze uit komen rechts. Voor bewijs
+        # dat de zaal moet kunnen nakijken in plaats van geloven.
+        kicker(s, d['kicker']); kop(s, d['kop'], naam='!!sectietitel')
+        for j, (label, waarde, kl) in enumerate(d['cijfers']):
+            y = 392 + j * 244
+            txt(s, 100, y, 640, 36, label, gr=11, kl='gedempt', vet=True,
+                font=FONT_M, caps=True, sp=1.6)
+            txt(s, 100, y + 36, 640, 148, waarde, gr=54, kl=kl, vet=True, ra=1.0)
+        txt(s, 880, 280, 940, 44, d['bijschrift'], gr=13, kl='gedempt')
+        tegel(s, 880, 336, 940, 640, 'tegel', 'rand')
+        foto(s, d['foto'], 904, 360, 892, 608)
+        txt(s, 100, 988, 1500, 32, d['voet'], gr=11.5, kl='gedempt', font=FONT_M)
         paginering(s, i)
 
     elif t == 'bezoek' and not d.get('kaart'):
@@ -1058,12 +1139,15 @@ for i, d in enumerate(SLIDES, 1):
         kicker(s, d['visite'])
         txt(s, 100, 236, 340, 300, '%02d' % d['nr'], gr=150, kl='licht', vet=True,
             ra=0.9, omslag=False, uit=PP_ALIGN.RIGHT, naam='!!stapnr')
-        if d.get('bijschrift'):
-            # tweekolommig: handeling links, fotokader rechts om later te vullen
+        if d.get('bijschrift') or d.get('foto'):
+            # tweekolommig: handeling links, beeld rechts. Staat er geen bestand
+            # bij, dan blijft het een kader om in PowerPoint te vullen.
             tw, ruimte = 620, 480
-            foto(s, 'plaatshouder.png', 1120, 250, 700, 440, naam='fotokader')
-            txt(s, 1120, 706, 700, 60, d['bijschrift'], gr=13.5, kl='gedempt',
-                font=FONT_M)
+            foto(s, d.get('foto') or 'plaatshouder.png', 1120, 230, 700, 520,
+                 naam='fotokader')
+            if d.get('bijschrift'):
+                txt(s, 1120, 766, 700, 60, d['bijschrift'], gr=13.5, kl='gedempt',
+                    font=FONT_M)
         else:
             tw = 1320
             ruimte = 330 if d['documenten'] else 560

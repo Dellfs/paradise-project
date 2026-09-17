@@ -78,8 +78,8 @@ voor de leesvolgorde van het bestand.
 | PARADISE toetst overdracht | congres | De these van het manuscript, meteen na het puntenraster. |
 | Drie strategieën, één patroon | congres | Offloading, educatie en digitale feedback, elk met hun cijfer. |
 | Drie dingen zijn veranderd | congres | Waarom de studie nu pas kan: sensor, COM-B, RIZIV-erkenning. |
-| Twee eindpunten, twee berekeningen | congres | De twee steekproefberekeningen naast elkaar. |
-| De power die telt, is de gezamenlijke | congres | 74% tot 84%. Het cijfer dat protocollen doorgaans niet noemen. |
+| Gedimensioneerd op het recidief | congres | De steekproefberekening op het primaire eindpunt, met de mediator ernaast. |
+| De mediator draagt de verklaring, niet het oordeel | congres | Waarom therapietrouw geen tweede eindpunt is, en wat dat aan power scheelt. |
 | Hoe we het toetsen | congres | Cox met Fine-Gray, beta-regressie, estimands, imputatie. |
 | Twee evaluaties, parallel | congres | Gezondheidseconomie en procesevaluatie. |
 | Een nulresultaat is ook een resultaat | congres | Wat elke uitkomst betekent. De slotdia. |
@@ -90,9 +90,11 @@ de betrokken velden staan in `inhoud.py` bij de dia's met `voor='c'`.
 
 ## Foto's inplakken
 
-Acht stapdia's hebben een fotokader. De plaatshouder is een **echte afbeelding**,
-dus vervangen gaat met **rechtsklik → Afbeelding wijzigen**: kader, positie en
-uitsnede blijven behouden en de lay-out verschuift niet.
+De meeste stapdia's met een beeld dragen nu een echte foto uit `beeld\`; het derde
+veld van een handeling in `inhoud.py` zegt welke. Laat u dat veld weg, dan komt er
+een plaatshouder. Die plaatshouder is een **echte afbeelding**, dus vervangen gaat
+met **rechtsklik → Afbeelding wijzigen**: kader, positie en uitsnede blijven
+behouden en de lay-out verschuift niet.
 
 Stockfoto's eerst klaarmaken:
 

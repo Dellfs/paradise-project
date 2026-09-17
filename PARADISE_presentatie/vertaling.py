@@ -70,7 +70,10 @@ NL_EN = {
         '24 participants — 12 PARADISE and 12 usual care',
     'Controlegroep': 'Control arm',
     'Gebruikelijke zorg, onveranderd': 'Usual care, unchanged',
-    'Co-primair': 'Co-primary',
+    'Primair': 'Primary',
+    'Blok': 'Block',
+    'Wél': 'Eligible',
+    'Niet': 'Excluded',
     'Recidief op 18 maanden, draagtijd op 12':
         'Recurrence at 18 months, adherence at 12',
     'Positief': 'Positive',
@@ -84,7 +87,7 @@ NL_EN = {
         'Every component already exists. No component worked on its own.',
 
     # ------------------------------------------------------------- blok 1
-    'Waarom zo': 'Why this design',
+    'Waarom': 'Why',
     'Vier cijfers verklaren waarom er twee normen zijn.':
         'Four numbers explain why there are two targets, not one.',
     'krijgt binnen een jaar\neen nieuw ulcus':
@@ -155,8 +158,8 @@ NL_EN = {
         'Waaijman et al. · Diabetes Care 2013 · 107 patients',
 
     'Het mechanisme': 'The mechanism',
-    'Belasting is een product,\ngeen optelsom':
-        'Loading is a product,\nnot a sum',
+    'Belasting is een product, geen optelsom':
+        'Loading is a product, not a sum',
     'Piekdruk': 'Peak pressure',
     'per stap': 'per step',
     'Bijgestuurd': 'Modified',
@@ -193,18 +196,17 @@ NL_EN = {
         'requirements and minimum caseloads. That is where prevention '
         'ultimately has to land.',
     'RIZIV-INAMI': 'RIZIV-INAMI',
-    'Daarom is therapietrouw hier een co-primair eindpunt, en geen mediator '
-    'die je achteraf afleidt.':
-        'That is why adherence here is a co-primary endpoint, not a mediator '
-        'inferred after the fact.',
+    'Daarom is therapietrouw hier een vooraf vastgelegde mediator, volledig '
+    'gemeten, en geen aanname die je achteraf goedpraat.':
+        'That is why adherence here is a prespecified mediator, measured in '
+        'full, rather than an assumption justified after the fact.',
 
     'Wat PARADISE anders doet': 'What PARADISE does differently',
     'Eén dienst, geen drie losse maatregelen':
         'One service, not three separate measures',
     'De zool háált de norm': 'The insole méets the target',
     '< 200 kPa óf 25% lager': '< 200 kPa ór 25% lower',
-    'Gemeten bij de aflevering, in drie condities.':
-        'Measured at delivery, in three conditions.',
+    'Gemeten bij de aflevering.': 'Measured at delivery.',
     "Aangepast tot de norm gehaald is in elk van de drie doelregio's.":
         'Modified until the target is met in each of the three target regions.',
     'Herhaald op maand 6, 12 en 18.': 'Repeated at months 6, 12 and 18.',
@@ -222,7 +224,7 @@ NL_EN = {
     'De meting': 'The measurement',
     'Wat u meet, hoe u het meet, en wanneer het goed genoeg is.':
         'What is measured, how, and when it is good enough.',
-    'Baseline · blootsvoets': 'Baseline · barefoot',
+    'Baseline · in de schoen': 'Baseline · in-shoe',
     'Elke sensor een cijfer': 'Every sensor a number',
     'piekdruk op metatarsaal 2-3': 'peak pressure at metatarsal 2-3',
     'Norm:': 'Target:',
@@ -263,7 +265,7 @@ NL_EN = {
         'peak pressure in the target region after modification',
     '40% lager': '40% lower',
     'onder 200 kPa': 'below 200 kPa',
-    'beide criteria gehaald': 'both criteria met',
+    'beide criteria': 'both criteria',
     'De norm geldt per doelregio: piekdruk onder 200 kPa óf minstens 25% lager '
     'dan de baselinemeting van diezelfde regio.':
         'The target applies per region: peak pressure below 200 kPa or at '
@@ -280,7 +282,7 @@ NL_EN = {
     'Dat is de hele interventie.': 'That is the entire intervention.',
 
     'Het meetprotocol': 'The measurement protocol',
-    'Drie condities bij de aflevering': 'Three conditions at delivery',
+    'Bij de aflevering': 'At delivery',
     'Blootsvoets': 'Barefoot',
     'Sensoren met dubbelzijdige tape op de voet, standaardkous erover. Dit is '
     'het referentiebeeld.':
@@ -428,8 +430,8 @@ NL_EN = {
         'Two endpoints, mapped one to one onto the causal model.',
 
     'Steekproefberekening': 'Sample size',
-    'Twee eindpunten, twee berekeningen': 'Two endpoints, two calculations',
-    'Co-primair 1': 'Co-primary 1',
+    'Gedimensioneerd op het recidief': 'Powered on recurrence',
+    'Primair eindpunt': 'Primary endpoint',
     'Ulcusrecidief op 18 maanden': 'Ulcer recurrence at 18 months',
     'Aanname controle': 'Assumed, control',
     '50% recidief': '50% recurrence',
@@ -443,7 +445,7 @@ NL_EN = {
     '15%': '15%',
     '108 → 127 met uitval → 130 gestratificeerd':
         '108 → 127 with attrition → 130 stratified',
-    'Co-primair 2': 'Co-primary 2',
+    'Mediator': 'Mediator',
     'Therapietrouw op 12 maanden': 'Footwear adherence at 12 months',
     '71%, SD 25%': '71%, SD 25%',
     '85%, effectgrootte 0,56': '85%, effect size 0.56',
@@ -461,27 +463,32 @@ NL_EN = {
         'Manuscript, sample size · exponentially distributed times to '
         'recurrence assumed',
 
-    'Wat het co-primaire criterium kost': 'What the co-primary criterion costs',
-    'De power die telt, is de gezamenlijke': 'The power that counts is the joint one',
-    'De studie is pas positief als béíde eindpunten significant zijn.':
-        'The trial is positive only if bóth endpoints reach significance.',
-    'Recidief apart': 'Recurrence alone',
+    'Waarom therapietrouw geen tweede eindpunt is':
+        'Why adherence is not a second endpoint',
+    'De mediator draagt de verklaring, niet het oordeel':
+        'The mediator carries the explanation, not the verdict',
+    'De studie is positief als het recidief significant daalt. Therapietrouw '
+    'zegt wáárom.':
+        'The trial is positive if recurrence falls significantly. Adherence '
+        'says whý.',
+    'Power op het recidief': 'Power on recurrence',
     '84% — en 90% bij volledige opvolging':
         '84% — and 90% with complete follow-up',
-    'Therapietrouw apart': 'Adherence alone',
-    '87% — en 92% bij volledige opvolging':
-        '87% — and 92% with complete follow-up',
-    'Beide samen': 'Both together',
-    '74% tot 84%, naargelang de correlatie':
-        '74% to 84%, depending on the correlation',
+    'Waar de mediator voor dient': 'What the mediator is for',
+    'het effect ontleden in druk en draagtijd, vooraf vastgelegd':
+        'decomposing the effect into pressure and wear time, prespecified',
+    'Analysepunt': 'Analysis point',
+    '12 maanden, met het volledige 18-maandenprofiel als secundaire '
+    'samenvatting':
+        '12 months, with the full 18-month profile as a secondary summary',
     'Bij een half zo groot effect': 'At half the effect size',
     '64% bij 30% · 40% bij 35%': '64% at 30% · 40% at 35%',
-    'Protocollen met co-primaire eindpunten rapporteren doorgaans alleen het '
-    'cijfer per eindpunt. Dat overschat de kans op het criterium waarop de '
-    'studie werkelijk beoordeeld wordt.':
-        'Protocols with co-primary endpoints usually report only the '
-        'endpoint-specific figure. That overstates the prospect on the '
-        'criterion by which the trial will actually be judged.',
+    'Twee co-primaire eindpunten zouden de lat op de intersectie leggen en de '
+    'gezamenlijke power naar 74% duwen. Één eindpunt plus een vooraf '
+    'vastgelegde mediator toetst hetzelfde causale model zonder die prijs.':
+        'Two co-primary endpoints would place the bar at the intersection and '
+        'push joint power down to 74%. One endpoint plus a prespecified '
+        'mediator tests the same causal model without that cost.',
 
     'Analyseplan': 'Analysis plan',
     'Hoe we het toetsen': 'How we test it',
@@ -492,12 +499,12 @@ NL_EN = {
         'Cox regression stratified by centre, with allocation as the only '
         'covariate. Death is a competing risk, not censoring: Fine-Gray and '
         'cumulative incidence alongside.',
-    'co-primair': 'co-primary',
+    'primair': 'primary',
     'Therapietrouw': 'Adherence',
     'Beta-regressie met logit-link, want het is een proportie met een plafond. '
-    'Lineaire regressie als gevoeligheidsanalyse.':
+    'Daarna causale mediatieanalyse op het recidief.':
         'Beta regression with a logit link, since it is a proportion with a '
-        'ceiling. Linear regression as a sensitivity analysis.',
+        'ceiling, followed by causal mediation analysis on recurrence.',
     'Intercurrente events': 'Intercurrent events',
     'De twee eindpunten zijn elkaars intercurrente event: wie ulcereert draagt '
     'terecht geen zool meer. Hypothetische strategie voor therapietrouw.':
@@ -623,8 +630,8 @@ NL_EN = {
     # ----------------------------------------- losse labels op de meetdia's
     'Norm:  < 200 kPa   óf   ≥ 25% lager':
         'Target:  < 200 kPa   or   ≥ 25% lower',
-    '40% lager  ·  onder 200 kPa  ·  beide criteria gehaald':
-        '40% lower  ·  below 200 kPa  ·  both criteria met',
+    '40% lager  ·  onder 200 kPa  ·  beide criteria':
+        '40% lower  ·  below 200 kPa  ·  both criteria',
     "Acht regio's via Multimask · hiel en mediale en laterale middenvoet vallen "
     'buiten beeld':
         'Eight regions via Multimask · heel and medial and lateral midfoot fall '
@@ -921,4 +928,163 @@ NL_EN = {
         'Finally, who to contact. Practical questions — inclusions, '
         'measurements, forms, sensors — come to me. Scientific questions and '
         'arrangements at centre level go to Professor Deschamps. Thank you.',
+
+    # ------------------------------------------- herwerking september 2026
+    # Eén primair eindpunt met therapietrouw als mediator, en drukmeting in
+    # de schoen in plaats van blootsvoets.
+    'Recidief op 18 maanden': 'Recurrence at 18 months',
+    'Alleen als het eindpunt behaald is': 'Only if the endpoint is met',
+    'sterfte na majeure amputatie': 'mortality after major amputation',
+    'Eén hard eindpunt': 'One hard endpoint',
+    'Recidief over achttien maanden is streng, en dat is een bewuste keuze: '
+    'druk zonder draagtijd zegt niets.':
+        'Recurrence over eighteen months is a demanding endpoint, and that is '
+        'deliberate: pressure without wear time says nothing.',
+
+    'Het risico na genezing': 'The risk after healing',
+    'Twee derde recidiveert binnen vijf jaar':
+        'Two thirds recur within five years',
+    'Na 1 jaar': 'At 1 year',
+    'Na 5 jaar': 'At 5 years',
+    'Incidentie van recidief tegenover follow-upduur':
+        'Recurrence incidence against follow-up duration',
+    'Gepoolde data uit negen prospectieve studies, één retrospectieve studie '
+    'en de controlegroepen van negen RCT’s':
+        'Pooled data from nine prospective studies, one retrospective study '
+        'and the control arms of nine RCTs',
+
+    '80% van het eigen activiteitenprofiel':
+        '80% of the patient’s own activity profile',
+    'Vijf gesprekken die op die data steunen.':
+        'Five conversations resting on those data.',
+
+    'pedar®-sensorinsole in de schoen geplaatst, drie loopproeven '
+    'uitgevoerd.':
+        'pedar® sensor insole placed in the shoe, three walking trials '
+        'performed.',
+    'De middelste twaalf passen per voet geanalyseerd; daaruit berekent de '
+    'software de gemiddelde piekdruk per voet.':
+        'The middle twelve steps per foot are analysed; from these the '
+        'software computes the mean peak pressure per foot.',
+    'In de schoen, mét de zool': 'In the shoe, wíth the insole',
+    'De meting waarop de norm getoetst wordt, per doelregio.':
+        'The measurement against which the target is tested, per target '
+        'region.',
+
+    'In de schoen, met de zool': 'In-shoe, with the insole',
+    'Zeroing voor elke meting': 'Zeroing before every measurement',
+
+    'Ook zij krijgen een drukmeting en dragen een sensor, anders kunnen we de '
+    'groepen niet vergelijken. Maar die getallen blijven beperkt tot uzelf. '
+    'Bespreekt u ze, dan lévert u de interventie en is die patiënt niet meer '
+    'bruikbaar als controle.':
+        'They too undergo pressure measurement and wear a sensor, otherwise '
+        'the groups cannot be compared. But those numbers stay with you. '
+        'Discuss them and you have delivered the intervention, and that '
+        'patient is no longer usable as a control.',
+
+    'Rol': 'Role',
+    'vooraf vastgelegde mediator': 'prespecified mediator',
+    'Eigen criterium': 'Own criterion',
+    'Volledig gemeten': 'Measured in full',
+    '7 dagen per week, elke 3 maanden': '7 days a week, every 3 months',
+    'ruim gedekt bij 144': 'amply covered at 144',
+    'Zes centra maal 24 is 144. Dat cijfer komt niet uit de berekening maar '
+    'uit de rekruteringscapaciteit per centrum, en het overtreft het minimum '
+    'van 130.':
+        'Six centres times 24 is 144. That figure comes from per-centre '
+        'recruitment capacity rather than from the calculation, and it '
+        'exceeds the minimum of 130.',
+
+    'Een recidief is het intercurrente event voor de mediator: wie ulcereert '
+    'draagt terecht geen zool meer. Hypothetische strategie voor '
+    'therapietrouw.':
+        'A recurrence is the intercurrent event for the mediator: a patient '
+        'who ulcerates rightly stops wearing the insole. Hypothetical '
+        'strategy for adherence.',
+    'Eén primair eindpunt, dus geen intersectie-unie en geen '
+    'multipliciteitscorrectie. De mediatoranalyse is toelichtend en draagt '
+    'geen eigen succescriterium.':
+        'One primary endpoint, so no intersection-union and no multiplicity '
+        'correction. The mediation analysis is explanatory and carries no '
+        'success criterion of its own.',
+
+    'Één eindpunt, en de mediator die het verklaart.':
+        'One endpoint, and the mediator that explains it.',
+
+    # spreektekst
+    'Waar die cijfers vandaan komen, ziet u hier. Elk punt is een cohort; de '
+    'lijn erdoorheen is de trend. Na één jaar veertig procent, na vijf jaar '
+    'vijfenzestig. Het risico verdwijnt niet, het stapelt op.':
+        'This is where those figures come from. Each point is a cohort; the '
+        'line through them is the trend. Forty per cent at one year, '
+        'sixty-five at five. The risk does not disappear, it accumulates.',
+    'Elke sensor geeft een cijfer. Dit is de baseline, in de schoen: '
+    'driehonderdtwaalf kilopascal onder metatarsaal twee-drie. Drie '
+    'loopproeven per voet, waarvan de middelste twaalf passen tellen. '
+    'Hiertegen wordt alles afgezet.':
+        'Every sensor gives a number. This is baseline, in-shoe: three '
+        'hundred and twelve kilopascals under metatarsal two-three. Three '
+        'walking trials per foot, of which the middle twelve steps count. '
+        'Everything is referenced against this.',
+    'Bij de aflevering meet u in de schoen, mét de zool. Dat is de meting '
+    'waarop de norm getoetst wordt, per doelregio. Er wordt niet blootsvoets '
+    'gemeten; het vergelijkingspunt is de baselinemeting van dezelfde regio, '
+    'in dezelfde sessie.':
+        'At delivery you measure in the shoe, wíth the insole. That is the '
+        'measurement against which the target is tested, per target region. '
+        'Nothing is measured barefoot; the comparator is the baseline value '
+        'for the same region, in the same session.',
+    'Op maand zes, twaalf en achttien komt er een drukmeting bij. Drie keer. '
+    'Dezelfde meting in de schoen, dezelfde toetsing per doelregio. Ligt de '
+    'piekdruk er weer boven, dan past u opnieuw aan.':
+        'At months six, twelve and eighteen a pressure measurement is added. '
+        'Three times. The same in-shoe measurement, the same testing per '
+        'target region. If peak pressure is above target again, you modify '
+        'again.',
+    'Blok vier: het eindpunt en de analyse. Eén eindpunt, en de mediator die '
+    'het verklaart.':
+        'Block four: the endpoint and the analysis. One endpoint, and the '
+        'mediator that explains it.',
+    'De omvang volgt uit één eindpunt. Links recidief: vijftig tegenover '
+    'vijfentwintig procent, wat eenenveertig events vraagt en honderddertig '
+    'deelnemers. Rechts de therapietrouw: volledig gemeten, maar zonder '
+    'eigen succescriterium. Honderdvierenveertig komt uit de capaciteit per '
+    'centrum en overtreft het minimum.':
+        'The sample size follows from one endpoint. On the left, recurrence: '
+        'fifty against twenty-five per cent, which requires forty-one events '
+        'and a hundred and thirty participants. On the right, adherence: '
+        'measured in full, but without a success criterion of its own. A '
+        'hundred and forty-four comes from per-centre capacity and exceeds '
+        'the minimum.',
+    'En dan de vraag die u anders uit de zaal krijgt. Op het recidief hebben '
+    'we vierentachtig procent power. Met twee co-primaire eindpunten zou dat '
+    'naar vierenzeventig zakken, want dan ligt de lat op de intersectie. Eén '
+    'eindpunt plus een vooraf vastgelegde mediator toetst hetzelfde causale '
+    'model zonder die prijs.':
+        'And then the question you would otherwise get from the floor. On '
+        'recurrence we have eighty-four per cent power. With two co-primary '
+        'endpoints that would drop to seventy-four, because the bar then '
+        'sits at the intersection. One endpoint plus a prespecified mediator '
+        'tests the same causal model without that cost.',
+    'Het analyseplan in vier regels. Recidief met Cox, gestratificeerd naar '
+    'centrum, met sterfte als competing risk. Therapietrouw met '
+    'beta-regressie, want het is een proportie met een plafond, en daarna '
+    'als mediator. Een recidief is haar intercurrente event: wie ulcereert, '
+    'draagt terecht geen zool meer.':
+        'The analysis plan in four lines. Recurrence with Cox, stratified by '
+        'centre, with death as a competing risk. Adherence with beta '
+        'regression, since it is a proportion with a ceiling, and then as a '
+        'mediator. A recurrence is its intercurrent event: a patient who '
+        'ulcerates rightly stops wearing the insole.',
+    'Veertig procent krijgt binnen één jaar een nieuw ulcus. Na vijf jaar is '
+    'dat vijfenzestig. En de sterfte ligt tweeënhalf keer hoger dan bij '
+    'diabetes zonder ulcus — na een majeure amputatie zelfs boven de '
+    'zeventig procent. Dit is geen wondprobleem. Dit is een '
+    'overlevingsprobleem.':
+        'Forty per cent develop a new ulcer within one year. At five years it '
+        'is sixty-five. And mortality is two and a half times higher than in '
+        'diabetes without an ulcer — after a major amputation above seventy '
+        'per cent. This is not a wound problem. This is a survival problem.',
+
 }
