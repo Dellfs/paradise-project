@@ -118,6 +118,12 @@ DECKS = {
         duur='20 minuten',
         wie='Medewerkers die de opleiding al volgden. Het traject, de regels en '
             'de contactgegevens.'),
+    'groeninge': dict(
+        letter='r', bestand='PARADISE_az_groeninge.pptx',
+        onder='AZ Groeninge \u00b7 toelichting en stand van zaken',
+        duur='15 minuten',
+        wie='Het team van AZ Groeninge. Wat de studie is, wat het centrum doet, '
+            'en waar het project vandaag staat.'),
     'extern': dict(
         letter='e', bestand='PARADISE_extern.pptx',
         onder='Het onderzoek en het netwerk',
@@ -128,7 +134,7 @@ DECKS = {
 
 SLIDES = [
 
- dict(t='titel_foto', voor='obcuke', morph='fade',
+ dict(t='titel_foto', voor='obcuker', morph='fade',
       foto='titel_voetonderzoek.jpg', merkbeeld='paradise_merk.png',
       boven='PARADISE', onder='Opleidingssessie \u00b7 zes voetklinieken',
       voet='Protocolversie 1.0 \u00b7 17 mei 2026 \u00b7 S71769',
@@ -170,7 +176,7 @@ SLIDES = [
       interactie='Vraag of iemand een blok wil ruilen van plaats. Wie kiest, '
                  'luistert beter.'),
 
- dict(t='statraster', voor='obcuke', morph='morph',
+ dict(t='statraster', voor='obcuker', morph='morph',
       kicker='Waar we staan',
       kop='144 patiënten, 24 per centrum',
       klein=[('Per centrum', '24 deelnemers — 12 PARADISE en 12 gebruikelijke zorg'),
@@ -184,7 +190,18 @@ SLIDES = [
       interactie='Vraag of ze de andere vijf centra kennen. Het maakt van zes '
                  'losse klinieken één netwerk.'),
 
- dict(t='fasen', voor='be', morph='morph',
+ dict(t='beeldcijfer', voor='r', morph='morph',
+      kicker='De zes voetklinieken',
+      kop='Waar de studie loopt',
+      cijfers=[('Centra', '6', 'licht'), ('Per centrum', '24', 'oranje')],
+      foto='kaart_centra.png',
+      bijschrift='AZ Groeninge is \u00e9\u00e9n van de zes',
+      voet='Twaalf Optimal Care en twaalf Usual Care per centrum, geloot per centrum',
+      tip='Wijs uw eigen centrum aan. Alle zes liggen in Vlaanderen; het verste '
+          'centrum ligt op anderhalf uur.',
+      interactie='Geen.'),
+
+ dict(t='fasen', voor='ber', morph='morph',
       kicker='Waar we staan',
       kop='Van pilot tot laatste patiënt',
       fasen=[('sep 2026 \u2013 feb 2027', 'Pilot',
@@ -248,10 +265,10 @@ SLIDES = [
       kop='PARADISE toetst geen werkzaamheid.\nPARADISE toetst overdracht.',
       onder='Elk onderdeel bestaat al. Geen enkel onderdeel werkte alleen.'),
 
- dict(t='sectie', voor='obcue', morph='morph', nr='01', titel='Waarom',
+ dict(t='sectie', voor='obcuer', morph='morph', nr='01', titel='Waarom',
       regel='Vier cijfers verklaren waarom er twee normen zijn.'),
 
- dict(t='hero_cijfer', voor='obcuke', morph='morph',
+ dict(t='hero_cijfer', voor='obcuker', morph='morph',
       cijfer='40', suffix='%',
       kop='krijgt binnen een jaar\neen nieuw ulcus',
       tegels=[('65%', 'na vijf jaar'), ('2,5×', 'hogere sterfte'),
@@ -261,7 +278,7 @@ SLIDES = [
       tip='Dit is het probleem waar de hele studie op staat. Eén dia, dan door.',
       interactie='Geen. Dit is context, geen discussie.'),
 
- dict(t='beeldcijfer', voor='obcuke', morph='morph',
+ dict(t='beeldcijfer', voor='obcuker', morph='morph',
       kicker='Het risico na genezing',
       kop='Twee derde recidiveert binnen vijf jaar',
       cijfers=[('Na 1 jaar', '40%', 'licht'), ('Na 5 jaar', '65%', 'oranje')],
@@ -273,7 +290,7 @@ SLIDES = [
           'komen. Wijs de trendlijn aan, niet de losse punten.',
       interactie='Geen. Laat de spreiding het werk doen.'),
 
- dict(t='knal', voor='obcuke', morph='morph', foto='knal_voorkomen.jpg',
+ dict(t='knal', voor='obcuker', morph='morph', foto='knal_voorkomen.jpg',
       kop='Driekwart is te voorkomen.\nVeertig procent komt terug.',
       tip='Zeg dit traag en zwijg dan twee tellen. Dit is de enige dia in blok '
           '1 waar de zaal niet leest maar luistert.',
@@ -302,7 +319,7 @@ SLIDES = [
           'rest van de studieopzet volgt hieruit.',
       interactie='Geen.'),
 
- dict(t='splitsing', voor='obce', morph='morph',
+ dict(t='splitsing', voor='obcer', morph='morph',
       kicker='Dezelfde schoen, twee uitkomsten',
       kop='Waarom druk alléén niet volstaat',
       links=dict(titel='Iedereen', sub='intention-to-treat', groot='38,8',
@@ -316,7 +333,7 @@ SLIDES = [
           'een willekeurig getal.',
       interactie='Geen.'),
 
- dict(t='hero_cijfer', voor='obce', morph='morph',
+ dict(t='hero_cijfer', voor='obcer', morph='morph',
       cijfer='71', suffix='%',
       kop='draagtijd — gemeten,\nniet gevraagd',
       tegels=[('61%', 'thuis'), ('4000', 'stappen binnen'), ('2600', 'stappen buiten')],
@@ -361,7 +378,7 @@ SLIDES = [
       tip='Drie redenen, drie zinnen. Dit is het scharnier naar de opzet.',
       interactie='Geen.'),
 
- dict(t='duo', voor='obcuke', morph='morph',
+ dict(t='duo', voor='obcuker', morph='morph',
       kicker='Wat PARADISE anders doet',
       kop='E\u00e9n dienst, geen drie losse maatregelen',
       een=dict(nr='01', naam='De zool h\u00e1\u00e1lt de norm',
@@ -381,10 +398,10 @@ SLIDES = [
       interactie='Vraag welke van de twee normen zij het moeilijkst achten. '
                  'Het antwoord is bijna altijd de tweede.'),
 
- dict(t='sectie', voor='obce', morph='morph', nr='02', titel='De meting',
+ dict(t='sectie', voor='obcer', morph='morph', nr='02', titel='De meting',
       regel='Wat u meet, hoe u het meet, en wanneer het goed genoeg is.'),
 
- dict(t='drukmeting', voor='obcuke', morph='morph', fase='voor',
+ dict(t='drukmeting', voor='obcuker', morph='morph', fase='voor',
       kicker='Baseline · in de schoen',
       kop='Elke sensor een cijfer',
       waarde='312', plek='piekdruk op metatarsaal 2-3',
@@ -413,7 +430,7 @@ SLIDES = [
           'Die drie legt u vast — daarop wordt de norm getoetst.',
       interactie='Laat ze op deze dia aanwijzen welke drie zij zouden kiezen.'),
 
- dict(t='drukmeting', voor='obcuke', morph='morph', fase='na',
+ dict(t='drukmeting', voor='obcuker', morph='morph', fase='na',
       kicker='Na optimalisatie',
       kop='Wanneer is het goed genoeg',
       waarde='186', plek='piekdruk in de doelregio na aanpassing',
@@ -427,7 +444,7 @@ SLIDES = [
           'En de vergelijking gebeurt per regio, niet over de hele voet.',
       interactie='Vraag de pedorthisten hoeveel aanpassingsrondes realistisch zijn.'),
 
- dict(t='knal', voor='obcuke', morph='morph', foto='knal_belasting.jpg',
+ dict(t='knal', voor='obcuker', morph='morph', foto='knal_belasting.jpg',
       kop='Niet minder belasting.\nBelasting op een plek die het aankan.',
       tip='Zeg deze twee zinnen en zwijg dan. Laat de dia staan tot iemand '
           'ongemakkelijk wordt. Dit is het enige moment in blok 2 waarop de '
@@ -445,10 +462,10 @@ SLIDES = [
           'gemeten. Dezelfde meting komt terug op maand 6, 12 en 18.',
       interactie='Vraag: "wie meet er vandaag al in de schoen?"'),
 
- dict(t='sectie', voor='obcke', morph='morph', nr='03', titel='Het traject',
+ dict(t='sectie', voor='obcker', morph='morph', nr='03', titel='Het traject',
       regel='Negen contactmomenten. Per moment: wat u doet en wat u invult.'),
 
- dict(t='traject', voor='obcuke', morph='morph',
+ dict(t='traject', voor='obcuker', morph='morph',
       kicker='Het traject',
       kop='Screening plus negen visites',
       groot='18',
@@ -633,7 +650,7 @@ SLIDES = [
  dict(t='sectie', voor='obue', morph='morph', nr='04', titel='Toestellen en regels',
       regel='De instellingen, het gesprek, en de vier regels die vastliggen.'),
 
- dict(t='drieluik', voor='obcuke', morph='morph',
+ dict(t='drieluik', voor='obcuker', morph='morph',
       kicker='De techniek',
       kop='Drie toestellen',
       kaarten=[dict(naam='Novel pedar', sub='Druk', groot='8', onder='voetregio\'s',
@@ -752,7 +769,7 @@ SLIDES = [
           'mee en een nieuwe afspraak.',
       interactie='Rollenspel van twee minuten met een vrijwilliger uit de zaal.'),
 
- dict(t='statement', voor='ock', morph='morph',
+ dict(t='statement', voor='ockr', morph='morph',
       kicker='De enige regel die u écht moet onthouden',
       kop='Meetwaarden gaan\nniet naar de\ncontrolegroep',
       body='Ook zij krijgen een drukmeting en dragen een sensor, anders kunnen we de '
@@ -901,7 +918,7 @@ SLIDES = [
       interactie='Vraag of iemand een situatie kan bedenken waarvan hij niet '
                  'weet of het gemeld moet worden. Bespreek er twee.'),
 
- dict(t='vierluik', voor='obk', morph='morph',
+ dict(t='vierluik', voor='obkr', morph='morph',
       kicker='Verdeling',
       kop='Wie doet wat',
       kolommen=[('Podoloog', ['Voert de drukmetingen uit', 'Levert SEBIA',
@@ -915,7 +932,7 @@ SLIDES = [
       interactie='Vraag per rij: "herkenbaar, of mis ik iets?" Pas de '
                  'taakverdeling ter plekke aan als dat nodig is.'),
 
- dict(t='steun', voor='obk', morph='morph',
+ dict(t='steun', voor='obkr', morph='morph',
       kicker='Ondersteuning',
       kop='Wat u van ons krijgt',
       rijen=[('Motiverende gespreksvoering',
@@ -933,6 +950,65 @@ SLIDES = [
           'Vraagt iemand hoe de ingevulde formulieren bij ons raken: zeg dat daar '
           'bericht over volgt. Beloof geen werkwijze, want die ligt nog niet vast.',
       interactie='Geen.'),
+
+ dict(t='melden', voor='r', morph='morph',
+      kicker='Stand van zaken \u00b7 september 2026',
+      kop='Wat af is, en waar het op wacht',
+      rijen=[('Protocol en formulieren',
+              'Protocolversie 1.0 en zevenenveertig eCRF-documenten liggen er. De '
+              'drukmeting is omgezet naar in-shoe, met acht regio\'s per voet.',
+              'klaar'),
+             ('Ethiek',
+              'Centrale indiening bij de commissie van UZ Leuven en het FAGG in '
+              'oktober. Uw lokale goedkeuring verwachten we tussen november en '
+              'januari.', 'okt'),
+             ('Toestellen',
+              'De drukmeetsystemen worden besteld. Zes tot acht weken levertijd, en '
+              'ze moeten bij u staan v\u00f3\u00f3r de opleidingsdag.', '6-8 w'),
+             ('Databank',
+              'E\u00e9n centrale databank. U vult papier in, het studieteam voert '
+              'in. Acceptatietest in december.', 'centraal')],
+      slot='Na de acceptatietest gaat de databank op slot. Alles wat daarna bij '
+           'moet, is een amendement.',
+      tip='Dit is de update waar ze om gevraagd hebben. Noem \u00e9\u00e9n '
+          'termijn hardop, niet alle vier.',
+      interactie='Vraag of hun lokale commissie in november zitting heeft.'),
+
+ dict(t='vijfluik', voor='r', morph='morph',
+      kicker='Van hier tot uw eerste pati\u00ebnt \u00b7 voorstel',
+      kop='Vijf stappen, vijf data',
+      stappen=[('01', 'okt \u2013 nov', 'Lokale goedkeuring rond, drukmeetsysteem '
+                                        'geleverd en getest.'),
+               ('02', 'wo 2 dec', 'Opleidingsdag bij u. Technologie in de '
+                                  'voormiddag, gedrag in de namiddag.'),
+               ('03', 'vr 15 jan', 'Droogloop: de vier visitetypes op een verzonnen '
+                                   'deelnemer, op uw toestellen.'),
+               ('04', 'februari', 'Pilootpati\u00ebnt, met debriefing binnen de week.'),
+               ('05', 'di 23 feb', 'Go/No-Go. Daarna start de inclusie.')],
+      tip='De data van december en januari zijn een voorstel. Ze liggen pas vast '
+          'als de zes centra bevestigd hebben.',
+      interactie='Vraag of 2 december en 15 januari passen, en wie er die dagen bij is.'),
+
+ dict(t='melden', voor='r', morph='morph',
+      kicker='Wat we van u nodig hebben',
+      kop='Vier dingen, concreet',
+      rijen=[('Drie zorgverleners',
+              'Podoloog, pedorthist en een arts. Twee moeten gecertificeerd zijn; '
+              'de derde loopt mee, zodat \u00e9\u00e9n uitval het criterium niet '
+              'doet kantelen.', '3'),
+             ('Vierentwintig deelnemers',
+              'Twaalf in elke arm. Onder de twaalf per arm wordt het centrum '
+              'onderbemand.', '24'),
+             ('Een looppad',
+              'Tien meter volstaat. Extra apparatuur is niet nodig.', '10 m'),
+             ('Een back-up',
+              'E\u00e9n zorgverlener met naam die invalt, en die de droogloop '
+              'meedoet.', '1')],
+      slot='Gegevensinvoer vragen we niet. U vult de papieren formulieren in, wij '
+           'typen ze centraal over.',
+      tip='Dit is de vraag. Wees concreet en beloof niets wat u niet weet.',
+      interactie='Overloop de vier punten \u00e9\u00e9n voor \u00e9\u00e9n en '
+                 'vraag per punt of het haalbaar is.'),
 
  dict(t='vraagraster', voor='ok', morph='morph',
       kicker='Wat u gaat vragen',
@@ -1440,7 +1516,7 @@ SLIDES = [
  # van het adres, en zonder de consortiumregel. Dat is bewust niet hier gezet:
  # de dia gaat ook naar pers en externe partners. Bouwt u het opleidingsdeck
  # opnieuw met --overschrijf, dan zet u het nummer er daar weer bij.
- dict(t='contact', voor='pobcuke', morph='morph',
+ dict(t='contact', voor='pobcuker', morph='morph',
       kicker='Wie u aanspreekt',
       kop='Voor als er iets misloopt',
       personen=[

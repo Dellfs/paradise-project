@@ -3,9 +3,9 @@
 De presentatie wordt gegenereerd, niet met de hand gemaakt. Alles blijft echte
 PowerPoint-vormen en echte tekstvakken, dus u kunt achteraf nog alles aanpassen.
 
-## Acht decks uit één bron
+## Negen decks uit één bron
 
-Dezelfde inhoud levert acht presentaties. Elke dia draagt een label `voor` met de
+Dezelfde inhoud levert negen presentaties. Elke dia draagt een label `voor` met de
 letters van de decks waarin hij hoort; de bouwer filtert daarop.
 
 | Deck | Bestand | Duur | Voor wie |
@@ -17,6 +17,7 @@ letters van de decks waarin hij hoort; de bouwer filtert daarop.
 | `extern` | `PARADISE_extern.pptx` | 15 min | Externe partners, andere ziekenhuizen, industrie. |
 | `outreach` | `PARADISE_outreach.pptx` | 10 min | Breed publiek en pers. Geen jargon, geen formuliernummers. |
 | `kerngezond` | `PARADISE_kortrijk_kerngezond.pptx` | 10 min | Kortrijk Kerngezond 2026. Burgers, mensen met diabetes, zorgverleners en beleidsmakers. Eindigt op de stand. |
+| `groeninge` | `PARADISE_az_groeninge.pptx` | 15 min | Het team van één deelnemend centrum. Wat de studie is, wat het centrum doet, en waar het project vandaag staat. Met de kaart van de zes centra. |
 | `planning` | `PARADISE_planning_sep-nov.pptx` | 20 min | Het werkplan september-november 2026: vier sporen, wie wat doet, en hoe je het foolproof maakt. Eigen dia's, geen studie-inhoud. |
 
 ## Opnieuw bouwen
@@ -53,7 +54,7 @@ dict(t='statement', voor='ock', ...)   # opleiding, congres, kort
 ```
 
 De letters: **o** opleiding · **b** board · **c** congres · **u** outreach ·
-**k** kort · **e** extern · **p** planning · **g** kerngezond. De titeldia hoort in
+**k** kort · **e** extern · **p** planning · **g** kerngezond · **r** groeninge. De titeldia hoort in
 alle decks behalve kerngezond en krijgt per deck een eigen ondertitel; die staat
 in `DECKS` bovenaan `inhoud.py`, samen met de bestandsnaam en de richttijd.
 Kerngezond heeft een eigen opening (`hero_titel`), met de drukmat als beeld in

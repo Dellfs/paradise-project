@@ -522,4 +522,31 @@ ZEG = {
         'formulieren, sensoren — komen bij mij. Wetenschappelijke vragen en '
         'afspraken op het niveau van uw centrum bij professor Deschamps. Dank u '
         'wel.',
+
+    'Waar de studie loopt':
+        'De studie loopt in zes voetklinieken, en u bent er \u00e9\u00e9n van. '
+        'Elk centrum neemt vierentwintig deelnemers op, twaalf in elke arm. '
+        'Samen maakt dat honderdvierenveertig. Hoe die vierentwintig bij u '
+        'binnenkomen, ziet u zo in het traject.',
+
+    'Wat af is, en waar het op wacht':
+        'Het dossier is klaar; wat nu telt is de volgorde. Protocol en '
+        'formulieren liggen er, de indiening vertrekt in oktober, en uw lokale '
+        'goedkeuring verwachten we tussen november en januari. Het enige met een '
+        'echte levertijd is het drukmeetsysteem: zes tot acht weken. Daarom '
+        'staan de data van december zoals ze staan.',
+
+    'Vijf stappen, vijf data':
+        'Tussen vandaag en uw eerste pati\u00ebnt liggen vijf stappen. De '
+        'opleidingsdag bij u duurt een halve dag: technologie in de voormiddag, '
+        'gedragsbijsturing in de namiddag. In januari doen we een droogloop met '
+        'een verzonnen deelnemer, op uw eigen toestellen. Die twee data zijn een '
+        'voorstel \u2014 zeg nu of ze passen.',
+
+    'Vier dingen, concreet':
+        'Vier dingen hebben we van u nodig, en geen daarvan is gegevensinvoer. '
+        'Drie zorgverleners die de opleiding volgen, waarvan er twee '
+        'gecertificeerd raken. Vierentwintig deelnemers over de inclusieperiode. '
+        'En een looppad van tien meter, meer niet.',
+
 }
