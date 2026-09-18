@@ -436,7 +436,7 @@ SLIDES = [
       waarde='186', plek='piekdruk in de doelregio na aanpassing',
       norm='40% lager  ·  onder 200 kPa  ·  beide criteria',
       regels=['De norm geldt per doelregio: piekdruk onder 200 kPa óf minstens '
-              '25% lager dan de baselinemeting van diezelfde regio.',
+              '25% lager dan de meting zónder zool in dezelfde sessie.',
               'Haalt u de norm niet, dan past u aan en meet u opnieuw. Het '
               'formulier voorziet twee extra ontlastingstests.'],
       voet='eCRF-document 24 · Meting drukherverdeling voetorthese',
@@ -975,27 +975,28 @@ SLIDES = [
       interactie='Vraag of hun lokale commissie in november zitting heeft.'),
 
  dict(t='vijfluik', voor='r', morph='morph',
-      kicker='Van hier tot uw eerste pati\u00ebnt \u00b7 voorstel',
-      kop='Vijf stappen, vijf data',
+      kicker='Van hier tot uw eerste patiënt',
+      kop='Vijf stappen, de agenda volgt binnenkort',
       stappen=[('01', 'okt \u2013 nov', 'Lokale goedkeuring rond, drukmeetsysteem '
                                         'geleverd en getest.'),
-               ('02', 'wo 2 dec', 'Opleidingsdag bij u. Technologie in de '
+               ('02', 'december', 'Opleidingsdag bij u. Technologie in de '
                                   'voormiddag, gedrag in de namiddag.'),
-               ('03', 'vr 15 jan', 'Droogloop: de vier visitetypes op een verzonnen '
+               ('03', 'januari', 'Droogloop: de vier visitetypes op een verzonnen '
                                    'deelnemer, op uw toestellen.'),
                ('04', 'februari', 'Pilootpati\u00ebnt, met debriefing binnen de week.'),
-               ('05', 'di 23 feb', 'Go/No-Go. Daarna start de inclusie.')],
-      tip='De data van december en januari zijn een voorstel. Ze liggen pas vast '
-          'als de zes centra bevestigd hebben.',
-      interactie='Vraag of 2 december en 15 januari passen, en wie er die dagen bij is.'),
+               ('05', 'februari', 'Go/No-Go. Daarna start de inclusie.')],
+      tip='Zeg expliciet dat de agenda met de precieze data binnenkort volgt, en '
+          'dat u die met de zes centra samen vastlegt.',
+      interactie='Vraag welke dagen van de week bij hen het beste passen, en wie er '
+                 'dan bij moet zijn.'),
 
  dict(t='melden', voor='r', morph='morph',
       kicker='Wat we van u nodig hebben',
       kop='Vier dingen, concreet',
-      rijen=[('Drie zorgverleners',
-              'Podoloog, pedorthist en een arts. Twee moeten gecertificeerd zijn; '
-              'de derde loopt mee, zodat \u00e9\u00e9n uitval het criterium niet '
-              'doet kantelen.', '3'),
+      rijen=[('Twee zorgverleners',
+              'Podoloog en pedorthist, met een arts die de geschiktheid '
+              'bevestigt. Allebei gecertificeerd. Met precies twee is er geen '
+              'marge, dus een back-up met naam is geen luxe.', '2'),
              ('Vierentwintig deelnemers',
               'Twaalf in elke arm. Onder de twaalf per arm wordt het centrum '
               'onderbemand.', '24'),

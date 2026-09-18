@@ -536,17 +536,17 @@ ZEG = {
         'echte levertijd is het drukmeetsysteem: zes tot acht weken. Daarom '
         'staan de data van december zoals ze staan.',
 
-    'Vijf stappen, vijf data':
+    'Vijf stappen, de agenda volgt binnenkort':
         'Tussen vandaag en uw eerste pati\u00ebnt liggen vijf stappen. De '
         'opleidingsdag bij u duurt een halve dag: technologie in de voormiddag, '
         'gedragsbijsturing in de namiddag. In januari doen we een droogloop met '
-        'een verzonnen deelnemer, op uw eigen toestellen. Die twee data zijn een '
-        'voorstel \u2014 zeg nu of ze passen.',
+        'een verzonnen deelnemer, op uw eigen toestellen. De agenda met de '
+        'precieze data sturen we binnenkort rond.',
 
     'Vier dingen, concreet':
         'Vier dingen hebben we van u nodig, en geen daarvan is gegevensinvoer. '
-        'Drie zorgverleners die de opleiding volgen, waarvan er twee '
-        'gecertificeerd raken. Vierentwintig deelnemers over de inclusieperiode. '
+        'Twee zorgverleners die de opleiding volgen en allebei gecertificeerd '
+        'raken. Vierentwintig deelnemers over de inclusieperiode. '
         'En een looppad van tien meter, meer niet.',
 
 }
