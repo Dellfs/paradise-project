@@ -4,8 +4,7 @@ demographics,CTU-template,—,beide
 visit,CTU-template,—,beide
 randomization,CTU-template,—,beide
 concomitant_therapy,CTU-template,—,beide
-ae_sae_form_for_imd_study_device,CTU-template,—,beide
-aesae_form_for_imd_study_imd_used_within_celabel_2,CTU-template,—,beide
+ae_sae_form_imd_within_ce_label,CTU-template,—,beide
 device_deficiency_dd_form,CTU-template,—,beide
 deviation_serious_breach_log_capa,CTU-template,—,beide
 end_of_trial,CTU-template,—,beide
