@@ -222,6 +222,20 @@ Protocol §5.4.1 en eCRF-document 23 deel A.
 | Metatarsale steun | Balk die **alle** metatarsaalkoppen ondersteunt, of een lokale pad/dome als maar één regio hoog ligt of daar het vorige ulcus zat | idem |
 | Afmetingen balk | Hoogte 9-10 mm; positie 6-11 mm proximaal van de kopjes; EVA, kurk of equivalent (shore ~55); bedekt door de deklaag | idem |
 
+**Bestaand orthopedisch schoeisel mag blijven.** Een deelnemer die al orthopedische
+schoenen draagt hoeft die niet te vervangen: het schoeisel is toegelaten **zolang de nieuwe
+CMFO erin past**. De pasvormbeoordeling hieronder is daarvoor de toets, en ze gebeurt vóór de
+zool definitief wordt. Past de nieuwe zool niet, dan is dat een beslispunt dat vastgelegd
+moet worden — zool aanpassen, ander schoeisel, of niet includeren.
+
+> Voor de **opbouw** van de zool valt bestaand orthopedisch schoeisel onder de kolom
+> “volledig op maat gemaakte schoen” hierboven, dus microkurk plus EVA. Dat is een
+> gevolgtrekking uit de diepte van dat schoeisel en niet uit een expliciete protocolregel;
+> bevestigen bij de pedorthist voordat het in eCRF 23 wordt vastgelegd.
+
+> *Gemeld door de coördinerend onderzoeker op 21 september 2026. Bronvermelding —
+> protocolparagraaf of PI-notulen — nog toe te voegen.*
+
 Alternatieve materialen met vergelijkbare eigenschappen mogen, mits gespecificeerd op
 het formulier.
 
