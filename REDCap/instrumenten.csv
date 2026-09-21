@@ -1,9 +1,16 @@
 form_name,form_label,ecrf,arm
+eligibility,CTU-template,—,beide
+demographics,CTU-template,—,beide
+visit,CTU-template,—,beide
+randomization,CTU-template,—,beide
+concomitant_therapy,CTU-template,—,beide
+ae_sae_form_for_imd_study_device,CTU-template,—,beide
+aesae_form_for_imd_study_imd_used_within_celabel_2,CTU-template,—,beide
+device_deficiency_dd_form,CTU-template,—,beide
+deviation_serious_breach_log_capa,CTU-template,—,beide
+end_of_trial,CTU-template,—,beide
 e01_screening,eCRF 01 Screening voor toestemming,01,beide
-e02_toestemming,eCRF 02 Toestemming en kostenformulier,02,beide
-e06_geschiktheid,eCRF 06 Bevestiging geschiktheid baseline,06,beide
-randomisatie,Randomisatie en groepstoewijzing,—,beide
-e07_demografie,eCRF 07 Demografie en medische voorgeschiedenis,07,beide
+e07_med_voorgeschiedenis,eCRF 07 Medische voorgeschiedenis,07,beide
 e08_voet_schoeisel,eCRF 08 Screening voet en schoeisel,08,beide
 e09_drukmeting_baseline,"eCRF 09 Drukmeting baseline, in-shoe zonder CMFO",09,beide
 e10_voorschrift_cmfo,eCRF 10 Voorschrift CMFO,10,beide
@@ -16,7 +23,7 @@ e20_udi_movemonitor,"eCRF 20 UDI MoveMonitor, uitgifte",20,beide
 e21_eq5d5l,eCRF 21 Levenskwaliteit (EQ-5D-5L),21,beide
 e23_aanpassing_cmfo,eCRF 23 Aanpassing en controle voetorthese,23,beide
 e24_drukmeting_uc,"eCRF 24 Drukmeting, Usual Care (geblindeerd)",24,Usual Care
-e24_drukherverdeling_oc,"eCRF 24 Drukherverdeling en aanpassing, Optimal Care",24,Optimal Care
+e24_drukherverdeling_oc,"eCRF 24 Drukherverdeling, Optimal Care",24,Optimal Care
 e25_udi_orthotimer,"eCRF 25 UDI, activatie en uitlezing Orthotimer",25,beide
 e26_overtuigingen,eCRF 26 Overtuigingen en gewoontes rond schoeisel,26,beide
 e27_udi_movemonitor_retour,eCRF 27 Teruggave MoveMonitor,27,beide
@@ -32,6 +39,4 @@ e38_wifi,eCRF 38 Classificatie ulcus (WIfI),38,beide
 e45_dagboek_baseline,"eCRF 45 Gezondheidseconomisch dagboek, baseline",45,beide
 e45a_dagboek_2wk,"eCRF 45a Dagboek, tweewekelijks",45a,beide
 e45b_dagboek_3mnd,"eCRF 45b Dagboek, driemaandelijks",45b,beide
-e46_ae_sae,eCRF 46 AE en SAE rapportage,46,beide
 e47_ulcus_vervolg,eCRF 47 Ulcus-vervolgformulier,47,beide
-einde_studie,"Einde studie, uitval of overlijden",—,beide
