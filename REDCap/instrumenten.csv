@@ -1,0 +1,37 @@
+form_name,form_label,ecrf,arm
+e01_screening,eCRF 01 Screening voor toestemming,01,beide
+e02_toestemming,eCRF 02 Toestemming en kostenformulier,02,beide
+e06_geschiktheid,eCRF 06 Bevestiging geschiktheid baseline,06,beide
+randomisatie,Randomisatie en groepstoewijzing,—,beide
+e07_demografie,eCRF 07 Demografie en medische voorgeschiedenis,07,beide
+e08_voet_schoeisel,eCRF 08 Screening voet en schoeisel,08,beide
+e09_drukmeting_baseline,"eCRF 09 Drukmeting baseline, in-shoe zonder CMFO",09,beide
+e10_voorschrift_cmfo,eCRF 10 Voorschrift CMFO,10,beide
+e12_vas_tevredenheid,eCRF 12 Tevredenheid ulcuspreventie (VAS),12,beide
+e13_gebruik_schoeisel,eCRF 13 Gebruik en bruikbaarheid maatschoeisel,13,beide
+e14_naff,eCRF 14 Kennis voetzorg (NAFF),14,beide
+e15_hls_eu_6,eCRF 15 Gezondheidsvaardigheden (HLS-EU-6),15,beide
+e18_logboek_educatie,eCRF 18 Logboek educatie en vaardigheidstraining,18,beide
+e20_udi_movemonitor,"eCRF 20 UDI MoveMonitor, uitgifte",20,beide
+e21_eq5d5l,eCRF 21 Levenskwaliteit (EQ-5D-5L),21,beide
+e23_aanpassing_cmfo,eCRF 23 Aanpassing en controle voetorthese,23,beide
+e24_drukmeting_uc,"eCRF 24 Drukmeting, Usual Care (geblindeerd)",24,Usual Care
+e24_drukherverdeling_oc,"eCRF 24 Drukherverdeling en aanpassing, Optimal Care",24,Optimal Care
+e25_udi_orthotimer,"eCRF 25 UDI, activatie en uitlezing Orthotimer",25,beide
+e26_overtuigingen,eCRF 26 Overtuigingen en gewoontes rond schoeisel,26,beide
+e27_udi_movemonitor_retour,eCRF 27 Teruggave MoveMonitor,27,beide
+e28_activiteitenprofiel,eCRF 28 Rapport activiteitenprofiel (SEBIA 2),28,Optimal Care
+e29_teach_back,eCRF 29 Teach-back,29,Optimal Care
+e31_therapietrouw,eCRF 31 Bevraging therapietrouw schoeisel,31,beide
+e32_feedback_therapietrouw,eCRF 32 Feedback over therapietrouw,32,Optimal Care
+e33_vervanging,eCRF 33 Vervanging voetorthese of sensor,33,beide
+e34_imcq,eCRF 34b Medische consumptie (iMCQ),34b,beide
+e35_ipcq,eCRF 35b Productiviteit (iPCQ),35b,beide
+e36_pedis,eCRF 36 Classificatie ulcus (PEDIS),36,beide
+e38_wifi,eCRF 38 Classificatie ulcus (WIfI),38,beide
+e45_dagboek_baseline,"eCRF 45 Gezondheidseconomisch dagboek, baseline",45,beide
+e45a_dagboek_2wk,"eCRF 45a Dagboek, tweewekelijks",45a,beide
+e45b_dagboek_3mnd,"eCRF 45b Dagboek, driemaandelijks",45b,beide
+e46_ae_sae,eCRF 46 AE en SAE rapportage,46,beide
+e47_ulcus_vervolg,eCRF 47 Ulcus-vervolgformulier,47,beide
+einde_studie,"Einde studie, uitval of overlijden",—,beide

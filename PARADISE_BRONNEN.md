@@ -606,7 +606,7 @@ enveloppen.
 | --- | --- |
 | 07 | Demografie en medische voorgeschiedenis, inclusief stadium chronische nierziekte, eGFR, hartaandoening en actuele diabetesmedicatie — conform de internationale Core Descriptor Set |
 | 08 | Voet- en schoeiselscreening |
-| 09 | Drukmeting **blootsvoets**, drie per voet |
+| 09 | Drukmeting **in-shoe, zónder de CMFO**, drie metingen per voet — zie §6; het blootsvoetse van het oude formulier verviel op 11 september 2026 |
 | 10 | **Voorschrift CMFO** |
 | 12 | Tevredenheid ulcuspreventie (VAS) — herhaald op visite 8 |
 | 13 | Gebruik en bruikbaarheid van het maatschoeisel |
@@ -869,9 +869,10 @@ installatiegids), met een kopie in `Site\Novel Pedar\`.
    van het protocol dat erbij zit.
 2. **eCRF 01 mist twee exclusiecriteria** (PEDIS graad 3 en immunosuppressie) en de
    inclusie-eis "stabiele vaatstatus". Aanvullen vóór de EC-indiening.
-3. **Geen werkinstructie voor de pedar-meting.** Voor de MoveMonitor (19b) en de
-   Orthotimer (25b) bestaat een SOP; voor de pedar niet. eCRF 09 en 24 zeggen wát
-   geregistreerd wordt, niet hóé gemeten wordt.
+3. ~~**Geen werkinstructie voor de pedar-meting.**~~ **Opgelost.** De SOP bestaat als
+   `09b_Werkinstructie drukmeting (SOP Novel pedar).docx` in `(e)CRF/Per nummer/`, naast
+   die voor de MoveMonitor (19b) en de Orthotimer (25b). Raadpleeg 09b vóór er iets over
+   de pedar-procedure geschreven wordt.
 4. **De tweede MoveMonitorweek op 6 maanden** staat in §3.2.2.2 en §5.4.5, maar niet in
    de opsomming van visites 3-8 (§5.5.4). Toevoegen aan de bezoekbeschrijving.
 5. **De slijtageschaal (wear-and-tear, Dahmen)** staat als secundaire uitkomst, maar er

@@ -1,0 +1,29 @@
+arm_num,arm_name,event_label,unique_event_name,day_offset,offset_min,offset_max,herhalend
+1,Usual Care,Screening,screening_arm_1,-14,14,14,nee
+1,Usual Care,Visite 0,visite_0_arm_1,-1,7,7,nee
+1,Usual Care,Visite 1,visite_1_arm_1,0,0,0,nee
+1,Usual Care,Visite 2,visite_2_arm_1,21,7,9,nee
+1,Usual Care,Visite 3,visite_3_arm_1,91,14,14,nee
+1,Usual Care,Visite 4,visite_4_arm_1,182,14,14,nee
+1,Usual Care,Visite 5,visite_5_arm_1,273,14,14,nee
+1,Usual Care,Visite 6,visite_6_arm_1,365,14,14,nee
+1,Usual Care,Visite 7,visite_7_arm_1,456,14,14,nee
+1,Usual Care,Visite 8,visite_8_arm_1,547,14,14,nee
+1,Usual Care,Dagboek,dagboek_arm_1,14,14,14,ja
+1,Usual Care,Ulcus,ulcus_arm_1,0,0,0,ja
+1,Usual Care,AE SAE,ae_sae_arm_1,0,0,0,ja
+1,Usual Care,Einde,einde_arm_1,547,30,90,nee
+2,Optimal Care,Screening,screening_arm_2,-14,14,14,nee
+2,Optimal Care,Visite 0,visite_0_arm_2,-1,7,7,nee
+2,Optimal Care,Visite 1,visite_1_arm_2,0,0,0,nee
+2,Optimal Care,Visite 2,visite_2_arm_2,21,7,9,nee
+2,Optimal Care,Visite 3,visite_3_arm_2,91,14,14,nee
+2,Optimal Care,Visite 4,visite_4_arm_2,182,14,14,nee
+2,Optimal Care,Visite 5,visite_5_arm_2,273,14,14,nee
+2,Optimal Care,Visite 6,visite_6_arm_2,365,14,14,nee
+2,Optimal Care,Visite 7,visite_7_arm_2,456,14,14,nee
+2,Optimal Care,Visite 8,visite_8_arm_2,547,14,14,nee
+2,Optimal Care,Dagboek,dagboek_arm_2,14,14,14,ja
+2,Optimal Care,Ulcus,ulcus_arm_2,0,0,0,ja
+2,Optimal Care,AE SAE,ae_sae_arm_2,0,0,0,ja
+2,Optimal Care,Einde,einde_arm_2,547,30,90,nee
