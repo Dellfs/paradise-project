@@ -36,7 +36,7 @@ demo_colldate;demographics;;text;Date demographics data collected;;;date_dmy;;;;
 demo_sex;demographics;;radio;Participant's sex;1, Female|2, Male|3, Undifferentiated|4, Unknown;"CTU-sjabloon van de sponsor. Moet overeenkomen met e07_geslacht op hetzelfde bezoek; dat veld is de bron.";;;;;;;;;;;
 visit_version_txt;visit;;descriptive;eCRF version X.0 - Protocol version X.0;;;;;;;;;;;;;
 vis_date;visit;VISIT XXX;text;Visit date;;;date_dmy;;;;;;;;;;
-vis_noreason;visit;;radio;If visit was not done, please provide reason;1, Subject is lost to follow up|2, Subject withdrew consent|3, Subject died|4, Other;;;;;;;y;;;;;
+vis_noreason;visit;;radio;If visit was not done, please provide reason;1, Subject is lost to follow up|2, Subject withdrew consent|3, Subject died|4, Other;Verschijnt alleen als er geen bezoekdatum is ingevuld. Ging het bezoek door, vul dan de datum in en dit veld verdwijnt.;;;;;[vis_date] = '';y;;;;;
 vis_nootherreason;visit;;text;"If ""Other"" reason, please explain";;;;;;;[vis_noreason] = '4';y;;;;;
 vis_ae_title;visit;;descriptive;"<div style=""width:101.5%; background-color:#CDCDCD; padding:2px; position:relative; top:-1px; left:-5px; right:100px""> <p>Adverse Events</p></div>";;;;;;;;;;;;;
 vis_advev;visit;;yesno;Did new adverse events occur since previous visit, or have there been changes in previously reported conditions?;;;;;;;;y;;;;;
