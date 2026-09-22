@@ -198,7 +198,7 @@ eos_finaldate,end_of_trial,END OF TRIAL,text,Date End of Trial study visit,,,dat
 eos_primrea,end_of_trial,,radio,Primary reason for trial participation termination,"1, Subject completed study as per protocol | 2, Physician decision | 3, Subject decision (withdrew consent) | 4, Lost contact with subject | 5, Adverse Event | 6, Death | 7, Major protocol deviation | 8, Other",,,,,,,y,,,,,
 oes_deathdate,end_of_trial,,text,Date of death,,Please ensure to update Adverse Event page,date_dmy,,,,[eos_primrea] = '6',y,,,,,
 eos_primrea_death,end_of_trial,,notes,"If ""Other"" reason for trial participation termination, please specify",,,,,,,[eos_primrea] = '8',y,,,,,
-e01_skelet,e01_screening,eCRF 01 Screening voor toestemming,descriptive,<b>Skelet — de inhoudelijke velden volgen nog.</b><br>Bron: eCRF 01. beide armen.,,,,,,,,,,,,,
+e01_skelet,e01_screening,eCRF 01 Screening voor toestemming,descriptive,"<b>Skelet — de inhoudelijke velden volgen nog.</b><br>Bron: eCRF 01. beide armen.<br>Dit formulier draagt ook de <b>uitkomst van de screening</b>: geschikt, niet geschikt met reden, of screenfalen om een andere reden. Die velden horen hier en niet in eligibility, want dat formulier begint met de toestemming en die komt pas na de screening.",,,,,,,,,,,,,
 e01_datum,e01_screening,,text,Datum ingevuld op het bronformulier,,"dd-mm-jjjj, zoals op het papieren werkblad",date_dmy,,,,,,,,,,
 e01_door,e01_screening,,text,Ingevoerd door (initialen),,Initialen van het studieteamlid dat overzet,,,,,,,,,,,
 e07_skelet,e07_med_voorgeschiedenis,eCRF 07 Medische voorgeschiedenis,descriptive,<b>Skelet — de inhoudelijke velden volgen nog.</b><br>Bron: eCRF 07. beide armen.,,,,,,,,,,,,,
