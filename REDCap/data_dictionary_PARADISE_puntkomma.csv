@@ -741,6 +741,8 @@ e28_besproken;e28_activiteitenprofiel;;yesno;Profiel en draagdoel met de deelnem
 e28_opmerkingen;e28_activiteitenprofiel;;notes;Opmerkingen;;;;;;;;;;;;;
 e28_door;e28_activiteitenprofiel;;text;Ingevoerd door (initialen);;Initialen van het studieteamlid dat overzet;;;;;;;;;;;
 e29_datum;e29_teach_back;;text;Datum van afname;;dd-mm-jjjj, zoals op het papieren werkblad;date_dmy;;;;;y;;;;;
+e29_a_themas;e29_teach_back;DEEL A — te herinneren educatiethema’s;checkbox;Thema’s die eerder werden uitgelegd en nu geëvalueerd worden;1, Dagelijkse voetinspectie|2, Voethygiëne|3, Nagelzorg|4, Gebruik van schoeisel, binnen en buiten|5, Gebruik van orthesen|6, Drukontlastende strategieën|7, Wanneer contact opnemen met een zorgverlener|8, Ander thema;;;;;;;;;;;;
+e29_a_opmerkingen;e29_teach_back;;notes;Opmerkingen bij de gekozen thema’s;;;;;;;;;;;;;
 e29_instructie;e29_teach_back;Deel A en B. Beoordeelde thema’s en prestatie;descriptive;Vraag de deelnemer het thema in eigen woorden uit te leggen of te demonstreren, bijvoorbeeld: kunt u tonen hoe u dagelijks uw voeten controleert.;;;;;;;;;;;;;
 e29_b_inspectie;e29_teach_back;;radio;Dagelijkse voetinspectie;0, Onjuist of niet in staat te herinneren|1, Gedeeltelijk herinnerd, met hulp of kleine correcties|2, Correct en volledig herinnerd, geen hulp nodig;;;;;;;;;;e29_score;;
 e29_b_hygiene;e29_teach_back;;radio;Voethygiëne;0, Onjuist of niet in staat te herinneren|1, Gedeeltelijk herinnerd, met hulp of kleine correcties|2, Correct en volledig herinnerd, geen hulp nodig;;;;;;;;;;e29_score;;

@@ -1,0 +1,10 @@
+Het script voor de mondelinge voetzorgeducatie (eCRF 17) is een
+werkdocument voor de professional, geen invulformulier. Het geldt voor alle
+SEBIA-momenten, dus voor elk bezoek waarop educatie of terugkoppeling over
+therapietrouw gegeven wordt.
+
+Wat je bij dit bezoek uitvoert, teken je af in het logboek eCRF 18.
+
+Het document zelf staat in:
+  (e)CRF/Per visite/V1 - Baseline/Educatie en patientenmateriaal/
+  (e)CRF/Per nummer/17_Script mondelinge voetzorg-educatie (SEBIA).docx

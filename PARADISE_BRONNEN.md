@@ -630,7 +630,7 @@ enveloppen.
 | 14 | NAFF — vóór de educatie |
 | 15 | HLS-EU-6 — vóór de educatie |
 | 16 · 48 | Educatieboekje en folder dagelijkse voetzorg |
-| 18 | Logboek educatie en vaardigheidstraining |
+| 18 | Logboek educatie en vaardigheidstraining — wordt hier geopend en loopt door tot visite 8 |
 | 19 · 20 | MoveMonitor meegeven (7 dagen) en UDI registreren |
 | 21 | EQ-5D-5L |
 
@@ -800,7 +800,7 @@ Bestanden staan in `(e)CRF/Per nummer/`.
 | 15 | Gezondheidsvaardigheden (HLS-EU-6) | visite 1, vóór educatie |
 | 16 | Educatieboekje voetzorg | visite 1 |
 | 17 | Script mondelinge voetzorgeducatie (SEBIA) | alle SEBIA-momenten |
-| 18 | Logboek educatie en vaardigheidstraining | visite 1 |
+| 18 | Logboek educatie en vaardigheidstraining | eenmalig meegegeven op visite 1, met een blok per bezoek tot visite 8; alleen Optimal Care |
 | 19 · 19b | Gebruikershandleiding en SOP MoveMonitor | visite 1 |
 | 20 | UDI MoveMonitor | visite 1 |
 | 21 | EQ-5D-5L | visite 1 en visites 3-8 |

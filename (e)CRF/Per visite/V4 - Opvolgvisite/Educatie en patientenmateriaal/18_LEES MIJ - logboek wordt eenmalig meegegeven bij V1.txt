@@ -1,0 +1,14 @@
+Het logboek educatie en vaardigheidstraining (eCRF 18) wordt EENMALIG
+meegegeven bij visite 1.
+
+Het is één document per deelnemer, met een apart blok voor elk bezoek: visite 1
+tot en met visite 8. Vul bij dit bezoek het blok van deze visite in, in hetzelfde
+exemplaar. Geef geen nieuw exemplaar mee.
+
+Alleen in de Optimal Care-arm. In Usual Care is de educatie zoals ze vandaag
+gegeven wordt en wordt SEBIA niet gestructureerd geleverd; zie PARADISE_BRONNEN.md,
+paragraaf 4.
+
+Het document zelf staat in:
+  (e)CRF/Per visite/V1 - Baseline/Educatie en patientenmateriaal/
+  (e)CRF/Per nummer/18_Logboek educatie en vaardigheidstraining.docx
