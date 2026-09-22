@@ -283,12 +283,24 @@ patiënt wisselt niet dagelijks.**
 > Elke drukmeting in de studie is een **in-shoe** meting met de pedar. Het verschil zit in
 > de zool: **zónder de CMFO** en **mét de CMFO**.
 >
-> **De 25%-reductie wordt tussen die twee condities gerekend**, gemeten in dezelfde
-> sessie. Het is dus geen vergelijking met een baselinewaarde van maanden eerder, maar een
-> meting van wat de zool op dat moment doet. De vergelijking isoleert daarmee het effect
-> van de zool, en niet dat van schoeisel tegenover blote voet — en ze blijft geldig als
-> een deelnemer later ander schoeisel krijgt, want beide condities worden dan opnieuw
-> gemeten.
+> **De 25%-reductie wordt tussen die twee condities gerekend.** De vergelijking
+> isoleert daarmee het effect van de zool, en niet dat van schoeisel tegenover blote
+> voet.
+>
+> **De referentie is vast, en dat is de baselinemeting (gepreciseerd 22 september
+> 2026).** De piekdruk **zónder de CMFO bij de aflevering op visite 2** is de
+> referentie, en die blijft dat voor de hele studie. Op **maand 6, 12 en 18** wordt de
+> meting mét de zool dus vergeleken met díe baseline, **niet** met de meting zonder
+> zool van datzelfde bezoek. Die wordt op elk moment wel opnieuw vastgelegd — ze toont
+> de actuele onbeschermde druk — maar ze is niet de noemer van de 25%-regel.
+>
+> In REDCap staat dat als `[visite_2_arm_2][e24oc_dN_zonder]` in de formules van
+> `e24oc_dN_reductie` en `e24oc_dN_norm`. Dat de doelregio's vanaf visite 2 vastliggen
+> en op maand 6, 12 en 18 worden overgenomen, is wat die verwijzing geldig maakt:
+> doelregio 1 blijft dezelfde regio.
+>
+> Gepreciseerd door de coördinerend onderzoeker op 22 september 2026. Doorgevoerd in
+> eCRF 24 en 09b in alle drie de mappen, en in de drie berekende velden in REDCap.
 >
 > **Stand van zaken, 22 september 2026.** eCRF 09 en 24 in `(e)CRF/Per nummer/` zijn
 > **bijgewerkt**: 09 beschrijft de in-shoe meting zónder de CMFO met verwijzing naar 09b,
