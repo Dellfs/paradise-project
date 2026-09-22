@@ -250,7 +250,7 @@ e07_visueel	e07_med_voorgeschiedenis		yesno	Visuele beperking
 e07_nefropathie	e07_med_voorgeschiedenis		yesno	Nefropathie													
 e07_egfr	e07_med_voorgeschiedenis		text	eGFR (mL/min/1,73m2)			number_1dp	0	200								
 e07_egfr_datum	e07_med_voorgeschiedenis		text	Datum van de eGFR-bepaling			date_dmy										
-e07_ckd	e07_med_voorgeschiedenis		radio	CKD-stadium volgens KDIGO	1, G1|2, G2|3, G3a|4, G3b|5, G4|6, G5|7, Onbekend												
+e07_ckd	e07_med_voorgeschiedenis		radio	CKD-stadium volgens KDIGO	1, G1 — eGFR 90 of hoger|2, G2 — eGFR 60 tot 89|3, G3a — eGFR 45 tot 59|4, G3b — eGFR 30 tot 44|5, G4 — eGFR 15 tot 29|6, G5 — eGFR onder 15|7, Onbekend	KDIGO-stadiëring, eGFR in mL/min/1,73 m².											
 e07_hart	e07_med_voorgeschiedenis		yesno	Hartaandoening, bijvoorbeeld hartfalen of coronaire hartziekte													
 e07_mono_li	e07_med_voorgeschiedenis	2c. Neuropathie en vasculopathie	text	Monofilament 10 g, links: aantal van 3 sites gevoeld		Plantair hallux, metatarsaalkop 1 en metatarsaalkop 5	integer	0	3								
 e07_mono_re	e07_med_voorgeschiedenis		text	Monofilament 10 g, rechts: aantal van 3 sites gevoeld			integer	0	3								
@@ -963,18 +963,18 @@ e36_datum	e36_pedis		text	Datum van beoordeling		dd-mm-jjjj, zoals op het papier
 e36_behandelaar	e36_pedis	1. Algemene gegevens	text	Behandelaar													
 e36_locatie	e36_pedis		text	Locatie ulcus (voet of teen)								y					
 e36_zijde	e36_pedis		radio	Zijde	1, Links|2, Rechts							y					
-e36_perfusie	e36_pedis	2. PEDIS-classificatie	radio	P — Perfusie	1, P1 Geen tekenen van perifeer arterieel vaatlijden|2, P2 Aanwezig vaatlijden, geen kritische ischemie|3, P3 Kritische ischemie							y					
+e36_perfusie	e36_pedis	2. PEDIS-classificatie	radio	P — Perfusie	1, P1 — geen tekenen van perifeer arterieel vaatlijden: palpabele voetpulsaties, of EAI 0,9 tot 1,10, of teen-armindex boven 0,6, of TcPO2 boven 60 mmHg|2, P2 — vaatlijden zonder kritische ischemie: claudicatio, of EAI onder 0,9 met enkeldruk boven 50 mmHg, of teendruk boven 30 mmHg, of TcPO2 30 tot 60 mmHg|3, P3 — kritische ischemie: enkeldruk onder 50 mmHg, of teendruk onder 30 mmHg, of TcPO2 onder 30 mmHg	PEDIS, met de infectiegradatie uit tabel 4 van de IWGDF Classification Guideline 2023 (IDSA/IWGDF). P3 komt overeen met exclusiecriterium E3.						y					
 e36_eai	e36_pedis		text	Enkel-armindex (EAI)		Indien beschikbaar	number_2dp	0	2								
 e36_teendruk	e36_pedis		text	Teendruk (mmHg)		Indien beschikbaar	integer	0	300								
 e36_lengte	e36_pedis		text	E — Lengte van het ulcus (cm)			number_1dp	0	30								
 e36_breedte	e36_pedis		text	Breedte van het ulcus (cm)			number_1dp	0	30								
 e36_oppervlakte	e36_pedis		text	Oppervlakte (cm2)		Zoals gemeten of berekend; noteer welke van beide bij Opmerkingen	number_2dp	0	500								
-e36_diepte	e36_pedis		radio	D — Diepte	1, D1 Oppervlakkig, alleen huid|2, D2 Tot pees of kapsel|3, D3 Tot bot of gewricht							y					
+e36_diepte	e36_pedis		radio	D — Diepte	1, D1 — oppervlakkig, niet dieper dan de dermis|2, D2 — diep, voorbij de dermis, met betrokkenheid van subcutane structuren, fascie, spier of pees|3, D3 — alle diepere lagen, inclusief bot en gewricht	PEDIS, met de infectiegradatie uit tabel 4 van de IWGDF Classification Guideline 2023 (IDSA/IWGDF).						y					
 e36_bot_bloot	e36_pedis		yesno	Bot blootliggend													
 e36_osteomyelitis	e36_pedis		yesno	Vermoeden van osteomyelitis													
-e36_infectie	e36_pedis		radio	I — Infectie	1, I1 Geen infectie|2, I2 Milde infectie, lokaal|3, I3 Matige infectie, dieper of met weefseluitbreiding|4, I4 Ernstige infectie, systemisch							y					
+e36_infectie	e36_pedis		radio	I — Infectie	1, I1 — geen infectie: geen pus en geen tekenen van ontsteking|2, I2 — milde infectie: minstens twee tekenen van ontsteking, erytheem of cellulitis tot 2 cm rond het ulcus, beperkt tot huid en oppervlakkig subcutaan weefsel, geen systemische ziekte|3, I3 — matige infectie: systemisch stabiel, maar met cellulitis voorbij 2 cm, lymfangitis, uitbreiding onder de fascie, diep abces, gangreen, of betrokkenheid van spier, pees, gewricht of bot|4, I4 — ernstige infectie: systemische toxiciteit of metabole instabiliteit, bijvoorbeeld koorts, tachycardie, hypotensie, verwardheid, braken, leukocytose, acidose of ernstige hyperglykemie	PEDIS, met de infectiegradatie uit tabel 4 van de IWGDF Classification Guideline 2023 (IDSA/IWGDF).						y					
 e36_tekenen	e36_pedis		checkbox	Klinische tekenen, aanvinken indien aanwezig	1, Roodheid|2, Zwelling|3, Warmte|4, Pijn|5, Purulent exsudaat|6, Koorts of systemische tekenen												
-e36_sensatie	e36_pedis		radio	S — Sensatie	1, S1 Normale sensibiliteit|2, S2 Verlies van protectieve sensibiliteit							y					
+e36_sensatie	e36_pedis		radio	S — Sensatie	1, S1 — geen verlies van beschermende sensibiliteit|2, S2 — verlies van beschermende sensibiliteit	PEDIS, met de infectiegradatie uit tabel 4 van de IWGDF Classification Guideline 2023 (IDSA/IWGDF).						y					
 e36_test	e36_pedis		checkbox	Uitgevoerde test	1, Monofilament 10 g|2, Stemvork 128 Hz|3, Anders												
 e36_test_anders	e36_pedis		text	Andere test, welke							[e36_test(3)] = '1'						
 e36_score	e36_pedis	3. Samenvatting	text	Samenvattende PEDIS-score		Noteer als P / E / D / I / S, bijvoorbeeld P2 / 1,8 cm2 / D2 / I2 / S2											
@@ -988,16 +988,16 @@ e38_datum	e38_wifi		text	Datum van beoordeling		dd-mm-jjjj, zoals op het papiere
 e38_behandelaar	e38_wifi	1. Algemene gegevens	text	Behandelaar													
 e38_locatie	e38_wifi		text	Locatie ulcus (voet of teen)								y					
 e38_zijde	e38_wifi		radio	Zijde	1, Links|2, Rechts							y					
-e38_wond	e38_wifi	2. WIfI-classificatie	radio	W — Wond, weefselverlies	1, W0 Geen ulcus of genezen ulcus|2, W1 Klein oppervlakkig ulcus|3, W2 Diep ulcus tot pees of kapsel|4, W3 Uitgebreid ulcus of gangreen							y					
+e38_wond	e38_wifi	2. WIfI-classificatie	radio	W — Wond, weefselverlies	0, W0 — geen ulcus en geen gangreen|1, W1 — klein, oppervlakkig ulcus op het distale onderbeen of de voet, geen blootliggend bot tenzij beperkt tot de distale falanx, geen gangreen|2, W2 — dieper ulcus met blootliggend bot, gewricht of pees, doorgaans niet de hiel, of een oppervlakkig hielulcus zonder calcaneusbetrokkenheid, of gangreen beperkt tot de tenen|3, W3 — uitgebreid, diep ulcus in voor- of middenvoet, of een diep hielulcus over de volledige dikte al dan niet met calcaneusbetrokkenheid, of uitgebreid gangreen	WIfI, tabel 3 van de IWGDF Classification Guideline 2023.						y					
 e38_lengte	e38_wifi		text	Lengte (cm)			number_1dp	0	30								
 e38_breedte	e38_wifi		text	Breedte (cm)			number_1dp	0	30								
 e38_diepte_cm	e38_wifi		text	Diepte (cm)			number_1dp	0	30								
-e38_ischemie	e38_wifi		radio	I — Ischemie	1, I0 Geen ischemie|2, I1 Milde ischemie|3, I2 Matige ischemie|4, I3 Ernstige ischemie							y					
+e38_ischemie	e38_wifi		radio	I — Ischemie	0, I0 — EAI 0,80 of hoger, enkeldruk boven 100 mmHg, teendruk of TcPO2 60 mmHg of hoger|1, I1 — EAI 0,60 tot 0,79, enkeldruk 70 tot 100 mmHg, teendruk of TcPO2 40 tot 59 mmHg|2, I2 — EAI 0,40 tot 0,59, enkeldruk 50 tot 70 mmHg, teendruk of TcPO2 30 tot 39 mmHg|3, I3 — EAI 0,39 of lager, enkeldruk onder 50 mmHg, teendruk of TcPO2 onder 30 mmHg	WIfI, tabel 3 van de IWGDF Classification Guideline 2023. De gemeten waarden staan in de velden hierboven.						y					
 e38_eai	e38_wifi		text	Enkel-armindex (EAI)			number_2dp	0	2								
 e38_enkeldruk	e38_wifi		text	Enkeldruk (mmHg)			integer	0	300								
 e38_teendruk	e38_wifi		text	Teendruk (mmHg)			integer	0	300								
 e38_tcpo2	e38_wifi		text	TcPO2 (mmHg)			integer	0	150								
-e38_infectie	e38_wifi		radio	fI — Voetinfectie	1, fI0 Geen infectie|2, fI1 Milde infectie|3, fI2 Matige infectie|4, fI3 Ernstige of systemische infectie							y					
+e38_infectie	e38_wifi		radio	fI — Voetinfectie	0, fI0 — geen infectie: geen pus en geen tekenen van ontsteking|1, fI1 — milde infectie: minstens twee tekenen van ontsteking, erytheem tot 2 cm rond het ulcus, beperkt tot huid en oppervlakkig subcutaan weefsel|2, fI2 — matige infectie: systemisch stabiel, maar met cellulitis voorbij 2 cm, uitbreiding onder de fascie, diep abces, gangreen, of betrokkenheid van spier, pees, gewricht of bot|3, fI3 — ernstige infectie: systemische toxiciteit of metabole instabiliteit	WIfI, tabel 3 van de IWGDF Classification Guideline 2023. Dezelfde gradatie als PEDIS I, maar genummerd vanaf 0: fI0 komt overeen met PEDIS I1.						y					
 e38_tekenen	e38_wifi		checkbox	Klinische tekenen, aanvinken indien aanwezig	1, Roodheid|2, Zwelling|3, Warmte|4, Pijn|5, Purulent exsudaat|6, Koorts of systemische tekenen												
 e38_score	e38_wifi	3. Samenvatting en stadium	text	Volledige classificatie		Bijvoorbeeld W2 I3 fI1											
 e38_stadium	e38_wifi		radio	Klinisch stadium, amputatierisico	1, Stadium 1, zeer laag risico|2, Stadium 2, laag risico|3, Stadium 3, matig risico|4, Stadium 4, hoog risico												

@@ -691,6 +691,49 @@ alles geanonimiseerd naar een beveiligd webplatform; een aangeduide arts per DFC
 beoordeelt de foto's. Genezingsstatus bij elk vervolgcontact vastleggen met **47**, tot
 het ulcus geneest, tot amputatie, of tot overlijden.
 
+#### De gradaties, met hun drempelwaarden
+
+Bron: **IWGDF Classification Guideline 2023**, tabel 3 (WIfI) en tabel 4
+(IDSA/IWGDF-infectiegradatie, die ook de PEDIS-graad geeft). Vastgelegd op
+22 september 2026, nadat bleek dat eCRF 36 en 38 en de REDCap-velden de graden
+zonder enig criterium aanboden.
+
+**PEDIS — P, perfusie**
+
+| Graad | Criterium |
+| --- | --- |
+| P1 | Geen perifeer arterieel vaatlijden: palpabele voetpulsaties, of EAI 0,9-1,10, of teen-armindex > 0,6, of TcPO₂ > 60 mmHg |
+| P2 | Vaatlijden zonder kritische ischemie: claudicatio, of EAI < 0,9 met enkeldruk > 50 mmHg, of teendruk > 30 mmHg, of TcPO₂ 30-60 mmHg |
+| P3 | **Kritische ischemie**: enkeldruk < 50 mmHg, of teendruk < 30 mmHg, of TcPO₂ < 30 mmHg — dit is exclusiecriterium E3 |
+
+**PEDIS — D, diepte**: D1 niet dieper dan de dermis · D2 voorbij de dermis, met
+subcutane structuren, fascie, spier of pees · D3 alle diepere lagen, inclusief bot
+en gewricht.
+
+**Infectie — PEDIS I 1-4, in WIfI genummerd als fI 0-3**
+
+| PEDIS | WIfI | Criterium |
+| --- | --- | --- |
+| I1 | fI0 | Geen pus en geen tekenen van ontsteking |
+| I2 | fI1 | Minstens twee tekenen van ontsteking, erytheem of cellulitis **tot 2 cm** rond het ulcus, beperkt tot huid en oppervlakkig subcutaan weefsel |
+| I3 | fI2 | Systemisch stabiel, maar cellulitis **voorbij 2 cm**, lymfangitis, uitbreiding onder de fascie, diep abces, gangreen, of betrokkenheid van spier, pees, gewricht of bot |
+| I4 | fI3 | Systemische toxiciteit of metabole instabiliteit |
+
+**WIfI — I, ischemie**
+
+| Graad | EAI | Enkeldruk | Teendruk of TcPO₂ |
+| --- | --- | --- | --- |
+| I0 | ≥ 0,80 | > 100 mmHg | ≥ 60 mmHg |
+| I1 | 0,60-0,79 | 70-100 mmHg | 40-59 mmHg |
+| I2 | 0,40-0,59 | 50-70 mmHg | 30-39 mmHg |
+| I3 | ≤ 0,39 | < 50 mmHg | < 30 mmHg |
+
+**WIfI — W, wond**: W0 geen ulcus en geen gangreen · W1 klein oppervlakkig ulcus,
+geen blootliggend bot tenzij beperkt tot de distale falanx · W2 dieper ulcus met
+blootliggend bot, gewricht of pees, of gangreen beperkt tot de tenen · W3 uitgebreid
+diep ulcus in voor- of middenvoet, diep hielulcus over de volledige dikte, of
+uitgebreid gangreen.
+
 ### Gezondheidseconomisch dagboek
 45 op baseline · 45a tweewekelijks tot maand 3 · 45b driemaandelijks van maand 3 tot 18.
 
