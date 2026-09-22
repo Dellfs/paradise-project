@@ -202,7 +202,7 @@ MoveMonitor op baseline en op 6 maanden.
 **Het verschil is wat er met de meting gebeurt.** In Usual Care wordt de mate van
 ontlasting **niet** in de klinische besluitvorming betrokken, en is de educatie zoals ze
 vandaag gegeven wordt. In Optimal Care stuurt de drukmeting de aanpassing van de zool,
-en wordt SEBIA gestructureerd geleverd.
+en wordt SEBIA gestructureerd geleverd. **Daarom hoort eCRF 18, het logboek educatie en vaardigheidstraining, alleen in de Optimal Care-arm**: het registreert die gestructureerde levering. Bevestigd door de coördinerend onderzoeker op 22 september 2026.
 
 **Contaminatiebeheersing** (§3.2.1): blindering ingebouwd in de gebruikersinterfaces van
 de drukmeetsystemen, de compliance-sensoren en de activiteitenmonitor; aparte CRF's per
@@ -800,7 +800,7 @@ Bestanden staan in `(e)CRF/Per nummer/`.
 | 15 | Gezondheidsvaardigheden (HLS-EU-6) | visite 1, vóór educatie |
 | 16 | Educatieboekje voetzorg | visite 1 |
 | 17 | Script mondelinge voetzorgeducatie (SEBIA) | alle SEBIA-momenten |
-| 18 | Logboek educatie en vaardigheidstraining | eenmalig meegegeven op visite 1, met een blok per bezoek tot visite 8; alleen Optimal Care |
+| 18 | Logboek educatie en vaardigheidstraining | eenmalig meegegeven op visite 1, met een blok per bezoek tot visite 8; **alleen Optimal Care**, zie §4 |
 | 19 · 19b | Gebruikershandleiding en SOP MoveMonitor | visite 1 |
 | 20 | UDI MoveMonitor | visite 1 |
 | 21 | EQ-5D-5L | visite 1 en visites 3-8 |
