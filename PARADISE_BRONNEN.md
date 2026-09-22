@@ -412,9 +412,13 @@ is.
 
 ## 7. De toestellen (§5.4.5)
 
-### Novel pedar — door de klinieken
+### Novel pedar — meting door de klinieken, kalibratie door het studieteam
 Draadloze in-shoe druksensor-inlegzolen, 100 Hz, wifi-telemetrie, Novel Scientific
 Studio-software. Kalibratie met het **trublu**-toestel **minstens elke drie maanden**.
+
+**Wie wat doet:** de klinieken (DFC) nemen de meting af; de **kalibratie doet het
+studieteam zelf**. Daarom staat ze bewust niet in eCRF 09b — dat is de werkinstructie
+vóór de clinici. Bevestigd door de coördinerend onderzoeker op 22 september 2026.
 
 **Zolen in huis:** vijf maten per kant, allemaal **wide**. UW 36/37 · VW 38/39 ·
 WW 40/41 · XW 42/43 · YW 44/45. Elke zool draagt een label als `XW.830R` dat exact
@@ -889,15 +893,13 @@ installatiegids), met een kopie in `Site\Novel Pedar\`.
    immunosuppressie inbegrepen, en zes inclusiecriteria met de stabiele vaatstatus erbij.
    Ook "(niet de eerste metatarsaalkop)" is eruit. De kopie in `Per visite/` liep achter
    en is op 22 september gelijkgezet, en `Per protocolnaam/` diezelfde dag eveneens.
-3. ~~**Geen werkinstructie voor de pedar-meting.**~~ **Grotendeels opgelost.** De SOP
-   bestaat als `09b_Werkinstructie drukmeting (SOP Novel pedar).docx` in
-   `(e)CRF/Per nummer/`, naast die voor de MoveMonitor (19b) en de Orthotimer (25b).
-   Raadpleeg 09b vóór er iets over de pedar-procedure geschreven wordt.
-   **Wat er nog niet in staat:** de kalibratie met het trublu-toestel. 09b beschrijft
-   de meetsessie — nulstellen, conditie A en B, MVP-modi, export en database — maar
-   niet het belasten tot 6 bar, de toets of de softwaarde binnen 5% van de manometer
-   ligt, en de controle minstens elke drie maanden. Die staat op 22 september 2026 in
-   geen enkel eCRF-document. (Vastgesteld bij de controleronde van 22 september 2026.)
+3. ~~**Geen werkinstructie voor de pedar-meting.**~~ **Opgelost.** De SOP bestaat als
+   `09b_Werkinstructie drukmeting (SOP Novel pedar).docx` in `(e)CRF/Per nummer/`, naast
+   die voor de MoveMonitor (19b) en de Orthotimer (25b). Raadpleeg 09b vóór er iets over
+   de pedar-procedure geschreven wordt.
+   De **trublu-kalibratie staat er bewust niet in**: die doet het studieteam zelf, en 09b
+   is de werkinstructie vóór de clinici. Zie §7. Bevestigd door de coördinerend
+   onderzoeker op 22 september 2026.
 4. **De tweede MoveMonitorweek op 6 maanden** staat in §3.2.2.2 en §5.4.5, maar niet in
    de opsomming van visites 3-8 (§5.5.4). Toevoegen aan de bezoekbeschrijving.
 5. **De slijtageschaal (wear-and-tear, Dahmen)** staat als secundaire uitkomst, maar er
