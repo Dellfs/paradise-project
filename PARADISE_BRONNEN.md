@@ -888,20 +888,27 @@ installatiegids), met een kopie in `Site\Novel Pedar\`.
    `(e)CRF/Per nummer/` telt nu negen exclusiecriteria, PEDIS graad 3 en
    immunosuppressie inbegrepen, en zes inclusiecriteria met de stabiele vaatstatus erbij.
    Ook "(niet de eerste metatarsaalkop)" is eruit. De kopie in `Per visite/` liep achter
-   en is op 22 september gelijkgezet; de Engelse set nog niet.
-3. ~~**Geen werkinstructie voor de pedar-meting.**~~ **Opgelost.** De SOP bestaat als
-   `09b_Werkinstructie drukmeting (SOP Novel pedar).docx` in `(e)CRF/Per nummer/`, naast
-   die voor de MoveMonitor (19b) en de Orthotimer (25b). Raadpleeg 09b vóór er iets over
-   de pedar-procedure geschreven wordt.
+   en is op 22 september gelijkgezet, en `Per protocolnaam/` diezelfde dag eveneens.
+3. ~~**Geen werkinstructie voor de pedar-meting.**~~ **Grotendeels opgelost.** De SOP
+   bestaat als `09b_Werkinstructie drukmeting (SOP Novel pedar).docx` in
+   `(e)CRF/Per nummer/`, naast die voor de MoveMonitor (19b) en de Orthotimer (25b).
+   Raadpleeg 09b vóór er iets over de pedar-procedure geschreven wordt.
+   **Wat er nog niet in staat:** de kalibratie met het trublu-toestel. 09b beschrijft
+   de meetsessie — nulstellen, conditie A en B, MVP-modi, export en database — maar
+   niet het belasten tot 6 bar, de toets of de softwaarde binnen 5% van de manometer
+   ligt, en de controle minstens elke drie maanden. Die staat op 22 september 2026 in
+   geen enkel eCRF-document. (Vastgesteld bij de controleronde van 22 september 2026.)
 4. **De tweede MoveMonitorweek op 6 maanden** staat in §3.2.2.2 en §5.4.5, maar niet in
    de opsomming van visites 3-8 (§5.5.4). Toevoegen aan de bezoekbeschrijving.
 5. **De slijtageschaal (wear-and-tear, Dahmen)** staat als secundaire uitkomst, maar er
    is geen eCRF-document dat die scoort. Nagaan of dat in 13 of 33 zit of ontbreekt.
-6. **Twee eCRF-sets met verschillende nummering** (zie §13), en de Engelse set is
-   bovendien **verouderd**: op 22 september 2026 droeg `Per protocolnaam/` nog de
-   blootsvoetse meting in 09 en 24 en het onvolledige screeningsformulier 01. Eén set
-   als officieel aanduiden, en de andere bijwerken of verwijderen — een verouderde set
-   laten staan is gevaarlijker dan geen tweede set hebben.
+6. **Twee eCRF-sets met verschillende nummering** (zie §13). De veroudering is op
+   22 september 2026 weggewerkt: `Per protocolnaam/` droeg toen nog de blootsvoetse
+   meting in 09 en 24 en het onvolledige screeningsformulier 01, en is die dag
+   gelijkgezet met `Per nummer/`. Alle 202 bestanden in de drie mappen zijn sindsdien
+   per nummer woord voor woord identiek; alleen de titelregel verschilt, want
+   `Per protocolnaam/` draagt de protocolnaam van het document. **Nog te beslissen:**
+   welke set officieel is.
 7. **Texas Wound Classification** bestaat als formulier maar staat niet in het protocol.
 8. **De folder dagelijkse voetzorg** (Engelse set, document 17) is nog niet opgemaakt.
 9. **Hoe de ingevulde formulieren bij het onderzoeksteam raken, ligt nog niet vast** —
