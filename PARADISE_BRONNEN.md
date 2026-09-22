@@ -147,6 +147,24 @@ gestart wordt, per centrum lokaal. REDCap bevat de eCRF-gegevens, novel de metin
   voetamputatie (één of meer tenen, hallux inbegrepen), óf resectie van één of meer
   metatarsaalkoppen — **de eerste inbegrepen** — in de periode van 18 maanden tot
   2 weken vóór inclusie
+
+  **De IWGDF-risicostratificatie telt vier categorieën, 0 tot en met 3, zonder
+  subcategorieën** (tabel 1 van de preventierichtlijn 2023):
+
+  | Categorie | Ulcusrisico | Kenmerken | Screeningsfrequentie |
+  | --- | --- | --- | --- |
+  | 0 | Zeer laag | Geen LOPS en geen PAV | jaarlijks |
+  | 1 | Laag | LOPS óf PAV | elke 6-12 maanden |
+  | 2 | Matig | LOPS + PAV, of LOPS + voetdeformiteit, of PAV + voetdeformiteit | elke 3-6 maanden |
+  | 3 | Hoog | LOPS óf PAV, plus een voorgeschiedenis van voetulcus, een amputatie aan de onderste ledemaat, of eindstadium nierlijden | elke 1-3 maanden |
+
+  LOPS is verlies van beschermende sensibiliteit, PAV perifeer arterieel vaatlijden.
+  De subcategorieën **3A en 3B bestonden in oudere versies** — 3A voor een ulcus in
+  de voorgeschiedenis, 3B voor een amputatie — en zijn in 2023 samengevoegd tot één
+  categorie 3, waar eindstadium nierlijden bij kwam. **Een 2a of 2b heeft nooit
+  bestaan.** Bron: Bus e.a., IWGDF Guidelines on the prevention of foot ulcers in
+  persons with diabetes, update 2023, tabel 1. Vastgesteld op 22 september 2026,
+  nadat het REDCap-veld `e07_risico` ten onrechte 0/1/2a/2b/3 bood.
 - **Stabiele vaatstatus** naar klinisch oordeel van de behandelende artsen
 - Zelfstandig en zonder hulpmiddelen blootsvoets kunnen stappen
 - In bezit van beschermend schoeisel dat **ofwel** volledig op maat gemaakt is
