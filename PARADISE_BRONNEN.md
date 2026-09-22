@@ -272,9 +272,12 @@ patiënt wisselt niet dagelijks.**
 > een deelnemer later ander schoeisel krijgt, want beide condities worden dan opnieuw
 > gemeten.
 >
-> **Wat hierop moet worden bijgewerkt:** eCRF 09 beschrijft nu een blootsvoetse
-> baselinemeting met sensoren op de voet; eCRF 24 vraagt drie condities, waarvan de
-> blootsvoetse vervalt. Ook SOP-2 en de opleidingsmodules moeten mee.
+> **Stand van zaken, 22 september 2026.** eCRF 09 en 24 in `(e)CRF/Per nummer/` zijn
+> **bijgewerkt**: 09 beschrijft de in-shoe meting zónder de CMFO met verwijzing naar 09b,
+> en 24 vraagt nog twee condities, zónder en mét de CMFO. De kopieën in `Per visite/`
+> droegen nog de blootsvoetse versie en zijn op 22 september gelijkgezet met `Per nummer/`.
+> De Engelse set in `Per protocolnaam/` is **nog niet bijgewerkt** — zie §13. SOP-2 en de
+> opleidingsmodules moeten nog nagekeken worden.
 
 ### Baseline (eCRF 09, visite 1)
 **In-shoe, zónder de CMFO** — het schoeisel zoals de deelnemer het binnenkomt. **Drie
@@ -881,8 +884,11 @@ installatiegids), met een kopie in `Site\Novel Pedar\`.
    als secundaire samenvatting. De synopsis, de steekproefberekening en §7.1 van het
    protocol zeggen nog 18 maanden. Die drie moeten mee, anders wijkt de indiening af
    van het protocol dat erbij zit.
-2. **eCRF 01 mist twee exclusiecriteria** (PEDIS graad 3 en immunosuppressie) en de
-   inclusie-eis "stabiele vaatstatus". Aanvullen vóór de EC-indiening.
+2. ~~**eCRF 01 mist twee exclusiecriteria**~~ **Opgelost.** Het formulier in
+   `(e)CRF/Per nummer/` telt nu negen exclusiecriteria, PEDIS graad 3 en
+   immunosuppressie inbegrepen, en zes inclusiecriteria met de stabiele vaatstatus erbij.
+   Ook "(niet de eerste metatarsaalkop)" is eruit. De kopie in `Per visite/` liep achter
+   en is op 22 september gelijkgezet; de Engelse set nog niet.
 3. ~~**Geen werkinstructie voor de pedar-meting.**~~ **Opgelost.** De SOP bestaat als
    `09b_Werkinstructie drukmeting (SOP Novel pedar).docx` in `(e)CRF/Per nummer/`, naast
    die voor de MoveMonitor (19b) en de Orthotimer (25b). Raadpleeg 09b vóór er iets over
@@ -891,8 +897,11 @@ installatiegids), met een kopie in `Site\Novel Pedar\`.
    de opsomming van visites 3-8 (§5.5.4). Toevoegen aan de bezoekbeschrijving.
 5. **De slijtageschaal (wear-and-tear, Dahmen)** staat als secundaire uitkomst, maar er
    is geen eCRF-document dat die scoort. Nagaan of dat in 13 of 33 zit of ontbreekt.
-6. **Twee eCRF-sets met verschillende nummering** (zie §13). Eén set als officieel
-   aanduiden voordat er opgeleid wordt.
+6. **Twee eCRF-sets met verschillende nummering** (zie §13), en de Engelse set is
+   bovendien **verouderd**: op 22 september 2026 droeg `Per protocolnaam/` nog de
+   blootsvoetse meting in 09 en 24 en het onvolledige screeningsformulier 01. Eén set
+   als officieel aanduiden, en de andere bijwerken of verwijderen — een verouderde set
+   laten staan is gevaarlijker dan geen tweede set hebben.
 7. **Texas Wound Classification** bestaat als formulier maar staat niet in het protocol.
 8. **De folder dagelijkse voetzorg** (Engelse set, document 17) is nog niet opgemaakt.
 9. **Hoe de ingevulde formulieren bij het onderzoeksteam raken, ligt nog niet vast** —
