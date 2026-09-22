@@ -213,8 +213,8 @@ e09_door	e09_drukmeting_baseline		text	Ingevoerd door (initialen)		Initialen van
 e10_skelet	e10_voorschrift_cmfo	eCRF 10 Voorschrift CMFO	descriptive	<b>Skelet — de inhoudelijke velden volgen nog.</b><br>Bron: eCRF 10. beide armen.													
 e10_datum	e10_voorschrift_cmfo		text	Datum ingevuld op het bronformulier		dd-mm-jjjj, zoals op het papieren werkblad	date_dmy										
 e10_door	e10_voorschrift_cmfo		text	Ingevoerd door (initialen)		Initialen van het studieteamlid dat overzet											
-e12_skelet	e12_vas_tevredenheid	eCRF 12 Tevredenheid ulcuspreventie (VAS)	descriptive	<b>Skelet — de inhoudelijke velden volgen nog.</b><br>Bron: eCRF 12. beide armen.													
-e12_datum	e12_vas_tevredenheid		text	Datum ingevuld op het bronformulier		dd-mm-jjjj, zoals op het papieren werkblad	date_dmy										
+e12_datum	e12_vas_tevredenheid		text	Datum van afname		dd-mm-jjjj, zoals op het papieren werkblad	date_dmy					y					
+e12_vas	e12_vas_tevredenheid	Tevredenheid over ulcuspreventie (VAS)	text	Op een schaal van 0 tot 10, hoe tevreden bent u in het algemeen met de zorg die u tot nu toe hebt ontvangen?		0 = helemaal niet tevreden, 10 = uiterst tevreden	integer	0	10			y					
 e12_door	e12_vas_tevredenheid		text	Ingevoerd door (initialen)		Initialen van het studieteamlid dat overzet											
 e13_skelet	e13_gebruik_schoeisel	eCRF 13 Gebruik en bruikbaarheid maatschoeisel	descriptive	<b>Skelet — de inhoudelijke velden volgen nog.</b><br>Bron: eCRF 13. beide armen.													
 e13_datum	e13_gebruik_schoeisel		text	Datum ingevuld op het bronformulier		dd-mm-jjjj, zoals op het papieren werkblad	date_dmy										
@@ -273,11 +273,52 @@ e34_door	e34_imcq		text	Ingevoerd door (initialen)		Initialen van het studieteam
 e35_skelet	e35_ipcq	eCRF 35b Productiviteit (iPCQ)	descriptive	<b>Skelet — de inhoudelijke velden volgen nog.</b><br>Bron: eCRF 35b. beide armen.													
 e35_datum	e35_ipcq		text	Datum ingevuld op het bronformulier		dd-mm-jjjj, zoals op het papieren werkblad	date_dmy										
 e35_door	e35_ipcq		text	Ingevoerd door (initialen)		Initialen van het studieteamlid dat overzet											
-e36_skelet	e36_pedis	eCRF 36 Classificatie ulcus (PEDIS)	descriptive	<b>Skelet — de inhoudelijke velden volgen nog.</b><br>Bron: eCRF 36. beide armen.													
-e36_datum	e36_pedis		text	Datum ingevuld op het bronformulier		dd-mm-jjjj, zoals op het papieren werkblad	date_dmy										
+e36_datum	e36_pedis		text	Datum van beoordeling		dd-mm-jjjj, zoals op het papieren werkblad	date_dmy					y					
+e36_behandelaar	e36_pedis	1. Algemene gegevens	text	Behandelaar													
+e36_locatie	e36_pedis		text	Locatie ulcus (voet of teen)								y					
+e36_zijde	e36_pedis		radio	Zijde	1, Links|2, Rechts							y					
+e36_perfusie	e36_pedis	2. PEDIS-classificatie	radio	P — Perfusie	1, P1 Geen tekenen van perifeer arterieel vaatlijden|2, P2 Aanwezig vaatlijden, geen kritische ischemie|3, P3 Kritische ischemie							y					
+e36_eai	e36_pedis		text	Enkel-armindex (EAI)		Indien beschikbaar	number_2dp										
+e36_teendruk	e36_pedis		text	Teendruk (mmHg)		Indien beschikbaar	integer										
+e36_lengte	e36_pedis		text	E — Lengte van het ulcus (cm)			number_1dp										
+e36_breedte	e36_pedis		text	Breedte van het ulcus (cm)			number_1dp										
+e36_oppervlakte	e36_pedis		text	Oppervlakte (cm2)		Zoals gemeten of berekend; noteer welke van beide bij Opmerkingen	number_2dp										
+e36_diepte	e36_pedis		radio	D — Diepte	1, D1 Oppervlakkig, alleen huid|2, D2 Tot pees of kapsel|3, D3 Tot bot of gewricht							y					
+e36_bot_bloot	e36_pedis		yesno	Bot blootliggend													
+e36_osteomyelitis	e36_pedis		yesno	Vermoeden van osteomyelitis													
+e36_infectie	e36_pedis		radio	I — Infectie	1, I1 Geen infectie|2, I2 Milde infectie, lokaal|3, I3 Matige infectie, dieper of met weefseluitbreiding|4, I4 Ernstige infectie, systemisch							y					
+e36_tekenen	e36_pedis		checkbox	Klinische tekenen, aanvinken indien aanwezig	1, Roodheid|2, Zwelling|3, Warmte|4, Pijn|5, Purulent exsudaat|6, Koorts of systemische tekenen												
+e36_sensatie	e36_pedis		radio	S — Sensatie	1, S1 Normale sensibiliteit|2, S2 Verlies van protectieve sensibiliteit							y					
+e36_test	e36_pedis		checkbox	Uitgevoerde test	1, Monofilament 10 g|2, Stemvork 128 Hz|3, Anders												
+e36_test_anders	e36_pedis		text	Andere test, welke							[e36_test(3)] = '1'						
+e36_score	e36_pedis	3. Samenvatting	text	Samenvattende PEDIS-score		Noteer als P / E / D / I / S, bijvoorbeeld P2 / 1,8 cm2 / D2 / I2 / S2											
+e36_risico	e36_pedis	4. Interpretatie en beleid	radio	Klinische interpretatie	1, Laag risico|2, Matig risico|3, Hoog risico												
+e36_beleid	e36_pedis		checkbox	Beleid of actie	1, Drukontlasting|2, Wondzorg|3, Antibiotica|4, Doorverwijzing naar voetenteam of vaatchirurgie|5, Beeldvorming aangevraagd|6, Anders												
+e36_beleid_anders	e36_pedis		text	Ander beleid, welk							[e36_beleid(6)] = '1'						
+e36_fotos	e36_pedis	5. Documentatie en opmerkingen	yesno	Foto’s genomen en geanonimiseerd opgeladen		Naar het beveiligde webplatform, onder de deelnemerscode											
+e36_opmerkingen	e36_pedis		notes	Opmerkingen													
 e36_door	e36_pedis		text	Ingevoerd door (initialen)		Initialen van het studieteamlid dat overzet											
-e38_skelet	e38_wifi	eCRF 38 Classificatie ulcus (WIfI)	descriptive	<b>Skelet — de inhoudelijke velden volgen nog.</b><br>Bron: eCRF 38. beide armen.													
-e38_datum	e38_wifi		text	Datum ingevuld op het bronformulier		dd-mm-jjjj, zoals op het papieren werkblad	date_dmy										
+e38_datum	e38_wifi		text	Datum van beoordeling		dd-mm-jjjj, zoals op het papieren werkblad	date_dmy					y					
+e38_behandelaar	e38_wifi	1. Algemene gegevens	text	Behandelaar													
+e38_locatie	e38_wifi		text	Locatie ulcus (voet of teen)								y					
+e38_zijde	e38_wifi		radio	Zijde	1, Links|2, Rechts							y					
+e38_wond	e38_wifi	2. WIfI-classificatie	radio	W — Wond, weefselverlies	1, W0 Geen ulcus of genezen ulcus|2, W1 Klein oppervlakkig ulcus|3, W2 Diep ulcus tot pees of kapsel|4, W3 Uitgebreid ulcus of gangreen							y					
+e38_lengte	e38_wifi		text	Lengte (cm)			number_1dp										
+e38_breedte	e38_wifi		text	Breedte (cm)			number_1dp										
+e38_diepte_cm	e38_wifi		text	Diepte (cm)			number_1dp										
+e38_ischemie	e38_wifi		radio	I — Ischemie	1, I0 Geen ischemie|2, I1 Milde ischemie|3, I2 Matige ischemie|4, I3 Ernstige ischemie							y					
+e38_eai	e38_wifi		text	Enkel-armindex (EAI)			number_2dp										
+e38_enkeldruk	e38_wifi		text	Enkeldruk (mmHg)			integer										
+e38_teendruk	e38_wifi		text	Teendruk (mmHg)			integer										
+e38_tcpo2	e38_wifi		text	TcPO2 (mmHg)			integer										
+e38_infectie	e38_wifi		radio	fI — Voetinfectie	1, fI0 Geen infectie|2, fI1 Milde infectie|3, fI2 Matige infectie|4, fI3 Ernstige of systemische infectie							y					
+e38_tekenen	e38_wifi		checkbox	Klinische tekenen, aanvinken indien aanwezig	1, Roodheid|2, Zwelling|3, Warmte|4, Pijn|5, Purulent exsudaat|6, Koorts of systemische tekenen												
+e38_score	e38_wifi	3. Samenvatting en stadium	text	Volledige classificatie		Bijvoorbeeld W2 I3 fI1											
+e38_stadium	e38_wifi		radio	Klinisch stadium, amputatierisico	1, Stadium 1, zeer laag risico|2, Stadium 2, laag risico|3, Stadium 3, matig risico|4, Stadium 4, hoog risico												
+e38_revasc	e38_wifi		radio	Nood aan revascularisatie	1, Niet nodig|2, Overwegen|3, Sterk aanbevolen												
+e38_beleid	e38_wifi	4. Beleid en opmerkingen	checkbox	Beleid of actie	1, Wondzorg|2, Antibiotica|3, Drukontlasting|4, Verwijzing vaatchirurgie|5, Revascularisatie gepland|6, Multidisciplinair voetenteam|7, Aanpassing schoeisel of orthese|8, Anders												
+e38_beleid_anders	e38_wifi		text	Ander beleid, welk							[e38_beleid(8)] = '1'						
+e38_opmerkingen	e38_wifi		notes	Opmerkingen													
 e38_door	e38_wifi		text	Ingevoerd door (initialen)		Initialen van het studieteamlid dat overzet											
 e45_skelet	e45_dagboek_baseline	eCRF 45 Gezondheidseconomisch dagboek, baseline	descriptive	<b>Skelet — de inhoudelijke velden volgen nog.</b><br>Bron: eCRF 45. beide armen.													
 e45_datum	e45_dagboek_baseline		text	Datum ingevuld op het bronformulier		dd-mm-jjjj, zoals op het papieren werkblad	date_dmy										
@@ -288,6 +329,14 @@ e45a_door	e45a_dagboek_2wk		text	Ingevoerd door (initialen)		Initialen van het s
 e45b_skelet	e45b_dagboek_3mnd	eCRF 45b Dagboek, driemaandelijks	descriptive	<b>Skelet — de inhoudelijke velden volgen nog.</b><br>Bron: eCRF 45b. beide armen.													
 e45b_datum	e45b_dagboek_3mnd		text	Datum ingevuld op het bronformulier		dd-mm-jjjj, zoals op het papieren werkblad	date_dmy										
 e45b_door	e45b_dagboek_3mnd		text	Ingevoerd door (initialen)		Initialen van het studieteamlid dat overzet											
-e47_skelet	e47_ulcus_vervolg	eCRF 47 Ulcus-vervolgformulier	descriptive	<b>Skelet — de inhoudelijke velden volgen nog.</b><br>Bron: eCRF 47. beide armen.													
-e47_datum	e47_ulcus_vervolg		text	Datum ingevuld op het bronformulier		dd-mm-jjjj, zoals op het papieren werkblad	date_dmy										
+e47_datum	e47_ulcus_vervolg		text	Datum van dit contact		dd-mm-jjjj, zoals op het papieren werkblad	date_dmy					y					
+e47_init_datum	e47_ulcus_vervolg	1. Ulcus-identificatie	text	Datum van de initiële classificatie		De datum van eCRF 36 en 38 voor dit ulcus	date_dmy					y					
+e47_locatie	e47_ulcus_vervolg		text	Locatie ulcus								y					
+e47_zijde	e47_ulcus_vervolg		radio	Zijde	1, Links|2, Rechts							y					
+e47_contact_nr	e47_ulcus_vervolg		text	Volgnummer van dit vervolgcontact		1 voor het eerste vervolgcontact, daarna oplopend	integer	1				y					
+e47_weken	e47_ulcus_vervolg		text	Aantal weken sinds de initiële vaststelling			integer	0									
+e47_status	e47_ulcus_vervolg	2. Genezingsstatus	radio	Status van dit ulcus op de datum van dit contact	1, Genezen|2, Nog niet genezen, verdere opvolging nodig|3, Overgegaan naar amputatie|4, Deelnemer overleden							y					
+e47_datum_genezing	e47_ulcus_vervolg		text	Datum van genezing			date_dmy				[e47_status] = '1'	y					
+e47_ae_gemeld	e47_ulcus_vervolg		yesno	Gemeld op het AE- en SAE-formulier		Verplicht bij amputatie of overlijden; zie eCRF 46					[e47_status] = '3' or [e47_status] = '4'	y					
+e47_opmerkingen	e47_ulcus_vervolg	3. Opmerkingen	notes	Opmerkingen													
 e47_door	e47_ulcus_vervolg		text	Ingevoerd door (initialen)		Initialen van het studieteamlid dat overzet											
