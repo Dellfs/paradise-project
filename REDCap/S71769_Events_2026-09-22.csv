@@ -1,0 +1,8 @@
+event_name,arm_num,unique_event_name,custom_event_label
+In  Hospital,1,in__hospital_arm_1,
+Visit1,1,visit1_arm_1,
+Visit2,1,visit2_arm_1,
+Visit3,1,visit3_arm_1,
+Adverse Event,1,adverse_event_arm_1,
+Concomitant medication,1,concomitant_medica_arm_1,
+End of study,1,end_of_study_arm_1,
