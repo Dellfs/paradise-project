@@ -59,6 +59,9 @@
   .step.checked .step-title{text-decoration:line-through;color:var(--muted);}
   .ecrf-badge{font-family:ui-monospace,Consolas,monospace;font-size:.68rem;letter-spacing:.02em;background:var(--color-surface-muted);color:var(--teal);border-radius:var(--radius-pill);padding:2px 9px;white-space:nowrap;}
   .tag-chip{font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);}
+  .arm-chip{font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;border-radius:var(--radius-pill);padding:2px 9px;white-space:nowrap;font-weight:600;}
+  .arm-oc{background:rgba(255,122,0,.14);color:#B35600;}
+  .arm-uc{background:rgba(29,141,176,.14);color:#0F5F7A;}
   .step-desc{font-size:var(--step--1);color:var(--muted);}
   .step-action{display:flex;align-items:center;gap:var(--space-3);flex-wrap:wrap;margin-top:var(--space-3);}
   .step-open{font-family:var(--font-b);font-size:var(--step--1);font-weight:600;border-radius:var(--radius-pill);padding:var(--space-2) var(--space-5);border:1.5px solid var(--teal);background:var(--color-surface-muted);color:var(--navy);cursor:pointer;transition:var(--trans);min-height:44px;display:inline-flex;align-items:center;}
@@ -117,6 +120,14 @@
 (function(){
 "use strict";
 
+// Zes formulieren zijn armspecifiek. Zonder die aanduiding zou een centrum
+// in Usual Care de feedback of de teach-back afvinken die daar niet hoort.
+function armHTML(step){
+  if(step.arm === "oc") return '<span class="arm-chip arm-oc">Optimal Care</span>';
+  if(step.arm === "uc") return '<span class="arm-chip arm-uc">Usual Care</span>';
+  return "";
+}
+
 function fuSteps(p, opts){
   opts = opts || {};
   var steps = [
@@ -132,14 +143,21 @@ function fuSteps(p, opts){
     steps.push({id:p+"-25", ecrf:"eCRF-Document 25", title:"Draagsensor uitlezen", desc:"Orthotimer-sensor uitlezen. Het draagdoel wordt automatisch voorgesteld indien er recent een beweegpatroon (McRoberts) werd verwerkt.", tag:"device", action:"orthotimer"});
   }
   steps.push(
-    {id:p+"-32", ecrf:"eCRF-Document 32", title:"Feedback therapietrouw geven", desc:"Feedback geven aan de patiënt op basis van de adherentiemonitoring.", tag:"sebia"},
+    {id:p+"-32", ecrf:"eCRF-Document 32", arm:"oc", title:"Feedback therapietrouw geven", desc:"Feedback geven aan de patiënt op basis van de adherentiemonitoring.", tag:"sebia"},
     {id:p+"-33", ecrf:"eCRF-Document 33", title:"CMFO en sensor vervangen", desc:"Diabetic CMFO en compliance-sensor vervangen.", tag:"device"},
-    {id:p+"-2135", ecrf:"eCRF-Document 21, 34, 35", title:"Levenskwaliteit, medische consumptie en productiviteit", desc:"Data verzamelen over levenskwaliteit, medische consumptie en productiviteit.", tag:"vragenlijst"}
+    {id:p+"-2135", ecrf:"eCRF-Document 21, 34, 35", title:"Levenskwaliteit, medische consumptie en productiviteit", desc:"Data verzamelen over levenskwaliteit, medische consumptie en productiviteit.", tag:"vragenlijst"},
+    {id:p+"-45b", ecrf:"eCRF-Document 45b", title:"Gezondheidseconomisch dagboek innemen", desc:"Het deel van de voorbije periode overlopen en registreren. Op visite 3 wordt het dagboek éénmalig meegegeven; het loopt tot maand 18.", tag:"vragenlijst"}
   );
   return steps;
 }
+// De drukmeting gebeurt in beide armen, maar met twee verschillende
+// formulieren. In Usual Care is ze geblindeerd: wel meten, niet tonen,
+// niet bespreken.
 function pressureRecheck(p){
-  return {id:p+"-24", ecrf:"eCRF-Document 24", title:"Drukherverdeling CMFO beoordelen (extra controle)", desc:"Zelfde benchmark als visite 2 — piekdruk ≥25% reductie t.o.v. baseline óf onder 200 kPa absoluut.", tag:"meting"};
+  return [
+    {id:p+"-24oc", ecrf:"eCRF-Document 24", arm:"oc", title:"Drukherverdeling CMFO beoordelen (extra controle)", desc:"Zelfde benchmark als visite 2 — piekdruk onder 200 kPa mét de zool, óf minstens 25% lager dan de baselinemeting zónder de CMFO van visite 2. Die baseline blijft de referentie.", tag:"meting"},
+    {id:p+"-24uc", ecrf:"eCRF-Document 24", arm:"uc", title:"Plantaire drukmeting (geblindeerd)", desc:"Dezelfde in-shoe meting, maar de resultaten worden niet getoond en niet besproken met de deelnemer of de behandelaar, en sturen de zorg niet bij.", tag:"meting"}
+  ];
 }
 
 var VISITS = {
@@ -158,18 +176,19 @@ var VISITS = {
     steps:[
       {id:"v1-07", ecrf:"eCRF-Document 07", title:"Demografische gegevens en medische voorgeschiedenis", desc:"Demografische gegevens en medische voorgeschiedenis van de deelnemer registreren.", tag:"algemeen"},
       {id:"v1-08", ecrf:"eCRF-Document 08", title:"Baseline voetscreening", desc:"Volledige voetscreening uitvoeren en registreren.", tag:"meting"},
-      {id:"v1-09", ecrf:"eCRF-Document 09", title:"Baseline plantaire drukmeting (blootsvoets)", desc:"Blootsvoets drukmeting afnemen, ter voorbereiding van de Diabetic CMFO-voorschrijving.", tag:"meting"},
+      {id:"v1-09", ecrf:"eCRF-Document 09", title:"Baseline plantaire drukmeting (in-shoe, zónder CMFO)", desc:"In-shoe drukmeting afnemen zónder de CMFO, drie metingen per voet, ter voorbereiding van het CMFO-voorschrift. Er wordt niet blootsvoets gemeten.", tag:"meting"},
       {id:"v1-10", ecrf:"eCRF-Document 10", title:"Voorschrift Diabetic CMFO", desc:"Voorschrift opstellen voor de custom-made foot orthosis (CMFO).", tag:"device"},
       {id:"v1-12", ecrf:"eCRF-Document 12", title:"Tevredenheid ulcuspreventie bevragen", desc:"Tevredenheid met de aanpak van ulcuspreventie bevragen (protocol Vossen et al. 2023).", tag:"vragenlijst"},
       {id:"v1-13", ecrf:"eCRF-Document 13", title:"Gebruik en bruikbaarheid schoeisel bevragen (MOS)", desc:"Gebruik en bruikbaarheid van het aangemeten schoeisel bevragen.", tag:"vragenlijst"},
       {id:"v1-14", ecrf:"eCRF-Document 14", title:"SEBIA stap 1 — Voetzorgkennis bevragen (NAFF)", desc:"Kennis over voetzorg bevragen met de NAFF-vragenlijst.", tag:"sebia"},
       {id:"v1-15", ecrf:"eCRF-Document 15", title:"SEBIA stap 1 — Gezondheidsvaardigheden bevragen (HLS-EU-6)", desc:"Health literacy bevragen met de HLS-EU-6-vragenlijst.", tag:"sebia"},
       {id:"v1-16", ecrf:"eCRF-Document 16", title:"SEBIA stap 1 — Educatieboekje overhandigen", desc:"Vraag-op-maat educatieprogramma op basis van de Nederlandse voetzorgrichtlijnen en het Fragile Feet-Trivial Program.", tag:"sebia"},
-      {id:"v1-17", ecrf:"eCRF-Document 17", title:"SEBIA stap 1 — Folder dagelijkse voetzorgstappen", desc:"Folder met tekst en beeld over dagelijkse voetzorgstappen meegeven.", tag:"sebia"},
-      {id:"v1-18", ecrf:"eCRF-Document 18", title:"SEBIA stap 1 — Demonstratie en oefensessie", desc:"Voetzorgprocedures demonstreren, opgedeeld in kleine stappen; de patiënt voert nadien alles zelf uit (\"show-me\"). Bij onvermogen wordt de mantelzorger betrokken.", tag:"sebia"},
+      {id:"v1-48", ecrf:"eCRF-Document 48", title:"SEBIA stap 1 — Folder dagelijkse voetzorgstappen", desc:"Folder met tekst en beeld over dagelijkse voetzorgstappen meegeven.", tag:"sebia"},
+      {id:"v1-18", ecrf:"eCRF-Document 18", arm:"oc", title:"SEBIA stap 1 — Demonstratie en oefensessie, vastgelegd in het logboek", desc:"Voetzorgprocedures demonstreren, opgedeeld in kleine stappen; de patiënt voert nadien alles zelf uit (\"show-me\"). Bij onvermogen wordt de mantelzorger betrokken.", tag:"sebia"},
       {id:"v1-19", ecrf:"eCRF-Document 19", title:"MoveMonitor voorbereiden", desc:"Uitleg en gebruiksfolder meegeven voor de MoveMonitor (McRoberts), te dragen ter hoogte van lendenwervel L5 gedurende 7 opeenvolgende dagen.", tag:"device"},
       {id:"v1-20", ecrf:"eCRF-Document 20", title:"MoveMonitor toewijzen en activeren", desc:"Toestel toewijzen en activeren; uniek identificatienummer (UDI) registreren in de CRF.", tag:"device"},
-      {id:"v1-21", ecrf:"eCRF-Document 21", title:"Levenskwaliteit — EQ-5D-5L", desc:"Levenskwaliteit evalueren met de EQ-5D-5L-vragenlijst.", tag:"vragenlijst"}
+      {id:"v1-21", ecrf:"eCRF-Document 21", title:"Levenskwaliteit — EQ-5D-5L", desc:"Levenskwaliteit evalueren met de EQ-5D-5L-vragenlijst.", tag:"vragenlijst"},
+      {id:"v1-45", ecrf:"eCRF-Document 45, 45a", title:"Gezondheidseconomisch dagboek meegeven", desc:"Het startdagboek éénmalig invullen met de deelnemer, en de zes tweewekelijkse dagboekjes voor maand 0 tot 3 meegeven.", tag:"vragenlijst"}
     ]
   },
   v2: {
@@ -177,21 +196,22 @@ var VISITS = {
     intro:"Opvolgbezoek kort na de start: CMFO-aflevering, drukcontrole, sensorintegratie en SEBIA-stap 2.",
     steps:[
       {id:"v2-23", ecrf:"eCRF-Document 23", title:"Diabetic CMFO afleveren", desc:"Patiënt ontvangt de custom-made foot orthosis; aanpassing en verificatie registreren.", tag:"device"},
-      {id:"v2-24", ecrf:"eCRF-Document 24", title:"Drukherverdeling CMFO beoordelen", desc:"Beoordelen t.o.v. baseline; verdere verbetering nastreven bij piekdruk boven 200 kPa of indien het onderzoeksteam/pedorthist dit haalbaar acht. Doel: piekdruk ≥25% reductie t.o.v. baseline óf een absolute waarde onder 200 kPa.", tag:"meting"},
+      {id:"v2-24oc", ecrf:"eCRF-Document 24", arm:"oc", title:"Drukherverdeling CMFO beoordelen", desc:"Beoordelen t.o.v. baseline; verdere verbetering nastreven bij piekdruk boven 200 kPa of indien het onderzoeksteam/pedorthist dit haalbaar acht. Doel: piekdruk ≥25% reductie t.o.v. baseline óf een absolute waarde onder 200 kPa.", tag:"meting"},
+      {id:"v2-24uc", ecrf:"eCRF-Document 24", arm:"uc", title:"Plantaire drukmeting (geblindeerd)", desc:"Dezelfde in-shoe meting, maar de resultaten worden niet getoond en niet besproken met de deelnemer of de behandelaar, en sturen de zorg niet bij.", tag:"meting"},
       {id:"v2-25", ecrf:"eCRF-Document 25", title:"Draagsensor (Orthotimer) integreren in CMFO", desc:"Compliance-sensor in de CMFO integreren; UDI registreren.", tag:"device"},
       {id:"v2-26", ecrf:"eCRF-Document 26", title:"Overtuigingen en gewoontes rond schoeisel bevragen", desc:"Persoonlijke overtuigingen, emoties, dagelijkse routines en geloofwaardigheid t.a.v. het schoeisel bevragen.", tag:"vragenlijst"},
       {id:"v2-27", ecrf:"eCRF-Document 27", title:"MoveMonitor terugnemen", desc:"Patiënt levert de fysieke-activiteitsmonitor terug in; UDI registreren.", tag:"device", action:"mcroberts"},
-      {id:"v2-28", ecrf:"eCRF-Document 28", title:"SEBIA stap 2 — Activiteitsprofiel en feedback", desc:"Podotherapeut beoordeelt het fysieke-activiteitsprofiel en geeft persoonlijke feedback.", tag:"sebia"},
-      {id:"v2-29", ecrf:"eCRF-Document 29", title:"SEBIA stap 2 — Herhaling vorige educatie (teach-back)", desc:"Retentie van eerdere educatie bevragen via terugvraag/teach-back.", tag:"sebia"},
+      {id:"v2-28", ecrf:"eCRF-Document 28", arm:"oc", title:"SEBIA stap 2 — Activiteitsprofiel en feedback", desc:"Podotherapeut beoordeelt het fysieke-activiteitsprofiel en geeft persoonlijke feedback.", tag:"sebia"},
+      {id:"v2-29", ecrf:"eCRF-Document 29", arm:"oc", title:"SEBIA stap 2 — Herhaling vorige educatie (teach-back)", desc:"Retentie van eerdere educatie bevragen via terugvraag/teach-back.", tag:"sebia"},
       {id:"v2-30", ecrf:"eCRF-Document 30", title:"SEBIA stap 2 — Uitleg draagsensor", desc:"Uitleggen aan de deelnemer dat de draagtijd voortaan via een sensor wordt gemonitord.", tag:"sebia"}
     ]
   },
   v3: { key:"v3", label:"V3 · Follow-up (maand 3)", intro:"Regulier opvolgbezoek, 3 maanden na start.", steps: fuSteps("v3") },
-  v4: { key:"v4", label:"V4 · Major follow-up (maand 6)", intro:"Uitgebreid opvolgbezoek: extra drukcontrole én herhaalde MoveMonitor-meting.", steps: fuSteps("v4", {comboAtEnd:true}).concat([pressureRecheck("v4")]) },
+  v4: { key:"v4", label:"V4 · Major follow-up (maand 6)", intro:"Uitgebreid opvolgbezoek: extra drukcontrole én herhaalde MoveMonitor-meting.", steps: fuSteps("v4", {comboAtEnd:true}).concat(pressureRecheck("v4")) },
   v5: { key:"v5", label:"V5 · Follow-up (maand 9)", intro:"Regulier opvolgbezoek.", steps: fuSteps("v5") },
-  v6: { key:"v6", label:"V6 · Major follow-up (maand 12)", intro:"Uitgebreid opvolgbezoek met extra drukcontrole.", steps: fuSteps("v6").concat([pressureRecheck("v6")]) },
+  v6: { key:"v6", label:"V6 · Major follow-up (maand 12)", intro:"Uitgebreid opvolgbezoek met extra drukcontrole.", steps: fuSteps("v6").concat(pressureRecheck("v6")) },
   v7: { key:"v7", label:"V7 · Follow-up (maand 15)", intro:"Regulier opvolgbezoek.", steps: fuSteps("v7") },
-  v8: { key:"v8", label:"V8 · End of study (maand 18)", intro:"Laatste studiebezoek: extra drukcontrole en eindevaluatie.", steps: fuSteps("v8").concat([pressureRecheck("v8"), {id:"v8-close", ecrf:null, title:"Eindevaluatie studie", desc:"Afronding van de deelname: eindstatus ulcus, laatste adherentie-overzicht en dankwoord aan de deelnemer.", tag:"algemeen"}]) },
+  v8: { key:"v8", label:"V8 · End of study (maand 18)", intro:"Laatste studiebezoek: extra drukcontrole en eindevaluatie.", steps: fuSteps("v8").concat(pressureRecheck("v8"), [{id:"v8-12", ecrf:"eCRF-Document 12", title:"Tevredenheid ulcuspreventie bevragen", desc:"Zelfde VAS als op visite 1, zodat begin en einde vergelijkbaar zijn.", tag:"vragenlijst"}, {id:"v8-close", ecrf:null, title:"Eindevaluatie studie", desc:"Afronding van de deelname: eindstatus ulcus, laatste adherentie-overzicht en dankwoord aan de deelnemer.", tag:"algemeen"}]) },
   ulcer: {
     key:"ulcer", label:"Onvoorziene ulcusvisite",
     intro:"Bij vaststelling van een voetulcus — door de deelnemer, de behandelende arts of een andere zorgverlener — tussen of tijdens geplande bezoeken moet de investigator onmiddellijk op de hoogte gebracht worden.",
@@ -447,7 +467,7 @@ function stepRowHTML(step){
   return '<div class="step' + (checked ? " checked" : "") + '" data-step="' + step.id + '">' +
     '<div class="box">' + (checked ? "✓" : "") + '</div>' +
     '<div class="step-body">' +
-      '<div class="step-head"><span class="step-title">' + step.title + '</span><span class="tag-chip">' + (TAG_LABELS[step.tag] || "") + '</span></div>' +
+      '<div class="step-head"><span class="step-title">' + step.title + '</span><span class="tag-chip">' + (TAG_LABELS[step.tag] || "") + '</span>' + armHTML(step) + '</div>' +
       '<div class="step-desc">' + step.desc + '</div>' +
       actionHTML +
       '<textarea class="step-note" data-note="' + step.id + '" rows="2" placeholder="Notitie / bevinding (optioneel — geen patiëntgegevens)">' + esc(note) + '</textarea>' +
