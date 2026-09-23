@@ -403,8 +403,9 @@ De formule achter *Norm gehaald?* is
 2. In het schoeisel **mét** de CMFO
 
 De blootsvoetse conditie die nu nog op het formulier staat, vervalt. Beide overblijvende
-condities worden op elk van deze momenten opnieuw gemeten — de meting zonder zool is dus
-geen eenmalige baseline maar de referentie van dat moment.
+condities worden op elk van deze momenten opnieuw gemeten. De meting zonder zool wordt
+dus telkens opnieuw vastgelegd, maar ze is niet de noemer van de 25%-regel: die noemer
+blijft de meting zonder zool van visite 2 — zie *Alles gebeurt in-shoe* hierboven.
 
 Twee extra ontlastingstests zijn op het formulier voorzien voor als de norm niet gehaald
 wordt.
@@ -434,7 +435,8 @@ tweede pagina en de blootsvoetse conditie — zijn hiermee **weg**.
 
 ### De norm
 Piekdruk **onder 200 kPa** mét de zool, **óf** minstens **25% lager** dan dezelfde regio
-**zonder** de zool, in dezelfde sessie gemeten. Aanpassen gebeurt als de piekdruk boven
+**zonder** de zool bij de aflevering op visite 2. Die baselinewaarde blijft op maand 6,
+12 en 18 de referentie. Aanpassen gebeurt als de piekdruk boven
 200 kPa ligt **of** als podoloog en pedorthist samen oordelen dat er nog winst haalbaar
 is.
 
