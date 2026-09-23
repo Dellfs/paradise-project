@@ -956,11 +956,34 @@ installatiegids), met een kopie in `Site\Novel Pedar\`.
 
 ## 15. Openstaande punten
 
-1. **Het analysepunt voor therapietrouw: protocol bijwerken, niet het manuscript.**
-   Het manuscript kiest 12 maanden als primair analysepunt met het 18-maandenprofiel
-   als secundaire samenvatting. De synopsis, de steekproefberekening en §7.1 van het
-   protocol zeggen nog 18 maanden. Die drie moeten mee, anders wijkt de indiening af
-   van het protocol dat erbij zit.
+1. ~~**Het analysepunt voor therapietrouw: protocol bijwerken.**~~ **Opgelost op
+   22 september 2026.** Het protocol is herstructureerd naar **één primair eindpunt**.
+
+   - §3.2.2 heet nu **Primary endpoint**, enkelvoud, met alleen het voetulcusrecidief
+     over 18 maanden eronder.
+   - Het therapietrouwblok is verhuisd naar §3.2.3 als **§3.2.3.1 Footwear adherence —
+     secondary endpoint and pre-specified mediator**. Het wordt volledig gemeten en
+     gerapporteerd, draagt **geen eigen succescriterium**, en is de vooraf vastgelegde
+     mediator waarlangs de interventie op ulcusrecidief geacht wordt te werken.
+   - De steekproefberekening voor therapietrouw (115 deelnemers) blijft staan als
+     onderbouwing dat dit secundaire eindpunt voldoende power heeft; het
+     wervingsdoel van **144** volgt uit het primaire eindpunt.
+   - De analysesectie spreekt niet meer van co-primaire eindpunten. Ze beschrijft nu
+     de primaire analyse, de t-toets op therapietrouw als secundair eindpunt, en een
+     **vooraf vastgelegde mediatieanalyse**, aangevuld met de subgroepanalyse op de
+     80%-drempel.
+   - De synopsis noemt één primair eindpunt en zet therapietrouw bij de secundaire.
+   - Het analysepunt van **12 maanden** staat in §7.1, met het 18-maandenprofiel als
+     secundaire samenvatting; de steekproefberekening verwijst daar nu naar.
+
+   Beslissing van de PI 3 september 2026, doorgevoerd op instructie van de
+   coördinerend onderzoeker op 22 september 2026.
+
+   **Tegelijk rechtgezet: het draagdoel heet overal de waaktijd.** Het protocol was het
+   laatste document dat de noemer nog *average physical activity profile* noemde. Nu:
+   80% van de gemiddelde dagelijkse **waaktijd**, de tijd tussen de twee nachten, met
+   de reden erbij dat de compliance-sensor en de activiteitsmonitor per kalenderdag
+   rapporteren en niet epoch-gesynchroniseerd zijn. Zie punt 14.
 2. ~~**eCRF 01 mist twee exclusiecriteria**~~ **Opgelost.** Het formulier in
    `(e)CRF/Per nummer/` telt nu negen exclusiecriteria, PEDIS graad 3 en
    immunosuppressie inbegrepen, en zes inclusiecriteria met de stabiele vaatstatus erbij.
