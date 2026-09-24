@@ -1,0 +1,39 @@
+PARADISE - draagdoel en draagpatroon (offline versie)
+======================================================
+
+Wat het is
+  De twee uitleesmodules van de PARADISE-site in een bestand, voor als de site
+  of het netwerk niet beschikbaar is.
+  Stap 1 - beweegpatroon: het MoveMonitor-rapport ("Physical activity overview",
+           PDF, Engels) geeft de gemiddelde waaktijd tussen de twee nachten.
+           Dat is het draagdoel.
+  Stap 2 - draagpatroon: de Orthotimer-export (.tef of .zip) toont per dag de
+           draagtijd, getoetst aan de norm van 80% van het draagdoel.
+
+Installeren
+  Kopieer de map PARADISE_Draagtijd naar de laptop, bijvoorbeeld naar het
+  bureaublad. Er is geen installatie, geen beheerdersrecht en geen internet nodig.
+
+Starten
+  Dubbelklik op "PARADISE Draagtijd starten.cmd". De tool opent als apart
+  venster in Microsoft Edge.
+  Lukt dat niet, open dan PARADISE_Draagtijd.html met Edge of Chrome
+  (rechtermuisklik > Openen met).
+
+Werkwijze per patient
+  1. Klik op "Nieuwe patient". Dat wist het draagdoel van de vorige patient.
+  2. Stap 1: sleep het MoveMonitor-rapport in het venster. De waaktijd verschijnt;
+     dat is het draagdoel.
+  3. Klik op "Volgende: draagpatroon", of op het tabblad 2.
+  4. Stap 2: sleep de Orthotimer-export in het venster. Het draagdoel staat
+     voorgevuld; controleer het en pas het zo nodig aan.
+  5. "Afdrukken / PDF" maakt het feedbackdocument.
+
+Privacy
+  Alles wordt in de browser op deze laptop verwerkt. Er wordt niets verstuurd.
+  Sla afgedrukte documenten op volgens de procedure van het centrum.
+
+Versie
+  Gebouwd op 24/09/2026 uit de site-versies van het beweegpatroon (18/08/2026)
+  en het draagpatroon (18/08/2026). Wijzigt de site, dan wordt dit pakket opnieuw
+  gebouwd en verdeeld.
