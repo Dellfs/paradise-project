@@ -348,6 +348,17 @@ frames verhogen een maximum niet. Wil het studieteam de **gemiddelden** gebruike
 knipt **file master** in de novel database die frames er achteraf uit. De clinicus noteert
 alleen dat het gebeurd is en meet door.
 
+### Loopsnelheid wordt niet gemeten (beslist 25 september 2026)
+Bij de klinische pedar-meting wordt de loopsnelheid **niet gemeten**: geen tapes met een
+chronometer, geen ±5%-controle. De deelnemer krijgt bij elke doorgang, elke conditie en
+elke visite dezelfde instructie — wandelen zoals gewoonlijk, op de eigen comfortabele
+snelheid — met de aanname dat de snelheid dan ongeveer gelijk blijft. Bus et al. 2011
+hielden de snelheid wél binnen 5% constant; dat verschil is een bewuste vereenvoudiging.
+De tapes op het looppad blijven, maar begrenzen alleen nog de meetzone voor de mid-gait
+stappen. Gevolg: de velden *Loopsnelheid (m/s)* in REDCap (`e09_snelheid`,
+`e24uc_snelheid`, `e24oc_snelheid`) worden niet meer ingevuld. De ±5%-regel bij de
+**F-Scan GO** van het studieteam (hieronder) is door deze beslissing niet gewijzigd.
+
 ### De route van de meetgegevens (beslist 14 september 2026)
 De clinicus plakt de schermafbeelding van het MPP-beeld in de **Pressure Monitoring
 Tool** (`(e)CRF\Pressure monitoring tool_patient.xlsx` — blad **Visit**, op 14 september
@@ -373,14 +384,35 @@ opgehaald. Niets wordt lokaal verwijderd.
 | --- | --- |
 | 1-2 | Deelnemer, visite, datum, centrum, zoolcodes, batterij, configuratiebestand |
 | 3 | Maximum force, Peak pressure, Average pressure en Loaded area per voet, voor conditie A en B |
-| 4 | De drie hoogste piekdrukken per voet met hun plaats; *% verschil* en *Norm gehaald?* rekenen zelf |
-| 5 | De drie doelregio's, met een kolom voor een stijging van ≥ 5% sinds de vorige keer |
+| 4 | Drie regio's per voet, **de vorige voetzweer eerst**, met referentie, zonder en met zool; *% lager dan referentie* en *Norm gehaald?* rekenen zelf |
+| 5 | De drie doelregio's, met dezelfde kolommen en een kolom voor een stijging van ≥ 5% sinds de vorige keer |
 | 6 | De twee schermafbeeldingen, zonder en met zool |
 | 7 | De acht regio's per voet met de maskercodes **A-P** — blijft leeg tot het masker er is |
 
-De formule achter *Norm gehaald?* is
-`=IF(OR(met<200; verschil<=-25%);"JA";"NEE")`, dus beide takken van de norm. Nagerekend:
-300→224 kPa geeft −25,3% en **JA**, 300→226 geeft −24,7% en **NEE**.
+> **Hersteld op 25 september 2026.** Tot dan rekende *% verschil* tegenover de meting
+> zonder zool **van dezelfde sessie** (`(met−zonder)/zonder`). Vanaf maand 6 is dat de
+> verkeerde noemer. Blok 4, 5 en 7 hebben nu een kolom **D — Referentie: zonder zool op
+> visite 2**; daarna volgen *zonder zool vandaag*, *met zool*, *% lager dan referentie* en
+> *Norm gehaald?*. Op visite 2 krijgt D dezelfde waarde als E; op maand 6, 12 en 18 de
+> waarde van visite 2. De formules:
+> `% = (referentie − met) / referentie` en
+> `Norm = ALS(met<200; "JA"; ALS(referentie leeg; "referentie ontbreekt"; ALS(% ≥ 25%; "JA"; "NEE")))`.
+> Nagerekend in Excel: 300→224 kPa geeft 25,3% en **JA**, 300→226 geeft 24,7% en **NEE**,
+> zonder referentie en 190 kPa **JA**, zonder referentie en 230 kPa *referentie ontbreekt*.
+>
+> Op de bladen `Visit` en `TEMPLATE (blank)` rekende de opvolging tegenover de piekdruk
+> **met** zool van sessie 1 ("Reference value Baseline", "% Pressure Increase"). Nu is de
+> referentie de meting **zonder** zool op visite 2, zodat de opvolging de drukvermindering
+> toont. De ≥ 5%-regel staat er als oranje markering: een piekdruk met zool die 5% of meer
+> hoger ligt dan de laatste zoolsessie van visite 2. De hiel telt voortaan mee voor de
+> doelregio's, zoals op eCRF 24.
+>
+> Dezelfde fout zat in **eCRF 24b** (de opvolgtool per visite): de referentie heette
+> "Baseline blootsvoets". Ze heet nu *Zonder zool op visite 2 — referentie*; de rekenregels
+> klopten al. Nieuw in 24b: per voet een keuzelijst voor de regio van de vorige voetzweer,
+> die daardoor automatisch DOELREGIO wordt, en de oranje markering bij een stijging van
+> ≥ 5% tegenover de vorige visite. Het fotovak vraagt het MPP-beeld van novel studio in
+> plaats van een "drukplaat-opname".
 
 > **Wat nog moet:** het blad `Visit` kent **zes regio's per voet** terwijl het er acht
 > moeten zijn. Dat raakt het samenvattingsblok, de twee blokken *RAW DATA EXPORT* waar de
@@ -390,9 +422,10 @@ De formule achter *Norm gehaald?* is
 
 **Twee regels die alleen in deze tool staan** en nergens anders in de projectdocumenten:
 
-1. De doelregio's zijn **per voet de twee plaatsen in de voorvoet of de middenvoet met de
-   hoogste piekdruk boven 200 kPa**, naast de plaats van de vorige voetzweer. De **hiel
-   telt niet mee** — in het samenvattingsblok heeft de hielrij dan ook geen formule.
+1. ~~De doelregio's zijn per voet de twee plaatsen in de voorvoet of de middenvoet met de
+   hoogste piekdruk boven 200 kPa; de hiel telt niet mee.~~ Vervallen op 25 september
+   2026: de tool volgt nu eCRF 24 — de regio van de vorige voetzweer, aangevuld met de één
+   of twee regio's met de hoogste piekdruk zonder zool, de hiel inbegrepen.
 2. Bij opvolging wordt de zool ook aangepast wanneer de piekdruk op een doelregio
    **met ≥ 5% gestegen** is tegenover de vorige keer, ook als ze nog onder de norm ligt.
 
@@ -556,11 +589,25 @@ die meteen aan die persoon en dat bezoek hangt.
 Het **lichaamsgewicht** hoort wél ingevuld — het is nodig om drukwaarden te normaliseren
 en het is het derde element van de *group editor*.
 
-**Nog vast te leggen.** Of de klinieken rechtstreeks vanuit de database meten dan wel in
-novel studio; of er één centrale database komt of één per centrum, en hoe de vijf andere
-centra in `Sint_Jan_Paradise_Project` terechtkomen; de bewaartermijn en de back-up; en de grens van SQL Server
-Express — **10 GB**, 1 GB geheugen, 1 processor (handleiding p. 5). De database is een
-**meetarchief, geen eCRF**: de eCRF blijft het brondocument.
+**Eén centrale database? Nagekeken op 25 september 2026** in de handleiding *db light* v28.
+Een gedeelde database waarin alle centra rechtstreeks meten kan technisch: de database
+"can be run in a computer network" (§1.1). Dan draait SQL Server op één servercomputer en
+krijgt elke werkpost een alias naar die server via TCP, met SQL Server-authenticatie
+(bijlage K). Maar elke laptop moet die server dan tijdens de meting over het netwerk
+bereiken — tussen zes ziekenhuizen betekent dat een VPN of een open poort door de
+ziekenhuisfirewalls, een server die altijd draait, en het standaardwachtwoord van de
+handleiding vervangen. Dat is niet voorzien. **Werkbare route:** één lokale database per
+centrum (namen zoals `Sint_Jan_Paradise_Project`), centraal samengevoegd door het
+studieteam. Dat kan op twee manieren: *Export DB* in het formaat novel database, met
+*Load file bodies into DB*, en centraal *Import DB* met *Check for duplicate records*
+(§3.1.4-3.1.5); of de database loskoppelen, het `.mdf`-bestand kopiëren en centraal
+registreren (bijlage J). Voorwaarde: een deelnemerscode die uniek is over alle centra —
+dat is zo, want REDCap kent ze toe — omdat naam en geboortedatum voor iedereen gelijk zijn.
+
+**Nog vast te leggen.** Hoe vaak en door wie de databases van de centra opgehaald worden;
+de bewaartermijn en de back-up; en de grens van SQL Server Express — **10 GB**, 1 GB
+geheugen, 1 processor (handleiding p. 5). De database is een **meetarchief, geen eCRF**:
+de eCRF blijft het brondocument.
 
 ### F-Scan GO — door het studieteam, níét door de klinieken
 Validatiedeelstudie die de F-Scan GO (Tekscan, FootVIEW Pro) vergelijkt met de pedar.
