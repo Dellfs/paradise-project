@@ -1029,12 +1029,14 @@ NL_EN = {
         'Everything is referenced against this.',
     'Bij de aflevering meet u in de schoen, mét de zool. Dat is de meting '
     'waarop de norm getoetst wordt, per doelregio. Er wordt niet blootsvoets '
-    'gemeten; het vergelijkingspunt is de baselinemeting van dezelfde regio, '
-    'in dezelfde sessie.':
+    'gemeten; het vergelijkingspunt is de meting zónder zool van dezelfde '
+    'regio bij de aflevering, en die blijft op maand 6, 12 en 18 de '
+    'referentie.':
         'At delivery you measure in the shoe, wíth the insole. That is the '
         'measurement against which the target is tested, per target region. '
-        'Nothing is measured barefoot; the comparator is the baseline value '
-        'for the same region, in the same session.',
+        'Nothing is measured barefoot; the comparator is the measurement '
+        'without the insole for the same region at delivery, which remains '
+        'the reference at months 6, 12 and 18.',
     'Op maand zes, twaalf en achttien komt er een drukmeting bij. Drie keer. '
     'Dezelfde meting in de schoen, dezelfde toetsing per doelregio. Ligt de '
     'piekdruk er weer boven, dan past u opnieuw aan.':

@@ -248,8 +248,9 @@ ZEG = {
     'Bij de aflevering':
         'Bij de aflevering meet u in de schoen, mét de zool. Dat is de meting '
         'waarop de norm getoetst wordt, per doelregio. Er wordt niet '
-        'blootsvoets gemeten; het vergelijkingspunt is de baselinemeting van '
-        'dezelfde regio, in dezelfde sessie.',
+        'blootsvoets gemeten; het vergelijkingspunt is de meting zónder zool '
+        'van dezelfde regio bij de aflevering, en die blijft op maand 6, 12 en '
+        '18 de referentie.',
 
     # ----------------------------------------------------- blok 3, traject
     'Het traject':

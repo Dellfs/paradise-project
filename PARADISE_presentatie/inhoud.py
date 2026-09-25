@@ -436,7 +436,8 @@ SLIDES = [
       waarde='186', plek='piekdruk in de doelregio na aanpassing',
       norm='40% lager  ·  onder 200 kPa  ·  beide criteria',
       regels=['De norm geldt per doelregio: piekdruk onder 200 kPa óf minstens '
-              '25% lager dan de meting zónder zool in dezelfde sessie.',
+              '25% lager dan de meting zónder zool op visite 2, die ook op '
+              'maand 6, 12 en 18 de referentie blijft.',
               'Haalt u de norm niet, dan past u aan en meet u opnieuw. Het '
               'formulier voorziet twee extra ontlastingstests.'],
       voet='eCRF-document 24 · Meting drukherverdeling voetorthese',
