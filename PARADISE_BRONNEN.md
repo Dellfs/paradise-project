@@ -399,7 +399,9 @@ opgehaald. Niets wordt lokaal verwijderd.
 | 4 | Drie regio's per voet, **de vorige voetzweer eerst**, met referentie, zonder en met zool; *% lager dan referentie* en *Norm gehaald?* rekenen zelf |
 | 5 | De drie doelregio's, met dezelfde kolommen en een kolom voor een stijging van ≥ 5% sinds de vorige keer |
 | 6 | De twee schermafbeeldingen, zonder en met zool |
-| 7 | De acht regio's per voet met de maskercodes **A-P** — blijft leeg tot het masker er is |
+
+Blok 7 (acht regio's per voet voor de maskerwaarden) is op 25 september geschrapt: de
+ziekenhuizen doen geen maskerexport, dus het blad voor de clinicus vermeldt het niet.
 
 > **Hersteld op 25 september 2026.** Tot dan rekende *% verschil* tegenover de meting
 > zonder zool **van dezelfde sessie** (`(met−zonder)/zonder`). Vanaf maand 6 is dat de
@@ -428,10 +430,11 @@ opgehaald. Niets wordt lokaal verwijderd.
 > doelregio, tenzij als vorige voetzweer gekozen.
 >
 > **Acht regio's op `Visit` en `TEMPLATE (blank)` (25 september).** Beide bladen tellen nu
-> acht regio's per voet met de codes van blok 7 (rechts A-H, links I-P: hallux, tenen 2-5,
+> acht regio's per voet met de codes rechts A-H en links I-P (hallux, tenen 2-5,
 > metatarsaal 1, 2-3, 4-5, mediale en laterale middenvoet, hiel) — in de tabellen, in de
-> vier blokken *RAW DATA EXPORT* en in de grafieken (acht punten per reeks). De oude
-> voorbeeldgetallen uit de export zijn gewist: ze hoorden bij zes regio's. De voetfiguren
+> vier blokken *Piekdruk per regio* en in de grafieken (acht punten per reeks). Die blokken
+> vult het studieteam in na de centrale analyse; ze vermelden geen maskerexport meer. De
+> oude voorbeeldgetallen zijn gewist: ze hoorden bij zes regio's. De voetfiguren
 > naast de tabellen waren blootsvoetse afdrukken en zijn vervangen door de pedar-zolen
 > van de testmeting van 10 september.
 >
@@ -442,9 +445,9 @@ opgehaald. Niets wordt lokaal verwijderd.
 > ≥ 5% tegenover de vorige visite. Het fotovak vraagt het MPP-beeld van novel studio in
 > plaats van een "drukplaat-opname".
 
-> **Nog open:** de volgorde van de zestien velden in de *RAW DATA EXPORT*-blokken is
-> een aanname (A-H rechts, I-P links). Zodra het masker bestaat, nagaan of de multimask-
-> export in die volgorde en met de piekdruk in kolom J komt.
+> **Geen maskerexport in de ziekenhuizen (beslist 25 september 2026).** De software in de
+> centra kan geen maskerexport maken. De regioanalyse gebeurt centraal door het studieteam;
+> de SOP, de Pressure Monitoring Tool en eCRF 24b vermelden de maskerexport daarom niet.
 
 **Waar de tools staan (25 september).** De Pressure Monitoring Tool staat naast de
 eCRF's in `Per visite` bij V1, V2, V4, V6 en V8 (map *Metingen en klinische
@@ -484,10 +487,16 @@ wordt.
 > Daarmee verdwijnt ook de dubbele titelregel die op de tweede pagina "Appendix 23" zei,
 > en de blootsvoetse conditie die nog in beide delen stond.
 
-**De drie doelregio's worden op eCRF 24 zelf aangeduid**, boven de meettabellen, per
-schoeiseltype — niet op eCRF 10, dat alleen het CMFO-voorschrift bevat. Basis: de regio
-met de voorgeschiedenis van voetzweer (eCRF 06) plus de één of twee regio's met de
-hoogste piekdruk zonder de zool.
+**De drie doelregio's per voet worden op eCRF 24 zelf aangeduid**, boven de meettabellen
+— niet op eCRF 10, dat alleen het CMFO-voorschrift bevat. Per voet: de regio van de vorige
+voetzweer (eCRF 06) plus de twee regio's in voorvoet of middenvoet met de hoogste
+piekdruk boven 200 kPa zonder de zool; de hiel alleen als daar de vorige voetzweer zat.
+
+> **Drie per voet — bevestigd door de coördinerend onderzoeker op 25 september 2026.**
+> Papier (eCRF 09 en 24) en manuscript hadden al drie per voet; REDCap had drie in totaal
+> met een zijdeveld. Nu ook in REDCap: `_d1`-`_d3` links, `_d4`-`_d6` rechts, zonder
+> zijdeveld, in e09, e24uc en e24oc (1449 velden). `e24oc_norm_totaal` telt tot zes. De
+> instructiezin op eCRF 09 en 24 zegt nu "per voet" en noemt de hielregel, in alle kopieën.
 
 > **Beslist op 14 september 2026.** Op maand 6, 12 en 18 worden de regio's **niet
 > opnieuw gekozen**: de clinicus neemt dezelfde drie over **van het vorige formulier**.
