@@ -211,8 +211,8 @@ NL_EN = {
         'Modified until the target is met in each of the three target regions.',
     'Herhaald op maand 6, 12 en 18.': 'Repeated at months 6, 12 and 18.',
     'En hij wórdt gedragen': 'And it ís worn',
-    '80% van zijn eigen activiteitenprofiel':
-        '80% of the participant’s own activity profile',
+    '80% van zijn eigen waaktijd':
+        '80% of the participant’s own waking time',
     'Een sensor in de zool meet de draagtijd, continu.':
         'A sensor in the insole records wear time continuously.',
     'Elke drie maanden uitgelezen en samen bekeken.':
@@ -380,7 +380,7 @@ NL_EN = {
     'draagtijd': 'wear time',
     '15  minuten': '15  minutes',
     'In de zool, 9 × 13 × 4,5 mm': 'In the insole, 9 × 13 × 4.5 mm',
-    'Batterij 100 dagen': 'Battery 100 days',
+    'Geheugen 100 dagen': 'Memory 100 days',
     'meet: uw sensor': 'call it: your sensor',
     'MoveMonitor': 'MoveMonitor',
     'activiteit': 'activity',
@@ -953,8 +953,8 @@ NL_EN = {
         'Pooled data from nine prospective studies, one retrospective study '
         'and the control arms of nine RCTs',
 
-    '80% van het eigen activiteitenprofiel':
-        '80% of the patient’s own activity profile',
+    '80% van de eigen waaktijd':
+        '80% of the patient’s own waking time',
     'Vijf gesprekken die op die data steunen.':
         'Five conversations resting on those data.',
 
@@ -972,7 +972,7 @@ NL_EN = {
         'region.',
 
     'In de schoen, met de zool': 'In-shoe, with the insole',
-    'Zeroing voor elke meting': 'Zeroing before every measurement',
+    'Nulstellen: één keer per sessie': 'Zeroing once per session',
 
     'Ook zij krijgen een drukmeting en dragen een sensor, anders kunnen we de '
     'groepen niet vergelijken. Maar die getallen blijven beperkt tot uzelf. '

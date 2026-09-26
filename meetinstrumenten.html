@@ -173,7 +173,7 @@ var INST=[
   ],
     sources:[["novel.de \u2014 pedar software","https://novel.de/products/pedar/pedar-software/"],["novel.de \u2014 pedar support (FAQ, kalibratie & meetprocedure)","https://novel.de/support/pedar-support/"],["novel.de \u2014 pedography (systeembeschrijving, rapportparameters)","https://novel.de/wp-content/uploads/2024/02/pedography-en-2024_new-address.pdf"],["novel USA \u2014 offici\u00eble how-to gids: pati\u00ebnt aanmaken en pedar-meting starten","https://www.novelusa.com/assets/pdf/pedar/pedarHowTo.pdf"]]},
  {k:'mm',ic:IC.mm,name:["MoveMonitor (DynaPort)","MoveMonitor (DynaPort)"],tag:["Fysieke activiteit","Physical activity"],who:["Zorgteam (DFC)","Care team (DFC)"],
-  intro:["Registreert een <b>volle week</b> beweeggedrag (baseline \u00e9n 6 maanden). Levert het gemiddelde activiteitenvenster \u2014 de basis voor de <b>80%-adherentiebenchmark</b>.","Records a <b>full week</b> of movement (baseline and 6 months). Provides the average activity window \u2014 the basis for the <b>80% adherence benchmark</b>."],
+  intro:["Registreert een <b>volle week</b> beweeggedrag (baseline \u00e9n 6 maanden). Levert de gemiddelde waaktijd \u2014 de basis voor de <b>80%-adherentiebenchmark</b>.","Records a <b>full week</b> of movement (baseline and 6 months). Provides the average waking time \u2014 the basis for the <b>80% adherence benchmark</b>."],
   chips:[["volle week","full week"],["onderrug","lower back"],["niet waterdicht","not waterproof"]],
   steps:[
    {phase:["Voorbereiden","Prepare"],items:[
@@ -193,8 +193,8 @@ var INST=[
   ],
     sop:"eCRF-documenten/Per nummer/19b_Werkinstructie MoveMonitor (SOP Dynaport).docx"},
  {k:'ot',ic:IC.ot,name:["Orthotimer","Orthotimer"],tag:["Schoeisel-adherentie","Footwear adherence"],who:["Zorgteam (DFC)","Care team (DFC)"],
-  intro:["Temperatuursensor in de <b>CMFO</b> die meet wanneer het schoeisel gedragen wordt. Adherentie is <b>co-primair</b> (primair punt 12 mnd); elke 3 mnd uitlezen + vervangen.","Temperature sensor in the <b>CMFO</b> recording when footwear is worn. Adherence is <b>co-primary</b> (primary point 12 mo); read out + replace every 3 months."],
-  chips:[["9\u00d713\u00d74,5 mm","9\u00d713\u00d74.5 mm"],["elke 15 min","every 15 min"],["co-primair","co-primary"]],
+  intro:["Temperatuursensor in de <b>CMFO</b> die meet wanneer het schoeisel gedragen wordt. Adherentie is de <b>mediator</b> (analysepunt 12 mnd); elke 3 mnd uitlezen, vervangen waar nodig.","Temperature sensor in the <b>CMFO</b> recording when footwear is worn. Adherence is the <b>mediator</b> (analysis point 12 mo); read out every 3 months, replace when needed."],
+  chips:[["9\u00d713\u00d74,5 mm","9\u00d713\u00d74.5 mm"],["elke 15 min","every 15 min"],["mediator","mediator"]],
   steps:[
    {phase:["Patiënt & instellingen","Patient & settings"],items:[
     ["Maak in de Orthotimer-software een nieuw pati\u00ebntenprofiel aan (naam = deelnemersnummer; geboortedatum en geslacht blijven op de standaardwaarde, want geblindeerd).","Create a new patient profile in the Orthotimer software (name = participant number; date of birth and gender stay at the default value, since blinded)."],
@@ -207,7 +207,7 @@ var INST=[
     ["Registreer de sensor bij de juiste deelnemer via 'Register'.","Register the sensor to the correct participant via 'Register'."]
    ]},
    {phase:["Kwartaalbezoek","Quarterly visit"],items:[
-    ["Lees de sensor om de 3 maanden uit via 'Chipmanagement' \u2192 deelnemer selecteren \u2192 'Export raw data', en vervang de sensor volgens het vervangingsschema (\u00b1 100 dagen batterij).","Read out the sensor every 3 months via 'Chipmanagement' \u2192 select participant \u2192 'Export raw data', and replace the sensor per the replacement schedule (\u00b1 100 days battery)."],
+    ["Lees de sensor om de 3 maanden uit via 'Chipmanagement' \u2192 deelnemer selecteren \u2192 'Export raw data', en vervang de sensor waar nodig (eCRF 33).","Read out the sensor every 3 months via 'Chipmanagement' \u2192 select participant \u2192 'Export raw data', and replace the sensor when needed (eCRF 33)."],
     ["Verwerk de export tot een adherentie% t.o.v. de persoonlijke 80%-benchmark en bespreek dit non-judgmental met de deelnemer (SEBIA Stap 3 & 4).","Process the export into an adherence % against the personal 80% benchmark and discuss it non-judgmentally with the participant (SEBIA Step 3 & 4)."]
    ]}
   ],
@@ -215,7 +215,7 @@ var INST=[
 ];
 var h='<div class="kicker">'+tr(["Meetinstrumenten","Measurement instruments"])+'</div>';
 h+='<h1>'+tr(["De vier meetinstrumenten van PARADISE","The four PARADISE instruments"])+'</h1>';
-h+='<p class="lead">'+tr(["Vier gevalideerde systemen meten objectief druk, activiteit en draagtrouw. Samen dragen ze de twee co-primaire eindpunten: recidief en adherentie.","Four validated systems objectively measure pressure, activity and wear compliance. Together they carry the two co-primary endpoints: recurrence and adherence."])+'</p>';
+h+='<p class="lead">'+tr(["Vier gevalideerde systemen meten objectief druk, activiteit en draagtrouw. Samen dragen ze het primaire eindpunt, recidief, en de mediator, adherentie.","Four validated systems objectively measure pressure, activity and wear compliance. Together they carry the primary endpoint, recurrence, and the mediator, adherence."])+'</p>';
 INST.forEach(function(d){
  h+='<div class="card" style="margin:16px 0"><div class="inst"><span class="ic">'+d.ic+'</span><div><div class="kicker">'+tr(d.tag)+'</div><h2>'+tr(d.name)+'</h2></div><span class="who" style="margin-left:auto">\ud83d\udc64 '+tr(d.who)+'</span></div>';
  h+='<p style="color:var(--soft);margin:10px 0 0">'+tr(d.intro)+'</p><div class="chips">'+d.chips.map(function(c){return '<span class="chip">'+tr(c)+'</span>';}).join('')+'</div>';
@@ -260,10 +260,10 @@ h+='<table class="tbl"><thead><tr><th>'+tr(["Instrument","Instrument"])+'</th><t
 h+='<tr><td>F-Scan GO</td><td>'+tr(["Studieteam","Study team"])+'</td><td>'+tr(["Baseline, 2w\u20131m, 6/12/18 mnd","Baseline, 2w\u20131m, 6/12/18 mo"])+'</td></tr>';
 h+='<tr><td>Novel pedar</td><td>'+tr(["Zorgteam (DFC)","Care team (DFC)"])+'</td><td>'+tr(["Transitie \u00b7 parallel met F-Scan","Transition \u00b7 parallel with F-Scan"])+'</td></tr>';
 h+='<tr><td>MoveMonitor</td><td>'+tr(["Zorgteam (DFC)","Care team (DFC)"])+'</td><td>'+tr(["Volle week, baseline + 6 mnd","Full week, baseline + 6 mo"])+'</td></tr>';
-h+='<tr><td>Orthotimer</td><td>'+tr(["Zorgteam (DFC)","Care team (DFC)"])+'</td><td>'+tr(["In de CMFO; uitlezen + vervangen elke 3 mnd","In the CMFO; read out + replace every 3 mo"])+'</td></tr>';
+h+='<tr><td>Orthotimer</td><td>'+tr(["Zorgteam (DFC)","Care team (DFC)"])+'</td><td>'+tr(["In de CMFO; elke 3 mnd uitlezen","In the CMFO; read out every 3 mo"])+'</td></tr>';
 h+='<tr><td>'+tr(["Maatzool (CMFO)","Custom insole (CMFO)"])+'</td><td>'+tr(["Pedorthist","Pedorthist"])+'</td><td>'+tr(["Voorschrift visite 1 \u00b7 aflevering visite 2 \u00b7 beide paren elk kwartaal","Prescribed at visit 1 \u00b7 delivered at visit 2 \u00b7 both pairs every quarter"])+'</td></tr>';
 h+='</tbody></table>';
-h+='<div class="note tip" style="margin-top:18px"><span class="lab">'+tr(["Twee co-primaire eindpunten","Two co-primary endpoints"])+'</span>'+tr(["(1) Voetulcus-recidief over 18 maanden en (2) schoeisel-adherentie (\u226580% van de waaktijd, 7 d/week; primair analysepunt op 12 maanden).","(1) Foot-ulcer recurrence over 18 months and (2) footwear adherence (\u226580% of waking hours, 7 d/week; primary analysis point at 12 months)."])+'</div>';
+h+='<div class="note tip" style="margin-top:18px"><span class="lab">'+tr(["Eindpunt en mediator","Endpoint and mediator"])+'</span>'+tr(["Primair eindpunt: voetulcus-recidief over 18 maanden. Mediator: schoeisel-adherentie (\u226580% van de waaktijd, 7 d/week; analysepunt op 12 maanden).","Primary endpoint: foot-ulcer recurrence over 18 months. Mediator: footwear adherence (\u226580% of waking hours, 7 d/week; analysis point at 12 months)."])+'</div>';
 return h;
 };
 window.POST=function(){wireFoot();wireCalc();};

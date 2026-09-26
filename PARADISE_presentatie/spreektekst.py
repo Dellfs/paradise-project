@@ -325,8 +325,8 @@ ZEG = {
         'staat op het voorschrift — u moet het herkennen, niet onthouden.',
 
     'Orthotimer instellen':
-        'Interval vijftien minuten, batterij ongeveer honderd dagen. Daarom leest '
-        'u elke drie maanden uit én vervangt u. Registreer het toestelnummer bij '
+        'Interval vijftien minuten; het geheugen houdt ongeveer honderd dagen bij. '
+        'Daarom leest u elke drie maanden uit, en vervangt u de sensor waar nodig. Registreer het toestelnummer bij '
         'elke wissel, anders is de draagtijd niet toewijsbaar.',
 
     'MoveMonitor instellen':

@@ -659,8 +659,10 @@ deze resultaten.
 
 ### Orthotimer
 Temperatuursensor, **9 × 13 × 4,5 mm**, stof- en waterdicht. Tijd, datum en temperatuur
-elke **15 minuten** in een ringbuffer. Batterij **100 dagen**; levensduur minstens
-20 maanden. In **beide** armen geplaatst; klinische integratie alleen in SEBIA.
+elke **15 minuten** in een ringbuffer. Geheugen voor **100 dagen** (ringbuffer): daarom elke drie maanden
+uitlezen, en vervangen waar nodig (eCRF 30 en 33). De batterij gaat minstens 18 maanden
+mee (Lutjeboer 2018; het protocol zegt minstens 20 maanden). Het protocol schrijft "100 days of
+battery capacity": dat is de opslagcapaciteit, niet de batterij (rechtgezet 25 september 2026). In **beide** armen geplaatst; klinische integratie alleen in SEBIA.
 
 **Instellingen (eCRF 25b):**
 
@@ -671,7 +673,7 @@ elke **15 minuten** in een ringbuffer. Batterij **100 dagen**; levensduur minste
 | Eenheid | Celsius |
 | Temperatuurbereik | 25 tot 38,5 °C |
 | Min. aaneengesloten uren | 0 |
-| **Uren per dag** | **per patiënt: 80% van diens gemiddelde actieve tijd uit het baseline-MoveMonitorprofiel (eCRF 28) — géén vaste waarde** |
+| **Uren per dag** | **per patiënt: 80% van diens gemiddelde waaktijd uit het baseline-MoveMonitorprofiel (eCRF 28) — géén vaste waarde** |
 | Patiëntnaam | voor- en achternaam = het deelnemersnummer |
 | Geboortedatum | 1/1/1999 (standaard) |
 | Geslacht | vrouwelijk (standaard), met opmerking "DOB and Gender are classified" |

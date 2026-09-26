@@ -388,7 +388,7 @@ SLIDES = [
                        "doelregio's.",
                        'Herhaald op maand 6, 12 en 18.']),
       twee=dict(nr='02', naam='En hij w\u00f3rdt gedragen',
-                kern='80% van het eigen activiteitenprofiel',
+                kern='80% van de eigen waaktijd',
                 regels=['Een sensor in de zool meet de draagtijd, continu.',
                         'Elke drie maanden uitgelezen en samen bekeken.',
                         'Vijf gesprekken die op die data steunen.']),
@@ -657,13 +657,13 @@ SLIDES = [
       kaarten=[dict(naam='Novel pedar', sub='Druk', groot='8', onder='voetregio\'s',
                     foto='pedar.png',
                     regels=['In de schoen, met de zool',
-                            'Zeroing voor elke meting',
+                            'Nulstellen: één keer per sessie',
                             'De F-Scan GO is een aparte meting van het studieteam'],
                     wie='Uw team meet'),
                dict(naam='Orthotimer', sub='Draagtijd', groot='15', onder='minuten',
                     foto='orthotimer.png',
                     regels=['In de zool, 9 × 13 × 4,5 mm',
-                            'Batterij 100 dagen'],
+                            'Geheugen 100 dagen'],
                     wie='Uw team meet'),
                dict(naam='MoveMonitor', sub='Activiteit', groot='7', onder='dagen',
                     foto='movemonitor.png', vlak='glas',
@@ -716,17 +716,17 @@ SLIDES = [
                     ('Eenheid', 'Celsius'),
                     ('Temperatuurbereik', '25 tot 38,5 °C'),
                     ('Min. aaneengesloten uren', '0'),
-                    ('Uren per dag', 'per patiënt · 80% van het actieve profiel')],
+                    ('Uren per dag', 'per patiënt · 80% van de waaktijd')],
       stappen=['Maak de patiënt aan: naam = het deelnemersnummer, geboortedatum '
-               '1/1/1900, geslacht vrouwelijk. Noteer in de opmerking dat die '
+               '1/1/1999, geslacht vrouwelijk. Noteer in de opmerking dat die '
                'twee geclassificeerd zijn.',
                'Wijs de groep toe: Usual care of Optimal care.',
                'Houd de pen op de O van het Orthotimer-logo tot de balk groen wordt.',
                'Activeer, en laat de sensor één testmeting doen: haal hem iets '
                'langer dan het interval van de lezer af.'],
       valkuil='De uren per dag zijn géén vast getal. Ze komen uit het '
-              'activiteitenprofiel van díé patiënt — 80% van zijn gemiddelde '
-              'actieve tijd. Zet u er een standaardwaarde in, dan meet u de '
+              'beweegpatroon van díé patiënt — 80% van zijn gemiddelde '
+              'waaktijd. Zet u er een standaardwaarde in, dan meet u de '
               'verkeerde norm.',
       tip='Dit is de dia waar de meeste vragen op komen. Neem de tijd voor de '
           'uren per dag: dat is de brug tussen de MoveMonitor en de Orthotimer.',

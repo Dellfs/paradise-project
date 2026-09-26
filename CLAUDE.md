@@ -89,8 +89,8 @@ Bron: FWO-TBM T000226N (+ doctoraatsplan). Bij twijfel: vragen, niet gokken.
   raadpleeg die vóór je iets over de pedar-procedure schrijft.
 - **MoveMonitor (McRoberts):** draagtijd + stappen, **volledige week** op baseline én 6 maanden;
   levert de **80%-adherentiebenchmark**. Dragen op de onderrug, **niet waterdicht**.
-- **Orthotimer:** temperatuursensor in de **CMFO**, interval **15 min**, ~100 dagen batterij →
-  **elke 3 maanden uitlezen + vervangen**. Framing naar patiënt: **"uw sensor"** (enkel temperatuur; geen GPS/geluid/camera).
+- **Orthotimer:** temperatuursensor in de **CMFO**, interval **15 min**, geheugen van ~100 dagen (ringbuffer; batterij minstens 18 maanden, Lutjeboer 2018) →
+  **elke 3 maanden uitlezen**, vervangen waar nodig (eCRF 30 en 33). Framing naar patiënt: **"uw sensor"** (enkel temperatuur; geen GPS/geluid/camera).
 
 ## Werkwijze & commando's (PowerShell)
 - **Lokaal bekijken:** open de map in VS Code en gebruik de **Live Server**-extensie
