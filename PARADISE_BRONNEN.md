@@ -336,6 +336,12 @@ Uit de acht worden er **drie** aangeduid die ontlast moeten worden: de regio met
 **voorgeschiedenis van voetzweer**, plus één of twee regio's met de **hoogste piekdruk**.
 Die drie worden vastgelegd en de norm wordt **per doelregio** getoetst.
 
+> **Minder dan twee regio's boven 200 kPa (beslist door de coördinerend onderzoeker op
+> 26 september 2026).** Dan duidt u er minder aan: de vorige voetzweer plus de regio's
+> die wél boven 200 kPa liggen, dus hoogstens drie per voet. De Pressure Monitoring Tool
+> en eCRF 24b deden dat al (een regio wordt pas doelregio boven 200 kPa). Doorgevoerd in
+> 09b, eCRF 09 en 24 (alle kopieën), de REDCap-kop, het manuscript en het opleidingsdeck.
+
 > **Werkwijze tot de segmentatie er is (beslist 11 september 2026).** Novel studio kan de
 > zool niet in regio's verdelen; er is alleen het aan- en uitzetten van losse sensorcellen.
 > Tot dat opgelost is werkt de clinicus **visueel**: het hoogste niveau van het
@@ -673,7 +679,7 @@ battery capacity": dat is de opslagcapaciteit, niet de batterij (rechtgezet 25 s
 | Eenheid | Celsius |
 | Temperatuurbereik | 25 tot 38,5 °C |
 | Min. aaneengesloten uren | 0 |
-| **Uren per dag** | **per patiënt: 80% van diens gemiddelde waaktijd uit het baseline-MoveMonitorprofiel (eCRF 28) — géén vaste waarde** |
+| **Uren per dag** | **per patiënt, in beide armen: 80% van diens gemiddelde waaktijd uit het baseline-MoveMonitorrapport, gelezen met de draagtijdtool (stap 1); in Optimal Care ook op eCRF 28 — géén vaste waarde** |
 | Patiëntnaam | voor- en achternaam = het deelnemersnummer |
 | Geboortedatum | 1/1/1999 (standaard) |
 | Geslacht | vrouwelijk (standaard), met opmerking "DOB and Gender are classified" |
@@ -1105,6 +1111,15 @@ installatiegids), met een kopie in `Site\Novel Pedar\`.
    er bericht over volgt.
 
 14. **Het draagdoel: beslist op 17 augustus 2026 — de waaktijd.**
+
+    **Aangevuld op 26 september 2026:** de waaktijd wordt in béíde armen bepaald door het
+    MoveMonitorrapport in de draagtijdtool te laden (stap 1); zo krijgt ook Usual Care een
+    eigen Hours/day in de Orthotimer, zonder eCRF 28. Het rapport is klaar tegen visite 2:
+    de deelnemer draagt de MoveMonitor maar één week.
+    De 80%-drempel komt uit DIAFOS (Bus et al., Diabetes Care 2013;36:4109, met Arts als
+    co-auteur) en Waaijman et al. (Diabetes Care 2013;36:1613): daar zeven dagen gemeten met
+    een temperatuurmonitor in de schoen en een stappenteller aan de enkel, en uitgedrukt als
+    percentage van de stappen. PARADISE past dezelfde drempel toe op de waaktijd (zie hieronder).
 
     **Beslissing van de PI:** het draagdoel is de **waaktijd, de tijd tussen de
     twee nachten**, uit het baseline-MoveMonitorprofiel. 80% daarvan is de norm,
