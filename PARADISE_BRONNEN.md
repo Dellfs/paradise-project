@@ -136,6 +136,11 @@ op de site. Dat maakt de term "academic staff" in het manuscript overbodig.
 De **novel database** is hier iets anders: die blijft het meetarchief waaruit de meting
 gestart wordt, per centrum lokaal. REDCap bevat de eCRF-gegevens, novel de metingen.
 
+**Bewaartermijn: 25 jaar**, afgetoetst met het Clinical Trial Center van UZ Leuven
+(bevestigd door de coördinerend onderzoeker, 28 september 2026). Zo staat het in het
+protocol en in de toestemmingsformulieren 02, 04 en 05. Het manuscript zei "at least
+fifteen years" en is rechtgezet.
+
 ---
 
 ## 3. Geschiktheid (§4.1)
@@ -187,7 +192,14 @@ gestart wordt, per centrum lokaal. REDCap bevat de eCRF-gegevens, novel de metin
    behandelende arts
 7. Niet in staat toestemming te geven of de studie-instructies te volgen
 8. Hulpmiddelen die het aanbrengen van druksensoren beperken (bv. enkel-voetorthese)
-9. Weigert het voorgeschreven beschermend schoeisel te dragen
+9. Weigert het voorgeschreven beschermend schoeisel te dragen, of weigert de draagsensor
+   (Orthotimer) in de voetorthese
+
+> **De draagsensor weigeren is een exclusie (bevestigd door de coördinerend onderzoeker,
+> 28 september 2026).** Zonder de Orthotimer kan de therapietrouw niet gemeten en het
+> draagdoel niet nagegaan worden. Ondergebracht bij criterium 9, zodat het er negen blijven.
+> Doorgevoerd in eCRF 01 en 06 (alle kopieën), REDCap (`e01_e9`, `elcr_inclusion`),
+> protocol §4.1 en synopsis, het manuscript en de opleidingsdecks.
 
 > **Beslissing van de PI (10 september 2026) — waar de grens ligt.** Het enige
 > amputatiecriterium is **anatomisch**: alles **proximaal van de metatarsaalkoppen** is
@@ -1184,3 +1196,8 @@ De volgende vier kwamen op 14 augustus 2026 uit het manuscript.
 13. **Nog in te vullen in het manuscript** (staat er als ▮): registratienummer en
     registratiedatum, de startdatum van de rekrutering, de PPI-paragraaf, de rol van de
     financier, belangenconflicten, auteursbijdragen en dankwoord.
+15. **Manuscript rechtgezet op 28 september 2026.** MoveMonitor op baseline en maand 6
+    (er stond maand 12); van Netten 2025 correct weergegeven: het programma verhoogde de
+    draagtijd na drie maanden niet significant, alleen het binnenschoeisel deed dat; de
+    bewaartermijn is 25 jaar; en wie de draagsensor weigert, is uitgesloten. Referentie
+    (43) stond achter de vijftien jaar: nakijken of ze de 25 jaar nog draagt.

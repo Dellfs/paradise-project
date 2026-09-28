@@ -507,8 +507,8 @@ SLIDES = [
                  items=['Volwassen, begrijpt Nederlands',
                         'Diabetes type 1 of 2',
                         'Risicocategorie 3 met genezen plantair ulcus, partiële '
-                        'amputatie of resectie van een metatarsaalkop — niet de '
-                        'eerste — tussen 18 maanden en 2 weken geleden',
+                        'amputatie of resectie van een metatarsaalkop — de eerste '
+                        'inbegrepen — tussen 18 maanden en 2 weken geleden',
                         'Stapt zelfstandig blootsvoets, zonder hulpmiddelen',
                         'Heeft beschermend schoeisel, of aanvaardt het: volledig '
                         'maatwerk, of maatzolen in semi-orthopedisch of '
@@ -522,9 +522,9 @@ SLIDES = [
                          'Overleving < 18 maanden, beoordeeld door de arts',
                          'Kan geen toestemming geven of instructies volgen',
                          'Hulpmiddel dat druksensoren belemmert, bv. een EVO',
-                         'Weigert het voorgeschreven schoeisel te dragen']),
-      tip='Twee criteria worden het vaakst gemist: de resectie mag niet de eerste '
-          'metatarsaalkop betreffen, en een enkel-voetorthese sluit uit omdat de '
+                         'Weigert het voorgeschreven schoeisel of de draagsensor']),
+      tip='Twee criteria worden het vaakst gemist: een resectie van de eerste '
+          'metatarsaalkop komt wél in aanmerking, en een enkel-voetorthese sluit uit omdat de '
           'sensoren er niet in passen.',
       interactie='Vraag per criterium of het in hun patiëntenbestand vaak voorkomt.'),
 

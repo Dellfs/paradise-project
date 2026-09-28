@@ -328,10 +328,10 @@ NL_EN = {
     'Volwassen, begrijpt Nederlands': 'Adult, understands Dutch',
     'Diabetes type 1 of 2': 'Diabetes type 1 or 2',
     'Risicocategorie 3 volgens IWGDF: genezen plantair ulcus, partiële '
-    'amputatie of resectie van een metatarsaalkop — niet de eerste — tussen 18 '
+    'amputatie of resectie van een metatarsaalkop — de eerste inbegrepen — tussen 18 '
     'maanden en 2 weken geleden':
         'IWGDF risk category 3: healed plantar ulcer, or partial amputation or '
-        'resection of a metatarsal head — not the first — between 18 months '
+        'resection of a metatarsal head — the first included — between 18 months '
         'and 2 weeks ago',
     'Stapt zelfstandig blootsvoets, zonder hulpmiddelen':
         'Walks barefoot independently, without walking aids',
@@ -352,8 +352,8 @@ NL_EN = {
         'Unable to consent or to follow instructions',
     'Hulpmiddel dat druksensoren belemmert, bv. een EVO':
         'A device preventing sensor application, e.g. an ankle-foot orthosis',
-    'Weigert het voorgeschreven schoeisel te dragen':
-        'Declines the prescribed footwear',
+    'Weigert het voorgeschreven schoeisel of de draagsensor':
+        'Declines the prescribed footwear or the wear-time sensor',
 
     'Terug naar het geheel': 'Back to the whole',
     'contactmomenten, één zorgpad': 'contacts, one care pathway',
@@ -637,10 +637,10 @@ NL_EN = {
         'Eight regions via Multimask · heel and medial and lateral midfoot fall '
         'outside the frame',
     'Risicocategorie 3 met genezen plantair ulcus, partiële amputatie of '
-    'resectie van een metatarsaalkop — niet de eerste — tussen 18 maanden en 2 '
+    'resectie van een metatarsaalkop — de eerste inbegrepen — tussen 18 maanden en 2 '
     'weken geleden':
         'IWGDF risk category 3 with a healed plantar ulcer, or partial '
-        'amputation or resection of a metatarsal head — not the first — between '
+        'amputation or resection of a metatarsal head — the first included — between '
         '18 months and 2 weeks ago',
     'Toont wat het schoeisel alleen doet. Dit is de vergelijking die laat zien '
     'of de zool iets toevoegt.':
