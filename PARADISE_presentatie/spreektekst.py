@@ -388,7 +388,7 @@ ZEG = {
     # ------------------------------------------------------------- afronding
     'Voorvallen en afwijkingen':
         'Wat u meldt, en hoe snel. Een nieuw ulcus is de primaire uitkomst, dus '
-        'dat meldt u altijd. Ernstige voorvallen binnen vierentwintig uur na '
+        'dat meldt u altijd. Ernstige voorvallen binnen tweeënzeventig uur na '
         'kennisname. En onthoud dit: een afwijking die u meldt is een gegeven, '
         'een afwijking die u niet meldt is een fout in de data van de hele '
         'studie.',

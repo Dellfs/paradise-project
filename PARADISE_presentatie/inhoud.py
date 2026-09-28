@@ -907,7 +907,7 @@ SLIDES = [
       rijen=[('Nieuw ulcus', 'Ulcus-vervolgformulier plus PEDIS- en WIfI-classificatie. '
                              'Dit is de primaire uitkomst — meld het altijd.', '47 · 36 · 38'),
              ('Ongewenst voorval', 'AE-SAE-formulier. Ernstige voorvallen binnen '
-                                   '24 uur na kennisname.', '46'),
+                                   '72 uur na kennisname.', '46'),
              ('Protocolafwijking', 'Melden zoals ze gebeurd is. Wordt geregistreerd, '
                                    'niet afgestraft.', '—'),
              ('Toestel defect', 'Vervangingsformulier, met het oude en het nieuwe '
