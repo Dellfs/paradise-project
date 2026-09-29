@@ -25,6 +25,7 @@ arm_num,arm_name,event_label,unique_event_name,day_offset,offset_min,offset_max,
 2,Optimal Care,Visite 7,visite_7_arm_2,456,14,14,nee
 2,Optimal Care,Visite 8,visite_8_arm_2,547,14,14,nee
 2,Optimal Care,Dagboek,dagboek_arm_2,14,14,14,ja
+2,Optimal Care,Dagboek therapeut,dagboek_therapeut_arm_2,0,0,0,ja
 2,Optimal Care,Ulcus,ulcus_arm_2,0,0,0,ja
 2,Optimal Care,AE SAE,ae_sae_arm_2,0,0,0,ja
 2,Optimal Care,Deviatie,deviatie_arm_2,0,0,0,ja

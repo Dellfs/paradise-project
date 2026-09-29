@@ -100,6 +100,7 @@ arm_num	unique_event_name	form
 2	ae_sae_arm_2	ae_sae_form_imd_within_ce_label
 2	ae_sae_arm_2	device_deficiency_dd_form
 2	dagboek_arm_2	e45a_dagboek_2wk
+2	dagboek_therapeut_arm_2	e40_dagboek_therapeut
 2	deviatie_arm_2	deviation_serious_breach_log_capa
 2	einde_arm_2	end_of_trial
 2	screening_arm_2	e01_screening

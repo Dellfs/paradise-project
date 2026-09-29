@@ -35,6 +35,7 @@ e34_imcq,eCRF 34b Medische consumptie (iMCQ),34b,beide
 e35_ipcq,eCRF 35b Productiviteit (iPCQ),35b,beide
 e36_pedis,eCRF 36 Classificatie ulcus (PEDIS),36,beide
 e38_wifi,eCRF 38 Classificatie ulcus (WIfI),38,beide
+e40_dagboek_therapeut,eCRF 40 Gestructureerd dagboek therapeut,40,Optimal Care
 e45_dagboek_baseline,"eCRF 45 Gezondheidseconomisch dagboek, baseline",45,beide
 e45a_dagboek_2wk,"eCRF 45a Dagboek, tweewekelijks",45a,beide
 e45b_dagboek_3mnd,"eCRF 45b Dagboek, driemaandelijks",45b,beide
