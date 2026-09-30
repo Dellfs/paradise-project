@@ -87,8 +87,11 @@ Bron: FWO-TBM T000226N (+ doctoraatsplan). Bij twijfel: vragen, niet gokken.
   centraal in de **novel database** (`creation of any and percent masks` + `multimask`/`groupmask`).
   De volledige werkwijze staat in **eCRF 09b — Werkinstructie drukmeting (SOP Novel pedar)**;
   raadpleeg die vóór je iets over de pedar-procedure schrijft.
-- **MoveMonitor (McRoberts):** draagtijd + stappen, **volledige week** op baseline én 6 maanden;
-  levert de **80%-adherentiebenchmark**. Dragen op de onderrug, **niet waterdicht**.
+- **MoveMonitor (McRoberts):** **één volledige week, alleen bij de start** (baseline): bepaalt de slaaptijd en dus
+  de **geïndividualiseerde waaktijd**; **80% van die waaktijd** is de draagnorm (de 80%-adherentiebenchmark).
+  De meetweek op maand 6 en het uitlezen een week later **vervallen** (beslissing 30 september 2026).
+  Educatie: "u draagt uw schoenen altijd, van het moment dat u opstaat tot u gaat slapen".
+  Dragen op de onderrug, **niet waterdicht**.
 - **Orthotimer:** temperatuursensor in de **CMFO**, interval **15 min**, geheugen van ~100 dagen (ringbuffer; batterij minstens 18 maanden, Lutjeboer 2018) →
   **elke 3 maanden uitlezen**, vervangen waar nodig (eCRF 30 en 33). Framing naar patiënt: **"uw sensor"** (enkel temperatuur; geen GPS/geluid/camera).
 

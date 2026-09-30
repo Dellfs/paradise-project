@@ -227,7 +227,8 @@ fifteen years" en is rechtgezet.
 
 **Beide armen krijgen** een drukherverdelende CMFO met dezelfde opbouw, driemaandelijkse
 voetzorg en screening door een podoloog in de DFC, een Orthotimer in de zool en een week
-MoveMonitor op baseline en op 6 maanden.
+MoveMonitor bij de start (baseline). De meetweek op 6 maanden vervalt (beslissing 30 september 2026,
+zie §7).
 
 **Het verschil is wat er met de meting gebeurt.** In Usual Care wordt de mate van
 ontlasting **niet** in de klinische besluitvorming betrokken, en is de educatie zoals ze
@@ -702,8 +703,19 @@ Activeren: pen op de **O** van het Orthotimer-logo tot de balk groen wordt, dan
 de lezer afhalen.
 
 ### MoveMonitor (McRoberts DynaPort)
-Draagtijd en stappen, **volledige week op baseline én op 6 maanden**, in beide armen.
+**Eén volledige week, alleen bij de start (baseline)**, in beide armen. Daaruit volgt de slaaptijd
+en dus de **geïndividualiseerde waaktijd**; 80% daarvan is de draagnorm.
 Gedragen **om het middel ter hoogte van wervel L5**. **Niet waterdicht.**
+
+> **Beslissing 30 september 2026 (coördinerend onderzoeker).** De MoveMonitor dient alleen nog
+> bij de start, om de slaaptijd en dus de waaktijd te bepalen. De meetweek op 6 maanden en het
+> uitlezen een week later **vervallen**: minder werk en haalbaarder voor de centra. REDCap
+> (e20 en e27 niet meer op visite 4), de eCRF-map van visite 4, de presentaties en de website zijn
+> gelijkgezet; het protocol en het manuscript volgen na akkoord over de tekst. Educatieve
+> boodschap aan de patiënt: **"u draagt uw schoenen altijd, van het moment dat u opstaat tot u gaat
+> slapen."** Dia 71 van de consortiummeeting (1 april) rekende 1 u voor het uitlezen op maand 6 +
+> 1 week; per visite blijft dan 16 u in Optimal Care en 9 u in Usual Care. Of de betaling van 17 u en
+> 10 u blijft, beslist Kevin Deschamps.
 
 **Instellingen (eCRF 19b):**
 
@@ -1103,8 +1115,9 @@ installatiegids), met een kopie in `Site\Novel Pedar\`.
    De **trublu-kalibratie staat er bewust niet in**: die doet het studieteam zelf, en 09b
    is de werkinstructie vóór de clinici. Zie §7. Bevestigd door de coördinerend
    onderzoeker op 22 september 2026.
-4. **De tweede MoveMonitorweek op 6 maanden** staat in §3.2.2.2 en §5.4.5, maar niet in
-   de opsomming van visites 3-8 (§5.5.4). Toevoegen aan de bezoekbeschrijving.
+4. **De tweede MoveMonitorweek op 6 maanden** stond in §3.2.2.2 en §5.4.5, maar niet in
+   de opsomming van visites 3-8 (§5.5.4). **Opgelost op 30 september 2026:** de week op 6
+   maanden vervalt; §3.2.2.2 en §5.4.5 worden daarop aangepast (zie §7).
 5. **De slijtageschaal (wear-and-tear, Dahmen)** staat als secundaire uitkomst, maar er
    is geen eCRF-document dat die scoort. Nagaan of dat in 13 of 33 zit of ontbreekt.
 6. **Twee eCRF-sets met verschillende nummering** (zie §13). De veroudering is op
@@ -1197,7 +1210,7 @@ De volgende vier kwamen op 14 augustus 2026 uit het manuscript.
     registratiedatum, de startdatum van de rekrutering, de PPI-paragraaf, de rol van de
     financier, belangenconflicten, auteursbijdragen en dankwoord.
 15. **Manuscript rechtgezet op 28 september 2026.** MoveMonitor op baseline en maand 6
-    (er stond maand 12); van Netten 2025 correct weergegeven: het programma verhoogde de
+    (er stond maand 12; sinds 30 september 2026 alleen nog baseline, zie §7); van Netten 2025 correct weergegeven: het programma verhoogde de
     draagtijd na drie maanden niet significant, alleen het binnenschoeisel deed dat; de
     bewaartermijn is 25 jaar; en wie de draagsensor weigert, is uitgesloten. Referentie
     (43) stond achter de vijftien jaar: nakijken of ze de 25 jaar nog draagt.

@@ -43,11 +43,9 @@ arm_num,unique_event_name,form
 1,visite_3_arm_1,visit
 1,visite_4_arm_1,concomitant_therapy
 1,visite_4_arm_1,e08_voet_schoeisel
-1,visite_4_arm_1,e20_udi_movemonitor
 1,visite_4_arm_1,e21_eq5d5l
 1,visite_4_arm_1,e24_drukmeting_uc
 1,visite_4_arm_1,e25_udi_orthotimer
-1,visite_4_arm_1,e27_udi_movemonitor_retour
 1,visite_4_arm_1,e31_therapietrouw
 1,visite_4_arm_1,e33_vervanging
 1,visite_4_arm_1,e34_imcq
@@ -146,11 +144,9 @@ arm_num,unique_event_name,form
 2,visite_3_arm_2,visit
 2,visite_4_arm_2,concomitant_therapy
 2,visite_4_arm_2,e08_voet_schoeisel
-2,visite_4_arm_2,e20_udi_movemonitor
 2,visite_4_arm_2,e21_eq5d5l
 2,visite_4_arm_2,e24_drukherverdeling_oc
 2,visite_4_arm_2,e25_udi_orthotimer
-2,visite_4_arm_2,e27_udi_movemonitor_retour
 2,visite_4_arm_2,e31_therapietrouw
 2,visite_4_arm_2,e32_feedback_therapietrouw
 2,visite_4_arm_2,e33_vervanging
