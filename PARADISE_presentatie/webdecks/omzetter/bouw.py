@@ -289,7 +289,8 @@ def wipe(slide, vormen):
     """Laat elke grafiek bij het openen van de dia vanzelf binnenschuiven (wipe), de een na de ander."""
     if not vormen:
         return
-    filters = {'onder': ('4', 'wipe(up)'), 'links': ('8', 'wipe(right)')}
+    # richting -> (preset, subtype, filter, duur): wipe voor grafieken, vervagen voor labels bij een grafiek
+    filters = {'onder': ('22', '4', 'wipe(up)', 1400), 'links': ('22', '8', 'wipe(right)', 1400), 'vervaag': ('10', '0', 'fade', 500)}
     n = [3]
 
     def nid():
@@ -298,20 +299,21 @@ def wipe(slide, vormen):
 
     effecten = []
     for k, (vorm, richting) in enumerate(vormen):
-        sub, filt = filters[richting]
+        preset, sub, filt, duur = filters[richting]
         spid = vorm.shape_id
         a, b, c = nid(), nid(), nid()
         effecten.append(
-            f'<p:par><p:cTn id="{a}" presetID="22" presetClass="entr" presetSubtype="{sub}" fill="hold" grpId="0" '
+            f'<p:par><p:cTn id="{a}" presetID="{preset}" presetClass="entr" presetSubtype="{sub}" fill="hold" grpId="0" '
             f'nodeType="{"afterEffect" if k else "afterEffect"}"><p:stCondLst><p:cond delay="{0 if k == 0 else 200}"/></p:stCondLst><p:childTnLst>'
             f'<p:set><p:cBhvr><p:cTn id="{b}" dur="1" fill="hold"><p:stCondLst><p:cond delay="0"/></p:stCondLst></p:cTn>'
             f'<p:tgtEl><p:spTgt spid="{spid}"/></p:tgtEl><p:attrNameLst><p:attrName>style.visibility</p:attrName></p:attrNameLst>'
             f'</p:cBhvr><p:to><p:strVal val="visible"/></p:to></p:set>'
-            f'<p:animEffect transition="in" filter="{filt}"><p:cBhvr><p:cTn id="{c}" dur="1400"/>'
+            f'<p:animEffect transition="in" filter="{filt}"><p:cBhvr><p:cTn id="{c}" dur="{duur}"/>'
             f'<p:tgtEl><p:spTgt spid="{spid}"/></p:tgtEl></p:cBhvr></p:animEffect></p:childTnLst></p:cTn></p:par>')
     groep = ''.join(f'<p:par><p:cTn id="{nid()}" fill="hold"><p:stCondLst><p:cond delay="0"/></p:stCondLst>'
                     f'<p:childTnLst>{ef}</p:childTnLst></p:cTn></p:par>' for ef in effecten)
-    bld = ''.join(f'<p:bldGraphic spid="{v.shape_id}" grpId="0"><p:bldAsOne/></p:bldGraphic>' for v, _ in vormen)
+    bld = ''.join(f'<p:bldGraphic spid="{v.shape_id}" grpId="0"><p:bldAsOne/></p:bldGraphic>' if getattr(v, 'has_chart', False)
+                  else f'<p:bldP spid="{v.shape_id}" grpId="0" animBg="1"/>' for v, _ in vormen)
     xml = (f'<p:timing xmlns:p="{P}"><p:tnLst><p:par><p:cTn id="1" dur="indefinite" restart="never" nodeType="tmRoot"><p:childTnLst>'
            f'<p:seq concurrent="1" nextAc="seek"><p:cTn id="2" dur="indefinite" nodeType="mainSeq"><p:childTnLst>'
            f'<p:par><p:cTn id="3" fill="hold"><p:stCondLst><p:cond delay="indefinite"/><p:cond evt="onBegin" delay="0">'
