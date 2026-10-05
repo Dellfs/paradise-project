@@ -706,7 +706,8 @@ function render(model){
   document.getElementById('hExport').innerHTML = 'Orthotimer · uitgelezen '+(ed?fmtShort(ed):'—');
   document.getElementById('metaStrip').innerHTML =
     '<strong>Gegenereerd uit Orthotimer-export</strong> · chip '+(serial||'—')+
-    ' · '+days.length+' meetdagen · doel '+nf(goal)+' u/dag'+(ed?(' · uitgelezen '+fmtShort(ed)):'');
+    ' · '+days.length+' meetdagen · waaktijd '+nf(goal)+' u/dag · norm '+nf(norm)+' u/dag'+
+    ' · <strong>'+Math.round(mean/norm*100)+'% van de norm</strong> (eCRF 32)'+(ed?(' · uitgelezen '+fmtShort(ed)):'');
 
   // ---- score ----
   const lvl = pct>=80?'ok':pct>=60?'mid':'low';

@@ -75,17 +75,9 @@
   .status-pill{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;border-radius:var(--radius-pill);padding:3px 11px;margin-top:var(--space-2);}
   .status-pill.done{background:var(--color-surface-muted);color:#1c5a3a;}
   .status-pill.pending{background:var(--paper);color:var(--muted);border:1.5px dashed var(--line);}
-  .combo-report{border:1.5px solid var(--teal);cursor:default;}
-  .combo-done{display:inline-block;font-size:.72rem;font-weight:700;color:#1c5a3a;background:var(--color-surface-muted);border-radius:var(--radius-pill);padding:3px 11px;margin-bottom:var(--space-2);}
-  .combo-report h3{font-family:var(--font-h);font-weight:400;font-size:var(--step-1);color:var(--navy);margin:0 0 var(--space-2);}
-  .combo-score{font-family:var(--font-h);font-size:var(--step-4);font-weight:400;line-height:1;margin:var(--space-2) 0;}
-  .combo-score.good{color:#2E7D32;}
-  .combo-score.mid{color:var(--orange);}
-  .combo-score.low{color:#C0392B;}
-  .combo-actions{margin-top:var(--space-4);}
   @media(max-width:680px){.visit-grid{grid-template-columns:1fr;}}
   @media print{
-    .tb-actions,.topbar .sub,#stageSelect,.step-action,.combo-actions{display:none!important;}
+    .tb-actions,.topbar .sub,#stageSelect,.step-action{display:none!important;}
     body{background:#fff;}
     .step{break-inside:avoid;}
     .step-note{border:1px solid #999;background:#fff;color:#000;}
@@ -128,20 +120,12 @@ function armHTML(step){
   return "";
 }
 
-function fuSteps(p, opts){
-  opts = opts || {};
+function fuSteps(p){
   var steps = [
     {id:p+"-08", ecrf:"eCRF-Document 08", title:"Voet- en schoeiselscreening", desc:"Voeten en schoeisel screenen.", tag:"meting"},
-    {id:p+"-31", ecrf:"eCRF-Document 31", title:"Schoeiseladherentie bevragen", desc:"Patiënt bevragen over de therapietrouw m.b.t. het schoeisel.", tag:"vragenlijst"}
+    {id:p+"-31", ecrf:"eCRF-Document 31", title:"Schoeiseladherentie bevragen", desc:"Patiënt bevragen over de therapietrouw m.b.t. het schoeisel.", tag:"vragenlijst"},
+    {id:p+"-25", ecrf:"eCRF-Document 25", title:"Draagsensor uitlezen", desc:"Orthotimer-sensor uitlezen met de draagtijdtool. Vul als draagdoel de waaktijd van de baseline in (eCRF 28), niet de norm: de tool past de 80% zelf toe, één keer. Die waaktijd blijft de hele studie dezelfde.", tag:"device", action:"orthotimer"}
   ];
-  if(opts.comboAtEnd){
-    steps.push({id:p+"-combo", ecrf:"eCRF-Document 19, 20, 25, 27", combo:true,
-      title:"Draagpatroon + beweegpatroon verwerken (6 maanden)",
-      desc:"Enkel op maand 6: MoveMonitor opnieuw uitreiken/uitlezen én de Orthotimer-sensor uitlezen. Verwerk beide in deze volgorde — het draagdoel wordt automatisch voorgesteld op basis van het beweegpatroon en het gezamenlijk feedbackdocument verschijnt hieronder zodra beide klaar zijn.",
-      tag:"device"});
-  } else {
-    steps.push({id:p+"-25", ecrf:"eCRF-Document 25", title:"Draagsensor uitlezen", desc:"Orthotimer-sensor uitlezen. Het draagdoel wordt automatisch voorgesteld indien er recent een beweegpatroon (McRoberts) werd verwerkt.", tag:"device", action:"orthotimer"});
-  }
   steps.push(
     {id:p+"-32", ecrf:"eCRF-Document 32", arm:"oc", title:"Feedback therapietrouw geven", desc:"Feedback geven aan de patiënt op basis van de adherentiemonitoring.", tag:"sebia"},
     {id:p+"-33", ecrf:"eCRF-Document 33", title:"CMFO en sensor vervangen", desc:"Diabetic CMFO en compliance-sensor vervangen.", tag:"device"},
@@ -198,7 +182,7 @@ var VISITS = {
       {id:"v2-23", ecrf:"eCRF-Document 23", title:"Diabetic CMFO afleveren", desc:"Patiënt ontvangt de custom-made foot orthosis; aanpassing en verificatie registreren.", tag:"device"},
       {id:"v2-24oc", ecrf:"eCRF-Document 24", arm:"oc", title:"Drukherverdeling CMFO beoordelen", desc:"Beoordelen t.o.v. baseline; verdere verbetering nastreven bij piekdruk boven 200 kPa of indien het onderzoeksteam/pedorthist dit haalbaar acht. Doel: piekdruk ≥25% reductie t.o.v. baseline óf een absolute waarde onder 200 kPa.", tag:"meting"},
       {id:"v2-24uc", ecrf:"eCRF-Document 24", arm:"uc", title:"Plantaire drukmeting (geblindeerd)", desc:"Dezelfde in-shoe meting, maar de resultaten worden niet getoond en niet besproken met de deelnemer of de behandelaar, en sturen de zorg niet bij.", tag:"meting"},
-      {id:"v2-25", ecrf:"eCRF-Document 25", title:"Draagsensor (Orthotimer) integreren in CMFO", desc:"Compliance-sensor in de CMFO integreren; UDI registreren.", tag:"device"},
+      {id:"v2-25", ecrf:"eCRF-Document 25", title:"Draagsensor (Orthotimer) integreren in CMFO", desc:"Compliance-sensor in de CMFO integreren; UDI registreren. Bij Hours/day de norm invullen: 80% van de waaktijd uit het beweegpatroon (eCRF 28; in Usual Care via stap 1 van de draagtijdtool). Verwerk daarom eerst de MoveMonitor (eCRF 27).", tag:"device"},
       {id:"v2-26", ecrf:"eCRF-Document 26", title:"Overtuigingen en gewoontes rond schoeisel bevragen", desc:"Persoonlijke overtuigingen, emoties, dagelijkse routines en geloofwaardigheid t.a.v. het schoeisel bevragen.", tag:"vragenlijst"},
       {id:"v2-27", ecrf:"eCRF-Document 27", title:"MoveMonitor terugnemen", desc:"Patiënt levert de fysieke-activiteitsmonitor terug in; UDI registreren.", tag:"device", action:"mcroberts"},
       {id:"v2-28", ecrf:"eCRF-Document 28", arm:"oc", title:"SEBIA stap 2 — Activiteitsprofiel en feedback", desc:"Podotherapeut beoordeelt het fysieke-activiteitsprofiel en geeft persoonlijke feedback.", tag:"sebia"},
@@ -207,7 +191,7 @@ var VISITS = {
     ]
   },
   v3: { key:"v3", label:"V3 · Follow-up (maand 3)", intro:"Regulier opvolgbezoek, 3 maanden na start.", steps: fuSteps("v3") },
-  v4: { key:"v4", label:"V4 · Major follow-up (maand 6)", intro:"Uitgebreid opvolgbezoek: extra drukcontrole én herhaalde MoveMonitor-meting.", steps: fuSteps("v4", {comboAtEnd:true}).concat(pressureRecheck("v4")) },
+  v4: { key:"v4", label:"V4 · Major follow-up (maand 6)", intro:"Uitgebreid opvolgbezoek met extra drukcontrole. De MoveMonitor gaat niet meer mee: de waaktijd van de baseline blijft de noemer.", steps: fuSteps("v4").concat(pressureRecheck("v4")) },
   v5: { key:"v5", label:"V5 · Follow-up (maand 9)", intro:"Regulier opvolgbezoek.", steps: fuSteps("v5") },
   v6: { key:"v6", label:"V6 · Major follow-up (maand 12)", intro:"Uitgebreid opvolgbezoek met extra drukcontrole.", steps: fuSteps("v6").concat(pressureRecheck("v6")) },
   v7: { key:"v7", label:"V7 · Follow-up (maand 15)", intro:"Regulier opvolgbezoek.", steps: fuSteps("v7") },
@@ -240,7 +224,7 @@ var CARE_ARMS = {
 var STORE_KEY = "pvc_state";
 var ENCOUNTER_KEY = "pvc_encounter_id";
 var MAX_SUMMARY_AGE_MS = 4 * 60 * 60 * 1000; // 4 u — een toestelrapport ouder dan dit wordt als verlopen behandeld
-var APP_VERSION = "1.1.0";
+var APP_VERSION = "1.2.0";
 
 // Test-write i.p.v. try/catch her en der verspreiden: als localStorage geblokkeerd is
 // (bv. privénavigatie) toont render() een duidelijke melding i.p.v. de app stil te laten
@@ -325,7 +309,6 @@ function currentSteps(){
 }
 
 function isStepDone(s){
-  if(s.combo) return !!(currentSummary("pvc_wear_summary") && currentSummary("pvc_activity_summary"));
   return !!state.checked[s.id];
 }
 
@@ -395,67 +378,31 @@ function visitSelectHTML(){
     '<p class="privacy-note">Het aanvinken en de notities zijn enkel een geheugensteun voor uzelf tijdens dit consult — er wordt niets verzonden en er worden geen patiëntgegevens bewaard. Vul in de notities geen naam of patiëntnummer in. "Nieuwe visite starten" wist deze aftekening en notities.</p>';
 }
 
+// De draagtijdtool rekent op de waaktijd (draaguren ÷ waaktijd); eCRF 32 vraagt het
+// percentage van de norm (draaguren ÷ 80% van de waaktijd). Beide tonen, zodat niemand
+// het ene getal in het vak van het andere schrijft.
+function orthotimerDetail(s){
+  var tekst = nf1(s.meanWearHours) + " u/dag · " + s.pct + "% van de waaktijd";
+  if(s.goalHours > 0){
+    var normPct = Math.round(s.meanWearHours / (0.8 * s.goalHours) * 100);
+    tekst += " · " + normPct + "% van de norm (eCRF 32) · norm " + (s.meanWearHours >= 0.8 * s.goalHours ? "gehaald" : "niet gehaald");
+  }
+  return tekst;
+}
+
 function actionStatusHTML(actionKey){
   var action = ACTIONS[actionKey];
   if(!action || !action.summaryKey) return "";
   var summary = currentSummary(action.summaryKey);
   if(!summary) return '<span class="status-pill pending">Nog niet verwerkt</span>';
   var detail = actionKey === "orthotimer"
-    ? summary.pct + "% van doel · " + nf1(summary.meanWearHours) + " u/dag"
+    ? orthotimerDetail(summary)
     : (summary.avgWakeHours ? "waaktijd " + nf1(summary.avgWakeHours) + " u/dag"
                             : "waaktijd niet af te leiden");
   return '<span class="status-pill done">✓ Verwerkt ' + fmtDate(summary.savedAt) + " · " + detail + '</span>';
 }
 
-function comboScoreBlock(wear, activity){
-  // Noemer is de waaktijd: beide toestellen tellen per kalenderdag, dus dit is
-  // een toetsbare verhouding. De begrenzing op 100% vangt meetruis op; met de
-  // waaktijd als noemer kan draagtijd de noemer niet echt overschrijden.
-  var wakker = activity.avgWakeHours;
-  if(!(wakker > 0)) return '<div class="combo-done">✓ Beide verwerkt</div>' +
-    '<h3>Gezamenlijk feedbackdocument — schoeiseladherentie</h3>' +
-    '<p class="step-desc">De waaktijd kon niet uit het beweegpatroon afgeleid worden, ' +
-    'dus er is geen noemer om de draagtijd tegen af te zetten. Vul het draagdoel ' +
-    'handmatig in bij het verwerken van het draagpatroon.</p>';
-  var pct = Math.round(Math.min(wear.meanWearHours / wakker, 1) * 100);
-  var lvl = pct >= 80 ? "good" : pct >= 60 ? "mid" : "low";
-  var wb = wakker;
-  return '<div class="combo-done">✓ Beide verwerkt — beweegpatroon ' + fmtDate(activity.savedAt) + ' · draagpatroon ' + fmtDate(wear.savedAt) + '</div>' +
-    '<h3>Gezamenlijk feedbackdocument — schoeiseladherentie</h3>' +
-    '<p class="step-desc">Eén rapport op basis van beide toestellen samen — geen apart draagpatroon- of beweegpatroonrapport nodig. Benadering op basis van dag-gemiddelden; geen gesynchroniseerde epoch-data tussen de twee toestellen.</p>' +
-    '<div class="combo-score ' + lvl + '">' + pct + '%</div>' +
-    '<p class="step-desc">Gemiddeld <strong>' + nf1(wear.meanWearHours) + ' u/dag</strong> schoeisel gedragen tegenover <strong>' + nf1(wb) + ' u/dag</strong> waaktijd — dat is <strong>' + pct + '%</strong>. De norm is 80% van de waaktijd, hier <strong>' + nf1(wb * 0.8) + ' u/dag</strong>.</p>' +
-    '<div class="combo-actions"><button type="button" class="step-open" onclick="window.print()">Afdrukken</button></div>';
-}
-
-function comboStepHTML(step){
-  var wear = currentSummary("pvc_wear_summary");
-  var activity = currentSummary("pvc_activity_summary");
-  var body;
-  if(wear && activity){
-    body = comboScoreBlock(wear, activity);
-  } else if(activity && !wear){
-    body = '<span class="status-pill done">✓ Beweegpatroon verwerkt · ' + (activity.avgWakeHours ? 'waaktijd ' + nf1(activity.avgWakeHours) + ' u/dag' : 'waaktijd niet af te leiden') + '</span>' +
-      '<div class="step-action"><button type="button" class="step-open" data-open="orthotimer">Volgende: draagpatroon (Orthotimer) verwerken →</button>' +
-      '<span class="step-action-hint">Stap 2 van 2 — het draagdoel wordt automatisch voorgesteld op basis van het beweegpatroon.</span></div>';
-  } else if(wear && !activity){
-    body = '<span class="status-pill done">✓ Draagpatroon verwerkt · ' + wear.pct + '% van doel</span>' +
-      '<div class="step-action"><button type="button" class="step-open" data-open="mcroberts">Beweegpatroon (McRoberts) verwerken →</button>' +
-      '<span class="step-action-hint">Nodig om het gezamenlijk rapport te vervolledigen.</span></div>';
-  } else {
-    body = '<div class="step-action"><button type="button" class="step-open" data-open="mcroberts">Start: beweegpatroon (McRoberts) verwerken →</button>' +
-      '<span class="step-action-hint">Stap 1 van 2 — bepaalt het draagdoel voor de Orthotimer-stap. Keer nadien terug via "Wissel visite".</span></div>';
-  }
-  return '<div class="step combo-report" data-combo="' + step.id + '">' +
-    '<div class="step-body">' +
-      '<div class="step-head"><span class="step-title">' + step.title + '</span></div>' +
-      '<div class="step-desc">' + step.desc + '</div>' +
-      body +
-    '</div></div>';
-}
-
 function stepRowHTML(step){
-  if(step.combo) return comboStepHTML(step);
   var checked = isStepDone(step);
   var note = state.values[step.id] || "";
   var action = step.action && ACTIONS[step.action];
@@ -566,7 +513,7 @@ document.addEventListener("input", function(e){
 });
 
 // De checklist draait in een iframe die het portaal enkel verbergt (display:none) i.p.v.
-// herlaadt. Zonder dit zou de weergave "vastzitten" op de oude combo-status nadat de
+// herlaadt. Zonder dit zou de weergave "vastzitten" op de oude toestelstatus nadat de
 // clinicus terugkeert van de McRoberts- of Orthotimer-tool en de nieuwe localStorage-
 // samenvatting nog niet zichtbaar is. Twee onafhankelijke triggers, want geen van beide
 // is in elke context gegarandeerd: visibilitychange dekt "terug naar dit tabblad/deze
