@@ -78,6 +78,10 @@ check('usual care V2 -> geen drukgestuurde aanpassing', !r.html.includes('Drukhe
 r = runWith({ care: 'usual', visit: 'v3', checked: {}, values: {} });
 check('usual care V3 -> geen feedback op therapietrouw', !r.html.includes('Feedback therapietrouw geven'));
 check('usual care V3 -> Orthotimer wel uitlezen', r.html.includes('data-open="orthotimer"'));
+for (const v of ['v1', 'v2', 'v3', 'v4']) {
+  r = runWith({ care: 'usual', visit: v, checked: {}, values: {} });
+  check('usual care ' + v.toUpperCase() + ' -> nergens "SEBIA" (contaminatie)', !r.html.includes('SEBIA'));
+}
 r = runWith({ care: 'optimal', visit: 'v2', checked: {}, values: {} });
 check('optimal care V2 -> geen geblindeerde Usual Care-stap', !r.html.includes('Plantaire drukmeting (geblindeerd)'));
 check('optimal care V2 -> drukgestuurde aanpassing zichtbaar', r.html.includes('Drukherverdeling CMFO beoordelen'));

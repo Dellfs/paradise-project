@@ -61,10 +61,14 @@ for (const p of paginas) {
   const x = lees(p);
   const fout = [
     [/60\\u201379|60–79/, 'kleurgrens 60–79%'],
-    [/baseline \+ 6|zes maanden; levert|at six months/, 'MoveMonitor op maand 6'],
+    [/baseline \+ 6|zes maanden; levert|at six months|at baseline and at 6 months|na 6 maanden; niet/, 'MoveMonitor op maand 6'],
     [/herhaalde MoveMonitor|Enkel op maand 6/, 'MoveMonitor op maand 6 (checklist)'],
     [/vooraleer maatwerkschoeisel|pas bij ≥80%/, '"beschermt pas vanaf 80%"'],
     [/niet 80% daarvan; die 80% zit al/, 'Orthotimer op de volle waaktijd'],
+    // de noemer van de 25%-regel is de meting zonder CMFO op visite 2; "baseline" is visite 1
+    [/lager dan baseline|t\.o\.v\. (de )?baseline|vs\. baseline|than baseline|below baseline|met de baseline|Baseline piekdruk/i, '25% "t.o.v. baseline"'],
+    [/independent in-shoe reference|onafhankelijke in-shoe referentiemeting/, 'pedar als referentie i.p.v. klinisch toestel'],
+    [/healing outcomes/, 'draagtijd als determinant van genezing'],
   ].filter(([re]) => re.test(x)).map(([, l]) => l);
   check(p + ': geen verouderde formulering' + (fout.length ? ' (' + fout.join(', ') + ')' : ''), !fout.length);
 }

@@ -164,10 +164,10 @@ var VISITS = {
       {id:"v1-10", ecrf:"eCRF-Document 10", title:"Voorschrift Diabetic CMFO", desc:"Voorschrift opstellen voor de custom-made foot orthosis (CMFO).", tag:"device"},
       {id:"v1-12", ecrf:"eCRF-Document 12", title:"Tevredenheid ulcuspreventie bevragen", desc:"Tevredenheid met de aanpak van ulcuspreventie bevragen (protocol Vossen et al. 2023).", tag:"vragenlijst"},
       {id:"v1-13", ecrf:"eCRF-Document 13", title:"Gebruik en bruikbaarheid schoeisel bevragen (MOS)", desc:"Gebruik en bruikbaarheid van het aangemeten schoeisel bevragen.", tag:"vragenlijst"},
-      {id:"v1-14", ecrf:"eCRF-Document 14", title:"SEBIA stap 1 — Voetzorgkennis bevragen (NAFF)", desc:"Kennis over voetzorg bevragen met de NAFF-vragenlijst.", tag:"sebia"},
-      {id:"v1-15", ecrf:"eCRF-Document 15", title:"SEBIA stap 1 — Gezondheidsvaardigheden bevragen (HLS-EU-6)", desc:"Health literacy bevragen met de HLS-EU-6-vragenlijst.", tag:"sebia"},
-      {id:"v1-16", ecrf:"eCRF-Document 16", title:"SEBIA stap 1 — Educatieboekje overhandigen", desc:"Vraag-op-maat educatieprogramma op basis van de Nederlandse voetzorgrichtlijnen en het Fragile Feet-Trivial Program.", tag:"sebia"},
-      {id:"v1-48", ecrf:"eCRF-Document 48", title:"SEBIA stap 1 — Folder dagelijkse voetzorgstappen", desc:"Folder met tekst en beeld over dagelijkse voetzorgstappen meegeven.", tag:"sebia"},
+      {id:"v1-14", ecrf:"eCRF-Document 14", title:"Voetzorgkennis bevragen (NAFF)", desc:"Kennis over voetzorg bevragen met de NAFF-vragenlijst, vóór de educatie.", tag:"vragenlijst"},
+      {id:"v1-15", ecrf:"eCRF-Document 15", title:"Gezondheidsvaardigheden bevragen (HLS-EU-6)", desc:"Health literacy bevragen met de HLS-EU-6-vragenlijst, vóór de educatie.", tag:"vragenlijst"},
+      {id:"v1-16", ecrf:"eCRF-Document 16", title:"Educatieboekje overhandigen", desc:"Hetzelfde boekje in beide armen, zodat de educatieve inhoud gestandaardiseerd is. Gebaseerd op de Nederlandse voetzorgrichtlijnen en het Fragile Feet-Trivial Program.", tag:"algemeen"},
+      {id:"v1-48", ecrf:"eCRF-Document 48", title:"Folder dagelijkse voetzorg meegeven", desc:"Folder met tekst en beeld over de dagelijkse voetzorgstappen.", tag:"algemeen"},
       {id:"v1-18", ecrf:"eCRF-Document 18", arm:"oc", title:"SEBIA stap 1 — Demonstratie en oefensessie, vastgelegd in het logboek", desc:"Voetzorgprocedures demonstreren, opgedeeld in kleine stappen; de patiënt voert nadien alles zelf uit (\"show-me\"). Bij onvermogen wordt de mantelzorger betrokken.", tag:"sebia"},
       {id:"v1-19", ecrf:"eCRF-Document 19", title:"MoveMonitor voorbereiden", desc:"Uitleg en gebruiksfolder meegeven voor de MoveMonitor (McRoberts), te dragen ter hoogte van lendenwervel L5 gedurende 7 opeenvolgende dagen.", tag:"device"},
       {id:"v1-20", ecrf:"eCRF-Document 20", title:"MoveMonitor toewijzen en activeren", desc:"Toestel toewijzen en activeren; uniek identificatienummer (UDI) registreren in de CRF.", tag:"device"},
@@ -177,17 +177,17 @@ var VISITS = {
   },
   v2: {
     key:"v2", label:"V2 · CMFO-fitting (14 dagen – 1 maand)",
-    intro:"Opvolgbezoek kort na de start: CMFO-aflevering, drukcontrole, sensorintegratie en SEBIA-stap 2.",
+    intro:"Opvolgbezoek kort na de start: CMFO-aflevering, drukmeting, de MoveMonitor terug en de draagsensor in de zool.",
     steps:[
       {id:"v2-23", ecrf:"eCRF-Document 23", title:"Diabetic CMFO afleveren", desc:"Patiënt ontvangt de custom-made foot orthosis; aanpassing en verificatie registreren.", tag:"device"},
-      {id:"v2-24oc", ecrf:"eCRF-Document 24", arm:"oc", title:"Drukherverdeling CMFO beoordelen", desc:"Beoordelen t.o.v. baseline; verdere verbetering nastreven bij piekdruk boven 200 kPa of indien het onderzoeksteam/pedorthist dit haalbaar acht. Doel: piekdruk ≥25% reductie t.o.v. baseline óf een absolute waarde onder 200 kPa.", tag:"meting"},
+      {id:"v2-24oc", ecrf:"eCRF-Document 24", arm:"oc", title:"Drukherverdeling CMFO beoordelen", desc:"In de schoen meten zonder en mét de CMFO, en aanpassen tot de norm gehaald is: piekdruk mét CMFO onder 200 kPa óf minstens 25% lager dan zonder CMFO. Deze meting zonder CMFO blijft de referentie voor de hele studie. Verder verbeteren waar het onderzoeksteam of de pedorthist dat haalbaar acht.", tag:"meting"},
       {id:"v2-24uc", ecrf:"eCRF-Document 24", arm:"uc", title:"Plantaire drukmeting (geblindeerd)", desc:"Dezelfde in-shoe meting, maar de resultaten worden niet getoond en niet besproken met de deelnemer of de behandelaar, en sturen de zorg niet bij.", tag:"meting"},
       {id:"v2-25", ecrf:"eCRF-Document 25", title:"Draagsensor (Orthotimer) integreren in CMFO", desc:"Compliance-sensor in de CMFO integreren; UDI registreren. Bij Hours/day de norm invullen: 80% van de waaktijd uit het beweegpatroon (eCRF 28; in Usual Care via stap 1 van de draagtijdtool). Verwerk daarom eerst de MoveMonitor (eCRF 27).", tag:"device"},
       {id:"v2-26", ecrf:"eCRF-Document 26", title:"Overtuigingen en gewoontes rond schoeisel bevragen", desc:"Persoonlijke overtuigingen, emoties, dagelijkse routines en geloofwaardigheid t.a.v. het schoeisel bevragen.", tag:"vragenlijst"},
       {id:"v2-27", ecrf:"eCRF-Document 27", title:"MoveMonitor terugnemen", desc:"Patiënt levert de fysieke-activiteitsmonitor terug in; UDI registreren.", tag:"device", action:"mcroberts"},
       {id:"v2-28", ecrf:"eCRF-Document 28", arm:"oc", title:"SEBIA stap 2 — Activiteitsprofiel en feedback", desc:"Podotherapeut beoordeelt het fysieke-activiteitsprofiel en geeft persoonlijke feedback.", tag:"sebia"},
       {id:"v2-29", ecrf:"eCRF-Document 29", arm:"oc", title:"SEBIA stap 2 — Herhaling vorige educatie (teach-back)", desc:"Retentie van eerdere educatie bevragen via terugvraag/teach-back.", tag:"sebia"},
-      {id:"v2-30", ecrf:"eCRF-Document 30", title:"SEBIA stap 2 — Uitleg draagsensor", desc:"Uitleggen aan de deelnemer dat de draagtijd voortaan via een sensor wordt gemonitord.", tag:"sebia"}
+      {id:"v2-30", ecrf:"eCRF-Document 30", title:"Uitleg draagsensor", desc:"Uitleggen dat de draagtijd voortaan met 'uw sensor' gemeten wordt: alleen temperatuur, geen GPS, geluid of camera. Folder Orthotimer meegeven.", tag:"device"}
     ]
   },
   v3: { key:"v3", label:"V3 · Follow-up (maand 3)", intro:"Regulier opvolgbezoek, 3 maanden na start.", steps: fuSteps("v3") },
