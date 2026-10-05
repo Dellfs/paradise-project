@@ -67,8 +67,20 @@ r = runWith({ care: 'optimal', visit: null, checked: {}, values: {} });
 check('optimal care -> alle 10 visitekaarten (V0-V8 + ulcer)', (r.html.match(/data-visit="/g) || []).length === 10);
 
 r = runWith({ care: 'usual', visit: null, checked: {}, values: {} });
-check('usual care -> enkel 2 kaarten (V0 + ulcer)', (r.html.match(/data-visit="/g) || []).length === 2);
-check('usual care -> verbergt V4', !r.html.includes('V4 ·'));
+check('usual care -> ook alle 10 visitekaarten (zelfde visites, protocol §5.4)', (r.html.match(/data-visit="/g) || []).length === 10);
+check('usual care -> toont V4', r.html.includes('V4 ·'));
+
+// A2. Per arm alleen de eigen stappen
+r = runWith({ care: 'usual', visit: 'v2', checked: {}, values: {} });
+check('usual care V2 -> geblindeerde drukmeting zichtbaar', r.html.includes('Plantaire drukmeting (geblindeerd)'));
+check('usual care V2 -> geen SEBIA-feedback op het activiteitsprofiel', !r.html.includes('Activiteitsprofiel en feedback'));
+check('usual care V2 -> geen drukgestuurde aanpassing', !r.html.includes('Drukherverdeling CMFO beoordelen'));
+r = runWith({ care: 'usual', visit: 'v3', checked: {}, values: {} });
+check('usual care V3 -> geen feedback op therapietrouw', !r.html.includes('Feedback therapietrouw geven'));
+check('usual care V3 -> Orthotimer wel uitlezen', r.html.includes('data-open="orthotimer"'));
+r = runWith({ care: 'optimal', visit: 'v2', checked: {}, values: {} });
+check('optimal care V2 -> geen geblindeerde Usual Care-stap', !r.html.includes('Plantaire drukmeting (geblindeerd)'));
+check('optimal care V2 -> drukgestuurde aanpassing zichtbaar', r.html.includes('Drukherverdeling CMFO beoordelen'));
 
 // B. Uitleesstap met een draagpatroon van een ANDERE patiënt (encounter-ID klopt niet)
 r = runWith(

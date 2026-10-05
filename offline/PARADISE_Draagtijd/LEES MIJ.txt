@@ -6,9 +6,17 @@ Wat het is
   of het netwerk niet beschikbaar is.
   Stap 1 - beweegpatroon: het MoveMonitor-rapport ("Physical activity overview",
            PDF, Engels) geeft de gemiddelde waaktijd tussen de twee nachten.
-           Dat is het draagdoel.
+           Dat is het draagdoel. De tool toont ook de norm: 80% van die
+           waaktijd. Die norm vult u in bij Hours/day in de Orthotimer (eCRF 28).
   Stap 2 - draagpatroon: de Orthotimer-export (.tef of .zip) toont per dag de
-           draagtijd, getoetst aan de norm van 80% van het draagdoel.
+           draagtijd, getoetst aan de norm van 80% van de waaktijd.
+
+De drie getallen, met een voorbeeld
+  Waaktijd   15,5 u/dag   uit de MoveMonitor-week bij de start; geldt de hele studie
+  Norm       12,4 u/dag   80% van de waaktijd; staat in de Orthotimer (Hours/day)
+  Resultaat  11,2 u/dag   = 72% van de waaktijd = 90% van de norm: niet gehaald
+  Op eCRF 32 noteert u het percentage van de norm (hier 90%). Het staat in de
+  kopregel van het feedbackdocument.
 
 Installeren
   Kopieer de map PARADISE_Draagtijd naar de laptop, bijvoorbeeld naar het
@@ -22,18 +30,24 @@ Starten
 
 Werkwijze per patient
   1. Klik op "Nieuwe patient". Dat wist het draagdoel van de vorige patient.
-  2. Stap 1: sleep het MoveMonitor-rapport in het venster. De waaktijd verschijnt;
-     dat is het draagdoel.
+  2. Stap 1 (alleen op visite 2): sleep het MoveMonitor-rapport in het venster.
+     De waaktijd verschijnt, en de norm voor de Orthotimer.
   3. Klik op "Volgende: draagpatroon", of op het tabblad 2.
-  4. Stap 2: sleep de Orthotimer-export in het venster. Het draagdoel staat
-     voorgevuld; controleer het en pas het zo nodig aan.
+  4. Stap 2: sleep de Orthotimer-export in het venster. Als draagdoel hoort de
+     WAAKTIJD, niet de norm: de tool rekent zelf 80%. Zonder stap 1 stelt de
+     tool de Hours/day uit de Orthotimer gedeeld door 0,8 voor; controleer met
+     eCRF 28. Vult u de norm in, dan waarschuwt de tool: anders zou de 80% twee
+     keer toegepast worden en lag de lat op 64%.
   5. "Afdrukken / PDF" maakt het feedbackdocument.
+     Optimal Care: bespreek het zonder oordeel (SEBIA).
+     Usual Care: uitlezen en bewaren, maar niet tonen, bespreken of meegeven.
 
 Privacy
   Alles wordt in de browser op deze laptop verwerkt. Er wordt niets verstuurd.
   Sla afgedrukte documenten op volgens de procedure van het centrum.
 
 Versie
-  Gebouwd op 24/09/2026 uit de site-versies van het beweegpatroon (18/08/2026)
-  en het draagpatroon (18/08/2026). Wijzigt de site, dan wordt dit pakket opnieuw
-  gebouwd en verdeeld.
+  Gebouwd op 24/09/2026; bijgewerkt op 05/10/2026 (norm in stap 1, Hours/day uit
+  het bestand gelezen als norm, waarschuwing bij een dubbele 80%, percentage van de
+  norm voor eCRF 32, twee kleurstanden). Wijzigt de site, dan wordt dit pakket
+  opnieuw gebouwd en verdeeld.

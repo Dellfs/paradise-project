@@ -124,7 +124,7 @@ function fuSteps(p){
   var steps = [
     {id:p+"-08", ecrf:"eCRF-Document 08", title:"Voet- en schoeiselscreening", desc:"Voeten en schoeisel screenen.", tag:"meting"},
     {id:p+"-31", ecrf:"eCRF-Document 31", title:"Schoeiseladherentie bevragen", desc:"Patiënt bevragen over de therapietrouw m.b.t. het schoeisel.", tag:"vragenlijst"},
-    {id:p+"-25", ecrf:"eCRF-Document 25", title:"Draagsensor uitlezen", desc:"Orthotimer-sensor uitlezen met de draagtijdtool. Vul als draagdoel de waaktijd van de baseline in (eCRF 28), niet de norm: de tool past de 80% zelf toe, één keer. Die waaktijd blijft de hele studie dezelfde.", tag:"device", action:"orthotimer"}
+    {id:p+"-25", ecrf:"eCRF-Document 25", title:"Draagsensor uitlezen", desc:"Orthotimer-sensor uitlezen met de draagtijdtool. Vul als draagdoel de waaktijd van de baseline in (eCRF 28), niet de norm: de tool past de 80% zelf toe, één keer. Die waaktijd blijft de hele studie dezelfde. In Usual Care: uitlezen en bewaren, maar het feedbackdocument niet tonen of meegeven.", tag:"device", action:"orthotimer"}
   ];
   steps.push(
     {id:p+"-32", ecrf:"eCRF-Document 32", arm:"oc", title:"Feedback therapietrouw geven", desc:"Feedback geven aan de patiënt op basis van de adherentiemonitoring.", tag:"sebia"},
@@ -218,13 +218,13 @@ var ACTIONS = {
   orthotimer: {label:"Draagpatroon (Orthotimer) uitlezen →", page:"uploader", summaryKey:"pvc_wear_summary"}
 };
 var CARE_ARMS = {
-  optimal: {key:"optimal", label:"Optimal Care", intro:"Volledig studieprotocol: CMFO met drukgestuurde fitting, Orthotimer- en MoveMonitor-opvolging, SEBIA-educatie."},
-  usual:   {key:"usual",   label:"Usual Care",   intro:"Standaard zorgtraject, geblindeerd voor drukresultaten. De studiestappen hieronder zijn niet van toepassing — enkel de onvoorziene ulcusvisite blijft relevant."}
+  optimal: {key:"optimal", label:"Optimal Care", intro:"De CMFO wordt aangepast tot de druknorm gehaald is, de draagtijd wordt besproken tegenover de norm (80% van de waaktijd), en er is een SEBIA-gesprek op elke visite."},
+  usual:   {key:"usual",   label:"Usual Care",   intro:"Dezelfde visites en metingen: CMFO, voetzorg elke 3 maanden, drukmeting, MoveMonitor bij de start en de Orthotimer. Geblindeerd: druk en draagtijd worden gemeten, maar niet getoond of besproken. Geen SEBIA-gesprek."}
 };
 var STORE_KEY = "pvc_state";
 var ENCOUNTER_KEY = "pvc_encounter_id";
 var MAX_SUMMARY_AGE_MS = 4 * 60 * 60 * 1000; // 4 u — een toestelrapport ouder dan dit wordt als verlopen behandeld
-var APP_VERSION = "1.2.0";
+var APP_VERSION = "1.3.0";
 
 // Test-write i.p.v. try/catch her en der verspreiden: als localStorage geblokkeerd is
 // (bv. privénavigatie) toont render() een duidelijke melding i.p.v. de app stil te laten
@@ -303,9 +303,15 @@ function persistState(){
   }catch(e){}
 }
 
+// Stappen zonder arm gelden voor beide armen; een stap met arm "oc" of "uc" alleen voor die arm.
+function armSteps(steps){
+  var arm = state.care === "usual" ? "uc" : "oc";
+  return steps.filter(function(s){ return !s.arm || s.arm === arm; });
+}
+
 function currentSteps(){
   if(!state.visit) return [];
-  return VISITS[state.visit].steps.slice();
+  return armSteps(VISITS[state.visit].steps);
 }
 
 function isStepDone(s){
@@ -360,17 +366,16 @@ function careSelectHTML(){
 
 function visitSelectHTML(){
   var isUsual = state.care === "usual";
-  var keys = VISIT_ORDER.filter(function(k){ return !isUsual || k === "v0" || k === "ulcer"; });
-  var cards = keys.map(function(key){
+  var cards = VISIT_ORDER.map(function(key){
     var v = VISITS[key];
     return '<button class="visit-card" data-visit="' + key + '">' +
       '<div class="vc-label">' + v.label + '</div>' +
       '<div class="vc-intro">' + v.intro + '</div>' +
-      '<div class="vc-count">' + v.steps.length + ' stappen</div>' +
+      '<div class="vc-count">' + armSteps(v.steps).length + ' stappen</div>' +
       '</button>';
   }).join("");
   var usualNote = isUsual
-    ? '<p class="care-note">Usual Care volgt het standaard zorgtraject buiten het studieprotocol — enkel screening (V0) en de onvoorziene ulcusvisite zijn hier van toepassing.</p>'
+    ? '<p class="care-note">Usual Care volgt dezelfde visites. De stappen die alleen bij Optimal Care horen (het SEBIA-gesprek, de feedback, de drukgestuurde aanpassing) zijn weggelaten. Meet en lees uit zoals altijd, maar toon of bespreek de resultaten niet.</p>'
     : "";
   return usualNote +
     '<p class="intro-note">Kies hieronder welke visite doorgaat (V0–V8, of de onvoorziene ulcusvisite). Elke stap kan tijdens het consult worden afgevinkt en aangevuld met een notitie als geheugensteun.</p>' +

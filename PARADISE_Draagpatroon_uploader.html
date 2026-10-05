@@ -216,6 +216,8 @@ html, body { background: #8FA8BA; font-family: 'DM Sans', sans-serif; color: var
 .gridline { position: absolute; left: 11mm; right: 0; height: 0; border-top: 1px solid var(--g100); }
 .goal-line { position: absolute; left: 11mm; right: 0; height: 0; border-top: 2px dashed var(--teal); z-index: 2; }
 .goal-tag { position: absolute; right: 0; transform: translateY(-100%); background: var(--teal); color: white; font-size: 7pt; font-weight: 700; letter-spacing: 0.05em; padding: 0.8mm 2.2mm; border-radius: 3px 3px 0 3px; z-index: 3; }
+.norm-line { border-top: 2px dotted var(--ok); }
+.norm-tag { background: var(--ok); transform: none; border-radius: 0 3px 3px 3px; }
 
 .bars { flex: 1; display: flex; align-items: flex-end; gap: 0.8mm; padding-bottom: 9mm; position: relative; z-index: 1; }
 .bar-col { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; position: relative; }
@@ -375,7 +377,7 @@ html, body { background: #8FA8BA; font-family: 'DM Sans', sans-serif; color: var
           <div class="legend-label">Kleurcode</div>
           <div class="lg"><div class="lg-chip" style="background:var(--ok);"></div><p>Groen <span id="lgOk"></span></p></div>
           <div class="lg"><div class="lg-chip" style="background:var(--mid);"></div><p>Oranje <span id="lgMid"></span></p></div>
-          <div class="lg"><div class="lg-chip" style="background:var(--low);"></div><p>Rood <span id="lgLow"></span></p></div>
+          
           <div class="lg"><div class="lg-chip" style="background:var(--g200);"></div><p>Grijs <span>— deeldag (plaatsing / uitlezing)</span></p></div>
         </div>
       </div>
@@ -392,6 +394,7 @@ html, body { background: #8FA8BA; font-family: 'DM Sans', sans-serif; color: var
           <div class="yaxis" id="yaxis"></div>
           <div id="gridlines"></div>
           <div class="goal-line" id="goalLine"><div class="goal-tag" id="goalTag">Doel</div></div>
+          <div class="goal-line norm-line" id="normLine"><div class="goal-tag norm-tag" id="normTag">Norm</div></div>
           <div class="bars" id="bars"></div>
         </div>
         <p class="chart-note" id="chartNote"></p>
@@ -556,8 +559,8 @@ function renderConsistency(full, goal){
   };
   row.appendChild(mk(maxStreak, 'var(--ok)', 'Langste reeks',
     maxStreak>0
-      ?'aaneengesloten dag'+(maxStreak===1?'':'en')+' doel gehaald'
-      :'doel nog niet aaneengesloten bereikt'));
+      ?'aaneengesloten dag'+(maxStreak===1?'':'en')+' norm gehaald'
+      :'norm nog niet aaneengesloten gehaald'));
   row.appendChild(mk(zeroCount, zeroCount>0?'var(--low)':'var(--ok)',
     'Dag'+(zeroCount===1?'':'en')+' zonder schoenen',
     zeroCount===0?'elke dag zijn de schoenen gedragen'
@@ -674,10 +677,10 @@ function parseSessionHours(timesXml){
 
 // ---- end new helpers ----
 
+// Twee standen, zoals eCRF 32: de norm gehaald of niet. Een tussengrens (60%)
+// heeft geen bron in het protocol of de eCRF's.
 function band(h, goal){
-  if(h >= 0.8*goal) return 'b-ok';
-  if(h >= 0.6*goal) return 'b-mid';
-  return 'b-low';
+  return h >= 0.8*goal ? 'b-ok' : 'b-mid';
 }
 
 function render(model){
@@ -710,19 +713,18 @@ function render(model){
     ' · <strong>'+Math.round(mean/norm*100)+'% van de norm</strong> (eCRF 32)'+(ed?(' · uitgelezen '+fmtShort(ed)):'');
 
   // ---- score ----
-  const lvl = pct>=80?'ok':pct>=60?'mid':'low';
+  const lvl = pct>=80?'ok':'mid';
   const sb = document.getElementById('scoreBox');
   sb.className = 'score lvl-'+lvl;
   document.getElementById('scoreNum').textContent = pct+'%';
   document.getElementById('scoreText').innerHTML =
     'U droeg uw schoenen gemiddeld <strong>'+nf(mean)+' uur per dag</strong>. U bent ongeveer <strong>'+nf(goal)+
-    ' uur per dag</strong> op de been; het doel is uw schoenen dan aan te houden, en de norm ligt op <strong>'+nf(norm)+
+    ' uur per dag</strong> wakker; het doel is uw schoenen al die tijd aan te houden, en de norm ligt op <strong>'+nf(norm)+
     ' uur</strong>. Op '+reached+' van de '+full.length+' meetdagen haalde u die norm.';
 
   // ---- legend (relatief aan doel) ----
   document.getElementById('lgOk').textContent  = '— '+nf(0.8*goal)+' uur of meer per dag (de norm: 80% van '+nf(goal)+' u waaktijd)';
-  document.getElementById('lgMid').textContent = '— '+nf(0.6*goal)+' tot '+nf(0.8*goal)+' uur per dag';
-  document.getElementById('lgLow').textContent = '— minder dan '+nf(0.6*goal)+' uur';
+  document.getElementById('lgMid').textContent = '— minder dan '+nf(0.8*goal)+' uur per dag: onder de norm';
 
   // ---- y-as + gridlines + doel-lijn ----
   const yaxis = document.getElementById('yaxis'); yaxis.innerHTML='';
@@ -739,6 +741,9 @@ function render(model){
   const goalFrac = Math.min(goal/YMAX, 1);
   document.getElementById('goalLine').style.bottom='calc(9mm + (100% - 9mm) * '+goalFrac.toFixed(4)+')';
   document.getElementById('goalTag').textContent='Doel · '+nf(goal)+' uur';
+  const normFrac = Math.min(0.8*goal/YMAX, 1);
+  document.getElementById('normLine').style.bottom='calc(9mm + (100% - 9mm) * '+normFrac.toFixed(4)+')';
+  document.getElementById('normTag').textContent='Norm · '+nf(0.8*goal)+' uur';
 
   // ---- granularity ----
   let mode;
@@ -804,7 +809,8 @@ function render(model){
   document.getElementById('chartSub').innerHTML =
     '<span class="ph">'+fmtShort(first)+' – '+fmtShort(last)+'</span> · '+modeLabel+' · '+full.length+' volledige meetdagen · doel <span class="ph">'+nf(goal)+' u/dag</span>';
 
-  let note='De stippellijn is uw doel: '+nf(goal)+' uur dragen per dag. ';
+  let note='De bovenste stippellijn is uw doel: uw schoenen aan zolang u wakker bent, '+nf(goal)+' uur per dag. '+
+    'De groene stippellijn is de norm, '+nf(0.8*goal)+' uur: vanaf daar kleurt een dag groen. ';
   if(mode==='day') note+='Grijze balken zijn deeldagen (plaatsing en uitlezing) en tellen niet mee in het gemiddelde. ';
   else note+='Elke balk is het gemiddelde aantal draaguren per dag in die '+(mode==='week'?'week':'maand')+'; deeldagen tellen niet mee. ';
   if(zero.length) note+='Op '+zero.length+' dag(en) werden de schoenen niet gedragen'+(zeroSun?(', waarvan '+zeroSun+' op een zondag'):'')+'.';
@@ -835,7 +841,7 @@ function render(model){
 }
 
 // ---- validation ----
-let pendingModel = null, pendingHasBlocker = false;
+let pendingModel = null, pendingHasBlocker = false, pendingNormKandidaat = null;
 
 function validateOrthotimer(model, goalFromFile){
   const issues = [];
@@ -949,17 +955,30 @@ function showConfirm(model, goalFromFile){
   // Orthotimer, die ook per dag telt. Oudere samenvattingen dragen alleen
   // avgWBHours; die blijven werken.
   const goalBron = (activitySummary && activitySummary.avgWakeHours) || null;
-  const suggestedGoal = goalBron ? Math.round(goalBron*10)/10 : null;
-  const goalHint = suggestedGoal
-    ? '<span style="color:var(--g400)">Voorgesteld: de waaktijd uit het beweegpatroon ('+fmtShort(new Date(activitySummary.savedAt))+'). De norm van 80% zit al in de kleuren</span>'
-    : goalFromFile
-      ? '<span style="color:var(--g400)">Bestand bevat '+nf(goal)+' u/dag — pas aan indien nodig</span>'
-      : '<span style="color:var(--g400)">Waaktijd per dag, tussen de twee nachten — niet 80% daarvan; die zit al in de kleuren</span>';
+  // De Orthotimer staat op de norm: Hours/day = 80% van de waaktijd (eCRF 25b en 28).
+  // Het bestand levert dus de norm, niet de waaktijd; de waaktijd is norm ÷ 0,8.
+  const wakeUitBestand = goalFromFile ? Math.round(goal/0.8*10)/10 : null;
+  const suggestedGoal = goalBron ? Math.round(goalBron*10)/10 : wakeUitBestand;
+  pendingNormKandidaat = goalBron ? 0.8*goalBron : (goalFromFile ? goal : null);
+  let goalTekst;
+  if(goalBron){
+    goalTekst = 'Voorgesteld: de waaktijd uit het beweegpatroon ('+fmtShort(new Date(activitySummary.savedAt))+'). De tool rekent zelf 80% daarvan als norm.';
+    if(goalFromFile && Math.abs(goal - 0.8*goalBron) > 0.3)
+      goalTekst += ' <strong style="color:var(--mid)">Let op: de Orthotimer staat op '+nf(goal)+' u/dag, de norm voor deze waaktijd is '+nf(0.8*goalBron)+' u/dag. Pas Hours/day aan.</strong>';
+  } else if(goalFromFile){
+    goalTekst = 'De Orthotimer staat op '+nf(goal)+' u/dag: dat is de norm. Voorgesteld als waaktijd: '+nf(wakeUitBestand)+' u/dag (norm ÷ 0,8). Controleer met eCRF 28.';
+    if(wakeUitBestand > 19)
+      goalTekst += ' <strong style="color:var(--mid)">Een waaktijd boven 19 u is onwaarschijnlijk: staat de Orthotimer op de waaktijd in plaats van de norm? Vul dan de waaktijd uit eCRF 28 in.</strong>';
+  } else {
+    goalTekst = 'Vul de waaktijd uit eCRF 28 in, de tijd tussen de twee nachten. Niet de norm: de tool rekent zelf 80%.';
+  }
+  const goalHint = '<span style="color:var(--g400)">'+goalTekst+'</span>';
   const goalInputHTML =
-    '<input type="number" id="goalInput" min="0.5" max="24" step="0.5" placeholder="bijv. 8"'+
+    '<input type="number" id="goalInput" min="0.5" max="24" step="0.1" placeholder="bijv. 15,5" oninput="this.dataset.bevestigd=\'\'"'+
     (suggestedGoal ? ' value="'+suggestedGoal+'"' : '')+
     ' style="width:70px;padding:5px 8px;border:1.5px solid var(--teal);border-radius:6px;font:700 14px \'DM Sans\',sans-serif;text-align:right;color:var(--navy)">&thinsp;u/dag'+
-    '&ensp;<small>'+goalHint+'</small>';
+    '&ensp;<small>'+goalHint+'</small>'+
+    '<div id="goalWarn" style="display:none;color:var(--mid);font-weight:600;margin-top:4px"></div>';
 
   const rows = [
     ['Chip-serienummer', serial ? serial : '<span class="cf-missing">niet gevonden</span>'],
@@ -1027,6 +1046,19 @@ function confirmAndRender(){
     const gv=parseFloat(String(goalInp.value).replace(',','.'));
     if(isNaN(gv)||gv<0.5||gv>24){
       goalInp.style.borderColor='var(--low)'; goalInp.focus(); return;
+    }
+    // Vangnet tegen de dubbele 80%: wie de norm als waaktijd invult, zet de lat op 64%.
+    if(pendingNormKandidaat && Math.abs(gv - pendingNormKandidaat) < 0.15 && !goalInp.dataset.bevestigd){
+      goalInp.dataset.bevestigd = '1';
+      goalInp.style.borderColor = 'var(--mid)';
+      const w = document.getElementById('goalWarn');
+      if(w){
+        w.innerHTML = nf(gv)+' u/dag is de norm, niet de waaktijd. Als draagdoel hoort de waaktijd, '+
+          nf(Math.round(pendingNormKandidaat/0.8*10)/10)+' u/dag; anders wordt de 80% twee keer toegepast. '+
+          'Klopt uw getal toch, klik dan nog eens op bevestigen.';
+        w.style.display = 'block';
+      }
+      goalInp.focus(); return;
     }
     pendingModel.goal=Math.round(gv*10)/10;
   }

@@ -352,7 +352,8 @@ function render(m){
       '<span class="act-hint">'+
         (avgWakeTime===null
           ? '<strong style="color:#B45309">Waaktijd niet af te leiden uit dit bestand</strong> — vul het draagdoel handmatig in'
-          : 'Gem. waaktijd, tussen de twee nachten: <strong>'+nf1(avgWakeTime)+'&thinsp;u/dag</strong> — dit is het draagdoel')+
+          : 'Gem. waaktijd, tussen de twee nachten: <strong>'+nf1(avgWakeTime)+'&thinsp;u/dag</strong> — dit is het draagdoel'+
+            ' &nbsp;·&nbsp; norm voor Hours/day in de Orthotimer: <strong>'+nf1(Math.round(avgWakeTime*0.8*10)/10)+'&thinsp;u/dag</strong> (80%, eCRF 28)')+
         ' &nbsp;·&nbsp; waarvan staand of stappend: <strong>'+nf1(avgWBTime)+'&thinsp;u/dag</strong>'+
       '</span>':'');
 

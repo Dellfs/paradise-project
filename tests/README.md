@@ -15,6 +15,7 @@ node tests/check-ecrf-links.js
 node tests/sensor-orthotimer.test.js
 node tests/sensor-movemonitor.test.js
 node tests/academy-sync.test.js
+node tests/draagnorm.test.js
 ```
 
 Elk script eindigt met exit code 0 bij succes, 1 bij een gefaalde assertie — geschikt om
@@ -39,15 +40,22 @@ twee uploader-bestanden:**
       verdwijnen)
 - [ ] Minstens één keer echt in de browser doorgeklikt (Live Server) — deze scripts
       controleren geen CSS, layout, printweergave of tabletgebruik
-- [ ] Bestaande flows nog steeds correct (V0–V8, Optimal/Usual Care, combo-stap bij V4)
+- [ ] Bestaande flows nog steeds correct (V0–V8 in beide armen, per arm alleen de eigen stappen)
+- [ ] Bij een wijziging aan een uploader: dezelfde wijziging geëscapet in
+      `offline/PARADISE_Draagtijd/PARADISE_Draagtijd.html`, en `node tests/draagnorm.test.js` slaagt
+
+**De 80%-draagnorm** (`tests/draagnorm.test.js`): norm = 80% van de waaktijd uit de MoveMonitor-week
+bij de start; Hours/day in de Orthotimer = de norm; in de draagtijdtool de waaktijd, zodat de 80%
+één keer toegepast wordt; eCRF 32 vraagt het percentage van de norm; de patiënt hoort "altijd".
 
 ## Wat deze scripts wél en niet vangen
 
 **Wel:** state-machine-fouten, verkeerde domain/type-toewijzing, kapotte zoekfilter,
 encounter-ID-mismatches die stilzwijgend data zouden combineren, dode links in
 `ECRF_FILES`, sensorexports op de schaal van de studie (kwartaaluitlezing van 92 dagen,
-een week MoveMonitor, een lege batterij), en drift tussen de twee tekstkopieën van de
-MOOC.
+een week MoveMonitor, een lege batterij), drift tussen de twee tekstkopieën van de
+MOOC, drift tussen de online uitleestools en het offline pakket, en verouderde formuleringen
+van de 80%-norm.
 
 **Niet:** CSS/visuele bugs, printlayout, tabletgedrag, toegankelijkheid, browsercompatibiliteit
 buiten pure JS-syntax. Die blijven een manuele controle (zie checklist hierboven).
