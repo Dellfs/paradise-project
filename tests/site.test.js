@@ -150,7 +150,27 @@ for (const p of ['index.html', 'paradise-academy.html', ...SUBPAGINAS]) {
 check('MOOC: voetdrukkaart en offloadingdoel staan bij de pedar', /if\(key==='pedar'\)h\+=[^\n]*footMapHTML\(\)[^\n]*calcHTML\(\)/.test(mooc));
 check('MOOC-tijdlijn: MoveMonitor alleen bij de start', (mooc.match(/'volle week':'full week'/g) || []).length === 1);
 check('MOOC: voortgang telt alleen bestaande modules', mooc.includes('if(MODS.indexOf(k)>=0)done.add(k)'));
-check('nieuws: geen inclusie "van start" vóór februari 2027', !/is van start gegaan|is now under way/.test(INDEX));
+check('nieuws: geen inclusie "van start" vóór februari 2027', !/inclusie van pati|is now under way/.test(INDEX));
+
+// Adviezen uit de review, goedgekeurd door Janou op 6/10/2026
+console.log('Adviezen review (6/10/2026)');
+check('framing: een multicentrische studie, geen "PhD-project"', !/PhD[ -]project|PhD Research Project|doctoraatsproject|interdisciplinary PhD/i.test(INDEX));
+check('team: Fobelets en Putman zijn promotor, ook in de JSON-LD',
+      ['Maaike Fobelets', 'Koen Putman'].every(n => new RegExp('name:"Prof\\. Dr\\. ' + n + '", role:"Promotor"[^\\n]*nl:\\{role:"Promotor"').test(INDEX)
+        && INDEX.includes('"name":"' + n + '","jobTitle":"Promotor"')));
+check('team: elk lid heeft Nederlandse labels', (INDEX.match(/nl:\{role:"[^"]*", tags:"/g) || []).length === 5);
+check('portaal: nieuwe accounts wachten op goedkeuring', !/role: 'member',\s*status: 'approved'/.test(INDEX) && !/Instant activation|Directe activatie/.test(INDEX));
+check('portaal: alleen goedgekeurde leden in het ledenportaal', INDEX.includes("(id === 'members' && !isMember)") && INDEX.includes("profile.status !== 'approved'"));
+check('Site Editor zegt dat hij alleen in de eigen browser bewaart', INDEX.includes('alleen in deze browser bewaard'));
+check('elke publieke pagina heeft een eigen adres', INDEX.includes('function pageFromHash()') && INDEX.includes("addEventListener('popstate', volgAdres)"));
+check('evidentiesynthese zoals in het doctoraatsplan, geen meta-analyses', !/meta-anal|amputation prevention|amputatiepreventie/i.test(INDEX));
+check('nieuwskaart herhaalt de titel niet', !INDEX.includes('nc-img-txt">${t.title}'));
+check('Materialen: geen toestelnaam en onderschrift onder de foto', !/margin-bottom:8px">(Novel pedar|McRoberts DynaPort|Orthotimer)<\/div>/.test(INDEX));
+check('één naam: MoveMonitor, niet "McRoberts DynaPort" als titel', !/dyna_title:"McRoberts DynaPort"/.test(INDEX));
+check('geen emoji als icoon bij Professionals of het wachtwoordveld',
+      !/&#1(28203|28274|27891|28196|28226|28172|28065);/.test(INDEX.replace(/<script[\s\S]*?<\/script>/g, '')));
+const GE = lees('gezondheidseconomie.html');
+check('gezondheidseconomie: geen kostcijfer zonder bron en geen rekenmodule', !/10\.000|type="range"/.test(GE) && GE.includes('iMCQ'));
 
 console.log(fouten ? '\n' + fouten + ' check(s) gefaald.' : '\nAlle checks geslaagd.');
 process.exitCode = fouten ? 1 : 0;

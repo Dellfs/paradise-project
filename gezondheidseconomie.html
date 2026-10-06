@@ -26,28 +26,17 @@
 
 
 window.RENDER=function(){
-var h='<div class="kicker">'+tr(["Gezondheidseconomie","Health economics"])+'</div><h1>'+tr(["De kost van een voetulcus \u2014 en de winst van preventie","The cost of a foot ulcer \u2014 and the value of prevention"])+'</h1>';
-h+='<p class="lead">'+tr(["PARADISE combineert biomechanica met gezondheidseconomie. De cijfers hieronder komen uit de literatuur en de projectaanvraag; de rekenmodule is een illustratief scenario, geen studieresultaat.","PARADISE combines biomechanics with health economics. The figures below come from the literature and the project proposal; the calculator is an illustrative scenario, not a study result."])+'</p>';
-h+='<div class="grid3"><div class="stat"><div class="n">~\u20ac10.000</div><div class="l">'+tr(["per ulcus-episode","per ulcer episode"])+'</div></div><div class="stat"><div class="n">~40%</div><div class="l">'+tr(["recidief binnen 1 jaar","recurrence within 1 year"])+'</div></div><div class="stat"><div class="n">tot ~46%</div><div class="l">'+tr(["minder recidief met drukverlagend schoeisel, bij wie het \u226580% van de stappen droeg (DIAFOS)","less recurrence with offloading-improved footwear, in those wearing it for \u226580% of steps (DIAFOS)"])+'</div></div></div>';
-h+='<div class="sh">'+tr(["Reken zelf: scenario","Try it: scenario"])+'</div>';
-h+='<div class="card calc">';
-h+='<div class="row"><label>'+tr(["Pati\u00ebnten met genezen ulcus / jaar","Patients with a healed ulcer / year"])+'</label><input type="range" id="ep" min="50" max="2000" step="50" value="500"><span class="val" id="epv">500</span></div>';
-h+='<div class="row"><label>'+tr(["Basis recidiefkans","Baseline recurrence rate"])+'</label><input type="range" id="er" min="20" max="60" value="40"><span class="val"><span id="erv">40</span>%</span></div>';
-h+='<div class="row"><label>'+tr(["Aandeel dat de draagnorm haalt (\u226580% van de waaktijd)","Share reaching the wear norm (\u226580% of waking time)"])+'</label><input type="range" id="ea" min="0" max="100" value="60"><span class="val"><span id="eav">60</span>%</span></div>';
-h+='<div class="row"><label>'+tr(["Risicoreductie bij goede zorg","Risk reduction with good care"])+'</label><input type="range" id="ed" min="10" max="46" value="46"><span class="val"><span id="edv">46</span>%</span></div>';
-h+='<div class="row"><label>'+tr(["Kost per episode","Cost per episode"])+'</label><input type="range" id="ec" min="3000" max="20000" step="500" value="10000"><span class="val">\u20ac<span id="ecv">10.000</span></span></div>';
-h+='<div class="grid2" style="margin-top:8px"><div class="kpi"><span class="big" id="eav2">\u2014</span><span class="lbl">'+tr(["vermeden episodes / jaar","episodes avoided / year"])+'</span></div><div class="kpi"><span class="big" id="ecv2">\u2014</span><span class="lbl">'+tr(["vermeden kosten / jaar","cost avoided / year"])+'</span></div></div>';
-h+='</div>';
+var h='<div class="kicker">'+tr(["Gezondheidseconomie","Health economics"])+'</div><h1>'+tr(["Wat Optimal Care kost en oplevert","What Optimal Care costs and yields"])+'</h1>';
+h+='<p class="lead">'+tr(["Naast het effect op recidief gaat PARADISE na of Optimal Care kosteneffectief is. Daarvoor worden bij alle deelnemers, in beide armen, de levenskwaliteit, het zorggebruik en de productiviteit gemeten.","Besides the effect on recurrence, PARADISE examines whether Optimal Care is cost-effective. To that end, quality of life, healthcare use and productivity are measured in all participants, in both arms."])+'</p>';
+h+='<div class="sh">'+tr(["Wat gemeten wordt","What is measured"])+'</div>';
+h+='<table class="tbl"><thead><tr><th>'+tr(["Wat","What"])+'</th><th>Instrument</th><th>'+tr(["Wanneer","When"])+'</th></tr></thead><tbody>'
+ +'<tr><td>'+tr(["Levenskwaliteit","Quality of life"])+'</td><td>EQ-5D-5L</td><td>'+tr(["Visite 1 en elk kwartaalbezoek (maand 3 tot 18)","Visit 1 and every quarterly visit (months 3 to 18)"])+'</td></tr>'
+ +'<tr><td>'+tr(["Medische consumptie","Medical consumption"])+'</td><td>iMCQ</td><td>'+tr(["Elk kwartaalbezoek (maand 3 tot 18)","Every quarterly visit (months 3 to 18)"])+'</td></tr>'
+ +'<tr><td>'+tr(["Productiviteit","Productivity"])+'</td><td>iPCQ</td><td>'+tr(["Elk kwartaalbezoek (maand 3 tot 18)","Every quarterly visit (months 3 to 18)"])+'</td></tr>'
+ +'<tr><td>'+tr(["Zorg- en andere kosten","Healthcare and other costs"])+'</td><td>'+tr(["Gezondheidseconomisch dagboek","Health-economic diary"])+'</td><td>'+tr(["Bij de start, tweewekelijks tot maand 3, daarna driemaandelijks tot maand 18","At baseline, every two weeks until month 3, then every three months until month 18"])+'</td></tr>'
+ +'</tbody></table>';
+h+='<p class="muted" style="margin-top:12px">'+tr(["Kosteneffectiviteit is een secundaire uitkomst. Resultaten volgen na de laatste visite en de analyse.","Cost-effectiveness is a secondary outcome. Results follow after the last visit and the analysis."])+'</p>';
 return h;
-};
-window.POST=function(){
-var ids=['ep','er','ea','ed','ec'];var els={};ids.forEach(function(i){els[i]=document.getElementById(i);});if(!els.ep)return;
-function fmt(n){return n.toLocaleString(lang==='nl'?'nl-BE':'en-GB');}
-function u(){var p=+els.ep.value,r=+els.er.value/100,a=+els.ea.value/100,d=+els.ed.value/100,c=+els.ec.value;
- document.getElementById('epv').textContent=fmt(p);document.getElementById('erv').textContent=Math.round(r*100);document.getElementById('eav').textContent=Math.round(a*100);document.getElementById('edv').textContent=Math.round(d*100);document.getElementById('ecv').textContent=fmt(c);
- var avoided=Math.round(p*r*a*d);var saved=avoided*c;
- document.getElementById('eav2').textContent=fmt(avoided);document.getElementById('ecv2').textContent='\u20ac'+fmt(saved);}
-ids.forEach(function(i){els[i].addEventListener('input',u);});u();
 };
 window.addEventListener('message',function(e){if(e.data&&e.data.type==='px_lang'){setLang(e.data.lang);if(window.repaint)window.repaint();}});
 if(window.self!==window.top){document.body.classList.add('embedded');}
