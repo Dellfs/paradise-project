@@ -10,7 +10,7 @@
 <meta property="og:title" content="PARADISE — Voor pati&#235;nten">
 <meta property="og:description" content="Pati&#235;nteninformatie over het PARADISE-onderzoek: wat u als pati&#235;nt moet weten.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://belgianfootpressure.be/paradise_logo_no_bg.png">
+<meta property="og:image" content="https://belgianfootpressure.be/Image/paradise_logo_no_bg.png">
 <meta property="og:url" content="https://belgianfootpressure.be/patienten-educatie.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="PARADISE — Voor pati&#235;nten">
@@ -27,10 +27,11 @@
 
 window.RENDER=function(){
 var h='';
-/* ---- Title ---- */
+/* ---- Title (niet als de pagina in het portaal ingebed is: daar staat de titel al) ---- */
+if(!document.body.classList.contains('embedded')){
 h+='<div class="kicker">'+tr(["Voor pati\u00ebnten","For patients"])+'</div>';
 h+='<h1>'+tr(["Uw deelname aan het PARADISE-onderzoek","Your participation in the PARADISE study"])+'</h1>';
-h+='<p class="lead">'+tr(["Op deze pagina staat wat u als deelnemer moet weten. Wat het onderzoek inhoudt, wat we van u vragen, welke toestellen we gebruiken, en wat uw rechten zijn.","On this page you find everything you need to know as a patient about the PARADISE project: what it involves, what we ask of you, which measurement devices we use, and what your rights are."])+'</p>';
+}
 
 /* ---- What is PARADISE ---- */
 h+='<div class="sh">'+tr(["Wat is PARADISE?","What is PARADISE?"])+'</div>';
@@ -41,18 +42,10 @@ h+='<p style="margin:0;color:var(--soft)">'+tr(["Het project wordt gefinancierd 
 h+='<div class="sh">'+tr(["Wat vragen we van u?","What do we ask of you?"])+'</div>';
 h+='<ul class="steps">';
 h+='<li>'+tr(["<strong>Uw aangepast schoeisel dragen</strong> \u2014 altijd, van het moment dat u opstaat tot u gaat slapen, elke dag van de week.","<strong>Wear your custom footwear</strong> \u2014 always, from the moment you get up until you go to bed, every day of the week."])+'</li>';
-h+='<li>'+tr(["<strong>Bezoeken om de 3 maanden</strong> \u2014 we lezen de sensor uit en meten de druk onder uw voet. Daarna bekijken we het verloop samen.","<strong>Visits every 3 months</strong> \u2014 at each visit we read the sensor, measure the pressure under your foot, and discuss the progress together."])+'</li>';
+h+='<li>'+tr(["<strong>Een bezoek om de 3 maanden</strong> \u2014 we lezen de sensor in uw zool uit en kijken uw voeten en schoenen na.","<strong>A visit every 3 months</strong> \u2014 we read the sensor in your insole and check your feet and shoes."])+'</li>';
 h+='<li>'+tr(["<strong>E\u00e9n keer een activiteitenmonitor dragen</strong> \u2014 een volle week bij de start. Het toestel zit op uw onderrug en meet wanneer u slaapt en wanneer u op bent.","<strong>Wearing an activity monitor once</strong> \u2014 at the start you wear a small device on your lower back for 1 full week that records when you sleep and when you are up."])+'</li>';
-h+='<li>'+tr(["<strong>Vrij deelnemen</strong> \u2014 u kunt op elk moment stoppen met het onderzoek, zonder gevolgen voor uw verdere zorg.","<strong>Voluntary participation</strong> \u2014 you may stop participating at any time, with no consequences for your ongoing care."])+'</li>';
 h+='</ul>';
 
-/* ---- Key targets ---- */
-h+='<div class="sh">'+tr(["Streefwaarden","Targets"])+'</div>';
-h+='<div class="grid3" style="margin-bottom:14px">';
-h+='<div class="stat"><div class="n">'+tr(["Altijd","Always"])+'</div><div class="l">'+tr(["uw schoenen aan, van opstaan tot slapengaan","your shoes on, from getting up to going to bed"])+'</div></div>';
-h+='<div class="stat"><div class="n">7/7</div><div class="l">'+tr(["dagen per week","days per week"])+'</div></div>';
-h+='<div class="stat"><div class="n">18 mnd</div><div class="l">'+tr(["opvolging per deelnemer","follow-up per participant"])+'</div></div>';
-h+='</div>';
 h+='<div class="note tip"><span class="lab">'+tr(["Waarom altijd?","Why always?"])+'</span>'+tr(["Drukverlagend schoeisel beschermt alleen wanneer u het draagt. In een grote Nederlandse studie kregen mensen die zulk schoeisel bij het grootste deel van hun stappen droegen, bijna half zo vaak een nieuwe wonde als met gewoon maatschoeisel. Elke stap zonder uw schoenen is een stap zonder bescherming, ook thuis.","Pressure-relieving footwear only protects you when you wear it. In a large Dutch study, people who wore such footwear for most of their steps developed a new wound almost half as often as with ordinary custom footwear. Every step without your shoes is a step without protection, at home too."])+'</div>';
 
 /* ---- The devices ---- */
@@ -80,40 +73,31 @@ h+='</div>';
 h+='</div>'; /* end grid2 devices */
 
 /* Pressure measurements */
-h+='<div class="sh">'+tr(["Drukmetingen bij elk bezoek","Pressure measurements at each visit"])+'</div>';
-h+='<div class="card" style="margin-bottom:14px">';
-h+='<p style="color:var(--soft);margin:0 0 10px">'+tr(["Bij elk bezoek voert het studieteam of het zorgteam een drukmeting uit. Er zijn twee soorten metingen, afhankelijk van wie de meting uitvoert:","At each visit, the study team or care team performs a pressure measurement. There are two types of measurements, depending on who performs the measurement:"])+'</p>';
-h+='<table class="tbl"><thead><tr><th>'+tr(["Toestel","Device"])+'</th><th>'+tr(["Hoe","How"])+'</th><th>'+tr(["Wie","Who"])+'</th></tr></thead><tbody>';
-h+='<tr><td>F-Scan GO</td><td>'+tr(["Dunne inlegzool in uw schoen; u wandelt op normale snelheid","Thin insole in your shoe; you walk at normal speed"])+'</td><td><span class="who">'+tr(["Studieteam","Study team"])+'</span></td></tr>';
-h+='<tr><td>Novel pedar</td><td>'+tr(["Zelfde principe, ander toestel — loopt tijdelijk parallel met de F-Scan ter vergelijking","Same principle, different device — temporarily runs alongside the F-Scan for comparison"])+'</td><td><span class="who">'+tr(["Zorgteam (DFC)","Care team (DFC)"])+'</span></td></tr>';
-h+='</tbody></table>';
-h+='<p class="muted" style="margin-top:8px">'+tr(["Beide metingen zijn pijnloos en duren slechts enkele minuten. U wordt gevraagd op een comfortabele wandelsnelheid te lopen — het kan zijn dat u dit tijdens de overgangsperiode twee keer na elkaar doet.","Both measurements are painless and take only a few minutes. You are asked to walk at a comfortable walking pace — during the transition period you may do this twice in a row."])+'</p>';
-h+='</div>';
+h+='<div class="sh">'+tr(["Drukmetingen","Pressure measurements"])+'</div>';
+h+='<div class="card" style="margin-bottom:14px"><p style="color:var(--soft);margin:0">'+tr(["Op het eerste en het tweede bezoek en op maand 6, 12 en 18 meten we de druk onder uw voet, in uw schoen. U stapt een paar minuten op uw gewone tempo met een dunne meetzool in uw schoen; dat doet geen pijn. Soms meet het studieteam meteen nog eens met een tweede toestel, om beide toestellen te vergelijken.","At the first and second visit and at months 6, 12 and 18 we measure the pressure under your foot, inside your shoe. You walk for a few minutes at your usual pace with a thin measuring insole in your shoe; it does not hurt. Sometimes the study team measures again with a second device, to compare the two devices."])+'</p></div>';
 
 /* Visit schedule */
 h+='<div class="sh">'+tr(["Planning van de bezoeken","Visit schedule"])+'</div>';
-h+='<table class="tbl" style="margin-bottom:14px"><thead><tr><th>'+tr(["Bezoek","Visit"])+'</th><th>'+tr(["Tijdstip","Timepoint"])+'</th><th>'+tr(["Wat gebeurt er","What happens"])+'</th></tr></thead><tbody>';
-h+='<tr><td>'+tr(["Baseline","Baseline"])+'</td><td>'+tr(["Start","Start"])+'</td><td>'+tr(["Alle metingen \u00b7 MoveMonitor (1 week)","All measurements \u00b7 MoveMonitor (1 week)"])+'</td></tr>';
-h+='<tr><td>'+tr(["Bezoek 2","Visit 2"])+'</td><td>3 '+tr(["maanden","months"])+'</td><td>'+tr(["Sensor uitlezen \u00b7 drukmetingen","Read sensor \u00b7 pressure measurements"])+'</td></tr>';
-h+='<tr><td>'+tr(["Bezoek 3","Visit 3"])+'</td><td>6 '+tr(["maanden","months"])+'</td><td>'+tr(["Alle metingen \u00b7 MoveMonitor (1 week)","All measurements \u00b7 MoveMonitor (1 week)"])+'</td></tr>';
-h+='<tr><td>'+tr(["Bezoek 4","Visit 4"])+'</td><td>9 '+tr(["maanden","months"])+'</td><td>'+tr(["Sensor uitlezen \u00b7 drukmetingen","Read sensor \u00b7 pressure measurements"])+'</td></tr>';
-h+='<tr><td style="color:var(--pm);font-weight:800">'+tr(["Bezoek 5 \u2605","Visit 5 \u2605"])+'</td><td style="color:var(--pm)">12 '+tr(["maanden","months"])+'</td><td>'+tr(["Primair analysepunt \u00b7 alle metingen","Primary analysis point \u00b7 all measurements"])+'</td></tr>';
-h+='<tr><td>'+tr(["Bezoek 6","Visit 6"])+'</td><td>15 '+tr(["maanden","months"])+'</td><td>'+tr(["Sensor uitlezen \u00b7 drukmetingen","Read sensor \u00b7 pressure measurements"])+'</td></tr>';
-h+='<tr><td>'+tr(["Bezoek 7","Visit 7"])+'</td><td>18 '+tr(["maanden","months"])+'</td><td>'+tr(["Eindmeting \u00b7 alle instrumenten","Final measurement \u00b7 all instruments"])+'</td></tr>';
+h+='<table class="tbl" style="margin-bottom:14px"><thead><tr><th>'+tr(["Bezoek","Visit"])+'</th><th>'+tr(["Wanneer","When"])+'</th><th>'+tr(["Wat gebeurt er","What happens"])+'</th></tr></thead><tbody>';
+h+='<tr><td>'+tr(["Bezoek 1","Visit 1"])+'</td><td>'+tr(["start","start"])+'</td><td>'+tr(["Onderzoek van voeten en schoenen, drukmeting, vragenlijsten. U krijgt de activiteitenmonitor mee voor \u00e9\u00e9n week.","Foot and shoe check, pressure measurement, questionnaires. You take the activity monitor home for one week."])+'</td></tr>';
+h+='<tr><td>'+tr(["Bezoek 2","Visit 2"])+'</td><td>'+tr(["2 tot 4 weken later","2 to 4 weeks later"])+'</td><td>'+tr(["U krijgt uw nieuwe zolen met de sensor; drukmeting met en zonder zool. U brengt de activiteitenmonitor terug.","You receive your new insoles with the sensor; pressure measurement with and without the insole. You return the activity monitor."])+'</td></tr>';
+h+='<tr><td>'+tr(["Bezoek 3, 5, 7","Visits 3, 5, 7"])+'</td><td>'+tr(["maand 3, 9, 15","months 3, 9, 15"])+'</td><td>'+tr(["Sensor uitlezen, voeten en schoenen nakijken, vragenlijsten.","Read the sensor, check feet and shoes, questionnaires."])+'</td></tr>';
+h+='<tr><td>'+tr(["Bezoek 4, 6","Visits 4, 6"])+'</td><td>'+tr(["maand 6, 12","months 6, 12"])+'</td><td>'+tr(["Zoals hierboven, plus een drukmeting.","As above, plus a pressure measurement."])+'</td></tr>';
+h+='<tr><td>'+tr(["Bezoek 8","Visit 8"])+'</td><td>'+tr(["maand 18","month 18"])+'</td><td>'+tr(["Laatste bezoek, met drukmeting.","Last visit, with a pressure measurement."])+'</td></tr>';
 h+='</tbody></table>';
 
 /* Rights */
 h+='<div class="sh">'+tr(["Uw rechten","Your rights"])+'</div>';
 h+='<div class="grid2" style="margin-bottom:14px">';
 h+='<div class="card"><b style="color:var(--pd)">'+tr(["Vrijwillige deelname","Voluntary participation"])+'</b><p style="color:var(--soft);margin:8px 0 0;font-size:14.5px">'+tr(["U kunt op elk ogenblik en zonder reden stoppen met het onderzoek. Uw medische zorg blijft in alle gevallen hetzelfde.","You may stop participating at any moment and for any reason. Your medical care remains the same in all cases."])+'</p></div>';
-h+='<div class="card"><b style="color:var(--pd)">'+tr(["Uw gegevens","Your data"])+'</b><p style="color:var(--soft);margin:8px 0 0;font-size:14.5px">'+tr(["Uw gegevens worden vertrouwelijk behandeld en enkel gebruikt voor wetenschappelijk onderzoek, overeenkomstig de GDPR. U kunt uw gegevens opvragen of laten verwijderen.","Your data are treated confidentially and used only for scientific research, in accordance with GDPR. You may request access to or deletion of your data."])+'</p></div>';
+h+='<div class="card"><b style="color:var(--pd)">'+tr(["Uw gegevens","Your data"])+'</b><p style="color:var(--soft);margin:8px 0 0;font-size:14.5px">'+tr(["Uw gegevens worden gecodeerd en vertrouwelijk verwerkt, alleen voor dit onderzoek en volgens de GDPR. Wat u precies kunt inkijken of laten aanpassen, staat in het toestemmingsformulier.","Your data are coded and handled confidentially, only for this study and in line with the GDPR. What you can view or have corrected is set out in the consent form."])+'</p></div>';
 h+='</div>';
 
 /* FAQ */
 h+='<div class="sh">'+tr(["Veelgestelde vragen","Frequently asked questions"])+'</div>';
 var faqs=[
-  [["Mag ik de sensor nat maken?","May I get the sensor wet?"],["Nee, de sensor in uw orthese is niet waterdicht. Verwijder uw schoeisel bij het douchen, zwemmen of bij andere contacten met water.","No, the sensor in your orthopaedic insole is not waterproof. Remove your footwear when showering, swimming, or any contact with water."]],
-  [["Wat als ik het schoeisel een dag niet heb gedragen?","What if I did not wear the footwear for a day?"],["Dat is geen probleem. We bespreken dit samen bij uw volgende bezoek \u2014 zonder oordeel. Het doel is om samen te zoeken naar oplossingen die voor u werken.","That is not a problem. We discuss this together at your next visit \u2014 without judgement. The goal is to look together for solutions that work for you."]],
+  [["Mag de sensor nat worden?","May the sensor get wet?"],["Ja, de sensor in uw zool kan tegen water. Alleen de activiteitenmonitor die u de eerste week draagt, mag niet nat worden: doe die uit voor u doucht of zwemt.","Yes, the sensor in your insole is waterproof. Only the activity monitor you wear in the first week must not get wet: take it off before you shower or swim."]],
+  [["Wat als ik mijn schoenen een dag niet gedragen heb?","What if I did not wear my shoes for a day?"],["Draag ze de volgende dag gewoon weer; elke dag telt. Is dragen moeilijk, zeg het dan aan uw zorgteam: dan zoeken we samen een oplossing.","Just wear them again the next day; every day counts. If wearing them is difficult, tell your care team and we will look for a solution together."]],
   [["Kan de sensor zien waar ik ben?","Can the sensor see where I am?"],["Nee. De sensor meet alleen temperatuur en heeft geen GPS, geen microfoon en geen camera. De sensor weet niet waar u bent.","No. The sensor only measures temperature and has no GPS, no microphone, and no camera. The sensor does not know where you are."]],
   [["Wat als ik klachten heb aan mijn schoen of orthese?","What if I have complaints about my shoe or orthopaedic insole?"],["Neem zo snel mogelijk contact op met uw zorgteam. Wacht niet tot het volgende geplande bezoek als er iets scheelt aan uw schoeisel.","Contact your care team as soon as possible. Do not wait until the next scheduled visit if something is wrong with your footwear."]]
 ];
@@ -123,9 +107,6 @@ faqs.forEach(function(f){
 
 h+='<div class="note tip" style="margin-top:16px"><span class="lab">'+tr(["Vragen of ongerust?","Questions or concerns?"])+'</span>'+tr(["Aarzel niet om contact op te nemen met uw zorgteam bij de diabetische voetcliniek. Zij staan klaar om al uw vragen te beantwoorden.","Do not hesitate to contact your care team at the diabetic foot clinic. They are there to answer all your questions."])+'</div>';
 
-/* Downloadable brochures */
-h+='<div class="sh">'+tr(["Brochures om te downloaden","Downloadable brochures"])+'</div>';
-h+='<div class="card" style="text-align:center;color:var(--muted);padding:24px 20px">'+tr(["Binnenkort beschikbaar — hier komen patiëntenbrochures in PDF-formaat.","Coming soon — patient brochures in PDF format will be available here."])+'</div>';
 
 return h;
 };

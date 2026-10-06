@@ -10,7 +10,7 @@
 <meta property="og:title" content="PARADISE Academy — MOOC meetinstrumenten">
 <meta property="og:description" content="Een korte, visuele MOOC over de meetinstrumenten van het PARADISE-onderzoek voor betrokken professionals.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://belgianfootpressure.be/paradise_logo_no_bg.png">
+<meta property="og:image" content="https://belgianfootpressure.be/Image/paradise_logo_no_bg.png">
 <meta property="og:url" content="https://belgianfootpressure.be/paradise-academy.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="PARADISE Academy — MOOC meetinstrumenten">
@@ -504,7 +504,7 @@ doc.getElementById('examresult').innerHTML=box;return;
 if(e.target.closest('#mkcert')){
 var nm=(doc.getElementById('cn').value||'').trim()||(lang==='nl'?'Zorgprofessional':'Health professional');
 var dt=new Date().toLocaleDateString(lang==='nl'?'nl-BE':'en-GB');
-doc.getElementById('certbox').innerHTML='<div class="cert" id="cert-print"><div class="cert-logos"><img src="fafdfd0130935faebf41555ec6ecd1d683320ac5_818466a59c6109a28d5130de90e4289109b50544.webp" alt="KU Leuven" class="cert-logo-ku"><img src="paradise_logo_no_bg.png" alt="PARADISE" class="cert-logo-par"></div><div class="seal">'+tr(UI.certSeal)+'</div><h3>'+tr(UI.certTitle)+'</h3><div class="nm">'+nm+'</div><p class="meta">'+tr(UI.certLine)+' · '+dt+'</p><div class="cert-footer">KU Leuven Campus Brugge &middot; FWO-TBM T000226N</div></div><div style="text-align:center;margin-top:14px"><button type="button" class="btn g" onclick="downloadCert()" style="font-size:14px;padding:10px 22px">&#8595; '+(lang==='nl'?'Download als PDF':'Download as PDF')+'</button></div>';
+doc.getElementById('certbox').innerHTML='<div class="cert" id="cert-print"><div class="cert-logos"><img src="Image/fafdfd0130935faebf41555ec6ecd1d683320ac5_818466a59c6109a28d5130de90e4289109b50544.webp" alt="KU Leuven" class="cert-logo-ku"><img src="Image/paradise_logo_no_bg.png" alt="PARADISE" class="cert-logo-par"></div><div class="seal">'+tr(UI.certSeal)+'</div><h3>'+tr(UI.certTitle)+'</h3><div class="nm">'+nm+'</div><p class="meta">'+tr(UI.certLine)+' · '+dt+'</p><div class="cert-footer">KU Leuven Campus Brugge &middot; FWO-TBM T000226N</div></div><div style="text-align:center;margin-top:14px"><button type="button" class="btn g" onclick="downloadCert()" style="font-size:14px;padding:10px 22px">&#8595; '+(lang==='nl'?'Download als PDF':'Download as PDF')+'</button></div>';
 var ef=doc.querySelector('.fstep[href="#exam"]');if(ef)ef.classList.add('done');doc.getElementById('certbox').scrollIntoView({behavior:'smooth'});return;
 }
 });

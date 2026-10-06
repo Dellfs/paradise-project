@@ -103,7 +103,7 @@ for (const p of SUBPAGINAS) {
   const ctx = vm.createContext({
     console, localStorage: { getItem: () => null, setItem() {} },
     document: { getElementById: id => (els[id] = els[id] || element()), addEventListener() {},
-                querySelectorAll: () => [], documentElement: {}, body: { classList: { add() {} } } },
+                querySelectorAll: () => [], documentElement: {}, body: { classList: { add() {}, contains: () => false } } },
   });
   ctx.window = ctx; ctx.self = ctx; ctx.top = ctx; ctx.addEventListener = () => {};
   const paginaJs = [...x.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m => m[1]).join('\n');
@@ -112,6 +112,33 @@ for (const p of SUBPAGINAS) {
   check(p + ': start op met het gedeelde script' + (fout ? ' (' + fout + ')' : ''),
         !fout && els.app && els.app.innerHTML.length > 200 && typeof ctx.repaint === 'function');
 }
+
+console.log('Professionele afwerking (review 6/10/2026)');
+const INDEX = lees('index.html');
+check('site start in het Nederlands', INDEX.includes('<html lang="nl">') && INDEX.includes('let lang = "nl";'));
+check('iframes krijgen de taal van het document, niet het lege lang-attribuut van het iframe',
+      !/onload="[^"]*lang:lang[^"]*"/.test(INDEX));
+check('geen "patiënten opgenomen" vóór de inclusie', !/Pati(&#235;|ë)nten opgenomen|Patients included/.test(INDEX));
+check('één uitleg van het acroniem: de officiële titel', !/Advancing|Research And Diabetic|Naar Druktherapietrouw/.test(INDEX));
+check('alle zes voetklinieken in de affiliaties', ['AZ Sint-Jan Brugge', 'AZ Groeninge', 'AZORG', 'UZ Gent', 'UZ Antwerpen', 'UZ Leuven']
+      .every(c => /affiliations:"[^"]*/.exec(INDEX)[0].includes(c)));
+check('geen emoji als icoon', !/&#1(29462|28202|27973|28218|28205|27963);|&#9993;/.test(INDEX.replace(/<script[\s\S]*?<\/script>/g, '')));
+const RES = lees('resultaten-dashboard.html');
+check('resultatenpagina zonder sjabloon of ontwikkelaarsnotities', !/vul aan|Chart\.js|Sjabloon|to fill/.test(RES));
+const PAT = lees('patienten-educatie.html');
+check('patiëntenpagina: acht visites, geen "bezoek 5 = primair analysepunt"', !/Primair analysepunt|Primary analysis point/.test(PAT) && PAT.includes('Bezoek 8'));
+check('patiëntenpagina: de sensor in de zool is waterdicht', !/sensor in uw orthese is niet waterdicht/.test(PAT));
+check('patiëntenpagina: geen lege belofte van brochures', !/Binnenkort beschikbaar|Coming soon/.test(PAT));
+// elke lokale afbeelding waarnaar de site verwijst, bestaat (de verhuis naar Image/ mag niets breken)
+const ontbreekt = [];
+for (const p of ['index.html', '404.html', 'cookiebeleid.html', 'privacyverklaring.html', 'manifest.json', 'paradise-academy.html', ...SUBPAGINAS]) {
+  const x = lees(p);
+  for (const m of x.matchAll(/(?:src|href)\s*[=:]\s*["']([^"'#?:]+\.(?:png|jpe?g|webp|jfif|svg|gif))["']|photo:"([^"]+)"/g)) {
+    const pad = m[1] || m[2];
+    if (pad && !/^e\.g\./.test(pad) && !fs.existsSync(path.join(SITE, pad))) ontbreekt.push(p + ': ' + pad);
+  }
+}
+check('alle verwezen afbeeldingen bestaan' + (ontbreekt.length ? ' (' + ontbreekt.slice(0, 4).join('; ') + ')' : ''), !ontbreekt.length);
 
 console.log(fouten ? '\n' + fouten + ' check(s) gefaald.' : '\nAlle checks geslaagd.');
 process.exitCode = fouten ? 1 : 0;

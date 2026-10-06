@@ -7,7 +7,7 @@
   "background_color": "#F4F8FC",
   "theme_color": "#00407A",
   "icons": [
-    { "src": "paradise_logo_no_bg.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "paradise_logo_no_bg.png", "sizes": "512x512", "type": "image/png" }
+    { "src": "Image/paradise_logo_no_bg.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "Image/paradise_logo_no_bg.png", "sizes": "512x512", "type": "image/png" }
   ]
 }

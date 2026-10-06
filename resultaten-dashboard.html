@@ -10,7 +10,7 @@
 <meta property="og:title" content="PARADISE — Resultaten">
 <meta property="og:description" content="Resultaten en data van het PARADISE-onderzoek naar diabetische voetzorg.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://belgianfootpressure.be/paradise_logo_no_bg.png">
+<meta property="og:image" content="https://belgianfootpressure.be/Image/paradise_logo_no_bg.png">
 <meta property="og:url" content="https://belgianfootpressure.be/resultaten-dashboard.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="PARADISE — Resultaten">
@@ -26,12 +26,15 @@
 
 
 window.RENDER=function(){
-var h='<div class="kicker">'+tr(["Resultaten","Results"])+'</div><h1>'+tr(["Studievoortgang & resultaten","Study progress & results"])+'</h1>';
-h+='<div class="note warn"><span class="lab">'+tr(["Sjabloon","Template"])+'</span>'+tr(["Dit is een lege opzet met plaatsvervangende waarden. Vul de cijfers pas in zodra er gevalideerde data zijn \u2014 niets hier is een echt resultaat.","This is an empty scaffold with placeholder values. Fill in the numbers only once validated data exist \u2014 nothing here is a real result."])+'</div>';
-h+='<div class="grid3"><div class="stat"><div class="n ph">\u2014 / \u2014</div><div class="l">'+tr(["gerekruteerd / doel","recruited / target"])+'</div></div><div class="stat"><div class="n ph">\u2014%</div><div class="l">'+tr(["gem. adherentie (12 mnd)","mean adherence (12 mo)"])+'</div></div><div class="stat"><div class="n ph">\u2014%</div><div class="l">'+tr(["recidief (18 mnd)","recurrence (18 mo)"])+'</div></div></div>';
-h+='<div class="grid2" style="margin-top:6px"><div><div class="sh">'+tr(["Rekrutering per centrum","Recruitment per site"])+'</div><div class="dashph">'+tr(["[ staafdiagram \u2014 vul aan ]","[ bar chart \u2014 to fill ]"])+'</div></div><div><div class="sh">'+tr(["Adherentieverdeling","Adherence distribution"])+'</div><div class="dashph">'+tr(["[ histogram met 80%-lijn \u2014 vul aan ]","[ histogram with 80% line \u2014 to fill ]"])+'</div></div></div>';
-h+='<div class="sh">'+tr(["Piekdruk-evolutie (offloading)","Peak-pressure evolution (offloading)"])+'</div><div class="dashph">'+tr(["[ lijngrafiek baseline \u2192 18 mnd \u2014 vul aan ]","[ line chart baseline \u2192 18 mo \u2014 to fill ]"])+'</div>';
-h+='<p class="muted" style="margin-top:14px">'+tr(["Tip: vervang elke [\u2026]-zone door een grafiek (bv. Chart.js) wanneer de data klaar zijn.","Tip: replace each [\u2026] zone with a chart (e.g. Chart.js) once data are ready."])+'</p>';
+var h='<div class="kicker">'+tr(["Resultaten","Results"])+'</div><h1>'+tr(["Studievoortgang","Study progress"])+'</h1>';
+h+='<p class="lead">'+tr(["De inclusie start in februari 2027. Resultaten volgen na de laatste visite: hier en in een wetenschappelijk tijdschrift.","Enrolment starts in February 2027. Results will follow after the last visit: here and in a scientific journal."])+'</p>';
+h+='<table class="tbl"><thead><tr><th>'+tr(["Mijlpaal","Milestone"])+'</th><th>'+tr(["Gepland","Planned"])+'</th></tr></thead><tbody>';
+h+='<tr><td>'+tr(["Opleiding van de zes voetklinieken","Training of the six foot clinics"])+'</td><td>'+tr(["november 2026 \u2013 maart 2027","November 2026 \u2013 March 2027"])+'</td></tr>';
+h+='<tr><td>'+tr(["Start van de inclusie","Start of enrolment"])+'</td><td>'+tr(["februari 2027","February 2027"])+'</td></tr>';
+h+='<tr><td>'+tr(["144 deelnemers gerandomiseerd","144 participants randomised"])+'</td><td>'+tr(["februari 2028","February 2028"])+'</td></tr>';
+h+='<tr><td>'+tr(["Laatste visite","Last visit"])+'</td><td>'+tr(["augustus 2029","August 2029"])+'</td></tr>';
+h+='<tr><td>'+tr(["Resultaten","Results"])+'</td><td>'+tr(["na de laatste visite en de analyse","after the last visit and the analysis"])+'</td></tr>';
+h+='</tbody></table>';
 return h;
 };
 window.addEventListener('message',function(e){if(e.data&&e.data.type==='px_lang'){setLang(e.data.lang);if(window.repaint)window.repaint();}});
