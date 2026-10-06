@@ -8,6 +8,7 @@
 // 3. Geen verouderde studiefeiten in de teksten.
 // 4. De zes subpagina's gebruiken één gedeeld sjabloon (styles/subpagina.css, scripts/subpagina.js)
 //    en dragen er geen eigen kopie van.
+// 5. De F-Scan GO (validatiedeelstudie van het studieteam) staat niet op de site of in de MOOC.
 'use strict';
 const fs = require('fs');
 const path = require('path');
@@ -139,6 +140,17 @@ for (const p of ['index.html', '404.html', 'cookiebeleid.html', 'privacyverklari
   }
 }
 check('alle verwezen afbeeldingen bestaan' + (ontbreekt.length ? ' (' + ontbreekt.slice(0, 4).join('; ') + ')' : ''), !ontbreekt.length);
+
+// De F-Scan GO is een validatiedeelstudie van het studieteam en hoort niet bij wat de clinici in de DFC
+// leren of doen (beslissing Janou 6/10/2026). Alle drukmetingen van de klinieken gebeuren met de pedar.
+console.log('F-Scan alleen voor het studieteam (6/10/2026)');
+for (const p of ['index.html', 'paradise-academy.html', ...SUBPAGINAS]) {
+  check(p + ': geen F-Scan', !/F-?Scan|Tekscan|FootVIEW|tekscan1/i.test(lees(p)));
+}
+check('MOOC: voetdrukkaart en offloadingdoel staan bij de pedar', /if\(key==='pedar'\)h\+=[^\n]*footMapHTML\(\)[^\n]*calcHTML\(\)/.test(mooc));
+check('MOOC-tijdlijn: MoveMonitor alleen bij de start', (mooc.match(/'volle week':'full week'/g) || []).length === 1);
+check('MOOC: voortgang telt alleen bestaande modules', mooc.includes('if(MODS.indexOf(k)>=0)done.add(k)'));
+check('nieuws: geen inclusie "van start" vóór februari 2027', !/is van start gegaan|is now under way/.test(INDEX));
 
 console.log(fouten ? '\n' + fouten + ' check(s) gefaald.' : '\nAlle checks geslaagd.');
 process.exitCode = fouten ? 1 : 0;
