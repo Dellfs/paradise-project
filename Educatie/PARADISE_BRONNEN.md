@@ -300,8 +300,19 @@ patiënt wisselt niet dagelijks.**
 > isoleert daarmee het effect van de zool, en niet dat van schoeisel tegenover blote
 > voet.
 >
-> **De referentie is vast, en dat is de baselinemeting (gepreciseerd 22 september
-> 2026).** De piekdruk **zónder de CMFO bij de aflevering op visite 2** is de
+> **Beslissing van 6 oktober 2026 (coördinerend onderzoeker): de referentie is per sessie.**
+> Elke meetsessie (visite 2 en maand 6, 12 en 18) meet twee keer, in de schoen: zónder en
+> mét de CMFO. De 25% wordt binnen díe sessie gerekend: % lager = (zonder − met) ÷ zonder.
+> Haalt een doelregio de norm niet (< 200 kPa óf ≥ 25% lager), dan past de pedorthist de
+> CMFO aan en wordt mét de CMFO opnieuw gemeten, **tot drie aanpassingen** (eCRF 24: extra
+> ontlastingstest 1 tot 3). De regel om bij opvolging ook aan te passen bij een stijging van
+> ≥ 5% op een doelregio blijft. De doelregio's liggen nog altijd vast vanaf visite 2.
+> **Daarmee vervalt de vaste referentie van 22 september hieronder**; die paragraaf blijft
+> staan als geschiedenis. Doorgevoerd op 6 oktober in CLAUDE.md, de site, de MOOC, eCRF 09b,
+> 24 en 24b, de Pressure Monitoring Tool, REDCap, het protocol en de webdecks.
+>
+> **Vervallen op 6 oktober 2026 — de referentie was vast, en dat was de baselinemeting
+> (gepreciseerd 22 september 2026).** De piekdruk **zónder de CMFO bij de aflevering op visite 2** is de
 > referentie, en die blijft dat voor de hele studie. Op **maand 6, 12 en 18** wordt de
 > meting mét de zool dus vergeleken met díe baseline, **niet** met de meting zonder
 > zool van datzelfde bezoek. Die wordt op elk moment wel opnieuw vastgelegd — ze toont
@@ -489,12 +500,12 @@ overzicht per deelnemer over alle visites, met de referentie van visite 2.
 2. In het schoeisel **mét** de CMFO
 
 De blootsvoetse conditie die nu nog op het formulier staat, vervalt. Beide overblijvende
-condities worden op elk van deze momenten opnieuw gemeten. De meting zonder zool wordt
-dus telkens opnieuw vastgelegd, maar ze is niet de noemer van de 25%-regel: die noemer
-blijft de meting zonder zool van visite 2 — zie *Alles gebeurt in-shoe* hierboven.
+condities worden op elk van deze momenten opnieuw gemeten, en de meting zonder zool van
+díe sessie is de noemer van de 25%-regel (beslissing 6 oktober 2026 — zie *Alles gebeurt
+in-shoe* hierboven).
 
-Twee extra ontlastingstests zijn op het formulier voorzien voor als de norm niet gehaald
-wordt.
+Drie extra ontlastingstests zijn op het formulier voorzien voor als de norm niet gehaald
+wordt: de pedorthist mag tot drie keer aanpassen (beslissing 6 oktober 2026; voordien twee).
 
 > **Alleen het binnenschoeisel — beslist door de PI op 14 september 2026.** eCRF 24
 > bestond uit **deel A1 (buitenschoeisel)** en **deel A2 (binnenschoeisel)**, elk met een

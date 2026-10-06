@@ -54,12 +54,14 @@
 
 Bron: FWO-TBM T000226N (+ doctoraatsplan). Bij twijfel: vragen, niet gokken.
 - **Offloadingdoel:** piekdruk **< 200 kPa ÓF ≥ 25% lager** (NIET 20%; "óf", niet "én").
-  Die 25% wordt gerekend **tussen de meting zónder en die mét de CMFO** (beslissing PI
-  11 september 2026). De noemer is **vast**: de meting zónder de CMFO bij de aflevering op
-  **visite 2** blijft de referentie voor de hele studie, dus ook op maand 6, 12 en 18
-  (gepreciseerd 22 september 2026). De meting zonder zool wordt daar wel telkens opnieuw
-  vastgelegd — ze toont de actuele onbeschermde druk — maar ze is niet de noemer.
-  Alle metingen zijn **in-shoe**; er wordt niet blootsvoets gemeten.
+  Die 25% wordt gerekend **tussen de meting zónder en die mét de CMFO in dezelfde sessie**
+  (beslissing PI 11 september 2026; **per sessie** bevestigd op 6 oktober 2026, waarmee de vaste
+  referentie van visite 2 uit de precisering van 22 september vervalt). Elke meetsessie —
+  visite 2 en maand 6, 12 en 18 — meet dus **twee keer**, zonder en mét de CMFO, en vergelijkt
+  binnen die sessie: % lager = (zonder − met) ÷ zonder. Haalt een doelregio de norm niet, dan
+  past de pedorthist de CMFO aan en wordt mét de CMFO opnieuw gemeten, **tot drie aanpassingen**
+  (eCRF 24: extra ontlastingstest 1 tot 3). Alle metingen zijn **in-shoe**; er wordt niet
+  blootsvoets gemeten.
 - **Eén primair eindpunt:** **voetulcusrecidief over 18 maanden** (beslissing PI 3 september 2026).
   Schoeiseltherapietrouw — **≥ 80%** van de waaktijd, **7 dagen/week**, elke 3 maanden uitgelezen —
   is sindsdien de **vooraf vastgelegde mediator**, geen eindpunt: ze wordt volledig gemeten en
