@@ -43,6 +43,8 @@
   configuratiebestanden (`sitemap.xml`, `robots.txt`) mogen dit domein wel bevatten.
 - Geen emoji's in klinische content tenzij expliciet gevraagd.
 - Minimale opmaak; vermijd overbodige headers/bullets.
+- **Presentaties** (webdecks, PowerPoints, posters, MOOC-dia's): volg `PARADISE_presentatie/PRESENTATIESTANDAARD.md` —
+  wereldniveau, geen AI-look en geen huisstijl van Claude, werken met zooms, lean en sec, visuals van topkwaliteit.
 
 ## Inhoudelijke juistheid — PARADISE-feiten (NIET wijzigen zonder bron)
 
