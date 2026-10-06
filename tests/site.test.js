@@ -1,10 +1,13 @@
-// Bewaakt de 80%-draagnorm over de hele site. De regel (eCRF 25b, 28, 32 en PARADISE_BRONNEN.md):
-// norm = 80% van de waaktijd uit de MoveMonitor-week bij de start; Hours/day in de Orthotimer = de
-// norm; in de draagtijdtool vul je de waaktijd in, zodat de 80% één keer toegepast wordt; eCRF 32
-// vraagt het percentage van de norm; de patiënt hoort "altijd".
-//
-// Bewaakt ook dat het offline pakket voor de laptops van de centra dezelfde code draagt als de
-// online uitleestools: het pakket bevat die als HTML-geëscapete kopie (srcdoc).
+// Bewaakt de site als geheel.
+// 1. De 80%-draagnorm (eCRF 25b, 28, 32 en PARADISE_BRONNEN.md): norm = 80% van de waaktijd uit de
+//    MoveMonitor-week bij de start; Hours/day in de Orthotimer = de norm; in de draagtijdtool vul je
+//    de waaktijd in, zodat de 80% één keer toegepast wordt; eCRF 32 vraagt het percentage van de norm;
+//    de patiënt hoort "altijd".
+// 2. Het offline pakket voor de laptops van de centra draagt dezelfde code als de online uitleestools
+//    (als HTML-geëscapete kopie, srcdoc).
+// 3. Geen verouderde studiefeiten in de teksten.
+// 4. De zes subpagina's gebruiken één gedeeld sjabloon (styles/subpagina.css, scripts/subpagina.js)
+//    en dragen er geen eigen kopie van.
 'use strict';
 const fs = require('fs');
 const path = require('path');
@@ -79,6 +82,36 @@ const mooc = lees('paradise-academy.html');
 check('MOOC: juiste antwoord voor de Orthotimer-invoer is 80% van de waaktijd',
       /Welk getal vul je in als gewenste draagtijd in de Orthotimer\?[\s\S]{0,400}?\]\],c:1,/.test(mooc));
 check('MOOC: eCRF 32-vraag rekent 90% van de norm als juist', mooc.includes('["90% van de norm — niet gehaald","90% of the norm — not met"]'));
+
+console.log('Gedeeld sjabloon van de subpagina\'s');
+const vm = require('vm');
+const SJABLOON = lees('scripts/subpagina.js');
+const SUBPAGINAS = ['meetinstrumenten.html', 'studie-protocol.html', 'patienten-educatie.html',
+                    'resultaten-dashboard.html', 'gezondheidseconomie.html', 'drukmeting-demo.html'];
+function element() {
+  return { innerHTML: '', textContent: '', value: '300', style: {}, dataset: {}, classList: { add() {}, toggle() {} },
+           addEventListener() {}, querySelectorAll: () => [], closest: () => null };
+}
+for (const p of SUBPAGINAS) {
+  const x = lees(p);
+  check(p + ': laadt styles/subpagina.css en scripts/subpagina.js',
+        x.includes('href="styles/subpagina.css"') && x.includes('src="scripts/subpagina.js"'));
+  const kopie = ['tr', 'setLang', 'boot', 'footMap', 'calc', 'wireCalc'].filter(n => new RegExp('function ' + n + '\\(').test(x));
+  check(p + ': geen eigen kopie van het sjabloon' + (kopie.length ? ' (' + kopie.join(', ') + ')' : ''), !kopie.length);
+  // draait het gedeelde script en het paginascript samen, met een minimale nep-DOM
+  const els = {};
+  const ctx = vm.createContext({
+    console, localStorage: { getItem: () => null, setItem() {} },
+    document: { getElementById: id => (els[id] = els[id] || element()), addEventListener() {},
+                querySelectorAll: () => [], documentElement: {}, body: { classList: { add() {} } } },
+  });
+  ctx.window = ctx; ctx.self = ctx; ctx.top = ctx; ctx.addEventListener = () => {};
+  const paginaJs = [...x.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m => m[1]).join('\n');
+  let fout = null;
+  try { vm.runInContext(SJABLOON + '\n' + paginaJs, ctx); if (ctx.POST) ctx.POST(); } catch (e) { fout = e.message; }
+  check(p + ': start op met het gedeelde script' + (fout ? ' (' + fout + ')' : ''),
+        !fout && els.app && els.app.innerHTML.length > 200 && typeof ctx.repaint === 'function');
+}
 
 console.log(fouten ? '\n' + fouten + ' check(s) gefaald.' : '\nAlle checks geslaagd.');
 process.exitCode = fouten ? 1 : 0;

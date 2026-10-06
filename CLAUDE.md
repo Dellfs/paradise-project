@@ -25,6 +25,9 @@
 - `paradise-academy.html` — de MOOC over de meetinstrumenten.
 - `privacyverklaring.html`, `cookiebeleid.html` — juridische pagina's, gelinkt vanuit de footer.
 - `styles/tokens.css` — **gedeelde design tokens + CSS-reset**, gelinkt vanuit elke pagina.
+- `styles/subpagina.css` + `scripts/subpagina.js` — **gedeeld sjabloon** van de zes instrumentpagina's hierboven
+  (stijl, taal, opstart, voetkaart, rekenmodule). Een pagina draagt alleen haar eigen inhoud; `tests/site.test.js`
+  bewaakt dat er geen kopieën terugkomen.
 - `sitemap.xml`, `robots.txt`, `manifest.json`, `_headers` — SEO/hosting-configuratie.
 
 ## Stijl & conventies
@@ -107,7 +110,7 @@ Bron: FWO-TBM T000226N (+ doctoraatsplan). Bij twijfel: vragen, niet gokken.
   Netlify bouwt en publiceert daarna automatisch.
 
 ## Werkafspraken met de agent
-- Bewerk **enkel de gevraagde bestanden**; meld het als je gedeelde bestanden (`mooc.css`, `mooc.js`) wil aanpassen.
+- Bewerk **enkel de gevraagde bestanden**; meld het als je gedeelde bestanden (`styles/tokens.css`, `styles/subpagina.css`, `scripts/subpagina.js`) wil aanpassen.
 - Bij een nieuwe pagina: **hergebruik de bestaande structuur en klassen** voor een consistente huisstijl.
 - Wijzig nooit de bovenstaande PARADISE-feiten zonder dat ik een bron geef.
 - Vat na een taak kort samen wat er gewijzigd is.

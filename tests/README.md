@@ -15,7 +15,7 @@ node tests/check-ecrf-links.js
 node tests/sensor-orthotimer.test.js
 node tests/sensor-movemonitor.test.js
 node tests/academy-sync.test.js
-node tests/draagnorm.test.js
+node tests/site.test.js
 ```
 
 Elk script eindigt met exit code 0 bij succes, 1 bij een gefaalde assertie — geschikt om
@@ -42,9 +42,14 @@ twee uploader-bestanden:**
       controleren geen CSS, layout, printweergave of tabletgebruik
 - [ ] Bestaande flows nog steeds correct (V0–V8 in beide armen, per arm alleen de eigen stappen)
 - [ ] Bij een wijziging aan een uploader: dezelfde wijziging geëscapet in
-      `offline/PARADISE_Draagtijd/PARADISE_Draagtijd.html`, en `node tests/draagnorm.test.js` slaagt
+      `offline/PARADISE_Draagtijd/PARADISE_Draagtijd.html`, en `node tests/site.test.js` slaagt
 
-**De 80%-draagnorm** (`tests/draagnorm.test.js`): norm = 80% van de waaktijd uit de MoveMonitor-week
+**Bij elke wijziging aan een subpagina of aan het gedeelde sjabloon** (`styles/subpagina.css`,
+`scripts/subpagina.js`): `node tests/site.test.js` slaagt. Wat alle zes subpagina's delen, staat
+alleen in het sjabloon; een pagina draagt alleen haar eigen inhoud.
+
+**De site als geheel** (`tests/site.test.js`): het gedeelde sjabloon, verouderde studiefeiten, en
+de 80%-draagnorm: norm = 80% van de waaktijd uit de MoveMonitor-week
 bij de start; Hours/day in de Orthotimer = de norm; in de draagtijdtool de waaktijd, zodat de 80%
 één keer toegepast wordt; eCRF 32 vraagt het percentage van de norm; de patiënt hoort "altijd".
 
