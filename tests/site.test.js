@@ -141,11 +141,13 @@ for (const p of ['index.html', '404.html', 'cookiebeleid.html', 'privacyverklari
 }
 check('alle verwezen afbeeldingen bestaan' + (ontbreekt.length ? ' (' + ontbreekt.slice(0, 4).join('; ') + ')' : ''), !ontbreekt.length);
 
-// De F-Scan GO is een validatiedeelstudie van het studieteam en hoort niet bij wat de clinici in de DFC
-// leren of doen (beslissing Janou 6/10/2026). Alle drukmetingen van de klinieken gebeuren met de pedar.
-console.log('F-Scan alleen voor het studieteam (6/10/2026)');
+// Site en MOOC tonen alleen wat de clinici in de DFC doen (beslissing Janou 6/10/2026). De F-Scan GO
+// (validatiedeelstudie) en de trublu-kalibratie van de pedar doet het studieteam; ze horen er niet op.
+console.log('Alleen wat de clinici doen: geen F-Scan, geen kalibratie (6/10/2026)');
 for (const p of ['index.html', 'paradise-academy.html', ...SUBPAGINAS]) {
-  check(p + ': geen F-Scan', !/F-?Scan|Tekscan|FootVIEW|tekscan1/i.test(lees(p)));
+  const x = lees(p);
+  check(p + ': geen F-Scan', !/F-?Scan|Tekscan|FootVIEW|tekscan1/i.test(x));
+  check(p + ': geen kalibratie', !/trublu|kalibr|calibrat|manometer/i.test(x));
 }
 check('MOOC: voetdrukkaart en offloadingdoel staan bij de pedar', /if\(key==='pedar'\)h\+=[^\n]*footMapHTML\(\)[^\n]*calcHTML\(\)/.test(mooc));
 check('MOOC-tijdlijn: MoveMonitor alleen bij de start', (mooc.match(/'volle week':'full week'/g) || []).length === 1);

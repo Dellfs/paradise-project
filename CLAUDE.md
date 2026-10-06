@@ -5,8 +5,9 @@
 
 ## Over dit project
 - Een **bestaande statische website** (handgemaakte HTML/CSS/JS), gedeployed via **Netlify** (Git-gebaseerd).
-- Inhoud: klinische **handleidingen** + een **MOOC** over de meetinstrumenten van de PARADISE-studie
-  (F-Scan GO, Novel pedar, MoveMonitor, Orthotimer).
+- Inhoud: klinische **handleidingen** + een **MOOC** over de meetinstrumenten die de clinici in de DFC gebruiken
+  (Novel pedar, MoveMonitor, Orthotimer). Wat alleen het studieteam doet — de **F-Scan GO** en de **trublu-kalibratie**
+  van de pedar — staat **niet** op de site of in de MOOC (beslissing 6 oktober 2026; `tests/site.test.js` bewaakt dit).
 - **Alle content is in het Nederlands.** Schrijf nieuwe teksten in het Nederlands.
 
 ## Omgeving — BELANGRIJK
@@ -83,7 +84,8 @@ Bron: FWO-TBM T000226N (+ doctoraatsplan). Bij twijfel: vragen, niet gokken.
   Usual Care = **geblindeerd** (niet tonen/bespreken).
 - **Novel pedar:** draadloze **in-shoe** druksensor-inlegzolen, gekoppeld aan de **novel database**-software.
   Kalibratie via het **trublu**-toestel (belasten tot 6 bar; softwaarde binnen **5%** van de manometer = ok,
-  anders herkalibreren; controle minstens elke 3 maanden). **Afgenomen door de KLINIEKEN (DFC).**
+  anders herkalibreren; controle minstens elke 3 maanden), **uitgevoerd door het studieteam (de doctoraatsonderzoekers),
+  niet door de clinici**. De meting zelf wordt **afgenomen door de KLINIEKEN (DFC).**
   Status: later toegevoegd, **vervangt op termijn de F-Scan**, loopt nu **parallel ter vergelijking**.
   (Voorheen liep hier de Novel emed, een blootsvoets platformsysteem — dat is vervangen door de pedar.)
   **Novel studio meet en toont maar rekent niet per regio**; de segmentatie in acht regio's gebeurt
