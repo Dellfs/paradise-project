@@ -246,12 +246,19 @@ standaardiseren.
 
 Protocol §5.4.1 en eCRF-document 23 deel A.
 
-| Onderdeel | Volledig op maat gemaakte schoen | Confectieschoen |
+| Onderdeel | Volledig op maat gemaakte schoen | Confectie- of semi-orthopedische schoen |
 | --- | --- | --- |
-| Basislaag | 5 mm microkurk (shore 55) **+** 5 mm EVA (shore 35-40) | 6 mm EVA (shore 35-40), **géén kurk** |
+| Basislaag | 5 mm microkurk (shore 55) **+** 5 mm EVA (shore 35-40) erop | 6 mm EVA (shore 35-40), **géén kurk** |
 | Deklaag | 3 mm gesloten-cellig schuim (bv. Plastazote LD45) op 3 mm open-cellig dempend schuim (bv. PPT), volledige lengte | idem |
 | Metatarsale steun | Balk die **alle** metatarsaalkoppen ondersteunt, of een lokale pad/dome als maar één regio hoog ligt of daar het vorige ulcus zat | idem |
 | Afmetingen balk | Hoogte 9-10 mm; positie 6-11 mm proximaal van de kopjes; EVA, kurk of equivalent (shore ~55); bedekt door de deklaag | idem |
+
+> **Beslissing van 6 oktober 2026 (coördinerend onderzoeker).** De confectieschoen krijgt
+> **geen kurk**, zoals eCRF 23 A1. De protocolzin ("a base layer of 5mm microcork topped with
+> 5mm EVA for fully custom-made shoes, or 6mm EVA for off-the-shelf shoes") laat zich ook lezen
+> als kurk in beide; die zin moet herschreven worden zodat hij niet anders te lezen valt.
+> **Semi-orthopedisch schoeisel** krijgt dezelfde opbouw als de confectieschoen; eCRF 23 A1
+> moet dat vermelden ("Confectie- of semi-orthopedische schoen: 6 mm EVA").
 
 **Bestaand orthopedisch schoeisel mag blijven.** Een deelnemer die al orthopedische
 schoenen draagt hoeft die niet te vervangen: het schoeisel is toegelaten **zolang de nieuwe

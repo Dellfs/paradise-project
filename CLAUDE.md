@@ -72,7 +72,8 @@ Bron: FWO-TBM T000226N (+ doctoraatsplan). Bij twijfel: vragen, niet gokken.
 - **Drukmeting herhaald op maand 6, 12 én 18** (protocol 5.4.2.2), niet alleen 6 en 12.
 - **CMFO-opbouw hangt af van het schoentype** (protocol 5.4.2, eCRF 23 deel A1):
   in een **volledig op maat gemaakte schoen** 5 mm microkurk (shore 55) + 5 mm EVA (shore 35-40);
-  in een **confectieschoen** 6 mm EVA (shore 35-40), zónder kurk. Deklaag in beide gevallen
+  in een **confectieschoen** 6 mm EVA (shore 35-40), zónder kurk — en **semi-orthopedisch schoeisel** zoals de
+  confectieschoen (beslissing 6 oktober 2026; de protocolzin is dubbelzinnig, eCRF 23 A1 is juist). Deklaag in beide gevallen
   3 mm gesloten-cellig op 3 mm open-cellig, volledige lengte. Metatarsaalbalk 9-10 mm hoog,
   6-11 mm proximaal van de kopjes — of een lokale pad als maar één regio hoog ligt.
   Pasvorm wordt apart beoordeeld in **binnen- én buitenschoeisel**, met fotodocumentatie.
