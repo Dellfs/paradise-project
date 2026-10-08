@@ -26,7 +26,6 @@ arm_num	unique_event_name	form
 1	visite_1_arm_1	visit
 1	visite_2_arm_1	concomitant_therapy
 1	visite_2_arm_1	e23_aanpassing_cmfo
-1	visite_2_arm_1	e24_drukmeting_uc
 1	visite_2_arm_1	e25_udi_orthotimer
 1	visite_2_arm_1	e26_overtuigingen
 1	visite_2_arm_1	e27_udi_movemonitor_retour
@@ -65,7 +64,6 @@ arm_num	unique_event_name	form
 1	visite_6_arm_1	concomitant_therapy
 1	visite_6_arm_1	e08_voet_schoeisel
 1	visite_6_arm_1	e21_eq5d5l
-1	visite_6_arm_1	e24_drukmeting_uc
 1	visite_6_arm_1	e25_udi_orthotimer
 1	visite_6_arm_1	e31_therapietrouw
 1	visite_6_arm_1	e33_vervanging
@@ -87,7 +85,6 @@ arm_num	unique_event_name	form
 1	visite_8_arm_1	e08_voet_schoeisel
 1	visite_8_arm_1	e12_vas_tevredenheid
 1	visite_8_arm_1	e21_eq5d5l
-1	visite_8_arm_1	e24_drukmeting_uc
 1	visite_8_arm_1	e25_udi_orthotimer
 1	visite_8_arm_1	e31_therapietrouw
 1	visite_8_arm_1	e33_vervanging
