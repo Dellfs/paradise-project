@@ -72,7 +72,7 @@ check('usual care -> toont V4', r.html.includes('V4 ·'));
 
 // A2. Per arm alleen de eigen stappen
 r = runWith({ care: 'usual', visit: 'v2', checked: {}, values: {} });
-check('usual care V2 -> geblindeerde drukmeting zichtbaar', r.html.includes('Plantaire drukmeting (geblindeerd)'));
+check('usual care V2 -> geen drukmeting (Usual Care meet alleen op baseline en maand 6, beslissing 8/10/2026)', !r.html.includes('Plantaire drukmeting (geblindeerd)'));
 check('usual care V2 -> geen SEBIA-feedback op het activiteitsprofiel', !r.html.includes('Activiteitsprofiel en feedback'));
 check('usual care V2 -> geen drukgestuurde aanpassing', !r.html.includes('Drukherverdeling CMFO beoordelen'));
 r = runWith({ care: 'usual', visit: 'v3', checked: {}, values: {} });
@@ -82,9 +82,20 @@ for (const v of ['v1', 'v2', 'v3', 'v4']) {
   r = runWith({ care: 'usual', visit: v, checked: {}, values: {} });
   check('usual care ' + v.toUpperCase() + ' -> nergens "SEBIA" (contaminatie)', !r.html.includes('SEBIA'));
 }
+r = runWith({ care: 'usual', visit: 'v4', checked: {}, values: {} });
+check('usual care V4 -> geblindeerde drukmeting zichtbaar, met drempel 50 kPa', r.html.includes('Plantaire drukmeting (geblindeerd)') && r.html.includes('50 kPa'));
+for (const v of ['v6', 'v8']) {
+  r = runWith({ care: 'usual', visit: v, checked: {}, values: {} });
+  check('usual care ' + v.toUpperCase() + ' -> geen drukmeting', !r.html.includes('Plantaire drukmeting (geblindeerd)') && !r.html.includes('Drukherverdeling CMFO beoordelen'));
+}
 r = runWith({ care: 'optimal', visit: 'v2', checked: {}, values: {} });
 check('optimal care V2 -> geen geblindeerde Usual Care-stap', !r.html.includes('Plantaire drukmeting (geblindeerd)'));
 check('optimal care V2 -> drukgestuurde aanpassing zichtbaar', r.html.includes('Drukherverdeling CMFO beoordelen'));
+check('optimal care V2 -> 25% per sessie, tot drie aanpassingen (beslissing 6/10/2026)', r.html.includes('in dezelfde sessie') && r.html.includes('tot drie aanpassingen') && !r.html.includes('referentie voor de hele studie'));
+for (const v of ['v4', 'v6', 'v8']) {
+  r = runWith({ care: 'optimal', visit: v, checked: {}, values: {} });
+  check('optimal care ' + v.toUpperCase() + ' -> drukcontrole per sessie', r.html.includes('Drukherverdeling CMFO beoordelen') && r.html.includes('in dezelfde sessie'));
+}
 
 // B. Uitleesstap met een draagpatroon van een ANDERE patiënt (encounter-ID klopt niet)
 r = runWith(

@@ -134,14 +134,17 @@ function fuSteps(p){
   );
   return steps;
 }
-// De drukmeting gebeurt in beide armen, maar met twee verschillende
-// formulieren. In Usual Care is ze geblindeerd: wel meten, niet tonen,
-// niet bespreken.
+// Optimal Care meet op maand 6, 12 en 18; Usual Care alleen op maand 6
+// (en op baseline, eCRF 09), geblindeerd: wel meten, niet tonen, niet
+// bespreken (beslissing 8 oktober 2026).
 function pressureRecheck(p){
-  return [
-    {id:p+"-24oc", ecrf:"eCRF-Document 24", arm:"oc", title:"Drukherverdeling CMFO beoordelen (extra controle)", desc:"Zelfde benchmark als visite 2 — piekdruk onder 200 kPa mét de zool, óf minstens 25% lager dan de baselinemeting zónder de CMFO van visite 2. Die baseline blijft de referentie.", tag:"meting"},
-    {id:p+"-24uc", ecrf:"eCRF-Document 24", arm:"uc", title:"Plantaire drukmeting (geblindeerd)", desc:"Dezelfde in-shoe meting, maar de resultaten worden niet getoond en niet besproken met de deelnemer of de behandelaar, en sturen de zorg niet bij.", tag:"meting"}
+  var steps = [
+    {id:p+"-24oc", ecrf:"eCRF-Document 24", arm:"oc", title:"Drukherverdeling CMFO beoordelen (extra controle)", desc:"Zelfde werkwijze als visite 2: in de schoen meten zónder en dan mét de CMFO. Norm: piekdruk onder 200 kPa mét de zool, óf minstens 25% lager dan zónder de CMFO in dezelfde sessie. Niet gehaald: aanpassen en opnieuw meten mét de CMFO, tot drie aanpassingen.", tag:"meting"}
   ];
+  if (p === "v4") steps.push(
+    {id:p+"-24uc", ecrf:"eCRF-Document 24", arm:"uc", title:"Plantaire drukmeting (geblindeerd)", desc:"In de schoen meten zónder en mét de CMFO, met het tweede palet (drempel 50 kPa) en de waarden uit. Niets tonen of bespreken; de meting stuurt de zorg niet bij. Het studieteam haalt de waarden centraal uit het exportbestand.", tag:"meting"}
+  );
+  return steps;
 }
 
 var VISITS = {
@@ -160,7 +163,7 @@ var VISITS = {
     steps:[
       {id:"v1-07", ecrf:"eCRF-Document 07", title:"Demografische gegevens en medische voorgeschiedenis", desc:"Demografische gegevens en medische voorgeschiedenis van de deelnemer registreren.", tag:"algemeen"},
       {id:"v1-08", ecrf:"eCRF-Document 08", title:"Baseline voetscreening", desc:"Volledige voetscreening uitvoeren en registreren.", tag:"meting"},
-      {id:"v1-09", ecrf:"eCRF-Document 09", title:"Baseline plantaire drukmeting (in-shoe, zónder CMFO)", desc:"In-shoe drukmeting afnemen zónder de CMFO, drie metingen per voet, ter voorbereiding van het CMFO-voorschrift. Er wordt niet blootsvoets gemeten.", tag:"meting"},
+      {id:"v1-09", ecrf:"eCRF-Document 09", title:"Baseline plantaire drukmeting (in-shoe, zónder CMFO)", desc:"In-shoe drukmeting afnemen zónder de CMFO, drie metingen per voet, ter voorbereiding van het CMFO-voorschrift. Er wordt niet blootsvoets gemeten. In Usual Care geblindeerd: tweede palet (drempel 50 kPa) en de waarden uit; niets tonen of bespreken.", tag:"meting"},
       {id:"v1-10", ecrf:"eCRF-Document 10", title:"Voorschrift Diabetic CMFO", desc:"Voorschrift opstellen voor de custom-made foot orthosis (CMFO).", tag:"device"},
       {id:"v1-12", ecrf:"eCRF-Document 12", title:"Tevredenheid ulcuspreventie bevragen", desc:"Tevredenheid met de aanpak van ulcuspreventie bevragen (protocol Vossen et al. 2023).", tag:"vragenlijst"},
       {id:"v1-13", ecrf:"eCRF-Document 13", title:"Gebruik en bruikbaarheid schoeisel bevragen (MOS)", desc:"Gebruik en bruikbaarheid van het aangemeten schoeisel bevragen.", tag:"vragenlijst"},
@@ -177,11 +180,10 @@ var VISITS = {
   },
   v2: {
     key:"v2", label:"V2 · CMFO-fitting (14 dagen – 1 maand)",
-    intro:"Opvolgbezoek kort na de start: CMFO-aflevering, drukmeting, de MoveMonitor terug en de draagsensor in de zool.",
+    intro:"Opvolgbezoek kort na de start: CMFO-aflevering, drukmeting (alleen Optimal Care), de MoveMonitor terug en de draagsensor in de zool.",
     steps:[
       {id:"v2-23", ecrf:"eCRF-Document 23", title:"Diabetic CMFO afleveren", desc:"Patiënt ontvangt de custom-made foot orthosis; aanpassing en verificatie registreren.", tag:"device"},
-      {id:"v2-24oc", ecrf:"eCRF-Document 24", arm:"oc", title:"Drukherverdeling CMFO beoordelen", desc:"In de schoen meten zonder en mét de CMFO, en aanpassen tot de norm gehaald is: piekdruk mét CMFO onder 200 kPa óf minstens 25% lager dan zonder CMFO. Deze meting zonder CMFO blijft de referentie voor de hele studie. Verder verbeteren waar het onderzoeksteam of de pedorthist dat haalbaar acht.", tag:"meting"},
-      {id:"v2-24uc", ecrf:"eCRF-Document 24", arm:"uc", title:"Plantaire drukmeting (geblindeerd)", desc:"Dezelfde in-shoe meting, maar de resultaten worden niet getoond en niet besproken met de deelnemer of de behandelaar, en sturen de zorg niet bij.", tag:"meting"},
+      {id:"v2-24oc", ecrf:"eCRF-Document 24", arm:"oc", title:"Drukherverdeling CMFO beoordelen", desc:"In de schoen meten zónder en dan mét de CMFO. Norm: piekdruk mét CMFO onder 200 kPa óf minstens 25% lager dan zónder CMFO in dezelfde sessie. Niet gehaald: aanpassen en opnieuw meten mét de CMFO, tot drie aanpassingen. Verder verbeteren waar het onderzoeksteam of de pedorthist dat haalbaar acht.", tag:"meting"},
       {id:"v2-25", ecrf:"eCRF-Document 25", title:"Draagsensor (Orthotimer) integreren in CMFO", desc:"Compliance-sensor in de CMFO integreren; UDI registreren. Bij Hours/day de norm invullen: 80% van de waaktijd uit het beweegpatroon (eCRF 28; in Usual Care via stap 1 van de draagtijdtool). Verwerk daarom eerst de MoveMonitor (eCRF 27).", tag:"device"},
       {id:"v2-26", ecrf:"eCRF-Document 26", title:"Overtuigingen en gewoontes rond schoeisel bevragen", desc:"Persoonlijke overtuigingen, emoties, dagelijkse routines en geloofwaardigheid t.a.v. het schoeisel bevragen.", tag:"vragenlijst"},
       {id:"v2-27", ecrf:"eCRF-Document 27", title:"MoveMonitor terugnemen", desc:"Patiënt levert de fysieke-activiteitsmonitor terug in; UDI registreren.", tag:"device", action:"mcroberts"},
@@ -193,9 +195,9 @@ var VISITS = {
   v3: { key:"v3", label:"V3 · Follow-up (maand 3)", intro:"Regulier opvolgbezoek, 3 maanden na start.", steps: fuSteps("v3") },
   v4: { key:"v4", label:"V4 · Major follow-up (maand 6)", intro:"Uitgebreid opvolgbezoek met extra drukcontrole. De MoveMonitor gaat niet meer mee: de waaktijd van de baseline blijft de noemer.", steps: fuSteps("v4").concat(pressureRecheck("v4")) },
   v5: { key:"v5", label:"V5 · Follow-up (maand 9)", intro:"Regulier opvolgbezoek.", steps: fuSteps("v5") },
-  v6: { key:"v6", label:"V6 · Major follow-up (maand 12)", intro:"Uitgebreid opvolgbezoek met extra drukcontrole.", steps: fuSteps("v6").concat(pressureRecheck("v6")) },
+  v6: { key:"v6", label:"V6 · Major follow-up (maand 12)", intro:"Uitgebreid opvolgbezoek met extra drukcontrole (alleen Optimal Care).", steps: fuSteps("v6").concat(pressureRecheck("v6")) },
   v7: { key:"v7", label:"V7 · Follow-up (maand 15)", intro:"Regulier opvolgbezoek.", steps: fuSteps("v7") },
-  v8: { key:"v8", label:"V8 · End of study (maand 18)", intro:"Laatste studiebezoek: extra drukcontrole en eindevaluatie.", steps: fuSteps("v8").concat(pressureRecheck("v8"), [{id:"v8-12", ecrf:"eCRF-Document 12", title:"Tevredenheid ulcuspreventie bevragen", desc:"Zelfde VAS als op visite 1, zodat begin en einde vergelijkbaar zijn.", tag:"vragenlijst"}, {id:"v8-close", ecrf:null, title:"Eindevaluatie studie", desc:"Afronding van de deelname: eindstatus ulcus, laatste adherentie-overzicht en dankwoord aan de deelnemer.", tag:"algemeen"}]) },
+  v8: { key:"v8", label:"V8 · End of study (maand 18)", intro:"Laatste studiebezoek: extra drukcontrole (alleen Optimal Care) en eindevaluatie.", steps: fuSteps("v8").concat(pressureRecheck("v8"), [{id:"v8-12", ecrf:"eCRF-Document 12", title:"Tevredenheid ulcuspreventie bevragen", desc:"Zelfde VAS als op visite 1, zodat begin en einde vergelijkbaar zijn.", tag:"vragenlijst"}, {id:"v8-close", ecrf:null, title:"Eindevaluatie studie", desc:"Afronding van de deelname: eindstatus ulcus, laatste adherentie-overzicht en dankwoord aan de deelnemer.", tag:"algemeen"}]) },
   ulcer: {
     key:"ulcer", label:"Onvoorziene ulcusvisite",
     intro:"Bij vaststelling van een voetulcus — door de deelnemer, de behandelende arts of een andere zorgverlener — tussen of tijdens geplande bezoeken moet de investigator onmiddellijk op de hoogte gebracht worden.",
@@ -218,13 +220,13 @@ var ACTIONS = {
   orthotimer: {label:"Draagpatroon (Orthotimer) uitlezen →", page:"uploader", summaryKey:"pvc_wear_summary"}
 };
 var CARE_ARMS = {
-  optimal: {key:"optimal", label:"Optimal Care", intro:"De CMFO wordt aangepast tot de druknorm gehaald is, de draagtijd wordt besproken tegenover de norm (80% van de waaktijd), en er is een SEBIA-gesprek op elke visite."},
-  usual:   {key:"usual",   label:"Usual Care",   intro:"Dezelfde visites en metingen: CMFO, voetzorg elke 3 maanden, drukmeting, MoveMonitor bij de start en de Orthotimer. Geblindeerd: druk en draagtijd worden gemeten, maar niet getoond of besproken. Geen SEBIA-gesprek."}
+  optimal: {key:"optimal", label:"Optimal Care", intro:"De druk wordt per sessie zónder en mét de CMFO gemeten en de CMFO wordt aangepast tot de druknorm gehaald is, tot drie aanpassingen; de draagtijd wordt besproken tegenover de norm (80% van de waaktijd), en er is een SEBIA-gesprek op elke visite."},
+  usual:   {key:"usual",   label:"Usual Care",   intro:"Dezelfde visites: CMFO, voetzorg elke 3 maanden, MoveMonitor bij de start en de Orthotimer. De druk wordt alleen op baseline en maand 6 gemeten, geblindeerd (drempel 50 kPa, waarden uit). Druk en draagtijd worden niet getoond of besproken. Geen SEBIA-gesprek."}
 };
 var STORE_KEY = "pvc_state";
 var ENCOUNTER_KEY = "pvc_encounter_id";
 var MAX_SUMMARY_AGE_MS = 4 * 60 * 60 * 1000; // 4 u — een toestelrapport ouder dan dit wordt als verlopen behandeld
-var APP_VERSION = "1.3.0";
+var APP_VERSION = "1.4.0";
 
 // Test-write i.p.v. try/catch her en der verspreiden: als localStorage geblokkeerd is
 // (bv. privénavigatie) toont render() een duidelijke melding i.p.v. de app stil te laten
