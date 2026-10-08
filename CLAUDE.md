@@ -69,7 +69,8 @@ Bron: FWO-TBM T000226N (+ doctoraatsplan). Bij twijfel: vragen, niet gokken.
   is sindsdien de **vooraf vastgelegde mediator**, geen eindpunt: ze wordt volledig gemeten en
   gerapporteerd maar draagt geen eigen succescriterium. Analysepunt **12 maanden**, met het
   volledige 18-maandenprofiel als secundaire samenvatting.
-- **Drukmeting herhaald op maand 6, 12 én 18** (protocol 5.4.2.2), niet alleen 6 en 12.
+- **Drukmeting herhaald op maand 6, 12 én 18** (protocol 5.4.2.2), niet alleen 6 en 12. In **Usual Care alleen op
+  baseline en maand 6**, geblindeerd, met een palet met drempel 50 kPa en de waarden uit (beslissing 8 oktober 2026).
 - **CMFO-opbouw hangt af van het schoentype** (protocol 5.4.2, eCRF 23 deel A1):
   in een **volledig op maat gemaakte schoen** 5 mm microkurk (shore 55) + 5 mm EVA (shore 35-40);
   in een **confectieschoen** 6 mm EVA (shore 35-40), zónder kurk — en **semi-orthopedisch schoeisel** zoals de

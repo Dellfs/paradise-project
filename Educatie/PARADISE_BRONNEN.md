@@ -317,6 +317,26 @@ patiënt wisselt niet dagelijks.**
 > **Daarmee vervalt de vaste referentie van 22 september hieronder**; die paragraaf blijft
 > staan als geschiedenis. Doorgevoerd op 6 oktober in CLAUDE.md, de site, de MOOC, eCRF 09b,
 > 24 en 24b, de Pressure Monitoring Tool, REDCap, het protocol en de webdecks.
+> *Correctie 8 oktober 2026:* in eCRF 09b is dit nog **niet** doorgevoerd (laatste wijziging 27 september; de
+> tabel in hoofdstuk 1 en de toetsing in hoofdstuk 10 rekenen nog tegenover visite 2).
+>
+> **Beslissing van 8 oktober 2026 (coördinerend onderzoeker): Usual Care alleen op baseline en maand 6.** In Usual
+> Care wordt de druk alleen gemeten op visite 1 en op maand 6 (visite 4), geblindeerd. Om bias te vermijden werkt de
+> kliniek dan met een tweede palet, met de drempel (Pressure Cut Off) op 50 kPa, en met de waarden uitgezet; ze leest
+> niets af en het studieteam haalt de waarden centraal uit het exportbestand. Optimal Care blijft op visite 2 en maand
+> 6, 12 en 18. Doorgevoerd op 8 oktober in eCRF 09b, het DFC-deck en de opleidingsplanning; REDCap
+> (`e24_drukmeting_uc` staat nog op visite 2, 6 en 8) en het bezoekschema (Shedule of interventions, intervention
+> plus frequency) nog aan te passen.
+>
+> **Waarop de doelregio's steunen (nagelezen 8 oktober 2026, volledige tekst via Europe PMC).** DIAFOS (Bus e.a.,
+> Diabetes Care 2013;36:4109, doi:10.2337/dc13-0996): "the previous ulcer location with peak pressure >200 kPa and,
+> per foot, the two forefoot or midfoot locations that showed the highest peak pressures >200 kPa were identified and
+> targeted"; aanpassen tot 25% lager of onder 200 kPa, "or until a maximum of three rounds"; per kwartaal opnieuw als
+> de norm niet gehaald was of de druk ≥ 5% steeg. Bus e.a. 2011 (Diabetes Care 34:1595, doi:10.2337/dc10-2206): ROI's
+> op de plaats van een vroeger ulcus, ernstige deformiteit of pre-ulceratieve tekens met piekdruk > 200 kPa, plus
+> andere regio's > 300 kPa, hoogstens drie per voet. Het ontwerpprotocol (Bus e.a. 2020, doi:10.1002/dmrr.3237):
+> aanpassen als de piekdruk in midden- of voorvoet > 200 kPa is. **Afwijking:** PARADISE neemt de vorige
+> ulcuslocatie altijd mee, ook onder 200 kPa; in DIAFOS alleen boven 200 kPa.
 >
 > **Vervallen op 6 oktober 2026 — de referentie was vast, en dat was de baselinemeting
 > (gepreciseerd 22 september 2026).** De piekdruk **zónder de CMFO bij de aflevering op visite 2** is de
@@ -711,8 +731,8 @@ battery capacity": dat is de opslagcapaciteit, niet de batterij (rechtgezet 25 s
 | Temperatuurbereik | 25 tot 38,5 °C |
 | Min. aaneengesloten uren | 0 |
 | **Uren per dag** | **per patiënt, in beide armen: 80% van diens gemiddelde waaktijd uit het baseline-MoveMonitorrapport, gelezen met de draagtijdtool (stap 1); in Optimal Care ook op eCRF 28 — géén vaste waarde** |
-| Patiëntnaam | voor- en achternaam = het deelnemersnummer |
-| Geboortedatum | 1/1/1999 (standaard) |
+| Patiëntnaam | voor- en achternaam = de deelnemerscode, zonder voorvoegsel |
+| Geboortedatum | 1/1/1900, voor iedereen: uniform met Novel en MoveMonitor (8 oktober 2026) |
 | Geslacht | vrouwelijk (standaard), met opmerking "DOB and Gender are classified" |
 | Groep | Usual care of Optimal care |
 
@@ -742,7 +762,7 @@ Gedragen **om het middel ter hoogte van wervel L5**. **Niet waterdicht.**
 | Testtype | MoviMonitor |
 | Start | de dag nadien om 7 uur |
 | Duur | 7 dagen |
-| Deelnemerscode | M + deelnemersnummer |
+| Deelnemerscode | de deelnemerscode, zonder voorvoegsel: in alle software dezelfde (8 oktober 2026) |
 | Geboortejaar | 1900 |
 | Visite | 1 (één visite na zeven dagen) |
 
