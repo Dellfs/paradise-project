@@ -315,18 +315,27 @@ patiënt wisselt niet dagelijks.**
 > ontlastingstest 1 tot 3). De regel om bij opvolging ook aan te passen bij een stijging van
 > ≥ 5% op een doelregio blijft. De doelregio's liggen nog altijd vast vanaf visite 2.
 > **Daarmee vervalt de vaste referentie van 22 september hieronder**; die paragraaf blijft
-> staan als geschiedenis. Doorgevoerd op 6 oktober in CLAUDE.md, de site, de MOOC, eCRF 09b,
-> 24 en 24b, de Pressure Monitoring Tool, REDCap, het protocol en de webdecks.
-> *Correctie 8 oktober 2026:* in eCRF 09b is dit nog **niet** doorgevoerd (laatste wijziging 27 september; de
-> tabel in hoofdstuk 1 en de toetsing in hoofdstuk 10 rekenen nog tegenover visite 2).
+> staan als geschiedenis. Doorgevoerd op 6 oktober in CLAUDE.md en het DFC-deck; op 8 oktober in eCRF 09b
+> (alle kopieën), eCRF 24 (kolom extra ontlastingstest 3) en 24b (per visite een kolom zonder zool), de Pressure
+> Monitoring Tool (kolom D = met zool vorige meting, vierde meetronde, stijging van 5% berekend), REDCap (e24oc per
+> sessie, een derde ontlastingstest), de site (visite-checklist met tests, academy, protocolpagina, index), de
+> webdecks Theorie en protocol en Technische instrumenten, de WP1-afvinklijst, en als **bijgehouden wijzigingen ter
+> goedkeuring** in het protocol, het protocolmanuscript en het doctoraatsplan. (De eerdere vermelding "doorgevoerd
+> op 6 oktober" in al die documenten was te ruim.)
 >
 > **Beslissing van 8 oktober 2026 (coördinerend onderzoeker): Usual Care alleen op baseline en maand 6.** In Usual
 > Care wordt de druk alleen gemeten op visite 1 en op maand 6 (visite 4), geblindeerd. Om bias te vermijden werkt de
 > kliniek dan met een tweede palet, met de drempel (Pressure Cut Off) op 50 kPa, en met de waarden uitgezet; ze leest
 > niets af en het studieteam haalt de waarden centraal uit het exportbestand. Optimal Care blijft op visite 2 en maand
-> 6, 12 en 18. Doorgevoerd op 8 oktober in eCRF 09b, het DFC-deck en de opleidingsplanning; REDCap
-> (`e24_drukmeting_uc` staat nog op visite 2, 6 en 8) en het bezoekschema (Shedule of interventions, intervention
-> plus frequency) nog aan te passen.
+> 6, 12 en 18. De drempel van 50 kPa geldt **alleen in Usual Care** (bevestigd door Janou, 8 oktober). Doorgevoerd op
+> 8 oktober in eCRF 09b, eCRF 24 (Usual Care alleen maand 6) en 24b (alleen Optimal Care), de Pressure Monitoring
+> Tool, REDCap (`e24_drukmeting_uc` alleen op visite 4, met als enige keuze maand 6; een blinderingsmelding in e09
+> voor arm 1), het ICF (eCRF 02, drie kopieën), de site, het DFC-deck, de webdecks, de opleidingsplanning en het
+> bezoekschema (Shedule of interventions en intervention plus frequency, lokaal; niet in git), en als bijgehouden
+> wijzigingen in het protocol (§5.4.1, §5.5.2, §5.5.3, §5.5.5), het manuscript en het model-ICF.
+> **Gevolg voor de analyse:** in-shoe piekdruk als secundaire uitkomst is tussen de armen alleen nog op baseline en
+> maand 6 te vergelijken; het manuscript zegt dat nu als bijgehouden wijziging, en de exploratieve uitkomst
+> (cumulatieve plantaire weefselbelasting) heeft in Usual Care maar twee drukmetingen.
 >
 > **Waarop de doelregio's steunen (nagelezen 8 oktober 2026, volledige tekst via Europe PMC).** DIAFOS (Bus e.a.,
 > Diabetes Care 2013;36:4109, doi:10.2337/dc13-0996): "the previous ulcer location with peak pressure >200 kPa and,
@@ -533,6 +542,9 @@ in-shoe* hierboven).
 
 Drie extra ontlastingstests zijn op het formulier voorzien voor als de norm niet gehaald
 wordt: de pedorthist mag tot drie keer aanpassen (beslissing 6 oktober 2026; voordien twee).
+
+In Usual Care gebeurt deze meting alleen op maand 6, geblindeerd (beslissing 8 oktober 2026); de baseline van
+beide armen staat op eCRF 09. Op visite 2 en op maand 12 en 18 meet Usual Care geen druk.
 
 > **Alleen het binnenschoeisel — beslist door de PI op 14 september 2026.** eCRF 24
 > bestond uit **deel A1 (buitenschoeisel)** en **deel A2 (binnenschoeisel)**, elk met een
@@ -1155,7 +1167,11 @@ installatiegids), met een kopie in `Site\Novel Pedar\`.
    onderzoeker op 22 september 2026.
 4. **De tweede MoveMonitorweek op 6 maanden** stond in §3.2.2.2 en §5.4.5, maar niet in
    de opsomming van visites 3-8 (§5.5.4). **Opgelost op 30 september 2026:** de week op 6
-   maanden vervalt; §3.2.2.2 en §5.4.5 worden daarop aangepast (zie §7).
+   maanden vervalt; §3.2.2.2 en §5.4.5 worden daarop aangepast (zie §7). Op 8 oktober doorgevoerd in
+   protocol §5.4.5 (bijgehouden wijziging), het manuscript (exploratieve uitkomst, tabel 1), het ICF (eCRF 02:
+   "op twee momenten") en de MoveMonitor-handleiding (eCRF 19: "twee keer tijdens de studie"). **Nog te
+   herrekenen:** de rekruteringssimulatie (webdeck Rekrutering en het document) telt de week op maand 6 nog mee,
+   in de uren en in de bezetting van de toestellen.
 5. **De slijtageschaal (wear-and-tear, Dahmen)** staat als secundaire uitkomst, maar er
    is geen eCRF-document dat die scoort. Nagaan of dat in 13 of 33 zit of ontbreekt.
 6. **Twee eCRF-sets met verschillende nummering** (zie §13). De veroudering is op
