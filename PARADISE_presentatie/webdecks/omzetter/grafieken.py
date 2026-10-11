@@ -483,6 +483,7 @@ REGISTER = {
     ('dfc', 'tweepermaand_0'): dfc_tweepermaand,
     ('dfc', 'scenario_0'): dfc_scenario,
     ('dfc', 'belasting_0'): dfc_belasting,
+    ('groeninge', 'tempo_0'): dfc_tempo,
     ('rekrutering', 'movemonitor_0'): rek_movemonitor,
     ('rekrutering', 'drievier_0'): rek_drievier,
     ('rekrutering', 'totaal_0'): rek_totaal,

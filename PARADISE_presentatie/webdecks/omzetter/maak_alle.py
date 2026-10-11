@@ -18,6 +18,7 @@ DECKS = {
     'tachtig': 'PARADISE_80_procent_van_wat.pptx',
     'theorie': 'PARADISE_theorie_en_protocol.pptx',
     'tech': 'PARADISE_technische_instrumenten.pptx',
+    'groeninge': 'PARADISE_az_groeninge_okt.pptx',
 }
 
 
