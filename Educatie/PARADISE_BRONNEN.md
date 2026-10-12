@@ -260,11 +260,11 @@ Protocol §5.4.1 en eCRF-document 23 deel A.
 > **Semi-orthopedisch schoeisel** krijgt dezelfde opbouw als de confectieschoen; eCRF 23 A1
 > moet dat vermelden ("Confectie- of semi-orthopedische schoen: 6 mm EVA").
 
-> **12 oktober 2026, feedback van het studieteam op het deck voor de voetklinieken.** De
-> onderlaag in een maatschoen is **microkurk of EVA shore 50** (5 mm), niet alleen microkurk
-> (shore 55). Doorgevoerd in eCRF 10 en 23 (alle mappen), REDCap (e10_basis, e23_a1_maat) en de
-> site. Het protocol en het manuscript zeggen nog "microcork (shore 55)": mee te nemen zodra de
-> PI de openstaande bijgehouden wijzigingen aanvaard heeft.
+> **12 oktober 2026, info van de PI (via het deck voor de voetklinieken).** De onderlaag in een
+> maatschoen is **microkurk of EVA shore 50** (5 mm), niet alleen microkurk (shore 55).
+> Doorgevoerd in eCRF 10 en 23 (alle mappen), REDCap (e10_basis, e23_a1_maat), de site, en als
+> bijgehouden wijziging in het protocol en het manuscript; daar meteen ook "off-the-shelf or
+> semi-orthopaedic shoes, without cork", zodat de zin van hierboven niet meer anders te lezen valt.
 
 > **12 oktober 2026, toegelaten schoeisel** (dia "Welke schoenen zijn toegelaten"): buiten en
 > binnen een goedgekeurde confectieschoen, een semi-orthopedische of een orthopedische schoen.

@@ -76,7 +76,7 @@ Bron: FWO-TBM T000226N (+ doctoraatsplan). Bij twijfel: vragen, niet gokken.
   baseline en maand 6**, geblindeerd, met een palet met drempel 50 kPa en de waarden uit (beslissing 8 oktober 2026).
 - **CMFO-opbouw hangt af van het schoentype** (protocol 5.4.2, eCRF 23 deel A1):
   in een **volledig op maat gemaakte schoen** 5 mm microkurk of EVA shore 50 + 5 mm EVA (shore 35-40) (12 oktober 2026,
-  feedback studieteam op het deck; protocol en manuscript volgen na aanvaarding van de openstaande wijzigingen);
+  info van de PI; in protocol en manuscript als bijgehouden wijziging);
   in een **confectieschoen** 6 mm EVA (shore 35-40), zónder kurk — en **semi-orthopedisch schoeisel** zoals de
   confectieschoen (beslissing 6 oktober 2026; de protocolzin is dubbelzinnig, eCRF 23 A1 is juist). Deklaag in beide gevallen
   3 mm gesloten-cellig op 3 mm open-cellig, volledige lengte. Metatarsaalbalk 9-10 mm hoog,
