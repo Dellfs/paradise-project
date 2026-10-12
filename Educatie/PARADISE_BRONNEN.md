@@ -938,6 +938,11 @@ uitgebreid gangreen.
 
 ### Gezondheidseconomisch dagboek
 45 op baseline · 45a tweewekelijks tot maand 3 · 45b driemaandelijks van maand 3 tot 18.
+**Telefonisch bevraagd door het studieteam**; het centrum hoeft er niets voor te doen
+(coördinerend onderzoeker, 12 oktober 2026; deck voor de voetklinieken, dia 29). De andere
+vragenlijsten vult de patiënt op papier in de wachtzaal in; het centrum kijkt ze na, het
+studieteam voert ze in. De eCRF's 45, 45a en 45b spreken de deelnemer nog aan alsof die het
+dagboek zelf invult.
 
 ---
 

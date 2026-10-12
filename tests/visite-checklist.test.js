@@ -154,6 +154,9 @@ check('v2 verwerkt het beweegpatroon', r.html.includes('data-open="mcroberts"'))
 // De norm voor Hours/day komt uit de MoveMonitor: die stap moet vóór het instellen van de Orthotimer staan.
 check('v2: eerst MoveMonitor en norm (eCRF 27), dan de Orthotimer instellen (eCRF 25)',
       r.html.indexOf('data-step="v2-27"') >= 0 && r.html.indexOf('data-step="v2-27"') < r.html.indexOf('data-step="v2-25"'));
+// Het kostendagboek bevraagt het studieteam telefonisch (12/10/2026): geen dagboekstap voor het centrum.
+check('geen dagboekstap voor het centrum; wel de melding dat het studieteam belt',
+      !/id:"v1-45"|-45b"/.test(html) && (html.match(/bevraagt het studieteam telefonisch/g) || []).length === 2);
 // Beide uitleesknoppen openen de ene tool Therapietrouw, elk op de eigen stap.
 check('uitleesknoppen openen de tool Therapietrouw op stap 1 en 2',
       /mcroberts:\s*\{[^}]*page:"therapietrouw", stap:1/.test(html) && /orthotimer:\s*\{[^}]*page:"therapietrouw", stap:2/.test(html) &&

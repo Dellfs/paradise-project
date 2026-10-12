@@ -129,8 +129,7 @@ function fuSteps(p){
   steps.push(
     {id:p+"-32", ecrf:"eCRF-Document 32", arm:"oc", title:"Feedback therapietrouw geven", desc:"Het blad 'Uw therapietrouw' zonder oordeel bespreken (SEBIA). Op eCRF 32 komen de cijfers uit het donkere vak boven het blad: draagtijd, norm, percentage van de norm, gehaald of niet.", tag:"sebia"},
     {id:p+"-33", ecrf:"eCRF-Document 33", title:"CMFO en sensor vervangen", desc:"Diabetic CMFO en compliance-sensor vervangen.", tag:"device"},
-    {id:p+"-2135", ecrf:"eCRF-Document 21, 34, 35", title:"Levenskwaliteit, medische consumptie en productiviteit", desc:"Data verzamelen over levenskwaliteit, medische consumptie en productiviteit.", tag:"vragenlijst"},
-    {id:p+"-45b", ecrf:"eCRF-Document 45b", title:"Gezondheidseconomisch dagboek innemen", desc:"Het deel van de voorbije periode overlopen en registreren. Op visite 3 wordt het dagboek éénmalig meegegeven; het loopt tot maand 18.", tag:"vragenlijst"}
+    {id:p+"-2135", ecrf:"eCRF-Document 21, 34, 35", title:"Levenskwaliteit, medische consumptie en productiviteit", desc:"De patiënt vult de EQ-5D-5L, iMCQ en iPCQ op papier in de wachtzaal in; uw team kijkt ze na, het studieteam voert ze in. Het kostendagboek (eCRF 45b) bevraagt het studieteam telefonisch: uw team hoeft daarvoor niets te doen.", tag:"vragenlijst"}
   );
   return steps;
 }
@@ -174,8 +173,7 @@ var VISITS = {
       {id:"v1-18", ecrf:"eCRF-Document 18", arm:"oc", title:"SEBIA stap 1 — Demonstratie en oefensessie, vastgelegd in het logboek", desc:"Voetzorgprocedures demonstreren, opgedeeld in kleine stappen; de patiënt voert nadien alles zelf uit (\"show-me\"). Bij onvermogen wordt de mantelzorger betrokken.", tag:"sebia"},
       {id:"v1-19", ecrf:"eCRF-Document 19", title:"MoveMonitor voorbereiden", desc:"Uitleg en gebruiksfolder meegeven voor de MoveMonitor (McRoberts), te dragen ter hoogte van lendenwervel L5, 7 opeenvolgende dagen, dag en nacht.", tag:"device"},
       {id:"v1-20", ecrf:"eCRF-Document 20", title:"MoveMonitor toewijzen en activeren", desc:"Toestel toewijzen en activeren; uniek identificatienummer (UDI) registreren in de CRF.", tag:"device"},
-      {id:"v1-21", ecrf:"eCRF-Document 21", title:"Levenskwaliteit — EQ-5D-5L", desc:"Levenskwaliteit evalueren met de EQ-5D-5L-vragenlijst.", tag:"vragenlijst"},
-      {id:"v1-45", ecrf:"eCRF-Document 45, 45a", title:"Gezondheidseconomisch dagboek meegeven", desc:"Het startdagboek éénmalig invullen met de deelnemer, en de zes tweewekelijkse dagboekjes voor maand 0 tot 3 meegeven.", tag:"vragenlijst"}
+      {id:"v1-21", ecrf:"eCRF-Document 21", title:"Levenskwaliteit — EQ-5D-5L", desc:"De patiënt vult de EQ-5D-5L op papier in de wachtzaal in; uw team kijkt ze na, het studieteam voert ze in. Het kostendagboek (eCRF 45 en 45a) bevraagt het studieteam telefonisch: uw team hoeft daarvoor niets te doen.", tag:"vragenlijst"}
     ]
   },
   v2: {
