@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PARADISE · Therapietrouw</title>
+<meta name="description" content="Waaktijd en draagnorm uit de MoveMonitor, therapietrouw uit de Orthotimer: één tool, twee stappen, met een feedbackblad voor de deelnemer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/tokens.css">
+<script src="vendor/pdf.min.js"></script>
+<script src="vendor/jszip.min.js"></script>
+<style>
+:root {
+  --navy: var(--color-text);
+  --teal: var(--color-brand-600);
+  --white: var(--color-surface);
+  --off: var(--color-surface-soft);
+  --g100: var(--color-surface-muted);
+  --g200: var(--color-border);
+  --g300: var(--color-muted-300);
+  --g400: var(--color-muted-400);
+  --g600: var(--color-muted-600);
+  --ok: var(--color-ok);
+  --ok-bg: var(--color-ok-soft);
+  --mid: var(--color-warn);
+  --mid-bg: var(--color-warn-soft);
+  --low: var(--color-alert);
+  --low-bg: var(--color-alert-soft);
+  --nacht: #33506C;
+}
+html, body { background: #8FA8BA; color: var(--navy); }
+body { font-family: var(--font-b); line-height: 1.4; }
+
+/* ---------- kader van de tool ---------- */
+.app-bar { background: linear-gradient(135deg, #0D2137 0%, #1A3A55 55%, #0D4D6B 100%); color: #fff; padding: 10px 18px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; position: sticky; top: 0; z-index: 50; }
+.app-bar .brand { display: flex; align-items: center; gap: 10px; }
+.app-bar .brand img { height: 28px; width: auto; }
+.app-bar .brand b { font-size: 14px; letter-spacing: .03em; }
+.app-bar .brand span { font-size: 11px; color: #7ABFCC; }
+.app-bar .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn { font: 600 12.5px var(--font-b); cursor: pointer; border: 1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.10);
+  color: #fff; padding: 7px 14px; border-radius: 6px; }
+.btn:hover { background: rgba(255,255,255,.18); }
+.btn-primary { background: var(--teal); border-color: var(--teal); }
+.btn-primary:hover { background: #17799a; }
+.btn:disabled { opacity: .4; cursor: default; }
+.btn:focus-visible, nav.stappen button:focus-visible { outline: 3px solid var(--color-brand-300); outline-offset: 2px; }
+nav.stappen { display: flex; background: #fff; border-bottom: 1px solid var(--g200); flex-wrap: wrap; }
+nav.stappen button { background: none; border-bottom: 3px solid transparent; padding: 10px 18px; text-align: left; color: var(--navy); }
+nav.stappen button b { display: block; font-size: 14.5px; }
+nav.stappen button span { font-size: 12px; color: var(--g600); }
+nav.stappen button[aria-selected="true"] { border-bottom-color: var(--teal); }
+nav.stappen button[aria-selected="true"] b { color: var(--color-brand-900); }
+.status { font-size: 13px; padding: 8px 18px; background: #EEF6FA; color: #24303b; border-bottom: 1px solid var(--g200); }
+.status strong { color: var(--color-brand-900); }
+.status span { color: var(--g600); }
+
+.kaart { max-width: 680px; margin: 6vh auto; background: #fff; border-radius: 16px; padding: 36px 40px 32px; box-shadow: 0 18px 50px rgba(13,33,55,.22); }
+.kaart .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--teal); margin-bottom: 8px; }
+.kaart h1 { font-family: var(--font-h); font-weight: 400; font-size: 27px; line-height: 1.15; margin-bottom: 8px; }
+.kaart h1 em { font-style: italic; color: var(--teal); }
+.kaart p.lead { font-size: 14px; color: var(--g600); line-height: 1.55; margin-bottom: 18px; }
+.drop { border: 2px dashed var(--g200); border-radius: 12px; background: var(--off); padding: 32px 24px; text-align: center; cursor: pointer; transition: .15s; }
+.drop:hover, .drop.over, .drop:focus-visible { border-color: var(--teal); background: #EEF7F8; outline: none; }
+.drop svg { width: 40px; height: 40px; margin: 0 auto 12px; color: var(--teal); }
+.drop b { display: block; font-size: 15px; margin-bottom: 4px; }
+.drop small { color: var(--g400); font-size: 12.5px; }
+.optrow { display: flex; align-items: center; gap: 10px; margin-top: 16px; }
+.optrow label { font-size: 13px; color: var(--g600); }
+.optrow input[type=date] { font: 500 13px var(--font-b); padding: 7px 10px; border: 1px solid var(--g200); border-radius: 7px; color: var(--navy); }
+.note-priv { margin-top: 16px; font-size: 12px; color: var(--g600); line-height: 1.5; }
+.err { margin-top: 16px; background: var(--low-bg); color: var(--low); border: 1px solid #f3c9c9; border-radius: 8px; padding: 11px 14px; font-size: 13px; line-height: 1.5; display: none; }
+.err.show { display: block; }
+.busy { margin-top: 14px; font-size: 13px; color: var(--teal); display: none; }
+.busy.show { display: block; }
+
+/* ---------- controle vóór het blad ---------- */
+.cf-table { width: 100%; border-collapse: collapse; margin-bottom: 4px; }
+.cf-table td { padding: 5px 0; font-size: 13.5px; vertical-align: top; border-bottom: 1px solid var(--g100); }
+.cf-table td:first-child { color: var(--g600); width: 44%; padding-right: 12px; }
+.cf-table td:last-child { font-weight: 600; color: var(--navy); }
+.cf-missing { color: var(--g400); font-weight: 400; font-style: italic; }
+.dagtabel { width: 100%; border-collapse: collapse; margin: 14px 0 4px; font-size: 12.5px; }
+.dagtabel th { text-align: left; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--g600); font-weight: 700; padding: 4px 6px; border-bottom: 1.5px solid var(--g200); }
+.dagtabel td { padding: 4px 6px; border-bottom: 1px solid var(--g100); }
+.dagtabel td.num { text-align: right; font-variant-numeric: tabular-nums; }
+.dagtabel tr.uit td { color: var(--g400); }
+.uitkomst { margin: 14px 0 4px; padding: 12px 14px; border-radius: 10px; background: #EEF7F8; border: 1.5px solid var(--teal); font-size: 14px; line-height: 1.5; }
+.uitkomst strong { color: var(--color-brand-900); }
+.cf-issues { margin: 14px 0 18px; display: flex; flex-direction: column; gap: 8px; }
+.cf-issue { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; line-height: 1.5; padding: 9px 12px; border-radius: 8px; }
+.cf-issue.blocker { background: var(--low-bg); color: var(--low); border: 1px solid #f3c9c9; }
+.cf-issue.warn { background: var(--mid-bg); color: #7A4000; border: 1px solid #FFD59A; }
+.cf-issue.ok { background: var(--ok-bg); color: var(--ok); border: 1px solid #b5dfb7; }
+.cf-icon { flex-shrink: 0; font-style: normal; }
+.cf-reentry { margin: 14px 0 0; padding: 14px 16px; background: #EEF7F8; border: 1.5px solid var(--teal); border-radius: 10px; }
+.cf-reentry label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+.cf-reentry-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.cf-input { font: 500 14px var(--font-b); padding: 7px 10px; border: 1.5px solid var(--g200); border-radius: 7px; color: var(--navy); }
+.cf-input:focus { outline: none; border-color: var(--teal); }
+.cf-msg { font-size: 13px; font-weight: 600; }
+.cf-actions { display: flex; gap: 10px; margin-top: 16px; }
+.cf-actions .btn { color: var(--navy); border-color: var(--g200); background: #fff; }
+.cf-actions .btn-primary { color: #fff; background: var(--teal); border-color: var(--teal); }
+.cf-disc { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+.cf-disc-row { background: #fff8f0; border: 1px solid #FFD59A; border-radius: 8px; padding: 10px 14px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; font-size: 13px; }
+.cf-disc-row input { width: 72px; padding: 5px 8px; border: 1.5px solid var(--g200); border-radius: 6px; font: 600 13px var(--font-b); text-align: right; }
+.cf-disc-row input.valid { border-color: var(--ok); background: var(--ok-bg); }
+.cf-disc-row input.invalid { border-color: var(--low); background: var(--low-bg); }
+
+/* ---------- het blad (A4) ---------- */
+.stage { display: none; padding: 6mm 0 12mm; }
+.stage.show { display: block; }
+.klinisch { width: 210mm; max-width: 100%; margin: 0 auto 5mm; background: #0D2137; color: #D7E9F2; font-size: 13px; line-height: 1.55; padding: 12px 16px; border-radius: 8px; }
+.klinisch strong { color: #fff; }
+.klinisch .k-titel { font-size: 10.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #7ABFCC; margin-bottom: 4px; }
+.klinisch .k-rij { display: flex; flex-wrap: wrap; gap: 4px 22px; }
+.klinisch .k-noot { margin-top: 6px; font-size: 12px; color: #9FC2D3; }
+.page { width: 210mm; min-height: 297mm; background: #fff; margin: 0 auto; position: relative; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 10px 40px rgba(13,33,55,.18); }
+.hdr { background: linear-gradient(135deg, #0D2137 0%, #1A3A55 55%, #0D4D6B 100%); padding: 6mm 10mm 5.5mm; position: relative; overflow: hidden; flex-shrink: 0; }
+.hb { position: absolute; border-radius: 50%; background: rgba(255,255,255,.04); }
+.hb1 { width: 80mm; height: 80mm; right: -20mm; top: -20mm; }
+.hb2 { width: 40mm; height: 40mm; right: 30mm; bottom: -10mm; background: rgba(30,136,229,.08); }
+.hdr-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 2.5mm; position: relative; z-index: 1; }
+.hdr-logo { height: 11mm; width: auto; }
+.hdr-badge { background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.18); border-radius: 20px; padding: 2px 9px; font-size: 7.5pt; font-weight: 700; color: rgba(255,255,255,.75); letter-spacing: .10em; text-transform: uppercase; white-space: nowrap; }
+.hdr-eyebrow { font-size: 8pt; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: #7ABFCC; margin-bottom: 2mm; position: relative; z-index: 1; }
+.hdr h1 { font-family: var(--font-h); font-size: 22pt; color: #fff; line-height: 1.12; font-weight: 400; position: relative; z-index: 1; }
+.hdr h1 em { font-style: italic; color: #90CAF9; }
+.hdr-sub { margin-top: 2.5mm; font-size: 9pt; color: rgba(255,255,255,.6); font-weight: 300; position: relative; z-index: 1; }
+.hdr-sub .ph { color: #FFD180; font-weight: 600; }
+.hdr-sub .editable { color: #FFD180; font-weight: 600; border-bottom: 1px dotted rgba(255,209,128,.6); padding: 0 4px; outline: none; min-width: 30mm; display: inline-block; }
+.body-wrap { padding: 5.5mm 10mm 5mm; flex: 1; display: flex; flex-direction: column; gap: 4mm; }
+.score { background: var(--off); border: 1px solid var(--g100); border-radius: 10px; padding: 5mm 6mm; display: flex; align-items: center; gap: 6mm; position: relative; overflow: hidden; flex: 1; }
+.score::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--teal); }
+.score.lvl-ok::after { background: var(--ok); }
+.score.lvl-mid::after { background: var(--mid); }
+.score-num { font-family: var(--font-h); font-size: 32pt; line-height: 1; white-space: nowrap; color: var(--color-brand-900); }
+.score.lvl-ok .score-num { color: var(--ok); }
+.score.lvl-mid .score-num { color: var(--mid); }
+.score-label { font-size: 7.5pt; font-weight: 700; letter-spacing: .10em; text-transform: uppercase; color: var(--g600); margin-bottom: 1.5mm; }
+.score-meta p { font-size: 9.5pt; line-height: 1.5; color: var(--g600); }
+.score-meta p strong { color: var(--navy); font-weight: 600; }
+.summary { display: flex; gap: 5mm; align-items: stretch; }
+.legend { width: 64mm; flex-shrink: 0; background: #fff; border: 1px solid var(--g100); border-radius: 10px; padding: 4mm 4.5mm; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+.legend-label, .card-label { font-size: 7.5pt; font-weight: 700; letter-spacing: .10em; text-transform: uppercase; color: var(--g600); margin-bottom: 2.5mm; }
+.lg { display: flex; align-items: center; gap: 2.5mm; padding: 1.2mm 0; }
+.lg-chip { width: 5mm; height: 5mm; border-radius: 1.5mm; flex-shrink: 0; }
+.lg p { font-size: 8.5pt; color: var(--navy); font-weight: 500; }
+.lg p span { color: var(--g600); font-weight: 400; }
+.chart-card { background: var(--off); border: 1px solid var(--g100); border-radius: 10px; padding: 5mm 6mm 4mm; display: flex; flex-direction: column; }
+.chart-card.groei { flex: 1; }
+.chart-hdr { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 3.5mm; gap: 4mm; }
+.chart-hdr h2 { font-family: var(--font-h); font-size: 13pt; font-weight: 400; color: var(--navy); }
+.chart-hdr span { font-size: 8pt; color: var(--g600); text-align: right; }
+.chart-hdr span .ph { color: var(--mid); font-weight: 700; }
+.chart-note { margin-top: 3mm; font-size: 8pt; color: var(--g600); font-style: italic; }
+.talk-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4mm; }
+.talk-grid.drie { grid-template-columns: repeat(3, 1fr); }
+.talk { background: #fff; border: 1px solid var(--g100); border-radius: 10px; padding: 4mm; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+.talk-label { font-size: 7.5pt; font-weight: 700; color: var(--teal); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 2.5mm; }
+.talk-line { display: block; width: 100%; border: none; border-bottom: 1.5px solid var(--g200); background: transparent; height: 6.5mm; font-size: 10pt; color: var(--navy); outline: none; padding: 0 1mm; }
+.ftr { background: var(--navy); padding: 2.5mm 10mm; margin-top: auto; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+.ftr span { font-size: 7.5pt; color: rgba(255,255,255,.55); font-style: italic; }
+.ftr strong { font-size: 7.5pt; font-weight: 700; color: #7ABFCC; }
+
+/* stap 1: uw dag, uur per uur */
+.week { display: flex; flex-direction: column; gap: 2mm; }
+.dagrij { display: grid; grid-template-columns: 15mm 1fr 15mm; align-items: center; gap: 2.5mm; }
+.dag-l { font-size: 8pt; font-weight: 600; color: var(--g600); white-space: nowrap; }
+.dag-l small { font-weight: 500; color: var(--g400); margin-left: 1mm; }
+.dag-r { font-size: 8.5pt; font-weight: 700; color: var(--navy); text-align: right; white-space: nowrap; }
+.dag-r.uit { font-weight: 500; font-size: 7pt; color: var(--g600); white-space: normal; line-height: 1.2; }
+.spoor { position: relative; height: 6.5mm; border-radius: 1.5mm; background: #fff; overflow: hidden; box-shadow: inset 0 0 0 1px var(--g200); }
+.spoor .nacht { position: absolute; top: 0; bottom: 0; background: var(--nacht); }
+.spoor .op { position: absolute; top: 0; bottom: 0; background: #DCEFF6; }
+.spoor .actief { position: absolute; top: 1.4mm; bottom: 1.4mm; background: var(--ok); border-radius: .6mm; }
+.spoor.leeg { background: repeating-linear-gradient(135deg, #DDE7EF, #DDE7EF 1.4mm, #EEF3F7 1.4mm, #EEF3F7 2.8mm); }
+.as { display: grid; grid-template-columns: 15mm 1fr 15mm; gap: 2.5mm; margin-top: 1mm; }
+.as-ticks { position: relative; height: 4mm; }
+.as-ticks span { position: absolute; transform: translateX(-50%); font-size: 6.8pt; color: var(--g600); white-space: nowrap; }
+.weekleg { display: flex; gap: 5mm; flex-wrap: wrap; margin-top: 2.5mm; font-size: 8pt; color: var(--g600); }
+.weekleg i { display: inline-block; width: 4mm; height: 3mm; border-radius: .8mm; margin-right: 1.5mm; vertical-align: -.3mm; }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; }
+.stat { background: #fff; border: 1px solid var(--g100); border-radius: 8px; padding: 3mm 4mm; box-shadow: 0 1px 4px rgba(0,0,0,.05); }
+.stat-num { font-family: var(--font-h); font-size: 17pt; line-height: 1.05; color: var(--color-brand-900); margin-bottom: 1mm; }
+.stat-lbl { font-size: 7pt; color: var(--g600); font-weight: 700; letter-spacing: .10em; text-transform: uppercase; }
+.stat-sub { font-size: 8pt; color: var(--g600); margin-top: 1mm; line-height: 1.35; }
+.balbar { height: 7mm; border-radius: 2mm; overflow: hidden; display: flex; }
+.balbar div { display: flex; align-items: center; justify-content: center; font-size: 7.5pt; font-weight: 700; color: #fff; }
+.balleg { display: flex; gap: 6mm; margin-top: 2.5mm; flex-wrap: wrap; font-size: 8.3pt; color: var(--g600); }
+.balleg .sw { display: inline-block; width: 3.5mm; height: 3.5mm; border-radius: 1mm; margin-right: 1.5mm; vertical-align: -.4mm; }
+.balleg b { color: var(--navy); }
+
+/* stap 2: draaguren per dag */
+.chart { position: relative; flex: 1; min-height: 52mm; display: flex; align-items: stretch; padding-left: 11mm; }
+.chart-wd { min-height: 26mm; }
+.rij2 { display: grid; grid-template-columns: 1fr 50mm; gap: 4mm; }
+.cons-col { display: flex; flex-direction: column; gap: 3mm; }
+.cons-col .cons-card { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.yaxis { position: absolute; left: 0; top: 0; bottom: 9mm; width: 10mm; }
+.ytick { position: absolute; right: 1.5mm; transform: translateY(50%); font-size: 7pt; color: var(--g600); text-align: right; width: 100%; }
+.gridline { position: absolute; left: 11mm; right: 0; height: 0; border-top: 1px solid var(--g100); }
+.goal-line { position: absolute; left: 11mm; right: 0; height: 0; border-top: 2px dashed var(--teal); z-index: 2; }
+.goal-tag { position: absolute; right: 0; transform: translateY(-100%); background: var(--teal); color: #fff; font-size: 7pt; font-weight: 700; padding: .8mm 2.2mm; border-radius: 3px 3px 0 3px; z-index: 3; white-space: nowrap; }
+.norm-line { border-top: 2px dotted var(--ok); }
+.norm-tag { background: var(--ok); transform: none; border-radius: 0 3px 3px 3px; }
+.bars { flex: 1; display: flex; align-items: flex-end; gap: .8mm; padding-bottom: 9mm; position: relative; z-index: 1; }
+.bar-col { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; position: relative; }
+.bar-col.wk { border-left: 1px solid var(--g200); }
+.bar-col.excl { background: rgba(230,81,0,.07); border-radius: 2px; }
+.bar { width: 100%; border-radius: .8mm .8mm 0 0; }
+.bar-zero { width: 100%; height: 1mm; border-radius: .5mm; background: var(--low); opacity: .55; }
+.bar-day { position: absolute; bottom: -6.5mm; left: 50%; transform: translateX(-50%); font-size: 6.5pt; font-weight: 600; color: var(--g600); white-space: nowrap; }
+.b-ok { background: linear-gradient(180deg, #66BB6A, #2E7D32); }
+.b-mid { background: linear-gradient(180deg, #FFB74D, #E65100); }
+.b-part { background: linear-gradient(180deg, #C8D8E8, #7A9BBB); }
+.twee { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; }
+.cons-row { display: flex; gap: 4mm; }
+.cons-card { flex: 1; background: #fff; border: 1px solid var(--g100); border-radius: 8px; padding: 3mm 4mm; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,.05); }
+.cons-num { font-family: var(--font-h); font-size: 18pt; line-height: 1; margin-bottom: 1mm; }
+.cons-lbl { font-size: 7pt; color: var(--g600); font-weight: 700; letter-spacing: .10em; text-transform: uppercase; }
+.cons-sub { font-size: 8pt; color: var(--g600); margin-top: 1.5mm; line-height: 1.4; }
+.comp-strip { background: var(--off); border: 1px solid var(--g100); border-radius: 8px; padding: 2.5mm 5mm; font-size: 8.5pt; display: none; align-items: center; gap: 4mm; flex-wrap: wrap; }
+.comp-strip.show { display: flex; }
+.comp-ok { color: var(--ok); font-weight: 700; }
+.comp-low { color: var(--low); font-weight: 700; }
+.comp-lbl { font-size: 7pt; font-weight: 700; text-transform: uppercase; letter-spacing: .10em; color: var(--g600); }
+.batt-line { font-size: 7.5pt; padding: 1.5mm 3mm; border-radius: 5px; background: var(--off); border: 1px solid var(--g100); display: none; align-items: center; gap: 1.5mm; line-height: 1.5; color: var(--g600); }
+.batt-line.show { display: inline-flex; }
+.batt-line.warn { color: var(--mid); background: var(--mid-bg); border-color: #FFCC80; font-weight: 600; }
+
+@page { size: A4; margin: 0; }
+@media print {
+  html, body { background: #fff; }
+  .page { height: 297mm; }
+  .app-bar, nav.stappen, .status, .klinisch { display: none !important; }
+  .stage { padding: 0; }
+  .page { box-shadow: none; }
+  .bar, .b-ok, .b-mid, .b-part, .bar-zero, .spoor, .spoor *, .balbar div, .hdr, .ftr, .lg-chip, .weekleg i, .balleg .sw, .score::after {
+    -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+@media screen and (max-width: 850px) {
+  .page, .klinisch { width: 100%; }
+  .kaart { margin: 4vh 14px; padding: 26px 20px; }
+}
+</style>
+</head>
+<body>
+<!-- PORTAALSLOT: buiten het portaal geen toegang. Het offline pakket haalt dit blok weg. -->
+<script>
+(function(){
+  if(window.parent===window){
+    document.addEventListener('DOMContentLoaded',function(){
+      document.body.style.cssText='margin:0;display:flex;align-items:center;justify-content:center;min-height:100vh;background:#8FA8BA;font-family:DM Sans,sans-serif;color:#0D2137';
+      document.body.innerHTML='<div style="background:#fff;border-radius:16px;padding:40px 48px;max-width:480px;text-align:center;box-shadow:0 18px 50px rgba(13,33,55,.22)">'
+        +'<h1 style="font-size:20px;font-weight:700;margin:0 0 10px">Toegang beperkt</h1>'
+        +'<p style="font-size:14px;color:#3D5C75;line-height:1.65;margin:0">Dit instrument is enkel beschikbaar voor leden van het PARADISE-consortium via het beveiligd portaal.</p>'
+        +'</div>';
+    });
+  }
+})();
+</script>
+<!-- /PORTAALSLOT -->
+
+<div class="app-bar">
+  <div class="brand"><img src="Image/logo_transparent.png" alt=""><div><b>Therapietrouw</b><br><span>MoveMonitor &rarr; waaktijd en norm &middot; Orthotimer &rarr; feedback</span></div></div>
+  <div class="actions">
+    <button class="btn" type="button" onclick="nieuwePatient()">Nieuwe patiënt</button>
+    <button class="btn" type="button" id="btnChecklist" onclick="try{window.parent.postMessage({type:'px_navigate',page:'visite'},'*')}catch(e){}">&larr; Visite-checklist</button>
+    <button class="btn btn-primary" type="button" id="btnPrint" style="display:none" onclick="window.print()">Afdrukken / PDF</button>
+  </div>
+</div>
+<nav class="stappen" role="tablist" aria-label="Stappen">
+  <button type="button" role="tab" id="tab1" aria-selected="true" aria-controls="stap1" onclick="toonStap(1)"><b>1 · Waaktijd en norm</b><span>MoveMonitor · visite 2 · eCRF 28</span></button>
+  <button type="button" role="tab" id="tab2" aria-selected="false" aria-controls="stap2" onclick="toonStap(2)"><b>2 · Therapietrouw</b><span>Orthotimer · visite 3 tot 8 · eCRF 32</span></button>
+</nav>
+<div class="status" id="status" aria-live="polite"></div>
+
+<!-- ======================= STAP 1 · MOVEMONITOR ======================= -->
+<section id="stap1" role="tabpanel" aria-labelledby="tab1">
+  <div class="kaart" id="mmUpload">
+    <div class="eyebrow">Stap 1 · MoveMonitor · visite 2</div>
+    <h1>Bepaal de <em>waaktijd</em> en de norm</h1>
+    <p class="lead">Sleep het McRoberts-rapport <strong>"Physical activity overview"</strong> (PDF) hierheen. De tool leest per dag wanneer de deelnemer opstond en ging slapen. De tijd daartussen is de <strong>waaktijd</strong>; 80% daarvan is de <strong>norm</strong>. De norm gaat bij Hours/day in de Orthotimer en, met de waaktijd, op eCRF 28.</p>
+    <div class="drop" id="mmDrop" tabindex="0" role="button" aria-label="MoveMonitor-rapport kiezen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 9l5-5 5 5"/><path d="M12 4v12"/></svg>
+      <b>Sleep het McRoberts-rapport hierheen</b><small>of klik om te kiezen · het bestand blijft op deze computer</small>
+      <input type="file" id="mmFile" accept=".pdf" hidden>
+    </div>
+    <div class="busy" id="mmBusy">Bezig met uitlezen…</div>
+    <p class="note-priv">Alles wordt in deze browser berekend; er vertrekt niets. De deelnemer draagt de MoveMonitor een week lang, dag en nacht (eCRF 19): zonder de nacht is er geen opstaan en geen slapengaan.</p>
+    <div class="err" id="mmErr"></div>
+  </div>
+
+  <div class="kaart" id="mmConfirm" style="display:none">
+    <div class="eyebrow">Stap 1 · Controle</div>
+    <h1>Controleer de uitgelezen gegevens</h1>
+    <p class="lead">Kijk de waarden na voor het blad gemaakt wordt. Bij een blokkerende fout kan dat niet.</p>
+    <table class="cf-table" id="mmCfTable"></table>
+    <table class="dagtabel" id="mmDagtabel"></table>
+    <div class="uitkomst" id="mmUitkomst"></div>
+    <div class="cf-issues" id="mmIssues"></div>
+    <div id="mmReentry"></div>
+    <div class="cf-actions">
+      <button class="btn" type="button" onclick="mmReset()">Ander bestand</button>
+      <button class="btn btn-primary" type="button" id="mmBtnConfirm" onclick="mmBevestig()">Blad maken</button>
+    </div>
+  </div>
+
+  <div class="stage" id="mmStage">
+    <div class="klinisch" id="mmKlinisch"></div>
+    <div class="page">
+      <div class="hdr"><div class="hb hb1"></div><div class="hb hb2"></div>
+        <div class="hdr-top"><img class="hdr-logo" src="Image/logo_transparent.png" alt="PARADISE"><div class="hdr-badge">MoveMonitor</div></div>
+        <div class="hdr-eyebrow">PARADISE · Voor deelnemers</div>
+        <h1>Uw <em>dag</em></h1>
+        <p class="hdr-sub">gemeten van <span class="ph" id="mmPeriode">…</span> · deelnemer <span class="ph" id="mmSubj">…</span></p>
+      </div>
+      <div class="body-wrap">
+        <div class="score" id="mmScore">
+          <div class="score-num" id="mmWaak">–</div>
+          <div class="score-meta"><div class="score-label">Zo lang bent u gemiddeld per dag op</div><p id="mmWaakTekst"></p></div>
+        </div>
+        <div class="chart-card groei">
+          <div class="chart-hdr"><h2>Uw week, uur per uur</h2><span id="mmWeekSub"></span></div>
+          <div class="week" id="mmWeek"></div>
+          <div class="as"><span></span><div class="as-ticks" id="mmAs"></div><span></span></div>
+          <div class="weekleg"><span><i style="background:var(--nacht)"></i>nacht (liggen)</span><span><i style="background:#DCEFF6;box-shadow:inset 0 0 0 1px var(--g200)"></i>op: uw schoenen aan</span><span><i style="background:var(--ok)"></i>meest gestapt</span></div>
+        </div>
+        <div class="stats" id="mmStats"></div>
+        <div class="chart-card">
+          <div class="card-label">Hoe u uw tijd overdag doorbrengt</div>
+          <div class="balbar" id="mmBal"></div>
+          <div class="balleg" id="mmBalLeg"></div>
+        </div>
+        <div class="talk-grid">
+          <div class="talk"><div class="talk-label">Wat valt op in uw dag?</div><input class="talk-line" aria-label="Wat valt op in uw dag, regel 1"><input class="talk-line" aria-label="regel 2"></div>
+          <div class="talk"><div class="talk-label">Wanneer zijn uw schoenen moeilijk aan te houden?</div><input class="talk-line" aria-label="Wanneer moeilijk, regel 1"><input class="talk-line" aria-label="regel 2"></div>
+        </div>
+      </div>
+      <div class="ftr"><span>&lsquo;Uw dag&rsquo; · samen bekeken met uw zorgverlener</span><strong>PARADISE · KU Leuven – VUB</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= STAP 2 · ORTHOTIMER ======================= -->
+<section id="stap2" role="tabpanel" aria-labelledby="tab2" hidden>
+  <div class="kaart" id="otUpload">
+    <div class="eyebrow">Stap 2 · Orthotimer · visite 3 tot 8</div>
+    <h1>Maak het <em>therapietrouwblad</em></h1>
+    <p class="lead">Sleep de Orthotimer-export (<strong>.tef</strong>) hierheen. De tool zet de draaguren per dag af tegen de waaktijd uit stap 1 en de norm, en maakt het blad dat u met de deelnemer bespreekt.</p>
+    <div class="drop" id="otDrop" tabindex="0" role="button" aria-label="Orthotimer-export kiezen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 9l5-5 5 5"/><path d="M12 4v12"/></svg>
+      <b>Sleep het .tef-bestand hierheen</b><small>of klik om te kiezen · het bestand blijft op deze computer</small>
+      <input type="file" id="otFile" accept=".tef,.zip" hidden>
+    </div>
+    <div class="optrow"><label for="otDatum">Besproken op (optioneel):</label><input type="date" id="otDatum"></div>
+    <p class="note-priv">De waaktijd komt uit stap 1, of uit Hours/day in het bestand (dat is de norm; de waaktijd is norm ÷ 0,8). Staat geen van beide klaar, dan vult u de waaktijd van eCRF 28 in: niets wordt stilzwijgend aangenomen.</p>
+    <div class="err" id="otErr"></div>
+  </div>
+
+  <div class="kaart" id="otConfirm" style="display:none">
+    <div class="eyebrow">Stap 2 · Controle</div>
+    <h1>Controleer de uitgelezen gegevens</h1>
+    <p class="lead">Kijk de waarden na voor het blad gemaakt wordt. Bij een blokkerende fout kan dat niet.</p>
+    <table class="cf-table" id="otCfTable"></table>
+    <div class="cf-issues" id="otIssues"></div>
+    <div class="cf-actions">
+      <button class="btn" type="button" onclick="otReset()">Ander bestand</button>
+      <button class="btn btn-primary" type="button" id="otBtnConfirm" onclick="otBevestig()">Blad maken</button>
+    </div>
+  </div>
+
+  <div class="stage" id="otStage">
+    <div class="klinisch" id="otKlinisch"></div>
+    <div class="page">
+      <div class="hdr"><div class="hb hb1"></div><div class="hb hb2"></div>
+        <div class="hdr-top"><img class="hdr-logo" src="Image/logo_transparent.png" alt="PARADISE"><div class="hdr-badge" id="otBadge">Orthotimer</div></div>
+        <div class="hdr-eyebrow">PARADISE · Voor deelnemers</div>
+        <h1>Uw <em>therapietrouw</em></h1>
+        <p class="hdr-sub">van <span class="ph" id="otPeriode">…</span> · besproken op <span class="editable" id="otBesproken" contenteditable="true">………………</span></p>
+      </div>
+      <div class="body-wrap">
+        <div class="summary">
+          <div class="score" id="otScore">
+            <div class="score-num" id="otPct">–</div>
+            <div class="score-meta"><div class="score-label">van uw waaktijd met schoenen aan</div><p id="otScoreTekst"></p></div>
+          </div>
+          <div class="legend">
+            <div class="legend-label">Kleurcode</div>
+            <div class="lg"><div class="lg-chip" style="background:var(--ok)"></div><p>Groen <span id="otLgOk"></span></p></div>
+            <div class="lg"><div class="lg-chip" style="background:var(--mid)"></div><p>Oranje <span id="otLgMid"></span></p></div>
+            <div class="lg"><div class="lg-chip" style="background:var(--g200)"></div><p>Grijs <span>— deeldag</span></p></div>
+          </div>
+        </div>
+        <div class="comp-strip" id="otComp"></div>
+        <div class="chart-card groei">
+          <div class="chart-hdr"><h2>Draaguren per dag</h2><span id="otChartSub"></span></div>
+          <div class="chart">
+            <div class="yaxis" id="otYas"></div><div id="otGrid"></div>
+            <div class="goal-line" id="otGoalLine"><div class="goal-tag" id="otGoalTag">Doel</div></div>
+            <div class="goal-line norm-line" id="otNormLine"><div class="goal-tag norm-tag" id="otNormTag">Norm</div></div>
+            <div class="bars" id="otBars"></div>
+          </div>
+          <p class="chart-note" id="otChartNote"></p>
+        </div>
+        <div class="batt-line" id="otBatt"></div>
+        <div class="rij2">
+          <div class="chart-card" id="otWdCard">
+            <div class="chart-hdr"><h2>Gemiddeld per weekdag</h2><span id="otWdSub"></span></div>
+            <div class="chart chart-wd">
+              <div class="yaxis" id="otWdYas"></div><div id="otWdGrid"></div>
+              <div class="goal-line norm-line" id="otWdNormLine"><div class="goal-tag norm-tag" id="otWdNormTag">Norm</div></div>
+              <div class="bars" id="otWdBars"></div>
+            </div>
+          </div>
+          <div class="cons-col" id="otCons"></div>
+        </div>
+        <div class="talk-grid drie">
+          <div class="talk"><div class="talk-label">Wat ging goed?</div><input class="talk-line" aria-label="Wat ging goed, regel 1"><input class="talk-line" aria-label="regel 2"></div>
+          <div class="talk"><div class="talk-label">Wat maakt dragen moeilijk?</div><input class="talk-line" aria-label="Wat maakt dragen moeilijk, regel 1"><input class="talk-line" aria-label="regel 2"></div>
+          <div class="talk"><div class="talk-label">Afspraak tot het volgende bezoek</div><input class="talk-line" aria-label="Afspraak, regel 1"><input class="talk-line" aria-label="regel 2"></div>
+        </div>
+      </div>
+      <div class="ftr"><span>&lsquo;Uw therapietrouw&rsquo; · samen bekeken met uw zorgverlener</span><strong>PARADISE · KU Leuven – VUB</strong></div>
+    </div>
+  </div>
+  <input type="file" id="otVorigFile" accept=".tef,.zip" hidden>
+</section>
+
+<script>
+'use strict';
+// ============================================================================
+// Gedeeld
+// ============================================================================
+const WD = ['ma','di','wo','do','vr','za','zo'];
+const MND = ['','jan','feb','mrt','apr','mei','jun','jul','aug','sep','okt','nov','dec'];
+const MNDLONG = ['','januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december'];
+const MENG = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
+const NORM = 0.8;                 // de norm is 80% van de waaktijd, één keer toegepast
+const $ = id => document.getElementById(id);
+function nf(h){ return (Math.round(h*10)/10).toString().replace('.', ','); }
+function nfInt(n){ return Math.round(n).toLocaleString('nl-BE'); }
+function fmtFull(d){ return d.getDate()+' '+MNDLONG[d.getMonth()+1]+' '+d.getFullYear(); }
+function fmtShort(d){ return d.getDate()+' '+MND[d.getMonth()+1]+' '+d.getFullYear(); }
+function fmtDay(d){ return d.getDate()+' '+MND[d.getMonth()+1]; }
+function wdIdx(d){ return (d.getDay()+6)%7; }
+// minuten na middernacht als klokuur: 425 -> '7.05 u'; 1450 -> '0.10 u'
+function klok(min){ const m = ((Math.round(min) % 1440) + 1440) % 1440; return Math.floor(m/60)+'.'+String(m%60).padStart(2,'0')+' u'; }
+function escHtml(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+const ICON = {blocker:'✖', warn:'⚠', ok:'✔'};
+function issuesHtml(issues){ return issues.map(i=>'<div class="cf-issue '+i.level+'"><em class="cf-icon">'+ICON[i.level]+'</em><span>'+i.msg+'</span></div>').join(''); }
+
+// Het bezoek-ID van de visite-checklist (zelfde sleutel). Samenvattingen dragen het mee,
+// zodat de checklist nooit de cijfers van een vorige patiënt toont.
+const ENCOUNTER_KEY = 'pvc_encounter_id';
+const MAX_LEEFTIJD_MS = 4 * 3600 * 1000;
+function encounterId(){ try{ return localStorage.getItem(ENCOUNTER_KEY); }catch(e){ return null; } }
+function bewaarSamenvatting(key, obj){
+  try{ localStorage.setItem(key, JSON.stringify(Object.assign({savedAt:new Date().toISOString(), encounterId:encounterId()}, obj))); }catch(e){}
+}
+function leesSamenvatting(key){
+  try{
+    const s = JSON.parse(localStorage.getItem(key) || 'null');
+    const enc = encounterId();
+    if(!s || !enc || s.encounterId !== enc) return null;
+    if(!(Date.now() - new Date(s.savedAt).getTime() <= MAX_LEEFTIJD_MS)) return null;
+    return s;
+  }catch(e){ return null; }
+}
+
+let stap = 1;
+let mmResultaat = null;   // uitkomst van stap 1 in deze sessie
+
+// De waaktijd voor stap 2: eerst stap 1 van deze sessie, dan de samenvatting van dit bezoek.
+function waaktijdBekend(){
+  if(mmResultaat && mmResultaat.waaktijd) return {uren:mmResultaat.waaktijd, opstaan:mmResultaat.opstaan, slapen:mmResultaat.slapen, bron:'uit stap 1'};
+  const s = leesSamenvatting('pvc_activity_summary');
+  if(s && s.avgWakeHours) return {uren:s.avgWakeHours, opstaan:s.opstaan, slapen:s.slapengaan, bron:'beweegpatroon van '+fmtShort(new Date(s.savedAt))};
+  return null;
+}
+function zetStatus(){
+  const w = waaktijdBekend();
+  $('status').innerHTML = w
+    ? 'Waaktijd <strong>'+nf(w.uren)+' u/dag</strong> · norm (80%) <strong>'+nf(NORM*w.uren)+' u/dag</strong> <span>— '+w.bron+'</span>'
+    : 'Nog geen waaktijd. Op visite 2 komt ze uit stap 1; op visite 3 tot 8 staat ze op eCRF 28 en vult u ze in stap 2 in.';
+}
+function zetPrintknop(){
+  const zichtbaar = stap === 1 ? $('mmStage').classList.contains('show') : $('otStage').classList.contains('show');
+  $('btnPrint').style.display = zichtbaar ? '' : 'none';
+}
+function toonStap(n){
+  stap = n === 2 ? 2 : 1;
+  $('stap1').hidden = stap !== 1;
+  $('stap2').hidden = stap !== 2;
+  $('tab1').setAttribute('aria-selected', String(stap === 1));
+  $('tab2').setAttribute('aria-selected', String(stap === 2));
+  if(location.hash !== '#stap'+stap){ try{ history.replaceState(null, '', '#stap'+stap); }catch(e){} }
+  zetStatus(); zetPrintknop();
+  window.scrollTo(0, 0);
+}
+function stapUitAdres(){ return location.hash === '#stap2' ? 2 : 1; }
+function nieuwePatient(){
+  if(!confirm('Alles van de huidige patiënt wissen en opnieuw beginnen?')) return;
+  mmResultaat = null;
+  try{
+    localStorage.removeItem('pvc_activity_summary');
+    localStorage.removeItem('pvc_wear_summary');
+    localStorage.setItem(ENCOUNTER_KEY, 'enc_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8));
+  }catch(e){}
+  mmReset(); otReset();
+  toonStap(1);
+}
+function koppelDrop(dropId, inputId, verwerk){
+  const drop = $(dropId), input = $(inputId);
+  drop.addEventListener('click', () => input.click());
+  drop.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); input.click(); } });
+  input.addEventListener('change', e => { if(e.target.files[0]) verwerk(e.target.files[0]); });
+  ['dragenter','dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('over'); }));
+  ['dragleave','drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('over'); }));
+  drop.addEventListener('drop', e => { const f = e.dataTransfer.files[0]; if(f) verwerk(f); });
+}
+
+// ============================================================================
+// Stap 1 · MoveMonitor: waaktijd en norm
+// ============================================================================
+// De waaktijd is de tijd tussen de twee nachten (beslissing PI, 17 augustus 2026): van opstaan
+// tot slapengaan. Het rapport geeft per kalenderdag de vijf langste lig-periodes met begin en
+// einde; de nacht staat er telkens in, geknipt op middernacht (0:00–7:01 en 22:55–24:00).
+// Opstaan is het einde van het liggen dat vóór 5 u begon; slapengaan het begin van het liggen
+// dat tot middernacht doorloopt. Liggen dat minder dan een kwartier onderbroken werd
+// (toiletbezoek), hoort nog bij de nacht. Alleen volledige kalenderdagen tellen: de eerste dag
+// begint om 7 u en mist de nacht ervoor.
+const WEAR_MIN = 10;              // u gedragen: vanaf hier telt een dag voor stappen en activiteit
+const NACHT_KIER = 15;            // min
+const OCHTEND_GRENS = 5 * 60;     // nachtrust begint vóór 5 u
+const LAAT_NAAR_BED = 3 * 60;     // na middernacht gaan slapen: begint vóór 3 u
+const WAAK_MIN = 8, WAAK_MAX = 20;
+const MAP = [['lying','Lying'],['sitting','Sitting'],['standing','Standing'],['shuffling','Shuffling'],['walking','Walking'],['stairs','Stair walking'],['cycling','Cycling']];
+
+// pdf.js verdubbelt vetgedrukte tekst ("WP3WP3"); dit maakt er weer één van.
+function debold(s){
+  if(!s) return s;
+  const h = s.length/2;
+  if(s.length >= 2 && s.length % 2 === 0 && s.slice(0, h) === s.slice(h)) return s.slice(0, h);
+  if(s.length >= 4 && s.length % 2 === 0){
+    const half = [...s].filter((_, i) => i % 2 === 0).join('');
+    if([...half].map(c => c + c).join('') === s) return half;
+  }
+  return s;
+}
+function hm(s){ const m = s.match(/(\d+)h\s*(\d+)m/); return m ? (+m[1])*60 + (+m[2]) : 0; }
+function rijRegex(name){ return new RegExp('(?:^|\\s)'+name.replace(' ', '\\s+')+'\\s+(\\d+)\\s+(\\d+h\\s*\\d+m)\\s+(\\d+h\\s*\\d+m)\\s+([\\d.]+)%'); }
+function leafMin(t, name){ const m = t.match(rijRegex(name)); return m ? hm(m[2]) : 0; }
+function leafBouts(t, name){ const m = t.match(rijRegex(name)); return m ? +m[1] : 0; }
+function leafHours(t){
+  const o = {};
+  MAP.forEach(([k, n]) => o[k] = leafMin(t, n) / 60);
+  o.lyingBouts = leafBouts(t, 'Lying');
+  o.stairBouts = leafBouts(t, 'Stair walking');
+  o.notworn = leafMin(t, 'Not worn') / 60;
+  return o;
+}
+// "Physical activity Tue 17-Mar-26" -> lokale middernacht van die dag
+function parseTitleDate(text){
+  const m = text.match(/Physical activity\s+\w+\s+(\d{1,2})-([A-Za-z]+)-(\d{2,4})/i);
+  if(!m) return null;
+  const mo = MENG.indexOf(m[2].slice(0, 3).toLowerCase()), yr = +m[3];
+  if(mo < 0) return null;
+  return new Date(yr < 100 ? yr + 2000 : yr, mo, +m[1]);
+}
+// eerste getal na "Steps": de werkelijk gezette stappen
+function parseSteps(text){ const m = text.match(/Steps\s+([\d,.]+)/); return m ? parseInt(m[1].replace(/[,.]/g, ''), 10) : null; }
+function minuten(s){ const m = String(s).match(/^(\d{1,2}):(\d{2})$/); return m ? (+m[1])*60 + (+m[2]) : null; }
+// Tabel na een kop als "LYING PERIODS": [{begin, einde}] in minuten na middernacht.
+// Een periode over middernacht (einde vóór begin) krijgt einde + 24 u.
+function periodes(t, kop, metStappen){
+  const i = t.indexOf(kop);
+  if(i < 0) return [];
+  let s = t.slice(i + kop.length);
+  const stop = s.search(/\*|[A-Z]{4,} PERIODS/);
+  if(stop >= 0) s = s.slice(0, stop);
+  const re = metStappen
+    ? /(\d+)\s+(\d+)h\s*(\d+)m\s+(\d{1,2}:\d{2})\s+(\d{1,2}:\d{2})/g
+    : /(\d+)h\s*(\d+)m\s+(\d{1,2}:\d{2})\s+(\d{1,2}:\d{2})/g;
+  const uit = []; let m;
+  while((m = re.exec(s))){
+    const b = minuten(m[metStappen ? 4 : 3]), e0 = minuten(m[metStappen ? 5 : 4]);
+    if(b == null || e0 == null) continue;
+    const p = {begin:b, einde:e0 < b ? e0 + 1440 : e0};
+    if(metStappen) p.stappen = +m[1];
+    uit.push(p);
+  }
+  return uit;
+}
+function parseLigperiodes(t){ return periodes(t, 'LYING PERIODS', false); }
+function parseActievePeriodes(t){ return periodes(t, 'ACTIVE PERIODS', true); }
+// Overzichtspagina: % bewegend per dagdeel (de 12e waarde van elke rij).
+function parseDagdelen(t){
+  const uit = {};
+  for(const deel of ['MORNING','AFTERNOON','EVENING','NIGHT']){
+    const m = t.match(new RegExp(deel+'((?:\\s+[\\d.]+%){14})'));
+    if(m){ const w = m[1].trim().split(/\s+/).map(x => parseFloat(x)); uit[deel] = w[11]; }
+  }
+  return Object.keys(uit).length === 4 ? uit : null;
+}
+function opstaanUit(lig){
+  const nacht = lig.filter(p => p.begin < OCHTEND_GRENS);
+  if(!nacht.length) return null;
+  let eind = Math.max(...nacht.map(p => p.einde));
+  for(let verlengd = true; verlengd; ){
+    verlengd = false;
+    for(const p of lig){
+      if(p.begin > eind - 1 && p.begin <= eind + NACHT_KIER && p.begin < 720 && p.einde > eind){ eind = p.einde; verlengd = true; }
+    }
+  }
+  return eind;
+}
+function slapengaanUit(lig, ligMorgen){
+  const avond = lig.filter(p => p.einde >= 1435);
+  if(!avond.length){
+    // laat naar bed: het liggen begint pas na middernacht, op de volgende dagpagina
+    const vroeg = (ligMorgen || []).filter(p => p.begin < LAAT_NAAR_BED);
+    return vroeg.length ? 1440 + Math.min(...vroeg.map(p => p.begin)) : null;
+  }
+  let begin = Math.min(...avond.map(p => p.begin));
+  for(let verlengd = true; verlengd; ){
+    verlengd = false;
+    for(const p of lig){
+      if(p.einde < begin + 1 && p.einde >= begin - NACHT_KIER && p.einde > 18*60 && p.begin < begin){ begin = p.begin; verlengd = true; }
+    }
+  }
+  return begin;
+}
+// Per dag: opstaan, slapengaan en waaktijd, of de reden waarom de dag niet meetelt.
+function waaktijdPerDag(days){
+  return days.map((d, i) => {
+    const volgende = days[i+1];
+    const morgen = volgende && Math.round((volgende.datum - d.datum) / 86400000) === 1 ? volgende.lig : null;
+    const r = {opstaan:null, slapen:null, waak:null, reden:''};
+    if(d.gemeten < 23.5){ r.reden = 'deeldag: begin of einde van de meting'; return r; }
+    r.opstaan = opstaanUit(d.lig);
+    r.slapen = slapengaanUit(d.lig, morgen);
+    if(r.opstaan == null || r.slapen == null){ r.reden = 'geen nacht gemeten (toestel ’s nachts af?)'; return r; }
+    const w = (r.slapen - r.opstaan) / 60;
+    if(w < WAAK_MIN || w > WAAK_MAX || r.opstaan >= 14*60 || r.slapen <= 18*60){ r.reden = 'onwaarschijnlijk ('+nf(w)+' u)'; return r; }
+    r.waak = w;
+    return r;
+  });
+}
+function gemiddelde(a){ return a.length ? a.reduce((s, x) => s + x, 0) / a.length : null; }
+function mmAnalyse(m){
+  const per = waaktijdPerDag(m.days);
+  const geldig = per.filter(r => r.waak != null);
+  const actief = m.days.filter(d => d.gemeten >= 23.5 && d.wear >= WEAR_MIN);
+  const stappen = actief.map(d => d.steps);
+  let min = null, max = null;
+  actief.forEach(d => { if(!min || d.steps < min.steps) min = d; if(!max || d.steps > max.steps) max = d; });
+  const som = {active:0, stand:0, sed:0};
+  actief.forEach(d => { som.active += d.leaf.walking + d.leaf.stairs + d.leaf.cycling; som.stand += d.leaf.standing + d.leaf.shuffling; som.sed += d.leaf.sitting; });
+  return {
+    per, geldig: geldig.length,
+    waaktijd: gemiddelde(geldig.map(r => r.waak)),
+    opstaan: gemiddelde(geldig.map(r => r.opstaan)),
+    slapen: gemiddelde(geldig.map(r => r.slapen)),
+    actieveDagen: actief.length,
+    stappen: gemiddelde(stappen), stappenMin: min, stappenMax: max,
+    trap: gemiddelde(actief.map(d => d.leaf.stairBouts)),
+    balans: som
+  };
+}
+
+async function mmPageText(pdf, i){ const pg = await pdf.getPage(i); const tc = await pg.getTextContent(); return tc.items.map(it => it.str).join(' ').replace(/\s+/g, ' '); }
+async function mmParsePdf(buf){
+  const pdf = await pdfjsLib.getDocument({data:buf}).promise;
+  const p1 = await mmPageText(pdf, 1);
+  const g = re => { const m = p1.match(re); return m ? m[1] : null; };
+  const subject = debold(g(/Subject code:\s+(\S+)/) || '');
+  const days = [];
+  for(let i = 2; i <= pdf.numPages; i++){
+    const t = await mmPageText(pdf, i);
+    const steps = parseSteps(t);
+    const datum = parseTitleDate(t);
+    if(steps === null || !datum) continue;            // geen dagpagina
+    const leaf = leafHours(t);
+    const wear = MAP.reduce((a, [k]) => a + (leaf[k] || 0), 0);
+    days.push({datum, steps, wear, gemeten: wear + leaf.notworn, leaf, lig: parseLigperiodes(t), actief: parseActievePeriodes(t)});
+  }
+  if(!days.length) throw new Error('Geen dagpagina’s met activiteitsgegevens gevonden. Is dit het rapport "Physical activity overview"?');
+  days.sort((a, b) => a.datum - b.datum);
+  return {subject, steps_total: parseSteps(p1), dagdelen: parseDagdelen(p1), days};
+}
+
+let mmModel = null;
+function mmValideer(model, a){
+  const issues = [];
+  const vandaag = new Date(); vandaag.setHours(23, 59, 59, 999);
+  if(!model.subject) issues.push({level:'blocker', msg:'Geen deelnemerscode (Subject code) gevonden. Is dit het juiste rapport?'});
+  model.days.forEach(d => {
+    if(d.datum > vandaag) issues.push({level:'blocker', msg:'Meetdatum in de toekomst: '+fmtShort(d.datum)+'.'});
+    if(d.wear > 24.05) issues.push({level:'warn', msg:'Meer dan 24 u op '+fmtShort(d.datum)+': mogelijk een leesfout. Kijk de dagpagina na.'});
+  });
+  if(model.steps_total != null){
+    const som = model.days.reduce((s, d) => s + d.steps, 0);
+    const diff = Math.abs(som - model.steps_total);
+    if(diff > model.steps_total * 0.05 && diff > 500)
+      issues.push({level:'warn', msg:'De stappen per dag ('+nfInt(som)+') wijken meer dan 5% af van het totaal op de overzichtspagina ('+nfInt(model.steps_total)+').'});
+  }
+  if(model.days.length < 7)
+    issues.push({level:'warn', msg:'Maar '+model.days.length+' kalenderdag'+(model.days.length === 1 ? '' : 'en')+' in het rapport: de meting duurt een week (eCRF 19b).'});
+  if(a.geldig === 0)
+    issues.push({level:'warn', msg:'Geen enkele dag met een waaktijd: de nacht ontbreekt. De deelnemer draagt de MoveMonitor dag en nacht (eCRF 19). Neem contact op met het studieteam (paradise-tbm@kuleuven.be) voor u Hours/day instelt.'});
+  else if(a.geldig < 4)
+    issues.push({level:'warn', msg:'De waaktijd steunt op maar '+a.geldig+' dag'+(a.geldig === 1 ? '' : 'en')+'. Kijk de dagen hierboven na; bij twijfel: paradise-tbm@kuleuven.be.'});
+  if(!issues.length) issues.push({level:'ok', msg:'Alle uitgelezen waarden zien er correct uit.'});
+  return issues;
+}
+function mmToonControle(model){
+  const a = mmAnalyse(model);
+  const issues = mmValideer(model, a);
+  model._blocker = issues.some(i => i.level === 'blocker');
+  model._analyse = a;
+  const eerste = model.days[0].datum, laatste = model.days[model.days.length-1].datum;
+  $('mmCfTable').innerHTML = [
+    ['Deelnemerscode', model.subject ? '<strong>'+escHtml(model.subject)+'</strong>' : '<span class="cf-missing">niet gevonden</span>'],
+    ['Periode', fmtShort(eerste)+' t/m '+fmtShort(laatste)+' ('+model.days.length+' kalenderdagen)'],
+    ['Dagen met een waaktijd', a.geldig+' van '+model.days.length],
+    ['Stappen per dag', a.stappen != null ? nfInt(a.stappen)+' gemiddeld over '+a.actieveDagen+' volle dagen' : '<span class="cf-missing">—</span>']
+  ].map(([k, v]) => '<tr><td>'+k+'</td><td>'+v+'</td></tr>').join('');
+  $('mmDagtabel').innerHTML = '<tr><th>Dag</th><th>Opstaan</th><th>Slapengaan</th><th style="text-align:right">Waaktijd</th><th style="text-align:right">Stappen</th></tr>' +
+    model.days.map((d, i) => { const r = a.per[i];
+      return '<tr'+(r.waak == null ? ' class="uit"' : '')+'><td>'+WD[wdIdx(d.datum)]+' '+fmtDay(d.datum)+'</td>' +
+        (r.waak == null ? '<td colspan="3">'+r.reden+'</td>' : '<td>'+klok(r.opstaan)+'</td><td>'+klok(r.slapen)+'</td><td class="num">'+nf(r.waak)+' u</td>') +
+        '<td class="num">'+nfInt(d.steps)+'</td></tr>'; }).join('');
+  $('mmUitkomst').innerHTML = a.waaktijd
+    ? 'Waaktijd <strong>'+nf(a.waaktijd)+' u/dag</strong> (gemiddeld '+klok(a.opstaan)+' tot '+klok(a.slapen)+') &nbsp;→&nbsp; norm, 80% daarvan: <strong>'+nf(NORM*a.waaktijd)+' u/dag</strong>'
+    : 'Geen waaktijd af te leiden uit dit rapport.';
+  $('mmIssues').innerHTML = issuesHtml(issues);
+  $('mmReentry').innerHTML = model.subject
+    ? '<div class="cf-reentry"><label for="mmCode">Typ de deelnemerscode over, als onafhankelijke controle:</label><div class="cf-reentry-row">' +
+      '<input type="text" id="mmCode" class="cf-input" autocomplete="off" spellcheck="false" oninput="mmCodeCheck()"><span id="mmCodeMsg" class="cf-msg"></span></div></div>'
+    : '';
+  $('mmBtnConfirm').disabled = true;
+  if(!model.subject) $('mmBtnConfirm').disabled = model._blocker;
+  $('mmUpload').style.display = 'none';
+  $('mmConfirm').style.display = '';
+  window.scrollTo(0, 0);
+}
+function mmCodeCheck(){
+  const inp = $('mmCode'), msg = $('mmCodeMsg');
+  const ok = inp.value.trim() === mmModel.subject.trim();
+  msg.textContent = ok ? '✔ Bevestigd' : (inp.value.trim() ? 'Komt niet overeen' : '');
+  msg.style.color = ok ? 'var(--ok)' : 'var(--low)';
+  inp.style.borderColor = ok ? 'var(--ok)' : (inp.value.trim() ? 'var(--low)' : '');
+  $('mmBtnConfirm').disabled = mmModel._blocker || !ok;
+}
+function mmBevestig(){
+  if(!mmModel || mmModel._blocker) return;
+  if($('mmCode') && $('mmCode').value.trim() !== mmModel.subject.trim()){ $('mmCode').focus(); return; }
+  mmRender(mmModel);
+  $('mmConfirm').style.display = 'none';
+  $('mmStage').classList.add('show');
+  zetPrintknop(); zetStatus();
+  window.scrollTo(0, 0);
+}
+function mmRender(model){
+  const a = model._analyse;
+  const days = model.days;
+  mmResultaat = {waaktijd:a.waaktijd, opstaan:a.opstaan, slapen:a.slapen};
+  $('mmPeriode').textContent = fmtFull(days[0].datum)+' t/m '+fmtFull(days[days.length-1].datum);
+  $('mmSubj').textContent = model.subject || '—';
+
+  // Voor de clinicus, niet op het blad: de getallen voor eCRF 28 en de Orthotimer.
+  $('mmKlinisch').innerHTML = '<div class="k-titel">Voor eCRF 28 en de Orthotimer · niet afgedrukt</div><div class="k-rij">' +
+    (a.waaktijd ? '<span>Waaktijd <strong>'+nf(a.waaktijd)+' u</strong></span><span>Norm (80%) <strong>'+nf(NORM*a.waaktijd)+' u</strong> → Hours/day in de Orthotimer</span>'
+                : '<span><strong>Geen waaktijd</strong>: Hours/day nog niet instellen, contacteer paradise-tbm@kuleuven.be</span>') +
+    (a.stappen != null ? '<span>Stappen per dag <strong>'+nfInt(a.stappen)+'</strong></span><span>Variabiliteit <strong>'+nfInt(a.stappenMin.steps)+' – '+nfInt(a.stappenMax.steps)+'</strong></span>' : '') +
+    (a.trap != null ? '<span>Traplopen <strong>'+nf(a.trap)+' keer</strong> per dag</span>' : '') +
+    (model.dagdelen ? '<span>Bewegend per dagdeel: voormiddag <strong>'+nf(model.dagdelen.MORNING)+'%</strong> · namiddag <strong>'+nf(model.dagdelen.AFTERNOON)+'%</strong> · avond <strong>'+nf(model.dagdelen.EVENING)+'%</strong> · nacht <strong>'+nf(model.dagdelen.NIGHT)+'%</strong></span>' : '') +
+    '</div><div class="k-noot">Optimal Care: dit blad bespreken (SEBIA stap 2). Usual Care: alleen Hours/day instellen; het blad niet tonen of meegeven. ' +
+    '<button class="btn" type="button" onclick="mmReset()">Ander bestand</button></div>';
+
+  // Het hoofdgetal en de boodschap: altijd, van opstaan tot slapengaan.
+  $('mmWaak').textContent = a.waaktijd ? nf(a.waaktijd)+' u' : '–';
+  $('mmWaakTekst').innerHTML = a.waaktijd
+    ? 'Gemiddeld stond u op rond <strong>'+klok(a.opstaan)+'</strong> en ging u slapen rond <strong>'+klok(a.slapen)+'</strong>. ' +
+      'Dat is de tijd dat uw schoenen aan horen: <strong>altijd, van het moment dat u opstaat tot u gaat slapen</strong> — ook thuis.'
+    : 'Uit deze meting kon niet bepaald worden wanneer u opstaat en gaat slapen. Uw zorgverlener bespreekt dit met u.';
+
+  // Uw week, uur per uur
+  const pct = min => (Math.max(0, Math.min(1440, min)) / 1440 * 100).toFixed(2) + '%';
+  $('mmWeek').innerHTML = days.map((d, i) => {
+    const r = a.per[i];
+    const label = '<div class="dag-l">'+WD[wdIdx(d.datum)]+'<small>'+d.datum.getDate()+'/'+(d.datum.getMonth()+1)+'</small></div>';
+    if(r.waak == null){
+      return '<div class="dagrij">'+label+'<div class="spoor leeg"></div><div class="dag-r uit">'+(d.gemeten < 23.5 ? 'deeldag' : 'geen nacht')+'</div></div>';
+    }
+    const eind = Math.min(r.slapen, 1440);
+    let s = '<div class="nacht" style="left:0;width:'+pct(r.opstaan)+'"></div>' +
+            '<div class="op" style="left:'+pct(r.opstaan)+';width:'+pct(eind - r.opstaan)+'"></div>';
+    if(r.slapen < 1440) s += '<div class="nacht" style="left:'+pct(r.slapen)+';width:'+pct(1440 - r.slapen)+'"></div>';
+    d.actief.forEach(p => { s += '<div class="actief" style="left:'+pct(p.begin)+';width:'+pct(Math.max(p.einde - p.begin, 6))+'" title="'+p.stappen+' stappen"></div>'; });
+    return '<div class="dagrij">'+label+'<div class="spoor" title="op van '+klok(r.opstaan)+' tot '+klok(r.slapen)+'">'+s+'</div><div class="dag-r">'+nf(r.waak)+' u</div></div>';
+  }).join('');
+  $('mmAs').innerHTML = [0, 3, 6, 9, 12, 15, 18, 21, 24].map(u => '<span style="left:'+(u/24*100)+'%">'+u+' u</span>').join('');
+  $('mmWeekSub').textContent = a.geldig ? 'waaktijd per dag · gemiddeld over '+a.geldig+' dag'+(a.geldig === 1 ? '' : 'en') : '';
+
+  // Drie kerncijfers voor het gesprek
+  const deel = model.dagdelen;
+  let actiefst = null;
+  if(deel){
+    const namen = {MORNING:'in de voormiddag', AFTERNOON:'in de namiddag', EVENING:'’s avonds', NIGHT:'’s nachts'};
+    const k = Object.keys(deel).sort((x, y) => deel[y] - deel[x])[0];
+    actiefst = {tekst:namen[k], pct:deel[k]};
+  }
+  $('mmStats').innerHTML =
+    '<div class="stat"><div class="stat-num">'+(a.stappen != null ? nfInt(a.stappen) : '–')+'</div><div class="stat-lbl">Stappen per dag</div>' +
+      '<div class="stat-sub">'+(a.stappenMin ? 'van '+nfInt(a.stappenMin.steps)+' ('+WD[wdIdx(a.stappenMin.datum)]+') tot '+nfInt(a.stappenMax.steps)+' ('+WD[wdIdx(a.stappenMax.datum)]+')' : '')+'</div></div>' +
+    '<div class="stat"><div class="stat-num">'+(a.trap != null ? nf(a.trap) : '–')+'</div><div class="stat-lbl">Keer traplopen per dag</div><div class="stat-sub">gemiddeld over de volle dagen</div></div>' +
+    '<div class="stat"><div class="stat-num" style="font-size:13pt;padding-top:1.5mm">'+(actiefst ? actiefst.tekst : '–')+'</div><div class="stat-lbl">Meest in beweging</div>' +
+      '<div class="stat-sub">'+(actiefst ? nf(actiefst.pct)+'% van die tijd bewegend' : '')+'</div></div>';
+
+  // Hoe de tijd overdag verdeeld is: zitten, staan, bewegen (liggen niet meegerekend)
+  const b = a.balans, tot = (b.active + b.stand + b.sed) || 1;
+  const pa = Math.round(b.active/tot*100), ps = Math.round(b.stand/tot*100), pz = 100 - pa - ps;
+  $('mmBal').innerHTML =
+    '<div style="width:'+pz+'%;background:#5C7C99">'+(pz >= 8 ? pz+'%' : '')+'</div>' +
+    '<div style="width:'+ps+'%;background:#E6A23C">'+(ps >= 8 ? ps+'%' : '')+'</div>' +
+    '<div style="width:'+pa+'%;background:#2E7D32">'+(pa >= 8 ? pa+'%' : '')+'</div>';
+  $('mmBalLeg').innerHTML =
+    '<span><i class="sw" style="background:#5C7C99"></i>Zitten <b>'+pz+'%</b></span>' +
+    '<span><i class="sw" style="background:#E6A23C"></i>Staan <b>'+ps+'%</b></span>' +
+    '<span><i class="sw" style="background:#2E7D32"></i>Stappen, trap, fietsen <b>'+pa+'%</b></span>';
+
+  bewaarSamenvatting('pvc_activity_summary', {
+    source:'mcroberts', periodStart:days[0].datum.toISOString(), periodEnd:days[days.length-1].datum.toISOString(),
+    avgWakeHours:a.waaktijd, opstaan:a.opstaan, slapengaan:a.slapen, wakeDays:a.geldig, totalDays:days.length,
+    stepsPerDay:a.stappen, subject:model.subject || null
+  });
+}
+async function mmVerwerk(file){
+  $('mmErr').classList.remove('show'); $('mmBusy').classList.add('show');
+  try{
+    mmModel = await mmParsePdf(new Uint8Array(await file.arrayBuffer()));
+    mmToonControle(mmModel);
+  }catch(e){
+    $('mmErr').textContent = 'Kon het bestand niet verwerken: ' + e.message;
+    $('mmErr').classList.add('show');
+  }finally{ $('mmBusy').classList.remove('show'); }
+}
+function mmReset(){
+  $('mmStage').classList.remove('show');
+  $('mmConfirm').style.display = 'none';
+  $('mmUpload').style.display = '';
+  $('mmFile').value = '';
+  mmModel = null;
+  zetPrintknop(); zetStatus();
+  window.scrollTo(0, 0);
+}
+
+// ============================================================================
+// Stap 2 · Orthotimer: therapietrouw
+// ============================================================================
+let YMAX = 16;
+// de y-as groeit mee met de waaktijd: minstens 16 u, twee uur erboven, veelvoud van vier
+function zetYas(goal){ YMAX = Math.max(16, Math.ceil((goal + 2) / 4) * 4); }
+const LOW_VOLTAGE = 2.5;
+let otModel = null, otBlocker = false, otBasisBlocker = false, otNormKandidaat = null;
+let otGemiddelde = null, otEerste = null, otVorigGemiddelde = null;
+
+// velden uit de DataContract-XML van de export
+function getField(xml, name){ const m = xml.match(new RegExp('_x003C_'+name+'_x003E_k__BackingField[^>]*>([^<]*)<')); return m ? m[1] : null; }
+function getAll(xml, block){ return xml.match(new RegExp('<'+block+'\\b[\\s\\S]*?</'+block+'>', 'g')) || []; }
+function parseDays(xml){
+  const out = [];
+  for(const b of getAll(xml, 'MeasureDay')){
+    const h = parseFloat(getField(b, 'Hours')), md = getField(b, 'MeasureDate');
+    if(md == null || isNaN(h)) continue;
+    out.push({date:new Date(md), hours:h});
+  }
+  return out.sort((a, b) => a.date - b.date);
+}
+function parseVoltages(xml){
+  const e = [];
+  for(const b of getAll(xml, 'MeasureDay')){
+    const v = parseFloat(getField(b, 'Voltage')), md = getField(b, 'MeasureDate');
+    if(!isNaN(v) && md) e.push({v, d:new Date(md)});
+  }
+  return e.sort((a, b) => a.d - b.d).map(x => x.v);
+}
+function parseTimes(xml){
+  if(!xml) return [];
+  const out = [];
+  for(const b of getAll(xml, 'MeasureTime')){
+    if(getField(b, 'Exclude') !== 'true') continue;
+    const s = getField(b, 'StartDate'), e = getField(b, 'EndDate');
+    if(s && e) out.push({start:new Date(s), end:new Date(e)});
+  }
+  return out;
+}
+function excludedDates(excluded){
+  const s = new Set();
+  excluded.forEach(r => {
+    const d = new Date(r.start); d.setHours(0, 0, 0, 0);
+    const e = new Date(r.end); e.setHours(0, 0, 0, 0);
+    while(d <= e){ s.add(d.toDateString()); d.setDate(d.getDate() + 1); }
+  });
+  return s;
+}
+// onafhankelijke controle: som van de niet-uitgesloten draagsessies per dag (times.ttf)
+function parseSessionHours(xml){
+  const perDag = new Map();
+  if(!xml) return perDag;
+  for(const b of getAll(xml, 'MeasureTime')){
+    if(getField(b, 'Exclude') === 'true') continue;
+    const s = getField(b, 'StartDate'), e = getField(b, 'EndDate');
+    if(!s || !e) continue;
+    const start = new Date(s), end = new Date(e);
+    if(isNaN(start.getTime()) || isNaN(end.getTime())) continue;
+    const u = (end - start) / 3600000;
+    if(u <= 0 || u > 24) continue;
+    const k = start.toDateString();
+    perDag.set(k, Math.round(((perDag.get(k) || 0) + u) * 10) / 10);
+  }
+  return perDag;
+}
+// Twee standen, zoals eCRF 32: de norm gehaald of niet. Een tussengrens heeft geen bron.
+function band(h, goal){ return h >= NORM * goal ? 'b-ok' : 'b-mid'; }
+function isoWeek(d){
+  const t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  const day = (t.getUTCDay() + 6) % 7; t.setUTCDate(t.getUTCDate() - day + 3);
+  const first = new Date(Date.UTC(t.getUTCFullYear(), 0, 4));
+  return t.getUTCFullYear() + '-' + (1 + Math.round(((t - first) / 86400000 - 3 + ((first.getUTCDay() + 6) % 7)) / 7));
+}
+
+function validateOrthotimer(model){
+  const issues = [];
+  const {days, serial, exportDate} = model;
+  const vandaag = new Date(); vandaag.setHours(23, 59, 59, 999);
+  const gezien = new Set();
+  days.forEach((d, i) => {
+    const k = d.date.toDateString();
+    if(isNaN(d.date.getTime())) issues.push({level:'blocker', msg:'Ongeldige datum op meetrij '+(i+1)+': bestand mogelijk beschadigd.'});
+    else if(d.date > vandaag) issues.push({level:'blocker', msg:'Meetdatum in de toekomst: '+fmtShort(d.date)+'.'});
+    else if(gezien.has(k)) issues.push({level:'blocker', msg:'Dubbele datum in de meetgegevens: '+fmtShort(d.date)+'.'});
+    gezien.add(k);
+    if(d.hours < 0) issues.push({level:'blocker', msg:'Negatieve uren op '+fmtShort(d.date)+': '+nf(d.hours)+' u.'});
+    if(d.hours > 24) issues.push({level:'blocker', msg:'Onmogelijke waarde op '+fmtShort(d.date)+': '+nf(d.hours)+' u.'});
+  });
+  if(!days.length) issues.push({level:'blocker', msg:'Geen draaggegevens (MeasureDay) in dit bestand.'});
+  if(!serial) issues.push({level:'warn', msg:'Chip-serienummer niet gevonden in het bestand.'});
+  const data = days.map(d => d.date).filter(d => !isNaN(d.getTime()));
+  for(let i = 1; i < data.length; i++){
+    const gat = Math.round((data[i] - data[i-1]) / 86400000);
+    if(gat > 7) issues.push({level:'warn', msg:'Gat van '+gat+' dagen zonder meting: '+fmtShort(data[i-1])+' → '+fmtShort(data[i])+'.'});
+  }
+  if(exportDate){
+    const ed = new Date(exportDate);
+    if(!isNaN(ed.getTime()) && data.length && ed < data[data.length-1])
+      issues.push({level:'warn', msg:'Exportdatum ('+fmtShort(ed)+') ligt vóór de laatste meetdag: mogelijk een oud exportbestand.'});
+  }
+  const vol = days.filter((_, i) => i > 0 && i < days.length - 1);
+  if(days.length && vol.length < 5) issues.push({level:'warn', msg:'Slechts '+vol.length+' volledige meetdagen: het gemiddelde is mogelijk niet representatief.'});
+  if(!issues.length) issues.push({level:'ok', msg:'Alle uitgelezen waarden zien er correct uit.'});
+  return issues;
+}
+function otToonControle(model){
+  const issues = validateOrthotimer(model);
+  otBasisBlocker = otBlocker = issues.some(i => i.level === 'blocker');
+  const {days, normUitBestand, serial, exportDate, excluded, sessionHours} = model;
+  const geldig = days.filter(d => !isNaN(d.date.getTime()));
+  const vol = geldig.slice(1, geldig.length - 1);
+  const gem = vol.length ? vol.reduce((s, d) => s + d.hours, 0) / vol.length : null;
+
+  // controle op dagniveau: dagtotaal tegen de som van de sessies (marge een kwartier)
+  const verschillen = [];
+  if(sessionHours.size){
+    geldig.forEach(d => { const sh = sessionHours.get(d.date.toDateString()); if(sh !== undefined && Math.abs(d.hours - sh) > 0.25) verschillen.push({date:d.date, dag:d.hours, sessie:sh}); });
+  }
+  const verificatie = sessionHours.size
+    ? (verschillen.length ? '<span style="color:var(--low)">✖ '+verschillen.length+' verschil(len): manuele invoer nodig</span>'
+                          : '<span style="color:var(--ok)">✔ '+sessionHours.size+' dag(en) dubbel gecontroleerd met de sessies</span>')
+    : '<span class="cf-missing">geen sessiegegevens in dit bestand</span>';
+
+  // De waaktijd: uit stap 1 of dit bezoek, anders uit het bestand (Hours/day = norm), anders invullen.
+  const bekend = waaktijdBekend();
+  const uitBestand = normUitBestand ? Math.round(normUitBestand / NORM * 10) / 10 : null;
+  const voorstel = bekend ? Math.round(bekend.uren * 10) / 10 : uitBestand;
+  otNormKandidaat = bekend ? NORM * bekend.uren : normUitBestand;
+  let uitleg;
+  if(bekend){
+    uitleg = 'Voorgesteld: de waaktijd '+bekend.bron+'. De tool rekent zelf 80% als norm.';
+    if(normUitBestand && Math.abs(normUitBestand - NORM * bekend.uren) > 0.3)
+      uitleg += ' <strong style="color:var(--mid)">Let op: de Orthotimer staat op '+nf(normUitBestand)+' u/dag; de norm voor deze waaktijd is '+nf(NORM*bekend.uren)+' u/dag. Pas Hours/day aan.</strong>';
+  }else if(normUitBestand){
+    uitleg = 'De Orthotimer staat op '+nf(normUitBestand)+' u/dag: dat is de norm. Voorgesteld als waaktijd: '+nf(uitBestand)+' u/dag (norm ÷ 0,8). Controleer met eCRF 28.';
+    if(uitBestand > 19) uitleg += ' <strong style="color:var(--mid)">Een waaktijd boven 19 u is onwaarschijnlijk: staat de Orthotimer op de waaktijd in plaats van de norm? Vul dan de waaktijd van eCRF 28 in.</strong>';
+  }else{
+    uitleg = 'Vul de waaktijd van eCRF 28 in, de tijd tussen de twee nachten. Niet de norm: de tool rekent zelf 80%.';
+  }
+  const invoer = '<input type="number" id="goalInput" class="cf-input" style="width:84px;text-align:right" min="0.5" max="24" step="0.1" placeholder="15,5"'+
+    (voorstel ? ' value="'+voorstel+'"' : '')+' oninput="this.dataset.bevestigd=\'\'"> u/dag<br><small style="font-weight:400;color:var(--g600)">'+uitleg+'</small>'+
+    '<div id="goalWarn" style="display:none;color:var(--mid);font-weight:600;margin-top:4px"></div>';
+  $('otCfTable').innerHTML = [
+    ['Chip-serienummer', serial ? escHtml(serial) : '<span class="cf-missing">niet gevonden</span>'],
+    ['Exportdatum', exportDate ? fmtShort(new Date(exportDate)) : '<span class="cf-missing">—</span>'],
+    ['Meetperiode', geldig.length ? fmtShort(geldig[0].date)+' t/m '+fmtShort(geldig[geldig.length-1].date) : '<span class="cf-missing">onbekend</span>'],
+    ['Meetdagen', geldig.length+' (waarvan '+vol.length+' volledig)'],
+    ['Waaktijd', invoer],
+    ['Gemiddeld gedragen', gem != null ? nf(gem)+' u/dag' : '<span class="cf-missing">—</span>'],
+    ['Uitgesloten periodes', excluded.length ? excluded.length+' periode(s)' : 'geen'],
+    ['Controle op dagniveau', verificatie]
+  ].map(([k, v]) => '<tr><td>'+k+'</td><td>'+v+'</td></tr>').join('');
+
+  let html = issuesHtml(issues);
+  if(verschillen.length){
+    otBlocker = true;
+    html += '<div class="cf-issue blocker"><em class="cf-icon">✖</em><span><strong>'+verschillen.length+' verschil(len)</strong> tussen dagtotaal en sessies. Vul de juiste waarde in om verder te gaan.</span></div><div class="cf-disc" id="otDisc">' +
+      verschillen.map(d => '<div class="cf-disc-row"><strong>'+fmtShort(d.date)+'</strong><span>dagtotaal '+nf(d.dag)+' u · sessies '+nf(d.sessie)+' u</span>' +
+        '<label>Juiste waarde: <input type="number" step="0.1" min="0" max="24" data-date="'+d.date.toDateString()+'" oninput="otDiscCheck()"> u</label></div>').join('') + '</div>';
+  }
+  $('otIssues').innerHTML = html;
+  $('otBtnConfirm').disabled = otBlocker;
+  $('otUpload').style.display = 'none';
+  $('otConfirm').style.display = '';
+  window.scrollTo(0, 0);
+}
+function otDiscCheck(){
+  let allesOk = true;
+  document.querySelectorAll('#otDisc input[data-date]').forEach(inp => {
+    const v = parseFloat(inp.value.replace(',', '.'));
+    const ok = inp.value.trim() && !isNaN(v) && v >= 0 && v <= 24;
+    inp.classList.toggle('valid', !!ok); inp.classList.toggle('invalid', !ok);
+    if(!ok) allesOk = false;
+  });
+  $('otBtnConfirm').disabled = otBasisBlocker || !allesOk;
+}
+function otBevestig(){
+  if(!otModel) return;
+  const disc = document.querySelectorAll('#otDisc input[data-date]');
+  for(const inp of disc){
+    const v = parseFloat(inp.value.replace(',', '.'));
+    if(isNaN(v) || v < 0 || v > 24){ inp.classList.add('invalid'); return; }
+    const dag = otModel.days.find(d => d.date.toDateString() === inp.getAttribute('data-date'));
+    if(dag) dag.hours = v;
+  }
+  const inp = $('goalInput');
+  const gv = parseFloat(String(inp.value).replace(',', '.'));
+  if(isNaN(gv) || gv < 0.5 || gv > 24){ inp.style.borderColor = 'var(--low)'; inp.focus(); return; }
+  // Vangnet tegen de dubbele 80%: wie de norm als waaktijd invult, legt de lat op 64%.
+  if(otNormKandidaat && Math.abs(gv - otNormKandidaat) < 0.15 && !inp.dataset.bevestigd){
+    inp.dataset.bevestigd = '1';
+    inp.style.borderColor = 'var(--mid)';
+    $('goalWarn').innerHTML = nf(gv)+' u/dag is de norm, niet de waaktijd. Als waaktijd hoort '+nf(Math.round(otNormKandidaat/NORM*10)/10)+' u/dag; anders wordt de 80% twee keer toegepast. Klopt uw getal toch, klik dan nog eens op "Blad maken".';
+    $('goalWarn').style.display = 'block';
+    inp.focus(); return;
+  }
+  otModel.goal = Math.round(gv * 10) / 10;
+  otRender(otModel);
+  $('otConfirm').style.display = 'none';
+  $('otStage').classList.add('show');
+  zetPrintknop();
+  window.scrollTo(0, 0);
+}
+
+function otRender(model){
+  const {days, goal, serial, exportDate, voltages, excluded} = model;
+  const norm = NORM * goal;
+  const eerste = days[0].date, laatste = days[days.length-1].date;
+  const deel = d => d.date.getTime() === eerste.getTime() || d.date.getTime() === laatste.getTime();
+  const vol = days.filter(d => !deel(d));
+  const gem = vol.reduce((s, d) => s + d.hours, 0) / (vol.length || 1);
+  const pctWaak = Math.round(gem / goal * 100);
+  const pctNorm = Math.round(gem / norm * 100);
+  const gehaald = vol.filter(d => d.hours >= norm).length;
+  const nul = vol.filter(d => d.hours === 0);
+  const span = Math.round((laatste - eerste) / 86400000) + 1;
+  const uitgesloten = excludedDates(excluded);
+  otGemiddelde = gem; otEerste = eerste;
+
+  $('otPeriode').textContent = fmtFull(eerste)+' t/m '+fmtFull(laatste);
+  const ed = exportDate ? new Date(exportDate) : null;
+  $('otBadge').textContent = 'Orthotimer · uitgelezen '+(ed ? fmtShort(ed) : '—');
+  const dt = $('otDatum').value;
+  if(dt) $('otBesproken').textContent = fmtShort(new Date(dt + 'T12:00:00'));
+
+  // Voor de clinicus: precies wat eCRF 32 vraagt.
+  $('otKlinisch').innerHTML = '<div class="k-titel">Voor eCRF 32 · niet afgedrukt</div><div class="k-rij">' +
+    '<span>Gemiddelde draagtijd <strong>'+nf(gem)+' u/dag</strong></span>' +
+    '<span>Norm, 80% van '+nf(goal)+' u waaktijd: <strong>'+nf(norm)+' u</strong></span>' +
+    '<span>Percentage van de norm <strong>'+pctNorm+'%</strong></span>' +
+    '<span>Norm gehaald <strong>'+(gem >= norm ? 'ja' : 'nee')+'</strong></span></div>' +
+    '<div class="k-noot">Op het blad staat '+pctWaak+'%: het deel van de waaktijd met schoenen aan. Dat getal hoort niet op eCRF 32. Chip '+escHtml(serial || '—')+'. Usual Care: uitlezen en bewaren, niet tonen, bespreken of meegeven. ' +
+    '<button class="btn" type="button" onclick="$(\'otVorigFile\').click()" title="Vergelijk met een eerdere export van dezelfde deelnemer">+ Vorige periode</button> ' +
+    '<button class="btn" type="button" onclick="otReset()">Ander bestand</button></div>';
+
+  // Het hoofdgetal: het deel van de waaktijd met schoenen aan; groen vanaf de norm.
+  $('otScore').className = 'score ' + (gem >= norm ? 'lvl-ok' : 'lvl-mid');
+  $('otPct').textContent = pctWaak + '%';
+  const w = waaktijdBekend();
+  const venster = w && w.opstaan != null && w.slapen != null && Math.abs(w.uren - goal) < 0.05 ? ', van ongeveer '+klok(w.opstaan)+' tot '+klok(w.slapen) : '';
+  $('otScoreTekst').innerHTML = 'U droeg uw schoenen gemiddeld <strong>'+nf(gem)+' uur per dag</strong>. U bent ongeveer <strong>'+nf(goal)+' uur</strong> per dag op'+venster+
+    ': zo lang horen ze aan. De norm, <strong>'+nf(norm)+' uur</strong>, haalde u op '+gehaald+' van de '+vol.length+' dagen.';
+  $('otLgOk').textContent = '— '+nf(norm)+' uur of meer: de norm';
+  $('otLgMid').textContent = '— onder de norm';
+
+  // langste reeks en dagen zonder schoenen
+  let reeks = 0, cur = 0;
+  vol.forEach(d => { if(d.hours >= norm){ cur++; reeks = Math.max(reeks, cur); } else cur = 0; });
+  const kaart = (num, kleur, lbl, sub) => '<div class="cons-card"><div class="cons-num" style="color:'+kleur+'">'+num+'</div><div class="cons-lbl">'+lbl+'</div><div class="cons-sub">'+sub+'</div></div>';
+  $('otCons').innerHTML =
+    kaart(reeks, 'var(--ok)', 'Langste reeks', reeks ? 'dag'+(reeks === 1 ? '' : 'en')+' na elkaar de norm gehaald' : 'de norm nog niet dagen na elkaar gehaald') +
+    kaart(nul.length, nul.length ? 'var(--low)' : 'var(--ok)', 'Dag'+(nul.length === 1 ? '' : 'en')+' zonder schoenen', nul.length ? 'dag'+(nul.length === 1 ? '' : 'en')+' waarop de schoenen niet aan waren' : 'elke dag waren de schoenen aan');
+
+  // y-as, raster, doel- en normlijn
+  zetYas(goal);
+  const tekenAs = (asId, gridId, stapU) => {
+    $(asId).innerHTML = ''; for(let u = 0; u <= YMAX; u += stapU) $(asId).innerHTML += '<div class="ytick" style="bottom:'+(u/YMAX*100)+'%">'+u+' u</div>';
+    $(gridId).innerHTML = [0.25, 0.5, 0.75].map(f => '<div class="gridline" style="bottom:calc(9mm + (100% - 9mm) * '+f+')"></div>').join('');
+  };
+  const zetLijn = (id, waarde) => { $(id).style.bottom = 'calc(9mm + (100% - 9mm) * '+Math.min(waarde / YMAX, 1).toFixed(4)+')'; };
+  tekenAs('otYas', 'otGrid', 4);
+  zetLijn('otGoalLine', goal); $('otGoalTag').textContent = 'Doel · '+nf(goal)+' uur';
+  zetLijn('otNormLine', norm); $('otNormTag').textContent = 'Norm · '+nf(norm)+' uur';
+
+  // balken per dag, per week of per maand, naar de lengte van de periode
+  const modus = span <= 63 ? 'dag' : span <= 280 ? 'week' : 'maand';
+  const bars = $('otBars'); bars.innerHTML = '';
+  let aantal = 0;
+  const balk = (cls, h, titel) => '<div class="bar '+cls+'" style="height:calc(100% * '+(h / YMAX).toFixed(4)+')" title="'+titel+'"></div>';
+  if(modus === 'dag'){
+    aantal = days.length;
+    days.forEach((d, i) => {
+      const isDeel = deel(d);
+      const col = document.createElement('div');
+      col.className = 'bar-col' + (d.date.getDay() === 1 && i > 0 ? ' wk' : '') + (!isDeel && uitgesloten.has(d.date.toDateString()) ? ' excl' : '');
+      const titel = WD[wdIdx(d.date)]+' '+fmtDay(d.date)+' · '+nf(d.hours)+' u';
+      col.title = titel;
+      col.innerHTML = d.hours === 0 && !isDeel ? '<div class="bar-zero"></div>' : balk(isDeel ? 'b-part' : band(d.hours, goal), d.hours, titel);
+      if(d.date.getDay() === 1) col.innerHTML += '<span class="bar-day">'+d.date.getDate()+'/'+(d.date.getMonth()+1)+'</span>';
+      bars.appendChild(col);
+    });
+  }else{
+    const groepen = new Map();
+    vol.forEach(d => { const k = modus === 'week' ? isoWeek(d.date) : d.date.getFullYear()+'-'+(d.date.getMonth()+1); if(!groepen.has(k)) groepen.set(k, []); groepen.get(k).push(d); });
+    const sleutels = [...groepen.keys()]; aantal = sleutels.length;
+    sleutels.forEach((k, idx) => {
+      const g = groepen.get(k), m = g.reduce((s, d) => s + d.hours, 0) / g.length, start = g[0].date;
+      const titel = (modus === 'week' ? 'week '+k.split('-')[1] : MND[start.getMonth()+1]+' '+start.getFullYear())+' · gemiddeld '+nf(m)+' u/dag ('+g.length+' dagen)';
+      const col = document.createElement('div'); col.className = 'bar-col'; col.title = titel;
+      col.innerHTML = balk(band(m, goal), m, titel);
+      if(modus === 'maand' || idx % (aantal > 40 ? 6 : 3) === 0)
+        col.innerHTML += '<span class="bar-day">'+(modus === 'maand' ? MND[start.getMonth()+1] : start.getDate()+'/'+(start.getMonth()+1))+'</span>';
+      bars.appendChild(col);
+    });
+  }
+  bars.style.gap = aantal > 120 ? '0.2mm' : aantal > 60 ? '0.4mm' : '0.8mm';
+  $('otChartSub').innerHTML = '<span class="ph">'+fmtShort(eerste)+' – '+fmtShort(laatste)+'</span> · '+(modus === 'dag' ? 'per dag' : modus === 'week' ? 'per week (gemiddelde u/dag)' : 'per maand (gemiddelde u/dag)')+' · '+vol.length+' volledige dagen';
+  let noot = 'De bovenste lijn is uw doel: uw schoenen aan zolang u op bent, '+nf(goal)+' uur. De groene lijn is de norm, '+nf(norm)+' uur: vanaf daar kleurt een dag groen. ';
+  noot += modus === 'dag' ? 'Grijze balken zijn deeldagen (plaatsing en uitlezing) en tellen niet mee. ' : 'Deeldagen tellen niet mee. ';
+  if(nul.length) noot += 'Op '+nul.length+' dag'+(nul.length === 1 ? '' : 'en')+' waren de schoenen niet aan.';
+  $('otChartNote').textContent = noot;
+
+  // batterij en uitgesloten periodes
+  const batt = $('otBatt');
+  const fmtDT = d => d.getDate()+' '+MND[d.getMonth()+1]+' '+String(d.getHours()).padStart(2, '0')+'.'+String(d.getMinutes()).padStart(2, '0');
+  const buiten = excluded.length ? ' · buiten meting: '+excluded.map(r => fmtDT(r.start)+'–'+fmtDT(r.end)).join(', ') : '';
+  if(voltages.length){
+    const minV = Math.min(...voltages), v = x => x.toFixed(2).replace('.', ',');
+    batt.className = 'batt-line show' + (minV < LOW_VOLTAGE ? ' warn' : '');
+    batt.textContent = (minV < LOW_VOLTAGE ? '⚠ Batterij laag (min. '+v(minV)+' V): lage waarden kunnen aan de batterij liggen, niet aan het dragen'
+                                           : 'Meting volledig · batterij in orde ('+v(voltages[0])+' → '+v(voltages[voltages.length-1])+' V)') + buiten;
+  }else{
+    batt.className = 'batt-line' + (buiten ? ' show' : '');
+    batt.textContent = buiten.slice(3);
+  }
+
+  // gemiddeld per weekdag
+  const emmers = WD.map(() => []);
+  vol.forEach(d => emmers[wdIdx(d.date)].push(d.hours));
+  tekenAs('otWdYas', 'otWdGrid', 8);
+  zetLijn('otWdNormLine', norm); $('otWdNormTag').textContent = 'Norm · '+nf(norm)+' uur';
+  $('otWdBars').style.gap = '5mm';
+  $('otWdBars').innerHTML = WD.map((lbl, i) => {
+    const e = emmers[i], m = e.length ? e.reduce((s, x) => s + x, 0) / e.length : null;
+    return '<div class="bar-col">' + (m === null ? '<div style="width:100%;height:2mm;background:var(--g200);opacity:.5"></div>' : balk(band(m, goal), m, lbl+' · gemiddeld '+nf(m)+' u ('+e.length+' dagen)')) + '<span class="bar-day">'+lbl+'</span></div>';
+  }).join('');
+  $('otWdSub').textContent = 'uur per dag';
+  otVergelijk();
+
+  bewaarSamenvatting('pvc_wear_summary', {
+    source:'orthotimer', periodStart:eerste.toISOString(), periodEnd:laatste.toISOString(),
+    meanWearHours:gem, goalHours:goal, pct:pctWaak, pctNorm:pctNorm, fullDays:vol.length, daysGoalReached:gehaald, serial:serial || null
+  });
+}
+function otVergelijk(){
+  const el = $('otComp');
+  if(otVorigGemiddelde === null || otGemiddelde === null){ el.classList.remove('show'); return; }
+  const delta = otGemiddelde - otVorigGemiddelde, op = delta >= 0;
+  el.innerHTML = '<span class="comp-lbl">Tegenover de vorige periode</span> vorige: <strong>'+nf(otVorigGemiddelde)+' u/dag</strong> → nu: <strong>'+nf(otGemiddelde)+' u/dag</strong> · <span class="'+(op ? 'comp-ok' : 'comp-low')+'">'+(op ? '▲ +' : '▼ −')+nf(Math.abs(delta))+' u/dag</span>';
+  el.classList.add('show');
+}
+async function otLeesExport(file){
+  const zip = await JSZip.loadAsync(await file.arrayBuffer());
+  const get = async n => { const f = zip.file(n); return f ? await f.async('string') : null; };
+  const daysXml = await get('days.tyf');
+  if(!daysXml) throw new Error('Dit lijkt geen Orthotimer-export: days.tyf ontbreekt.');
+  const [rulesXml, timesXml, chipsXml, infoXml] = await Promise.all(['rules.twf', 'times.ttf', 'chips.tdf', 'info_ng.tnf'].map(get));
+  // Hours/day in de Orthotimer is de norm (eCRF 25b en 28), geen waaktijd.
+  let normUitBestand = null;
+  if(rulesXml){
+    const algemeen = (rulesXml.match(/<WearingRule\b[\s\S]*?<\/WearingRule>/g) || []).find(r => /General_x003E_k__BackingField>true</.test(r)) || rulesXml;
+    const g = parseFloat(getField(algemeen, 'Hours'));
+    if(!isNaN(g) && g > 0) normUitBestand = g;
+  }
+  return {
+    days: parseDays(daysXml), normUitBestand, goal:null,
+    serial: chipsXml ? getField(chipsXml, 'Serial') : null,
+    exportDate: infoXml ? getField(infoXml, 'ExportDate') : null,
+    excluded: parseTimes(timesXml), voltages: parseVoltages(daysXml), sessionHours: parseSessionHours(timesXml)
+  };
+}
+async function otVerwerk(file){
+  $('otErr').classList.remove('show');
+  try{
+    otModel = await otLeesExport(file);
+    otToonControle(otModel);
+  }catch(e){
+    $('otErr').textContent = 'Kon het bestand niet verwerken: ' + e.message;
+    $('otErr').classList.add('show');
+  }
+}
+// Een eerdere export van dezelfde deelnemer, om de periodes te vergelijken.
+async function otVerwerkVorige(file){
+  try{
+    const m = await otLeesExport(file);
+    if(m.days.length < 3) throw new Error('te weinig meetdagen');
+    const laatste = m.days[m.days.length-1].date;
+    if(otEerste && laatste >= otEerste){
+      alert('Dit bestand loopt tot '+fmtShort(laatste)+', maar de huidige periode begint op '+fmtShort(otEerste)+'. De vorige periode hoort ervoor te eindigen: is dit de juiste deelnemer?');
+      return;
+    }
+    const vol = m.days.slice(1, m.days.length - 1);
+    otVorigGemiddelde = vol.reduce((s, d) => s + d.hours, 0) / vol.length;
+    otVergelijk();
+  }catch(e){ alert('Kon het vergelijkingsbestand niet verwerken: ' + e.message); }
+  finally{ $('otVorigFile').value = ''; }
+}
+function otReset(){
+  $('otStage').classList.remove('show');
+  $('otConfirm').style.display = 'none';
+  $('otUpload').style.display = '';
+  $('otFile').value = '';
+  $('otComp').classList.remove('show');
+  otModel = null; otGemiddelde = null; otEerste = null; otVorigGemiddelde = null;
+  zetPrintknop();
+  window.scrollTo(0, 0);
+}
+
+// ============================================================================
+// Start
+// ============================================================================
+if(window.pdfjsLib && !window.pdfjsWorker) pdfjsLib.GlobalWorkerOptions.workerSrc = 'vendor/pdf.worker.min.js';
+koppelDrop('mmDrop', 'mmFile', mmVerwerk);
+koppelDrop('otDrop', 'otFile', otVerwerk);
+$('otVorigFile').addEventListener('change', e => { if(e.target.files[0]) otVerwerkVorige(e.target.files[0]); });
+window.addEventListener('hashchange', () => toonStap(stapUitAdres()));
+toonStap(stapUitAdres());
+</script>
+</body>
+</html>

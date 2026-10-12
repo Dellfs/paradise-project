@@ -39,15 +39,6 @@
 .cookie-banner button { background:var(--par-orange); color:#fff; border:none; border-radius:8px; padding:9px 18px; font-weight:700; font-size:13px; cursor:pointer; flex-shrink:0; }
 .cookie-banner button:hover { filter:brightness(0.92); }
 
-/* --- EDIT MODE ---------------------------------------------------------- */
-.edit-banner { position:fixed; top:0; left:0; right:0; z-index:9999; background:var(--par-mid); color:#fff; text-align:center; padding:10px 16px; font-size:13px; font-weight:600; display:none; gap:14px; align-items:center; justify-content:center; }
-.edit-banner.on { display:flex; }
-.edit-banner button { background:rgba(255,255,255,.2); color:#fff; border:1px solid rgba(255,255,255,.35); border-radius:6px; padding:4px 14px; font-size:12px; font-weight:700; cursor:pointer; }
-.edit-banner button:hover { background:rgba(255,255,255,.32); }
-
-.edit-mode [data-e] { outline:1.5px dashed rgba(82,189,236,.45); border-radius:3px; cursor:text; min-height:.8em; }
-.edit-mode [data-e]:hover { outline-color:var(--par-light); background:rgba(82,189,236,.05); }
-.edit-mode [data-e]:focus { outline:2px solid var(--par-light); background:rgba(82,189,236,.07); }
 [data-e]:empty::before { content:attr(data-placeholder); color:rgba(0,0,0,.28); font-style:italic; }
 
 /* --- LANG BAR ---------------------------------------------------------- */
@@ -312,54 +303,6 @@
 /* Portal form focus override — counters inline outline:none on member portal inputs */
 input:focus-visible, select:focus-visible, textarea:focus-visible { outline:2.5px solid var(--color-brand-600) !important; outline-offset:2px !important; }
 
-/* --- EDITOR ------------------------------------------------------------ */
-.ed-fabs { position:fixed; bottom:28px; right:28px; z-index:500; display:flex; flex-direction:column; gap:10px; align-items:flex-end; }
-.ed-fab { width:52px; height:52px; border-radius:50%; background:var(--par-dark); color:#fff; font-size:20px; box-shadow:var(--shm); transition:var(--t); border:none; cursor:pointer; }
-.ed-fab:hover { transform:scale(1.08) translateY(-2px); background:var(--par-mid); }
-.ed-fab.edit-active { background:var(--par-mid); }
-.ed-fab-label { font-size:11px; font-weight:700; background:var(--par-dark); color:#fff; padding:4px 10px; border-radius:100px; white-space:nowrap; opacity:0; transition:var(--t); pointer-events:none; }
-.ed-fabs:hover .ed-fab-label { opacity:1; }
-.ed-overlay { position:fixed; inset:0; background:rgba(13,32,53,.45); z-index:600; display:none; align-items:stretch; justify-content:flex-end; }
-.ed-overlay.on { display:flex; }
-.ed-panel { width:min(520px,100%); background:#fff; overflow-y:auto; display:flex; flex-direction:column; box-shadow:-8px 0 36px rgba(0,64,122,.18); }
-.ed-header { padding:20px 24px 16px; border-bottom:1px solid var(--gray-200); display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; background:#fff; z-index:1; }
-.ed-header h2 { font-size:1.05rem; font-weight:700; color:var(--par-dark); }
-.ed-close { width:32px; height:32px; border-radius:50%; background:var(--gray-100); color:var(--gray-600); font-size:14px; border:none; cursor:pointer; transition:var(--t); }
-.ed-close:hover { background:var(--gray-200); }
-.ed-tabs { display:flex; border-bottom:1px solid var(--gray-200); padding:0 16px; gap:0; background:#fff; position:sticky; top:65px; z-index:1; overflow-x:auto; }
-.ed-tab { padding:10px 11px; font-size:12.5px; font-weight:600; color:var(--gray-400); background:none; border:none; border-bottom:2.5px solid transparent; transition:var(--t); cursor:pointer; white-space:nowrap; }
-.ed-tab.on { color:var(--par-dark); border-bottom-color:var(--par-dark); }
-.ed-body { padding:22px 24px; flex:1; }
-.ed-section { display:none; }
-.ed-section.on { display:block; }
-.ed-subtitle { font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--par-light); margin:22px 0 10px; padding-bottom:6px; border-bottom:1px solid var(--gray-100); }
-.ed-subtitle:first-child { margin-top:0; }
-.ed-group { margin-bottom:12px; }
-.ed-group label { display:block; font-size:12px; font-weight:600; color:var(--gray-600); margin-bottom:5px; }
-.ed-group input[type=text],.ed-group input[type=email],.ed-group textarea,.ed-group select { width:100%; padding:9px 12px; border:1.5px solid var(--gray-200); border-radius:7px; font-family:var(--font-b); font-size:13.5px; color:var(--text); background:var(--off-white); transition:var(--t); outline:none; }
-.ed-group input[type=text]:focus,.ed-group input[type=email]:focus,.ed-group textarea:focus,.ed-group select:focus { border-color:var(--par-light); background:#fff; }
-.ed-group textarea { min-height:72px; resize:vertical; }
-.ed-hint { font-size:12px; color:var(--gray-400); margin-bottom:12px; line-height:1.5; }
-.ed-divider { border:none; border-top:1px solid var(--gray-100); margin:18px 0; }
-.save-btn { width:100%; padding:12px; background:var(--par-dark); color:#fff; border-radius:10px; font-weight:700; font-size:14px; margin-top:14px; transition:var(--t); border:none; cursor:pointer; }
-.save-btn:hover { background:var(--par-mid); }
-.add-btn { width:100%; padding:10px; background:var(--gray-100); color:var(--par-dark); border-radius:8px; font-weight:600; font-size:13px; margin-bottom:12px; border:1.5px dashed var(--gray-200); transition:var(--t); cursor:pointer; }
-.add-btn:hover { border-color:var(--par-light); background:rgba(82,189,236,.07); }
-.ed-card { background:var(--off-white); border:1px solid var(--gray-200); border-radius:var(--r); padding:13px 15px; margin-bottom:10px; }
-.ed-card-head { display:flex; justify-content:space-between; align-items:center; cursor:pointer; }
-.ed-card-head strong { font-size:13px; color:var(--par-dark); flex:1; margin-right:8px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.del-btn { font-size:11px; color:var(--par-orange); background:rgba(255,122,0,.08); border:none; padding:3px 8px; border-radius:5px; font-weight:700; cursor:pointer; flex-shrink:0; }
-.ed-card-body { margin-top:10px; display:none; }
-.ed-card-body.on { display:block; }
-.ed-grid2 { display:grid; grid-template-columns:1fr 1fr; gap:9px; }
-/* Color picker rows */
-.color-row { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
-.color-row label { font-size:12.5px; font-weight:600; color:var(--gray-600); flex:1; }
-.color-row input[type=color] { width:44px; height:32px; border:1.5px solid var(--gray-200); border-radius:6px; cursor:pointer; padding:2px; background:#fff; }
-.color-row .color-hex { font-size:12px; color:var(--gray-400); width:72px; font-family:monospace; }
-.reset-btn { background:var(--gray-100); color:var(--par-dark); border:1.5px solid var(--gray-200); border-radius:8px; padding:9px 16px; font-weight:600; font-size:13px; cursor:pointer; transition:var(--t); width:100%; margin-top:10px; }
-.reset-btn:hover { border-color:var(--par-light); }
-
 /* --- RESPONSIVE -------------------------------------------------------- */
 @media(max-width:900px){
   .hbg{display:flex}
@@ -478,7 +421,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline:2.5p
 .art-body li{margin-bottom:7px}
 .nc-readmore{margin-top:10px;font-size:13px;font-weight:600;color:var(--par-mid)}
 @media(max-width:600px){.art-inner{padding:28px 20px}}
-#page-academy.on,#page-uploader.on,#page-mcroberts.on,#page-visite.on{position:fixed;inset:0;z-index:300;display:flex;flex-direction:column;background:var(--par-dark)}
+#page-academy.on,#page-therapietrouw.on,#page-visite.on{position:fixed;inset:0;z-index:300;display:flex;flex-direction:column;background:var(--par-dark)}
 .acad-bar{display:flex;align-items:center;gap:14px;padding:0 20px;height:52px;background:var(--par-dark);flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.12)}
 .acad-back{background:none;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.8);padding:5px 14px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:600;transition:var(--t);font-family:inherit}
 .acad-back:hover{background:rgba(255,255,255,.12);color:#fff}
@@ -502,13 +445,6 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline:2.5p
 <div class="cookie-banner" id="cookieBanner" role="region" aria-label="Cookie notice">
   <p><span data-e="cookie_banner_text" data-placeholder="Cookie banner text">This site uses only essential cookies required for login functionality. See our <a href="cookiebeleid.html">Cookie Policy</a> for details.</span></p>
   <button type="button" onclick="dismissCookieBanner()" data-e="cookie_banner_btn" data-placeholder="Button">Got it</button>
-</div>
-
-<!-- EDIT BANNER (shown when inline edit mode is active) -->
-<div class="edit-banner" id="editBanner">
-  <span>&#9998; Edit Mode &mdash; click on any highlighted text to edit it directly</span>
-  <button onclick="saveInlineEdits()">Save Edits</button>
-  <button onclick="toggleEditMode()">&#10005; Exit</button>
 </div>
 
 <!-- LANGUAGE BAR -->
@@ -1229,8 +1165,7 @@ Disease </em>) takes an interdisciplinary approach. By combining biomechanical a
       <button class="ps-btn" id="ps-handleidingen" onclick="switchPortalPanel('handleidingen')" data-k="btn_hlg">Handleidingen</button>
       <button class="ps-btn" id="ps-academy" onclick="showPage('academy')" data-k="btn_academy">Academie</button>
       <button class="ps-btn" id="ps-visite" onclick="showPage('visite')" data-k="btn_visite">Visite-checklist</button>
-      <button class="ps-btn" id="ps-uploader" onclick="showPage('uploader')" data-k="btn_uploader">Draagpatroon</button>
-      <button class="ps-btn" id="ps-mcroberts" onclick="showPage('mcroberts')" data-k="btn_mcroberts">Beweegpatroon</button>
+      <button class="ps-btn" id="ps-therapietrouw" onclick="showPage('therapietrouw')" data-k="btn_therapietrouw">Therapietrouw</button>
       <p style="font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-400);padding:12px 10px 4px;margin:0">Research</p>
       <button class="ps-btn" id="ps-health" onclick="switchPortalPanel('health')" data-k="nav_health">Health Economics</button>
       <button class="ps-btn" id="ps-results" onclick="switchPortalPanel('results')" data-k="nav_results" style="display:none">Results</button>
@@ -1399,123 +1334,6 @@ Disease </p>
   </div>
 </footer>
 
-<!-- EDITOR OVERLAY -->
-<div class="ed-overlay" id="edOverlay" onclick="closeEditorOnBg(event)">
-  <div class="ed-panel" onclick="event.stopPropagation()">
-    <div class="ed-header">
-      <h2>&#9881; Site Editor</h2>
-      <button class="ed-close" onclick="closeEditor()" aria-label="Close editor">&#10005;</button>
-    </div>
-    <div class="ed-hint" style="margin:12px 20px 0;color:#b5701a">Wijzigingen hier worden alleen in deze browser bewaard; bezoekers zien ze niet. Wat voor iedereen moet gelden, pas je aan in de code (index.html) en push je naar Git.</div>
-    <div class="ed-tabs">
-      <button class="ed-tab on" onclick="edTab(this,'general')">General</button>
-      <button class="ed-tab" onclick="edTab(this,'team')">Team</button>
-      <button class="ed-tab" onclick="edTab(this,'news')">News</button>
-      <button class="ed-tab" onclick="edTab(this,'pubs')">Pubs</button>
-      <button class="ed-tab" onclick="edTab(this,'design')">Design</button>
-      <button class="ed-tab" onclick="edTab(this,'lang')">Texts</button>
-    </div>
-    <div class="ed-body">
-
-      <!-- GENERAL TAB -->
-      <div class="ed-section on" id="ed-general">
-        <div class="ed-subtitle">Site Identity</div>
-        <div class="ed-group"><label>Project Name</label><input type="text" id="e-orgname" oninput="liveUpdate()"></div>
-        <div class="ed-group"><label>Short Abbreviation</label><input type="text" id="e-orgabbr" oninput="liveUpdate()"></div>
-        <div class="ed-group"><label>Full Title / Tagline</label><input type="text" id="e-tagline" oninput="liveUpdate()"></div>
-        <div class="ed-subtitle">Contact Details</div>
-        <div class="ed-group"><label>Email</label><input type="email" id="e-email" oninput="liveUpdate()"></div>
-        <div class="ed-group"><label>Address (use \n for line breaks)</label><textarea id="e-address" oninput="liveUpdate()"></textarea></div>
-        <div class="ed-group"><label>Affiliated Institutions</label><input type="text" id="e-affiliations" oninput="liveUpdate()"></div>
-        <div class="ed-subtitle">Hero Statistics</div>
-        <div class="ed-grid2">
-          <div class="ed-group"><label>Stat 1 Number</label><input type="text" id="e-s1n" oninput="liveUpdate()"></div>
-          <div class="ed-group"><label>Stat 1 Label</label><input type="text" id="e-s1l" oninput="liveUpdate()"></div>
-          <div class="ed-group"><label>Stat 2 Number</label><input type="text" id="e-s2n" oninput="liveUpdate()"></div>
-          <div class="ed-group"><label>Stat 2 Label</label><input type="text" id="e-s2l" oninput="liveUpdate()"></div>
-          <div class="ed-group"><label>Stat 3 Number</label><input type="text" id="e-s3n" oninput="liveUpdate()"></div>
-          <div class="ed-group"><label>Stat 3 Label</label><input type="text" id="e-s3l" oninput="liveUpdate()"></div>
-        </div>
-        <div class="ed-subtitle">Impact / Highlight Numbers</div>
-        <div class="ed-grid2">
-          <div class="ed-group"><label>Highlight 1 Number</label><input type="text" id="e-i1n" oninput="liveUpdate()"></div>
-          <div class="ed-group"><label>Highlight 1 Label</label><input type="text" id="e-i1l" oninput="liveUpdate()"></div>
-          <div class="ed-group"><label>Highlight 2 Number</label><input type="text" id="e-i2n" oninput="liveUpdate()"></div>
-          <div class="ed-group"><label>Highlight 2 Label</label><input type="text" id="e-i2l" oninput="liveUpdate()"></div>
-          <div class="ed-group"><label>Highlight 3 Number</label><input type="text" id="e-i3n" oninput="liveUpdate()"></div>
-          <div class="ed-group"><label>Highlight 3 Label</label><input type="text" id="e-i3l" oninput="liveUpdate()"></div>
-          <div class="ed-group"><label>Highlight 4 Number</label><input type="text" id="e-i4n" oninput="liveUpdate()"></div>
-          <div class="ed-group"><label>Highlight 4 Label</label><input type="text" id="e-i4l" oninput="liveUpdate()"></div>
-        </div>
-        <div class="ed-subtitle">About-Page Pills</div>
-        <div class="ed-hint">Comma-separated keywords shown in the hero visual on the home page</div>
-        <div class="ed-group"><input type="text" id="e-pills" placeholder="Biomechanics, Health Economics, Diabetic Foot, Prevention" oninput="liveUpdate()"></div>
-        <div class="ed-subtitle">Partner Badges (footer)</div>
-        <div class="ed-hint">Comma-separated list of partner names</div>
-        <div class="ed-group"><input type="text" id="e-partners" placeholder="KU Leuven, AZ Sint-Jan, ..." oninput="liveUpdate()"></div>
-        <button class="save-btn" onclick="saveAll()">Save All Changes</button>
-      </div>
-
-      <!-- TEAM TAB -->
-      <div class="ed-section" id="ed-team">
-        <div class="ed-hint">Add, edit, or remove team members. Changes appear live on the site.</div>
-        <div id="teamEditor"></div>
-        <button class="add-btn" onclick="addMember()">+ Add Team Member</button>
-        <button class="save-btn" onclick="saveAll()">Save Changes</button>
-      </div>
-
-      <!-- NEWS TAB -->
-      <div class="ed-section" id="ed-news">
-        <div class="ed-hint">Manage news items and events. Toggle "featured" for the large card layout.</div>
-        <div id="newsEditor"></div>
-        <button class="add-btn" onclick="addNews()">+ Add News Item</button>
-        <button class="save-btn" onclick="saveAll()">Save Changes</button>
-      </div>
-
-      <!-- PUBS TAB -->
-      <div class="ed-section" id="ed-pubs">
-        <div class="ed-hint">Manage publications. Types: original, review, consensus.</div>
-        <div id="pubsEditor"></div>
-        <button class="add-btn" onclick="addPub()">+ Add Publication</button>
-        <button class="save-btn" onclick="saveAll()">Save Changes</button>
-      </div>
-
-      <!-- DESIGN TAB -->
-      <div class="ed-section" id="ed-design">
-        <div class="ed-hint">Change the colour scheme. Updates apply instantly &mdash; click Save to keep them.</div>
-        <div class="ed-subtitle">Colours</div>
-        <div class="color-row"><label>Primary Dark (nav, footer, headings)</label><input type="color" id="d-dark" oninput="applyColor('--par-dark',this.value)"><span class="color-hex" id="dh-dark">#00407A</span></div>
-        <div class="color-row"><label>Primary Mid (accents, links)</label><input type="color" id="d-mid" oninput="applyColor('--par-mid',this.value)"><span class="color-hex" id="dh-mid">#1D8DB0</span></div>
-        <div class="color-row"><label>Primary Light (badges, borders)</label><input type="color" id="d-light" oninput="applyColor('--par-light',this.value)"><span class="color-hex" id="dh-light">#52BDEC</span></div>
-        <div class="color-row"><label>Accent (buttons, highlights)</label><input type="color" id="d-orange" oninput="applyColor('--par-orange',this.value)"><span class="color-hex" id="dh-orange">#FF7A00</span></div>
-        <div class="color-row"><label>Body Text</label><input type="color" id="d-text" oninput="applyColor('--text',this.value)"><span class="color-hex" id="dh-text">#0D2035</span></div>
-        <div class="color-row"><label>Background (sections)</label><input type="color" id="d-bg" oninput="applyColor('--off-white',this.value)"><span class="color-hex" id="dh-bg">#F4F8FC</span></div>
-        <div class="ed-subtitle">Logo Image</div>
-        <div class="ed-hint">Place your logo file (e.g. Image/paradise_logo_no_bg.png) in the same folder as this HTML file, then enter the filename below.</div>
-        <div class="ed-group"><label>Logo filename</label><input type="text" id="d-logo" placeholder="Image/paradise_logo_no_bg.png" oninput="applyLogo(this.value)"></div>
-        <div class="ed-hint" style="margin-top:-6px">Leave empty to use the text logo. Recommended height: 46px.</div>
-        <button class="save-btn" onclick="saveAll()">Save Design</button>
-        <button class="reset-btn" onclick="resetDesign()">&#8635; Reset to Default Colours</button>
-        <button class="reset-btn" style="margin-top:8px;border-color:#FF7A00;color:#FF7A00" onclick="resetToDefaults()">Clear Saved Data &amp; Reload from HTML</button>
-      </div>
-
-      <!-- TEXTS / LANG TAB -->
-      <div class="ed-section" id="ed-lang">
-        <div class="ed-hint">Edit navigation labels and interface text per language. For page body text, use the ? Edit Mode button instead.</div>
-        <div class="ed-group"><label>Language to edit</label>
-          <select id="langSelect" onchange="renderLangTab()">
-            <option value="en">English</option>
-            <option value="nl">Nederlands</option>
-          </select>
-        </div>
-        <div id="langFields"></div>
-        <button class="save-btn" onclick="saveAll()">Save Translations</button>
-      </div>
-
-    </div>
-  </div>
-</div>
-
 <div class="page" id="page-academy">
   <div class="acad-bar">
       <button class="acad-back" onclick="showPage('members')" data-e="acad_back">&#8592; Portaal</button>
@@ -1532,20 +1350,12 @@ Disease </p>
   <iframe id="visite-frame" src="about:blank" class="acad-frame" title="Visite-checklist" allowfullscreen></iframe>
 </div>
 
-<div class="page" id="page-uploader">
+<div class="page" id="page-therapietrouw">
   <div class="acad-bar">
-    <button class="acad-back" onclick="showPage('members')" data-e="upl_back">&#8592; Portaal</button>
-    <span class="acad-title" data-e="upl_title">Draagpatroon-analyse</span>
+    <button class="acad-back" onclick="showPage('members')" data-e="tt_back">&#8592; Portaal</button>
+    <span class="acad-title" data-e="tt_title">Therapietrouw</span>
   </div>
-  <iframe id="uploader-frame" src="about:blank" class="acad-frame" title="Draagpatroon-analyse" allowfullscreen></iframe>
-</div>
-
-<div class="page" id="page-mcroberts">
-  <div class="acad-bar">
-    <button class="acad-back" onclick="showPage('members')" data-e="mcr_back">&#8592; Portaal</button>
-    <span class="acad-title" data-e="mcr_title">Beweegpatroon-analyse</span>
-  </div>
-  <iframe id="mcroberts-frame" src="about:blank" class="acad-frame" title="Beweegpatroon-analyse" allowfullscreen></iframe>
+  <iframe id="therapietrouw-frame" src="about:blank" class="acad-frame" title="Therapietrouw" allowfullscreen></iframe>
 </div>
 
 <div id="articleModal" class="art-modal" data-lenis-prevent onclick="if(event.target===this)closeArticle()">
@@ -1604,7 +1414,6 @@ const ARTICLES = {
   "launch-2026": {en:"<p>PARADISE has officially started at <strong>KU Leuven Campus Bruges</strong>: a multicentre randomised trial of KU Leuven and VUB in six Belgian diabetic foot clinics, combining in-shoe pressure measurement, objective wear-time monitoring, education and a health-economic evaluation.</p><h2>Background</h2><p>Diabetic foot ulcers carry a high recurrence risk &mdash; approximately 40% of patients experience a new ulcer within the first year after healing. Custom-made foot orthoses (CMFO) are a cornerstone of offloading prevention, but their effectiveness depends critically on consistent patient adherence. PARADISE &mdash; <em>Towards Pressure-Adherence &amp; Education Driven Service in Diabetic Foot Disease</em> &mdash; is funded by the FWO as a TBM project (T000226N) and based at KU Leuven Campus Bruges.</p><h2>Study design</h2><p>The study compares <strong>Optimal Care</strong> with <strong>Usual Care</strong> at participating Diabetic Foot Clinics (DFC) in Belgium. The primary endpoint is foot ulcer recurrence; footwear adherence is the pre-specified mediator:</p><ul><li><strong>Foot ulcer recurrence</strong> over 18 months (primary endpoint)</li><li><strong>Custom footwear adherence</strong> (mediator) &mdash; wearing the CMFO for at least <strong>80%</strong> of waking hours &mdash; the time between the two nights &mdash; assessed every three months with the main analysis point at 12 months</li></ul><p>Offloading is considered successful when peak plantar pressure falls <strong>below 200 kPa</strong> or at least <strong>25% lower</strong> than without the CMFO in the same session; if not, the CMFO is adjusted and measured again, up to three times. In Usual Care, pressure is measured only at baseline and month 6, blinded.</p><h2>Measurement instruments</h2><p>Three instruments are used: the Novel pedar (in-shoe pressure), the MoveMonitor (waking time, once at the start) and the Orthotimer (wear time in the CMFO). They are described under <a href='#research' onclick='closeArticle()'>Research</a>.</p><h2>Next steps</h2><p>The six foot clinics are trained from November 2026; inclusion starts in February 2027. Clinical protocols, measurement training, and the PARADISE Academy professional education course are available on this website.</p>",nl:"<p>PARADISE is officieel van start gegaan aan <strong>KU Leuven Campus Brugge</strong>: een multicentrische gerandomiseerde studie van KU Leuven en VUB in zes Belgische voetklinieken, die drukmeting in de schoen, objectieve meting van de draagtijd, educatie en een gezondheidseconomische evaluatie combineert.</p><h2>Achtergrond</h2><p>Diabetische voetulcera hebben een hoge recidiefrisk &mdash; circa 40% van de patiënten ervaart een nieuw ulcus in het eerste jaar na genezing. Maatwerk-voetorthesen (CMFO) vormen een hoeksteen van de offloadingpreventie, maar hun effectiviteit hangt sterk af van consistente therapietrouw. PARADISE &mdash; <em>Towards Pressure-Adherence &amp; Education Driven Service in Diabetic Foot Disease</em> &mdash; wordt gefinancierd door het FWO als TBM-project (T000226N) en is gevestigd aan de KU Leuven Campus Brugge.</p><h2>Studieontwerp</h2><p>De studie vergelijkt <strong>Optimale Zorg</strong> met <strong>Gebruikelijke Zorg</strong> in de deelnemende Diabetische Voetklinieken (DVK) in België. Het primaire eindpunt is voetulcus-recidief; therapietrouw is de vooraf vastgelegde mediator:</p><ul><li><strong>Voetulcus-recidief</strong> over 18 maanden (primair eindpunt)</li><li><strong>Therapietrouw aan het maatwerkschoeisel</strong> (mediator) &mdash; het CMFO dragen gedurende minimaal <strong>80%</strong> van de waaktijd &mdash; de tijd tussen de twee nachten &mdash; elke drie maanden gemeten, met het voornaamste analysepunt op 12 maanden</li></ul><p>Offloading is succesvol wanneer de piekdruk daalt <strong>onder 200 kPa</strong> of minstens <strong>25%</strong> lager ligt dan zonder CMFO in dezelfde sessie; zo niet, dan wordt de CMFO aangepast en opnieuw gemeten, tot drie keer. In Usual Care wordt de druk alleen op baseline en maand 6 gemeten, geblindeerd.</p><h2>Meetinstrumenten</h2><p>Er zijn drie meetinstrumenten: de Novel pedar (druk in de schoen), de MoveMonitor (waaktijd, &#233;&#233;n keer bij de start) en de Orthotimer (draagtijd in de CMFO). Ze staan beschreven onder <a href='#research' onclick='closeArticle()'>Onderzoek</a>.</p><h2>Volgende stappen</h2><p>De zes voetklinieken worden opgeleid vanaf november 2026; de inclusie start in februari 2027. Klinische protocollen, meettraining en de PARADISE Academy voor nascholing zijn beschikbaar op deze website.</p>"}
 };
 
-const TRANS_KEYS = ["nav_home","nav_about","nav_news","nav_materials","nav_pubs","nav_contact"];
 const TRANS_DEFAULTS = {
   en: { 
     nav_home:"Home", nav_about:"About", nav_team:"Team", nav_research:"Research", nav_news:"News", nav_materials:"Materials", nav_pubs:"Publications", nav_contact:"Contact", nav_professionals:"Professionals", nav_members:"Members", nav_health:"Health Economics", nav_patients:"For Patients", nav_protocol:"Protocol", nav_results:"Results",
@@ -1661,8 +1470,6 @@ const TRANS_DEFAULTS = {
     // Materials page
     materials_label:"Research Equipment", materials_title:"Measurement Materials", materials_sub:"An overview of the instruments used for data collection in the PARADISE project",
     instr_label:"Instrumentation", instr_title:"Data Collection Instruments", instr_desc:"The PARADISE project relies on three validated measurement systems to objectively assess physical activity, adherence and plantar pressure in patients with diabetic foot pathology.",
-    ep_label:"Primary endpoint and mediator", ep1b:"Foot-ulcer recurrence", ep1t:"over 18 months", ep2b:"Footwear adherence (mediator)", ep2t:"≥80% of waking hours, 7 days/week; analysis point at 12 months",
-    off_label:"Offloading target", off_desc:"Peak pressure <strong>&lt; 200 kPa</strong> <em>or</em> ≥ 25% lower than without the CMFO at visit 2",
     pedar_label:"In-shoe pressure · Care team (DFC)", pedar_title:"Novel pedar", pedar_desc1:"The <strong>Novel pedar</strong> is a wireless in-shoe pressure measurement system: thin sensor insoles worn inside the participant&#8217;s own footwear, linked to the novel database software. In PARADISE it is the clinical device: the care team measures with and without the CMFO, and in Optimal Care the CMFO is adjusted until the pressure norm is met.",
     pedar_desc2:"In Usual Care the results are not shown or discussed.",
     dyna_label:"Activity profile · Care team (DFC)", dyna_title:"MoveMonitor", dyna_desc1:"The <strong>MoveMonitor</strong> (McRoberts DynaPort) is a validated wearable accelerometer worn at the lower back that provides detailed classification of postures and transitions, step counts and walking-bout characteristics during free-living conditions. Worn for one <strong>full week</strong>, at baseline only; not waterproof.",
@@ -1701,7 +1508,7 @@ const TRANS_DEFAULTS = {
     // Members / Admin portal
     nav_admin:"Admin",
     portal_title:"Members Portal", admin_title:"Admin Panel",
-    btn_ann:"Announcements", btn_docs:"Documents", btn_forum:"Forum", btn_hlg:"Guides",btn_academy:"Academy", btn_visite:"Visit Checklist", vis_back:"&#8592; Portal", vis_title:"Visit Checklist", btn_uploader:"Wear Pattern", acad_back:"&#8592; Portal", upl_back:"&#8592; Portal", upl_title:"Wear Pattern Analysis", btn_mcroberts:"Activity Profile", mcr_back:"&#8592; Portal", mcr_title:"Activity Profile Analysis", btn_logout:"Logout",
+    btn_ann:"Announcements", btn_docs:"Documents", btn_forum:"Forum", btn_hlg:"Guides",btn_academy:"Academy", btn_visite:"Visit Checklist", vis_back:"&#8592; Portal", vis_title:"Visit Checklist", btn_therapietrouw:"Adherence", acad_back:"&#8592; Portal", tt_back:"&#8592; Portal", tt_title:"Adherence", btn_logout:"Logout",
     panel_ann_h:"Announcements", panel_docs_h:"Documents &amp; Guidelines", panel_docs_sub:"Find the PARADISE study protocol, the SEBIA intervention protocol, and other clinical guidelines and research materials here.", panel_forum_h:"Discussion Forum", panel_hlg_h:"Instrument Guides", panel_hlg_sub:"Clinical guides for the measurement instruments used in the PARADISE study.",
     admin_btn_pending:"Pending Users", admin_btn_allusers:"All Users", admin_btn_docs:"Documents",
     admin_btn_ann:"Announcements", admin_btn_forum:"Forum",
@@ -1775,8 +1582,6 @@ const TRANS_DEFAULTS = {
     // Materials page
     materials_label:"Onderzoeksapparatuur", materials_title:"Meetmaterialen", materials_sub:"Een overzicht van de instrumenten die worden gebruikt voor gegevensverzameling in het PARADISE-project",
     instr_label:"Instrumentatie", instr_title:"Dataverzamelingsinstrumenten", instr_desc:"Het PARADISE-project steunt op drie gevalideerde meetsystemen om fysieke activiteit, therapietrouw en plantaire druk objectief te beoordelen bij pati&#235;nten met diabetische voetpathologie.",
-    ep_label:"Primair eindpunt en mediator", ep1b:"Voetulcus-recidief", ep1t:"over 18 maanden", ep2b:"Schoeisel-adherentie (mediator)", ep2t:"&#8805;80% van de waaktijd, 7&#160;dagen/week; analysepunt op 12&#160;maanden",
-    off_label:"Offloadingdoel", off_desc:"Piekdruk <strong>&lt;&#8201;200&#160;kPa</strong> <em>&#243;f</em> &#8805;&#8201;25% lager dan zonder CMFO op visite 2",
     pedar_label:"In-shoe druk &#183; Zorgteam (DFC)", pedar_title:"Novel pedar", pedar_desc1:"De <strong>Novel pedar</strong> is een draadloos in-shoe drukmeetsysteem: dunne sensorinlegzolen die in de eigen schoenen van de deelnemer worden gedragen, gekoppeld aan de novel database-software. In PARADISE is de pedar het klinische toestel: het zorgteam meet zonder en mét de CMFO, en in Optimal Care wordt de CMFO aangepast tot de druknorm gehaald is.",
     pedar_desc2:"In Usual Care worden de resultaten niet getoond of besproken.",
     dyna_label:"Activiteitsprofiel &#183; Zorgteam (DFC)", dyna_title:"MoveMonitor", dyna_desc1:"De <strong>MoveMonitor</strong> (McRoberts DynaPort) is een gevalideerde draagbare accelerometer die op de onderrug wordt gedragen en gedetailleerde classificatie biedt van houdingen en overgangen, stap tellingen en wandelepisode-karakteristieken. Gedragen gedurende één <strong>volle week</strong>, alleen bij de start; niet waterdicht.",
@@ -1815,7 +1620,7 @@ const TRANS_DEFAULTS = {
     // Leden / Beheer portaal
     nav_admin:"Beheer",
     portal_title:"Ledenportaal", admin_title:"Beheerpaneel",
-    btn_ann:"Aankondigingen", btn_docs:"Documenten", btn_forum:"Forum", btn_hlg:"Handleidingen",btn_academy:"Academie", btn_visite:"Visite-checklist", vis_back:"&#8592; Portaal", vis_title:"Visite-checklist", btn_uploader:"Draagpatroon", acad_back:"&#8592; Portaal", upl_back:"&#8592; Portaal", upl_title:"Draagpatroon-analyse", btn_mcroberts:"Beweegpatroon", mcr_back:"&#8592; Portaal", mcr_title:"Beweegpatroon-analyse", btn_logout:"Uitloggen",
+    btn_ann:"Aankondigingen", btn_docs:"Documenten", btn_forum:"Forum", btn_hlg:"Handleidingen",btn_academy:"Academie", btn_visite:"Visite-checklist", vis_back:"&#8592; Portaal", vis_title:"Visite-checklist", btn_therapietrouw:"Therapietrouw", acad_back:"&#8592; Portaal", tt_back:"&#8592; Portaal", tt_title:"Therapietrouw", btn_logout:"Uitloggen",
     panel_ann_h:"Aankondigingen", panel_docs_h:"Documenten &amp; Richtlijnen", panel_docs_sub:"Hier vindt u het PARADISE-studieprotocol, het SEBIA-interventieprotocol en overige klinische richtlijnen en onderzoeksmateriaal.", panel_forum_h:"Discussieforum", panel_hlg_h:"Handleidingen Meetinstrumenten", panel_hlg_sub:"Klinische handleidingen voor de meetinstrumenten gebruikt in de PARADISE-studie.",
     admin_btn_pending:"Wachtende gebruikers", admin_btn_allusers:"Alle gebruikers", admin_btn_docs:"Documenten",
     admin_btn_ann:"Aankondigingen", admin_btn_forum:"Forum",
@@ -1835,11 +1640,6 @@ const TRANS_DEFAULTS = {
     nl_title:"Blijf op de hoogte", nl_email_label:"E-mailadres", nl_btn:"Inschrijven", nl_success:"Bedankt — u bent ingeschreven!"
   }
 };
-
-const DESIGN_DEFAULTS = {
-  '--par-dark':'#00407A','--par-mid':'#1D8DB0','--par-light':'#52BDEC',
-  '--par-orange':'#FF7A00','--text':'#0D2035','--off-white':'#F4F8FC'
-};
 </script>
 <script src="vendor/lenis.min.js"></script>
 <script src="vendor/gsap.min.js"></script>
@@ -1853,13 +1653,10 @@ let D = {
   team:   JSON.parse(JSON.stringify(DEFAULTS.team)),
   news:   JSON.parse(JSON.stringify(DEFAULTS.news)),
   pubs:   JSON.parse(JSON.stringify(DEFAULTS.pubs)),
-  trans:  {en:{...TRANS_DEFAULTS.en}, nl:{...TRANS_DEFAULTS.nl}},
-  design: {...DESIGN_DEFAULTS},
-  content: {}   // inline-edited text: { key: innerHTML }
+  trans:  {en:{...TRANS_DEFAULTS.en}, nl:{...TRANS_DEFAULTS.nl}}
 };
 let lang = "nl";
 let currentPubFilter = "all";
-let editModeActive = false;
 let lenis = null;
 let lenisRafRunning = false;
 let motionReady = false;
@@ -2075,20 +1872,10 @@ if (motionQuery.addEventListener) motionQuery.addEventListener('change', handleM
 else if (motionQuery.addListener) motionQuery.addListener(handleMotionPreferenceChange);
 
 function load() {
-  // Load saved data from localStorage
-  try {
-    const saved = localStorage.getItem('paradise_data');
-    if(saved) {
-      const parsed = JSON.parse(saved);
-      if(parsed.site)    D.site    = {...DEFAULTS.site,   ...parsed.site};
-      if(parsed.team)    D.team    = parsed.team;
-      if(parsed.news)    D.news    = parsed.news;
-      if(parsed.pubs)    D.pubs    = parsed.pubs;
-      if(parsed.trans)   D.trans   = { en:{...TRANS_DEFAULTS.en, ...(parsed.trans.en||{})}, nl:{...TRANS_DEFAULTS.nl, ...(parsed.trans.nl||{})} };
-      if(parsed.design)  D.design  = {...DESIGN_DEFAULTS, ...parsed.design};
-      if(parsed.content) D.content = parsed.content;
-    }
-  } catch(e){}
+  // Tekst, team, nieuws en publicaties staan alleen in deze code. Een vroegere
+  // lokale editor bewaarde kopieën in de browser die de code overschreven;
+  // die ruimen we op, zodat geen oude kopie een nieuwere tekst verbergt.
+  try { localStorage.removeItem('paradise_data'); } catch(e){}
   // Load saved language preference
   try {
     const savedLang = localStorage.getItem('px_lang') || localStorage.getItem('paradise_lang');
@@ -2100,115 +1887,6 @@ function load() {
   } catch(e){}
   // Apply translations on load
   applyTranslations();
-}
-
-function resetToDefaults() {
-  if(confirm("This will clear all saved data and reload from the HTML defaults. Continue?")) {
-    localStorage.removeItem("paradise_data");
-    location.reload();
-  }
-}
-
-function save() {
-  try { localStorage.setItem("paradise_data", JSON.stringify(D)); } catch(e){}
-}
-
-// ---------------------------------------------------------------------------
-// INLINE EDIT MODE
-// ---------------------------------------------------------------------------
-function toggleEditMode() {
-  editModeActive = !editModeActive;
-  document.body.classList.toggle('edit-mode', editModeActive);
-  document.getElementById('editBanner').classList.toggle('on', editModeActive);
-  const fabToggle = document.getElementById('editModeFab');
-  if (fabToggle) fabToggle.classList.toggle('edit-active', editModeActive);
-  document.querySelectorAll('[data-e]').forEach(el => {
-    el.contentEditable = editModeActive ? 'true' : 'false';
-  });
-  if (!editModeActive) saveInlineEdits();
-}
-
-function saveInlineEdits() {
-  document.querySelectorAll('[data-e]').forEach(el => {
-    const key = el.getAttribute('data-e');
-    D.content[key] = el.innerHTML;
-  });
-  save();
-  if(editModeActive) toggleEditMode();
-  else { // flash save confirmation
-    const fab = document.getElementById('editModeFab');
-    if (fab) {
-      const orig = fab.textContent;
-      fab.textContent = "OK";
-      setTimeout(()=>fab.textContent=orig, 1400);
-    }
-  }
-}
-
-function restoreContent() {
-  if(!D.content) return;
-  Object.keys(D.content).forEach(key => {
-    const el = document.querySelector(`[data-e="${key}"]`);
-    if(el) el.innerHTML = D.content[key];
-  });
-}
-
-// ---------------------------------------------------------------------------
-// DESIGN / COLOURS
-// ---------------------------------------------------------------------------
-function applyColor(varName, value) {
-  document.documentElement.style.setProperty(varName, value);
-  if(varName === '--par-dark') document.documentElement.style.setProperty('--par-blue', value);
-  D.design[varName] = value;
-  const hexId = 'dh-' + varName.replace('--par-','').replace('--','');
-  const hexEl = document.getElementById(hexId);
-  if(hexEl) hexEl.textContent = value;
-}
-
-function applyLogo(filename) {
-  const logo = document.querySelector('.nav-logo');
-  if(!filename || !filename.trim()) {
-    logo.innerHTML = `<div class="logo-text"><span class="l-paradise">PARADISE</span><span class="l-project">Project</span></div>`;
-    D.design.logoFile = '';
-  } else {
-    const f = filename.trim();
-    logo.innerHTML = `<img src="${f}" alt="PARADISE Project Logo" style="height:46px;width:auto;object-fit:contain;" loading="eager">`;
-    D.design.logoFile = f;
-  }
-  logo.onclick = ()=>showPage('home');
-}
-
-function populateDesignTab() {
-  const vars = [
-    ['d-dark','--par-dark'],['d-mid','--par-mid'],['d-light','--par-light'],
-    ['d-orange','--par-orange'],['d-text','--text'],['d-bg','--off-white']
-  ];
-  vars.forEach(([id,v]) => {
-    const e = document.getElementById(id);
-    if(e) { e.value = D.design[v] || DESIGN_DEFAULTS[v] || '#000000'; }
-    const hexId = 'dh-' + v.replace('--par-','').replace('--','');
-    const he = document.getElementById(hexId);
-    if(he) he.textContent = D.design[v] || DESIGN_DEFAULTS[v] || '';
-  });
-  const logoInput = document.getElementById('d-logo');
-  if(logoInput) logoInput.value = D.design.logoFile || '';
-}
-
-function restoreDesign() {
-  Object.keys(DESIGN_DEFAULTS).forEach(v => {
-    const val = D.design[v] || DESIGN_DEFAULTS[v];
-    document.documentElement.style.setProperty(v, val);
-  });
-  const dark = D.design['--par-dark'] || DESIGN_DEFAULTS['--par-dark'];
-  document.documentElement.style.setProperty('--par-blue', dark);
-  if(D.design.logoFile) applyLogo(D.design.logoFile);
-}
-
-function resetDesign() {
-  D.design = {...DESIGN_DEFAULTS};
-  restoreDesign();
-  populateDesignTab();
-  save();
 }
 
 // ---------------------------------------------------------------------------
@@ -2239,8 +1917,8 @@ function showPage(id, fromHistory) {
   const isMember = isAdmin || !!(portalProfile && portalProfile.status === 'approved');
   // Ingelogde, goedgekeurde gebruikers gaan van de professionals-pagina naar hun portaal
   if (id === 'professionals' && portalUser && isMember) id = isAdmin ? 'admin' : 'members';
-  // Het ledenportaal alleen voor goedgekeurde leden, het beheer alleen voor beheerders
-  if ((id === 'members' && !isMember) || (id === 'admin' && !isAdmin)) id = 'professionals';
+  // Het ledenportaal en zijn tools alleen voor goedgekeurde leden, het beheer alleen voor beheerders
+  if ((['members', 'academy', 'visite', 'therapietrouw'].includes(id) && !isMember) || (id === 'admin' && !isAdmin)) id = 'professionals';
   document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
   document.getElementById('page-'+id).classList.add('on');
   document.querySelectorAll('.nl').forEach(b => {
@@ -2254,11 +1932,9 @@ function showPage(id, fromHistory) {
   if(id==='contact') renderContact();
   if(id==='members' || id==='admin') loadPortalData();
   if(id==='academy') try{document.getElementById('academy-frame').contentWindow.postMessage({type:'px_lang',lang:lang},'*');}catch(e){}
-  if(id==='uploader'){var uf=document.getElementById('uploader-frame');if(uf&&uf.getAttribute('src')==='about:blank')uf.src='PARADISE_Draagpatroon_uploader.html';}
-  if(id==='mcroberts'){var mf=document.getElementById('mcroberts-frame');if(mf&&mf.getAttribute('src')==='about:blank')mf.src='McRoberts_Beweegpatroon_uploader.html';}
+  if(id==='therapietrouw'){var tf=document.getElementById('therapietrouw-frame');if(tf&&tf.getAttribute('src')==='about:blank')tf.src='therapietrouw.html';}
   if(id==='visite'){var vf=document.getElementById('visite-frame');if(vf&&vf.getAttribute('src')==='about:blank')vf.src='visite-checklist.html';}
   zetAdres(id, fromHistory);
-  restoreContent();
   initReveal();
 }
 
@@ -2711,187 +2387,7 @@ function submitForm(e) {
     });
 }
 
-// ---------------------------------------------------------------------------
-// EDITOR PANEL
-// ---------------------------------------------------------------------------
-function openEditor() {
-  populateGeneralTab();
-  renderTeamEditor();
-  renderNewsEditor();
-  renderPubsEditor();
-  populateDesignTab();
-  renderLangTab();
-  document.getElementById('edOverlay').classList.add('on');
-}
-function closeEditor() { document.getElementById('edOverlay').classList.remove('on'); }
-function closeEditorOnBg(e) { if(e.target.id==='edOverlay') closeEditor(); }
-function edTab(btn, id) {
-  document.querySelectorAll('.ed-tab').forEach(b=>b.classList.remove('on'));
-  document.querySelectorAll('.ed-section').forEach(s=>s.classList.remove('on'));
-  btn.classList.add('on');
-  document.getElementById('ed-'+id).classList.add('on');
-  if(id==='design') populateDesignTab();
-}
-
-function v(id){ const e=document.getElementById(id); return e?e.value:""; }
-function sv(id,val){ const e=document.getElementById(id); if(e) e.value=val||""; }
-
-function populateGeneralTab() {
-  const s = D.site;
-  sv("e-orgname",s.orgname); sv("e-orgabbr",s.orgabbr); sv("e-tagline",s.tagline);
-  sv("e-email",s.email); sv("e-address",s.address); sv("e-affiliations",s.affiliations);
-  sv("e-s1n",s.stat1n); sv("e-s1l",s.stat1l);
-  sv("e-s2n",s.stat2n); sv("e-s2l",s.stat2l);
-  sv("e-s3n",s.stat3n); sv("e-s3l",s.stat3l);
-  sv("e-i1n",s.imp1n); sv("e-i1l",s.imp1l);
-  sv("e-i2n",s.imp2n); sv("e-i2l",s.imp2l);
-  sv("e-i3n",s.imp3n); sv("e-i3l",s.imp3l);
-  sv("e-i4n",s.imp4n); sv("e-i4l",s.imp4l);
-  sv("e-pills",s.pills); sv("e-partners",s.partners);
-}
-
-function liveUpdate() {
-  const s = D.site;
-  s.orgname=v("e-orgname"); s.orgabbr=v("e-orgabbr"); s.tagline=v("e-tagline");
-  s.email=v("e-email"); s.address=v("e-address"); s.affiliations=v("e-affiliations");
-  s.stat1n=v("e-s1n"); s.stat1l=v("e-s1l");
-  s.stat2n=v("e-s2n"); s.stat2l=v("e-s2l");
-  s.stat3n=v("e-s3n"); s.stat3l=v("e-s3l");
-  s.imp1n=v("e-i1n"); s.imp1l=v("e-i1l");
-  s.imp2n=v("e-i2n"); s.imp2l=v("e-i2l");
-  s.imp3n=v("e-i3n"); s.imp3l=v("e-i3l");
-  s.imp4n=v("e-i4n"); s.imp4l=v("e-i4l");
-  s.pills=v("e-pills"); s.partners=v("e-partners");
-  updateHeroStats();
-  renderFooterBadges();
-  renderHomePartners();
-  renderImpact();
-  renderAboutPills();
-  renderContact();
-}
-
-// --- Team editor ---
-function renderTeamEditor() {
-  const c = document.getElementById("teamEditor"); if(!c) return;
-  c.innerHTML = D.team.map((m,i) => `
-    <div class="ed-card" id="tec-${i}">
-      <div class="ed-card-head" onclick="toggleCard('tec-${i}')">
-        <strong>${esc(m.name)||"(unnamed)"}</strong>
-        <button class="del-btn" onclick="event.stopPropagation();delMember(${i})">Remove</button>
-      </div>
-      <div class="ed-card-body" id="tec-body-${i}">
-        <div class="ed-group"><label>Name</label><input type="text" value="${esc(m.name)}" oninput="D.team[${i}].name=this.value;document.querySelector('#tec-${i} strong').textContent=this.value||'(unnamed)';renderTeam()"></div>
-        <div class="ed-group"><label>Role / Title</label><input type="text" value="${esc(m.role)}" oninput="D.team[${i}].role=this.value;renderTeam()"></div>
-        <div class="ed-group"><label>Affiliation</label><input type="text" value="${esc(m.affil)}" oninput="D.team[${i}].affil=this.value;renderTeam()"></div>
-        <div class="ed-group"><label>Tags (comma-separated)</label><input type="text" value="${esc(m.tags)}" oninput="D.team[${i}].tags=this.value;renderTeam()"></div>
-        <div class="ed-group">
-          <label>Photo filename</label>
-          <input type="text" value="${esc(m.photo||'')}" placeholder="e.g. photo_jan.jpg" oninput="D.team[${i}].photo=this.value.trim();renderTeam()">
-          <div style="font-size:11.5px;color:var(--gray-400);margin-top:4px">Place the image file in the same folder as this HTML file, then type the filename here. Leave empty to show initials instead.</div>
-        </div>
-        <div class="ed-grid2">
-          <div class="ed-group"><label>Initials (shown when no photo)</label><input type="text" value="${esc(m.initials)}" maxlength="3" oninput="D.team[${i}].initials=this.value;renderTeam()"></div>
-          <div class="ed-group"><label>Card colours (hex1,hex2)</label><input type="text" value="${esc(m.color)}" oninput="D.team[${i}].color=this.value;renderTeam()"></div>
-        </div>
-      </div>
-    </div>`).join("");
-}
-function addMember() {
-  D.team.push({name:"New Member", role:"Role", affil:"Affiliation", tags:"", color:"#00407A,#1D8DB0", initials:"NM", photo:""});
-  renderTeamEditor(); renderTeam();
-}
-function delMember(i) { D.team.splice(i,1); renderTeamEditor(); renderTeam(); }
-
-// --- News editor ---
-function renderNewsEditor() {
-  const c = document.getElementById("newsEditor"); if(!c) return;
-  c.innerHTML = D.news.map((n,i) => `
-    <div class="ed-card" id="nec-${i}">
-      <div class="ed-card-head" onclick="toggleCard('nec-${i}')">
-        <strong>${esc(n.title)||"(untitled)"}</strong>
-        <button class="del-btn" onclick="event.stopPropagation();delNews(${i})">Remove</button>
-      </div>
-      <div class="ed-card-body" id="nec-body-${i}">
-        <div class="ed-group"><label>Title</label><input type="text" value="${esc(n.title)}" oninput="D.news[${i}].title=this.value;document.querySelector('#nec-${i} strong').textContent=this.value||'(untitled)';renderHomeNews();renderNews()"></div>
-        <div class="ed-grid2">
-          <div class="ed-group"><label>Type</label><input type="text" value="${esc(n.type)}" oninput="D.news[${i}].type=this.value;renderHomeNews();renderNews()"></div>
-          <div class="ed-group"><label>Date</label><input type="text" value="${esc(n.date)}" oninput="D.news[${i}].date=this.value;renderHomeNews();renderNews()"></div>
-        </div>
-        <div class="ed-group"><label>Excerpt</label><textarea oninput="D.news[${i}].excerpt=this.value;renderHomeNews();renderNews()">${esc(n.excerpt)}</textarea></div>
-        <div class="ed-group"><label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" ${n.featured?"checked":""} onchange="D.news[${i}].featured=this.checked;renderHomeNews();renderNews()"> Featured (large card)</label></div>
-      </div>
-    </div>`).join("");
-}
-function addNews() {
-  D.news.push({type:"News", title:"New Item", date:"", excerpt:"", featured:false});
-  renderNewsEditor(); renderHomeNews(); renderNews();
-}
-function delNews(i) { D.news.splice(i,1); renderNewsEditor(); renderHomeNews(); renderNews(); }
-
-// --- Pubs editor ---
-function renderPubsEditor() {
-  const c = document.getElementById("pubsEditor"); if(!c) return;
-  c.innerHTML = D.pubs.map((p,i) => `
-    <div class="ed-card" id="pec-${i}">
-      <div class="ed-card-head" onclick="toggleCard('pec-${i}')">
-        <strong>${esc(p.title)||"(untitled)"}</strong>
-        <button class="del-btn" onclick="event.stopPropagation();delPub(${i})">Remove</button>
-      </div>
-      <div class="ed-card-body" id="pec-body-${i}">
-        <div class="ed-group"><label>Title</label><textarea oninput="D.pubs[${i}].title=this.value;document.querySelector('#pec-${i} strong').textContent=this.value||'(untitled)';renderPubs()">${esc(p.title)}</textarea></div>
-        <div class="ed-group"><label>Authors</label><input type="text" value="${esc(p.authors)}" oninput="D.pubs[${i}].authors=this.value;renderPubs()"></div>
-        <div class="ed-group"><label>Journal</label><input type="text" value="${esc(p.journal)}" oninput="D.pubs[${i}].journal=this.value;renderPubs()"></div>
-        <div class="ed-grid2">
-          <div class="ed-group"><label>Year</label><input type="text" value="${esc(p.year)}" oninput="D.pubs[${i}].year=this.value;renderPubs()"></div>
-          <div class="ed-group"><label>Type (original/review/consensus)</label><input type="text" value="${esc(p.type)}" oninput="D.pubs[${i}].type=this.value;renderPubs()"></div>
-        </div>
-        <div class="ed-grid2">
-          <div class="ed-group"><label>DOI (e.g. 10.1000/xyz123)</label><input type="text" value="${esc(p.doi||'')}" oninput="D.pubs[${i}].doi=this.value;renderPubs()"></div>
-          <div class="ed-group"><label>PDF path (optional)</label><input type="text" value="${esc(p.pdf||'')}" oninput="D.pubs[${i}].pdf=this.value;renderPubs()"></div>
-        </div>
-        <div class="ed-group" style="display:flex;gap:20px">
-          <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" ${p.oa?"checked":""} onchange="D.pubs[${i}].oa=this.checked;renderPubs()"> Open Access</label>
-        </div>
-      </div>
-    </div>`).join("");
-}
-function addPub() {
-  D.pubs.push({year:new Date().getFullYear()+"", title:"New Publication", authors:"", journal:"", type:"original", doi:"", pdf:"", oa:false});
-  renderPubsEditor(); renderPubs();
-}
-function delPub(i) { D.pubs.splice(i,1); renderPubsEditor(); renderPubs(); }
-
-// --- Lang editor ---
-function renderLangTab() {
-  const l = document.getElementById('langSelect').value;
-  const t = D.trans[l] || {};
-  const labels = {nav_home:"Nav: Home",nav_about:"Nav: Team",nav_news:"Nav: News",nav_pubs:"Nav: Publications",nav_contact:"Nav: Contact"};
-  document.getElementById('langFields').innerHTML = TRANS_KEYS.map(k=>`
-    <div class="ed-group">
-      <label>${labels[k]||k}</label>
-      <input type="text" value="${esc(t[k]||"")}" oninput="D.trans['${l}']['${k}']=this.value;applyTranslations()">
-    </div>`).join("");
-}
-
-// --- Helpers ---
-function toggleCard(id) { const b = document.getElementById(id+"-body"); if(b) b.classList.toggle('on'); }
 function esc(s){ return (s||"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
-
-function saveAll() {
-  // Collect any inline edits too
-  document.querySelectorAll('[data-e]').forEach(el => {
-    const key = el.getAttribute('data-e');
-    D.content[key] = el.innerHTML;
-  });
-  save();
-  const btn = event && event.target ? event.target : null;
-  if(btn) {
-    const orig = btn.textContent;
-    btn.textContent = "Saved!";
-    btn.style.background = "#1D8DB0";
-    setTimeout(()=>{ btn.textContent=orig; btn.style.background=""; }, 1800);
-  }
-}
 
 // ---------------------------------------------------------------------------
 // INIT
@@ -3014,32 +2510,13 @@ function updatePortalNav() {
   setNavBtn('nav-links-desktop', 'nav-admin-btn', 'admin', 'nav_admin', 'Admin', isAdmin, false);
   setNavBtn('mob-menu', 'mob-members-btn', 'members', 'nav_members', 'Members', loggedIn && approved, true);
   setNavBtn('mob-menu', 'mob-admin-btn', 'admin', 'nav_admin', 'Admin', isAdmin, true);
-  setEditFabs(isAdmin);
   applyMemberTypeUI();
-}
-
-// The inline "Edit Mode" / "Site Editor" floating buttons are only ever
-// inserted into the DOM for a confirmed admin session — anonymous and
-// non-admin visitors never receive this markup at all.
-function setEditFabs(visible) {
-  let fabs = document.getElementById('ed-fabs');
-  if (visible) {
-    if (!fabs) {
-      fabs = document.createElement('div');
-      fabs.className = 'ed-fabs';
-      fabs.id = 'ed-fabs';
-      fabs.innerHTML = '<button class="ed-fab" id="editModeFab" onclick="toggleEditMode()" title="Edit text directly on page">&#9998;</button><button class="ed-fab" onclick="openEditor()" title="Open Site Editor panel">&#9881;</button>';
-      document.body.appendChild(fabs);
-    }
-  } else if (fabs) {
-    fabs.remove();
-  }
 }
 
 function applyMemberTypeUI() {
   const type = (portalProfile && portalProfile.member_type) || 'in_project';
   const inProject = type === 'in_project';
-  ['ps-documents','ps-handleidingen','ps-health','ps-protocol','ps-visite','ps-uploader','ps-mcroberts'].forEach(id => {
+  ['ps-documents','ps-handleidingen','ps-health','ps-protocol','ps-visite','ps-therapietrouw'].forEach(id => {
     const btn = document.getElementById(id);
     if (btn) btn.style.display = inProject ? '' : 'none';
   });
@@ -3501,7 +2978,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   } catch(e) {}
   document.getElementById('footYear').textContent = new Date().getFullYear();
-  restoreDesign();
   updateHeroStats();
   renderFooterBadges();
   renderHomeNews();
@@ -3509,7 +2985,6 @@ document.addEventListener('DOMContentLoaded', () => {
   renderHomePartners();
   renderAboutPills();
   applyTranslations();
-  restoreContent();
   initMotion();
   initReveal();
   const startPagina = pageFromHash();
@@ -3518,6 +2993,11 @@ document.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('message',function(e){
   if(e.data&&e.data.type==='px_navigate'&&e.data.page){
     showPage(e.data.page);
+    // De visite-checklist opent de therapietrouwtool op de stap van de visite.
+    if(e.data.page==='therapietrouw'&&(e.data.stap===1||e.data.stap===2)){
+      var tf=document.getElementById('therapietrouw-frame');
+      try{ tf.contentWindow.location.hash='stap'+e.data.stap; }catch(ex){ tf.src='therapietrouw.html#stap'+e.data.stap; }
+    }
     return;
   }
   if(e.data&&e.data.type==='px_request_lang'){

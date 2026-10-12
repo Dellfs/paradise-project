@@ -7,7 +7,7 @@ const fs = require('fs');
 const path = require('path');
 
 const SITE = path.join(__dirname, '..');
-const HTML = fs.readFileSync(path.join(SITE, 'PARADISE_Draagpatroon_uploader.html'), 'utf8');
+const HTML = fs.readFileSync(path.join(SITE, 'therapietrouw.html'), 'utf8');
 
 // de zuivere parseerfuncties uit de pagina halen
 function haal(naam) {

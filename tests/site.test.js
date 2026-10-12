@@ -1,10 +1,9 @@
 // Bewaakt de site als geheel.
 // 1. De 80%-draagnorm (eCRF 25b, 28, 32 en PARADISE_BRONNEN.md): norm = 80% van de waaktijd uit de
-//    MoveMonitor-week bij de start; Hours/day in de Orthotimer = de norm; in de draagtijdtool vul je
+//    MoveMonitor-week bij de start; Hours/day in de Orthotimer = de norm; in de tool Therapietrouw vul je
 //    de waaktijd in, zodat de 80% één keer toegepast wordt; eCRF 32 vraagt het percentage van de norm;
 //    de patiënt hoort "altijd".
-// 2. Het offline pakket voor de laptops van de centra draagt dezelfde code als de online uitleestools
-//    (als HTML-geëscapete kopie, srcdoc).
+// 2. Het offline pakket voor de laptops van de centra draagt dezelfde code als therapietrouw.html.
 // 3. Geen verouderde studiefeiten in de teksten.
 // 4. De zes subpagina's gebruiken één gedeeld sjabloon (styles/subpagina.css, scripts/subpagina.js)
 //    en dragen er geen eigen kopie van.
@@ -20,9 +19,6 @@ function check(label, waar) {
   console.log((waar ? '  ok   - ' : '  FAIL - ') + label);
   if (!waar) fouten++;
 }
-// zelfde escape als Python html.escape(s, quote=True), waarmee het pakket gebouwd is
-const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-                  .replace(/"/g, '&quot;').replace(/'/g, '&#x27;');
 function haal(bron, naam) {
   const i = bron.indexOf('function ' + naam + '(');
   if (i < 0) throw new Error('niet gevonden: ' + naam);
@@ -34,33 +30,39 @@ function haal(bron, naam) {
   throw new Error('geen einde: ' + naam);
 }
 
-const ORTHO = lees('PARADISE_Draagpatroon_uploader.html');
-const MCR = lees('McRoberts_Beweegpatroon_uploader.html');
-const OFFLINE = lees('offline/PARADISE_Draagtijd/PARADISE_Draagtijd.html');
+const TT = lees('therapietrouw.html');
+const OFFLINE = lees('offline/PARADISE_Therapietrouw/PARADISE_Therapietrouw.html');
 
-console.log('Uitleestool Orthotimer');
-const band = eval('(' + haal(ORTHO, 'band') + ')');
+console.log('Tool Therapietrouw (12/10/2026: beweeg- en draagpatroon samen)');
+const NORM = 0.8;
+const band = eval('(' + haal(TT, 'band') + ')');
 check('norm gehaald vanaf 80% van de waaktijd (12,4 bij 15,5 u)', band(12.4, 15.5) === 'b-ok');
 check('daaronder één stand, geen grens op 60%', band(12.3, 15.5) === 'b-mid' && band(1, 15.5) === 'b-mid');
-check('Hours/day uit het bestand wordt als norm gelezen (waaktijd = norm ÷ 0,8)',
-      ORTHO.includes('Math.round(goal/0.8*10)/10'));
-check('vangnet tegen de dubbele 80% (norm ingevuld als waaktijd)', ORTHO.includes('pendingNormKandidaat') && ORTHO.includes('id="goalWarn"'));
-check('kopregel toont het % van de norm voor eCRF 32', ORTHO.includes("'% van de norm</strong> (eCRF 32)'"));
-check('grafiek toont een normlijn', ORTHO.includes('id="normLine"'));
+check('de 80% staat op één plaats', /const NORM = 0\.8;/.test(TT) && !/\b0\.8\s*\*/.test(TT.replace(/const NORM = 0\.8;/, '')));
+check('Hours/day uit het bestand wordt als norm gelezen (waaktijd = norm ÷ 0,8)', TT.includes('Math.round(normUitBestand / NORM * 10) / 10'));
+check('vangnet tegen de dubbele 80% (norm ingevuld als waaktijd)', TT.includes('otNormKandidaat') && TT.includes('id="goalWarn"'));
+check('stap 1: de waaktijd is opstaan tot slapengaan, uit de lig-periodes', TT.includes("periodes(t, 'LYING PERIODS'") && TT.includes('function opstaanUit(') && TT.includes('function slapengaanUit('));
+check('stap 1: alleen volle kalenderdagen tellen (de eerste dag start om 7 u)', TT.includes("if(d.gemeten < 23.5){ r.reden = 'deeldag"));
+check('stap 1: het blad zegt "altijd", de norm staat alleen in het vak voor de clinicus',
+      TT.includes('altijd, van het moment dat u opstaat tot u gaat slapen') && TT.includes('<span>Norm (80%) <strong>'));
+check('stap 2: het vak voor eCRF 32 geeft draagtijd, norm, % van de norm en gehaald', /Voor eCRF 32[\s\S]{0,700}Percentage van de norm[\s\S]{0,200}Norm gehaald/.test(TT));
+check('stap 2: gesprek volgt eCRF 32 (wat ging goed, wat is moeilijk, afspraak)', TT.includes('Afspraak tot het volgende bezoek'));
+check('beide bladen passen op één A4 zonder marges', TT.includes('@page { size: A4; margin: 0; }'));
+check('de tool laadt de gedeelde huisstijl', TT.includes('<link rel="stylesheet" href="styles/tokens.css">'));
+check('samenvattingen dragen het bezoek-ID van de visite-checklist', (TT.match(/bewaarSamenvatting\('pvc_(activity|wear)_summary'/g) || []).length === 2 && TT.includes("const ENCOUNTER_KEY = 'pvc_encounter_id';"));
+check('de oude losse uitleesmodules zijn weg', !fs.existsSync(path.join(SITE, 'McRoberts_Beweegpatroon_uploader.html')) && !fs.existsSync(path.join(SITE, 'PARADISE_Draagpatroon_uploader.html')));
 
-console.log('Uitleestool MoveMonitor (stap 1)');
-check('toont de norm voor Hours/day in de Orthotimer', MCR.includes('norm voor Hours/day in de Orthotimer'));
-
-console.log('Offline pakket gelijk met de online tools');
-for (const naam of ['band', 'validateOrthotimer', 'confirmAndRender', 'showConfirm', 'renderConsistency']) {
-  check('Orthotimer: ' + naam + '() identiek', OFFLINE.includes(esc(haal(ORTHO, naam))));
-}
-check('MoveMonitor: toont de norm voor Hours/day', OFFLINE.includes(esc('norm voor Hours/day in de Orthotimer')));
+console.log('Offline pakket gelijk met de online tool');
+const SCRIPT = TT.slice(TT.lastIndexOf('<script>'));
+check('offline: dezelfde code als therapietrouw.html', OFFLINE.includes(SCRIPT));
+check('offline: geen portaalslot en geen verwijzing naar losse bestanden',
+      !OFFLINE.includes('PORTAALSLOT') && !/(src|href)="(vendor|styles|Image)\//.test(OFFLINE));
 
 console.log('Teksten op de site');
 const paginas = ['index.html', 'meetinstrumenten.html', 'studie-protocol.html', 'patienten-educatie.html',
                  'resultaten-dashboard.html', 'gezondheidseconomie.html', 'drukmeting-demo.html',
-                 'paradise-academy.html', 'visite-checklist.html'];
+                 'paradise-academy.html', 'visite-checklist.html', 'protocol-analyse.html', 'therapietrouw.html',
+                 'scripts/subpagina.js'];
 for (const p of paginas) {
   const x = lees(p);
   const fout = [
@@ -73,12 +75,35 @@ for (const p of paginas) {
     [/lager dan baseline|t\.o\.v\. (de )?baseline|vs\. baseline|than baseline|below baseline|met de baseline|Baseline piekdruk/i, '25% "t.o.v. baseline"'],
     [/independent in-shoe reference|onafhankelijke in-shoe referentiemeting/, 'pedar als referentie i.p.v. klinisch toestel'],
     [/healing outcomes/, 'draagtijd als determinant van genezing'],
+    // 12/10/2026, review van de site tegen de beslissingen van 6, 8 en 12 oktober
+    [/zonder (de )?CMFO op visite 2|without the CMFO at visit 2|Piekdruk zonder CMFO \(visite 2\)/, 'de 25% tegen visite 2 (sinds 6/10 per sessie)'],
+    [/draagtijdtool|wear-time tool|Draagpatroon_uploader|Beweegpatroon_uploader/, 'oude draagtijdtool (nu: tool Therapietrouw)'],
+    [/glasvezel|fibre-optic|Verwijder de meting nadien/, 'pedar-stappen niet volgens SOP 09b'],
+    [/'M' \+ deelnemersnummer|WP3 gezonde|WP4 diabetes/, 'MoveMonitor-code met voorvoegsel (sinds 8/10 zonder)'],
+    [/SEBIA stap 3 en 4|SEBIA 3 & 4|SEBIA Steps 3/, 'feedback alleen in SEBIA 3–4 (is elke opvolgvisite)'],
+    [/Bij baseline: drukherverdelende|Geef bij baseline de CMFO/, 'CMFO bij baseline (aflevering is visite 2)'],
+    [/Confectie met extra diepte","Extra-depth/, 'CMFO-tabel zonder semi-orthopedisch schoeisel'],
+    [/eCRF-documenten\/Per nummer/, 'dode SOP-link (de map heet (e)CRF/Per nummer)'],
   ].filter(([re]) => re.test(x)).map(([, l]) => l);
   check(p + ': geen verouderde formulering' + (fout.length ? ' (' + fout.join(', ') + ')' : ''), !fout.length);
 }
 const pe = lees('patienten-educatie.html');
 check('patiëntenpagina: boodschap "altijd", geen ≥80% als doel voor de patiënt',
       pe.includes('Waarom altijd?') && !/\\u226580% van de tijd dat u op bent/.test(pe));
+check('patiëntenpagina: drukmeting per groep (iedereen bezoek 1 en maand 6; PARADISE-groep ook bezoek 2, maand 12 en 18)',
+      pe.includes('bij iedereen op het eerste bezoek en na 6 maanden') && !pe.includes('Op het eerste en het tweede bezoek en op maand 6, 12 en 18'));
+check('patiëntenpagina: de MoveMonitor dag en nacht', (pe.match(/dag en nacht/g) || []).length >= 2);
+const mi = lees('meetinstrumenten.html');
+check('handleidingen: CMFO-onderlaag zoals op 12/10 (microkurk of EVA shore 50; confectie of semi-orthopedisch)',
+      mi.includes('5 mm microkurk of EVA shore 50') && mi.includes('"Confectie of semi-orthopedisch"'));
+check('handleidingen: toegelaten schoenen buiten én binnen, één paar ook in huis, gedocumenteerd, plaats voor de zool',
+      mi.includes('buiten én binnen') && mi.includes('ook in huis gedragen') && mi.includes("foto's en een beschrijving") && mi.includes('plaats zijn voor de zool'));
+check('handleidingen: SOP-links naar 09b, 19b en 25b', ['09b_Werkinstructie drukmeting', '19b_Werkinstructie MoveMonitor', '25b_Werkinstructie Orthotimer']
+      .every(s => mi.includes('sop:"(e)CRF/Per nummer/' + s) && fs.existsSync(path.join(SITE, '(e)CRF', 'Per nummer', mi.match(new RegExp('Per nummer/(' + s + '[^"]*)"'))[1]))));
+check('handleidingen: geen emoji bij de rollen', !/\\ud83d\\udc64/.test(mi));
+const pa = lees('protocol-analyse.html');
+check('protocol-analyse: eCRF 27 alleen op V2, eCRF 32 op V3–V8 in Optimal Care (REDCap-mapping)',
+      /"MoveMonitor &#8212; UDI tracking \(return\)"\]\),"V2",/.test(pa) && pa.includes('tr(["V3&#8211;V8 (alleen Optimal Care)"') && !/Adherence feedback"\]\),"V2&#8211;V8"/.test(pa));
 const mooc = lees('paradise-academy.html');
 check('MOOC: juiste antwoord voor de Orthotimer-invoer is 80% van de waaktijd',
       /Welk getal vul je in als gewenste draagtijd in de Orthotimer\?[\s\S]{0,400}?\]\],c:1,/.test(mooc));
@@ -162,8 +187,17 @@ check('team: Fobelets en Putman zijn promotor, ook in de JSON-LD',
         && INDEX.includes('"name":"' + n + '","jobTitle":"Promotor"')));
 check('team: elk lid heeft Nederlandse labels', (INDEX.match(/nl:\{role:"[^"]*", tags:"/g) || []).length === 5);
 check('portaal: nieuwe accounts wachten op goedkeuring', !/role: 'member',\s*status: 'approved'/.test(INDEX) && !/Instant activation|Directe activatie/.test(INDEX));
-check('portaal: alleen goedgekeurde leden in het ledenportaal', INDEX.includes("(id === 'members' && !isMember)") && INDEX.includes("profile.status !== 'approved'"));
-check('Site Editor zegt dat hij alleen in de eigen browser bewaart', INDEX.includes('alleen in deze browser bewaard'));
+check('portaal: alleen goedgekeurde leden in het ledenportaal en zijn tools',
+      INDEX.includes("['members', 'academy', 'visite', 'therapietrouw'].includes(id) && !isMember") && INDEX.includes("profile.status !== 'approved'"));
+check('portaal: één knop Therapietrouw in plaats van Draagpatroon en Beweegpatroon',
+      INDEX.includes('id="ps-therapietrouw"') && INDEX.includes("tf.src='therapietrouw.html'") && !/ps-uploader|ps-mcroberts|_uploader\.html/.test(INDEX));
+// 12/10/2026: geen editor meer op de site. Tekst staat alleen in de code; een oude
+// lokale kopie mag nooit nog een nieuwere tekst uit de code overschrijven.
+check('geen site-editor of bewerkmodus in de pagina',
+  !/toggleEditMode|openEditor|edOverlay|editBanner|contentEditable|Site Editor/.test(INDEX));
+check('geen lokale kopie die de tekst uit de code overschrijft',
+  !INDEX.includes("localStorage.setItem('paradise_data'") && !INDEX.includes('localStorage.setItem("paradise_data"') &&
+  INDEX.includes("localStorage.removeItem('paradise_data')"));
 check('elke publieke pagina heeft een eigen adres', INDEX.includes('function pageFromHash()') && INDEX.includes("addEventListener('popstate', volgAdres)"));
 check('evidentiesynthese zoals in het doctoraatsplan, geen meta-analyses', !/meta-anal|amputation prevention|amputatiepreventie/i.test(INDEX));
 check('nieuwskaart herhaalt de titel niet', !INDEX.includes('nc-img-txt">${t.title}'));

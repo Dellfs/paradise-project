@@ -29,8 +29,8 @@ twee keer — in de data en als voorgerenderde HTML die zonder JavaScript leesba
 `maak_academy.js` genereert die tweede kopie uit de eerste. `tests/academy-sync.test.js`
 faalt als ze uit de pas lopen.
 
-**Bij elke wijziging aan `visite-checklist.html`, `protocol-analyse.html`, of één van de
-twee uploader-bestanden:**
+**Bij elke wijziging aan `visite-checklist.html`, `protocol-analyse.html` of
+`therapietrouw.html`:**
 
 - [ ] `node tests/visite-checklist.test.js` slaagt
 - [ ] `node tests/protocol-analyse.test.js` slaagt
@@ -41,8 +41,8 @@ twee uploader-bestanden:**
 - [ ] Minstens één keer echt in de browser doorgeklikt (Live Server) — deze scripts
       controleren geen CSS, layout, printweergave of tabletgebruik
 - [ ] Bestaande flows nog steeds correct (V0–V8 in beide armen, per arm alleen de eigen stappen)
-- [ ] Bij een wijziging aan een uploader: dezelfde wijziging geëscapet in
-      `offline/PARADISE_Draagtijd/PARADISE_Draagtijd.html`, en `node tests/site.test.js` slaagt
+- [ ] Bij een wijziging aan `therapietrouw.html`: `python offline/bouw_offline_pakket.py` opnieuw
+      draaien (het offline pakket voor de laptops), en `node tests/site.test.js` slaagt
 
 **Bij elke wijziging aan een subpagina of aan het gedeelde sjabloon** (`styles/subpagina.css`,
 `scripts/subpagina.js`): `node tests/site.test.js` slaagt. Wat alle zes subpagina's delen, staat
@@ -50,8 +50,10 @@ alleen in het sjabloon; een pagina draagt alleen haar eigen inhoud.
 
 **De site als geheel** (`tests/site.test.js`): het gedeelde sjabloon, verouderde studiefeiten, en
 de 80%-draagnorm: norm = 80% van de waaktijd uit de MoveMonitor-week
-bij de start; Hours/day in de Orthotimer = de norm; in de draagtijdtool de waaktijd, zodat de 80%
-één keer toegepast wordt; eCRF 32 vraagt het percentage van de norm; de patiënt hoort "altijd".
+bij de start, van opstaan tot slapengaan; Hours/day in de Orthotimer = de norm; in de tool
+Therapietrouw de waaktijd, zodat de 80% één keer toegepast wordt; eCRF 32 vraagt het percentage van
+de norm; de patiënt hoort "altijd". De waaktijdberekening zelf toetst `tests/sensor-movemonitor.test.js`
+op het demorapport van McRoberts (`tests/fixtures/mcroberts-demorapport.txt`).
 
 ## Wat deze scripts wél en niet vangen
 
@@ -59,8 +61,8 @@ bij de start; Hours/day in de Orthotimer = de norm; in de draagtijdtool de waakt
 encounter-ID-mismatches die stilzwijgend data zouden combineren, dode links in
 `ECRF_FILES`, sensorexports op de schaal van de studie (kwartaaluitlezing van 92 dagen,
 een week MoveMonitor, een lege batterij), drift tussen de twee tekstkopieën van de
-MOOC, drift tussen de online uitleestools en het offline pakket, en verouderde formuleringen
-van de 80%-norm.
+MOOC, drift tussen de tool Therapietrouw en het offline pakket, en verouderde formuleringen
+van de 80%-norm en de 25%-regel.
 
 **Niet:** CSS/visuele bugs, printlayout, tabletgedrag, toegankelijkheid, browsercompatibiliteit
 buiten pure JS-syntax. Die blijven een manuele controle (zie checklist hierboven).

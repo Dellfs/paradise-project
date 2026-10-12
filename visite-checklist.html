@@ -124,10 +124,10 @@ function fuSteps(p){
   var steps = [
     {id:p+"-08", ecrf:"eCRF-Document 08", title:"Voet- en schoeiselscreening", desc:"Voeten en schoeisel screenen.", tag:"meting"},
     {id:p+"-31", ecrf:"eCRF-Document 31", title:"Schoeiseladherentie bevragen", desc:"Patiënt bevragen over de therapietrouw m.b.t. het schoeisel.", tag:"vragenlijst"},
-    {id:p+"-25", ecrf:"eCRF-Document 25", title:"Draagsensor uitlezen", desc:"Orthotimer-sensor uitlezen met de draagtijdtool. Vul als draagdoel de waaktijd van de baseline in (eCRF 28), niet de norm: de tool past de 80% zelf toe, één keer. Die waaktijd blijft de hele studie dezelfde. In Usual Care: uitlezen en bewaren, maar het feedbackdocument niet tonen of meegeven.", tag:"device", action:"orthotimer"}
+    {id:p+"-25", ecrf:"eCRF-Document 25", title:"Draagsensor uitlezen", desc:"Orthotimer-sensor uitlezen en de export in de tool Therapietrouw (stap 2) laden. Als waaktijd geldt die van de baseline (eCRF 28), niet de norm: de tool past de 80% zelf toe, één keer. Die waaktijd blijft de hele studie dezelfde. In Usual Care: uitlezen en bewaren, maar het blad niet tonen of meegeven.", tag:"device", action:"orthotimer"}
   ];
   steps.push(
-    {id:p+"-32", ecrf:"eCRF-Document 32", arm:"oc", title:"Feedback therapietrouw geven", desc:"Feedback geven aan de patiënt op basis van de adherentiemonitoring.", tag:"sebia"},
+    {id:p+"-32", ecrf:"eCRF-Document 32", arm:"oc", title:"Feedback therapietrouw geven", desc:"Het blad 'Uw therapietrouw' zonder oordeel bespreken (SEBIA). Op eCRF 32 komen de cijfers uit het donkere vak boven het blad: draagtijd, norm, percentage van de norm, gehaald of niet.", tag:"sebia"},
     {id:p+"-33", ecrf:"eCRF-Document 33", title:"CMFO en sensor vervangen", desc:"Diabetic CMFO en compliance-sensor vervangen.", tag:"device"},
     {id:p+"-2135", ecrf:"eCRF-Document 21, 34, 35", title:"Levenskwaliteit, medische consumptie en productiviteit", desc:"Data verzamelen over levenskwaliteit, medische consumptie en productiviteit.", tag:"vragenlijst"},
     {id:p+"-45b", ecrf:"eCRF-Document 45b", title:"Gezondheidseconomisch dagboek innemen", desc:"Het deel van de voorbije periode overlopen en registreren. Op visite 3 wordt het dagboek éénmalig meegegeven; het loopt tot maand 18.", tag:"vragenlijst"}
@@ -184,10 +184,10 @@ var VISITS = {
     steps:[
       {id:"v2-23", ecrf:"eCRF-Document 23", title:"Diabetic CMFO afleveren", desc:"Patiënt ontvangt de custom-made foot orthosis; aanpassing en verificatie registreren.", tag:"device"},
       {id:"v2-24oc", ecrf:"eCRF-Document 24", arm:"oc", title:"Drukherverdeling CMFO beoordelen", desc:"In de schoen meten zónder en dan mét de CMFO. Norm: piekdruk mét CMFO onder 200 kPa óf minstens 25% lager dan zónder CMFO in dezelfde sessie. Niet gehaald: aanpassen en opnieuw meten mét de CMFO, tot drie aanpassingen. Verder verbeteren waar het onderzoeksteam of de pedorthist dat haalbaar acht.", tag:"meting"},
-      {id:"v2-25", ecrf:"eCRF-Document 25", title:"Draagsensor (Orthotimer) integreren in CMFO", desc:"Compliance-sensor in de CMFO integreren; UDI registreren. Bij Hours/day de norm invullen: 80% van de waaktijd uit het beweegpatroon (eCRF 28; in Usual Care via stap 1 van de draagtijdtool). Verwerk daarom eerst de MoveMonitor (eCRF 27).", tag:"device"},
+      {id:"v2-27", ecrf:"eCRF-Document 27", title:"MoveMonitor terugnemen en de waaktijd bepalen", desc:"Toestel terug; UDI registreren. Het McRoberts-rapport in de tool Therapietrouw (stap 1) laden: die leest per dag opstaan en slapengaan, en geeft de waaktijd en de norm (80% daarvan). In beide armen, want de norm gaat in de Orthotimer.", tag:"device", action:"mcroberts"},
+      {id:"v2-28", ecrf:"eCRF-Document 28", arm:"oc", title:"SEBIA stap 2 — Activiteitsprofiel en feedback", desc:"Het blad 'Uw dag' bespreken: de boodschap is 'altijd, van opstaan tot slapengaan'. Op eCRF 28 komen de cijfers uit het donkere vak boven het blad.", tag:"sebia"},
+      {id:"v2-25", ecrf:"eCRF-Document 25", title:"Draagsensor (Orthotimer) integreren in CMFO", desc:"Compliance-sensor in de CMFO integreren; UDI registreren. Bij Hours/day de norm invullen: 80% van de waaktijd, uit stap 1 van de tool Therapietrouw (eCRF 28).", tag:"device"},
       {id:"v2-26", ecrf:"eCRF-Document 26", title:"Overtuigingen en gewoontes rond schoeisel bevragen", desc:"Persoonlijke overtuigingen, emoties, dagelijkse routines en geloofwaardigheid t.a.v. het schoeisel bevragen.", tag:"vragenlijst"},
-      {id:"v2-27", ecrf:"eCRF-Document 27", title:"MoveMonitor terugnemen", desc:"Patiënt levert de fysieke-activiteitsmonitor terug in; UDI registreren.", tag:"device", action:"mcroberts"},
-      {id:"v2-28", ecrf:"eCRF-Document 28", arm:"oc", title:"SEBIA stap 2 — Activiteitsprofiel en feedback", desc:"Podotherapeut beoordeelt het fysieke-activiteitsprofiel en geeft persoonlijke feedback.", tag:"sebia"},
       {id:"v2-29", ecrf:"eCRF-Document 29", arm:"oc", title:"SEBIA stap 2 — Herhaling vorige educatie (teach-back)", desc:"Retentie van eerdere educatie bevragen via terugvraag/teach-back.", tag:"sebia"},
       {id:"v2-30", ecrf:"eCRF-Document 30", title:"Uitleg draagsensor", desc:"Uitleggen dat de draagtijd voortaan met 'uw sensor' gemeten wordt: alleen temperatuur, geen GPS, geluid of camera. Folder Orthotimer meegeven.", tag:"device"}
     ]
@@ -216,8 +216,8 @@ var VISIT_ORDER = ["v0","v1","v2","v3","v4","v5","v6","v7","v8","ulcer"];
 
 var TAG_LABELS = {algemeen:"Algemeen", meting:"Meting", vragenlijst:"Vragenlijst", device:"Toestel", sebia:"SEBIA", classificatie:"Classificatie"};
 var ACTIONS = {
-  mcroberts:  {label:"Beweegpatroon (McRoberts) uitlezen →", page:"mcroberts", summaryKey:"pvc_activity_summary"},
-  orthotimer: {label:"Draagpatroon (Orthotimer) uitlezen →", page:"uploader", summaryKey:"pvc_wear_summary"}
+  mcroberts:  {label:"Therapietrouw, stap 1: waaktijd en norm →", page:"therapietrouw", stap:1, summaryKey:"pvc_activity_summary"},
+  orthotimer: {label:"Therapietrouw, stap 2: Orthotimer uitlezen →", page:"therapietrouw", stap:2, summaryKey:"pvc_wear_summary"}
 };
 var CARE_ARMS = {
   optimal: {key:"optimal", label:"Optimal Care", intro:"De druk wordt per sessie zónder en mét de CMFO gemeten en de CMFO wordt aangepast tot de druknorm gehaald is, tot drie aanpassingen; de draagtijd wordt besproken tegenover de norm (80% van de waaktijd), en er is een SEBIA-gesprek op elke visite."},
@@ -236,7 +236,7 @@ var STORAGE_OK = (function(){
 })();
 
 // Elk bezoek ("Nieuwe visite starten") krijgt een vers, opaak sessie-ID. Toestelrapporten
-// worden bij het opslaan met dit ID gemerkt (zie de twee uploader-bestanden); zo kan een
+// worden bij het opslaan met dit ID gemerkt (zie therapietrouw.html); zo kan een
 // rapport van een vorige patiënt nooit stilzwijgend meetellen bij een nieuwe patiënt —
 // het wordt gedetecteerd én meteen verwijderd i.p.v. enkel gewaarschuwd.
 function getEncounterId(){
@@ -385,7 +385,7 @@ function visitSelectHTML(){
     '<p class="privacy-note">Het aanvinken en de notities zijn enkel een geheugensteun voor uzelf tijdens dit consult — er wordt niets verzonden en er worden geen patiëntgegevens bewaard. Vul in de notities geen naam of patiëntnummer in. "Nieuwe visite starten" wist deze aftekening en notities.</p>';
 }
 
-// De draagtijdtool rekent op de waaktijd (draaguren ÷ waaktijd); eCRF 32 vraagt het
+// De tool Therapietrouw rekent op de waaktijd (draaguren ÷ waaktijd); eCRF 32 vraagt het
 // percentage van de norm (draaguren ÷ 80% van de waaktijd). Beide tonen, zodat niemand
 // het ene getal in het vak van het andere schrijft.
 function orthotimerDetail(s){
@@ -489,7 +489,7 @@ document.addEventListener("click", function(e){
   if(openBtn){
     var action = ACTIONS[openBtn.getAttribute("data-open")];
     if(action){
-      try{ window.parent.postMessage({type:"px_navigate", page:action.page}, "*"); }catch(ex){}
+      try{ window.parent.postMessage({type:"px_navigate", page:action.page, stap:action.stap}, "*"); }catch(ex){}
     }
     return;
   }
