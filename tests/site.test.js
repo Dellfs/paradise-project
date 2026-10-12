@@ -48,6 +48,11 @@ check('stap 1: het blad zegt "altijd", de norm staat alleen in het vak voor de c
 check('stap 2: het vak voor eCRF 32 geeft draagtijd, norm, % van de norm en gehaald', /Voor eCRF 32[\s\S]{0,700}Percentage van de norm[\s\S]{0,200}Norm gehaald/.test(TT));
 check('stap 2: gesprek volgt eCRF 32 (wat ging goed, wat is moeilijk, afspraak)', TT.includes('Afspraak tot het volgende bezoek'));
 check('beide bladen passen op één A4 zonder marges', TT.includes('@page { size: A4; margin: 0; }'));
+// 12/10/2026: na stap 1 "stopte" de tool; de weg naar stap 2 moet zichtbaar zijn, ook na scrollen.
+check('na het blad van stap 1 een knop "Verder naar stap 2", en de kop met tabbladen blijft staan',
+      TT.includes('id="btnStap2"') && TT.includes('onclick="toonStap(2)">Verder naar stap 2') &&
+      TT.includes("$('btnStap2').style.display = stap === 1 && zichtbaar ? '' : 'none';") &&
+      /\.kop \{ position: sticky; top: 0;/.test(TT) && TT.includes('<header class="kop">'));
 check('de tool laadt de gedeelde huisstijl', TT.includes('<link rel="stylesheet" href="styles/tokens.css">'));
 check('samenvattingen dragen het bezoek-ID van de visite-checklist', (TT.match(/bewaarSamenvatting\('pvc_(activity|wear)_summary'/g) || []).length === 2 && TT.includes("const ENCOUNTER_KEY = 'pvc_encounter_id';"));
 check('de oude losse uitleesmodules zijn weg', !fs.existsSync(path.join(SITE, 'McRoberts_Beweegpatroon_uploader.html')) && !fs.existsSync(path.join(SITE, 'PARADISE_Draagpatroon_uploader.html')));

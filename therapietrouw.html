@@ -34,8 +34,10 @@ html, body { background: #8FA8BA; color: var(--navy); }
 body { font-family: var(--font-b); line-height: 1.4; }
 
 /* ---------- kader van de tool ---------- */
+/* Balk, tabbladen en status blijven bovenaan staan, ook als u naar beneden scrolt. */
+.kop { position: sticky; top: 0; z-index: 50; box-shadow: 0 2px 10px rgba(13,33,55,.12); }
 .app-bar { background: linear-gradient(135deg, #0D2137 0%, #1A3A55 55%, #0D4D6B 100%); color: #fff; padding: 10px 18px;
-  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; position: sticky; top: 0; z-index: 50; }
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 .app-bar .brand { display: flex; align-items: center; gap: 10px; }
 .app-bar .brand img { height: 28px; width: auto; }
 .app-bar .brand b { font-size: 14px; letter-spacing: .03em; }
@@ -237,7 +239,7 @@ nav.stappen button[aria-selected="true"] b { color: var(--color-brand-900); }
 @media print {
   html, body { background: #fff; }
   .page { height: 297mm; }
-  .app-bar, nav.stappen, .status, .klinisch { display: none !important; }
+  .kop, .klinisch { display: none !important; }
   .stage { padding: 0; }
   .page { box-shadow: none; }
   .bar, .b-ok, .b-mid, .b-part, .bar-zero, .spoor, .spoor *, .balbar div, .hdr, .ftr, .lg-chip, .weekleg i, .balleg .sw, .score::after {
@@ -266,12 +268,14 @@ nav.stappen button[aria-selected="true"] b { color: var(--color-brand-900); }
 </script>
 <!-- /PORTAALSLOT -->
 
+<header class="kop">
 <div class="app-bar">
   <div class="brand"><img src="Image/logo_transparent.png" alt=""><div><b>Therapietrouw</b><br><span>MoveMonitor &rarr; waaktijd en norm &middot; Orthotimer &rarr; feedback</span></div></div>
   <div class="actions">
     <button class="btn" type="button" onclick="nieuwePatient()">Nieuwe patiënt</button>
     <button class="btn" type="button" id="btnChecklist" onclick="try{window.parent.postMessage({type:'px_navigate',page:'visite'},'*')}catch(e){}">&larr; Visite-checklist</button>
     <button class="btn btn-primary" type="button" id="btnPrint" style="display:none" onclick="window.print()">Afdrukken / PDF</button>
+    <button class="btn btn-primary" type="button" id="btnStap2" style="display:none" onclick="toonStap(2)">Verder naar stap 2: Orthotimer &rarr;</button>
   </div>
 </div>
 <nav class="stappen" role="tablist" aria-label="Stappen">
@@ -279,6 +283,7 @@ nav.stappen button[aria-selected="true"] b { color: var(--color-brand-900); }
   <button type="button" role="tab" id="tab2" aria-selected="false" aria-controls="stap2" onclick="toonStap(2)"><b>2 · Therapietrouw</b><span>Orthotimer · visite 3 tot 8 · eCRF 32</span></button>
 </nav>
 <div class="status" id="status" aria-live="polite"></div>
+</header>
 
 <!-- ======================= STAP 1 · MOVEMONITOR ======================= -->
 <section id="stap1" role="tabpanel" aria-labelledby="tab1">
@@ -489,9 +494,11 @@ function zetStatus(){
     ? 'Waaktijd <strong>'+nf(w.uren)+' u/dag</strong> · norm (80%) <strong>'+nf(NORM*w.uren)+' u/dag</strong> <span>— '+w.bron+'</span>'
     : 'Nog geen waaktijd. Op visite 2 komt ze uit stap 1; op visite 3 tot 8 staat ze op eCRF 28 en vult u ze in stap 2 in.';
 }
+// Afdrukken zodra er een blad staat; na stap 1 ook de weg naar stap 2.
 function zetPrintknop(){
   const zichtbaar = stap === 1 ? $('mmStage').classList.contains('show') : $('otStage').classList.contains('show');
   $('btnPrint').style.display = zichtbaar ? '' : 'none';
+  $('btnStap2').style.display = stap === 1 && zichtbaar ? '' : 'none';
 }
 function toonStap(n){
   stap = n === 2 ? 2 : 1;
