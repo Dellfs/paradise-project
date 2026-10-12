@@ -17,7 +17,16 @@ from pptx.oxml.ns import qn
 from pptx.util import Pt, Emu
 
 EMU = 6350          # per css-pixel op een dia van 1920 breed
-LIJN, AS, LEGENDE, WIT = '15395A', '8FB0CA', 'C5D8E8', 'F2F8FC'
+# kleuren per thema, zoals de canvas ze tekent: rasterlijn, as, legende, sterke tekst, de kanscurve, de ring rond een punt
+THEMA = {'donker': ('15395A', '8FB0CA', 'C5D8E8', 'F2F8FC', 'C5D8E8', '0A2540'),
+         'licht': ('D3DFE8', '5A6E80', '3A4F63', '0A2540', '3A4F63', 'F2F6F9')}
+LIJN, AS, LEGENDE, WIT, CURVE, RING = THEMA['donker']
+
+
+def thema(bron):
+    """Kiest de kleuren naar de achtergrond van de canvas: een lichte dia krijgt donkere tekst en lichte rasterlijnen."""
+    global LIJN, AS, LEGENDE, WIT, CURVE, RING
+    LIJN, AS, LEGENDE, WIT, CURVE, RING = THEMA['licht' if 'F2F6F9' in bron.upper() else 'donker']
 
 
 def js_waarde(bron, naam):
@@ -118,8 +127,9 @@ def kader(slide, it, marge=(0, 0, 0, 0)):
             Emu(round((it['w'] - l - r) * EMU)), Emu(round((it['h'] - b - o) * EMU)))
 
 
-def label(slide, it, x, y, w, tekst, kleur=AS, grootte=24, rechts=False, midden=False):
+def label(slide, it, x, y, w, tekst, kleur=None, grootte=24, rechts=False, midden=False):
     from pptx.enum.text import PP_ALIGN
+    kleur = kleur or AS
     tb = slide.shapes.add_textbox(Emu(round((it['x'] + x) * EMU)), Emu(round((it['y'] + y) * EMU)), Emu(round(w * EMU)), Emu(round(grootte * 1.4 * EMU)))
     tf = tb.text_frame
     tf.margin_left = tf.margin_right = tf.margin_top = tf.margin_bottom = 0
@@ -293,11 +303,12 @@ def xy_punt(reeks, kleur, diameter_px=18):
     reeks.marker.size = round(diameter_px / 2)       # 1 css-pixel = 0,5 pt op een dia van 1920 breed
     reeks.marker.format.fill.solid()
     reeks.marker.format.fill.fore_color.rgb = rgb(kleur)
-    reeks.marker.format.line.color.rgb = rgb('0A2540')
+    reeks.marker.format.line.color.rgb = rgb(RING)
     reeks.marker.format.line.width = Pt(1.5)
 
 
-def punt_label(reeks, idx, tekst, positie, grootte=28, vet=True, kleur=WIT, dy=0.0):
+def punt_label(reeks, idx, tekst, positie, grootte=28, vet=True, kleur=None, dy=0.0):
+    kleur = kleur or WIT
     dl = reeks.points[idx].data_label
     dl.text_frame.text = tekst
     dl.text_frame.word_wrap = False                  # één regel, zoals in de canvas
@@ -337,7 +348,7 @@ def dfc_tempo(slide, it, bron):
     gr = vorm.chart
     xy_basis(gr, (A, Z, 0.5, '0.0'), (100, 20), (W, H, L, T, R, B))
     reeksen = list(gr.plots[0].series)
-    xy_lijn(reeksen[0], 'C5D8E8', 3)
+    xy_lijn(reeksen[0], CURVE, 3)
     labels = []
     for k, (l, kleur) in enumerate(PUNTEN):
         xy_lijn(reeksen[1 + k], kleur, 2, streep=True)
@@ -478,7 +489,15 @@ def rek_totaal(slide, it, bron):
     return lijnen(slide, it, bron, 350, 50, 'opgetelde betaalde uren per centrum', (1, 6, 12, 18, 24, 30))
 
 
-REGISTER = {
+def met_thema(fn):
+    """Zet eerst de kleuren naar de achtergrond van de canvas, dan pas de grafiek."""
+    def maak(slide, it, bron):
+        thema(bron)
+        return fn(slide, it, bron)
+    return maak
+
+
+REGISTER = {sleutel: met_thema(fn) for sleutel, fn in {
     ('dfc', 'tempo_0'): dfc_tempo,
     ('dfc', 'tweepermaand_0'): dfc_tweepermaand,
     ('dfc', 'scenario_0'): dfc_scenario,
@@ -487,4 +506,4 @@ REGISTER = {
     ('rekrutering', 'movemonitor_0'): rek_movemonitor,
     ('rekrutering', 'drievier_0'): rek_drievier,
     ('rekrutering', 'totaal_0'): rek_totaal,
-}
+}.items()}
