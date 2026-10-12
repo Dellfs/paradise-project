@@ -248,7 +248,7 @@ Protocol §5.4.1 en eCRF-document 23 deel A.
 
 | Onderdeel | Volledig op maat gemaakte schoen | Confectie- of semi-orthopedische schoen |
 | --- | --- | --- |
-| Basislaag | 5 mm microkurk (shore 55) **+** 5 mm EVA (shore 35-40) erop | 6 mm EVA (shore 35-40), **géén kurk** |
+| Basislaag | 5 mm microkurk of EVA shore 50 **+** 5 mm EVA (shore 35-40) erop | 6 mm EVA (shore 35-40), **géén kurk** |
 | Deklaag | 3 mm gesloten-cellig schuim (bv. Plastazote LD45) op 3 mm open-cellig dempend schuim (bv. PPT), volledige lengte | idem |
 | Metatarsale steun | Balk die **alle** metatarsaalkoppen ondersteunt, of een lokale pad/dome als maar één regio hoog ligt of daar het vorige ulcus zat | idem |
 | Afmetingen balk | Hoogte 9-10 mm; positie 6-11 mm proximaal van de kopjes; EVA, kurk of equivalent (shore ~55); bedekt door de deklaag | idem |
@@ -259,6 +259,18 @@ Protocol §5.4.1 en eCRF-document 23 deel A.
 > als kurk in beide; die zin moet herschreven worden zodat hij niet anders te lezen valt.
 > **Semi-orthopedisch schoeisel** krijgt dezelfde opbouw als de confectieschoen; eCRF 23 A1
 > moet dat vermelden ("Confectie- of semi-orthopedische schoen: 6 mm EVA").
+
+> **12 oktober 2026, feedback van het studieteam op het deck voor de voetklinieken.** De
+> onderlaag in een maatschoen is **microkurk of EVA shore 50** (5 mm), niet alleen microkurk
+> (shore 55). Doorgevoerd in eCRF 10 en 23 (alle mappen), REDCap (e10_basis, e23_a1_maat) en de
+> site. Het protocol en het manuscript zeggen nog "microcork (shore 55)": mee te nemen zodra de
+> PI de openstaande bijgehouden wijzigingen aanvaard heeft.
+
+> **12 oktober 2026, toegelaten schoeisel** (dia "Welke schoenen zijn toegelaten"): buiten en
+> binnen een goedgekeurde confectieschoen, een semi-orthopedische of een orthopedische schoen.
+> Heeft de deelnemer maar één paar dat voldoet, dan wordt dat ook in huis gedragen. Goedgekeurde
+> buiten- en binnenschoenen worden gedocumenteerd met foto's en een beschrijving; er moet altijd
+> plaats zijn voor de zool.
 
 **Bestaand orthopedisch schoeisel mag blijven.** Een deelnemer die al orthopedische
 schoenen draagt hoeft die niet te vervangen: het schoeisel is toegelaten **zolang de nieuwe
@@ -742,7 +754,7 @@ battery capacity": dat is de opslagcapaciteit, niet de batterij (rechtgezet 25 s
 | Eenheid | Celsius |
 | Temperatuurbereik | 25 tot 38,5 °C |
 | Min. aaneengesloten uren | 0 |
-| **Uren per dag** | **per patiënt, in beide armen: 80% van diens gemiddelde waaktijd uit het baseline-MoveMonitorrapport, gelezen met de draagtijdtool (stap 1); in Optimal Care ook op eCRF 28 — géén vaste waarde** |
+| **Uren per dag** | **per patiënt, in beide armen: 80% van diens gemiddelde waaktijd uit het baseline-MoveMonitorrapport, gelezen met de tool Therapietrouw (stap 1); in Optimal Care ook op eCRF 28 — géén vaste waarde** |
 | Patiëntnaam | voor- en achternaam = de deelnemerscode, zonder voorvoegsel |
 | Geboortedatum | 1/1/1900, voor iedereen: uniform met Novel en MoveMonitor (8 oktober 2026) |
 | Geslacht | vrouwelijk (standaard), met opmerking "DOB and Gender are classified" |
@@ -785,6 +797,15 @@ niet-gebruik elke drie maanden opladen. Data uploaden automatisch via DynaPort M
 activiteitenprofiel over zeven dagen bepaalt wanneer iemand begint en stopt met actief
 zijn, daaruit volgt een gemiddelde dagelijkse actieve periode, en 80% daarvan is de norm;
 (2) een objectieve maat van het activiteitenniveau voor SEBIA.
+
+> **Hoe de tool Therapietrouw de waaktijd leest (12 oktober 2026).** Per volle kalenderdag uit
+> de lig-periodes van het rapport: opstaan is het einde van het liggen dat vóór 5 u begon,
+> slapengaan het begin van het liggen dat tot middernacht doorloopt. Ging het toestel 's nachts
+> af (coördinerend onderzoeker, 12 oktober: "dan zie je toch nog altijd de periode tussen de
+> laatste actieve periode en de eerstvolgende"), dan geldt de tijd tussen de laatste en de eerste
+> gemeten periode als nacht, als die in de nachturen valt (slapengaan na 20 u, opstaan tussen 4 en
+> 12 u) en het toestel die tijd niet droeg; zulke dagen staan als geschat. De eerste meetdag
+> (start 7 u) telt niet mee. Op het demorapport van McRoberts: 14,9 u waaktijd, norm 11,9 u.
 
 ---
 
@@ -1192,7 +1213,7 @@ installatiegids), met een kopie in `Site\Novel Pedar\`.
 14. **Het draagdoel: beslist op 17 augustus 2026 — de waaktijd.**
 
     **Aangevuld op 26 september 2026:** de waaktijd wordt in béíde armen bepaald door het
-    MoveMonitorrapport in de draagtijdtool te laden (stap 1); zo krijgt ook Usual Care een
+    MoveMonitorrapport in de tool Therapietrouw te laden (stap 1); zo krijgt ook Usual Care een
     eigen Hours/day in de Orthotimer, zonder eCRF 28. Het rapport is klaar tegen visite 2:
     de deelnemer draagt de MoveMonitor maar één week.
     De 80%-drempel komt uit DIAFOS (Bus et al., Diabetes Care 2013;36:4109, met Arts als

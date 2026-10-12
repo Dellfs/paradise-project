@@ -24,6 +24,9 @@
   `<iframe>` in index.html's Research-hub: `meetinstrumenten.html`, `drukmeting-demo.html`,
   `studie-protocol.html`, `resultaten-dashboard.html`, `gezondheidseconomie.html`, `patienten-educatie.html`.
 - `paradise-academy.html` — de MOOC over de meetinstrumenten.
+- Ledenportaal-tools: `visite-checklist.html` (stappen per visite en arm) en `therapietrouw.html` (stap 1 MoveMonitor →
+  waaktijd en norm, eCRF 28; stap 2 Orthotimer → therapietrouwblad, eCRF 32). Het offline pakket voor de laptops
+  bouwt `offline/bouw_offline_pakket.py` uit `therapietrouw.html`.
 - `privacyverklaring.html`, `cookiebeleid.html` — juridische pagina's, gelinkt vanuit de footer.
 - `styles/tokens.css` — **gedeelde design tokens + CSS-reset**, gelinkt vanuit elke pagina.
 - `styles/subpagina.css` + `scripts/subpagina.js` — **gedeeld sjabloon** van de zes instrumentpagina's hierboven
@@ -72,7 +75,8 @@ Bron: FWO-TBM T000226N (+ doctoraatsplan). Bij twijfel: vragen, niet gokken.
 - **Drukmeting herhaald op maand 6, 12 én 18** (protocol 5.4.2.2), niet alleen 6 en 12. In **Usual Care alleen op
   baseline en maand 6**, geblindeerd, met een palet met drempel 50 kPa en de waarden uit (beslissing 8 oktober 2026).
 - **CMFO-opbouw hangt af van het schoentype** (protocol 5.4.2, eCRF 23 deel A1):
-  in een **volledig op maat gemaakte schoen** 5 mm microkurk (shore 55) + 5 mm EVA (shore 35-40);
+  in een **volledig op maat gemaakte schoen** 5 mm microkurk of EVA shore 50 + 5 mm EVA (shore 35-40) (12 oktober 2026,
+  feedback studieteam op het deck; protocol en manuscript volgen na aanvaarding van de openstaande wijzigingen);
   in een **confectieschoen** 6 mm EVA (shore 35-40), zónder kurk — en **semi-orthopedisch schoeisel** zoals de
   confectieschoen (beslissing 6 oktober 2026; de protocolzin is dubbelzinnig, eCRF 23 A1 is juist). Deklaag in beide gevallen
   3 mm gesloten-cellig op 3 mm open-cellig, volledige lengte. Metatarsaalbalk 9-10 mm hoog,
@@ -82,7 +86,9 @@ Bron: FWO-TBM T000226N (+ doctoraatsplan). Bij twijfel: vragen, niet gokken.
   Vanaf maand 3 worden beide paren per kwartaal beoordeeld en om beurt onderhouden; de patiënt
   wisselt **niet dagelijks**.
 - **Schoeiselcriterium = drie situaties:** volledig maatwerk ('orthopedisch schoeisel'), óf maatzolen
-  in semi-orthopedisch schoeisel, óf maatzolen in adequaat confectieschoeisel met extra diepte.
+  in semi-orthopedisch schoeisel, óf maatzolen in adequaat confectieschoeisel met extra diepte. Dat geldt **buiten én
+  binnen**; heeft de deelnemer maar één paar dat voldoet, dan ook in huis. Goedgekeurde schoenen worden gedocumenteerd
+  (foto's en beschrijving) en moeten altijd plaats bieden aan de zool (deck 12 oktober 2026).
 - **F-Scan GO:** in-shoe, software **FootVIEW Pro**, **≥ 12 mid-gait stappen/voet**, comfortsnelheid (±5% bij follow-up),
   dunne naadloze katoenen sok, piekdruk per **8 regio's via Multimask** (hiel, mediale middenvoet,
   laterale middenvoet, metatarsaal 1, metatarsaal 2-3, metatarsaal 4-5, hallux, tenen 2-5 — hallux en

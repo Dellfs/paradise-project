@@ -53,7 +53,7 @@ var INST=[
    ]},
    {phase:["Aflezen en toetsen","Read and judge"],items:[
     ["In Archive &amp; Analyse op <b>MPP</b> (niet MVP); bovenaan de legende staat 200. Noteer per voet de vier waarden en tot drie doelregio's in de Pressure Monitoring Tool: eerst de vorige voetzweer, dan de twee hoogste voor- of middenvoetregio's boven 200 kPa.","In Archive &amp; Analyse on <b>MPP</b> (not MVP); the top of the legend reads 200. Record the four values per foot and up to three target regions in the Pressure Monitoring Tool: first the previous ulcer, then the two highest forefoot or midfoot regions above 200 kPa."],
-    ["Optimal Care: norm per doelregio m\u00e9t de CMFO &lt;200 kPa, \u00f3f (A \u2212 B) \u00f7 A \u2265 25% met A en B uit dezelfde sessie. Niet gehaald: de pedorthist past aan en u meet B opnieuw, tot drie aanpassingen (eCRF 24).","Optimal Care: target per region with the CMFO &lt;200 kPa, or (A \u2212 B) \u00f7 A \u2265 25% with A and B from the same session. If not met: the pedorthist adjusts and you measure B again, up to three adjustments (eCRF 24)."],
+    ["Optimal Care: toets elke doelregio aan de norm; de verlaging is (A \u2212 B) \u00f7 A, met A en B uit dezelfde sessie. Niet gehaald: de pedorthist past aan en u meet B opnieuw, tot drie aanpassingen (eCRF 24).","Optimal Care: judge each target region against the norm; the reduction is (A \u2212 B) \u00f7 A, with A and B from the same session. If not met: the pedorthist adjusts and you measure B again, up to three adjustments (eCRF 24)."],
     ["Usual Care (visite 1 en maand 6): het tweede palet, de waarden in de cellen uit. Niets aflezen, tonen of bespreken, en de CMFO niet aanpassen op basis van de meting.","Usual Care (visit 1 and month 6): the second palette, values in the cells off. Read, show or discuss nothing, and do not adjust the CMFO based on the measurement."]
    ]},
    {phase:["Opslaan en afsluiten","Save and shut down"],items:[
@@ -75,7 +75,7 @@ var INST=[
     ["Start de volgende dag om 7 uur, duur 7 dagen, 1 visit. Controleer vóór <b>Start Measurement</b> dat code en toestelnummer die van eCRF 20 zijn.","Start the next day at 7 am, duration 7 days, 1 visit. Before <b>Start Measurement</b>, check that code and device number are those on eCRF 20."]
    ]},
    {phase:["Dragen","Wear"],items:[
-    ["Rond het middel op de onderrug, op de huid of over dunne kleding. Zeven dagen na elkaar, <b>dag en nacht</b>: zonder de nacht kan het opstaan en slapengaan niet bepaald worden. Niet waterdicht: af bij douchen, baden of zwemmen.","Around the waist on the lower back, on the skin or over thin clothing. Seven days in a row, <b>day and night</b>: without the night, getting up and going to bed cannot be determined. Not waterproof: off for showering, bathing or swimming."]
+    ["Rond het middel op de onderrug, op de huid of over dunne kleding. Zeven dagen na elkaar, <b>dag en nacht</b>. Niet waterdicht: af bij douchen, baden of zwemmen. Gaat het toestel 's nachts toch af, dan schat de tool de nacht uit de laatste en de eerste activiteit.","Around the waist on the lower back, on the skin or over thin clothing. Seven days in a row, <b>day and night</b>. Not waterproof: off for showering, bathing or swimming. If the device does come off at night, the tool estimates the night from the last and the first activity."]
    ]},
    {phase:["Terug en verwerken (visite 2)","Return and process (visit 2)"],items:[
     ["Toestel terug: hetzelfde nummer op eCRF 27. Aansluiten; de data gaan vanzelf naar het portaal (Measuring → Analysing → Completed).","Device back: the same number on eCRF 27. Connect it; the data upload automatically (Measuring → Analysing → Completed)."],
@@ -89,7 +89,7 @@ var INST=[
   steps:[
    {phase:["Deelnemer en instellingen (visite 2)","Participant and settings (visit 2)"],items:[
     ["<b>Patient Management</b> → New: bij First en Last name de deelnemerscode, zonder voorvoegsel; geboortedatum 1/1/1900; geslacht op de standaardwaarde, met de opmerking 'DOB and Gender are classified'. Groep Usual care of Optimal care.","<b>Patient Management</b> → New: the participant code as First and Last name, without prefix; date of birth 1/1/1900; sex left at the default, with the remark 'DOB and Gender are classified'. Group Usual care or Optimal care."],
-    ["Settings → chips: eenheid Celsius; <b>Hours/day = de norm</b>, 80% van de waaktijd uit stap 1 van de tool Therapietrouw (eCRF 28), in beide armen; minimum aaneengesloten uren 0; temperatuurbereik inlegzool 25–38,5 °C.","Settings → chips: unit Celsius; <b>Hours/day = the norm</b>, 80% of the waking time from step 1 of the Adherence tool (eCRF 28), in both arms; minimum continuous hours 0; insole temperature range 25–38.5 °C."]
+    ["Settings → chips: eenheid Celsius; <b>Hours/day = de norm</b> uit stap 1 van de tool Therapietrouw (eCRF 28), in beide armen; minimum aaneengesloten uren 0; temperatuurbereik inlegzool 25–38,5 °C.","Settings → chips: unit Celsius; <b>Hours/day = the norm</b> from step 1 of the Adherence tool (eCRF 28), in both arms; minimum continuous hours 0; insole temperature range 25–38.5 °C."]
    ]},
    {phase:["Activeren","Activate"],items:[
     ["Penreader via USB of Bluetooth; houd de pen op de 'O' van het Orthotimer-logo tot de balk groen wordt.","Pen reader via USB or Bluetooth; hold the pen on the 'O' of the Orthotimer logo until the bar turns green."],
@@ -126,11 +126,10 @@ h+='<div class="inst"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stro
  +'<div><div class="kicker">'+tr(["De interventie zelf","The intervention itself"])+'</div><h2>'+tr(["De maatzool (CMFO)","The custom insole (CMFO)"])+'</h2></div>'
  +'<span class="who" style="margin-left:auto">'+tr(["Pedorthist","Pedorthist"])+'</span></div>';
 h+='<p style="color:var(--soft);margin:10px 0 0">'+tr(["Alles hierboven meet d\u00e9ze zool. De opbouw ligt vast in het protocol en hangt af van het schoentype.","Everything above measures this insole. Its build-up is fixed in the protocol and depends on the type of shoe."])+'</p>';
-h+='<div class="chips"><span class="chip">'+tr(["opbouw per schoentype","build-up per shoe type"])+'</span><span class="chip">'+tr(["twee identieke paren","two identical pairs"])+'</span><span class="chip">&lt;200 kPa '+tr(["\u00f3f","or"])+' \u226525%</span></div>';
 
 h+='<div class="sh">'+tr(["Opbouw per schoentype","Build-up per shoe type"])+'</div>';
 h+='<table class="tbl"><thead><tr><th>'+tr(["Laag","Layer"])+'</th><th>'+tr(["Volledig maatwerk","Fully custom-made shoe"])+'</th><th>'+tr(["Confectie of semi-orthopedisch","Off-the-shelf or semi-orthopaedic"])+'</th></tr></thead><tbody>'
- +'<tr><td>'+tr(["Basis","Base"])+'</td><td>'+tr(["5 mm microkurk of EVA shore 50","5 mm micro-cork or EVA shore 50"])+'</td><td>'+tr(["geen kurk","no cork"])+'</td></tr>'
+ +'<tr><td>'+tr(["Basis","Base"])+'</td><td>'+tr(["5 mm microkurk of EVA shore 50","5 mm micro-cork or EVA shore 50"])+'</td><td>'+tr(["geen","none"])+'</td></tr>'
  +'<tr><td>'+tr(["Draaglaag","Contact layer"])+'</td><td>'+tr(["5 mm EVA (shore 35\u201340)","5 mm EVA (shore 35\u201340)"])+'</td><td>'+tr(["6 mm EVA (shore 35\u201340)","6 mm EVA (shore 35\u201340)"])+'</td></tr>'
  +'<tr><td>'+tr(["Deklaag","Top cover"])+'</td><td colspan="2">'+tr(["3 mm gesloten-cellig op 3 mm open-cellig, over de volle lengte","3 mm closed-cell over 3 mm open-cell, full length"])+'</td></tr>'
  +'<tr><td>'+tr(["Steun en ontlasting","Support and relief"])+'</td><td colspan="2">'+tr(["3\u20135 mm mediale voetboogsteun \u00b7 metatarsaalbalk 9\u201310 mm hoog (shore ~55), 6\u201311 mm proximaal van de kopjes \u2014 of een lokale pad als maar \u00e9\u00e9n regio hoog ligt \u00b7 lokale uitsparing bij fragiele of prominente zones","3\u20135 mm medial arch support \u00b7 metatarsal bar 9\u201310 mm high (shore ~55), 6\u201311 mm proximal to the heads \u2014 or a local pad if only one region is elevated \u00b7 local depth relief at fragile or prominent zones"])+'</td></tr>'
@@ -146,14 +145,13 @@ h+='<ul class="steps">'
  +'</ul>';
 h+='<div class="note tip" style="margin-top:12px"><span class="lab">'+tr(["Schoeiselcriterium","Footwear criterion"])+'</span>'+tr(["Drie soorten schoenen komen in aanmerking, buiten én binnen: een goedgekeurde confectieschoen met extra diepte, een semi-orthopedische schoen of een orthopedische schoen (volledig maatwerk). Heeft de deelnemer maar één paar dat voldoet, dan wordt dat paar ook in huis gedragen. Goedgekeurde buiten- en binnenschoenen worden gedocumenteerd met foto's en een beschrijving, en er moet altijd plaats zijn voor de zool.","Three kinds of shoe qualify, outdoors and indoors: an approved extra-depth off-the-shelf shoe, a semi-orthopaedic shoe or an orthopaedic (fully custom-made) shoe. If the participant has only one pair that qualifies, that pair is worn indoors too. Approved outdoor and indoor shoes are documented with photos and a description, and there must always be room for the insole."])+'</div>';
 h+='</div>';
-h+='<div class="sh">'+tr(["Wie doet wat","Who does what"])+'</div>';
-h+='<table class="tbl"><thead><tr><th>'+tr(["Instrument","Instrument"])+'</th><th>'+tr(["Afname door","Performed by"])+'</th><th>'+tr(["Wanneer","When"])+'</th></tr></thead><tbody>';
-h+='<tr><td>Novel pedar</td><td>'+tr(["Zorgteam (DFC)","Care team (DFC)"])+'</td><td>'+tr(["Visite 1 en 2 \u00b7 maand 6, 12, 18 (Usual Care: visite 1 en maand 6)","Visits 1 and 2 \u00b7 months 6, 12, 18 (Usual Care: visit 1 and month 6)"])+'</td></tr>';
-h+='<tr><td>MoveMonitor</td><td>'+tr(["Zorgteam (DFC)","Care team (DFC)"])+'</td><td>'+tr(["Eén volle week, alleen bij de start","One full week, at baseline only"])+'</td></tr>';
-h+='<tr><td>Orthotimer</td><td>'+tr(["Zorgteam (DFC)","Care team (DFC)"])+'</td><td>'+tr(["In de CMFO; elke 3 mnd uitlezen","In the CMFO; read out every 3 mo"])+'</td></tr>';
-h+='<tr><td>'+tr(["Maatzool (CMFO)","Custom insole (CMFO)"])+'</td><td>'+tr(["Pedorthist","Pedorthist"])+'</td><td>'+tr(["Voorschrift visite 1 \u00b7 aflevering visite 2 \u00b7 beide paren elk kwartaal","Prescribed at visit 1 \u00b7 delivered at visit 2 \u00b7 both pairs every quarter"])+'</td></tr>';
+h+='<div class="sh">'+tr(["Wanneer","When"])+'</div>';
+h+='<table class="tbl"><thead><tr><th>'+tr(["Instrument","Instrument"])+'</th><th>'+tr(["Wanneer","When"])+'</th></tr></thead><tbody>';
+h+='<tr><td>Novel pedar</td><td>'+tr(["Visite 1 en 2 \u00b7 maand 6, 12, 18 (Usual Care: visite 1 en maand 6)","Visits 1 and 2 \u00b7 months 6, 12, 18 (Usual Care: visit 1 and month 6)"])+'</td></tr>';
+h+='<tr><td>MoveMonitor</td><td>'+tr(["Eén volle week, alleen bij de start","One full week, at baseline only"])+'</td></tr>';
+h+='<tr><td>Orthotimer</td><td>'+tr(["In de CMFO; elke 3 mnd uitlezen","In the CMFO; read out every 3 mo"])+'</td></tr>';
+h+='<tr><td>'+tr(["Maatzool (CMFO)","Custom insole (CMFO)"])+'</td><td>'+tr(["Voorschrift visite 1 \u00b7 aflevering visite 2 \u00b7 beide paren elk kwartaal","Prescribed at visit 1 \u00b7 delivered at visit 2 \u00b7 both pairs every quarter"])+'</td></tr>';
 h+='</tbody></table>';
-h+='<div class="note tip" style="margin-top:18px"><span class="lab">'+tr(["Eindpunt en mediator","Endpoint and mediator"])+'</span>'+tr(["Primair eindpunt: voetulcus-recidief over 18 maanden. Mediator: schoeisel-adherentie (\u226580% van de waaktijd, 7 d/week; analysepunt op 12 maanden).","Primary endpoint: foot-ulcer recurrence over 18 months. Mediator: footwear adherence (\u226580% of waking hours, 7 d/week; analysis point at 12 months)."])+'</div>';
 return h;
 };
 window.POST=function(){wireFoot();wireCalc();};

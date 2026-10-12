@@ -26,10 +26,10 @@ function haalConst(naam) {
   return m[0];
 }
 
-const consts = ['MENG', 'MAP', 'NACHT_KIER', 'OCHTEND_GRENS', 'LAAT_NAAR_BED', 'WAAK_MIN'];
-const namen = ['nf', 'hm', 'rijRegex', 'leafMin', 'leafBouts', 'leafHours', 'parseTitleDate', 'parseSteps',
-               'minuten', 'periodes', 'parseLigperiodes', 'parseActievePeriodes', 'parseDagdelen',
-               'opstaanUit', 'slapengaanUit', 'waaktijdPerDag', 'gemiddelde'];
+const consts = ['MENG', 'MAP', 'NACHT_KIER', 'OCHTEND_GRENS', 'LAAT_NAAR_BED', 'AVOND_VANAF', 'WAAK_MIN'];
+const namen = ['nf', 'klok', 'hm', 'rijRegex', 'leafMin', 'leafBouts', 'leafHours', 'parseTitleDate', 'parseSteps',
+               'minuten', 'periodes', 'parseLigperiodes', 'parseZitperiodes', 'parseActievePeriodes', 'parseDagdelen',
+               'eersteActiviteit', 'laatsteActiviteit', 'opstaanUit', 'slapengaanUit', 'waaktijdPerDag', 'gemiddelde'];
 // 'const WAAK_MIN = 8, WAAK_MAX = 20;' brengt beide grenzen mee
 const bron = consts.map(haalConst).join('\n') + '\n' + namen.map(haal).join('\n') + '\n;({' + namen.join(',') + '})';
 const F = eval(bron);
@@ -45,7 +45,7 @@ function dag(t) {
   const leaf = F.leafHours(t);
   const wear = ['lying', 'sitting', 'standing', 'shuffling', 'walking', 'stairs', 'cycling'].reduce((a, k) => a + leaf[k], 0);
   return { datum: F.parseTitleDate(t), steps: F.parseSteps(t), wear, gemeten: wear + leaf.notworn, leaf,
-           lig: F.parseLigperiodes(t), actief: F.parseActievePeriodes(t) };
+           lig: F.parseLigperiodes(t), zit: F.parseZitperiodes(t), actief: F.parseActievePeriodes(t) };
 }
 
 // ---- A. het demorapport van McRoberts --------------------------------------
@@ -82,13 +82,14 @@ toets('traplopen: aantal keer per dag gelezen', dagen[0].leaf.stairBouts === 33)
 
 // ---- B. randgevallen van een PARADISE-meetweek ------------------------------
 // pagina zoals pdf.js hem levert, met de rijen die de parser gebruikt
-function pagina(titel, u, lig) {
+function pagina(titel, u, lig, zit) {
   const tijd = x => Math.floor(x) + 'h ' + String(Math.round((x % 1) * 60)).padStart(2, '0') + 'm';
   const rij = (naam, n, x) => ' ' + naam + ' ' + n + ' ' + tijd(x) + ' ' + tijd(x) + ' 1.0% 0.010g';
   return 'Physical activity ' + titel + ' Physical activity ' + titel + ' Activity Amount Total time' +
     rij('Lying', 3, u.lying) + rij('Sitting', 90, u.sitting) + rij('Standing', 900, u.standing) + rij('Shuffling', 500, 0.4) +
     rij('Walking', 400, u.walking) + rij('Stair walking', 12, 0.1) + rij('Cycling', 0, 0) + ' Not worn 1 ' + tijd(u.notworn) + ' ' + tijd(u.notworn) + ' 1.0% -' +
     ' Steps 6500 6500 ACTIVE PERIODS (most steps) steps steps duration duration start start end end 900 0h 20m 10:00 10:20' +
+    ' SITTING PERIODS (longest period) duration duration start start end end ' + (zit || []).map(p => '0h 40m ' + p[0] + ' ' + p[1]).join(' ') +
     ' LYING PERIODS (longest period) duration duration start start end end ' + lig.map(p => '1h 00m ' + p[0] + ' ' + p[1]).join(' ') + ' * The Movement';
 }
 const vol = (titel, lig) => pagina(titel, { lying: 8, sitting: 8.5, standing: 4.5, walking: 2.5, notworn: 0 }, lig);
@@ -119,6 +120,20 @@ toets('vrijdag: slapengaan 0:40 de volgende dag, waaktijd 17,7 u', l[0].slapen =
 console.log('\nToestel \'s nachts af (zoals in de pilootmeting van maart 2026)');
 const af = [pagina('Wed 18-Mar-26', { lying: 0.5, sitting: 6, standing: 3, walking: 1, notworn: 13.5 }, [['12:25', '12:48'], ['7:58', '8:04']])].map(dag);
 const a = F.waaktijdPerDag(af);
-toets('geen nacht gemeten -> geen waaktijd (en dus geen norm uit deze dag)', a[0].waak === null && /geen nacht/.test(a[0].reden));
+toets('toestel al om 12.48 u af: de nacht valt niet te schatten', a[0].waak === null && /laatste activiteit om 12\.48 u/.test(a[0].reden));
+
+console.log('\nToestel \'s nachts af, maar overdag gedragen: de nacht is de tijd tussen de laatste en de eerste activiteit');
+// aan om 7:20, af om 22:40: 7 u 20 en 1 u 20 niet gedragen (8,7 u)
+const nachtAf = dag(pagina('Wed 17-Mar-27', { lying: 0.3, sitting: 8, standing: 4.6, walking: 2, notworn: 8.67 },
+  [['13:10', '13:28']], [['7:20', '8:00'], ['20:30', '22:40']]));
+const n = F.waaktijdPerDag([nachtAf])[0];
+toets('opstaan 7:20 en slapengaan 22:40, als geschat gemarkeerd', klok(n.opstaan) === '7:20' && klok(n.slapen) === '22:40' && n.geschat === true);
+toets('waaktijd 15,3 u', Math.abs(n.waak - 15.33) < 0.01);
+const vroegAf = dag(pagina('Wed 17-Mar-27', { lying: 0.3, sitting: 6, standing: 4, walking: 2, notworn: 11.3 },
+  [['13:10', '13:28']], [['7:20', '8:00'], ['17:00', '18:40']]));
+toets('toestel om 18.40 u af (vóór 20 u): geen schatting', F.waaktijdPerDag([vroegAf])[0].waak === null);
+const gedragen = dag(pagina('Wed 17-Mar-27', { lying: 0.3, sitting: 15, standing: 5.7, walking: 2.6, notworn: 0 },
+  [['13:10', '13:28']], [['7:20', '8:00'], ['20:30', '22:40']]));
+toets('wel gedragen maar niet gelegen (bv. in de zetel geslapen): geen schatting', F.waaktijdPerDag([gedragen])[0].waak === null);
 
 console.log(process.exitCode ? 'Er faalden checks.' : 'Alle checks geslaagd.');

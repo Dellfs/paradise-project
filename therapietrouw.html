@@ -292,7 +292,7 @@ nav.stappen button[aria-selected="true"] b { color: var(--color-brand-900); }
       <input type="file" id="mmFile" accept=".pdf" hidden>
     </div>
     <div class="busy" id="mmBusy">Bezig met uitlezen…</div>
-    <p class="note-priv">Alles wordt in deze browser berekend; er vertrekt niets. De deelnemer draagt de MoveMonitor een week lang, dag en nacht (eCRF 19): zonder de nacht is er geen opstaan en geen slapengaan.</p>
+    <p class="note-priv">Alles wordt in deze browser berekend; er vertrekt niets. Ging het toestel ’s nachts af, dan geldt de tijd tussen de laatste en de eerste gemeten activiteit als nacht; die dagen staan als geschat.</p>
     <div class="err" id="mmErr"></div>
   </div>
 
@@ -329,7 +329,7 @@ nav.stappen button[aria-selected="true"] b { color: var(--color-brand-900); }
           <div class="chart-hdr"><h2>Uw week, uur per uur</h2><span id="mmWeekSub"></span></div>
           <div class="week" id="mmWeek"></div>
           <div class="as"><span></span><div class="as-ticks" id="mmAs"></div><span></span></div>
-          <div class="weekleg"><span><i style="background:var(--nacht)"></i>nacht (liggen)</span><span><i style="background:#DCEFF6;box-shadow:inset 0 0 0 1px var(--g200)"></i>op: uw schoenen aan</span><span><i style="background:var(--ok)"></i>meest gestapt</span></div>
+          <div class="weekleg"><span><i style="background:var(--nacht)"></i>nacht</span><span><i style="background:#DCEFF6;box-shadow:inset 0 0 0 1px var(--g200)"></i>op: uw schoenen aan</span><span><i style="background:var(--ok)"></i>meest gestapt</span></div>
         </div>
         <div class="stats" id="mmStats"></div>
         <div class="chart-card">
@@ -359,7 +359,7 @@ nav.stappen button[aria-selected="true"] b { color: var(--color-brand-900); }
       <input type="file" id="otFile" accept=".tef,.zip" hidden>
     </div>
     <div class="optrow"><label for="otDatum">Besproken op (optioneel):</label><input type="date" id="otDatum"></div>
-    <p class="note-priv">De waaktijd komt uit stap 1, of uit Hours/day in het bestand (dat is de norm; de waaktijd is norm ÷ 0,8). Staat geen van beide klaar, dan vult u de waaktijd van eCRF 28 in: niets wordt stilzwijgend aangenomen.</p>
+    <p class="note-priv">De waaktijd komt uit stap 1 of uit Hours/day in het bestand (norm ÷ 0,8); anders vult u die van eCRF 28 in.</p>
     <div class="err" id="otErr"></div>
   </div>
 
@@ -535,10 +535,15 @@ function koppelDrop(dropId, inputId, verwerk){
 // dat tot middernacht doorloopt. Liggen dat minder dan een kwartier onderbroken werd
 // (toiletbezoek), hoort nog bij de nacht. Alleen volledige kalenderdagen tellen: de eerste dag
 // begint om 7 u en mist de nacht ervoor.
+// Doet de deelnemer het toestel 's nachts af, dan ontbreekt het liggen. Dan is de nacht de tijd
+// tussen de laatste gemeten periode van de dag en de eerste van de volgende ochtend, als die in de
+// nachturen valt (slapengaan na 20 u, opstaan tussen 4 en 12 u) en het toestel die tijd ook echt
+// niet droeg ("Not worn"). Zulke dagen heten geschat.
 const WEAR_MIN = 10;              // u gedragen: vanaf hier telt een dag voor stappen en activiteit
 const NACHT_KIER = 15;            // min
 const OCHTEND_GRENS = 5 * 60;     // nachtrust begint vóór 5 u
 const LAAT_NAAR_BED = 3 * 60;     // na middernacht gaan slapen: begint vóór 3 u
+const AVOND_VANAF = 20 * 60, OCHTEND_VAN = 4 * 60, OCHTEND_TOT = 12 * 60;
 const WAAK_MIN = 8, WAAK_MAX = 20;
 const MAP = [['lying','Lying'],['sitting','Sitting'],['standing','Standing'],['shuffling','Shuffling'],['walking','Walking'],['stairs','Stair walking'],['cycling','Cycling']];
 
@@ -598,7 +603,11 @@ function periodes(t, kop, metStappen){
   return uit;
 }
 function parseLigperiodes(t){ return periodes(t, 'LYING PERIODS', false); }
+function parseZitperiodes(t){ return periodes(t, 'SITTING PERIODS', false); }
 function parseActievePeriodes(t){ return periodes(t, 'ACTIVE PERIODS', true); }
+// De eerste en de laatste gemeten periode van een dag: liggen, zitten of stappen.
+function eersteActiviteit(d){ const p = d.lig.concat(d.zit, d.actief); return p.length ? Math.min(...p.map(x => x.begin)) : null; }
+function laatsteActiviteit(d){ const p = d.lig.concat(d.zit, d.actief); return p.length ? Math.max(...p.map(x => x.einde)) : null; }
 // Overzichtspagina: % bewegend per dagdeel (de 12e waarde van elke rij).
 function parseDagdelen(t){
   const uit = {};
@@ -641,11 +650,24 @@ function waaktijdPerDag(days){
   return days.map((d, i) => {
     const volgende = days[i+1];
     const morgen = volgende && Math.round((volgende.datum - d.datum) / 86400000) === 1 ? volgende.lig : null;
-    const r = {opstaan:null, slapen:null, waak:null, reden:''};
+    const r = {opstaan:null, slapen:null, waak:null, reden:'', geschat:false};
     if(d.gemeten < 23.5){ r.reden = 'deeldag: begin of einde van de meting'; return r; }
     r.opstaan = opstaanUit(d.lig);
     r.slapen = slapengaanUit(d.lig, morgen);
-    if(r.opstaan == null || r.slapen == null){ r.reden = 'geen nacht gemeten (toestel ’s nachts af?)'; return r; }
+    // Toestel 's nachts af: de eerste en de laatste gemeten periode, als ze in de nachturen vallen
+    // en de niet-gedragen tijd van die dag de geschatte nacht dekt, op een uur na.
+    const eerste = eersteActiviteit(d), laatste = laatsteActiviteit(d);
+    const opstaanSchatting = r.opstaan == null && eerste != null && eerste >= OCHTEND_VAN && eerste <= OCHTEND_TOT ? eerste : null;
+    const slapenSchatting = r.slapen == null && laatste != null && laatste >= AVOND_VANAF && laatste < 1440 ? laatste : null;
+    const nachtDeel = (opstaanSchatting != null ? opstaanSchatting : 0) + (slapenSchatting != null ? 1440 - slapenSchatting : 0);
+    if(nachtDeel && d.leaf.notworn * 60 >= nachtDeel - 60){
+      if(opstaanSchatting != null) r.opstaan = opstaanSchatting;
+      if(slapenSchatting != null) r.slapen = slapenSchatting;
+      r.geschat = true;
+    }
+    if(eerste == null){ r.reden = 'niet gedragen'; return r; }
+    if(r.opstaan == null){ r.reden = 'geen nacht gemeten; eerste activiteit om '+klok(eerste); return r; }
+    if(r.slapen == null){ r.reden = 'geen nacht gemeten; laatste activiteit om '+klok(laatste); return r; }
     const w = (r.slapen - r.opstaan) / 60;
     if(w < WAAK_MIN || w > WAAK_MAX || r.opstaan >= 14*60 || r.slapen <= 18*60){ r.reden = 'onwaarschijnlijk ('+nf(w)+' u)'; return r; }
     r.waak = w;
@@ -663,7 +685,7 @@ function mmAnalyse(m){
   const som = {active:0, stand:0, sed:0};
   actief.forEach(d => { som.active += d.leaf.walking + d.leaf.stairs + d.leaf.cycling; som.stand += d.leaf.standing + d.leaf.shuffling; som.sed += d.leaf.sitting; });
   return {
-    per, geldig: geldig.length,
+    per, geldig: geldig.length, geschat: geldig.filter(r => r.geschat).length,
     waaktijd: gemiddelde(geldig.map(r => r.waak)),
     opstaan: gemiddelde(geldig.map(r => r.opstaan)),
     slapen: gemiddelde(geldig.map(r => r.slapen)),
@@ -688,7 +710,7 @@ async function mmParsePdf(buf){
     if(steps === null || !datum) continue;            // geen dagpagina
     const leaf = leafHours(t);
     const wear = MAP.reduce((a, [k]) => a + (leaf[k] || 0), 0);
-    days.push({datum, steps, wear, gemeten: wear + leaf.notworn, leaf, lig: parseLigperiodes(t), actief: parseActievePeriodes(t)});
+    days.push({datum, steps, wear, gemeten: wear + leaf.notworn, leaf, lig: parseLigperiodes(t), zit: parseZitperiodes(t), actief: parseActievePeriodes(t)});
   }
   if(!days.length) throw new Error('Geen dagpagina’s met activiteitsgegevens gevonden. Is dit het rapport "Physical activity overview"?');
   days.sort((a, b) => a.datum - b.datum);
@@ -713,9 +735,11 @@ function mmValideer(model, a){
   if(model.days.length < 7)
     issues.push({level:'warn', msg:'Maar '+model.days.length+' kalenderdag'+(model.days.length === 1 ? '' : 'en')+' in het rapport: de meting duurt een week (eCRF 19b).'});
   if(a.geldig === 0)
-    issues.push({level:'warn', msg:'Geen enkele dag met een waaktijd: de nacht ontbreekt. De deelnemer draagt de MoveMonitor dag en nacht (eCRF 19). Neem contact op met het studieteam (paradise-tbm@kuleuven.be) voor u Hours/day instelt.'});
+    issues.push({level:'warn', msg:'Geen enkele dag met een waaktijd: de nacht is niet gemeten en ook niet te schatten. Neem contact op met het studieteam (paradise-tbm@kuleuven.be) voor u Hours/day instelt.'});
   else if(a.geldig < 4)
     issues.push({level:'warn', msg:'De waaktijd steunt op maar '+a.geldig+' dag'+(a.geldig === 1 ? '' : 'en')+'. Kijk de dagen hierboven na; bij twijfel: paradise-tbm@kuleuven.be.'});
+  if(a.geschat)
+    issues.push({level:'warn', msg:'Op '+a.geschat+' dag'+(a.geschat === 1 ? '' : 'en')+' was het toestel ’s nachts af. Daar is de nacht geschat als de tijd tussen de laatste en de eerste gemeten activiteit; kijk die uren na.'});
   if(!issues.length) issues.push({level:'ok', msg:'Alle uitgelezen waarden zien er correct uit.'});
   return issues;
 }
@@ -734,7 +758,7 @@ function mmToonControle(model){
   $('mmDagtabel').innerHTML = '<tr><th>Dag</th><th>Opstaan</th><th>Slapengaan</th><th style="text-align:right">Waaktijd</th><th style="text-align:right">Stappen</th></tr>' +
     model.days.map((d, i) => { const r = a.per[i];
       return '<tr'+(r.waak == null ? ' class="uit"' : '')+'><td>'+WD[wdIdx(d.datum)]+' '+fmtDay(d.datum)+'</td>' +
-        (r.waak == null ? '<td colspan="3">'+r.reden+'</td>' : '<td>'+klok(r.opstaan)+'</td><td>'+klok(r.slapen)+'</td><td class="num">'+nf(r.waak)+' u</td>') +
+        (r.waak == null ? '<td colspan="3">'+r.reden+'</td>' : '<td>'+klok(r.opstaan)+'</td><td>'+klok(r.slapen)+'</td><td class="num">'+(r.geschat ? 'geschat ' : '')+nf(r.waak)+' u</td>') +
         '<td class="num">'+nfInt(d.steps)+'</td></tr>'; }).join('');
   $('mmUitkomst').innerHTML = a.waaktijd
     ? 'Waaktijd <strong>'+nf(a.waaktijd)+' u/dag</strong> (gemiddeld '+klok(a.opstaan)+' tot '+klok(a.slapen)+') &nbsp;→&nbsp; norm, 80% daarvan: <strong>'+nf(NORM*a.waaktijd)+' u/dag</strong>'
@@ -797,14 +821,14 @@ function mmRender(model){
     const r = a.per[i];
     const label = '<div class="dag-l">'+WD[wdIdx(d.datum)]+'<small>'+d.datum.getDate()+'/'+(d.datum.getMonth()+1)+'</small></div>';
     if(r.waak == null){
-      return '<div class="dagrij">'+label+'<div class="spoor leeg"></div><div class="dag-r uit">'+(d.gemeten < 23.5 ? 'deeldag' : 'geen nacht')+'</div></div>';
+      return '<div class="dagrij">'+label+'<div class="spoor leeg"></div><div class="dag-r uit">'+(d.gemeten < 23.5 ? 'deeldag' : r.reden === 'niet gedragen' ? 'niet gedragen' : 'geen nacht')+'</div></div>';
     }
     const eind = Math.min(r.slapen, 1440);
     let s = '<div class="nacht" style="left:0;width:'+pct(r.opstaan)+'"></div>' +
             '<div class="op" style="left:'+pct(r.opstaan)+';width:'+pct(eind - r.opstaan)+'"></div>';
     if(r.slapen < 1440) s += '<div class="nacht" style="left:'+pct(r.slapen)+';width:'+pct(1440 - r.slapen)+'"></div>';
     d.actief.forEach(p => { s += '<div class="actief" style="left:'+pct(p.begin)+';width:'+pct(Math.max(p.einde - p.begin, 6))+'" title="'+p.stappen+' stappen"></div>'; });
-    return '<div class="dagrij">'+label+'<div class="spoor" title="op van '+klok(r.opstaan)+' tot '+klok(r.slapen)+'">'+s+'</div><div class="dag-r">'+nf(r.waak)+' u</div></div>';
+    return '<div class="dagrij">'+label+'<div class="spoor" title="op van '+klok(r.opstaan)+' tot '+klok(r.slapen)+'">'+s+'</div><div class="dag-r">'+(r.geschat ? '≈ ' : '')+nf(r.waak)+' u</div></div>';
   }).join('');
   $('mmAs').innerHTML = [0, 3, 6, 9, 12, 15, 18, 21, 24].map(u => '<span style="left:'+(u/24*100)+'%">'+u+' u</span>').join('');
   $('mmWeekSub').textContent = a.geldig ? 'waaktijd per dag · gemiddeld over '+a.geldig+' dag'+(a.geldig === 1 ? '' : 'en') : '';
