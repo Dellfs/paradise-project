@@ -33,6 +33,11 @@
   (stijl, taal, opstart, voetkaart, rekenmodule). Een pagina draagt alleen haar eigen inhoud; `tests/site.test.js`
   bewaakt dat er geen kopieën terugkomen.
 - `sitemap.xml`, `robots.txt`, `manifest.json`, `_headers` — SEO/hosting-configuratie.
+- **Werkmappen** (niet gelinkt vanuit de site): `Educatie/` (opleiding, `PARADISE_BRONNEN.md`, Executive Board),
+  `Meeting/` (verslagen en overleg), `Projectbeheer/`, `Doctoraat/`, `PARADISE_presentatie/`, `protocol paper/`,
+  `REDCap/`, `Novel Pedar/`, `Literatuur onderzoek/`, `Manuals/`, `Media/`, `Testdata/`. De originele eCRF-set van
+  de EC-indiening staat in `(e)CRF/Origineel V1 (EC-indiening)/`. **Zet geen losse werkdocumenten in de hoofdmap**;
+  wat lokaal blijft (o.a. `Doctoraat/`, `Meeting/`, `Media/`), staat in `.gitignore`.
 
 ## Stijl & conventies
 - **Design tokens:** blauw-navy familie (`--par-dark #00407A`, `--par-mid #1D8DB0`, `--par-light #52BDEC`,

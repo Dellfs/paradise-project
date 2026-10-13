@@ -14,6 +14,20 @@ package-lock.json
 # Testdata (patiëntbestanden — niet in repo)
 *.tef
 physical_activity_*.pdf
+Testdata/
+
+# Werkmappen die lokaal blijven: de repo wordt via Netlify gepubliceerd.
+# Doctoraat: persoonlijke documenten (IDP, voorlopig plan). Meeting: verslagen en overleg.
+# Media: video's van honderden MB. Executive Board: namen en mails van zorgverleners.
+Doctoraat/
+Meeting/
+Media/
+Educatie/archief/
+Educatie/Executive Board Composition.xlsx
+
+# Originele eCRF-set van de EC-indiening (V1): bevat gelicentieerde vragenlijsten
+# (EQ-5D-5L, SF-36, iMTA) en blijft ongewijzigd en lokaal.
+(e)CRF/Origineel V1 (EC-indiening)/
 
 # Handleidingen van leveranciers — blijven lokaal.
 # 'KU Leuven License Cloud.pdf' bevat de registratiecode voor de Orthotimer-cloud;
