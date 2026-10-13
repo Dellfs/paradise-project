@@ -41,6 +41,22 @@ check('daaronder één stand, geen grens op 60%', band(12.3, 15.5) === 'b-mid' &
 check('de 80% staat op één plaats', /const NORM = 0\.8;/.test(TT) && !/\b0\.8\s*\*/.test(TT.replace(/const NORM = 0\.8;/, '')));
 check('Hours/day uit het bestand wordt als norm gelezen (waaktijd = norm ÷ 0,8)', TT.includes('Math.round(normUitBestand / NORM * 10) / 10'));
 check('vangnet tegen de dubbele 80% (norm ingevuld als waaktijd)', TT.includes('otNormKandidaat') && TT.includes('id="goalWarn"'));
+// 13/10/2026: visite 3 tot 8 lezen alleen de Orthotimer uit; stap 2 is een eigen startpunt en vraagt de waaktijd.
+const waaktijdVoorstel = eval('(' + haal(TT, 'waaktijdVoorstel') + ')');
+check('stap 2 zonder stap 1: de tool vraagt de waaktijd vooraan (eCRF 28)',
+      TT.includes('id="otWaak"') && TT.includes('Wat is de waaktijd van deze deelnemer?') && TT.includes("waaktijdVoorstel(bekend, parseFloat(String($('otWaak').value)"));
+check('waaktijd: die van stap 1 gaat voor op wat ingevuld is', waaktijdVoorstel({uren:15.5}, 14, 12.4).bron === 'bekend' && waaktijdVoorstel({uren:15.5}, 14, 12.4).uren === 15.5);
+check('waaktijd: ingevuld gaat voor op Hours/day uit het bestand', waaktijdVoorstel(null, 14.2, 12.4).bron === 'ingevuld' && waaktijdVoorstel(null, 14.2, 12.4).uren === 14.2);
+check('waaktijd: niets ingevuld, dan Hours/day ÷ 0,8 (12,4 geeft 15,5)', waaktijdVoorstel(null, NaN, 12.4).bron === 'bestand' && waaktijdVoorstel(null, NaN, 12.4).uren === 15.5);
+check('waaktijd: niets bekend, dan leeg en vult de clinicus in', waaktijdVoorstel(null, NaN, null).uren === null);
+// Een ingevulde 12,4 terwijl de Orthotimer afgerond op 12 staat: wellicht de norm. Vragen, niet vervangen.
+check('vooraan de norm ingevuld (ook bij een afgeronde Hours/day): de tool vraagt het na en vraagt een tweede klik',
+      TT.includes('const NORM_MARGE = 0.6;') && TT.includes('Math.abs(vs.uren - normUitBestand) < NORM_MARGE') &&
+      TT.includes('Math.abs(gv - otNormKandidaat) < NORM_MARGE') && TT.includes('const voorstel = vs.uren;'));
+// De knoppen van de kopbalk zijn wit op donker; op een witte kaart moet de knop een eigen stijl hebben (13/10/2026).
+check('stap 1 wijst naar stap 2 voor visite 3 tot 8, met een knop die zichtbaar is op de witte kaart',
+      TT.includes('onclick="toonStap(2)">Meteen naar stap 2: Orthotimer') &&
+      /\.naar-stap2 \.btn \{[^}]*color: var\(--navy\)[^}]*background: #fff;/.test(TT));
 check('stap 1: de waaktijd is opstaan tot slapengaan, uit de lig-periodes', TT.includes("periodes(t, 'LYING PERIODS'") && TT.includes('function opstaanUit(') && TT.includes('function slapengaanUit('));
 check('stap 1: alleen volle kalenderdagen tellen (de eerste dag start om 7 u)', TT.includes("if(d.gemeten < 23.5){ r.reden = 'deeldag"));
 check('stap 1: het blad zegt "altijd", de norm staat alleen in het vak voor de clinicus',

@@ -122,9 +122,10 @@ Starten
 Werkwijze per patient
   1. Klik op "Nieuwe patient". Dat wist alles van de vorige patient.
   2. Visite 2: stap 1, sleep het MoveMonitor-rapport in het venster.
-  3. Visite 3 tot 8: stap 2, sleep de Orthotimer-export in het venster en vul
-     de waaktijd van eCRF 28 in als de tool ze niet voorstelt. Vul de WAAKTIJD
-     in, niet de norm: de tool rekent zelf 80%.
+  3. Visite 3 tot 8: ga meteen naar stap 2 (tabblad 2). Vul bovenaan de
+     waaktijd van eCRF 28 in en sleep de Orthotimer-export in het venster.
+     Vul de WAAKTIJD in, niet de norm: de tool rekent zelf 80%. Laat u het vak
+     leeg, dan stelt de tool de waaktijd voor uit Hours/day (norm / 0,8).
   4. "Afdrukken / PDF" maakt het blad (A4, zonder marges).
      Optimal Care: bespreek het zonder oordeel (SEBIA).
      Usual Care: uitlezen en bewaren, maar niet tonen, bespreken of meegeven.

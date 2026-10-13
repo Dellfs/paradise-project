@@ -74,6 +74,11 @@ nav.stappen button[aria-selected="true"] b { color: var(--color-brand-900); }
 .optrow label { font-size: 13px; color: var(--g600); }
 .optrow input[type=date] { font: 500 13px var(--font-b); padding: 7px 10px; border: 1px solid var(--g200); border-radius: 7px; color: var(--navy); }
 .note-priv { margin-top: 16px; font-size: 12px; color: var(--g600); line-height: 1.5; }
+.waakvraag { margin-top: 18px; padding: 14px 16px; border: 1px solid var(--g200); border-radius: 10px; background: var(--g100); }
+.waakvraag label { display: block; font-weight: 600; font-size: 14px; color: var(--navy); margin-bottom: 8px; }
+.waakvraag small { display: block; margin-top: 8px; font-size: 12px; color: var(--g600); line-height: 1.5; }
+.naar-stap2 { margin-top: 14px; font-size: 13px; color: var(--g600); }
+.naar-stap2 .btn { margin-left: 8px; color: var(--navy); border-color: var(--g200); background: #fff; }
 .err { margin-top: 16px; background: var(--low-bg); color: var(--low); border: 1px solid #f3c9c9; border-radius: 8px; padding: 11px 14px; font-size: 13px; line-height: 1.5; display: none; }
 .err.show { display: block; }
 .busy { margin-top: 14px; font-size: 13px; color: var(--teal); display: none; }
@@ -298,6 +303,7 @@ nav.stappen button[aria-selected="true"] b { color: var(--color-brand-900); }
     </div>
     <div class="busy" id="mmBusy">Bezig met uitlezen…</div>
     <p class="note-priv">Alles wordt in deze browser berekend; er vertrekt niets. Ging het toestel ’s nachts af, dan geldt de tijd tussen de laatste en de eerste gemeten activiteit als nacht; die dagen staan als geschat.</p>
+    <p class="naar-stap2">Visite 3 tot 8? Dan is de MoveMonitor al verwerkt.<button class="btn" type="button" onclick="toonStap(2)">Meteen naar stap 2: Orthotimer &rarr;</button></p>
     <div class="err" id="mmErr"></div>
   </div>
 
@@ -357,14 +363,18 @@ nav.stappen button[aria-selected="true"] b { color: var(--color-brand-900); }
   <div class="kaart" id="otUpload">
     <div class="eyebrow">Stap 2 · Orthotimer · visite 3 tot 8</div>
     <h1>Maak het <em>therapietrouwblad</em></h1>
-    <p class="lead">Sleep de Orthotimer-export (<strong>.tef</strong>) hierheen. De tool zet de draaguren per dag af tegen de waaktijd uit stap 1 en de norm, en maakt het blad dat u met de deelnemer bespreekt.</p>
-    <div class="drop" id="otDrop" tabindex="0" role="button" aria-label="Orthotimer-export kiezen">
+    <p class="lead">Vul de waaktijd van de deelnemer in en sleep de Orthotimer-export (<strong>.tef</strong>) hierheen. De tool zet de draaguren per dag af tegen die waaktijd en de norm, en maakt het blad dat u met de deelnemer bespreekt.</p>
+    <div class="waakvraag">
+      <label for="otWaak">Wat is de waaktijd van deze deelnemer?</label>
+      <input type="number" id="otWaak" class="cf-input" style="width:96px;text-align:right" min="0.5" max="24" step="0.1" placeholder="15,5"> u/dag
+      <small id="otWaakUitleg">Staat op eCRF 28, bepaald op visite 2 met de MoveMonitor: de tijd tussen de twee nachten. Niet de norm: de tool rekent zelf 80%. Laat u het vak leeg, dan stelt de tool de waaktijd voor uit Hours/day in het bestand.</small>
+    </div>
+    <div class="drop" id="otDrop" tabindex="0" role="button" aria-label="Orthotimer-export kiezen" style="margin-top:16px">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 9l5-5 5 5"/><path d="M12 4v12"/></svg>
       <b>Sleep het .tef-bestand hierheen</b><small>of klik om te kiezen · het bestand blijft op deze computer</small>
       <input type="file" id="otFile" accept=".tef,.zip" hidden>
     </div>
     <div class="optrow"><label for="otDatum">Besproken op (optioneel):</label><input type="date" id="otDatum"></div>
-    <p class="note-priv">De waaktijd komt uit stap 1 of uit Hours/day in het bestand (norm ÷ 0,8); anders vult u die van eCRF 28 in.</p>
     <div class="err" id="otErr"></div>
   </div>
 
@@ -447,6 +457,7 @@ const MND = ['','jan','feb','mrt','apr','mei','jun','jul','aug','sep','okt','nov
 const MNDLONG = ['','januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december'];
 const MENG = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
 const NORM = 0.8;                 // de norm is 80% van de waaktijd, één keer toegepast
+const NORM_MARGE = 0.6;           // u/dag: zo dicht bij de norm is een ingevulde waaktijd wellicht de norm
 const $ = id => document.getElementById(id);
 function nf(h){ return (Math.round(h*10)/10).toString().replace('.', ','); }
 function nfInt(n){ return Math.round(n).toLocaleString('nl-BE'); }
@@ -485,8 +496,27 @@ let mmResultaat = null;   // uitkomst van stap 1 in deze sessie
 function waaktijdBekend(){
   if(mmResultaat && mmResultaat.waaktijd) return {uren:mmResultaat.waaktijd, opstaan:mmResultaat.opstaan, slapen:mmResultaat.slapen, bron:'uit stap 1'};
   const s = leesSamenvatting('pvc_activity_summary');
-  if(s && s.avgWakeHours) return {uren:s.avgWakeHours, opstaan:s.opstaan, slapen:s.slapengaan, bron:'beweegpatroon van '+fmtShort(new Date(s.savedAt))};
+  if(s && s.avgWakeHours) return {uren:s.avgWakeHours, opstaan:s.opstaan, slapen:s.slapengaan, bron:'uit het beweegpatroon van '+fmtShort(new Date(s.savedAt))};
   return null;
+}
+// Welke waaktijd stap 2 voorstelt: die van stap 1 of dit bezoek, dan wat de clinicus vooraan invulde
+// (eCRF 28), dan Hours/day uit het bestand gedeeld door 0,8. Geen van drie: de clinicus vult ze in.
+function waaktijdVoorstel(bekend, ingevuld, normUitBestand){
+  if(bekend && bekend.uren) return {uren:Math.round(bekend.uren * 10) / 10, bron:'bekend'};
+  if(ingevuld >= 0.5 && ingevuld <= 24) return {uren:Math.round(ingevuld * 10) / 10, bron:'ingevuld'};
+  if(normUitBestand) return {uren:Math.round(normUitBestand / NORM * 10) / 10, bron:'bestand'};
+  return {uren:null, bron:null};
+}
+// Het waaktijdvak vooraan in stap 2: ingevuld en vast als stap 1 of dit bezoek de waaktijd al kent.
+function zetWaakVeld(){
+  const w = waaktijdBekend(), inp = $('otWaak');
+  if(w){
+    inp.value = Math.round(w.uren * 10) / 10; inp.readOnly = true;
+    $('otWaakUitleg').textContent = 'Waaktijd '+w.bron+'. De tool rekent zelf 80% als norm.';
+  }else if(inp.readOnly){
+    inp.value = ''; inp.readOnly = false;
+    $('otWaakUitleg').textContent = WAAK_UITLEG;
+  }
 }
 function zetStatus(){
   const w = waaktijdBekend();
@@ -507,7 +537,7 @@ function toonStap(n){
   $('tab1').setAttribute('aria-selected', String(stap === 1));
   $('tab2').setAttribute('aria-selected', String(stap === 2));
   if(location.hash !== '#stap'+stap){ try{ history.replaceState(null, '', '#stap'+stap); }catch(e){} }
-  zetStatus(); zetPrintknop();
+  zetStatus(); zetWaakVeld(); zetPrintknop();
   window.scrollTo(0, 0);
 }
 function stapUitAdres(){ return location.hash === '#stap2' ? 2 : 1; }
@@ -520,6 +550,7 @@ function nieuwePatient(){
     localStorage.setItem(ENCOUNTER_KEY, 'enc_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8));
   }catch(e){}
   mmReset(); otReset();
+  $('otWaak').value = ''; $('otWaak').readOnly = false; $('otWaakUitleg').textContent = WAAK_UITLEG;
   toonStap(1);
 }
 function koppelDrop(dropId, inputId, verwerk){
@@ -1017,16 +1048,24 @@ function otToonControle(model){
                           : '<span style="color:var(--ok)">✔ '+sessionHours.size+' dag(en) dubbel gecontroleerd met de sessies</span>')
     : '<span class="cf-missing">geen sessiegegevens in dit bestand</span>';
 
-  // De waaktijd: uit stap 1 of dit bezoek, anders uit het bestand (Hours/day = norm), anders invullen.
+  // De waaktijd: uit stap 1 of dit bezoek, dan wat vooraan ingevuld is (eCRF 28), dan uit het bestand
+  // (Hours/day = norm), anders invullen.
   const bekend = waaktijdBekend();
   const uitBestand = normUitBestand ? Math.round(normUitBestand / NORM * 10) / 10 : null;
-  const voorstel = bekend ? Math.round(bekend.uren * 10) / 10 : uitBestand;
+  const vs = waaktijdVoorstel(bekend, parseFloat(String($('otWaak').value).replace(',', '.')), normUitBestand);
+  // Ligt wat vooraan ingevuld is dicht bij Hours/day (de norm), dan is het wellicht de norm. De tool
+  // vervangt het getal niet, maar vraagt het na; "Blad maken" vraagt dan een tweede klik (vangnet).
+  const normIngevuld = vs.bron === 'ingevuld' && normUitBestand && Math.abs(vs.uren - normUitBestand) < NORM_MARGE;
+  const voorstel = vs.uren;
   otNormKandidaat = bekend ? NORM * bekend.uren : normUitBestand;
   let uitleg;
-  if(bekend){
-    uitleg = 'Voorgesteld: de waaktijd '+bekend.bron+'. De tool rekent zelf 80% als norm.';
-    if(normUitBestand && Math.abs(normUitBestand - NORM * bekend.uren) > 0.3)
-      uitleg += ' <strong style="color:var(--mid)">Let op: de Orthotimer staat op '+nf(normUitBestand)+' u/dag; de norm voor deze waaktijd is '+nf(NORM*bekend.uren)+' u/dag. Pas Hours/day aan.</strong>';
+  if(normIngevuld){
+    uitleg = '<strong style="color:var(--mid)">U vulde '+nf(vs.uren)+' u/dag in; de Orthotimer staat op '+nf(normUitBestand)+' u/dag. Dat lijkt de norm, niet de waaktijd. Is het de norm, vul dan als waaktijd '+nf(uitBestand)+' u/dag in (norm ÷ 0,8). Controleer met eCRF 28.</strong>';
+  }else if(vs.bron === 'bekend' || vs.bron === 'ingevuld'){
+    uitleg = vs.bron === 'bekend' ? 'Voorgesteld: de waaktijd '+bekend.bron+'. De tool rekent zelf 80% als norm.'
+                                  : 'De waaktijd die u vooraan invulde (eCRF 28). De tool rekent zelf 80% als norm.';
+    if(normUitBestand && Math.abs(normUitBestand - NORM * vs.uren) > 0.3)
+      uitleg += ' <strong style="color:var(--mid)">Let op: de Orthotimer staat op '+nf(normUitBestand)+' u/dag; de norm voor deze waaktijd is '+nf(NORM*vs.uren)+' u/dag. Pas Hours/day aan.</strong>';
   }else if(normUitBestand){
     uitleg = 'De Orthotimer staat op '+nf(normUitBestand)+' u/dag: dat is de norm. Voorgesteld als waaktijd: '+nf(uitBestand)+' u/dag (norm ÷ 0,8). Controleer met eCRF 28.';
     if(uitBestand > 19) uitleg += ' <strong style="color:var(--mid)">Een waaktijd boven 19 u is onwaarschijnlijk: staat de Orthotimer op de waaktijd in plaats van de norm? Vul dan de waaktijd van eCRF 28 in.</strong>';
@@ -1082,11 +1121,12 @@ function otBevestig(){
   const inp = $('goalInput');
   const gv = parseFloat(String(inp.value).replace(',', '.'));
   if(isNaN(gv) || gv < 0.5 || gv > 24){ inp.style.borderColor = 'var(--low)'; inp.focus(); return; }
-  // Vangnet tegen de dubbele 80%: wie de norm als waaktijd invult, legt de lat op 64%.
-  if(otNormKandidaat && Math.abs(gv - otNormKandidaat) < 0.15 && !inp.dataset.bevestigd){
+  // Vangnet tegen de dubbele 80%: wie de norm als waaktijd invult, legt de lat op 64%. De marge vangt
+  // ook een Hours/day die afgerond in het toestel staat (12 voor een norm van 12,4).
+  if(otNormKandidaat && Math.abs(gv - otNormKandidaat) < NORM_MARGE && !inp.dataset.bevestigd){
     inp.dataset.bevestigd = '1';
     inp.style.borderColor = 'var(--mid)';
-    $('goalWarn').innerHTML = nf(gv)+' u/dag is de norm, niet de waaktijd. Als waaktijd hoort '+nf(Math.round(otNormKandidaat/NORM*10)/10)+' u/dag; anders wordt de 80% twee keer toegepast. Klopt uw getal toch, klik dan nog eens op "Blad maken".';
+    $('goalWarn').innerHTML = nf(gv)+' u/dag lijkt de norm, niet de waaktijd. Als waaktijd hoort '+nf(Math.round(otNormKandidaat/NORM*10)/10)+' u/dag; anders wordt de 80% twee keer toegepast. Klopt uw getal toch, klik dan nog eens op "Blad maken".';
     $('goalWarn').style.display = 'block';
     inp.focus(); return;
   }
@@ -1296,6 +1336,7 @@ function otReset(){
 // Start
 // ============================================================================
 if(window.pdfjsLib && !window.pdfjsWorker) pdfjsLib.GlobalWorkerOptions.workerSrc = 'vendor/pdf.worker.min.js';
+const WAAK_UITLEG = $('otWaakUitleg').textContent;
 koppelDrop('mmDrop', 'mmFile', mmVerwerk);
 koppelDrop('otDrop', 'otFile', otVerwerk);
 $('otVorigFile').addEventListener('change', e => { if(e.target.files[0]) otVerwerkVorige(e.target.files[0]); });
