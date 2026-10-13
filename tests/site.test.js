@@ -53,6 +53,17 @@ check('waaktijd: niets bekend, dan leeg en vult de clinicus in', waaktijdVoorste
 check('vooraan de norm ingevuld (ook bij een afgeronde Hours/day): de tool vraagt het na en vraagt een tweede klik',
       TT.includes('const NORM_MARGE = 0.6;') && TT.includes('Math.abs(vs.uren - normUitBestand) < NORM_MARGE') &&
       TT.includes('Math.abs(gv - otNormKandidaat) < NORM_MARGE') && TT.includes('const voorstel = vs.uren;'));
+// 13/10/2026: "ik ga nog altijd niet automatisch van de McRoberts naar de Orthotimer".
+check('na "Blad maken" in stap 1 gaat de tool meteen naar stap 2, met waaktijd en norm bovenaan',
+      TT.includes('if(mmResultaat && mmResultaat.waaktijd) toonStap(2);') && TT.includes('id="otVanStap1"') &&
+      TT.includes('function zetStap1Klaar(') && TT.includes('mmReset(); otReset(); zetStap1Klaar();') &&
+      TT.includes('.kop, .klinisch, .stap1klaar { display: none !important; }'));
+check('loopt het tekenen van een blad fout, dan een melding in plaats van een scherm dat stil blijft staan',
+      TT.includes('try{ mmRender(mmModel); }') && TT.includes('try{ otRender(otModel); }'));
+// De online tool laadt pdf.js en JSZip uit vendor/; staan die niet in git, dan ontbreken ze op Netlify.
+const inGit = require('child_process').execSync('git ls-files vendor', { cwd: SITE, encoding: 'utf8' });
+const geladen = [...TT.matchAll(/src="(vendor\/[^"]+)"/g)].map(m => m[1]).concat(TT.includes("'vendor/pdf.worker.min.js'") ? ['vendor/pdf.worker.min.js'] : []);
+check('alle bibliotheken die de tool laadt, staan in git (' + geladen.join(', ') + ')', geladen.length >= 3 && geladen.every(f => inGit.includes(f)));
 // De knoppen van de kopbalk zijn wit op donker; op een witte kaart moet de knop een eigen stijl hebben (13/10/2026).
 check('stap 1 wijst naar stap 2 voor visite 3 tot 8, met een knop die zichtbaar is op de witte kaart',
       TT.includes('onclick="toonStap(2)">Meteen naar stap 2: Orthotimer') &&

@@ -78,6 +78,10 @@ nav.stappen button[aria-selected="true"] b { color: var(--color-brand-900); }
 .waakvraag label { display: block; font-weight: 600; font-size: 14px; color: var(--navy); margin-bottom: 8px; }
 .waakvraag small { display: block; margin-top: 8px; font-size: 12px; color: var(--g600); line-height: 1.5; }
 .naar-stap2 { margin-top: 14px; font-size: 13px; color: var(--g600); }
+.kaart.stap1klaar { margin-bottom: 0; padding: 22px 40px 20px; border-left: 4px solid var(--ok); }
+.kaart.stap1klaar + .kaart { margin-top: 18px; }
+.kaart.stap1klaar p { font-size: 14px; color: var(--g600); line-height: 1.55; }
+.kaart.stap1klaar .cf-actions { margin-top: 12px; }
 .naar-stap2 .btn { margin-left: 8px; color: var(--navy); border-color: var(--g200); background: #fff; }
 .err { margin-top: 16px; background: var(--low-bg); color: var(--low); border: 1px solid #f3c9c9; border-radius: 8px; padding: 11px 14px; font-size: 13px; line-height: 1.5; display: none; }
 .err.show { display: block; }
@@ -244,7 +248,7 @@ nav.stappen button[aria-selected="true"] b { color: var(--color-brand-900); }
 @media print {
   html, body { background: #fff; }
   .page { height: 297mm; }
-  .kop, .klinisch { display: none !important; }
+  .kop, .klinisch, .stap1klaar { display: none !important; }
   .stage { padding: 0; }
   .page { box-shadow: none; }
   .bar, .b-ok, .b-mid, .b-part, .bar-zero, .spoor, .spoor *, .balbar div, .hdr, .ftr, .lg-chip, .weekleg i, .balleg .sw, .score::after {
@@ -360,6 +364,11 @@ nav.stappen button[aria-selected="true"] b { color: var(--color-brand-900); }
 
 <!-- ======================= STAP 2 · ORTHOTIMER ======================= -->
 <section id="stap2" role="tabpanel" aria-labelledby="tab2" hidden>
+  <div class="kaart stap1klaar" id="otVanStap1" style="display:none">
+    <div class="eyebrow">Stap 1 klaar · MoveMonitor verwerkt</div>
+    <p id="otVanStap1Tekst"></p>
+    <div class="cf-actions"><button class="btn" type="button" onclick="toonStap(1)">&larr; Blad &lsquo;Uw dag&rsquo; bekijken en afdrukken</button></div>
+  </div>
   <div class="kaart" id="otUpload">
     <div class="eyebrow">Stap 2 · Orthotimer · visite 3 tot 8</div>
     <h1>Maak het <em>therapietrouwblad</em></h1>
@@ -549,7 +558,7 @@ function nieuwePatient(){
     localStorage.removeItem('pvc_wear_summary');
     localStorage.setItem(ENCOUNTER_KEY, 'enc_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8));
   }catch(e){}
-  mmReset(); otReset();
+  mmReset(); otReset(); zetStap1Klaar();
   $('otWaak').value = ''; $('otWaak').readOnly = false; $('otWaakUitleg').textContent = WAAK_UITLEG;
   toonStap(1);
 }
@@ -823,11 +832,23 @@ function mmCodeCheck(){
 function mmBevestig(){
   if(!mmModel || mmModel._blocker) return;
   if($('mmCode') && $('mmCode').value.trim() !== mmModel.subject.trim()){ $('mmCode').focus(); return; }
-  mmRender(mmModel);
+  // Loopt het tekenen fout, dan een melding in plaats van een scherm dat stil blijft staan.
+  try{ mmRender(mmModel); }
+  catch(e){ $('mmIssues').innerHTML += issuesHtml([{level:'blocker', msg:'Het blad kon niet gemaakt worden ('+escHtml(e.message)+'). Meld dit aan paradise-tbm@kuleuven.be.'}]); return; }
   $('mmConfirm').style.display = 'none';
   $('mmStage').classList.add('show');
-  zetPrintknop(); zetStatus();
-  window.scrollTo(0, 0);
+  zetStap1Klaar();
+  // Meteen door naar de Orthotimer (13/10/2026): daar gaat de norm in Hours/day, of volgt het therapietrouwblad.
+  if(mmResultaat && mmResultaat.waaktijd) toonStap(2);
+  else { zetPrintknop(); zetStatus(); window.scrollTo(0, 0); }
+}
+// De kaart bovenaan stap 2 na stap 1: waaktijd, de norm voor Hours/day en de weg terug naar het blad 'Uw dag'.
+function zetStap1Klaar(){
+  const w = mmResultaat && mmResultaat.waaktijd;
+  $('otVanStap1').style.display = w ? '' : 'none';
+  if(w) $('otVanStap1Tekst').innerHTML = 'Waaktijd <strong>'+nf(w)+' u/dag</strong> · norm (80%) <strong>'+nf(NORM*w)+' u/dag</strong>. ' +
+    'Op visite 2: zet de norm bij Hours/day in de Orthotimer en bespreek het blad &lsquo;Uw dag&rsquo; (Optimal Care). ' +
+    'Heeft u al een Orthotimer-export, sleep die hieronder: dan volgt het therapietrouwblad.';
 }
 function mmRender(model){
   const a = model._analyse;
@@ -1131,7 +1152,8 @@ function otBevestig(){
     inp.focus(); return;
   }
   otModel.goal = Math.round(gv * 10) / 10;
-  otRender(otModel);
+  try{ otRender(otModel); }
+  catch(e){ $('otIssues').innerHTML += issuesHtml([{level:'blocker', msg:'Het blad kon niet gemaakt worden ('+escHtml(e.message)+'). Meld dit aan paradise-tbm@kuleuven.be.'}]); return; }
   $('otConfirm').style.display = 'none';
   $('otStage').classList.add('show');
   zetPrintknop();
