@@ -1,7 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 700" width="1020" height="700" font-family="Arial, Helvetica, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 70 1020 540" width="1020" height="540" font-family="Arial, Helvetica, sans-serif">
   <rect width="1020" height="700" fill="#FFFFFF"/>
-  <text x="30" y="30" font-size="14" fill="#1B3A5C" font-weight="bold">Figure 4. PRECIS-2 wheel for PARADISE</text>
-  <text x="30" y="49" font-size="11" fill="#5A6B7D">Position on the explanatory–pragmatic continuum. 1 = very explanatory, 5 = very pragmatic.</text>
   <circle cx="336" cy="330" r="34" fill="none" stroke="#C8D3DE" stroke-width="1"/>
   <circle cx="336" cy="330" r="74" fill="none" stroke="#C8D3DE" stroke-width="1"/>
   <circle cx="336" cy="330" r="114" fill="none" stroke="#C8D3DE" stroke-width="1"/>
@@ -87,8 +85,4 @@
   <text x="701" y="488" font-size="11.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">5</text>
   <text x="722" y="488" font-size="11.5" fill="#1B3A5C" font-weight="bold">Primary analysis</text>
   <text x="722" y="503" font-size="10.2" fill="#33475B">Intention-to-treat, all randomised participants retained</text>
-  <line x1="30" y1="614" x2="990" y2="614" stroke="#C8D3DE" stroke-width="1"/>
-  <text x="30" y="636" font-size="11" fill="#33475B">Ratings were assigned by the trial team against the design as specified in this protocol. PARADISE is pragmatic in whom it recruits, where it is delivered and how it is</text>
-  <text x="30" y="654" font-size="11" fill="#33475B">analysed, and more explanatory in organisation, flexibility of delivery and follow-up: the trial adds motivational-interviewing training and in-shoe pressure measurement to</text>
-  <text x="30" y="672" font-size="11" fill="#33475B">routine practice, delivers SEBIA as a five-step protocol, and measures far more at each visit than usual care does. That is the trade-off a trial of an unreimbursed service makes.</text>
   </svg>

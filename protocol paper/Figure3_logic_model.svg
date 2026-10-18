@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 640" width="1140" height="640" font-family="Arial, Helvetica, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 520" width="1140" height="520" font-family="Arial, Helvetica, sans-serif">
   <defs>
     <marker id="a3" markerWidth="8" markerHeight="8" refX="7" refY="2.6" orient="auto">
       <path d="M0,0 L0,5.2 L7,2.6 z" fill="#1B3A5C"/>
@@ -41,7 +41,7 @@
   <g font-size="11" fill="#33475B">
     <text x="262" y="100">Baseline pressure mapping</text>
     <text x="262" y="118">Iterative CMFO adjustment</text>
-    <text x="262" y="136">to &lt;200 kPa or ≥25%</text><text x="262" y="151">reduction from baseline</text>
+    <text x="262" y="136">to &lt;200 kPa or ≥25%</text><text x="262" y="151">lower than without CMFO</text>
     <text x="262" y="169">Sensor integration</text>
   </g>
   <rect x="248" y="188" width="196" height="120" rx="4" fill="#EAF1F7" stroke="#1B3A5C" stroke-width="1.5"/>
@@ -89,7 +89,7 @@
   <text x="1033" y="82" font-size="12.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Ulcer recurrence ↓</text>
   <text x="1033" y="101" font-size="10.5" fill="#7FE3F0" text-anchor="middle" font-weight="bold">PRIMARY</text>
   <text x="1033" y="122" font-size="11" fill="#CFE0EC" text-anchor="middle">Time to first</text>
-  <text x="1033" y="137" font-size="11" fill="#CFE0EC" text-anchor="middle">adjudicated ulcer,</text>
+  <text x="1033" y="137" font-size="11" fill="#CFE0EC" text-anchor="middle">confirmed ulcer,</text>
   <text x="1033" y="152" font-size="11" fill="#CFE0EC" text-anchor="middle">18 months</text>
 
   <rect x="952" y="174" width="162" height="72" rx="4" fill="#EAF1F7" stroke="#1B3A5C" stroke-width="1.5"/>
@@ -143,17 +143,7 @@
     <text x="780" y="460">Caseload · clinic time · staffing continuity</text>
     <text x="780" y="474">RIZIV–INAMI reimbursement of footwear</text>
   </g>
-
-  <!-- assumptions -->
-  <line x1="26" y1="510" x2="1114" y2="510" stroke="#C8D3DE"/>
-  <text x="26" y="534" font-size="12" font-weight="bold" fill="#1B3A5C" letter-spacing="1.1">KEY ASSUMPTIONS THE PROCESS EVALUATION TESTS</text>
-  <g font-size="11.5" fill="#33475B">
-    <text x="26" y="556">1 — Generalist multidisciplinary teams can deliver SEBIA with fidelity under routine caseloads, without dedicated research staff.</text>
-    <text x="26" y="576">2 — Behavioural support converts non-adherent participants into adherent ones, and the change is sustained after intervention contacts cease.</text>
-    <text x="26" y="596">3 — Pressure targets achievable in specialist research settings remain achievable in non-academic clinics.</text>
-    <text x="26" y="616">4 — Sensor data completeness is sufficient to characterise offloading exposure; prior attempts failed on this point, not on concept.</text>
-  </g>
   <g font-size="10.5" fill="#5A6B7D">
-    <text x="700" y="636">Solid arrows: hypothesised causal pathway.  Dashed arrows: secondary or reinforcing pathways.</text>
+    <text x="1114" y="508" text-anchor="end">Solid arrows: hypothesised causal pathway.  Dashed arrows: secondary or reinforcing pathways.</text>
   </g>
 </svg>

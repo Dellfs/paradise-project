@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 540" width="1020" height="540" font-family="Arial, Helvetica, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 390" width="1020" height="390" font-family="Arial, Helvetica, sans-serif">
   <defs>
     <marker id="ar" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto">
       <path d="M0,0 L0,6 L8,3 z" fill="#1B3A5C"/>
@@ -21,7 +21,7 @@
   <rect x="30" y="72" width="300" height="86" rx="4" fill="#EAF1F7" stroke="#1B3A5C" stroke-width="1.6"/>
   <text x="46" y="96" font-size="14" font-weight="bold" fill="#1B3A5C">Plantar pressure</text>
   <text x="46" y="116" font-size="12" fill="#33475B">Region-specific in-shoe peak pressure</text>
-  <text x="46" y="134" font-size="11.5" fill="#5A6B7D" font-style="italic">Novel pedar — baseline, 6, 12 months</text>
+  <text x="46" y="134" font-size="11.5" fill="#5A6B7D" font-style="italic">Novel pedar — baseline to month 18</text>
   <rect x="46" y="141" width="132" height="13" rx="2" fill="#0E7C86"/>
   <text x="52" y="151" font-size="9.5" fill="#FFFFFF" font-weight="bold">MODIFIED BY TRIAL ARM</text>
 
@@ -29,7 +29,7 @@
   <rect x="30" y="176" width="300" height="86" rx="4" fill="#F4F6F8" stroke="#8FA3B5" stroke-width="1.6"/>
   <text x="46" y="200" font-size="14" font-weight="bold" fill="#1B3A5C">Weight-bearing activity</text>
   <text x="46" y="220" font-size="12" fill="#33475B">Step count and standing time</text>
-  <text x="46" y="238" font-size="11.5" fill="#5A6B7D" font-style="italic">MoveMonitor — continuous</text>
+  <text x="46" y="238" font-size="11.5" fill="#5A6B7D" font-style="italic">MoveMonitor — 7 days at baseline</text>
   <rect x="46" y="245" width="104" height="13" rx="2" fill="#8FA3B5"/>
   <text x="52" y="255" font-size="9.5" fill="#FFFFFF" font-weight="bold">OBSERVED ONLY</text>
 
@@ -61,8 +61,8 @@
   <!-- ============ outcome + dose-response plot ============ -->
   <rect x="744" y="72" width="246" height="86" rx="4" fill="#EAF1F7" stroke="#1B3A5C" stroke-width="1.6"/>
   <text x="760" y="96" font-size="14" font-weight="bold" fill="#1B3A5C">Ulcer recurrence</text>
-  <text x="760" y="116" font-size="12" fill="#33475B">Time to first adjudicated ulcer</text>
-  <text x="760" y="134" font-size="11.5" fill="#5A6B7D" font-style="italic">Blinded adjudication, 18 months</text>
+  <text x="760" y="116" font-size="12" fill="#33475B">Time to first confirmed ulcer</text>
+  <text x="760" y="134" font-size="11.5" fill="#5A6B7D" font-style="italic">Multidisciplinary team, 18 months</text>
 
   <!-- plot frame -->
   <rect x="744" y="176" width="246" height="190" rx="4" fill="#FFFFFF" stroke="#C8D3DE" stroke-width="1.2"/>
@@ -77,10 +77,4 @@
   <text x="770" y="278" font-size="10.5" fill="#33475B" text-anchor="middle" transform="rotate(-90 770 278)">hazard →</text>
 
   <!-- ============ footnote band ============ -->
-  <line x1="30" y1="404" x2="990" y2="404" stroke="#C8D3DE" stroke-width="1"/>
-  <text x="30" y="428" font-size="12" font-weight="bold" fill="#1B3A5C">Why this has not been estimated before</text>
-  <text x="30" y="450" font-size="11.5" fill="#33475B">Current guidance approximates this relationship with two fixed thresholds — in-shoe peak pressure &lt;200 kPa and adherence &gt;80% — neither derived from outcome data.</text>
-  <text x="30" y="470" font-size="11.5" fill="#33475B">Prior cohorts assembled to measure cumulative plantar tissue stress achieved complete follow-up data for 8% and 0% of participants respectively (n = 25 combined);</text>
-  <text x="30" y="490" font-size="11.5" fill="#33475B">the strongest evidence linking it to future ulceration remains observational and 12 months long. PARADISE records all three determinants concurrently in 144</text>
-  <text x="30" y="510" font-size="11.5" fill="#33475B">participants over 18 months, within a design that randomly manipulates two of them. This analysis is exploratory and restricted to adequate sensor coverage.</text>
 </svg>
