@@ -886,6 +886,11 @@ enveloppen.
 | 24 | Drukherverdeling opnieuw toetsen en zo nodig aanpassen |
 | 12 | Tevredenheid (VAS) — **alleen op visite 8, maand 18** |
 
+### Elke visite 1 tot 8, in beide armen
+| Doc | Wat |
+| --- | --- |
+| 49 | Registratie consultatieduur: start- en einduur per zorgverlener (podoloog, verpleegkundige), zodat de duur van de consultatie gekend is. Toegevoegd op 21 oktober 2026 op vraag van Janou. |
+
 ### Ongepland — bij een voetulcus
 Investigator **onmiddellijk** verwittigen. De arts of podoloog documenteert met foto's,
 debrideert, en klasseert met **PEDIS** (36) en **WIfI** (38). De investigator uploadt
@@ -1099,6 +1104,7 @@ Bestanden staan in `(e)CRF/Per nummer/`.
 | 46 | AE/SAE Report Form | bij voorval |
 | 47 | Ulcus-vervolgformulier | bij ulcus, elk contact |
 | 48 | Voetzorgfolder voor de patiënt | visite 1 |
+| 49 | Registratie consultatieduur | visites 1-8, beide armen |
 
 Ontbrekend in deze map: 11, 22, 37.
 

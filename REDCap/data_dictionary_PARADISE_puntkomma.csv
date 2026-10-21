@@ -1514,3 +1514,16 @@ e47_datum_genezing;e47_ulcus_vervolg;;text;Datum van genezing;;;date_dmy;;;;[e47
 e47_ae_gemeld;e47_ulcus_vervolg;;yesno;Gemeld op het AE- en SAE-formulier;;"Verplicht bij amputatie of overlijden; zie eCRF 46";;;;;[e47_status] = '3' or [e47_status] = '4';y;;;;;
 e47_opmerkingen;e47_ulcus_vervolg;3. Opmerkingen;notes;Opmerkingen;;;;;;;;;;;;;
 e47_door;e47_ulcus_vervolg;;text;Ingevoerd door (initialen);;Initialen van het studieteamlid dat overzet;;;;;;;;;;;
+e49_datum;e49_consultatieduur;;text;Datum van de visite;;dd-mm-jjjj, zoals op het papieren werkblad;date_dmy;;;;;y;;;;;
+e49_pod_ja;e49_consultatieduur;Podoloog;yesno;Heeft een podoloog de deelnemer op deze visite gezien?;;;;;;;;y;;;;;
+e49_pod_init;e49_consultatieduur;;text;Initialen podoloog;;;;;;;[e49_pod_ja] = '1';;;;;;
+e49_pod_start;e49_consultatieduur;;text;Startuur;;uu:mm, 24-uursnotatie;time;;;;[e49_pod_ja] = '1';y;;;;;
+e49_pod_eind;e49_consultatieduur;;text;Einduur;;uu:mm, 24-uursnotatie;time;;;;[e49_pod_ja] = '1';y;;;;;
+e49_pod_duur;e49_consultatieduur;;calc;Duur (minuten);"datediff([e49_pod_start],[e49_pod_eind],""m"",true)";Wordt berekend. Negatief: start- en einduur nakijken.;;;;;[e49_pod_ja] = '1';;;;;;
+e49_vpk_ja;e49_consultatieduur;Verpleegkundige;yesno;Heeft een verpleegkundige de deelnemer op deze visite gezien?;;;;;;;;y;;;;;
+e49_vpk_init;e49_consultatieduur;;text;Initialen verpleegkundige;;;;;;;[e49_vpk_ja] = '1';;;;;;
+e49_vpk_start;e49_consultatieduur;;text;Startuur;;uu:mm, 24-uursnotatie;time;;;;[e49_vpk_ja] = '1';y;;;;;
+e49_vpk_eind;e49_consultatieduur;;text;Einduur;;uu:mm, 24-uursnotatie;time;;;;[e49_vpk_ja] = '1';y;;;;;
+e49_vpk_duur;e49_consultatieduur;;calc;Duur (minuten);"datediff([e49_vpk_start],[e49_vpk_eind],""m"",true)";Wordt berekend. Negatief: start- en einduur nakijken.;;;;;[e49_vpk_ja] = '1';;;;;;
+e49_opmerkingen;e49_consultatieduur;;notes;Opmerkingen;;Bv. een onderbreking of een consultatie in twee delen;;;;;;;;;;;
+e49_door;e49_consultatieduur;;text;Ingevoerd door (initialen);;Initialen van het studieteamlid dat overzet;;;;;;;;;;;

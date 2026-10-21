@@ -23,12 +23,14 @@ arm_num,unique_event_name,form
 1,visite_1_arm_1,e20_udi_movemonitor
 1,visite_1_arm_1,e21_eq5d5l
 1,visite_1_arm_1,e45_dagboek_baseline
+1,visite_1_arm_1,e49_consultatieduur
 1,visite_1_arm_1,visit
 1,visite_2_arm_1,concomitant_therapy
 1,visite_2_arm_1,e23_aanpassing_cmfo
 1,visite_2_arm_1,e25_udi_orthotimer
 1,visite_2_arm_1,e26_overtuigingen
 1,visite_2_arm_1,e27_udi_movemonitor_retour
+1,visite_2_arm_1,e49_consultatieduur
 1,visite_2_arm_1,visit
 1,visite_3_arm_1,concomitant_therapy
 1,visite_3_arm_1,e08_voet_schoeisel
@@ -39,6 +41,7 @@ arm_num,unique_event_name,form
 1,visite_3_arm_1,e34_imcq
 1,visite_3_arm_1,e35_ipcq
 1,visite_3_arm_1,e45b_dagboek_3mnd
+1,visite_3_arm_1,e49_consultatieduur
 1,visite_3_arm_1,visit
 1,visite_4_arm_1,concomitant_therapy
 1,visite_4_arm_1,e08_voet_schoeisel
@@ -50,6 +53,7 @@ arm_num,unique_event_name,form
 1,visite_4_arm_1,e34_imcq
 1,visite_4_arm_1,e35_ipcq
 1,visite_4_arm_1,e45b_dagboek_3mnd
+1,visite_4_arm_1,e49_consultatieduur
 1,visite_4_arm_1,visit
 1,visite_5_arm_1,concomitant_therapy
 1,visite_5_arm_1,e08_voet_schoeisel
@@ -60,6 +64,7 @@ arm_num,unique_event_name,form
 1,visite_5_arm_1,e34_imcq
 1,visite_5_arm_1,e35_ipcq
 1,visite_5_arm_1,e45b_dagboek_3mnd
+1,visite_5_arm_1,e49_consultatieduur
 1,visite_5_arm_1,visit
 1,visite_6_arm_1,concomitant_therapy
 1,visite_6_arm_1,e08_voet_schoeisel
@@ -70,6 +75,7 @@ arm_num,unique_event_name,form
 1,visite_6_arm_1,e34_imcq
 1,visite_6_arm_1,e35_ipcq
 1,visite_6_arm_1,e45b_dagboek_3mnd
+1,visite_6_arm_1,e49_consultatieduur
 1,visite_6_arm_1,visit
 1,visite_7_arm_1,concomitant_therapy
 1,visite_7_arm_1,e08_voet_schoeisel
@@ -80,6 +86,7 @@ arm_num,unique_event_name,form
 1,visite_7_arm_1,e34_imcq
 1,visite_7_arm_1,e35_ipcq
 1,visite_7_arm_1,e45b_dagboek_3mnd
+1,visite_7_arm_1,e49_consultatieduur
 1,visite_7_arm_1,visit
 1,visite_8_arm_1,concomitant_therapy
 1,visite_8_arm_1,e08_voet_schoeisel
@@ -91,6 +98,7 @@ arm_num,unique_event_name,form
 1,visite_8_arm_1,e34_imcq
 1,visite_8_arm_1,e35_ipcq
 1,visite_8_arm_1,e45b_dagboek_3mnd
+1,visite_8_arm_1,e49_consultatieduur
 1,visite_8_arm_1,visit
 2,ae_sae_arm_2,ae_sae_form_imd_within_ce_label
 2,ae_sae_arm_2,device_deficiency_dd_form
@@ -118,6 +126,7 @@ arm_num,unique_event_name,form
 2,visite_1_arm_2,e20_udi_movemonitor
 2,visite_1_arm_2,e21_eq5d5l
 2,visite_1_arm_2,e45_dagboek_baseline
+2,visite_1_arm_2,e49_consultatieduur
 2,visite_1_arm_2,visit
 2,visite_2_arm_2,concomitant_therapy
 2,visite_2_arm_2,e23_aanpassing_cmfo
@@ -127,6 +136,7 @@ arm_num,unique_event_name,form
 2,visite_2_arm_2,e27_udi_movemonitor_retour
 2,visite_2_arm_2,e28_activiteitenprofiel
 2,visite_2_arm_2,e29_teach_back
+2,visite_2_arm_2,e49_consultatieduur
 2,visite_2_arm_2,visit
 2,visite_3_arm_2,concomitant_therapy
 2,visite_3_arm_2,e08_voet_schoeisel
@@ -138,6 +148,7 @@ arm_num,unique_event_name,form
 2,visite_3_arm_2,e34_imcq
 2,visite_3_arm_2,e35_ipcq
 2,visite_3_arm_2,e45b_dagboek_3mnd
+2,visite_3_arm_2,e49_consultatieduur
 2,visite_3_arm_2,visit
 2,visite_4_arm_2,concomitant_therapy
 2,visite_4_arm_2,e08_voet_schoeisel
@@ -150,6 +161,7 @@ arm_num,unique_event_name,form
 2,visite_4_arm_2,e34_imcq
 2,visite_4_arm_2,e35_ipcq
 2,visite_4_arm_2,e45b_dagboek_3mnd
+2,visite_4_arm_2,e49_consultatieduur
 2,visite_4_arm_2,visit
 2,visite_5_arm_2,concomitant_therapy
 2,visite_5_arm_2,e08_voet_schoeisel
@@ -161,6 +173,7 @@ arm_num,unique_event_name,form
 2,visite_5_arm_2,e34_imcq
 2,visite_5_arm_2,e35_ipcq
 2,visite_5_arm_2,e45b_dagboek_3mnd
+2,visite_5_arm_2,e49_consultatieduur
 2,visite_5_arm_2,visit
 2,visite_6_arm_2,concomitant_therapy
 2,visite_6_arm_2,e08_voet_schoeisel
@@ -173,6 +186,7 @@ arm_num,unique_event_name,form
 2,visite_6_arm_2,e34_imcq
 2,visite_6_arm_2,e35_ipcq
 2,visite_6_arm_2,e45b_dagboek_3mnd
+2,visite_6_arm_2,e49_consultatieduur
 2,visite_6_arm_2,visit
 2,visite_7_arm_2,concomitant_therapy
 2,visite_7_arm_2,e08_voet_schoeisel
@@ -184,6 +198,7 @@ arm_num,unique_event_name,form
 2,visite_7_arm_2,e34_imcq
 2,visite_7_arm_2,e35_ipcq
 2,visite_7_arm_2,e45b_dagboek_3mnd
+2,visite_7_arm_2,e49_consultatieduur
 2,visite_7_arm_2,visit
 2,visite_8_arm_2,concomitant_therapy
 2,visite_8_arm_2,e08_voet_schoeisel
@@ -197,4 +212,5 @@ arm_num,unique_event_name,form
 2,visite_8_arm_2,e34_imcq
 2,visite_8_arm_2,e35_ipcq
 2,visite_8_arm_2,e45b_dagboek_3mnd
+2,visite_8_arm_2,e49_consultatieduur
 2,visite_8_arm_2,visit
