@@ -170,5 +170,12 @@ check('v3 heeft een orthotimer-actie en geen mcroberts-actie', r.html.includes('
 r = runWith({ care: 'optimal', visit: 'v6', checked: {}, values: {} });
 check('v6 heeft drukcontrole maar geen mcroberts-actie', r.html.includes('Drukherverdeling CMFO beoordelen (extra controle)') && !r.html.includes('data-open="mcroberts"'));
 
+// G. eCRF 49 (consultatieduur, 21/10/2026): op visite 1 tot 8 in beide armen, niet op V0 of de ulcusvisite.
+const duurOveral = ['optimal', 'usual'].every(care =>
+  ['v1', 'v2', 'v3', 'v4', 'v5', 'v6', 'v7', 'v8'].every(v =>
+    runWith({ care, visit: v, checked: {}, values: {} }).html.includes('data-step="' + v + '-49"')) &&
+  ['v0', 'ulcer'].every(v => !runWith({ care, visit: v, checked: {}, values: {} }).html.includes('-49"')));
+check('eCRF 49 op V1–V8 in beide armen, niet op V0 of de ulcusvisite', duurOveral);
+
 console.log(failures === 0 ? '\nAlle checks geslaagd.' : '\n' + failures + ' check(s) gefaald.');
 process.exit(failures === 0 ? 0 : 1);

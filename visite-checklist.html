@@ -120,8 +120,15 @@ function armHTML(step){
   return "";
 }
 
+// eCRF 49 hoort op elke visite 1 tot 8, in beide armen; bovenaan, want het startuur
+// wordt bij het begin genoteerd.
+function duurStap(p){
+  return {id:p+"-49", ecrf:"eCRF-Document 49", title:"Start- en einduur noteren", desc:"In beide armen. Podoloog en verpleegkundige noteren elk het uur waarop ze met de deelnemer beginnen en het uur waarop ze klaar zijn (uu:mm). Zag een van beiden de deelnemer niet op deze visite: Nee aankruisen.", tag:"algemeen"};
+}
+
 function fuSteps(p){
   var steps = [
+    duurStap(p),
     {id:p+"-08", ecrf:"eCRF-Document 08", title:"Voet- en schoeiselscreening", desc:"Voeten en schoeisel screenen.", tag:"meting"},
     {id:p+"-31", ecrf:"eCRF-Document 31", title:"Schoeiseladherentie bevragen", desc:"Patiënt bevragen over de therapietrouw m.b.t. het schoeisel.", tag:"vragenlijst"},
     {id:p+"-25", ecrf:"eCRF-Document 25", title:"Draagsensor uitlezen", desc:"Orthotimer-sensor uitlezen en de export in de tool Therapietrouw (stap 2) laden. Als waaktijd geldt die van de baseline (eCRF 28), niet de norm: de tool past de 80% zelf toe, één keer. Die waaktijd blijft de hele studie dezelfde. In Usual Care: uitlezen en bewaren, maar het blad niet tonen of meegeven.", tag:"device", action:"orthotimer"}
@@ -160,6 +167,7 @@ var VISITS = {
     key:"v1", label:"V1 · Baseline",
     intro:"Na toewijzing aan een studiearm ondergaat de deelnemer een baseline-assessment in het deelnemend ziekenhuis.",
     steps:[
+      duurStap("v1"),
       {id:"v1-07", ecrf:"eCRF-Document 07", title:"Demografische gegevens en medische voorgeschiedenis", desc:"Demografische gegevens en medische voorgeschiedenis van de deelnemer registreren.", tag:"algemeen"},
       {id:"v1-08", ecrf:"eCRF-Document 08", title:"Baseline voetscreening", desc:"Volledige voetscreening uitvoeren en registreren.", tag:"meting"},
       {id:"v1-09", ecrf:"eCRF-Document 09", title:"Baseline plantaire drukmeting (in-shoe, zónder CMFO)", desc:"In-shoe drukmeting afnemen zónder de CMFO, drie metingen per voet, ter voorbereiding van het CMFO-voorschrift. Er wordt niet blootsvoets gemeten. In Usual Care geblindeerd: tweede palet (drempel 50 kPa) en de waarden uit; niets tonen of bespreken.", tag:"meting"},
@@ -180,6 +188,7 @@ var VISITS = {
     key:"v2", label:"V2 · CMFO-fitting (14 dagen – 1 maand)",
     intro:"Opvolgbezoek kort na de start: CMFO-aflevering, drukmeting (alleen Optimal Care), de MoveMonitor terug en de draagsensor in de zool.",
     steps:[
+      duurStap("v2"),
       {id:"v2-23", ecrf:"eCRF-Document 23", title:"Diabetic CMFO afleveren", desc:"Patiënt ontvangt de custom-made foot orthosis; aanpassing en verificatie registreren.", tag:"device"},
       {id:"v2-24oc", ecrf:"eCRF-Document 24", arm:"oc", title:"Drukherverdeling CMFO beoordelen", desc:"In de schoen meten zónder en dan mét de CMFO. Norm: piekdruk mét CMFO onder 200 kPa óf minstens 25% lager dan zónder CMFO in dezelfde sessie. Niet gehaald: aanpassen en opnieuw meten mét de CMFO, tot drie aanpassingen. Verder verbeteren waar het onderzoeksteam of de pedorthist dat haalbaar acht.", tag:"meting"},
       {id:"v2-27", ecrf:"eCRF-Document 27", title:"MoveMonitor terugnemen en de waaktijd bepalen", desc:"Toestel terug; UDI registreren. Het McRoberts-rapport in de tool Therapietrouw (stap 1) laden: die leest per dag opstaan en slapengaan, en geeft de waaktijd en de norm (80% daarvan). In beide armen, want de norm gaat in de Orthotimer.", tag:"device", action:"mcroberts"},
