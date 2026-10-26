@@ -745,7 +745,7 @@ SLIDES = [
                'groen is vol.',
                'Sluit het toestel aan, kies het in de portaalsite en stel de '
                'meting in.',
-               'Geef mee en spreek af wanneer het terugkomt: één visite na zeven dagen.',
+               'Geef mee en spreek af dat het terugkomt op visite 2.',
                'Sluit bij teruggave aan op de pc; de data uploadt vanzelf via '
                'DynaPort Manager.'],
       valkuil='Niet waterdicht. Zeg dat expliciet tegen de patiënt: uit tijdens '

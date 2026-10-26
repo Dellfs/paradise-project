@@ -68,7 +68,7 @@ def fig2():
           '200 kPa or at least 25% lower than without it', kind='paradise', tag='PARADISE arm', size=11)
     f.box(258, 70, 204, 132, 'Offloading delivered', 'In-shoe peak pressure at the target regions',
           'Novel pedar, without and with CMFO, at four sessions', kind='white', size=11)
-    f.box(500, 154, 180, 92, 'Weight-bearing activity', 'Steps and standing time', 'MoveMonitor, 7 days from visit 2',
+    f.box(500, 154, 180, 92, 'Weight-bearing activity', 'Steps and standing time', 'MoveMonitor, 7 days from baseline',
           kind='white', tag='Observed, not targeted', size=11)
     f.box(722, 186, 140, 132, 'Cumulative plantar tissue stress', 'Pressure and activity accumulated while the foot '
           'is unprotected', kind='white', tag='Exploratory', size=10.5, tsize=12)
@@ -208,7 +208,7 @@ def fig4():
     for x in X[3:]:
         chip(x, y, 'read', '#C4CDD4', INK)
     y += 38
-    row(y, 'MoveMonitor, 7 days'); chip(X[2], y, '7 days', LINE); y += 38
+    row(y, 'MoveMonitor, 7 days'); chip(X[1], y, '7 days', LINE); chip(X[2], y, 'returned', '#C4CDD4', INK); y += 38
     row(y, 'EQ-5D-5L; costs from month 3')
     for x in [X[1]] + X[3:]:
         f.circle(x, y, 5, '#FFFFFF', LINE)

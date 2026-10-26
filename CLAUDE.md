@@ -111,6 +111,8 @@ Bron: FWO-TBM T000226N (+ doctoraatsplan). Bij twijfel: vragen, niet gokken.
   raadpleeg die vóór je iets over de pedar-procedure schrijft.
 - **MoveMonitor (McRoberts):** **één volledige week, alleen bij de start** (baseline): bepaalt de slaaptijd en dus
   de **geïndividualiseerde waaktijd**; **80% van die waaktijd** is de draagnorm (de 80%-adherentiebenchmark).
+  **Meegegeven op visite 1, terug op visite 2** (eCRF 20 en 27; teambeslissing 26 oktober 2026 — het voorstel om hem
+  pas op visite 2 mee te geven vervalt).
   De meetweek op maand 6 en het uitlezen een week later **vervallen** (beslissing 30 september 2026).
   Educatie: "u draagt uw schoenen altijd, van het moment dat u opstaat tot u gaat slapen".
   Dragen op de onderrug, **niet waterdicht**.

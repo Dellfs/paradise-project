@@ -765,9 +765,20 @@ Activeren: pen op de **O** van het Orthotimer-logo tot de balk groen wordt, dan
 de lezer afhalen.
 
 ### MoveMonitor (McRoberts DynaPort)
-**Eén volledige week, alleen bij de start (baseline)**, in beide armen. Daaruit volgt de slaaptijd
+**Eén volledige week, alleen bij de start (baseline)**, in beide armen: **meegegeven op visite 1** (eCRF 19
+en 20), **terug op visite 2** (eCRF 27). Daaruit volgt de slaaptijd
 en dus de **geïndividualiseerde waaktijd**; 80% daarvan is de draagnorm.
 Gedragen **om het middel ter hoogte van wervel L5**. **Niet waterdicht.**
+
+> **Beslissing 26 oktober 2026 (team).** De MoveMonitor gaat mee op visite 1 en komt terug op visite 2.
+> Het voorstel van 19 oktober om hem pas op visite 2 mee te geven, samen met de Orthotimer in de nieuwe zool,
+> vervalt, en daarmee de vergelijking met therapietrouw als percentage van de stappen (Jarl 2023): daarvoor
+> moeten beide toestellen in dezelfde week meten. Het voorstel stond alleen in de BMJ Open-versie van het
+> manuscript en is daar teruggezet (tekst, tabel 1, figuren 2 en 4). Gevolgen: het toestel blijft 14 dagen
+> tot 1 maand bij de deelnemer in plaats van één week, wat de bezetting van de vier toestellen per centrum
+> verhoogt; en het rapport ontstaat pas op visite 2, wanneer het toestel daar wordt uitgelezen. **Nog na te
+> gaan:** hoe lang de analyse in MyMcRoberts duurt (de handleiding noemt geen tijd), en dus of het rapport
+> klaar is tijdens dezelfde visite voor eCRF 28 en Hours/day.
 
 > **Beslissing 30 september 2026 (coördinerend onderzoeker).** De MoveMonitor dient alleen nog
 > bij de start, om de slaaptijd en dus de waaktijd te bepalen. De meetweek op 6 maanden en het
@@ -1203,7 +1214,8 @@ installatiegids), met een kopie in `Site\Novel Pedar\`.
    protocol §5.4.5 (bijgehouden wijziging), het manuscript (exploratieve uitkomst, tabel 1), het ICF (eCRF 02:
    "op twee momenten") en de MoveMonitor-handleiding (eCRF 19: "twee keer tijdens de studie"). **Nog te
    herrekenen:** de rekruteringssimulatie (webdeck Rekrutering en het document) telt de week op maand 6 nog mee,
-   in de uren en in de bezetting van de toestellen.
+   in de uren en in de bezetting van de toestellen, en rekent met een teruggave na 7 of 14 dagen; sinds
+   26 oktober 2026 komt het toestel terug op visite 2 (zie §7).
 5. **De slijtageschaal (wear-and-tear, Dahmen)** staat als secundaire uitkomst, maar er
    is geen eCRF-document dat die scoort. Nagaan of dat in 13 of 33 zit of ontbreekt.
 6. **Twee eCRF-sets met verschillende nummering** (zie §13). De veroudering is op
@@ -1225,8 +1237,8 @@ installatiegids), met een kopie in `Site\Novel Pedar\`.
 
     **Aangevuld op 26 september 2026:** de waaktijd wordt in béíde armen bepaald door het
     MoveMonitorrapport in de tool Therapietrouw te laden (stap 1); zo krijgt ook Usual Care een
-    eigen Hours/day in de Orthotimer, zonder eCRF 28. Het rapport is klaar tegen visite 2:
-    de deelnemer draagt de MoveMonitor maar één week.
+    eigen Hours/day in de Orthotimer, zonder eCRF 28. Het rapport komt op visite 2: de deelnemer
+    brengt de MoveMonitor dan mee en het toestel wordt daar uitgelezen (beslissing 26 oktober 2026, zie §7).
     De 80%-drempel komt uit DIAFOS (Bus et al., Diabetes Care 2013;36:4109, met Arts als
     co-auteur) en Waaijman et al. (Diabetes Care 2013;36:1613): daar zeven dagen gemeten met
     een temperatuurmonitor in de schoen en een stappenteller aan de enkel, en uitgedrukt als

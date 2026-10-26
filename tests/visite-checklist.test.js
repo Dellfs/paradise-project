@@ -148,7 +148,14 @@ check('v4 heeft geen mcroberts-actie meer', !r.html.includes('data-open="mcrober
 check('v4 leest de Orthotimer gewoon uit en heeft de extra drukcontrole',
       r.html.includes('data-open="orthotimer"') && r.html.includes('Drukherverdeling CMFO beoordelen (extra controle)'));
 
-// D3. V2: de MoveMonitor wordt terugbezorgd en verwerkt (de enige keer)
+// D3. Mee op V1, terug op V2 (teambeslissing 26/10/2026; het voorstel om hem pas op V2 mee te geven vervalt)
+for (const care of ['optimal', 'usual']) {
+  const v1 = runWith({ care, visit: 'v1', checked: {}, values: {} }).html;
+  const v2 = runWith({ care, visit: 'v2', checked: {}, values: {} }).html;
+  check(care + ': MoveMonitor mee op v1 (eCRF 19, 20), terug op v2 (eCRF 27)',
+        v1.includes('data-step="v1-19"') && v1.includes('data-step="v1-20"') && !v1.includes('data-step="v1-27"') &&
+        v2.includes('data-step="v2-27"') && !/data-step="v2-(19|20)"/.test(v2));
+}
 r = runWith({ care: 'optimal', visit: 'v2', checked: {}, values: {} });
 check('v2 verwerkt het beweegpatroon', r.html.includes('data-open="mcroberts"'));
 // De norm voor Hours/day komt uit de MoveMonitor: die stap moet vóór het instellen van de Orthotimer staan.
