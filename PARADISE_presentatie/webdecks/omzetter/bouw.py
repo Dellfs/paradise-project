@@ -2,9 +2,11 @@
 
     python bouw.py <deckmap met project/> <werkmap> <decksleutel> <uitvoer.pptx>
 
-Tekst, vormen, lijnen en tabellen worden echte PowerPoint-objecten op de gemeten plaats. Canvasgrafieken
-worden een echte grafiek met een wipe-animatie (als grafieken.REGISTER ze kent) of een GIF die vanzelf speelt.
-Sprekersnotities komen uit <aside>; elke dia krijgt een fade-overgang zoals in het webdeck.
+Tekst, vormen, lijnen en tabellen worden echte PowerPoint-objecten op de gemeten plaats; svg's en verlopen
+komen als doorzichtige laag op hun plaats in de stapel. Canvasgrafieken worden een echte grafiek met een
+wipe-animatie (als grafieken.REGISTER ze kent) of een GIF die vanzelf speelt. Elementen met een data-build-in
+verschijnen per klikstap (vervagen). Sprekersnotities komen uit <aside>; elke dia krijgt een fade-overgang
+zoals in het webdeck.
 """
 import json
 import math
@@ -62,6 +64,9 @@ def lijn(vorm, k=None, breedte=0):
 
 
 # ------------------------------------------------------------------ tekst
+WIT = ' \t\r\n\f\v'      # wat CSS samenvouwt; een harde spatie (&nbsp;) blijft staan
+
+
 def paragrafen(runs):
     """Splitst runs op harde regeleinden en vouwt witruimte samen zoals CSS dat doet."""
     par, huidig = [], []
@@ -72,12 +77,12 @@ def paragrafen(runs):
                 par.append(huidig)
                 huidig = []
             if s:
-                huidig.append(dict(r, t=re.sub(r'\s+', ' ', s)))
+                huidig.append(dict(r, t=re.sub(f'[{WIT}]+', ' ', s)))
     par.append(huidig)
     for p in par:
         if p:
-            p[0]['t'] = p[0]['t'].lstrip()
-            p[-1]['t'] = p[-1]['t'].rstrip()
+            p[0]['t'] = p[0]['t'].lstrip(WIT)
+            p[-1]['t'] = p[-1]['t'].rstrip(WIT)
     return [[r for r in p if r['t']] for p in par if any(r['t'].strip() for r in p)]
 
 
@@ -142,7 +147,7 @@ def tekstvak(slide, it):
     tf.auto_size = MSO_AUTO_SIZE.NONE
     tf.vertical_anchor = MSO_ANCHOR.TOP
     vul_tekst(tf, it['runs'], it['al'], lh)
-    return tb
+    return [tb]
 
 
 # ------------------------------------------------------------------ vormen
@@ -159,6 +164,7 @@ def vak(slide, it):
     bw, bc = it['bw'], it['bc']
     r = it['rad']
     uniform = all(b == bw[0] for b in bw) and all(c == bc[0] for c in bc) and bw[0] > 0
+    vormen = []
     if it['bg'] or uniform:
         if r[0] > 0 and r[0] == r[1] and r[2] == 0 and r[3] == 0:
             soort = MSO_SHAPE.ROUND_2_SAME_RECTANGLE
@@ -177,6 +183,7 @@ def vak(slide, it):
         if hoek:
             v.rotation = hoek
         v.text_frame.text = ''
+        vormen.append(v)
     if not uniform:
         # losse randen (scheidingslijnen, accentbalkjes) als dunne rechthoeken
         for i, (b, c) in enumerate(zip(bw, bc)):
@@ -187,6 +194,8 @@ def vak(slide, it):
             lv.shadow.inherit = False
             vul(lv, c)
             lijn(lv)
+            vormen.append(lv)
+    return vormen
 
 
 def verbinding(slide, it):
@@ -208,6 +217,7 @@ def verbinding(slide, it):
         ln.append(ln.makeelement(qn('a:tailEnd'), {'type': 'triangle', 'w': 'med', 'len': 'med'}))
     if kop in ('start', 'both'):
         ln.append(ln.makeelement(qn('a:headEnd'), {'type': 'triangle', 'w': 'med', 'len': 'med'}))
+    return [c]
 
 
 def beeld(slide, it):
@@ -215,14 +225,29 @@ def beeld(slide, it):
     pad = Path(unquote(urlparse(src).path.lstrip('/'))) if src.startswith('file:') else None
     if not pad or not pad.exists():
         print('  beeld ontbreekt:', src[:80])
-        return
+        return []
     with Image.open(pad) as im:
         iw, ih = im.size
     x, y, w, h = it['x'], it['y'], it['w'], it['h']
     if it.get('fit') == 'contain':
         s = min(w / iw, h / ih)
         x, y, w, h = x + (w - iw * s) / 2, y + (h - ih * s) / 2, iw * s, ih * s
-    slide.shapes.add_picture(str(pad), e(x), e(y), e(w), e(h))
+    pic = slide.shapes.add_picture(str(pad), e(x), e(y), e(w), e(h))
+    if it.get('fit') == 'cover':
+        # bijsnijden zoals de browser: het midden van het beeld vult het vak
+        vak, bron = w / h, iw / ih
+        if bron > vak:
+            pic.crop_left = pic.crop_right = (1 - vak / bron) / 2
+        else:
+            pic.crop_top = pic.crop_bottom = (1 - bron / vak) / 2
+    return [pic]
+
+
+def laag(slide, it, pad):
+    if not pad.exists():
+        print('  laag ontbreekt:', pad.name)
+        return []
+    return [slide.shapes.add_picture(str(pad), e(it['x']), e(it['y']), e(it['w']), e(it['h']))]
 
 
 def celranden(cel, k, b):
@@ -324,6 +349,40 @@ def wipe(slide, vormen):
     slide._element.append(etree.fromstring(xml))
 
 
+def klikstappen(slide, stappen):
+    """data-build-in: per stap (1, 2, ...) één klik, alle vormen van die stap vervagen tegelijk binnen."""
+    n = [2]
+
+    def nid():
+        n[0] += 1
+        return n[0]
+
+    kliks = ''
+    for stap in sorted(stappen):
+        effecten = ''
+        for k, v in enumerate(stappen[stap]):
+            a, b, c = nid(), nid(), nid()
+            effecten += (
+                f'<p:par><p:cTn id="{a}" presetID="10" presetClass="entr" presetSubtype="0" fill="hold" grpId="0" '
+                f'nodeType="{"withEffect" if k else "clickEffect"}"><p:stCondLst><p:cond delay="0"/></p:stCondLst><p:childTnLst>'
+                f'<p:set><p:cBhvr><p:cTn id="{b}" dur="1" fill="hold"><p:stCondLst><p:cond delay="0"/></p:stCondLst></p:cTn>'
+                f'<p:tgtEl><p:spTgt spid="{v.shape_id}"/></p:tgtEl><p:attrNameLst><p:attrName>style.visibility</p:attrName>'
+                f'</p:attrNameLst></p:cBhvr><p:to><p:strVal val="visible"/></p:to></p:set>'
+                f'<p:animEffect transition="in" filter="fade"><p:cBhvr><p:cTn id="{c}" dur="500"/>'
+                f'<p:tgtEl><p:spTgt spid="{v.shape_id}"/></p:tgtEl></p:cBhvr></p:animEffect></p:childTnLst></p:cTn></p:par>')
+        buiten, binnen = nid(), nid()
+        kliks += (f'<p:par><p:cTn id="{buiten}" fill="hold"><p:stCondLst><p:cond delay="indefinite"/></p:stCondLst><p:childTnLst>'
+                  f'<p:par><p:cTn id="{binnen}" fill="hold"><p:stCondLst><p:cond delay="0"/></p:stCondLst>'
+                  f'<p:childTnLst>{effecten}</p:childTnLst></p:cTn></p:par></p:childTnLst></p:cTn></p:par>')
+    bld = ''.join(f'<p:bldP spid="{v.shape_id}" grpId="0" animBg="1"/>' for vs in stappen.values() for v in vs)
+    xml = (f'<p:timing xmlns:p="{P}"><p:tnLst><p:par><p:cTn id="1" dur="indefinite" restart="never" nodeType="tmRoot"><p:childTnLst>'
+           f'<p:seq concurrent="1" nextAc="seek"><p:cTn id="2" dur="indefinite" nodeType="mainSeq"><p:childTnLst>{kliks}'
+           f'</p:childTnLst></p:cTn><p:prevCondLst><p:cond evt="onPrev" delay="0"><p:tgtEl><p:sldTgt/></p:tgtEl></p:cond></p:prevCondLst>'
+           f'<p:nextCondLst><p:cond evt="onNext" delay="0"><p:tgtEl><p:sldTgt/></p:tgtEl></p:cond></p:nextCondLst></p:seq>'
+           f'</p:childTnLst></p:cTn></p:par></p:tnLst><p:bldLst>{bld}</p:bldLst></p:timing>')
+    slide._element.append(etree.fromstring(xml))
+
+
 # ------------------------------------------------------------------ bouwen
 prs = Presentation()
 prs.slide_width, prs.slide_height = Emu(1920 * EMU), Emu(1080 * EMU)
@@ -338,23 +397,23 @@ for i, sid in enumerate(deck['order'], 1):
         continue
     m = json.loads(mp.read_text(encoding='utf-8'))
     s = prs.slides.add_slide(leeg)
-    ag = WERK / 'achtergrond' / f'{naam}.png'
-    if ag.exists():
-        s.shapes.add_picture(str(ag), 0, 0, prs.slide_width, prs.slide_height)
-    elif m['bg']:
+    if m['bg']:
         s.background.fill.solid()
         s.background.fill.fore_color.rgb = rgb(m['bg'])
-    anim = []
+    anim, stappen = [], {}
     for it in m['items']:
         soort = it['type']
+        nieuw = []
         if soort == 'box':
-            vak(s, it)
+            nieuw = vak(s, it)
         elif soort == 'text':
-            tekstvak(s, it)
+            nieuw = tekstvak(s, it)
         elif soort == 'img':
-            beeld(s, it)
+            nieuw = beeld(s, it)
+        elif soort == 'raster':
+            nieuw = laag(s, it, WERK / 'lagen' / f'{naam}_{it["k"]}.png')
         elif soort == 'line':
-            verbinding(s, it)
+            nieuw = verbinding(s, it)
         elif soort == 'table':
             tabel(s, it)
         elif soort == 'embed':
@@ -368,11 +427,19 @@ for i, sid in enumerate(deck['order'], 1):
                 s.shapes.add_picture(str(WERK / 'gif' / f'{sleutel}.gif'), e(it['x']), e(it['y']), e(it['w']), e(it['h']))
             else:
                 print('  geen grafiek of GIF voor', sleutel)
+        if it.get('bi') and nieuw:
+            stappen.setdefault(it['bi'], []).extend(nieuw)
     if m.get('notes'):
         s.notes_slide.notes_text_frame.text = m['notes']
     overgang(s)
-    wipe(s, anim)
-    print(naam, len(m['items']), 'objecten', f'{len(anim)} grafiek(en)' if anim else '')
+    if anim and stappen:
+        print('  grafieken en klikstappen op één dia: alleen de grafieken animeren')
+    if anim:
+        wipe(s, anim)
+    elif stappen:
+        klikstappen(s, stappen)
+    print(naam, len(m['items']), 'objecten', f'{len(anim)} grafiek(en)' if anim else '',
+          f'{len(stappen)} klikstap(pen)' if stappen else '')
 UIT.parent.mkdir(parents=True, exist_ok=True)
 prs.save(UIT)
 print('opgeslagen:', UIT)

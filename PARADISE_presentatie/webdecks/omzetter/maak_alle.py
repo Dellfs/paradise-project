@@ -1,6 +1,6 @@
-"""Zet de vijf webdecks om naar PowerPoint: meten, animaties opnemen, bouwen, en ter controle exporteren.
+"""Zet de webdecks om naar PowerPoint: meten, animaties opnemen, bouwen, en ter controle exporteren.
 
-    python maak_alle.py [--bouw] [sleutel ...]        (zonder sleutels: alle vijf; --bouw: alleen opnieuw bouwen)
+    python maak_alle.py [--bouw] [sleutel ...]        (zonder sleutels: alle decks; --bouw: alleen opnieuw bouwen)
 
 Bronnen: haal per deck de map `project/` van het Slides-artifact op (deck.json en slides/*.html) naar
 bronnen/<sleutel>/project/, en de beelden (/_blob/<id>) als <id>.png naar blobs/. Werkbestanden komen in
@@ -19,6 +19,7 @@ DECKS = {
     'theorie': 'PARADISE_theorie_en_protocol.pptx',
     'tech': 'PARADISE_technische_instrumenten.pptx',
     'groeninge': 'PARADISE_az_groeninge_okt.pptx',
+    'lab': 'PARADISE_labmeeting_27okt.pptx',
 }
 
 

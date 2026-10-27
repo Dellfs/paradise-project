@@ -3,21 +3,26 @@
     python meet.py <deckmap met project/> <werkmap> [dia-id ...]
 
 Per dia: <werkmap>/meting/NN_id.json (tekst, vormen, tabellen, beelden, grafiekvakken, notities),
-<werkmap>/achtergrond/NN_id.png als de dia verlopen of svg-decor heeft, en <werkmap>/embeds/id_k.html
-voor elke canvas-animatie. Edge rekent de opmaak uit (--dump-dom), dus de posities zijn die van de browser.
+<werkmap>/lagen/NN_id_k.png voor elke svg of verloop (doorzichtig, alleen dat element, zodat het in de
+stapelvolgorde van de dia komt), en <werkmap>/embeds/id_k.html voor elke canvas-animatie. Edge rekent de
+opmaak uit (--dump-dom), dus de posities zijn die van de browser. Elementen onder een data-build-in krijgen
+hun klikstap mee (`bi`).
 """
 import html
 import json
+import math
 import re
 import subprocess
 import sys
 from pathlib import Path
 
+from PIL import Image
+
 EDGE = r'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'
 BLOBS = Path(__file__).parent / 'blobs'
 DECK, WERK = Path(sys.argv[1]), Path(sys.argv[2])
 KEUZE = set(sys.argv[3:])
-for sub in ('meting', 'achtergrond', 'embeds', 'paginas', 'export', 'vergelijk', 'gif'):
+for sub in ('meting', 'lagen', 'embeds', 'paginas', 'export', 'vergelijk', 'gif'):
     (WERK / sub).mkdir(parents=True, exist_ok=True)
     if not KEUZE:
         # volledige run: bestanden van een vorige volgorde (andere nummering) opruimen
@@ -58,12 +63,15 @@ function runs(el,uit,basis){for(const n of el.childNodes){if(n.nodeType===3){uit
 function inh(cs,r){const l=px(cs.paddingLeft)+px(cs.borderLeftWidth),t=px(cs.paddingTop)+px(cs.borderTopWidth),
  rr=px(cs.paddingRight)+px(cs.borderRightWidth),b=px(cs.paddingBottom)+px(cs.borderBottomWidth);return{x:r.x+l,y:r.y+t,w:r.w-l-rr,h:r.h-t-b}}
 const items=[];let raster=0;
-function vorm(el,cs,r){const bg=kl(cs.backgroundColor);if(cs.backgroundImage!=='none'){raster++;el.dataset.raster='1'}
+function stap(el){const b=el.closest('[data-build-in]');if(!b)return 0;const m=b.dataset.buildIn.match(/(\d+)/);return m?+m[1]:1}
+function laag(el,r){el.dataset.raster=String(raster);items.push({type:'raster',...r,k:raster,bi:stap(el)});raster++}
+function vorm(el,cs,r){const bg=kl(cs.backgroundColor);
  const zij=['Top','Right','Bottom','Left'];const bw=zij.map(z=>cs['border'+z+'Style']==='none'?0:px(cs['border'+z+'Width']));
  const bc=zij.map(z=>kl(cs['border'+z+'Color']));const bs=zij.map(z=>cs['border'+z+'Style']);
  if(bg||bw.some((w,i)=>w>0&&bc[i]))items.push({type:'box',...r,bg,bw,bc,bs,
   rad:[px(cs.borderTopLeftRadius),px(cs.borderTopRightRadius),px(cs.borderBottomRightRadius),px(cs.borderBottomLeftRadius)],
-  rot:cs.transform!=='none'?cs.transform:null,ow:el.offsetWidth,oh:el.offsetHeight,op:parseFloat(cs.opacity)})}
+  rot:cs.transform!=='none'?cs.transform:null,ow:el.offsetWidth,oh:el.offsetHeight,op:parseFloat(cs.opacity),bi:stap(el)});
+ if(cs.backgroundImage!=='none')laag(el,r)}
 function tabel(t){const rows=[];for(const tr of t.rows){const cel=[];const trbg=kl(getComputedStyle(tr).backgroundColor);
  for(const td of tr.cells){const cs=getComputedStyle(td);cel.push({...rc(td),bg:kl(cs.backgroundColor)||trbg,runs:runs(td,[],st(td)),
   al:cs.textAlign,pad:[px(cs.paddingTop),px(cs.paddingRight),px(cs.paddingBottom),px(cs.paddingLeft)],
@@ -71,20 +79,21 @@ function tabel(t){const rows=[];for(const tr of t.rows){const cel=[];const trbg=
  rows.push(cel)}const cs=getComputedStyle(t);items.push({type:'table',...rc(t),rows,bc:kl(cs.borderTopColor),bw:px(cs.borderTopWidth)})}
 function loop(el){const cs=getComputedStyle(el);if(cs.display==='none'||cs.visibility==='hidden')return;const tag=el.tagName.toUpperCase();
  if(['ASIDE','PRE','SCRIPT','STYLE'].includes(tag))return;const r=rc(el);
- if(tag==='IMG'){if(r.w>0&&r.h>0)items.push({type:'img',...r,src:el.getAttribute('src'),fit:cs.objectFit});return}
+ if(tag==='IMG'){if(r.w>0&&r.h>0)items.push({type:'img',...r,src:el.getAttribute('src'),fit:cs.objectFit,bi:stap(el)});return}
  if(el.dataset&&el.dataset.embed!==undefined){items.push({type:'embed',...r,k:+el.dataset.embed});return}
  if(tag==='X-CONNECTOR'){const at=n=>el.getAttribute(n);items.push({type:'line',...r,c:kl(cs.color)||kl(cs.borderTopColor),lw:px(cs.borderTopWidth),
   x1:at('x1'),y1:at('y1'),x2:at('x2'),y2:at('y2'),route:at('route'),head:at('head')});return}
- if(el instanceof SVGElement){raster++;el.dataset.raster='1';items.push({type:'raster',...r});return}
+ if(el instanceof SVGElement){laag(el,r);return}
  if(r.w<=0||r.h<=0)return;
  if(tag==='TABLE'){tabel(el);return}
  vorm(el,cs,r);
  if(tekstblok(el)){items.push({type:'text',...inh(cs,r),runs:runs(el,[],st(el)),al:cs.textAlign,lh:cs.lineHeight==='normal'?null:px(cs.lineHeight),
-  ws:cs.whiteSpace,op:parseFloat(cs.opacity)});return}
+  ws:cs.whiteSpace,op:parseFloat(cs.opacity),bi:stap(el)});return}
  for(const c of el.children)loop(c)}
 for(const c of S.children)loop(c);
-if(MODUS==='achtergrond'){for(const e of S.querySelectorAll('*'))e.style.visibility='hidden';
- for(const e of S.querySelectorAll('[data-raster], [data-raster] *'))e.style.visibility='visible';document.body.dataset.klaar='1';return}
+if(MODUS.startsWith('laag')){const k=MODUS.slice(4);for(const e of S.querySelectorAll('*'))e.style.visibility='hidden';
+ for(const e of S.querySelectorAll(`[data-raster="${k}"], [data-raster="${k}"] *`))e.style.visibility='visible';
+ for(const e of [document.documentElement,document.body,S])e.style.background='transparent';return}
 const a=S.querySelector('aside');
 document.getElementById('meting').textContent=JSON.stringify({bg:kl(getComputedStyle(S).backgroundColor),items,raster,
  notes:a?a.textContent.replace(/\s+/g,' ').trim():''});
@@ -99,7 +108,14 @@ def blob_uri(m):
 
 def edge(*args, timeout=120):
     return subprocess.run([EDGE, '--headless=new', '--disable-gpu', '--hide-scrollbars', '--window-size=1920,1080',
-                           '--virtual-time-budget=8000', *args], capture_output=True, timeout=timeout)
+                           '--virtual-time-budget=8000', '--default-background-color=00000000', *args],
+                          capture_output=True, timeout=timeout)
+
+
+def pagina(naam, modus, s):
+    p = WERK / 'paginas' / f'{naam}_{modus}.html'
+    p.write_text(KOP + s + METEN.replace('__MODUS__', modus) + '</body></html>', encoding='utf-8')
+    return p
 
 
 deck = json.loads((DECK / 'project' / 'deck.json').read_text(encoding='utf-8'))
@@ -118,20 +134,25 @@ for i, sid in enumerate(deck['order'], 1):
     s = re.sub(r'/_blob/([0-9a-f]{32})', blob_uri, s)
     for k, (stijl, inhoud) in enumerate(embeds):
         (WERK / 'embeds' / f'{sid}_{k}.html').write_text(inhoud, encoding='utf-8')
-    for modus in ('meten', 'achtergrond'):
-        (WERK / 'paginas' / f'{naam}_{modus}.html').write_text(
-            KOP + s + METEN.replace('__MODUS__', modus) + '</body></html>', encoding='utf-8')
-    uit = edge('--dump-dom', (WERK / 'paginas' / f'{naam}_meten.html').as_uri()).stdout.decode('utf-8', 'replace')
+    uit = edge('--dump-dom', pagina(naam, 'meten', s).as_uri()).stdout.decode('utf-8', 'replace')
     m = re.search(r'<pre id="meting"[^>]*>(.*?)</pre>', uit, flags=re.S)
     if not m or not m.group(1).strip():
         print(f'{naam}: GEEN METING')
         continue
     meting = json.loads(html.unescape(m.group(1)))
     meting['embeds'] = [st for st, _ in embeds]
+    for it in meting['items']:
+        if it['type'] != 'raster':
+            continue
+        beeld = WERK / 'lagen' / f'{naam}_{it["k"]}.png'
+        edge(f'--screenshot={beeld}', pagina(naam, f'laag{it["k"]}', s).as_uri())
+        vak = (max(0, int(it['x'])), max(0, int(it['y'])),
+               min(1920, math.ceil(it['x'] + it['w'])), min(1080, math.ceil(it['y'] + it['h'])))
+        with Image.open(beeld) as im:
+            im.crop(vak).save(beeld)
+        it['x'], it['y'], it['w'], it['h'] = vak[0], vak[1], vak[2] - vak[0], vak[3] - vak[1]
     (WERK / 'meting' / f'{naam}.json').write_text(json.dumps(meting, ensure_ascii=False, indent=1), encoding='utf-8')
-    if meting['raster']:
-        edge(f'--screenshot={WERK / "achtergrond" / (naam + ".png")}', (WERK / 'paginas' / f'{naam}_achtergrond.html').as_uri())
     soorten = {}
     for it in meting['items']:
         soorten[it['type']] = soorten.get(it['type'], 0) + 1
-    print(naam, soorten, 'raster' if meting['raster'] else '')
+    print(naam, soorten)
