@@ -181,7 +181,7 @@ fifteen years" en is rechtgezet.
 > Het gaat dus **niet alleen om patiënten die steunzolen krijgen**. Alle drie de
 > schoeiselsituaties komen in aanmerking.
 
-### Exclusie — negen criteria
+### Exclusie — tien criteria
 1. Amputatie proximaal van de metatarsofalangeale gewrichten
 2. Actief voetulcus of Charcot-deformiteit
 3. **Vaatstatus PEDIS graad 3, kritische ischemie**: enkelsystoledruk < 50 mmHg, óf
@@ -194,6 +194,14 @@ fifteen years" en is rechtgezet.
 8. Hulpmiddelen die het aanbrengen van druksensoren beperken (bv. enkel-voetorthese)
 9. Weigert het voorgeschreven beschermend schoeisel te dragen, of weigert de draagsensor
    (Orthotimer) in de voetorthese
+10. Neemt gelijktijdig deel aan een andere klinische studie
+
+> **Gelijktijdige deelname aan een andere klinische studie is een exclusie (Janou, 27 oktober
+> 2026).** Doorgevoerd in eCRF 01 en 06 (alle kopieën), REDCap (`e01_e10`, keuze 16 van
+> `elcr_inclusion`), en als bijgehouden wijziging in protocol §4.1 en synopsis en in beide
+> manuscriptversies. De versie die op 26 oktober bij de EC's is ingediend, heeft dit criterium
+> nog niet. Het toestemmingsformulier (02) vroeg al dat de deelnemer tijdens de studie niet aan
+> een andere studie deelneemt zonder het de onderzoeker te melden; dat blijft zo.
 
 > **De draagsensor weigeren is een exclusie (bevestigd door de coördinerend onderzoeker,
 > 28 september 2026).** Zonder de Orthotimer kan de therapietrouw niet gemeten en het
