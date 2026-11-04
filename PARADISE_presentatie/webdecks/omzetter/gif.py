@@ -59,7 +59,12 @@ def neem_op(bron: Path, doel: Path):
     # dubbele beelden aan het eind weglaten (stilstand) en één gedeeld palet, zonder dithering: vlakke kleuren blijven vlak
     while data['klaar'] and len(beelden) > 2 and beelden[-1].tobytes() == beelden[-2].tobytes():
         beelden.pop()
-    palet = beelden[-1].quantize(colors=255, method=Image.Quantize.MEDIANCUT)
+    # het palet komt uit beelden over de hele opname: het laatste beeld van een lus die uitfadet, is bijna leeg
+    staal = beelden[::max(1, len(beelden) // 12)]
+    montage = Image.new('RGB', (beelden[0].width, beelden[0].height * len(staal)))
+    for k, b in enumerate(staal):
+        montage.paste(b, (0, k * b.height))
+    palet = montage.quantize(colors=255, method=Image.Quantize.MEDIANCUT)
     p = [b.quantize(palette=palet, dither=Image.Dither.NONE) for b in beelden]
     extra = {} if data['klaar'] else {'loop': 0}
     p[0].save(doel, save_all=True, append_images=p[1:], duration=round(1000 / FPS), optimize=True, **extra)
